@@ -11,6 +11,8 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="@Url.Content("~/Content/chromatron/img/favicon.ico")">
+	<link rel="apple-touch-icon" href="@Url.Content("~/Content/chromatron/img/apple-touch-icon.png")">
 	<link href="@Url.Content("~/Content/chromatron/css/style.css")" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/Content/chromatron/css/colors.css")" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/Content/chromatron/css/jquery.tipsy.css")" rel="stylesheet" type="text/css" />
@@ -21,7 +23,8 @@
 	<link href="@Url.Content("~/Content/chromatron/css/jquery.fileinput.css")" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/Content/chromatron/css/jquery.fullcalendar.css")" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/Content/chromatron/css/jquery.visualize.css")" rel="stylesheet" type="text/css" />
-	<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel='stylesheet' type='text/css'>
+	<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+		rel='stylesheet' type='text/css'>
 	<script src="@Url.Content("~/Content/chromatron/js/libs/modernizr-1.7.min.js")" type="text/javascript"></script>
 </head>
 <body>
@@ -32,149 +35,25 @@
 			<h1>Lorem ipsum dolor sit amet!</h1>
 		</header>
 		<!-- User Info -->
-		<section id="user-info">
-			<img src="@Url.Content("~/Content/chromatron/img/sample_user.png")" alt="Sample User Avatar">
-
-			<div>
-				<a href="#" title="Account Settings and Profile Page">Joe Tester</a> <em>Administrator</em>
-				<ul>
-					<li><a class="button-link" href="#" title="This is my title!" rel="tooltip">view website</a></li>
-					<li><a class="button-link" href="#" title="And this is Sparta!" rel="tooltip">logout</a></li>
-				</ul>
-			</div>
-
-		</section>
+			@RenderPage("Badge.cshtml")
 		<!-- /User Info -->
 		<!-- Main Navigation -->
 		<nav id="main-nav">
-			<ul>
-				<li><a href="/" title="" class="dashboard no-submenu">Dashboard</a></li>
-				<!-- Use class .no-submenu to open link instead of a sub menu-->
-				<!-- Use class .current to open submenu on page load -->
-				<li class="current"><a href="" title="" class="projects">Projects</a><span title="You have 3 new tasks">3</span>
-					<ul>
-						<li class="current"><a href="#" title="">Sample Index Page</a></li>
-						<li><a href="#" title="">Error 401</a></li>
-						<li><a href="#" title="">Error 403</a></li>
-						<li><a href="#" title="">Error 404</a></li>
-						<li><a href="#" title="">Error 500</a></li>
-						<li><a href="#" title="">Error 503</a></li>
-						<li><a href="#" title="">Sample Login Page</a></li>
-					</ul>
-				</li>
-				<li><a href="" title="" class="products">Products</a>
-					<ul>
-						<li><a href="" title="">Add Product</a></li>
-						<li><a href="" title="">Edit Product</a></li>
-						<li><a href="" title="">Product Management</a></li>
-						<li><a href="" title="">Some very long link with a lot of words</a></li>
-					</ul>
-				</li>
-				<li><a href="" title="" class="events">Events</a>
-					<ul>
-						<li><a href="" title="">My Events</a></li>
-						<li><a href="" title="">Add Event</a></li>
-						<li><a href="" title="">Edit Event</a></li>
-						<li><a href="" title="">Event Management</a></li>
-						<li><a href="" title="">Settings</a></li>
-					</ul>
-				</li>
-				<li><a href="" title="" class="articles">Articles</a></li>
-				<li><a href="" title="" class="gallery">Image Gallery</a><span title="You have 47 new tasks">47</span></li>
-				<li><a href="" title="" class="settings">Settings</a></li>
-			</ul>
+			@RenderPage("SitewideNavigation.cshtml")
 		</nav>
 		<!-- /Main Navigation -->
 		<!-- Sidebar -->
-		<section class="sidebar nested">
-			<!-- Use class .nested for diferent style -->
-			<h2>Nested Section</h2>
-			<p>Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. Maec enas id augue ac
-				metu aliquam.</p>
-			<p>Sed pharetra placerat est suscipit sagittis. Phasellus <a href="#">aliquam</a>
-				males uada blandit. Donec adipiscing sem erat.</p>
-		</section>
-		<!-- /Sidebar -->
-		<!-- Sidebar -->
-		<section class="sidebar">
-			<h2>Paragraph with Separator</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim
-				metus.</p>
-			<p class="separator">Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat
-				est suscipit sagittis.</p>
-			<p class="separator">Phasellus aliquam malesuada blandit. Donec adipiscing sem erat.</p>
-			<a class="button-link" href="#" title="This is my title!">read more</a> </section>
-		<!-- /Sidebar -->
-		<!-- Sidebar -->
-		<section class="sidebar separator">
-			<h2>Section with Separator</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim
-				metus. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat est suscipit
-				sagittis.</p>
-			<ul>
-				<li><strong>Sed pharetra placerat</strong></li>
-				<li><em>Phasellus aliquam malesuada</em></li>
-				<li>Maecenas id augue</li>
-				<li>Consectetur <a href="#">adipiscing</a> elit</li>
-				<li>Lorem ipsum dolor</li>
-			</ul>
-		</section>
+			@RenderSection("Sidebar", required: false)
 		<!-- /Sidebar -->
 	</section>
 	<!-- /Aside Block -->
 	<!-- Main Content -->
 	<section role="main">
 		<!-- Widget Container -->
-		<section id="widgets-container">
-			<!-- Widget Box -->
-
-			<div class="widget increase" id="new-visitors">
-				<a href="#" class="close-widget" title="Hide Widget" rel="tooltip">x</a> <span>increase</span>
-				<p><strong>+35,18<sup>%</sup></strong> +2489 new visitors</p>
-			</div>
-
-			<!-- /Widget Box -->
-			<!-- Widget Box -->
-
-			<div class="widget decrease" id="new-orders">
-				<a href="#" class="close-widget" title="Hide Widget" rel="tooltip">x</a> <span>decrease</span>
-				<p><strong>-12,50<sup>%</sup></strong> -311 new orders</p>
-			</div>
-
-			<!-- Widget Box -->
-			<!-- /Widget Box -->
-
-			<div class="widget increase" id="new-tasks">
-				<a href="#" class="close-widget" title="Hide Widget" rel="tooltip">x</a> <span>7</span>
-				<p><strong>Tasks</strong> +3 New Tasks</p>
-			</div>
-
-			<!-- Widget Box -->
-			<!-- /Widget Box -->
-
-			<div class="widget text-only" id="text-widget">
-				<a href="#" class="close-widget" title="Hide Widget" rel="tooltip">x</a>
-				<p><strong>Text Only App</strong> +29 Lorem Ipsum</p>
-			</div>
-
-			<!-- /Widget Box -->
-			<!-- Add New Widget Box -->
-
-			<div class="widget add-new-widget">
-				<a href="#"><span>Add</span> <strong>Add Widget</strong> </a>
-			</div>
-
-			<!-- /Add New Widget Box -->
-		</section>
+		@RenderPage("InfoWidgetsHeader.cshtml")
 		<!-- /Widget Container -->
 		<!-- Breadcumbs -->
-		<ul id="breadcrumbs">
-			<li><a href="/" title="Back to Homepage">Back to Home</a></li>
-			<li><a href="#">Projects</a></li>
-			<li><a href="#">Project's Assets</a></li>
-			<li><a href="#">Edit Assets</a></li>
-			<li>Current Page</li>
-		</ul>
+		@RenderPage("BreadcrumbsHeader.cshtml")
 		<!-- /Breadcumbs -->
 		<!-- Full Content Block -->
 		<article class="full-block clearfix">

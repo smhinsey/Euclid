@@ -80,6 +80,7 @@
     <Content Include="Content\chromatron\css\jquery.wysiwyg.css" />
     <Content Include="Content\chromatron\css\jquery.wysiwyg.in.css" />
     <Content Include="Content\chromatron\css\style.css" />
+    <Content Include="Content\chromatron\img\apple-touch-icon.png" />
     <Content Include="Content\chromatron\img\bgs\bg_aside_main.png" />
     <Content Include="Content\chromatron\img\bgs\bg_aside_nav.png" />
     <Content Include="Content\chromatron\img\bgs\bg_aside_nav_current.png" />
@@ -94,6 +95,7 @@
     <Content Include="Content\chromatron\img\btns\btn_green_hover.png" />
     <Content Include="Content\chromatron\img\btns\btn_red.png" />
     <Content Include="Content\chromatron\img\btns\btn_red_hover.png" />
+    <Content Include="Content\chromatron\img\favicon.ico" />
     <Content Include="Content\chromatron\img\icons\ajax_loading.gif" />
     <Content Include="Content\chromatron\img\icons\ajax_loading_blue.gif" />
     <Content Include="Content\chromatron\img\icons\ajax_loading_blue_nested.gif" />
@@ -244,6 +246,12 @@
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\SitewideNavigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\InfoWidgetsHeader.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
