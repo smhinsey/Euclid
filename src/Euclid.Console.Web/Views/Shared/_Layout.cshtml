@@ -28,132 +28,38 @@
 	<script src="@Url.Content("~/Content/chromatron/js/libs/modernizr-1.7.min.js")" type="text/javascript"></script>
 </head>
 <body>
-	<!-- Aside Block -->
+	<!-- Right Rail -->
 	<section role="navigation">
 		<!-- Header with logo and headline -->
 		<header><a href="/" title="Back to Homepage"></a>
 			<h1>Lorem ipsum dolor sit amet!</h1>
 		</header>
-		<!-- User Info -->
-			@RenderPage("Badge.cshtml")
-		<!-- /User Info -->
+		<!-- Badge -->
+		@RenderPage("Badge.cshtml")
+		<!-- /Badge -->
 		<!-- Main Navigation -->
 		<nav id="main-nav">
 			@RenderPage("SitewideNavigation.cshtml")
 		</nav>
 		<!-- /Main Navigation -->
-		<!-- Sidebar -->
-			@RenderSection("Sidebar", required: false)
-		<!-- /Sidebar -->
+		<!-- Sidebar Content -->
+		@RenderSection("Sidebar", required: false)
+		<!-- /Sidebar Content -->
 	</section>
-	<!-- /Aside Block -->
+	<!-- /Right Rail -->
 	<!-- Main Content -->
 	<section role="main">
-		<!-- Widget Container -->
+		<!-- InfoWidget Header Container -->
 		@RenderPage("InfoWidgetsHeader.cshtml")
-		<!-- /Widget Container -->
+		<!-- /InfoWidget Header Container -->
 		<!-- Breadcumbs -->
 		@RenderPage("BreadcrumbsHeader.cshtml")
 		<!-- /Breadcumbs -->
-		<!-- Full Content Block -->
+		<!-- Body Content -->
 		<article class="full-block clearfix">
-			<!-- Article Container for safe floating -->
-
-			<div class="article-container">
-				<!-- Article Header -->
-				<header>
-					<h2>@ViewBag.Title</h2>
-				</header>
-				<!-- /Article Header -->
-				<!-- Article Content -->
-				<section>
-					<!-- Side Tab Container -->
-
-					<div class="sidetabs">
-						<!-- Side Tab Navigation -->
-						<nav class="sidetab-switch">
-							<ul>
-								<li><a href="#sidetab4">Event Logs</a></li>
-								<li><a class="default-sidetab" href="#sidetab5">Calendar</a></li>
-							</ul>
-							<p>Aenean facilisis ligula eget orci adipiscing varius. Curabitur sem ligula, egestas
-								vel bibendum sed, sodales eu nulla. Vestibulum luctus aliquam feugiat. Donec porta
-								interdum placerat.</p>
-						</nav>
-						<!-- /Side Tab Navigation -->
-						<!-- Side Tab Content #sidetab4 -->
-
-						<div class="sidetab" id="sidetab4">
-							<h3>Latest Activity</h3>
-							<!-- Event Logs -->
-							<ul class="logs">
-								<li><span class="logs-timestamp">May 28, 2011</span>
-									<h4><a class="logs-event" href="#">System Update #112563</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim
-										metus. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat est suscipit
-										sagittis. Phasellus aliquam malesuada blandit.</p>
-									<em class="logs-meta">Posted by <a href="#">Administrator</a></em> </li>
-								<li><span class="logs-timestamp">May 26, 2011</span>
-									<h4><a class="logs-event" href="#">System Update #112562</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim
-										metus. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat est suscipit
-										sagittis. Phasellus aliquam malesuada blandit.</p>
-									<em class="logs-meta">Posted by <a href="#">Administrator</a></em> </li>
-								<li class="bomb"><span class="logs-timestamp">May 25, 2011</span>
-									<h4><a class="logs-event" href="#">Security Violation</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim
-										metus. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat est suscipit
-										sagittis. Phasellus aliquam malesuada blandit.</p>
-									<em class="logs-meta">Posted by <a href="#">Administrator</a></em> </li>
-								<li><span class="logs-timestamp">May 23, 2011</span>
-									<h4><a class="logs-event" href="#">System Update #112561</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim
-										metus. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat est suscipit
-										sagittis. Phasellus aliquam malesuada blandit.</p>
-									<em class="logs-meta">Posted by <a href="#">Administrator</a></em> </li>
-								<li class="event"><span class="logs-timestamp">May 23, 2011</span>
-									<h4><a class="logs-event" href="#">New User Created</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim
-										metus. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat est suscipit
-										sagittis. Phasellus aliquam malesuada blandit.</p>
-									<em class="logs-meta">Posted by <a href="#">Administrator</a></em> </li>
-							</ul>
-							<!-- /Event Logs -->
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim
-								metus. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat est suscipit
-								sagittis. Phasellus aliquam malesuada blandit. Donec adipiscing sem erat. Nunc at
-								dui id purus lacinia tincidunt sit amet vel erat. Quisque congue urna ut nunc tempor
-								sodales. Sed neque leo, elementum id malesuada id, consequat et erat. Maecenas lorem
-								mauris, consequat ornare elementum adipiscing, tristique eu eros. Nulla sodales,
-								tellus id porta condimentum, purus tortor faucibus orci, et interdum dui purus quis
-								massa.</p>
-						</div>
-
-						<!-- /Side Tab Content #sidetab4 -->
-						<!-- Side Tab Content #sidetab5 -->
-
-						<div class="sidetab default-sidetab" id="sidetab5">
-							@RenderBody()
-						</div>
-
-						<!-- /Side Tab Content #sidetab5 -->
-					</div>
-
-					<!-- /Side Tab Container -->
-				</section>
-				<!-- /Article Content -->
-				<!-- Article Footer -->
-				<footer>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et <a href="#">
-						dignissim metus</a>. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat
-						est suscipit sagittis.</p>
-				</footer>
-				<!-- /Article Footer -->
-			</div>
-
-			<!-- /Article Container -->
+			@RenderBody()
 		</article>
-		<!-- /Full Content Block -->
+		<!-- /Body Content -->
 	</section>
 	<!-- /Main Content -->
 	<!-- JS Libs at the end for faster loading -->
