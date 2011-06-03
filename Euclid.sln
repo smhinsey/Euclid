@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid", "Euclid.csproj", "{1F52EAF0-9C9B-4DD1-8B81-D50C947BA93E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework", "src\Euclid.Framework\Euclid.Framework.csproj", "{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Console.Web", "src\Euclid.Console.Web\Euclid.Console.Web.csproj", "{00B808BA-B466-42C3-8663-8A465997FBF0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F52EAF0-9C9B-4DD1-8B81-D50C947BA93E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F52EAF0-9C9B-4DD1-8B81-D50C947BA93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F52EAF0-9C9B-4DD1-8B81-D50C947BA93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F52EAF0-9C9B-4DD1-8B81-D50C947BA93E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00B808BA-B466-42C3-8663-8A465997FBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B808BA-B466-42C3-8663-8A465997FBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B808BA-B466-42C3-8663-8A465997FBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B808BA-B466-42C3-8663-8A465997FBF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
