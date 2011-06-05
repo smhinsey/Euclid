@@ -7,15 +7,15 @@ namespace Euclid.Framework.HostingFabric
 {
 	public class TaskingServiceHost : IServiceHost
 	{
-		private readonly IDictionary<Guid, Type> _services;
-		private readonly IDictionary<Guid, CancellationToken> _taskTokens;
-		private readonly IDictionary<Guid, Task> _tasks;
+		private readonly IDictionary<Guid, IHostedService> _services;
+		private readonly IDictionary<Guid, CancellationTokenSource> _taskTokenSources;
+		private readonly IDictionary<Guid, List<Task>> _tasks;
 
 		public TaskingServiceHost()
 		{
-			_tasks = new Dictionary<Guid, Task>();
-			_services = new Dictionary<Guid, Type>();
-			_taskTokens = new Dictionary<Guid, CancellationToken>();
+			_tasks = new Dictionary<Guid, List<Task>>();
+			_services = new Dictionary<Guid, IHostedService>();
+			_taskTokenSources = new Dictionary<Guid, CancellationTokenSource>();
 		}
 
 		public void GetInstanceState(Guid id)
@@ -31,17 +31,23 @@ namespace Euclid.Framework.HostingFabric
 			}
 		}
 
+		private Task createTask(IHostedService service, CancellationToken cancellationToken)
+		{
+			return new Task(service.Start, cancellationToken, TaskCreationOptions.LongRunning);
+		}
+
 		public Guid Install(IHostedService service)
 		{
 			var serviceId = Guid.NewGuid();
 
-			var cancellationToken = new CancellationToken();
+			var cancellationTokenSource = new CancellationTokenSource();
+			var cancellationToken = cancellationTokenSource.Token;
 
-			var task = new Task(service.Start, cancellationToken, TaskCreationOptions.LongRunning);
+			var task = createTask(service, cancellationToken);
 
-			_tasks.Add(serviceId, task);
-			_taskTokens.Add(serviceId, cancellationToken);
-			_services.Add(serviceId, service.GetType());
+			_tasks.Add(serviceId, new List<Task> {task});
+			_taskTokenSources.Add(serviceId, cancellationTokenSource);
+			_services.Add(serviceId, service);
 
 			return serviceId;
 		}
@@ -52,25 +58,30 @@ namespace Euclid.Framework.HostingFabric
 
 			State = ServiceHostState.Starting;
 
-			_tasks[id].Start();
+			foreach (var task in _tasks[id])
+			{
+				task.Start();
+			}
 
 			State = ServiceHostState.Started;
 		}
 
 		public void Pause(Guid id)
 		{
-			State = ServiceHostState.Pausing;
-
 			checkForHostedService(id);
+
+			State = ServiceHostState.Pausing;
 
 			State = ServiceHostState.Paused;
 		}
 
 		public void Terminate(Guid id)
 		{
+			checkForHostedService(id);
+
 			State = ServiceHostState.Stopping;
 
-			checkForHostedService(id);
+			_taskTokenSources[id].Cancel();
 
 			State = ServiceHostState.Stopped;
 		}
@@ -78,11 +89,25 @@ namespace Euclid.Framework.HostingFabric
 		public void ScaleUp(Guid id)
 		{
 			checkForHostedService(id);
+
+			var service = _services[id];
+
+			var cancellationTokenSource = new CancellationTokenSource();
+			var cancellationToken = cancellationTokenSource.Token;
+
+			var task = createTask(service, cancellationToken);
+
+			task.Start();
+
+			var tasks = _tasks[id];
+
+			tasks.Add(task);
 		}
 
 		public void ScaleDown(Guid id)
 		{
 			checkForHostedService(id);
+
 		}
 
 		public ServiceHostState State { get; private set; }
@@ -91,7 +116,7 @@ namespace Euclid.Framework.HostingFabric
 		{
 			checkForHostedService(id);
 
-			return _taskTokens[id].IsCancellationRequested ? HostedServiceState.Started : HostedServiceState.Stopped;
+			return _taskTokenSources[id].IsCancellationRequested ? HostedServiceState.Started : HostedServiceState.Stopped;
 		}
 	}
 }
