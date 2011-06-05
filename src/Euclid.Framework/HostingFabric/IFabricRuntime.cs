@@ -4,13 +4,13 @@ namespace Euclid.Framework.HostingFabric
 	/// The direct implementation of the requirements of the runtime fabric for a specific
 	/// runtime environment such as Azure, EC2, etc.
 	/// </summary>
-	public interface IFabricRuntime<TInstanceId>
+	public interface IFabricRuntime
 	{
-		TInstanceId CreateInstance();
-		void GetInstanceState(TInstanceId id);
-		void Shutdown(TInstanceId id);
-		void Terminate(TInstanceId id);
-		void ScaleUp(TInstanceId id);
-		void ScaleDown(TInstanceId id);
+		string CreateInstance();
+		void GetInstanceState(string id);
+		void Pause(string id);
+		void Terminate(string id);
+		void ScaleUp(string id);
+		void ScaleDown(string id);
 	}
 }
