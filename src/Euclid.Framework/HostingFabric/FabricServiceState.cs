@@ -6,6 +6,8 @@
 		Started,
 		Stopping,
 		Stopped,
+		Pausing,
+		Paused,
 		Failed
 	}
 }

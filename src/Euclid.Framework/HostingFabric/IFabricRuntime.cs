@@ -6,11 +6,12 @@ namespace Euclid.Framework.HostingFabric
 	/// </summary>
 	public interface IFabricRuntime
 	{
-		string CreateInstance();
-		void GetInstanceState(string id);
-		void Pause(string id);
-		void Terminate(string id);
-		void ScaleUp(string id);
-		void ScaleDown(string id);
+		string InstallFabricService();
+		void StartFabricService(string id);
+		void PauseFabricService(string id);
+		void TerminateFabricService(string id);
+		void IncreaseFabricServiceCapacity(string id);
+		void DecreaseFabricServiceCapacity(string id);
+		FabricServiceState GetFabricServiceState(string id);
 	}
 }
