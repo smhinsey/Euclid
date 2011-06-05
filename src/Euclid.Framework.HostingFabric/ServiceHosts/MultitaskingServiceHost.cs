@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Euclid.Framework.HostingFabric
+namespace Euclid.Framework.HostingFabric.ServiceHosts
 {
 	public class MultitaskingServiceHost : IServiceHost
 	{
