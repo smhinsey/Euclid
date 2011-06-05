@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5097CBE8-DE7A-42B6-AC50-4070A3B56F68}</ProjectGuid>
+    <ProjectGuid>{B66BD805-49C3-4DC8-B530-15776A68A48A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Framework.HostingFabric.UnitTests</RootNamespace>
-    <AssemblyName>Euclid.Framework.HostingFabric.UnitTests</AssemblyName>
+    <RootNamespace>Euclid.Framework.UnitTests</RootNamespace>
+    <AssemblyName>Euclid.Framework.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

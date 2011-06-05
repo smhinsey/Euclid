@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Euclid.Framework.HostingFabric.IntegrationTests")]
+[assembly: AssemblyTitle("Euclid.Framework.IntegrationTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Euclid.Framework.HostingFabric.IntegrationTests")]
+[assembly: AssemblyProduct("Euclid.Framework.IntegrationTests")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("65a823d0-dde8-4cf2-8872-03984de5b012")]
+[assembly: Guid("20f5264d-fb1a-456b-b4ee-22048342cb25")]
 
 // Version information for an assembly consists of the following four values:
 //
