@@ -1,3 +1,5 @@
+using System;
+
 namespace Euclid.Framework.EventSourcing
 {
 	/// <summary>
@@ -5,6 +7,7 @@ namespace Euclid.Framework.EventSourcing
 	/// </summary>
 	public interface IEvent
 	{
-		
+		Guid Identifier { get; }
+		DateTime TriggeredAt { get; }
 	}
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Euclid.Framework.EventSourcing
 {
 	/// <summary>
@@ -5,8 +7,9 @@ namespace Euclid.Framework.EventSourcing
 	/// or more IReadModels. The denormalizer is invoked whenever an IAggregateRoot instance is 
 	/// modified and persisted.
 	/// </summary>
-	public interface IAggregateDenormalizer
+	public interface IAggregateDenormalizer<in TAggregate>
+		where TAggregate : IAggregateRoot
 	{
-		
+		IList<IReadModel> Denormalize(TAggregate aggregate);
 	}
 }

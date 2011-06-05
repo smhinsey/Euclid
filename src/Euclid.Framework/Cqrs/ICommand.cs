@@ -1,3 +1,5 @@
+using System;
+
 namespace Euclid.Framework.Cqrs
 {
 	/// <summary>
@@ -6,6 +8,6 @@ namespace Euclid.Framework.Cqrs
 	/// </summary>
 	public interface ICommand
 	{
-		
+		Guid Identifier { get; }
 	}
 }

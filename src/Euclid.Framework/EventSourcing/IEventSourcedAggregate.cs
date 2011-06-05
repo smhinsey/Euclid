@@ -7,6 +7,6 @@ namespace Euclid.Framework.EventSourcing
 	/// </summary>
 	public interface IEventSourcedAggregate : IAggregateRoot
 	{
-		
+		IEvent CurrentAsOf { get; }
 	}
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Framework.EventSourcing
+namespace Euclid.Framework
 {
 	/// <summary>
 	/// The basic contract for defining a read model, or a view of an aggregate which is optimized

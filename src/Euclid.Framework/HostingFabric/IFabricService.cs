@@ -10,5 +10,10 @@ namespace Euclid.Framework.HostingFabric
 		FabricServiceState State { get; }
 		void Start();
 		void Stop();
+		/// <summary>
+		/// Pause is invoked by the fabric controller prior to migrating the service
+		/// from one fabric runtime to another.
+		/// </summary>
+		void Pause();
 	}
 }
