@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F0C8929B-718E-4360-85FF-520398DEA764}</ProjectGuid>
+    <ProjectGuid>63c688bb-40d4-46e0-96a2-28c325ab2a45</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Framework.Registry</RootNamespace>
-    <AssemblyName>Euclid.Framework.Registry</AssemblyName>
+    <RootNamespace>Euclid.Framework.Cqrs</RootNamespace>
+    <AssemblyName>Euclid.Framework.Cqrs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
