@@ -4,12 +4,12 @@ namespace Euclid.Framework.HostingFabric
 {
 	public class DefaultFabricController : IFabricController
 	{
-		private readonly IFabricRuntime _runtime;
+		private readonly IServiceHost _instanceHost;
 		public FabricControllerState State { get; protected set; }
 
-		public DefaultFabricController(IFabricRuntime runtime)
+		public DefaultFabricController(IServiceHost instanceHost)
 		{
-			_runtime = runtime;
+			_instanceHost = instanceHost;
 		}
 
 		public void Start()
