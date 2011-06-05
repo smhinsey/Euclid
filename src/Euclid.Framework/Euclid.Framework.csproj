@@ -40,6 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cqrs\ICommand.cs" />
+    <Compile Include="Cqrs\IQuery.cs" />
+    <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
+    <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
+    <Compile Include="EventSourcing\IEvent.cs" />
+    <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
+    <Compile Include="HostingFabric\FabricControllerState.cs" />
+    <Compile Include="HostingFabric\FabricServiceState.cs" />
+    <Compile Include="HostingFabric\IFabricController.cs" />
+    <Compile Include="HostingFabric\IFabricService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
