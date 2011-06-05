@@ -3,8 +3,8 @@ using System;
 namespace Euclid.Framework.HostingFabric
 {
 	/// <summary>
-	/// 	The direct implementation of the requirements of the runtime fabric for a specific
-	/// 	runtime environment such as Azure, EC2, etc.
+	/// IServiceHost implements a particular approach for parallelizing the execution of installed
+	/// hosted services.
 	/// </summary>
 	public interface IServiceHost
 	{
