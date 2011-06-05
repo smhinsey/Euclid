@@ -11,7 +11,6 @@ namespace Euclid.Framework.HostingFabric
 		ServiceHostState State { get; }
 		HostedServiceState GetState(Guid id);
 		Guid Install(IHostedService service);
-		void Pause(Guid id);
 		void ScaleDown(Guid id);
 		void ScaleUp(Guid id);
 		void Start(Guid id);

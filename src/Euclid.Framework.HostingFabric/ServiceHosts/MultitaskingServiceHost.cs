@@ -66,15 +66,6 @@ namespace Euclid.Framework.HostingFabric.ServiceHosts
 			State = ServiceHostState.Started;
 		}
 
-		public void Pause(Guid id)
-		{
-			checkForHostedService(id);
-
-			State = ServiceHostState.Pausing;
-
-			State = ServiceHostState.Paused;
-		}
-
 		public void Terminate(Guid id)
 		{
 			checkForHostedService(id);
