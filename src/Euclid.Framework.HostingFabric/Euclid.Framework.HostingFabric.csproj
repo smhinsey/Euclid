@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultFabricController.cs" />
+    <Compile Include="DefaultHostedService.cs" />
     <Compile Include="ThreadedServiceHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

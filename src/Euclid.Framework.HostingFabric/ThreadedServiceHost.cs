@@ -39,7 +39,7 @@ namespace Euclid.Framework.HostingFabric
 			throw new NotImplementedException();
 		}
 
-		public HostedServiceState GetState(string id)
+		public ServiceHostState GetState(string id)
 		{
 			throw new NotImplementedException();
 		}

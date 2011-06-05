@@ -12,6 +12,6 @@ namespace Euclid.Framework.HostingFabric
 		void Terminate(string id);
 		void ScaleUp(string id);
 		void ScaleDown(string id);
-		HostedServiceState GetState(string id);
+		ServiceHostState GetState(string id);
 	}
 }

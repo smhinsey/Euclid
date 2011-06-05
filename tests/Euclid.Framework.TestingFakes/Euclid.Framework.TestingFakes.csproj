@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</ProjectGuid>
+    <ProjectGuid>{793DEE69-90CB-45D7-94CC-FD2D7CE59790}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Framework</RootNamespace>
-    <AssemblyName>Euclid.Framework</AssemblyName>
+    <RootNamespace>Euclid.Framework.TestingFakes</RootNamespace>
+    <AssemblyName>Euclid.Framework.TestingFakes</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,21 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cqrs\ICommand.cs" />
-    <Compile Include="Cqrs\ICommandProcessor.cs" />
-    <Compile Include="Cqrs\IQuery.cs" />
-    <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
-    <Compile Include="HostingFabric\IServiceHost.cs" />
-    <Compile Include="HostingFabric\ServiceHostState.cs" />
-    <Compile Include="IAggregateRoot.cs" />
-    <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
-    <Compile Include="EventSourcing\IEvent.cs" />
-    <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
-    <Compile Include="IReadModel.cs" />
-    <Compile Include="HostingFabric\FabricControllerState.cs" />
-    <Compile Include="HostingFabric\HostedServiceState.cs" />
-    <Compile Include="HostingFabric\IFabricController.cs" />
-    <Compile Include="HostingFabric\IHostedService.cs" />
+    <Compile Include="HostingFabric\FakeServiceHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.UnitTests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.IntegrationTests", "tests\Euclid.Framework.IntegrationTests\Euclid.Framework.IntegrationTests.csproj", "{7F5BA044-DA1D-418D-A14F-708BC69C926E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.TestingFakes", "tests\Euclid.Framework.TestingFakes\Euclid.Framework.TestingFakes.csproj", "{793DEE69-90CB-45D7-94CC-FD2D7CE59790}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +94,10 @@ Global
 		{7F5BA044-DA1D-418D-A14F-708BC69C926E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F5BA044-DA1D-418D-A14F-708BC69C926E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F5BA044-DA1D-418D-A14F-708BC69C926E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{793DEE69-90CB-45D7-94CC-FD2D7CE59790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{793DEE69-90CB-45D7-94CC-FD2D7CE59790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{793DEE69-90CB-45D7-94CC-FD2D7CE59790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{793DEE69-90CB-45D7-94CC-FD2D7CE59790}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,5 +115,6 @@ Global
 		{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3} = {A2581B83-5C10-4F25-A225-0EA00448352F}
 		{B66BD805-49C3-4DC8-B530-15776A68A48A} = {2FCA90C0-899D-436D-B9BD-895BDD049558}
 		{7F5BA044-DA1D-418D-A14F-708BC69C926E} = {2FCA90C0-899D-436D-B9BD-895BDD049558}
+		{793DEE69-90CB-45D7-94CC-FD2D7CE59790} = {2FCA90C0-899D-436D-B9BD-895BDD049558}
 	EndGlobalSection
 EndGlobal
