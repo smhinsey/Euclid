@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace Euclid.Framework.HostingFabric
 {
-	public class TaskingServiceHost : IServiceHost
+	public class MultitaskingServiceHost : IServiceHost
 	{
 		private readonly IDictionary<Guid, IHostedService> _services;
 		private readonly IDictionary<Guid, CancellationTokenSource> _taskTokenSources;
 		private readonly IDictionary<Guid, List<Task>> _tasks;
 
-		public TaskingServiceHost()
+		public MultitaskingServiceHost()
 		{
 			_tasks = new Dictionary<Guid, List<Task>>();
 			_services = new Dictionary<Guid, IHostedService>();
