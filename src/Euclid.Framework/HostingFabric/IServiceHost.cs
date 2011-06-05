@@ -1,3 +1,5 @@
+using System;
+
 namespace Euclid.Framework.HostingFabric
 {
 	/// <summary>
@@ -6,12 +8,12 @@ namespace Euclid.Framework.HostingFabric
 	/// </summary>
 	public interface IServiceHost
 	{
-		string Install();
-		void Start(string id);
-		void Pause(string id);
-		void Terminate(string id);
-		void ScaleUp(string id);
-		void ScaleDown(string id);
-		ServiceHostState GetState(string id);
+		Guid Install(IHostedService service);
+		void Start(Guid id);
+		void Pause(Guid id);
+		void Terminate(Guid id);
+		void ScaleUp(Guid id);
+		void ScaleDown(Guid id);
+		ServiceHostState GetState(Guid id);
 	}
 }
