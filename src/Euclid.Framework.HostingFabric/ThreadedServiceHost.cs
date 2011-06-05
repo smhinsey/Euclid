@@ -1,28 +1,28 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace Euclid.Framework.HostingFabric
 {
 	public class ThreadedServiceHost : IServiceHost
 	{
 		private readonly IDictionary<Guid, IHostedService> _services;
-		private readonly IDictionary<Guid, Thread> _threads;
+		private readonly IDictionary<Guid, Task> _tasks;
 
 		public ThreadedServiceHost()
 		{
-			_threads = new Dictionary<Guid, Thread>();
+			_tasks = new Dictionary<Guid, Task>();
 			_services = new Dictionary<Guid, IHostedService>();
 		}
 
 		public void GetInstanceState(Guid id)
 		{
-			throw new NotImplementedException();
+			checkForHostedService(id);
 		}
 
 		private void checkForHostedService(Guid id)
 		{
-			if (!_threads.ContainsKey(id))
+			if (!_tasks.ContainsKey(id))
 			{
 				throw new HostedServiceNotFoundException(id);
 			}
@@ -32,9 +32,9 @@ namespace Euclid.Framework.HostingFabric
 		{
 			var newId = Guid.NewGuid();
 
-			var newThread = new Thread(service.Start);
+			var newThread = new Task(service.Start);
 
-			_threads.Add(newId, newThread);
+			_tasks.Add(newId, newThread);
 			_services.Add(newId, service);
 
 			return newId;
@@ -43,31 +43,33 @@ namespace Euclid.Framework.HostingFabric
 		public void Start(Guid id)
 		{
 			checkForHostedService(id);
+
+			_tasks[id].Start();
 		}
 
 		public void Pause(Guid id)
 		{
-			throw new NotImplementedException();
+			checkForHostedService(id);
 		}
 
 		public void Terminate(Guid id)
 		{
-			throw new NotImplementedException();
+			checkForHostedService(id);
 		}
 
 		public void ScaleUp(Guid id)
 		{
-			throw new NotImplementedException();
+			checkForHostedService(id);
 		}
 
 		public void ScaleDown(Guid id)
 		{
-			throw new NotImplementedException();
+			checkForHostedService(id);
 		}
 
 		public ServiceHostState GetState(Guid id)
 		{
-			throw new NotImplementedException();
+			checkForHostedService(id);
 		}
 	}
 }
