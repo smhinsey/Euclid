@@ -4,37 +4,30 @@ using System.Threading;
 using System.Threading.Tasks;
 using Euclid.Common.Hosting;
 
-namespace Euclid.Common.ServiceHost.ServiceHosts
+namespace Euclid.Common.ServiceHost
 {
 	public class MultitaskingServiceHost : IServiceHost
 	{
-		private readonly IDictionary<Guid, IHostedService> _services;
 		private readonly IDictionary<Guid, CancellationTokenSource> _taskTokenSources;
 		private readonly IDictionary<Guid, List<Task>> _tasks;
 
 		public MultitaskingServiceHost()
 		{
 			_tasks = new Dictionary<Guid, List<Task>>();
-			_services = new Dictionary<Guid, IHostedService>();
 			_taskTokenSources = new Dictionary<Guid, CancellationTokenSource>();
+			Services = new Dictionary<Guid, IHostedService>();
+			Scale = 1;
 		}
 
-		public void GetInstanceState(Guid id)
+		public int Scale { get; private set; }
+		public IDictionary<Guid, IHostedService> Services { get; private set; }
+		public ServiceHostState State { get; private set; }
+
+		public HostedServiceState GetState(Guid id)
 		{
 			checkForHostedService(id);
-		}
 
-		private void checkForHostedService(Guid id)
-		{
-			if (!_tasks.ContainsKey(id))
-			{
-				throw new HostedServiceNotFoundException(id);
-			}
-		}
-
-		private Task createTask(IHostedService service, CancellationToken cancellationToken)
-		{
-			return new Task(service.Start, cancellationToken, TaskCreationOptions.LongRunning);
+			return _taskTokenSources[id].IsCancellationRequested ? HostedServiceState.Started : HostedServiceState.Stopped;
 		}
 
 		public Guid Install(IHostedService service)
@@ -48,9 +41,36 @@ namespace Euclid.Common.ServiceHost.ServiceHosts
 
 			_tasks.Add(serviceId, new List<Task> {task});
 			_taskTokenSources.Add(serviceId, cancellationTokenSource);
-			_services.Add(serviceId, service);
+			Services.Add(serviceId, service);
 
 			return serviceId;
+		}
+
+		public void ScaleDown(Guid id)
+		{
+			checkForHostedService(id);
+
+			Scale--;
+		}
+
+		public void ScaleUp(Guid id)
+		{
+			checkForHostedService(id);
+
+			var service = Services[id];
+
+			var cancellationTokenSource = new CancellationTokenSource();
+			var cancellationToken = cancellationTokenSource.Token;
+
+			var task = createTask(service, cancellationToken);
+
+			task.Start();
+
+			var tasks = _tasks[id];
+
+			tasks.Add(task);
+
+			Scale++;
 		}
 
 		public void Start(Guid id)
@@ -67,7 +87,7 @@ namespace Euclid.Common.ServiceHost.ServiceHosts
 			State = ServiceHostState.Started;
 		}
 
-		public void Terminate(Guid id)
+		public void Stop(Guid id)
 		{
 			checkForHostedService(id);
 
@@ -78,36 +98,17 @@ namespace Euclid.Common.ServiceHost.ServiceHosts
 			State = ServiceHostState.Stopped;
 		}
 
-		public void ScaleUp(Guid id)
+		private void checkForHostedService(Guid id)
 		{
-			checkForHostedService(id);
-
-			var service = _services[id];
-
-			var cancellationTokenSource = new CancellationTokenSource();
-			var cancellationToken = cancellationTokenSource.Token;
-
-			var task = createTask(service, cancellationToken);
-
-			task.Start();
-
-			var tasks = _tasks[id];
-
-			tasks.Add(task);
+			if (!_tasks.ContainsKey(id))
+			{
+				throw new HostedServiceNotFoundException(id);
+			}
 		}
 
-		public void ScaleDown(Guid id)
+		private Task createTask(IHostedService service, CancellationToken cancellationToken)
 		{
-			checkForHostedService(id);
-		}
-
-		public ServiceHostState State { get; private set; }
-
-		public HostedServiceState GetState(Guid id)
-		{
-			checkForHostedService(id);
-
-			return _taskTokenSources[id].IsCancellationRequested ? HostedServiceState.Started : HostedServiceState.Stopped;
+			return new Task(service.Start, cancellationToken, TaskCreationOptions.LongRunning);
 		}
 	}
 }

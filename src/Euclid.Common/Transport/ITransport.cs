@@ -2,16 +2,16 @@
 
 namespace Euclid.Common.Transport
 {
-    public interface ITransport
-    {
-        TransportState State { get; }
+	public interface ITransport
+	{
+		TransportState State { get; }
 
-        TransportState Open();
-        TransportState Close();
+		TransportState Close();
+		TransportState Open();
 
-        void Send(IEnvelope message);
-        IEnvelope Receive();
-        IEnumerable<IEnvelope> Receive(int num);
-        IEnumerable<IEnvelope> ReceiveAll();
-    }
+		IEnvelope Receive();
+		IEnumerable<IEnvelope> Receive(int num);
+		IEnumerable<IEnvelope> ReceiveAll();
+		void Send(IEnvelope message);
+	}
 }

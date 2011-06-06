@@ -1,8 +1,8 @@
 namespace Euclid.Common.Fabric
 {
 	/// <summary>
-	/// An IFabricController instance runs wherever agents are hosted and is responsible for maintaining 
-	/// the integrity of the hosting environment.
+	/// 	An IFabricController instance runs wherever agents are hosted and is responsible for maintaining 
+	/// 	the integrity of the hosting environment.
 	/// </summary>
 	public interface IFabricController
 	{
