@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Euclid.Common.TestingFakes.Transport;
 using Euclid.Common.Transport;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Transport
 {
-    [TestFixture]
-    public abstract class TransportTest
+    public class TransportTests
     {
-        public abstract ITransport GetTransport();
-
-        [Test]
-        public void TestTransportStateTransitions()
+        public static void TestTransportStateTransitions(ITransport transport)
         {
-            var transport = GetTransport();
-
             Assert.AreEqual(TransportState.Invalid, transport.State);
 
             var newState = transport.Open();
@@ -26,10 +21,8 @@ namespace Euclid.Common.UnitTests.Transport
             Assert.AreEqual(TransportState.Closed, newState);
         }
 
-        [Test]
-        public void TestSendReceive()
+        public static void TestSendReceive(ITransport transport)
         {
-            var transport = GetTransport();
             var ids = new List<Guid>();
 
             transport.Open();
@@ -56,13 +49,27 @@ namespace Euclid.Common.UnitTests.Transport
                 
             transport.Close();
         }
-    }
 
-    public class InMemoryTransportTest : TransportTest
-    {
-        public override ITransport GetTransport()
+        public static void TestTransportTimeout(ITransport transport)
         {
-            return new InMemoryTransport();
+            var ts = new TimeSpan(0, 0, 0, 100);
+
+            transport.Open();
+
+            var m = new FakeMessage();
+            var m2 = new FakeMessage();
+
+            transport.Send(m);
+            transport.Send(m2);
+
+            var count = 0;
+            foreach(var msg in transport.ReceiveMany(2, ts))
+            {
+                count++;
+                Thread.Sleep(500);
+            }
+
+            Assert.AreEqual(1, count);
         }
     }
 }
