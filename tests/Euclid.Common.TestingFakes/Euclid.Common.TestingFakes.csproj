@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{793DEE69-90CB-45D7-94CC-FD2D7CE59790}</ProjectGuid>
+    <ProjectGuid>{B63C4D62-939A-45AB-95F2-EBFBE4B5013C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Framework.TestingFakes</RootNamespace>
-    <AssemblyName>Euclid.Framework.TestingFakes</AssemblyName>
+    <RootNamespace>Euclid.Common.TestingFakes</RootNamespace>
+    <AssemblyName>Euclid.Common.TestingFakes</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Hosting\FakeServiceHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

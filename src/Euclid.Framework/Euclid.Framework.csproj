@@ -47,18 +47,11 @@
     <Compile Include="Cqrs\ITransport.cs" />
     <Compile Include="Cqrs\TransportState.cs" />
     <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
-    <Compile Include="HostingFabric\IServiceHost.cs" />
-    <Compile Include="HostingFabric\HostedServiceNotFoundException.cs" />
-    <Compile Include="HostingFabric\ServiceHostState.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
     <Compile Include="EventSourcing\IEvent.cs" />
     <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
     <Compile Include="IReadModel.cs" />
-    <Compile Include="HostingFabric\FabricControllerState.cs" />
-    <Compile Include="HostingFabric\HostedServiceState.cs" />
-    <Compile Include="HostingFabric\IFabricController.cs" />
-    <Compile Include="HostingFabric\IHostedService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
