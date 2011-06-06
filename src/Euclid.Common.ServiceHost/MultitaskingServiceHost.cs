@@ -49,12 +49,17 @@ namespace Euclid.Common.ServiceHost
 
 		public void ScaleAllDown()
 		{
-			throw new NotImplementedException();
+			Scale--;
 		}
 
 		public void ScaleAllUp()
 		{
-			throw new NotImplementedException();
+			foreach (var serviceId in Services.Keys)
+			{
+				addTaskInstance(serviceId, Services[serviceId]);
+			}
+
+			Scale++;
 		}
 
 		public void ScaleDown(Guid id)
@@ -70,6 +75,11 @@ namespace Euclid.Common.ServiceHost
 
 			var service = Services[id];
 
+			addTaskInstance(id, service);
+		}
+
+		private void addTaskInstance(Guid id, IHostedService service)
+		{
 			var cancellationTokenSource = new CancellationTokenSource();
 			var cancellationToken = cancellationTokenSource.Token;
 
@@ -128,7 +138,14 @@ namespace Euclid.Common.ServiceHost
 
 		public void StopAll()
 		{
-			throw new NotImplementedException();
+			State = ServiceHostState.Stopping;
+
+			foreach (var tokenSource in _taskTokenSources.Values)
+			{
+				tokenSource.Cancel();
+			}
+
+			State = ServiceHostState.Stopped;
 		}
 
 		private void checkForHostedService(Guid id)

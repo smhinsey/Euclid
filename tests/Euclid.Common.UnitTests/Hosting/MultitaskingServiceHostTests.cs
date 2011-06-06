@@ -9,13 +9,62 @@ namespace Euclid.Common.UnitTests.Hosting
 		[Test]
 		public void ScaleDown()
 		{
-			Assert.Fail();
+			const int initialScale = 5;
+
+			var host = new MultitaskingServiceHost(initialScale);
+
+			host.StartAll();
+
+			Assert.AreEqual(ServiceHostState.Started, host.State);
+			Assert.AreEqual(initialScale, host.Scale);
+
+			host.ScaleAllDown();
+
+			Assert.AreEqual(initialScale - 1, host.Scale);
 		}
 
 		[Test]
 		public void ScaleUp()
 		{
-			Assert.Fail();
+			const int initialScale = 5;
+
+			var host = new MultitaskingServiceHost(initialScale);
+
+			host.StartAll();
+
+			Assert.AreEqual(ServiceHostState.Started, host.State);
+			Assert.AreEqual(initialScale, host.Scale);
+
+			host.ScaleAllUp();
+
+			Assert.AreEqual(initialScale + 1, host.Scale);
+		}
+
+		[Test]
+		public void StartsAndStops()
+		{
+			var host = new MultitaskingServiceHost();
+
+			host.StartAll();
+
+			Assert.AreEqual(ServiceHostState.Started, host.State);
+
+			host.StopAll();
+
+			Assert.AreEqual(ServiceHostState.Stopped, host.State);
+		}
+
+		[Test]
+		public void StartsWithCorrectScale()
+		{
+			const int initialScale = 5;
+
+			var host = new MultitaskingServiceHost(initialScale);
+
+			host.StartAll();
+
+			Assert.AreEqual(ServiceHostState.Started, host.State);
+			Assert.AreEqual(initialScale, host.Scale);
 		}
 
 		[Test]
@@ -26,12 +75,6 @@ namespace Euclid.Common.UnitTests.Hosting
 			host.StartAll();
 
 			Assert.AreEqual(ServiceHostState.Started, host.State);
-		}
-
-		[Test]
-		public void StartsAndStops()
-		{
-			Assert.Fail();
 		}
 	}
 }
