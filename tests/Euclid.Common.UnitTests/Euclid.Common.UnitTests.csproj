@@ -55,7 +55,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
+      <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>
+      <Name>Euclid.Common.ServiceHost</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
+      <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
+      <Name>Euclid.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

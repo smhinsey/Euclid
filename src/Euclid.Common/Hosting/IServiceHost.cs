@@ -14,9 +14,13 @@ namespace Euclid.Common.Hosting
 		ServiceHostState State { get; }
 		HostedServiceState GetState(Guid id);
 		Guid Install(IHostedService service);
+		void ScaleAllDown();
+		void ScaleAllUp();
 		void ScaleDown(Guid id);
 		void ScaleUp(Guid id);
 		void Start(Guid id);
+		void StartAll();
 		void Stop(Guid id);
+		void StopAll();
 	}
 }

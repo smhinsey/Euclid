@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Euclid.Common.Hosting;
@@ -9,14 +10,14 @@ namespace Euclid.Common.ServiceHost
 	public class MultitaskingServiceHost : IServiceHost
 	{
 		private readonly IDictionary<Guid, CancellationTokenSource> _taskTokenSources;
-		private readonly IDictionary<Guid, List<Task>> _tasks;
+		private readonly IDictionary<Guid, List<Task>> _taskMap;
 
-		public MultitaskingServiceHost()
+		public MultitaskingServiceHost(int initialScale = 1)
 		{
-			_tasks = new Dictionary<Guid, List<Task>>();
+			_taskMap = new Dictionary<Guid, List<Task>>();
 			_taskTokenSources = new Dictionary<Guid, CancellationTokenSource>();
 			Services = new Dictionary<Guid, IHostedService>();
-			Scale = 1;
+			Scale = initialScale;
 		}
 
 		public int Scale { get; private set; }
@@ -39,11 +40,21 @@ namespace Euclid.Common.ServiceHost
 
 			var task = createTask(service, cancellationToken);
 
-			_tasks.Add(serviceId, new List<Task> {task});
+			_taskMap.Add(serviceId, new List<Task> {task});
 			_taskTokenSources.Add(serviceId, cancellationTokenSource);
 			Services.Add(serviceId, service);
 
 			return serviceId;
+		}
+
+		public void ScaleAllDown()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void ScaleAllUp()
+		{
+			throw new NotImplementedException();
 		}
 
 		public void ScaleDown(Guid id)
@@ -66,7 +77,7 @@ namespace Euclid.Common.ServiceHost
 
 			task.Start();
 
-			var tasks = _tasks[id];
+			var tasks = _taskMap[id];
 
 			tasks.Add(task);
 
@@ -79,9 +90,26 @@ namespace Euclid.Common.ServiceHost
 
 			State = ServiceHostState.Starting;
 
-			foreach (var task in _tasks[id])
+			foreach (var task in _taskMap[id])
 			{
 				task.Start();
+			}
+
+			State = ServiceHostState.Started;
+		}
+
+		public void StartAll()
+		{
+			State = ServiceHostState.Starting;
+
+			foreach (var taskMapEntry in _taskMap)
+			{
+				var tasks = taskMapEntry.Value;
+
+				foreach (var task in tasks.Where(task => task.Status == TaskStatus.WaitingToRun))
+				{
+					task.Start();
+				}
 			}
 
 			State = ServiceHostState.Started;
@@ -98,9 +126,14 @@ namespace Euclid.Common.ServiceHost
 			State = ServiceHostState.Stopped;
 		}
 
+		public void StopAll()
+		{
+			throw new NotImplementedException();
+		}
+
 		private void checkForHostedService(Guid id)
 		{
-			if (!_tasks.ContainsKey(id))
+			if (!_taskMap.ContainsKey(id))
 			{
 				throw new HostedServiceNotFoundException(id);
 			}
