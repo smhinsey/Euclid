@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Framework.HostingFabric
+namespace Euclid.Framework.Common.Hosting
 {
 	public class HostedServiceNotFoundException : Exception
 	{

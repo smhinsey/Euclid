@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</ProjectGuid>
+    <ProjectGuid>{F3A0C178-15D9-4E18-B673-28B80F40E665}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Framework</RootNamespace>
-    <AssemblyName>Euclid.Framework</AssemblyName>
+    <RootNamespace>Euclid.Framework.Common</RootNamespace>
+    <AssemblyName>Euclid.Framework.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,15 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cqrs\ICommand.cs" />
-    <Compile Include="Cqrs\ICommandProcessor.cs" />
-    <Compile Include="Cqrs\IQuery.cs" />
-    <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
-    <Compile Include="IAggregateRoot.cs" />
-    <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
-    <Compile Include="EventSourcing\IEvent.cs" />
-    <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
-    <Compile Include="IReadModel.cs" />
+    <Compile Include="Fabric\FabricControllerState.cs" />
+    <Compile Include="Fabric\IFabricController.cs" />
+    <Compile Include="Hosting\HostedServiceNotFoundException.cs" />
+    <Compile Include="Hosting\HostedServiceState.cs" />
+    <Compile Include="Hosting\IHostedService.cs" />
+    <Compile Include="Hosting\IServiceHost.cs" />
+    <Compile Include="Hosting\ServiceHostState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

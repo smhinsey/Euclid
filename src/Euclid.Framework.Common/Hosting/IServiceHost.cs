@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Framework.HostingFabric
+namespace Euclid.Framework.Common.Hosting
 {
 	/// <summary>
 	/// IServiceHost implements a particular approach for parallelizing the execution of installed

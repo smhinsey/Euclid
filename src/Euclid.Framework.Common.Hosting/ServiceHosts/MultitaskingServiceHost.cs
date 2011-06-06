@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Euclid.Framework.HostingFabric.ServiceHosts
+namespace Euclid.Framework.Common.Hosting.ServiceHosts
 {
 	public class MultitaskingServiceHost : IServiceHost
 	{
@@ -98,7 +98,6 @@ namespace Euclid.Framework.HostingFabric.ServiceHosts
 		public void ScaleDown(Guid id)
 		{
 			checkForHostedService(id);
-
 		}
 
 		public ServiceHostState State { get; private set; }

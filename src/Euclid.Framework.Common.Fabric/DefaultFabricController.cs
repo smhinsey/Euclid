@@ -1,16 +1,18 @@
 using System;
+using Euclid.Framework.Common.Hosting;
 
-namespace Euclid.Framework.HostingFabric
+namespace Euclid.Framework.Common.Fabric
 {
 	public class DefaultFabricController : IFabricController
 	{
 		private readonly IServiceHost _instanceHost;
-		public FabricControllerState State { get; protected set; }
 
 		public DefaultFabricController(IServiceHost instanceHost)
 		{
 			_instanceHost = instanceHost;
 		}
+
+		public FabricControllerState State { get; protected set; }
 
 		public void Start()
 		{

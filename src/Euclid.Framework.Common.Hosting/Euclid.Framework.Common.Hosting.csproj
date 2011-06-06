@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</ProjectGuid>
+    <ProjectGuid>{4192538D-5E42-4841-8C8F-6A2072808D41}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Framework</RootNamespace>
-    <AssemblyName>Euclid.Framework</AssemblyName>
+    <RootNamespace>Euclid.Framework.Common.Hosting</RootNamespace>
+    <AssemblyName>Euclid.Framework.Common.Hosting</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,16 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cqrs\ICommand.cs" />
-    <Compile Include="Cqrs\ICommandProcessor.cs" />
-    <Compile Include="Cqrs\IQuery.cs" />
-    <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
-    <Compile Include="IAggregateRoot.cs" />
-    <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
-    <Compile Include="EventSourcing\IEvent.cs" />
-    <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
-    <Compile Include="IReadModel.cs" />
+    <Compile Include="DefaultHostedService.cs" />
+    <Compile Include="ServiceHosts\MultitaskingServiceHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Euclid.Framework.Common\Euclid.Framework.Common.csproj">
+      <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
+      <Name>Euclid.Framework.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Framework\Euclid.Framework.csproj">
+      <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
+      <Name>Euclid.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

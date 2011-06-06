@@ -1,4 +1,4 @@
-namespace Euclid.Framework.HostingFabric
+namespace Euclid.Framework.Common.Hosting
 {
 	public abstract class DefaultHostedService : IHostedService
 	{

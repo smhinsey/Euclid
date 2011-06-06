@@ -1,4 +1,4 @@
-namespace Euclid.Framework.HostingFabric
+namespace Euclid.Framework.Common.Hosting
 {
 	/// <summary>
 	/// An instance of IHostedService encapsulates the hosting logic required by a particular

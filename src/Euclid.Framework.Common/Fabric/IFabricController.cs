@@ -1,9 +1,8 @@
-namespace Euclid.Framework.HostingFabric
+namespace Euclid.Framework.Common.Fabric
 {
 	/// <summary>
 	/// An IFabricController instance runs wherever agents are hosted and is responsible for maintaining 
-	/// the integrity of the hosting environment. This environment may consist of an in-process fabric,
-	/// for use by developers, or fabrics for hosting agents on Azure, EC2, or anywhere AppFabric runs.
+	/// the integrity of the hosting environment.
 	/// </summary>
 	public interface IFabricController
 	{
