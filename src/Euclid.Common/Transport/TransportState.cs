@@ -1,4 +1,4 @@
-﻿namespace Euclid.Framework.Cqrs
+﻿namespace Euclid.Common.Transport
 {
     public enum TransportState
     {

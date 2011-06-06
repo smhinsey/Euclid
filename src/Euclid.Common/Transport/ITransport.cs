@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Euclid.Framework.Cqrs
+namespace Euclid.Common.Transport
 {
     public interface ITransport
     {

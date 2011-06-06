@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Euclid.Framework.Cqrs
+namespace Euclid.Common.Transport
 {
     public interface IEnvelope
     {
