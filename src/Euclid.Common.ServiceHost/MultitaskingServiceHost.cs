@@ -9,8 +9,8 @@ namespace Euclid.Common.ServiceHost
 {
 	public class MultitaskingServiceHost : IServiceHost
 	{
-		private readonly IDictionary<Guid, CancellationTokenSource> _taskTokenSources;
 		private readonly IDictionary<Guid, List<Task>> _taskMap;
+		private readonly IDictionary<Guid, CancellationTokenSource> _taskTokenSources;
 
 		public MultitaskingServiceHost(int initialScale = 1)
 		{
@@ -78,22 +78,6 @@ namespace Euclid.Common.ServiceHost
 			addTaskInstance(id, service);
 		}
 
-		private void addTaskInstance(Guid id, IHostedService service)
-		{
-			var cancellationTokenSource = new CancellationTokenSource();
-			var cancellationToken = cancellationTokenSource.Token;
-
-			var task = createTask(service, cancellationToken);
-
-			task.Start();
-
-			var tasks = _taskMap[id];
-
-			tasks.Add(task);
-
-			Scale++;
-		}
-
 		public void Start(Guid id)
 		{
 			checkForHostedService(id);
@@ -146,6 +130,22 @@ namespace Euclid.Common.ServiceHost
 			}
 
 			State = ServiceHostState.Stopped;
+		}
+
+		private void addTaskInstance(Guid id, IHostedService service)
+		{
+			var cancellationTokenSource = new CancellationTokenSource();
+			var cancellationToken = cancellationTokenSource.Token;
+
+			var task = createTask(service, cancellationToken);
+
+			task.Start();
+
+			var tasks = _taskMap[id];
+
+			tasks.Add(task);
+
+			Scale++;
 		}
 
 		private void checkForHostedService(Guid id)

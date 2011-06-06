@@ -57,6 +57,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
+      <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>
+      <Name>Euclid.Common.ServiceHost</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Transport\Euclid.Common.Transport.csproj">
       <Project>{B2D19FB7-F317-4122-93B2-F13727CE490E}</Project>
       <Name>Euclid.Common.Transport</Name>
