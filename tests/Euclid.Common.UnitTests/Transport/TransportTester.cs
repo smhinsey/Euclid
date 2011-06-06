@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Euclid.Common.UnitTests.Transport
 {
 	[TestFixture]
-	public abstract class TransportTest
+	public abstract class TransportTester
 	{
 		public abstract ITransport GetTransport();
 
@@ -57,7 +57,7 @@ namespace Euclid.Common.UnitTests.Transport
 		}
 	}
 
-	public class InMemoryTransportTest : TransportTest
+	public class InMemoryTransportTest : TransportTester
 	{
 		public override ITransport GetTransport()
 		{
