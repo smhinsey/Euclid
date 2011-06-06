@@ -2,86 +2,83 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace Euclid.Common.Transport
 {
-    public class InMemoryTransport : ITransport
-    {
-        public TransportState State { get; private set; }
+	public class InMemoryTransport : ITransport
+	{
+		private readonly ConcurrentQueue<IEnvelope> _queue;
 
-        private readonly ConcurrentQueue<IEnvelope> _queue;
+		public InMemoryTransport()
+		{
+			State = TransportState.Invalid;
+			_queue = new ConcurrentQueue<IEnvelope>();
+		}
 
-        public InMemoryTransport()
-        {
-            State = TransportState.Invalid;
-            _queue = new ConcurrentQueue<IEnvelope>();
-        }
+		public TransportState State { get; private set; }
 
-        public TransportState Open()
-        {
-            State = TransportState.Open;
+		public TransportState Close()
+		{
+			State = TransportState.Closed;
 
-            return State;
-        }
+			return State;
+		}
 
-        public TransportState Close()
-        {
-            State = TransportState.Closed;
+		public TransportState Open()
+		{
+			State = TransportState.Open;
 
-            return State;
-        }
+			return State;
+		}
 
-        public void Send(IEnvelope message)
-        {
-            TransportIsOpen("Send");
+		public IEnumerable<IEnvelope> ReceiveMany(int howMany, TimeSpan timeout)
+		{
+			TransportIsOpen("Send");
 
-            if (message.Identifier == Guid.Empty)
-            {
-                message.Identifier = Guid.NewGuid();
-            }
+			var start = DateTime.Now;
 
-            _queue.Enqueue(message);
-        }
+			var count = 0;
 
-        public IEnumerable<IEnvelope> ReceiveMany(int howMany, TimeSpan timeout)
-        {
-            TransportIsOpen("Send");
+			while (_queue.Count > 0 && DateTime.Now.Subtract(start) <= timeout && count < howMany)
+			{
+				IEnvelope message;
 
-            var start = DateTime.Now;
+				_queue.TryDequeue(out message);
 
-            var count = 0;
+				if (message == null) continue;
 
-            while (_queue.Count > 0 && DateTime.Now.Subtract(start) <= timeout && count < howMany)
-            {
-                IEnvelope message;
+				count++;
 
-                _queue.TryDequeue(out message);
+				yield return message;
+			}
 
-                if (message == null) continue;
+			yield break;
+		}
 
-                count++;
+		public IEnvelope ReceiveSingle(TimeSpan timeout)
+		{
+			return ReceiveMany(1, timeout).First();
+		}
 
-                yield return message;
-            }
+		public void Send(IEnvelope message)
+		{
+			TransportIsOpen("Send");
 
-            yield break;
-        }
+			if (message.Identifier == Guid.Empty)
+			{
+				message.Identifier = Guid.NewGuid();
+			}
 
-        public IEnvelope ReceiveSingle(TimeSpan timeout)
-        {
-            return ReceiveMany(1, timeout).First();
-        }
+			_queue.Enqueue(message);
+		}
 
-        public void TransportIsOpen(string operationName)
-        {
-            if (State != TransportState.Open)
-            {
-                throw new InvalidOperationException(string.Format(
-                    "Cannot {0} a message when the transport is not open", operationName));
-            }
-            
-        }
-    }
+		public void TransportIsOpen(string operationName)
+		{
+			if (State != TransportState.Open)
+			{
+				throw new InvalidOperationException(string.Format(
+					"Cannot {0} a message when the transport is not open", operationName));
+			}
+		}
+	}
 }

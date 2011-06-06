@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="Hosting\MultitaskingServiceHostTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transport\InMemoryTransportTest.cs" />
     <Compile Include="Transport\TransportTest.cs" />
   </ItemGroup>
   <ItemGroup>

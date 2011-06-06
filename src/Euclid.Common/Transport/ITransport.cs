@@ -9,8 +9,8 @@ namespace Euclid.Common.Transport
 		TransportState Close();
 		TransportState Open();
 
-        void Send(IEnvelope message);
-        IEnumerable<IEnvelope> ReceiveMany(int howMany, TimeSpan timeout);
-        IEnvelope ReceiveSingle(TimeSpan timeout);
-    }
+		IEnumerable<IEnvelope> ReceiveMany(int howMany, TimeSpan timeout);
+		IEnvelope ReceiveSingle(TimeSpan timeout);
+		void Send(IEnvelope message);
+	}
 }

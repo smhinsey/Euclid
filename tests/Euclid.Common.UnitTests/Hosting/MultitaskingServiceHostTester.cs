@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Hosting
 {
-	public class MultitaskingServiceHostTests
+	public class MultitaskingServiceHostTester
 	{
 		[Test]
 		public void ScaleDown()

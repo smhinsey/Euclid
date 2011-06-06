@@ -1,3 +1,5 @@
+
+D:\Projects\Euclid>@git.exe %*
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -73,3 +75,9 @@ namespace Euclid.Common.UnitTests.Transport
         }
     }
 }
+
+D:\Projects\Euclid>@set ErrorLevel=%ErrorLevel%
+
+D:\Projects\Euclid>@rem Restore the original console codepage.
+
+D:\Projects\Euclid>@chcp %cp_oem% > nul < nul
