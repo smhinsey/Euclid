@@ -42,7 +42,10 @@
   <ItemGroup>
     <Compile Include="Cqrs\ICommand.cs" />
     <Compile Include="Cqrs\ICommandProcessor.cs" />
+    <Compile Include="Cqrs\IEnvelope.cs" />
     <Compile Include="Cqrs\IQuery.cs" />
+    <Compile Include="Cqrs\ITransport.cs" />
+    <Compile Include="Cqrs\TransportState.cs" />
     <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
     <Compile Include="HostingFabric\IServiceHost.cs" />
     <Compile Include="HostingFabric\HostedServiceNotFoundException.cs" />
