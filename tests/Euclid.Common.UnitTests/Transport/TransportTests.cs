@@ -1,6 +1,5 @@
 
-D:\Projects\Euclid>@git.exe %*
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -54,7 +53,7 @@ namespace Euclid.Common.UnitTests.Transport
 
         public static void TestTransportTimeout(ITransport transport)
         {
-            var ts = new TimeSpan(0, 0, 0, 100);
+            var ts = new TimeSpan(0, 0, 0, 0, 100);
 
             transport.Open();
 
@@ -75,9 +74,3 @@ namespace Euclid.Common.UnitTests.Transport
         }
     }
 }
-
-D:\Projects\Euclid>@set ErrorLevel=%ErrorLevel%
-
-D:\Projects\Euclid>@rem Restore the original console codepage.
-
-D:\Projects\Euclid>@chcp %cp_oem% > nul < nul

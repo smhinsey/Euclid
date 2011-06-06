@@ -49,9 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hosting\MultitaskingServiceHostTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transport\TransportTest.cs" />
+    <Compile Include="Transport\InMemoryTransportTests.cs" />
+    <Compile Include="Transport\TransportTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -69,6 +69,9 @@
       <Project>{B63C4D62-939A-45AB-95F2-EBFBE4B5013C}</Project>
       <Name>Euclid.Common.TestingFakes</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Hosting\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
