@@ -49,8 +49,8 @@
     <Compile Include="Hosting\ServiceHostState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transport\IEnvelope.cs" />
-    <Compile Include="Transport\ITransport.cs" />
-    <Compile Include="Transport\ITypedTransport.cs" />
+    <Compile Include="Transport\IMessageTransport.cs" />
+    <Compile Include="Transport\ITypeTransport.cs" />
     <Compile Include="Transport\TransportState.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

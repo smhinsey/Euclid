@@ -10,24 +10,39 @@ namespace Euclid.Common.UnitTests.Transport
     [TestFixture]
     public class InMemoryTransportTests
     {
-        private readonly ITransport _t = new InMemoryTransport();
-
         [Test]
         public void TestStateTransitions()
         {
-            TransportTests.TestTransportStateTransitions(_t);
+            TestTransport.StateTransitions(new InMemoryMessageTransport());
         }
 
         [Test]
         public void TestSendReceive()
         {
-            TransportTests.TestSendReceive(_t);
+            TestTransport.SendAndReceive(new InMemoryMessageTransport());
         }
 
         [Test]
         public void TestTimeout()
         {
-            TransportTests.TestTransportTimeout(_t);
+            TestTransport.ReceiveTimeout(new InMemoryMessageTransport());
+        }
+
+        [Test]
+        public void TestClear()
+        {
+            TestTransport.Clear(new InMemoryMessageTransport());
+        }
+
+        [Test]
+        public void TestDelete()
+        {
+            var t = new InMemoryMessageTransport();
+            t.Open();
+
+            Assert.Throws(typeof (NotImplementedException), () => t.Delete(null));
+
+            t.Close();
         }
     }
 }
