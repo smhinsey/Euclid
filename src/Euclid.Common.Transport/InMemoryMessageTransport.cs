@@ -7,12 +7,11 @@ namespace Euclid.Common.Transport
 {
 	public class InMemoryMessageTransport : IMessageTransport
 	{
-		private readonly ConcurrentQueue<IEnvelope> _queue;
+        private static readonly ConcurrentQueue<IEnvelope> Queue = new ConcurrentQueue<IEnvelope>();
 
 		public InMemoryMessageTransport()
 		{
 			State = TransportState.Invalid;
-			_queue = new ConcurrentQueue<IEnvelope>();
 		}
 
 		public TransportState State { get; private set; }
@@ -39,11 +38,11 @@ namespace Euclid.Common.Transport
 
 			var count = 0;
 
-			while (_queue.Count > 0 && DateTime.Now.Subtract(start) <= timeout && count < howMany)
+			while (Queue.Count > 0 && DateTime.Now.Subtract(start) <= timeout && count < howMany)
 			{
 				IEnvelope message;
 
-				_queue.TryDequeue(out message);
+				Queue.TryDequeue(out message);
 
 				if (message == null) continue;
 
@@ -69,7 +68,7 @@ namespace Euclid.Common.Transport
 				message.Identifier = Guid.NewGuid();
 			}
 
-			_queue.Enqueue(message);
+			Queue.Enqueue(message);
 		}
 
 	    public int Clear()
@@ -77,10 +76,10 @@ namespace Euclid.Common.Transport
 	        TransportIsOpen("Clear");
 
 	        var count = 0;
-            while(!_queue.IsEmpty)
+            while(!Queue.IsEmpty)
             {
                 IEnvelope m = null;
-                if ( !_queue.TryDequeue(out m))
+                if ( !Queue.TryDequeue(out m))
                 {
                     throw new ApplicationException("Unable to clear InMemoryTransport");          
                 }
@@ -94,7 +93,7 @@ namespace Euclid.Common.Transport
 	    public IEnvelope Peek()
 	    {
 	        IEnvelope message;
-	        _queue.TryPeek(out message);
+	        Queue.TryPeek(out message);
 
 	        return message;
 	    }
