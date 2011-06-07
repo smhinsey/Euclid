@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Euclid.Common.TestingFakes.Transport;
 using Euclid.Common.Transport;
 using NUnit.Framework;
 
@@ -41,6 +42,10 @@ namespace Euclid.Common.UnitTests.Transport
             t.Open();
 
             Assert.Throws(typeof (NotImplementedException), () => t.Delete(null));
+
+            var m = new FakeMessage();
+            t.Send(m);
+            Assert.Throws(typeof(NotImplementedException), () => t.Delete(m));
 
             t.Close();
         }
