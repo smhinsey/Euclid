@@ -110,5 +110,28 @@ namespace Euclid.Common.UnitTests.Transport
             
             transport.Close();
         }
+
+        public static void Peek(IMessageTransport transport)
+        {
+            transport.Open();
+
+            var m = new FakeMessage
+                        {
+                            Identifier = new Guid("AA2E58C4-84B2-4DE6-B3CC-FB8630959C0D")
+                        };
+
+            var m2 = new FakeMessage
+                         {
+                             Identifier = new Guid("940CE613-D375-4135-AAB9-23FA2173BD79")
+                         };
+
+            transport.Send(m);
+            transport.Send(m2);
+
+            var m3 = transport.Peek();
+            Assert.AreEqual(m, m3);
+
+            transport.Close();
+        }
     }
 }

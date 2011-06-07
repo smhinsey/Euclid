@@ -49,5 +49,11 @@ namespace Euclid.Common.UnitTests.Transport
 
             t.Close();
         }
+
+        [Test]
+        public void TestPeek()
+        {
+            TestTransport.Peek(new InMemoryMessageTransport());
+        }
     }
 }

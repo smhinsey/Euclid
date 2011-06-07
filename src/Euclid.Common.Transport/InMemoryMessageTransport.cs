@@ -91,7 +91,15 @@ namespace Euclid.Common.Transport
 	        return count;
 	    }
 
-	    public int Delete(IEnvelope message)
+	    public IEnvelope Peek()
+	    {
+	        IEnvelope message;
+	        _queue.TryPeek(out message);
+
+	        return message;
+	    }
+
+	    public void Delete(IEnvelope message)
 	    {
             throw new NotImplementedException("You cannot delete messages from an InMemoryTransport");
 	    }

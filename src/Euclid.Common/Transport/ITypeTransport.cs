@@ -11,8 +11,11 @@ namespace Euclid.Common.Transport
 
 		IEnumerable<T> ReceiveMany(int howMany, TimeSpan timeSpan);
 	    T ReceiveSingle(TimeSpan timeSpan);
+
 		void Send(T message);
 	    int Clear();
-	    int Delete(T type);
+
+        void Delete(T type);
+	    T Peek();
 	}
 }
