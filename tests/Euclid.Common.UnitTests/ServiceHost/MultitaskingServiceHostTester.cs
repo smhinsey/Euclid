@@ -100,16 +100,6 @@ namespace Euclid.Common.UnitTests.ServiceHost
 		}
 
 		[Test]
-		public void StartsWithCorrectScale()
-		{
-			var host = new MultitaskingServiceHost();
-
-			host.StartAll();
-
-			Assert.AreEqual(ServiceHostState.Started, host.State);
-		}
-
-		[Test]
 		public void StartsWithoutError()
 		{
 			var host = new MultitaskingServiceHost();

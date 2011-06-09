@@ -21,7 +21,6 @@ namespace Euclid.Common.ServiceHost
 			Services = new Dictionary<Guid, IHostedService>();
 		}
 
-		public int Scale { get; private set; }
 		public IDictionary<Guid, IHostedService> Services { get; private set; }
 		public ServiceHostState State { get; private set; }
 
