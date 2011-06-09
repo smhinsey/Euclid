@@ -11,6 +11,8 @@ namespace Euclid.Common.UnitTests.Transport
     [TestFixture]
     public class InMemoryTransportTests
     {
+        private const int LargeNumber = 1000000;
+
         [Test]
         public void TestStateTransitions()
         {
@@ -36,24 +38,9 @@ namespace Euclid.Common.UnitTests.Transport
         }
 
         [Test]
-        public void TestDelete()
+        public void TestLargeNumberOfMessagesSynchronously()
         {
-            var t = new InMemoryMessageTransport();
-            t.Open();
-
-            Assert.Throws(typeof (NotImplementedException), () => t.DeleteMessage(null));
-
-            var m = new FakeMessage();
-            t.Send(m);
-            Assert.Throws(typeof(NotImplementedException), () => t.DeleteMessage(m));
-
-            t.Close();
-        }
-
-        [Test]
-        public void TestPeek()
-        {
-            TestTransport.Peek(new InMemoryMessageTransport());
+            TestTransport.TestScale(new InMemoryMessageTransport(), LargeNumber);
         }
     }
 }

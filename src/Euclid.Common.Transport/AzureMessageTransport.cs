@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.ServiceModel.Security;
 using System.Text;
+using Euclid.Common.Extensions;
 using Euclid.Common.Serialization;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
@@ -21,10 +22,16 @@ namespace Euclid.Common.Transport
     {
         private static CloudQueue _queue = null;
         private static readonly object Down = new object();
+        private readonly IMessageSerializer _serializer;
 
-        public AzureMessageTransport() : base()
+
+        private AzureMessageTransport() : base()
         {
-           
+        }
+
+        public AzureMessageTransport(IMessageSerializer serializer) : base()
+        {
+            _serializer = serializer;
         }
 
         public override TransportState Close()
@@ -61,23 +68,19 @@ namespace Euclid.Common.Transport
 
             var start = DateTime.Now;
 
-            var list = new List<IMessage>();
+            var count = 0;
 
-            var messages = _queue.GetMessages(howMany);
-
-            var count = messages.Count();
-
-            foreach(var message in messages)
+            while (count < howMany && DateTime.Now.Subtract(start) <= timeout)
             {
-                if (count < 1 && DateTime.Now.Subtract(start) <= timeout) break;
+                var message = _queue.GetMessage();
+
+                count++;
 
                 if (message == null) continue;
 
                 _queue.DeleteMessage(message);
 
-                count--;
-
-                yield return JsonConvert.DeserializeObject(message.AsString) as IMessage;
+                yield return _serializer.Deserialize(message.AsString.ToMemoryStream(Encoding.UTF8));
             }
 
             yield break;
@@ -87,7 +90,11 @@ namespace Euclid.Common.Transport
         {
             TransportIsOpenFor("ReceiveSingle");
 
-            return ReceiveMany(1, timeSpan).First();
+            var msg = _queue.GetMessage();
+
+            _queue.DeleteMessage(msg);
+
+            return _serializer.Deserialize(msg.AsString.ToMemoryStream(Encoding.UTF8));
         }
 
         public override void Send(IMessage message)
@@ -99,44 +106,16 @@ namespace Euclid.Common.Transport
             _queue.AddMessage(msg);
         }
 
-        public override int Clear()
+        public override void Clear()
         {
-            var numMessages = _queue.ApproximateMessageCount;
-
             _queue.Clear();
-
-            return !numMessages.HasValue ? 0 : numMessages.Value;
         }
 
-        public override void DeleteMessage(IMessage message)
+        private CloudQueueMessage MessageIsNotTooBig(IMessage message)
         {
-            TransportIsOpenFor("DeleteMessage");
-            
-            var msg = MessageIsNotTooBig(message);
+            var msgStream = _serializer.Serialize(message);
 
-            _queue.DeleteMessage(msg);
-        }
-
-        public override IMessage Peek()
-        {
-            TransportIsOpenFor("Peek");
-
-            var msg = _queue.PeekMessage();
-
-            //return JsonConvert.DeserializeObject(msg.AsString);
-
-            return null;
-        }
-
-        private static CloudQueueMessage MessageIsNotTooBig(IMessage message)
-        {
-            var settings = new JsonSerializerSettings
-                               {
-                                   TypeNameHandling = TypeNameHandling.Objects,
-                                   ContractResolver = new CamelCasePropertyNamesContractResolver()
-                               };
-
-            var msg = JsonConvert.SerializeObject(message, Formatting.None, settings);
+            var msg = msgStream.GetString(Encoding.UTF8);
 
             if ((msg.Length / 1024) > 8)
             {

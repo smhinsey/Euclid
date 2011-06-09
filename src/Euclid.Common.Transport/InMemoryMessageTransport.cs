@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace Euclid.Common.Transport
 {
-    public class InMemoryMessageTransport : MessageTransportBase
+	public class InMemoryMessageTransport : MessageTransportBase
 	{
-        private static readonly ConcurrentQueue<IMessage> Queue = new ConcurrentQueue<IMessage>();
+		private static readonly ConcurrentQueue<IMessage> Queue = new ConcurrentQueue<IMessage>();
 
-        public override TransportState Close()
+		public override TransportState Close()
 		{
 			State = TransportState.Closed;
 
@@ -25,7 +25,7 @@ namespace Euclid.Common.Transport
 
 		public override IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout)
 		{
-            TransportIsOpenFor("ReceiveMany");
+			TransportIsOpenFor("ReceiveMany");
 
 			var start = DateTime.Now;
 
@@ -49,9 +49,9 @@ namespace Euclid.Common.Transport
 
 		public override IMessage ReceiveSingle(TimeSpan timeout)
 		{
-            TransportIsOpenFor("ReceiveSingle");
+			TransportIsOpenFor("ReceiveSingle");
 
-            return ReceiveMany(1, timeout).First();
+			return ReceiveMany(1, timeout).First();
 		}
 
 		public override void Send(IMessage message)
@@ -66,36 +66,18 @@ namespace Euclid.Common.Transport
 			Queue.Enqueue(message);
 		}
 
-	    public override int Clear()
-	    {
-	        TransportIsOpenFor("Clear");
+		public override void Clear()
+		{
+			TransportIsOpenFor("Clear");
 
-	        var count = 0;
-            while(!Queue.IsEmpty)
-            {
-                IMessage m = null;
-                if ( !Queue.TryDequeue(out m))
-                {
-                    throw new ApplicationException("Unable to clear InMemoryTransport");          
-                }
-
-                count++;
-            }
-
-	        return count;
-	    }
-
-	    public override IMessage Peek()
-	    {
-	        IMessage message;
-	        Queue.TryPeek(out message);
-
-	        return message;
-	    }
-
-	    public override void DeleteMessage(IMessage message)
-	    {
-            throw new NotImplementedException("You cannot delete messages from an InMemoryTransport");
-	    }
+			while(!Queue.IsEmpty)
+			{
+				IMessage m = null;
+				if ( !Queue.TryDequeue(out m))
+				{
+					throw new ApplicationException("Unable to clear InMemoryTransport");          
+				}
+			}
+		}
 	}
 }

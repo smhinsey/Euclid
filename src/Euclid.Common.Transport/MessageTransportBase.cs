@@ -18,9 +18,7 @@ namespace Euclid.Common.Transport
         public abstract IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout);
         public abstract IMessage ReceiveSingle(TimeSpan timeout);
         public abstract void Send(IMessage message);
-        public abstract int Clear();
-        public abstract IMessage Peek();
-        public abstract void DeleteMessage(IMessage message);
+        public abstract void Clear();
 
         protected void TransportIsOpenFor(string operationName)
         {

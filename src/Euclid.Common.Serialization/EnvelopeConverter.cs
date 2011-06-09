@@ -18,13 +18,13 @@ namespace Euclid.Common.Serialization
             {
                 reader.Read();
 
-                if (reader.TokenType == JsonToken.PropertyName && reader.Value as string == "TypeName")
+                if (reader.TokenType == JsonToken.PropertyName && string.Compare(reader.Value as string, "TypeName", true) == 0)
                 {
                     reader.Read();
                     typeName = reader.Value.ToString();
                 }
 
-                if (reader.TokenType == JsonToken.PropertyName && reader.Value as string == "Message")
+                if (reader.TokenType == JsonToken.PropertyName && string.Compare(reader.Value as string, "Message", true) == 0)
                 {
                     reader.Read();
 

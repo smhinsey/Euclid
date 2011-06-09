@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Euclid.Common.TestingFakes.Transport;
 using Euclid.Common.Transport;
 using NUnit.Framework;
@@ -21,6 +23,7 @@ namespace Euclid.Common.UnitTests.Transport
             Assert.AreEqual(TransportState.Open, newState);
 
             newState = transport.Close();
+
             Assert.AreEqual(TransportState.Closed, newState);
         }
 
@@ -56,7 +59,7 @@ namespace Euclid.Common.UnitTests.Transport
 
         public static void ReceiveTimeout(IMessageTransport transport)
         {
-            var ts = new TimeSpan(0, 0, 0, 0, 100);
+            var ts = new TimeSpan(0, 0, 0, 0, 500);
 
             transport.Open();
             transport.Clear();
@@ -80,7 +83,6 @@ namespace Euclid.Common.UnitTests.Transport
         public static void Clear(IMessageTransport transport)
         {
             transport.Open();
-            transport.Clear();
 
             for (var i = 0;i < 5;i++)
             {
@@ -88,57 +90,65 @@ namespace Euclid.Common.UnitTests.Transport
                 transport.Send(m);
             }
 
-            var numCleared = transport.Clear();
-            Assert.AreEqual(5, numCleared);
+            transport.Clear();
+
+            var messages = transport.ReceiveMany(5, TimeSpan.MaxValue);
+
+            Assert.AreEqual(0, messages.Count());
 
             transport.Close();
         }
 
-        public static void Delete(IMessageTransport transport)
+        public static void TestScale(IMessageTransport transport, int howManyMessages)
         {
-            transport.Open();
-            transport.Clear();
+            var start = DateTime.Now;
 
-            IMessage toDelete = null;
-            var r = new Random((int) DateTime.Now.Ticks);
-            for (var i = 0; i < 5; i++)
+            transport.Open();
+
+            Console.WriteLine("Start transport {0} messages with the {1}", howManyMessages, transport.GetType().FullName);
+
+            Console.WriteLine("Creating messages");
+            
+            for (var i = 0; i < howManyMessages; i++)
             {
-                var m = new FakeMessage();
-                
-                if (r.Next() % 4 == 0 && toDelete == null)
-                {
-                    toDelete = m;
-                }
-                transport.Send(m);
+                var msg = GetNewMessage();
+                transport.Send(msg);
             }
 
-            transport.DeleteMessage(toDelete);
-            
+            Console.WriteLine("Created {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
+
+            start = DateTime.Now;
+
+            var receivedMessageCount = 0;
+
+            foreach(var message in transport.ReceiveMany(howManyMessages, TimeSpan.MaxValue))
+            {
+                receivedMessageCount++;
+            }
+
             transport.Close();
+
+            Console.WriteLine("Received {0} messages in {1}", receivedMessageCount, DateTime.Now.Subtract(start).TotalSeconds);
         }
 
-        public static void Peek(IMessageTransport transport)
+        private static readonly Random Random = new Random((int)DateTime.Now.Ticks);
+
+        public static IMessage GetNewMessage()
         {
-            transport.Open();
-            transport.Clear();
-
-            var m = new FakeMessage
+            return new FakeMessage
                         {
-                            Identifier = new Guid("AA2E58C4-84B2-4DE6-B3CC-FB8630959C0D")
+                            Identifier = Guid.NewGuid(),
+                            CallStack = "flibberty gee",
+                            Dispatched = Random.Next()%2 == 0,
+                            Error = Random.Next()%2 == 0,
+                            Field1 = Random.Next(),
+                            Field2 = new List<string>
+                                         {
+                                             Random.Next().ToString(),
+                                             Random.Next().ToString(),
+                                             Random.Next().ToString()
+                                         }
                         };
-
-            var m2 = new FakeMessage
-                         {
-                             Identifier = new Guid("940CE613-D375-4135-AAB9-23FA2173BD79")
-                         };
-
-            transport.Send(m);
-            transport.Send(m2);
-
-            var m3 = transport.Peek();
-            Assert.AreEqual(m.Identifier, m3.Identifier);
-
-            transport.Close();
         }
     }
 }

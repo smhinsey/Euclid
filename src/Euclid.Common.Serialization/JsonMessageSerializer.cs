@@ -5,6 +5,7 @@ using System.Text;
 using Euclid.Common.Extensions;
 using Euclid.Common.Transport;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Euclid.Common.Serialization
 {
@@ -37,7 +38,12 @@ namespace Euclid.Common.Serialization
         {
             var envelope = new Envelope(source);
 
-            var s = JsonConvert.SerializeObject(envelope);
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
+            var s = JsonConvert.SerializeObject(envelope, Formatting.None, settings);
 
             return s.ToMemoryStream(Encoding.UTF8);
         }

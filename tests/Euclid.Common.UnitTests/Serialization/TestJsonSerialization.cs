@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Euclid.Common.Serialization;
-using Euclid.Common.Transport;
+using Euclid.Common.TestingFakes.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
@@ -18,7 +18,7 @@ namespace Euclid.Common.UnitTests.Serialization
         [Test]
         public void TestJsonNetSerialization()
         {
-            var m = new Message
+            var m = new FakeMessage
                         {
                             Identifier = Guid.NewGuid(),
                             Field2 = 3,
@@ -43,16 +43,16 @@ namespace Euclid.Common.UnitTests.Serialization
 
             Assert.AreEqual(m.Identifier, o.Message.Identifier);
 
-            Assert.AreEqual(m.Field1, (o.Message as Message).Field1);
+            Assert.AreEqual(m.Field1, (o.Message as FakeMessage).Field1);
 
-            Assert.AreEqual(m.Field2, (o.Message as Message).Field2);
+            Assert.AreEqual(m.Field2, (o.Message as FakeMessage).Field2);
         }
 
         [Test]
         public void TestEuclidJsonSerialization()
         {
             var r = new Random((int)DateTime.Now.Ticks);
-            var m = new Message
+            var m = new FakeMessage
                              {
                                  Identifier = Guid.NewGuid(),
                                  CallStack = "flibberty gee",
@@ -77,33 +77,16 @@ namespace Euclid.Common.UnitTests.Serialization
 
             Assert.NotNull(m2);
 
-            Assert.True(m2 is Message);
+            Assert.True(m2 is FakeMessage);
 
             Assert.AreEqual(m.GetType(), m2.GetType());
 
             Assert.AreEqual(m.Identifier, m2.Identifier);
 
-            Assert.AreEqual(m.Field1, (m2 as Message).Field1);
+            Assert.AreEqual(m.Field1, (m2 as FakeMessage).Field1);
 
-            Assert.AreEqual(m.Field2, (m2 as Message).Field2);
+            Assert.AreEqual(m.Field2, (m2 as FakeMessage).Field2);
 
         }
     }
-
-
-
-    public class Message : IMessage
-    {
-        public string CallStack { get; set; }
-        public bool Dispatched { get; set; }
-        public bool Error { get; set; }
-        public string ErrorMessage { get; set; }
-        public Guid Identifier { get; set; }
-
-        public IList<string> Field1 { get; set; }
-        public int Field2 { get; set; }
-    }
-
-   
-
 }
