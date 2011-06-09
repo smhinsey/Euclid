@@ -1,99 +1,118 @@
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Euclid.Common.TestingFakes.Transport;
 using Euclid.Common.Transport;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Transport
 {
-    public class TestTransport
-    {
-        public static void StateTransitions(IMessageTransport transport)
-        {
-            Assert.AreNotEqual(TransportState.Closed, transport.State);
+	public class TestTransport
+	{
+		private static readonly Random Random = new Random((int) DateTime.Now.Ticks);
 
-            var newState = transport.Open();
-            transport.Clear();
-
-            Assert.AreEqual(TransportState.Open, newState);
-
-            newState = transport.Close();
-
-            Assert.AreEqual(TransportState.Closed, newState);
-        }
+		public static void Clear(IMessageTransport transport)
+		{
+			transport.Open();
 
         public static void SendAndReceiveSingleMessage(IMessageTransport transport)
-        {
-            var ids = new List<Guid>();
+			{
+				var m = new FakeMessage();
+				transport.Send(m);
+			}
 
-            transport.Open();
-            transport.Clear();
+			transport.Clear();
 
             var m = GetNewMessage();
 
             transport.Send(m);
 
-            var m2 = transport.ReceiveSingle(TimeSpan.MaxValue);
+			transport.Close();
 
+            var m2 = transport.ReceiveSingle(TimeSpan.MaxValue);
+			       		Error = Random.Next()%2 == 0,
             Assert.NotNull(m2);
 
             Assert.AreEqual(m.Identifier, m2.Identifier);
-                
-            transport.Close();
-        }
+			       		         		Random.Next().ToString(),
+			       		         		Random.Next().ToString(),
+			       		         		Random.Next().ToString()
+			       	};
+		}
 
-        public static void ReceiveTimeout(IMessageTransport transport)
-        {
-            var ts = new TimeSpan(0, 0, 0, 0, 500);
+		public static void ReceiveTimeout(IMessageTransport transport)
+		{
+			var ts = new TimeSpan(0, 0, 0, 0, 500);
 
-            transport.Open();
-            transport.Clear();
+			transport.Open();
+			transport.Clear();
 
-            var m = new FakeMessage();
-            var m2 = new FakeMessage();
+			var m = new FakeMessage();
+			var m2 = new FakeMessage();
 
-            transport.Send(m);
-            transport.Send(m2);
+			transport.Send(m);
+			transport.Send(m2);
 
-            var count = 0;
-            foreach(var msg in transport.ReceiveMany(2, ts))
-            {
-                count++;
-                Thread.Sleep(500);
-            }
+			var count = 0;
+			foreach (var msg in transport.ReceiveMany(2, ts))
+			{
+				count++;
+				Thread.Sleep(500);
+			}
 
-            Assert.AreEqual(1, count);
-        }
+			Assert.AreEqual(1, count);
+		}
 
-        public static void Clear(IMessageTransport transport)
-        {
-            transport.Open();
+		public static void SendAndReceive(IMessageTransport transport)
+		{
+			var ids = new List<Guid>();
 
-            for (var i = 0;i < 5;i++)
-            {
-                var m = new FakeMessage();
-                transport.Send(m);
-            }
+			transport.Open();
+			transport.Clear();
 
-            transport.Clear();
+			for (var i = 0; i < 100; i++)
+			{
+				IMessage message = new FakeMessage();
+				transport.Send(message);
 
-            var messages = transport.ReceiveMany(5, TimeSpan.MaxValue);
+				ids.Add(message.Identifier);
+			}
 
-            Assert.AreEqual(0, messages.Count());
+			for (var i = 0; i < 10; i++)
+			{
+				var j = 0;
+				foreach (var message in transport.ReceiveMany(10, TimeSpan.MaxValue))
+				{
+					Assert.True(ids.Contains(message.Identifier));
+					j++;
+				}
 
-            transport.Close();
-        }
+				Assert.AreEqual(10, j);
+			}
+
+			transport.Close();
+		}
+
+		public static void StateTransitions(IMessageTransport transport)
+		{
+			Assert.AreNotEqual(TransportState.Closed, transport.State);
+
+			var newState = transport.Open();
+			transport.Clear();
+
+			Assert.AreEqual(TransportState.Open, newState);
+
+			newState = transport.Close();
+
+			Assert.AreEqual(TransportState.Closed, newState);
+		}
 
         public static void TestThroughputSynchronously(IMessageTransport transport, int howManyMessages, int? maxMessagesToReceive)
-        {
-            var start = DateTime.Now;
+		{
+			var start = DateTime.Now;
 
-            transport.Open();
+			transport.Open();
 
             Console.WriteLine("Sending {0} messages through the {1} transport", howManyMessages, transport.GetType().FullName);
 
@@ -101,9 +120,9 @@ namespace Euclid.Common.UnitTests.Transport
 
             Console.WriteLine("Sent {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
 
-            start = DateTime.Now;
+			start = DateTime.Now;
 
-            var receivedMessageCount = 0;
+			var receivedMessageCount = 0;
 
             var numberTimesToLoop = 1;
             if (maxMessagesToReceive.HasValue)
@@ -126,11 +145,10 @@ namespace Euclid.Common.UnitTests.Transport
                     maxMessagesToReceive = (howManyMessages - receivedMessageCount);
             }
 
-            transport.Close();
+			transport.Close();
 
-            Console.WriteLine("Received {0} messages in {1}", receivedMessageCount, DateTime.Now.Subtract(start).TotalSeconds);
-        }
-
+			Console.WriteLine("Received {0} messages in {1}", receivedMessageCount, DateTime.Now.Subtract(start).TotalSeconds);
+		}
         public static void TestThroughputAsynchronously(IMessageTransport transport, int howManyMessages, int howManyThreads, int? maxMessagesToReceive = null)
         {
             transport.Open();
@@ -187,24 +205,6 @@ namespace Euclid.Common.UnitTests.Transport
             Assert.Throws(typeof (InvalidOperationException), () => transport.Send(m));
         }
 
-        private static readonly Random Random = new Random((int)DateTime.Now.Ticks);
-
-        public static IMessage GetNewMessage()
-        {
-            return new FakeMessage
-                        {
-                            Identifier = Guid.NewGuid(),
-                            CallStack = "flibberty gee",
-                            Dispatched = Random.Next()%2 == 0,
-                            Error = Random.Next()%2 == 0,
-                            Field1 = Random.Next(),
-                            Field2 = new List<string>
-                                         {
-                                             Random.Next().ToString(),
-                                             Random.Next().ToString(),
-                                             Random.Next().ToString()
-                                         }
-                        };
         }
 
         private static void SendMessages(IMessageTransport transport, int numberOfMessagesToCreate)
@@ -214,6 +214,5 @@ namespace Euclid.Common.UnitTests.Transport
                 var msg = TestTransport.GetNewMessage();
                 transport.Send(msg);
             }
-        }
-    }
+	}
 }

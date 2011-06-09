@@ -23,7 +23,6 @@ namespace Euclid.Common.TestingFakes.ServiceHost
 					break;
 				}
 			}
-
 		}
 
 		protected override void OnStop()

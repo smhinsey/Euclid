@@ -1,18 +1,16 @@
-﻿
-using Euclid.Common.Transport;
+﻿using Euclid.Common.Transport;
 
 namespace Euclid.Common.Serialization
 {
-    public class Envelope
-    {
-        public Envelope(IMessage message)
-        {
-            TypeName = message.GetType().AssemblyQualifiedName;
-            Message = message;
-        }
+	public class Envelope
+	{
+		public Envelope(IMessage message)
+		{
+			MessageTypeName = message.GetType().AssemblyQualifiedName;
+			Payload = message;
+		}
 
-        public string TypeName { get; private set; }
-
-        public IMessage Message { get; private set; }
-    }
+		public string MessageTypeName { get; private set; }
+		public IMessage Payload { get; private set; }
+	}
 }

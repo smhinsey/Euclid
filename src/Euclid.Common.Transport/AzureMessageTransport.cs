@@ -1,153 +1,144 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.ServiceModel.Security;
 using System.Text;
 using Euclid.Common.Extensions;
 using Euclid.Common.Serialization;
 using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.StorageClient;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Euclid.Common.Transport
 {
-    public class AzureMessageTransport : MessageTransportBase
-    {
-        private static CloudQueue _queue = null;
-        private static readonly object Down = new object();
-        private readonly IMessageSerializer _serializer;
+	public class AzureMessageTransport : MessageTransportBase
+	{
+		private static readonly object Down = new object();
+		private static CloudQueue _queue;
+		private readonly IMessageSerializer _serializer;
 
 
-        private AzureMessageTransport() : base()
-        {
-        }
+		public AzureMessageTransport(IMessageSerializer serializer)
+		{
+			_serializer = serializer;
+		}
 
-        public AzureMessageTransport(IMessageSerializer serializer) : base()
-        {
-            _serializer = serializer;
-        }
+		private AzureMessageTransport()
+		{
+		}
 
-        public override TransportState Close()
-        {
-            lock(Down)
-            {
-                _queue.Delete();
-                _queue = null;
-                State = TransportState.Closed;
-            }
+		public override void Clear()
+		{
+			_queue.Clear();
+		}
 
-            return State;
-        }
+		public override TransportState Close()
+		{
+			lock (Down)
+			{
+				_queue.Delete();
+				_queue = null;
+				State = TransportState.Closed;
+			}
 
-        public override TransportState Open()
-        {
-            lock(Down)
-            {
-                if (_queue == null)
-                {
-                    CreateQueue(TransportName);
-                    State = TransportState.Open;
-                }
-            }
+			return State;
+		}
 
-            return State;
-        }
+		public override TransportState Open()
+		{
+			lock (Down)
+			{
+				if (_queue == null)
+				{
+					CreateQueue(TransportName);
+					State = TransportState.Open;
+				}
+			}
 
-        public override IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout)
-        {
-            TransportIsOpenFor("ReceiveMany");
+			return State;
+		}
 
-            ValidNumberOfMessagesRequested(howMany);
+		public override IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout)
+		{
+			TransportIsOpenFor("ReceiveMany");
 
-            var start = DateTime.Now;
+			ValidNumberOfMessagesRequested(howMany);
 
-            var count = 0;
+			var start = DateTime.Now;
 
-            while (count < howMany && DateTime.Now.Subtract(start) <= timeout)
-            {
-                var message = _queue.GetMessage();
+			var count = 0;
 
-                count++;
+			while (count < howMany && DateTime.Now.Subtract(start) <= timeout)
+			{
+				var message = _queue.GetMessage();
 
-                if (message == null) continue;
+				count++;
 
-                _queue.DeleteMessage(message);
+				if (message == null) continue;
 
-                yield return _serializer.Deserialize(message.AsString.ToMemoryStream(Encoding.UTF8));
-            }
+				_queue.DeleteMessage(message);
 
-            yield break;
-        }
+				yield return _serializer.Deserialize(message.AsString.ToMemoryStream(Encoding.UTF8));
+			}
 
-        public override IMessage ReceiveSingle(TimeSpan timeSpan)
-        {
-            TransportIsOpenFor("ReceiveSingle");
+			yield break;
+		}
 
-            var msg = _queue.GetMessage();
+		public override IMessage ReceiveSingle(TimeSpan timeSpan)
+		{
+			TransportIsOpenFor("ReceiveSingle");
 
-            _queue.DeleteMessage(msg);
+			var msg = _queue.GetMessage();
 
-            return _serializer.Deserialize(msg.AsString.ToMemoryStream(Encoding.UTF8));
-        }
+			_queue.DeleteMessage(msg);
 
-        public override void Send(IMessage message)
-        {
-            TransportIsOpenFor("Send");
+			return _serializer.Deserialize(msg.AsString.ToMemoryStream(Encoding.UTF8));
+		}
 
-            var msg = MessageIsNotTooBig(message);
+		public override void Send(IMessage message)
+		{
+			TransportIsOpenFor("Send");
 
-            _queue.AddMessage(msg);
-        }
+			var msg = MessageIsNotTooBig(message);
 
-        public override void Clear()
-        {
-            _queue.Clear();
-        }
+			_queue.AddMessage(msg);
+		}
 
-        private CloudQueueMessage MessageIsNotTooBig(IMessage message)
-        {
-            var msgStream = _serializer.Serialize(message);
+		private CloudQueueMessage MessageIsNotTooBig(IMessage message)
+		{
+			var msgStream = _serializer.Serialize(message);
 
-            var msg = msgStream.GetString(Encoding.UTF8);
+			var msg = msgStream.GetString(Encoding.UTF8);
 
-            if ((msg.Length / 1024) > 8)
-            {
-                throw new MessageSecurityException("The message is larger than 8k and can't be saved to the azure transport");                
-            }
+			if ((msg.Length/1024) > 8)
+			{
+				throw new MessageSecurityException("The message is larger than 8k and can't be saved to the azure transport");
+			}
 
-            return new CloudQueueMessage(msg);
-        }
+			return new CloudQueueMessage(msg);
+		}
 
-        private static void ValidNumberOfMessagesRequested(int howMany)
-        {
-            if (howMany > 32)
-            {
-                throw new InvalidOperationException("Only 32 messages can be retrieved from an azure transport at a time");
-            }
-        }
+		private static void CreateQueue(string transportName)
+		{
+			var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
+			var queueClient = storageAccount.CreateCloudQueueClient();
 
-        private static void NextVisibleTimeIsValid(TimeSpan timeSpan)
-        {
-            if (timeSpan > new TimeSpan(0, 2, 0, 0))
-            {
-                throw new InvalidOperationException("The max timespan for an azure transport is 2 hours");
-            }
-        }
+			_queue = queueClient.GetQueueReference(transportName);
+			_queue.CreateIfNotExist();
+		}
 
-        private static void CreateQueue(string transportName)
-        {
-            var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
-            var queueClient = storageAccount.CreateCloudQueueClient();
+		private static void NextVisibleTimeIsValid(TimeSpan timeSpan)
+		{
+			if (timeSpan > new TimeSpan(0, 2, 0, 0))
+			{
+				throw new InvalidOperationException("The max timespan for an azure transport is 2 hours");
+			}
+		}
 
-            _queue = queueClient.GetQueueReference(transportName);
-            _queue.CreateIfNotExist();
-        }
-    }
+		private static void ValidNumberOfMessagesRequested(int howMany)
+		{
+			if (howMany > 32)
+			{
+				throw new InvalidOperationException("Only 32 messages can be retrieved from an azure transport at a time");
+			}
+		}
+	}
 }

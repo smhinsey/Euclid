@@ -66,7 +66,7 @@ namespace Euclid.Common.ServiceHost
 
 			foreach (var task in _taskMap.Select(taskMapEntry => taskMapEntry.Value))
 			{
-				if(task.Status == TaskStatus.WaitingToRun || task.Status == TaskStatus.Created)
+				if (task.Status == TaskStatus.WaitingToRun || task.Status == TaskStatus.Created)
 				{
 					task.Start();
 				}

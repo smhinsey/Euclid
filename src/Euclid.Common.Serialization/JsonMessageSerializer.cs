@@ -9,43 +9,43 @@ using Newtonsoft.Json.Serialization;
 
 namespace Euclid.Common.Serialization
 {
-    public class JsonMessageSerializer : IMessageSerializer
-    {
-        public IMessage Deserialize(Stream source)
-        {
-            var serializer = new JsonSerializer();
+	public class JsonMessageSerializer : IMessageSerializer
+	{
+		public IMessage Deserialize(Stream source)
+		{
+			var serializer = new JsonSerializer();
 
-            serializer.Converters.Insert(0, new EnvelopeConverter());
+			serializer.Converters.Insert(0, new EnvelopeConverter());
 
-            var s = source.GetString(Encoding.UTF8);
+			var s = source.GetString(Encoding.UTF8);
 
-            using (var sr = new StringReader(s))
-            {
-                var r = new JsonTextReader(sr);
+			using (var sr = new StringReader(s))
+			{
+				var r = new JsonTextReader(sr);
 
-                var e = serializer.Deserialize<Envelope>(r);
+				var e = serializer.Deserialize<Envelope>(r);
 
-                if (e == null)
-                {
-                    throw new SerializationException("Cannot deserialize the stream to an IMessage object", new Exception(s));
-                }
+				if (e == null)
+				{
+					throw new SerializationException("Cannot deserialize the stream to an IMessage object", new Exception(s));
+				}
 
-                return e.Message;
-            }
-        }
+				return e.Payload;
+			}
+		}
 
-        public Stream Serialize(IMessage source)
-        {
-            var envelope = new Envelope(source);
+		public Stream Serialize(IMessage source)
+		{
+			var envelope = new Envelope(source);
 
-            var settings = new JsonSerializerSettings
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
+			var settings = new JsonSerializerSettings
+			               	{
+			               		ContractResolver = new CamelCasePropertyNamesContractResolver()
+			               	};
 
-            var s = JsonConvert.SerializeObject(envelope, Formatting.None, settings);
+			var s = JsonConvert.SerializeObject(envelope, Formatting.None, settings);
 
-            return s.ToMemoryStream(Encoding.UTF8);
-        }
-    }
+			return s.ToMemoryStream(Encoding.UTF8);
+		}
+	}
 }

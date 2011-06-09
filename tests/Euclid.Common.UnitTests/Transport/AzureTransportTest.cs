@@ -1,14 +1,9 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 using Euclid.Common.Serialization;
-using Euclid.Common.TestingFakes.Transport;
 using Euclid.Common.Transport;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using NUnit.Framework;
-using System.Threading;
 namespace Euclid.Common.UnitTests.Transport
 {
     [TestFixture]
@@ -88,3 +83,6 @@ namespace Euclid.Common.UnitTests.Transport
 
     }
 }
+
+
+

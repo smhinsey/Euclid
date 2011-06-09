@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\StreamExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="ServiceHost\FabricControllerState.cs" />
     <Compile Include="ServiceHost\IFabricController.cs" />
     <Compile Include="ServiceHost\HostedServiceNotFoundException.cs" />

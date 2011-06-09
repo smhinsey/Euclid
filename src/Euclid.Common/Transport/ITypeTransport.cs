@@ -5,9 +5,9 @@ namespace Euclid.Common.Transport
 {
 	public interface ITypeTransport<T>
 	{
-		string TransportName { get; set; }
-
 		TransportState State { get; }
+		string TransportName { get; set; }
+		void Clear();
 		TransportState Close();
 		TransportState Open();
 
@@ -15,6 +15,5 @@ namespace Euclid.Common.Transport
 		T ReceiveSingle(TimeSpan timeSpan);
 
 		void Send(T message);
-		void Clear();
 	}
 }
