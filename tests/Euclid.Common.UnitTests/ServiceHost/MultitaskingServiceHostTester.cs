@@ -43,111 +43,17 @@ namespace Euclid.Common.UnitTests.ServiceHost
 
 			var serviceId = host.Install(new FakeHostedService());
 
-			host.StartAll();
+			host.Start(serviceId);
 
 			Assert.AreEqual(ServiceHostState.Started, host.State);
 			Assert.AreEqual(HostedServiceState.Started, host.GetState(serviceId));
 
 			Thread.Sleep(100);
 
-			host.StopAll();
+			host.Stop(serviceId);
 
 			Assert.AreEqual(ServiceHostState.Stopped, host.State);
 			Assert.AreEqual(HostedServiceState.Stopped, host.GetState(serviceId));
-		}
-
-		[Test]
-		public void ScaleAllUp()
-		{
-			const int initialScale = 5;
-
-			var host = new MultitaskingServiceHost(initialScale);
-
-			host.Install(new FakeHostedService());
-
-			host.StartAll();
-
-			Assert.AreEqual(ServiceHostState.Started, host.State);
-			Assert.AreEqual(initialScale, host.Scale);
-
-			host.ScaleAllUp();
-
-			Assert.AreEqual(initialScale + 1, host.Scale);
-		}
-
-		[Test]
-		public void ScaleAllDown()
-		{
-			const int initialScale = 5;
-
-			var host = new MultitaskingServiceHost(initialScale);
-
-			host.Install(new FakeHostedService());
-
-			host.StartAll();
-
-			Assert.AreEqual(ServiceHostState.Started, host.State);
-			Assert.AreEqual(initialScale, host.Scale);
-
-			host.ScaleAllDown();
-
-			Assert.AreEqual(initialScale - 1, host.Scale);
-		}
-
-		[Test]
-		public void ScaleDown()
-		{
-			const int initialScale = 5;
-
-			var host = new MultitaskingServiceHost(initialScale);
-
-			var serviceId = host.Install(new FakeHostedService());
-
-			host.StartAll();
-
-			Assert.AreEqual(ServiceHostState.Started, host.State);
-			Assert.AreEqual(initialScale, host.Scale);
-
-			host.ScaleDown(serviceId);
-
-			Assert.AreEqual(initialScale - 1, host.Scale);
-		}
-
-		[Test]
-		[ExpectedException(typeof (HostedServiceNotFoundException))]
-		public void ScaleDownFailsForMissingService()
-		{
-			var host = new MultitaskingServiceHost();
-
-			host.ScaleDown(Guid.NewGuid());
-		}
-
-		[Test]
-		public void ScaleUp()
-		{
-			const int initialScale = 5;
-
-			var host = new MultitaskingServiceHost(initialScale);
-
-			var serviceId = host.Install(new FakeHostedService());
-
-			host.StartAll();
-
-			Assert.AreEqual(ServiceHostState.Started, host.State);
-			Assert.AreEqual(initialScale, host.Scale);
-
-			host.ScaleUp(serviceId);
-
-			Assert.AreEqual(initialScale + 1, host.Scale);
-		}
-
-		[Test]
-		[ExpectedException(typeof (HostedServiceNotFoundException))]
-		public void ScaleUpFailsForMissingService()
-		{
-			var host = new MultitaskingServiceHost();
-
-			host.ScaleUp(Guid.NewGuid());
 		}
 
 		[Test]
@@ -196,14 +102,11 @@ namespace Euclid.Common.UnitTests.ServiceHost
 		[Test]
 		public void StartsWithCorrectScale()
 		{
-			const int initialScale = 5;
-
-			var host = new MultitaskingServiceHost(initialScale);
+			var host = new MultitaskingServiceHost();
 
 			host.StartAll();
 
 			Assert.AreEqual(ServiceHostState.Started, host.State);
-			Assert.AreEqual(initialScale, host.Scale);
 		}
 
 		[Test]
