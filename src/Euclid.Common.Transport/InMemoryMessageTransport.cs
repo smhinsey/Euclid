@@ -9,6 +9,20 @@ namespace Euclid.Common.Transport
 	{
 		private static readonly ConcurrentQueue<IMessage> Queue = new ConcurrentQueue<IMessage>();
 
+		public override void Clear()
+		{
+			TransportIsOpenFor("Clear");
+
+			while (!Queue.IsEmpty)
+			{
+				IMessage m = null;
+				if (!Queue.TryDequeue(out m))
+				{
+					throw new ApplicationException("Unable to clear InMemoryTransport");
+				}
+			}
+		}
+
 		public override TransportState Close()
 		{
 			State = TransportState.Closed;
@@ -64,20 +78,6 @@ namespace Euclid.Common.Transport
 			}
 
 			Queue.Enqueue(message);
-		}
-
-		public override void Clear()
-		{
-			TransportIsOpenFor("Clear");
-
-			while(!Queue.IsEmpty)
-			{
-				IMessage m = null;
-				if ( !Queue.TryDequeue(out m))
-				{
-					throw new ApplicationException("Unable to clear InMemoryTransport");          
-				}
-			}
 		}
 	}
 }

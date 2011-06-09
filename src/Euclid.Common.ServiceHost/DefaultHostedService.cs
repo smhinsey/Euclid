@@ -9,9 +9,6 @@ namespace Euclid.Common.ServiceHost
 
 		public HostedServiceState State { get; protected set; }
 
-		protected abstract void OnStart();
-		protected abstract void OnStop();
-
 		public void Start()
 		{
 			State = HostedServiceState.Started;
@@ -24,5 +21,8 @@ namespace Euclid.Common.ServiceHost
 			OnStop();
 			State = HostedServiceState.Stopped;
 		}
+
+		protected abstract void OnStart();
+		protected abstract void OnStop();
 	}
 }

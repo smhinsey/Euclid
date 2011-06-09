@@ -1,92 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using Euclid.Common.Serialization;
 using Euclid.Common.TestingFakes.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Serialization
 {
-    [TestFixture]
-    public class TestJsonSerialization
-    {
-        [Test]
-        public void TestJsonNetSerialization()
-        {
-            var m = new FakeMessage
-                        {
-                            Identifier = Guid.NewGuid(),
-                            Field2 = 3,
-                            Field1 = new List<string> {"foo", "bar", "baz"}
-                        };
+	[TestFixture]
+	public class TestJsonSerialization
+	{
+		[Test]
+		public void TestEuclidJsonSerialization()
+		{
+			var r = new Random((int) DateTime.Now.Ticks);
+			var m = new FakeMessage
+			        	{
+			        		Identifier = Guid.NewGuid(),
+			        		CallStack = "flibberty gee",
+			        		Dispatched = r.Next()%2 == 0,
+			        		Error = r.Next()%2 == 0,
+			        		Field1 = new List<string>
+			        		         	{
+			        		         		r.Next().ToString(),
+			        		         		r.Next().ToString(),
+			        		         		r.Next().ToString()
+			        		         	},
+			        		Field2 = r.Next()
+			        	};
 
-            var e = new Envelope(m);
+			var serializer = new JsonMessageSerializer();
 
-            var serializer = new Newtonsoft.Json.JsonSerializer();
+			var s = serializer.Serialize(m);
 
-            serializer.Converters.Insert(0, new EnvelopeConverter());
+			Assert.NotNull(s);
 
-            var s = JsonConvert.SerializeObject(e);
+			var m2 = serializer.Deserialize(s);
 
-            var sr = new StringReader(s);
-            
-            var r = new JsonTextReader(sr);   
-            
-            var o = serializer.Deserialize<Envelope>(r);
+			Assert.NotNull(m2);
 
-            Assert.AreEqual(m.GetType(), o.Message.GetType());
+			Assert.True(m2 is FakeMessage);
 
-            Assert.AreEqual(m.Identifier, o.Message.Identifier);
+			Assert.AreEqual(m.GetType(), m2.GetType());
 
-            Assert.AreEqual(m.Field1, (o.Message as FakeMessage).Field1);
+			Assert.AreEqual(m.Identifier, m2.Identifier);
 
-            Assert.AreEqual(m.Field2, (o.Message as FakeMessage).Field2);
-        }
+			Assert.AreEqual(m.Field1, (m2 as FakeMessage).Field1);
 
-        [Test]
-        public void TestEuclidJsonSerialization()
-        {
-            var r = new Random((int)DateTime.Now.Ticks);
-            var m = new FakeMessage
-                             {
-                                 Identifier = Guid.NewGuid(),
-                                 CallStack = "flibberty gee",
-                                 Dispatched = r.Next()%2 == 0,
-                                 Error = r.Next()%2 == 0,
-                                 Field1 = new List<string>
-                                              {
-                                                  r.Next().ToString(), 
-                                                  r.Next().ToString(), 
-                                                  r.Next().ToString()
-                                              },
-                                 Field2 = r.Next()
-                             };
+			Assert.AreEqual(m.Field2, (m2 as FakeMessage).Field2);
+		}
 
-            var serializer = new JsonMessageSerializer();
+		[Test]
+		public void TestJsonNetSerialization()
+		{
+			var m = new FakeMessage
+			        	{
+			        		Identifier = Guid.NewGuid(),
+			        		Field2 = 3,
+			        		Field1 = new List<string> {"foo", "bar", "baz"}
+			        	};
 
-            var s = serializer.Serialize(m);
+			var e = new Envelope(m);
 
-            Assert.NotNull(s);
+			var serializer = new JsonSerializer();
 
-            var m2 = serializer.Deserialize(s);
+			serializer.Converters.Insert(0, new EnvelopeConverter());
 
-            Assert.NotNull(m2);
+			var s = JsonConvert.SerializeObject(e);
 
-            Assert.True(m2 is FakeMessage);
+			var sr = new StringReader(s);
 
-            Assert.AreEqual(m.GetType(), m2.GetType());
+			var r = new JsonTextReader(sr);
 
-            Assert.AreEqual(m.Identifier, m2.Identifier);
+			var o = serializer.Deserialize<Envelope>(r);
 
-            Assert.AreEqual(m.Field1, (m2 as FakeMessage).Field1);
+			Assert.AreEqual(m.GetType(), o.Payload.GetType());
 
-            Assert.AreEqual(m.Field2, (m2 as FakeMessage).Field2);
+			Assert.AreEqual(m.Identifier, o.Payload.Identifier);
 
-        }
-    }
+			Assert.AreEqual(m.Field1, (o.Payload as FakeMessage).Field1);
+
+			Assert.AreEqual(m.Field2, (o.Payload as FakeMessage).Field2);
+		}
+	}
 }

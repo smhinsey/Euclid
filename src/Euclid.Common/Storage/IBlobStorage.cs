@@ -4,17 +4,17 @@ using System.IO;
 
 namespace Euclid.Common.Storage
 {
-    public interface IBlobStorage
-    {
-        void Delete(string uri);
-        void Delete(Uri uri);
-        
-        bool Exists(Uri uri);
-        bool Exists(string uri);
-        
-        byte[] Get(Uri uri);
-        byte[] Get(string uri);
-        
-        Uri Put(Stream blob, string name, KeyValuePair<string, string> metadata);
-    }
+	public interface IBlobStorage
+	{
+		void Delete(string uri);
+		void Delete(Uri uri);
+
+		bool Exists(Uri uri);
+		bool Exists(string uri);
+
+		byte[] Get(Uri uri);
+		byte[] Get(string uri);
+
+		Uri Put(Stream blob, string name, KeyValuePair<string, string> metadata);
+	}
 }

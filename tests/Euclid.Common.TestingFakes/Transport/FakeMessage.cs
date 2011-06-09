@@ -16,9 +16,9 @@ namespace Euclid.Common.TestingFakes.Transport
 		public bool Dispatched { get; set; }
 		public bool Error { get; set; }
 		public string ErrorMessage { get; set; }
-		public Guid Identifier { get; set; }
 
-        public int Field1 { get; set; }
-        public IList<string> Field2 { get; set; }
+		public int Field1 { get; set; }
+		public IList<string> Field2 { get; set; }
+		public Guid Identifier { get; set; }
 	}
 }
