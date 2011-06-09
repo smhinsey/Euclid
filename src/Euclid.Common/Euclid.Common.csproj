@@ -41,13 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\StreamExtensions.cs" />
-    <Compile Include="Fabric\FabricControllerState.cs" />
-    <Compile Include="Fabric\IFabricController.cs" />
-    <Compile Include="Hosting\HostedServiceNotFoundException.cs" />
-    <Compile Include="Hosting\HostedServiceState.cs" />
-    <Compile Include="Hosting\IHostedService.cs" />
-    <Compile Include="Hosting\IServiceHost.cs" />
-    <Compile Include="Hosting\ServiceHostState.cs" />
+    <Compile Include="ServiceHost\FabricControllerState.cs" />
+    <Compile Include="ServiceHost\IFabricController.cs" />
+    <Compile Include="ServiceHost\HostedServiceNotFoundException.cs" />
+    <Compile Include="ServiceHost\HostedServiceState.cs" />
+    <Compile Include="ServiceHost\IHostedService.cs" />
+    <Compile Include="ServiceHost\IServiceHost.cs" />
+    <Compile Include="ServiceHost\ServiceHostState.cs" />
     <Compile Include="Storage\IBlobStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transport\IEnvelope.cs" />

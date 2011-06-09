@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Hosting\MultitaskingServiceHostTester.cs" />
+    <Compile Include="ServiceHost\MultitaskingServiceHostTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transport\InMemoryTransportTests.cs" />
     <Compile Include="Transport\TestTransport.cs" />

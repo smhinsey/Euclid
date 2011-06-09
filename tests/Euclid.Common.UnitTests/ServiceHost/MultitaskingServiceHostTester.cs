@@ -1,5 +1,5 @@
-using Euclid.Common.Hosting;
 using Euclid.Common.ServiceHost;
+using Euclid.Common.TestingFakes.ServiceHost;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Hosting
@@ -44,6 +44,22 @@ namespace Euclid.Common.UnitTests.Hosting
 		public void StartsAndStops()
 		{
 			var host = new MultitaskingServiceHost();
+
+			host.StartAll();
+
+			Assert.AreEqual(ServiceHostState.Started, host.State);
+
+			host.StopAll();
+
+			Assert.AreEqual(ServiceHostState.Stopped, host.State);
+		}
+
+		[Test]
+		public void InstallsStartsAndStops()
+		{
+			var host = new MultitaskingServiceHost();
+
+			host.Install(new FakeHostedService());
 
 			host.StartAll();
 

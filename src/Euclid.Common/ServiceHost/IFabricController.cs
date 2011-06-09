@@ -1,4 +1,4 @@
-namespace Euclid.Common.Fabric
+namespace Euclid.Common.ServiceHost
 {
 	/// <summary>
 	/// 	An IFabricController instance runs wherever agents are hosted and is responsible for maintaining 
