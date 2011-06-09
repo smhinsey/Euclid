@@ -22,7 +22,7 @@ namespace Euclid.Common.UnitTests.Transport
         [Test]
         public void TestSendReceive()
         {
-            TestTransport.SendAndReceive(new InMemoryMessageTransport());
+            TestTransport.SendAndReceiveSingleMessage(new InMemoryMessageTransport());
         }
 
         [Test]
@@ -38,9 +38,26 @@ namespace Euclid.Common.UnitTests.Transport
         }
 
         [Test]
-        public void TestLargeNumberOfMessagesSynchronously()
+        public void TestThroughputSynchronously()
         {
-            TestTransport.TestScale(new InMemoryMessageTransport(), LargeNumber);
+            TestTransport.TestThroughputSynchronously(new InMemoryMessageTransport(), LargeNumber, null);
         }
+
+        [Test]
+        public void TestThroughputAsynchronously()
+        {
+            TestTransport.TestThroughputAsynchronously(new InMemoryMessageTransport(), LargeNumber, 17);
+
+            Console.WriteLine();
+
+            TestTransport.TestThroughputAsynchronously(new InMemoryMessageTransport(), LargeNumber, 17, 32);
+        }
+
+        [Test]
+        public void TestSendingMessageOnClosedTransport()
+        {
+            TestTransport.TestSendingMessageOnClosedTransport(new InMemoryMessageTransport());
+        }
+
     }
 }

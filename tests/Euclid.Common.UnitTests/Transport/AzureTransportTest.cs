@@ -40,7 +40,7 @@ namespace Euclid.Common.UnitTests.Transport
         [Test]
         public void TestSendReceive()
         {
-            TestTransport.SendAndReceive(new AzureMessageTransport(_serializer));
+            TestTransport.SendAndReceiveSingleMessage(new AzureMessageTransport(_serializer));
         }
 
         [Test]
@@ -55,64 +55,26 @@ namespace Euclid.Common.UnitTests.Transport
             TestTransport.Clear(new AzureMessageTransport(_serializer));
         }
 
-        private const int LargeNumber = 40;
+        private const int LargeNumber = 125;
         private const int AzureMaxReceiveAmount = 32;
-        private const int NumberOfThreads = 2;
+        private const int NumberOfThreads = 10;
 
         [Test]
         public void TestScaleSynchronously()
         {
-            var transport = new AzureMessageTransport(_serializer);
-            transport.Open();
-
-            var start = DateTime.Now;
-
-            Console.WriteLine("Sending {0} messages through the {1} transport", LargeNumber, transport.GetType().FullName);
-
-            SendMessages(transport, LargeNumber);
-
-            Console.WriteLine("Sent {0} messages in {1} seconds", LargeNumber, DateTime.Now.Subtract(start).TotalSeconds);
-
-            start = DateTime.Now;
-
-            var numRequested = 0;
-            
-            var receivedMessageCount = 0;
-
-            do
-            {
-                receivedMessageCount += transport.ReceiveMany(AzureMaxReceiveAmount, TimeSpan.MaxValue).Count();
-
-                numRequested += AzureMaxReceiveAmount;
-            } while (numRequested < LargeNumber);
-
-
-            Console.WriteLine("Received {0} messages in {1} seconds", receivedMessageCount, DateTime.Now.Subtract(start).TotalSeconds);
-
-            transport.Close();
+            TestTransport.TestThroughputSynchronously(new AzureMessageTransport(_serializer), LargeNumber, AzureMaxReceiveAmount);
         }
 
         [Test]
         public void TestScaleAsynchronously()
         {
-            var transport = new AzureMessageTransport(_serializer);
-            transport.Open();
+            TestTransport.TestThroughputAsynchronously(new AzureMessageTransport(_serializer), LargeNumber, NumberOfThreads, AzureMaxReceiveAmount);
+        }
 
-            var start = DateTime.Now;
-
-            Console.WriteLine("Sending {0} messages through the {1} transport across {2} threads", NumberOfThreads * AzureMaxReceiveAmount, transport.GetType().FullName, NumberOfThreads);
-
-            var results = Parallel.For(0, NumberOfThreads, x =>
-                                               {
-                                                   SendMessages(transport, AzureMaxReceiveAmount);
-                                                   transport.ReceiveMany(AzureMaxReceiveAmount, TimeSpan.MaxValue);
-                                               });
-
-            Console.WriteLine("Received {0} messages in {1} seconds", NumberOfThreads * AzureMaxReceiveAmount, DateTime.Now.Subtract(start).TotalSeconds);
-
-            Assert.True(results.IsCompleted);
-
-            transport.Close();
+        [Test]
+        public void TestSendingMessageOnClosedTransport()
+        {
+            TestTransport.TestSendingMessageOnClosedTransport(new AzureMessageTransport(_serializer));
         }
 
         private static void SendMessages(IMessageTransport transport, int numberOfMessagesToCreate)
