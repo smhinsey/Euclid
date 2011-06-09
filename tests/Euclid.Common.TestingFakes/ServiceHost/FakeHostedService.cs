@@ -1,32 +1,34 @@
+using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Euclid.Common.ServiceHost;
 
 namespace Euclid.Common.TestingFakes.ServiceHost
 {
 	public class FakeHostedService : DefaultHostedService
 	{
-		public FakeHostedService() : base(typeof (FakeHostedService).Name)
+		protected override void OnStart()
 		{
-		}
+			Console.WriteLine(string.Format("{1}({0})[{2}]: started", Task.CurrentId, Name, State));
 
-		public override void Pause()
-		{
-			State = HostedServiceState.Paused;
-		}
-
-		public override void Start()
-		{
-			State = HostedServiceState.Started;
-
-			while (true)
+			for (var i = 0; i < 100; i++)
 			{
-				Thread.Sleep(100);
+				Console.WriteLine("{3}({2})[{0}]: {1}", State, i + 1, Task.CurrentId, Name);
+				Thread.Sleep(10);
+
+				if (State == HostedServiceState.Stopped)
+				{
+					Console.WriteLine(string.Format("{1}({0})[{2}]: stopped", Task.CurrentId, Name, State));
+
+					break;
+				}
 			}
+
 		}
 
-		public override void Stop()
+		protected override void OnStop()
 		{
-			State = HostedServiceState.Stopped;
+			Console.WriteLine(string.Format("{1}({0})[{2}]: stopping", Task.CurrentId, Name, State));
 		}
 	}
 }

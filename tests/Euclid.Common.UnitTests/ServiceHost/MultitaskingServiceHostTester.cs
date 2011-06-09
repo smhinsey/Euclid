@@ -1,3 +1,4 @@
+using System.Threading;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.TestingFakes.ServiceHost;
 using NUnit.Framework;
@@ -60,8 +61,11 @@ namespace Euclid.Common.UnitTests.ServiceHost
 			var host = new MultitaskingServiceHost();
 
 			host.Install(new FakeHostedService());
+			host.Install(new FakeHostedService());
 
 			host.StartAll();
+
+			Thread.Sleep(100);
 
 			Assert.AreEqual(ServiceHostState.Started, host.State);
 

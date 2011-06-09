@@ -9,12 +9,6 @@ namespace Euclid.Common.ServiceHost
 		string Name { get; }
 		HostedServiceState State { get; }
 
-		/// <summary>
-		/// 	Pause is invoked by the fabric controller prior to migrating the service
-		/// 	from one fabric runtime to another.
-		/// </summary>
-		void Pause();
-
 		void Start();
 		void Stop();
 	}

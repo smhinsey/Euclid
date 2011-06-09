@@ -2,16 +2,27 @@ namespace Euclid.Common.ServiceHost
 {
 	public abstract class DefaultHostedService : IHostedService
 	{
-		protected DefaultHostedService(string name)
+		public string Name
 		{
-			Name = name;
+			get { return GetType().Name; }
 		}
 
-		public string Name { get; private set; }
 		public HostedServiceState State { get; protected set; }
-		public abstract void Pause();
 
-		public abstract void Start();
-		public abstract void Stop();
+		protected abstract void OnStart();
+		protected abstract void OnStop();
+
+		public void Start()
+		{
+			State = HostedServiceState.Started;
+			OnStart();
+		}
+
+		public void Stop()
+		{
+			State = HostedServiceState.Stopping;
+			OnStop();
+			State = HostedServiceState.Stopped;
+		}
 	}
 }

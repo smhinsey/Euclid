@@ -8,6 +8,7 @@ namespace Euclid.Common.ServiceHost
 {
 	public class MultitaskingServiceHost : IServiceHost
 	{
+		private readonly TimeSpan _shutdownTimeout;
 		private readonly IDictionary<Guid, List<Task>> _taskMap;
 		private readonly IDictionary<Guid, CancellationTokenSource> _taskTokenSources;
 
@@ -15,6 +16,8 @@ namespace Euclid.Common.ServiceHost
 		{
 			_taskMap = new Dictionary<Guid, List<Task>>();
 			_taskTokenSources = new Dictionary<Guid, CancellationTokenSource>();
+			_shutdownTimeout = TimeSpan.Parse("00:00:10");
+
 			Services = new Dictionary<Guid, IHostedService>();
 			Scale = initialScale;
 		}
@@ -40,7 +43,9 @@ namespace Euclid.Common.ServiceHost
 			var task = createTask(service, cancellationToken);
 
 			_taskMap.Add(serviceId, new List<Task> {task});
+
 			_taskTokenSources.Add(serviceId, cancellationTokenSource);
+
 			Services.Add(serviceId, service);
 
 			return serviceId;
@@ -99,7 +104,8 @@ namespace Euclid.Common.ServiceHost
 			{
 				var tasks = taskMapEntry.Value;
 
-				foreach (var task in tasks.Where(task => task.Status == TaskStatus.WaitingToRun))
+				foreach (
+					var task in tasks.Where(task => task.Status == TaskStatus.WaitingToRun || task.Status == TaskStatus.Created))
 				{
 					task.Start();
 				}
@@ -127,6 +133,15 @@ namespace Euclid.Common.ServiceHost
 			{
 				tokenSource.Cancel();
 			}
+
+			var tasks = new List<Task>();
+
+			foreach (var taskList in _taskMap.Values)
+			{
+				tasks.AddRange(taskList);
+			}
+
+			Task.WaitAll(tasks.ToArray(), _shutdownTimeout);
 
 			State = ServiceHostState.Stopped;
 		}
@@ -157,6 +172,8 @@ namespace Euclid.Common.ServiceHost
 
 		private Task createTask(IHostedService service, CancellationToken cancellationToken)
 		{
+			cancellationToken.Register(service.Stop);
+
 			return new Task(service.Start, cancellationToken, TaskCreationOptions.LongRunning);
 		}
 	}
