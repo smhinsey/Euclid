@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Euclid.Common.Serialization;
 using Euclid.Common.Transport;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -48,12 +49,12 @@ namespace Euclid.Common.UnitTests.Serialization
         }
 
         [Test]
-        [Ignore]
         public void TestEuclidJsonSerialization()
         {
             var r = new Random((int)DateTime.Now.Ticks);
             var m = new Message
                              {
+                                 Identifier = Guid.NewGuid(),
                                  CallStack = "flibberty gee",
                                  Dispatched = r.Next()%2 == 0,
                                  Error = r.Next()%2 == 0,
