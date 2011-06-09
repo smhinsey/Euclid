@@ -5,34 +5,27 @@ using System.Linq;
 
 namespace Euclid.Common.Transport
 {
-	public class InMemoryMessageTransport : IMessageTransport
+    public class InMemoryMessageTransport : MessageTransportBase
 	{
-        private static readonly ConcurrentQueue<IEnvelope> Queue = new ConcurrentQueue<IEnvelope>();
+        private static readonly ConcurrentQueue<IMessage> Queue = new ConcurrentQueue<IMessage>();
 
-		public InMemoryMessageTransport()
-		{
-			State = TransportState.Invalid;
-		}
-
-		public TransportState State { get; private set; }
-
-		public TransportState Close()
+        public override TransportState Close()
 		{
 			State = TransportState.Closed;
 
 			return State;
 		}
 
-		public TransportState Open()
+		public override TransportState Open()
 		{
 			State = TransportState.Open;
 
 			return State;
 		}
 
-		public IEnumerable<IEnvelope> ReceiveMany(int howMany, TimeSpan timeout)
+		public override IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout)
 		{
-			TransportIsOpen("Send");
+            TransportIsOpenFor("ReceiveMany");
 
 			var start = DateTime.Now;
 
@@ -40,7 +33,7 @@ namespace Euclid.Common.Transport
 
 			while (Queue.Count > 0 && DateTime.Now.Subtract(start) <= timeout && count < howMany)
 			{
-				IEnvelope message;
+				IMessage message;
 
 				Queue.TryDequeue(out message);
 
@@ -54,14 +47,16 @@ namespace Euclid.Common.Transport
 			yield break;
 		}
 
-		public IEnvelope ReceiveSingle(TimeSpan timeout)
+		public override IMessage ReceiveSingle(TimeSpan timeout)
 		{
-			return ReceiveMany(1, timeout).First();
+            TransportIsOpenFor("ReceiveSingle");
+
+            return ReceiveMany(1, timeout).First();
 		}
 
-		public void Send(IEnvelope message)
+		public override void Send(IMessage message)
 		{
-			TransportIsOpen("Send");
+			TransportIsOpenFor("Send");
 
 			if (message.Identifier == Guid.Empty)
 			{
@@ -71,14 +66,14 @@ namespace Euclid.Common.Transport
 			Queue.Enqueue(message);
 		}
 
-	    public int Clear()
+	    public override int Clear()
 	    {
-	        TransportIsOpen("Clear");
+	        TransportIsOpenFor("Clear");
 
 	        var count = 0;
             while(!Queue.IsEmpty)
             {
-                IEnvelope m = null;
+                IMessage m = null;
                 if ( !Queue.TryDequeue(out m))
                 {
                     throw new ApplicationException("Unable to clear InMemoryTransport");          
@@ -90,26 +85,17 @@ namespace Euclid.Common.Transport
 	        return count;
 	    }
 
-	    public IEnvelope Peek()
+	    public override IMessage Peek()
 	    {
-	        IEnvelope message;
+	        IMessage message;
 	        Queue.TryPeek(out message);
 
 	        return message;
 	    }
 
-	    public void Delete(IEnvelope message)
+	    public override void DeleteMessage(IMessage message)
 	    {
             throw new NotImplementedException("You cannot delete messages from an InMemoryTransport");
 	    }
-
-	    public void TransportIsOpen(string operationName)
-		{
-			if (State != TransportState.Open)
-			{
-				throw new InvalidOperationException(string.Format(
-					"Cannot {0} a message when the transport is not open", operationName));
-			}
-		}
 	}
 }

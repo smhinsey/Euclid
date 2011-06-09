@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Euclid.Common.Storage
 {
-    interface IBlobStorage
+    public interface IBlobStorage
     {
         void Delete(string uri);
         void Delete(Uri uri);

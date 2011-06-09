@@ -19,5 +19,22 @@ namespace Euclid.Common.Extensions
 
             return bytes;
         }
+
+        public static string GetString(this Stream stream, Encoding encoding)
+        {
+            var bytes = stream.GetBytes();
+
+            return encoding.GetString(bytes);
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public static Stream ToMemoryStream(this string s, Encoding encoding)
+        {
+            var bytes = encoding.GetBytes(s);
+
+            return new MemoryStream(bytes);
+        }
     }
 }
