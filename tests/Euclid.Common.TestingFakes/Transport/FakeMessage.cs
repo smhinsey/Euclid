@@ -1,10 +1,10 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 using Euclid.Common.Transport;
 
 namespace Euclid.Common.TestingFakes.Transport
 {
-	public class FakeMessage : IEnvelope
+	public class FakeMessage : IMessage
 	{
 		public FakeMessage()
 		{
@@ -17,7 +17,8 @@ namespace Euclid.Common.TestingFakes.Transport
 		public bool Error { get; set; }
 		public string ErrorMessage { get; set; }
 		public Guid Identifier { get; set; }
-		public Stream Message { get; set; }
-		public Type MessageType { get; set; }
+
+        public int Field1 { get; set; }
+        public IList<string> Field2 { get; set; }
 	}
 }

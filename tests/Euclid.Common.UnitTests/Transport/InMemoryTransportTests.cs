@@ -41,11 +41,11 @@ namespace Euclid.Common.UnitTests.Transport
             var t = new InMemoryMessageTransport();
             t.Open();
 
-            Assert.Throws(typeof (NotImplementedException), () => t.Delete(null));
+            Assert.Throws(typeof (NotImplementedException), () => t.DeleteMessage(null));
 
             var m = new FakeMessage();
             t.Send(m);
-            Assert.Throws(typeof(NotImplementedException), () => t.Delete(m));
+            Assert.Throws(typeof(NotImplementedException), () => t.DeleteMessage(m));
 
             t.Close();
         }

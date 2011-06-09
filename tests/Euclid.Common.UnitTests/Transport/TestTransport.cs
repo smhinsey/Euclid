@@ -11,27 +11,30 @@ namespace Euclid.Common.UnitTests.Transport
 {
     public class TestTransport
     {
-        public static void StateTransitions(IMessageTransport messageTransport)
+        public static void StateTransitions(IMessageTransport transport)
         {
-            Assert.AreNotEqual(TransportState.Closed, messageTransport.State);
+            Assert.AreNotEqual(TransportState.Closed, transport.State);
 
-            var newState = messageTransport.Open();
+            var newState = transport.Open();
+            transport.Clear();
+
             Assert.AreEqual(TransportState.Open, newState);
 
-            newState = messageTransport.Close();
+            newState = transport.Close();
             Assert.AreEqual(TransportState.Closed, newState);
         }
 
-        public static void SendAndReceive(IMessageTransport messageTransport)
+        public static void SendAndReceive(IMessageTransport transport)
         {
             var ids = new List<Guid>();
 
-            messageTransport.Open();
+            transport.Open();
+            transport.Clear();
 
             for (var i = 0; i < 100; i++ )
             {
-                var message = new FakeMessage();
-                messageTransport.Send(message);
+                IMessage message = new FakeMessage();
+                transport.Send(message);
 
                 ids.Add(message.Identifier);
             }
@@ -39,7 +42,7 @@ namespace Euclid.Common.UnitTests.Transport
             for (int i = 0; i < 10; i++ )
             {
                 var j = 0;
-                foreach(var message in messageTransport.ReceiveMany(10, TimeSpan.MaxValue))
+                foreach(var message in transport.ReceiveMany(10, TimeSpan.MaxValue))
                 {
                     Assert.True(ids.Contains(message.Identifier));
                     j++;
@@ -48,23 +51,24 @@ namespace Euclid.Common.UnitTests.Transport
                 Assert.AreEqual(10, j);
             }
                 
-            messageTransport.Close();
+            transport.Close();
         }
 
-        public static void ReceiveTimeout(IMessageTransport messageTransport)
+        public static void ReceiveTimeout(IMessageTransport transport)
         {
             var ts = new TimeSpan(0, 0, 0, 0, 100);
 
-            messageTransport.Open();
+            transport.Open();
+            transport.Clear();
 
             var m = new FakeMessage();
             var m2 = new FakeMessage();
 
-            messageTransport.Send(m);
-            messageTransport.Send(m2);
+            transport.Send(m);
+            transport.Send(m2);
 
             var count = 0;
-            foreach(var msg in messageTransport.ReceiveMany(2, ts))
+            foreach(var msg in transport.ReceiveMany(2, ts))
             {
                 count++;
                 Thread.Sleep(500);
@@ -76,6 +80,7 @@ namespace Euclid.Common.UnitTests.Transport
         public static void Clear(IMessageTransport transport)
         {
             transport.Open();
+            transport.Clear();
 
             for (var i = 0;i < 5;i++)
             {
@@ -92,8 +97,9 @@ namespace Euclid.Common.UnitTests.Transport
         public static void Delete(IMessageTransport transport)
         {
             transport.Open();
+            transport.Clear();
 
-            IEnvelope toDelete = null;
+            IMessage toDelete = null;
             var r = new Random((int) DateTime.Now.Ticks);
             for (var i = 0; i < 5; i++)
             {
@@ -106,7 +112,7 @@ namespace Euclid.Common.UnitTests.Transport
                 transport.Send(m);
             }
 
-            transport.Delete(toDelete);
+            transport.DeleteMessage(toDelete);
             
             transport.Close();
         }
@@ -114,6 +120,7 @@ namespace Euclid.Common.UnitTests.Transport
         public static void Peek(IMessageTransport transport)
         {
             transport.Open();
+            transport.Clear();
 
             var m = new FakeMessage
                         {
@@ -129,7 +136,7 @@ namespace Euclid.Common.UnitTests.Transport
             transport.Send(m2);
 
             var m3 = transport.Peek();
-            Assert.AreEqual(m, m3);
+            Assert.AreEqual(m.Identifier, m3.Identifier);
 
             transport.Close();
         }

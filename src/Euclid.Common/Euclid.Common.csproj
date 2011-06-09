@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\Program Files\Windows Azure SDK\v1.4\bin\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +52,7 @@
     <Compile Include="ServiceHost\IHostedService.cs" />
     <Compile Include="ServiceHost\IServiceHost.cs" />
     <Compile Include="ServiceHost\ServiceHostState.cs" />
+    <Compile Include="Serialization\ITypeSerializer.cs" />
     <Compile Include="Storage\IBlobStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transport\IEnvelope.cs" />
