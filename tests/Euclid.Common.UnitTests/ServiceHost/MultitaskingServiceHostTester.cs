@@ -2,7 +2,7 @@ using Euclid.Common.ServiceHost;
 using Euclid.Common.TestingFakes.ServiceHost;
 using NUnit.Framework;
 
-namespace Euclid.Common.UnitTests.Hosting
+namespace Euclid.Common.UnitTests.ServiceHost
 {
 	public class MultitaskingServiceHostTester
 	{
