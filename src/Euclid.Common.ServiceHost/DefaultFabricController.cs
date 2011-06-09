@@ -1,7 +1,6 @@
 using System;
-using Euclid.Common.ServiceHost;
 
-namespace Euclid.Common.RuntimeFabric
+namespace Euclid.Common.ServiceHost
 {
 	public abstract class DefaultFabricController : IFabricController
 	{

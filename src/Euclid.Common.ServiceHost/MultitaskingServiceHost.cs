@@ -30,7 +30,7 @@ namespace Euclid.Common.ServiceHost
 		{
 			checkForHostedService(id);
 
-			return _taskTokenSources[id].IsCancellationRequested ? HostedServiceState.Started : HostedServiceState.Stopped;
+			return Services[id].State;
 		}
 
 		public Guid Install(IHostedService service)
@@ -62,8 +62,6 @@ namespace Euclid.Common.ServiceHost
 			{
 				addTaskInstance(serviceId, Services[serviceId]);
 			}
-
-			Scale++;
 		}
 
 		public void ScaleDown(Guid id)
@@ -104,8 +102,8 @@ namespace Euclid.Common.ServiceHost
 			{
 				var tasks = taskMapEntry.Value;
 
-				foreach (
-					var task in tasks.Where(task => task.Status == TaskStatus.WaitingToRun || task.Status == TaskStatus.Created))
+				foreach (var task in 
+					tasks.Where(task => task.Status == TaskStatus.WaitingToRun || task.Status == TaskStatus.Created))
 				{
 					task.Start();
 				}
