@@ -1,6 +1,6 @@
-﻿namespace Euclid.Common.Hosting
+﻿namespace Euclid.Common.ServiceHost
 {
-	public enum HostedServiceState
+	public enum ServiceHostState
 	{
 		Starting,
 		Started,

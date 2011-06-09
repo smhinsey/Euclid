@@ -1,5 +1,3 @@
-using Euclid.Common.Hosting;
-
 namespace Euclid.Common.ServiceHost
 {
 	public abstract class DefaultHostedService : IHostedService

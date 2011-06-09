@@ -1,4 +1,4 @@
-﻿namespace Euclid.Common.Fabric
+﻿namespace Euclid.Common.ServiceHost
 {
 	public enum FabricControllerState
 	{

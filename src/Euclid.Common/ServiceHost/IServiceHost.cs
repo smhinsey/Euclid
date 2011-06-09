@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Euclid.Common.Hosting
+namespace Euclid.Common.ServiceHost
 {
 	/// <summary>
 	/// 	IServiceHost implements a particular approach for parallelizing the execution of installed

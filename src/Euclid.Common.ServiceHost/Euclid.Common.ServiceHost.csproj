@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultFabricController.cs" />
     <Compile Include="DefaultHostedService.cs" />
     <Compile Include="MultitaskingServiceHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
