@@ -4,10 +4,9 @@ namespace Euclid.Common.Transport
 {
 	public interface IMessage
 	{
-		string CallStack { get; set; }
-		bool Dispatched { get; set; }
-		bool Error { get; set; }
-		string ErrorMessage { get; set; }
 		Guid Identifier { get; set; }
+		Guid CreatedBy { get; set; }
+		DateTime Created { get; set; }
+
 	}
 }

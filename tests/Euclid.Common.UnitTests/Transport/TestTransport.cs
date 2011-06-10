@@ -191,9 +191,6 @@ namespace Euclid.Common.UnitTests.Transport
             return new FakeMessage
                         {
                             Identifier = Guid.NewGuid(),
-                            CallStack = "flibberty gee",
-                            Dispatched = Random.Next()%2 == 0,
-                            Error = Random.Next()%2 == 0,
                             Field1 = Random.Next(),
                             Field2 = new List<string>
                                          {

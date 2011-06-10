@@ -40,12 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Registry\FakeMessage.cs" />
+    <Compile Include="Registry\FakeRecord.cs" />
+    <Compile Include="Registry\FakeRegistry.cs" />
     <Compile Include="Serialization\FakeMessage.cs" />
     <Compile Include="ServiceHost\FakeHostedService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transport\FakeMessage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Euclid.Common.Registry\Euclid.Common.Registry.csproj">
+      <Project>{F0C8929B-718E-4360-85FF-520398DEA764}</Project>
+      <Name>Euclid.Common.Registry</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
       <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>
       <Name>Euclid.Common.ServiceHost</Name>

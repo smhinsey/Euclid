@@ -50,9 +50,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Euclid.Common.Registry\Euclid.Common.Registry.csproj">
+      <Project>{F0C8929B-718E-4360-85FF-520398DEA764}</Project>
+      <Name>Euclid.Common.Registry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common.Transport\Euclid.Common.Transport.csproj">
+      <Project>{B2D19FB7-F317-4122-93B2-F13727CE490E}</Project>
+      <Name>Euclid.Common.Transport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
+      <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
+      <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Common.TestingFakes\Euclid.Common.TestingFakes.csproj">
+      <Project>{B63C4D62-939A-45AB-95F2-EBFBE4B5013C}</Project>
+      <Name>Euclid.Common.TestingFakes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
