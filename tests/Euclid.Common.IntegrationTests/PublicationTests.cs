@@ -12,8 +12,8 @@ namespace Euclid.Common.IntegrationTests
     [TestFixture]
     public class PublicationTests
     {
-        private IRegistry<FakeRecord> _registry;
-        private IMessageTransport _transport;
+        private readonly IRegistry<FakeRecord, FakeMessage> _registry;
+        private readonly IMessageTransport _transport;
 
         public PublicationTests()
         {
@@ -26,17 +26,38 @@ namespace Euclid.Common.IntegrationTests
         {
             _transport.Open();
 
-            var msg = _registry.CreateRecord(new FakeMessage());
+            var msgId = Guid.NewGuid();
 
-            _transport.Send(msg);
+            var createdById = Guid.NewGuid();
+
+            var created = DateTime.Now;
+
+            var msg = new FakeMessage
+                          {
+                              Created = created,
+                              CreatedBy = createdById,
+                              Identifier = msgId
+                          };
+
+            var record = _registry.CreateRecord(msg);
+
+            _transport.Send(record);
 
             var receivedMsg = _transport.ReceiveSingle(TimeSpan.MaxValue);
 
             Assert.NotNull(receivedMsg);
 
-            Assert.NotNull(receivedMsg as IRecord);
-
             Assert.NotNull(receivedMsg as FakeRecord);
+
+            var innerMessage = (receivedMsg as FakeRecord).Message;
+
+            Assert.NotNull(innerMessage);
+
+            Assert.AreEqual(msgId, innerMessage.Identifier);
+
+            Assert.AreEqual(createdById, innerMessage.CreatedBy);
+
+            Assert.AreEqual(created, innerMessage.Created);
 
             _registry.Add(receivedMsg as FakeRecord);
 

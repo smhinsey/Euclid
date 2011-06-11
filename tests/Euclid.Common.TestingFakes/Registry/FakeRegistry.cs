@@ -5,7 +5,7 @@ using Euclid.Common.Registry;
 
 namespace Euclid.Common.TestingFakes.Registry
 {
-    public class FakeRegistry : InMemoryRegistry<FakeRecord>
+    public class FakeRegistry : InMemoryRegistry<FakeRecord, FakeMessage>
     {
     }
 }

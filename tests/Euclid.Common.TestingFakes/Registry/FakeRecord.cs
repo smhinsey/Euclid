@@ -4,15 +4,16 @@ using Euclid.Common.Transport;
 
 namespace Euclid.Common.TestingFakes.Registry
 {
-    public class FakeRecord
+    public class FakeRecord : IRecord<FakeMessage>
     {
-        public Guid Identifier { get { return Message == null ? Guid.Empty : Message.Identifier; }}
+        public Guid Identifier { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime Created { get; set; }
         public string CallStack { get; set; }
         public bool Dispatched { get; set; }
         public bool Error { get; set; }
         public string ErrorMessage { get; set; }
-        public IMessage Message { get; set; }
+
+        public FakeMessage Message { get; set; }
     }
 }

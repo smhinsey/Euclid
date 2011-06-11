@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Euclid.Common.Transport;
 
 namespace Euclid.Common.Registry
 {
-    public class InMemoryRegistry<T> : IRegistry<T> where T : IRecord, IMessage, new()
+    public class InMemoryRegistry<T, TMessage> : IRegistry<T,TMessage> where T : IRecord<TMessage>, new() where TMessage : IMessage
     {
         private static Dictionary<Guid, T> _records;
 
@@ -34,6 +32,16 @@ namespace Euclid.Common.Registry
             }
 
             return deletedRecord;
+        }
+
+        public T CreateRecord(TMessage message)
+        {
+            return new T
+                       {
+                           Message = message,
+                           Identifier = Guid.NewGuid(),
+                           Created = DateTime.Now
+                       };
         }
     }
 }
