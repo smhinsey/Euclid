@@ -55,9 +55,6 @@ namespace Euclid.Common.UnitTests.Serialization
             var m = new FakeMessage
                              {
                                  Identifier = Guid.NewGuid(),
-                                 CallStack = "flibberty gee",
-                                 Dispatched = r.Next()%2 == 0,
-                                 Error = r.Next()%2 == 0,
                                  Field1 = new List<string>
                                               {
                                                   r.Next().ToString(), 

@@ -44,25 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigurationContext.cs" />
+    <Compile Include="Configuration\IConfigContextBaseline.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
 <<<<<<< HEAD
+    <Compile Include="HostingFabric\FabricControllerState.cs" />
+    <Compile Include="HostingFabric\IFabricController.cs" />
+=======
+    <Compile Include="Registry\IRegistry.cs" />
     <Compile Include="ServiceHost\FabricControllerState.cs" />
     <Compile Include="ServiceHost\IFabricController.cs" />
+>>>>>>> 80760405e5703f5c0e48a68cff70ba7627b9d5db
     <Compile Include="ServiceHost\HostedServiceNotFoundException.cs" />
     <Compile Include="ServiceHost\HostedServiceState.cs" />
     <Compile Include="ServiceHost\IHostedService.cs" />
     <Compile Include="ServiceHost\IServiceHost.cs" />
     <Compile Include="ServiceHost\ServiceHostState.cs" />
-=======
-    <Compile Include="Fabric\FabricControllerState.cs" />
-    <Compile Include="Fabric\IFabricController.cs" />
-    <Compile Include="Hosting\HostedServiceNotFoundException.cs" />
-    <Compile Include="Hosting\HostedServiceState.cs" />
-    <Compile Include="Hosting\IHostedService.cs" />
-    <Compile Include="Hosting\IServiceHost.cs" />
-    <Compile Include="Hosting\ServiceHostState.cs" />
-    <Compile Include="Serialization\ITypeSerializer.cs" />
->>>>>>> b6a3c038fc0fdea2be03856f7986d9d8c5877756
+    <Compile Include="Serialization\IMessageSerializer.cs" />
     <Compile Include="Storage\IBlobStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transport\IMessage.cs" />
@@ -70,9 +69,7 @@
     <Compile Include="Transport\ITypeTransport.cs" />
     <Compile Include="Transport\TransportState.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
