@@ -1,49 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
 using Euclid.Common.Transport;
 
 namespace Euclid.Common.Registry
 {
-	public class InMemoryRegistry<TRecord, TMessage> : IRegistry<TRecord, TMessage> 
-		where TRecord : IRecord<TMessage>, new()
-		where TMessage : IMessage
-	{
-		private static Dictionary<Guid, TRecord> _records;
+    public class InMemoryRegistry<TRecord, TMessage> : IRegistry<TRecord, TMessage> 
+        where TRecord : IRecord<TMessage>, new()
+        where TMessage : IMessage
+    {
+        private readonly IBasicRecordRepository<TRecord, TMessage> _repository;
 
-		protected InMemoryRegistry()
-		{
-			_records = new Dictionary<Guid, TRecord>();
-		}
+        public InMemoryRegistry(IBasicRecordRepository<TRecord, TMessage> repository)
+        {
+            _repository = repository;
+        }
 
-		public void Add(TRecord record)
-		{
-			if (!_records.ContainsKey(record.Identifier))
-			{
-				_records.Add(record.Identifier, record);
-			}
-		}
+        public TRecord CreateRecord(TMessage message)
+        {
+            return _repository.Create(message);
+        }
 
-		public TRecord CreateRecord(TMessage message)
-		{
-			return new TRecord
-			       	{
-			       		Message = message,
-			       		Identifier = Guid.NewGuid(),
-			       		Created = DateTime.Now
-			       	};
-		}
+        public TRecord Get(Guid id)
+        {
+            return _repository.Retrieve(id);
+        }
 
-		public TRecord Get(Guid id)
-		{
-			var deletedRecord = default(TRecord);
+        public TRecord MarkAsComplete(Guid id)
+        {
+            var record = _repository.Retrieve(id);
 
-			if (_records.ContainsKey(id))
-			{
-				deletedRecord = _records[id];
-				_records.Remove(id);
-			}
+            record.Completed = true;
 
-			return deletedRecord;
-		}
-	}
+            return _repository.Update(record);
+        }
+
+        public TRecord MarkAsFailed(Guid id, string message = null, string callStack = null)
+        {
+            var record = _repository.Retrieve(id);
+
+            record.Completed = true;
+
+            record.Error = true;
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                record.ErrorMessage = message;
+            }
+
+            if (!string.IsNullOrEmpty(callStack))
+            {
+                record.CallStack = callStack;
+            }
+
+            return _repository.Update(record);
+        }
+    }
 }
