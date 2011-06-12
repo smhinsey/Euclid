@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using Euclid.Common.Registry;
 using Euclid.Common.Transport;
 
-namespace Euclid.Common.Registry
+namespace Euclid.Common.Storage
 {
     public class InMemoryRecordRepository<TRecord, TMessage> : IBasicRecordRepository<TRecord, TMessage>
         where TRecord : IRecord<TMessage>, new()
