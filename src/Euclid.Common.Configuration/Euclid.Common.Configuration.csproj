@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F3A0C178-15D9-4E18-B673-28B80F40E665}</ProjectGuid>
+    <ProjectGuid>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Common</RootNamespace>
-    <AssemblyName>Euclid.Common</AssemblyName>
+    <RootNamespace>Euclid.Common.Configuration</RootNamespace>
+    <AssemblyName>Euclid.Common.Configuration</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Program Files\Windows Azure SDK\v1.4\bin\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,28 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\StreamExtensions.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="HostingFabric\FabricControllerState.cs" />
-    <Compile Include="HostingFabric\IFabricController.cs" />
-    <Compile Include="HostingFabric\IFabricRuntime.cs" />
-    <Compile Include="Registry\IRecord.cs" />
-    <Compile Include="Registry\IRegistry.cs" />
-    <Compile Include="ServiceHost\HostedServiceNotFoundException.cs" />
-    <Compile Include="ServiceHost\HostedServiceState.cs" />
-    <Compile Include="ServiceHost\IHostedService.cs" />
-    <Compile Include="ServiceHost\IServiceHost.cs" />
-    <Compile Include="ServiceHost\ServiceHostState.cs" />
-    <Compile Include="Serialization\IMessageSerializer.cs" />
-    <Compile Include="Storage\IBlobStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transport\IMessage.cs" />
-    <Compile Include="Transport\IMessageTransport.cs" />
-    <Compile Include="Transport\ITypeTransport.cs" />
-    <Compile Include="Transport\TransportState.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configuration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
