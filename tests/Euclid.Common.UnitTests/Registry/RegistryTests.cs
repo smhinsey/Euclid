@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Euclid.Common.TestingFakes.Registry;
+﻿using Euclid.Common.TestingFakes.Registry;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Registry
 {
-    [TestFixture]
-    public class RegistryTests
-    {
-        [Test]
-        public void SaveRecord()
-        {
-            var f = new FakeRegistry();
-            var r = new FakeRecord();
+	[TestFixture]
+	public class RegistryTests
+	{
+		[Test]
+		public void SaveRecord()
+		{
+			var f = new FakeRegistry();
+			var r = new FakeRecord();
 
-            f.Add(r);
-            var r2 = f.Get(r.Identifier);
+			f.Add(r);
+			var r2 = f.Get(r.Identifier);
 
-            Assert.NotNull(r2);
-            Assert.AreEqual(r2.Identifier, r.Identifier);
-        }
-    }
+			Assert.NotNull(r2);
+			Assert.AreEqual(r2.Identifier, r.Identifier);
+		}
+	}
 }

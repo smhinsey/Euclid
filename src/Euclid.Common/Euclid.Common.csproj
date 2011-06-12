@@ -49,8 +49,10 @@
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HostingFabric\FabricControllerState.cs" />
-    <Compile Include="ServiceHost\FabricControllerState.cs" />
-    <Compile Include="ServiceHost\IFabricController.cs" />
+    <Compile Include="HostingFabric\IFabricController.cs" />
+    <Compile Include="HostingFabric\IFabricRuntime.cs" />
+    <Compile Include="Registry\IRecord.cs" />
+    <Compile Include="Registry\IRegistry.cs" />
     <Compile Include="ServiceHost\HostedServiceNotFoundException.cs" />
     <Compile Include="ServiceHost\HostedServiceState.cs" />
     <Compile Include="ServiceHost\IHostedService.cs" />

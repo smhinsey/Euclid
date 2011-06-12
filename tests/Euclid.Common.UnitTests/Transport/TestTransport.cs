@@ -9,205 +9,208 @@ using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Transport
 {
-    public class TestTransport
-    {
-        public static void StateTransitions(IMessageTransport transport)
-        {
-            Assert.AreNotEqual(TransportState.Closed, transport.State);
+	public class TestTransport
+	{
+		private static readonly Random Random = new Random((int) DateTime.Now.Ticks);
 
-            var newState = transport.Open();
-            transport.Clear();
+		public static void Clear(IMessageTransport transport)
+		{
+			transport.Open();
 
-            Assert.AreEqual(TransportState.Open, newState);
+			for (var i = 0; i < 5; i++)
+			{
+				var m = new FakeMessage();
+				transport.Send(m);
+			}
 
-            newState = transport.Close();
+			transport.Clear();
 
-            Assert.AreEqual(TransportState.Closed, newState);
-        }
+			var messages = transport.ReceiveMany(5, TimeSpan.MaxValue);
 
-        public static void SendAndReceiveSingleMessage(IMessageTransport transport)
-        {
-            transport.Open();
-            transport.Clear();
+			Assert.AreEqual(0, messages.Count());
 
-            var m = GetNewMessage();
+			transport.Close();
+		}
 
-            transport.Send(m);
+		public static IMessage GetNewMessage()
+		{
+			return new FakeMessage
+			       	{
+			       		Identifier = Guid.NewGuid(),
+			       		Field1 = Random.Next(),
+			       		Field2 = new List<string>
+			       		         	{
+			       		         		Random.Next().ToString(),
+			       		         		Random.Next().ToString(),
+			       		         		Random.Next().ToString()
+			       		         	}
+			       	};
+		}
 
-            var m2 = transport.ReceiveSingle(TimeSpan.MaxValue);
+		public static void ReceiveTimeout(IMessageTransport transport)
+		{
+			var ts = new TimeSpan(0, 0, 0, 0, 500);
 
-            Assert.NotNull(m2);
+			transport.Open();
+			transport.Clear();
 
-            Assert.AreEqual(m.Identifier, m2.Identifier);
-                
-            transport.Close();
-        }
+			var m = new FakeMessage();
+			var m2 = new FakeMessage();
 
-        public static void ReceiveTimeout(IMessageTransport transport)
-        {
-            var ts = new TimeSpan(0, 0, 0, 0, 500);
+			transport.Send(m);
+			transport.Send(m2);
 
-            transport.Open();
-            transport.Clear();
+			var count = 0;
+			foreach (var msg in transport.ReceiveMany(2, ts))
+			{
+				count++;
+				Thread.Sleep(500);
+			}
 
-            var m = new FakeMessage();
-            var m2 = new FakeMessage();
+			Assert.AreEqual(1, count);
+		}
 
-            transport.Send(m);
-            transport.Send(m2);
+		public static void SendAndReceiveSingleMessage(IMessageTransport transport)
+		{
+			transport.Open();
+			transport.Clear();
 
-            var count = 0;
-            foreach(var msg in transport.ReceiveMany(2, ts))
-            {
-                count++;
-                Thread.Sleep(500);
-            }
+			var m = GetNewMessage();
 
-            Assert.AreEqual(1, count);
-        }
+			transport.Send(m);
 
-        public static void Clear(IMessageTransport transport)
-        {
-            transport.Open();
+			var m2 = transport.ReceiveSingle(TimeSpan.MaxValue);
 
-            for (var i = 0;i < 5;i++)
-            {
-                var m = new FakeMessage();
-                transport.Send(m);
-            }
+			Assert.NotNull(m2);
 
-            transport.Clear();
+			Assert.AreEqual(m.Identifier, m2.Identifier);
 
-            var messages = transport.ReceiveMany(5, TimeSpan.MaxValue);
+			transport.Close();
+		}
 
-            Assert.AreEqual(0, messages.Count());
+		public static void StateTransitions(IMessageTransport transport)
+		{
+			Assert.AreNotEqual(TransportState.Closed, transport.State);
 
-            transport.Close();
-        }
+			var newState = transport.Open();
+			transport.Clear();
 
-        public static void TestThroughputSynchronously(IMessageTransport transport, int howManyMessages, int? maxMessagesToReceive)
-        {
-            var start = DateTime.Now;
+			Assert.AreEqual(TransportState.Open, newState);
 
-            transport.Open();
+			newState = transport.Close();
 
-            Console.WriteLine("Sending {0} messages through the {1} transport", howManyMessages, transport.GetType().FullName);
+			Assert.AreEqual(TransportState.Closed, newState);
+		}
 
-            SendMessages(transport, howManyMessages);
+		public static void TestSendingMessageOnClosedTransport(IMessageTransport transport)
+		{
+			transport.Open();
+			transport.Close();
 
-            Console.WriteLine("Sent {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
+			var m = GetNewMessage();
 
-            start = DateTime.Now;
+			Assert.Throws(typeof (InvalidOperationException), () => transport.Send(m));
+		}
 
-            var receivedMessageCount = 0;
+		public static void TestThroughputAsynchronously(IMessageTransport transport, int howManyMessages, int howManyThreads,
+		                                                int? maxMessagesToReceive = null)
+		{
+			transport.Open();
 
-            var numberTimesToLoop = 1;
-            if (maxMessagesToReceive.HasValue)
-            {
-                numberTimesToLoop = howManyMessages/maxMessagesToReceive.Value + 1;
-            }
-            else
-            {
-                maxMessagesToReceive = howManyMessages;
-            }
+			var start = DateTime.Now;
 
-            for (int i = 0; i < numberTimesToLoop; i++ )
-            {
-                foreach (var message in transport.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue))
-                {
-                    receivedMessageCount++;
-                }
+			var numberTimesToLoop = 1;
+			if (maxMessagesToReceive.HasValue)
+			{
+				var numberMessagesPerThread = howManyMessages/howManyThreads + 2;
 
-                if (howManyMessages - receivedMessageCount < maxMessagesToReceive)
-                    maxMessagesToReceive = (howManyMessages - receivedMessageCount);
-            }
+				do
+				{
+					numberMessagesPerThread--;
+					numberTimesToLoop = howManyMessages/(numberMessagesPerThread*howManyThreads) + 1;
+				} while (numberMessagesPerThread > maxMessagesToReceive);
 
-            transport.Close();
+				Assert.LessOrEqual(numberMessagesPerThread, maxMessagesToReceive);
+				maxMessagesToReceive = numberMessagesPerThread;
+			}
+			else
+			{
+				maxMessagesToReceive = howManyMessages/howManyThreads + 1;
+			}
 
-            Console.WriteLine("Received {0} messages in {1}", receivedMessageCount, DateTime.Now.Subtract(start).TotalSeconds);
-        }
+			Console.WriteLine("Sending {0} messages through the {1} transport across {2} threads in batches of {3}",
+			                  maxMessagesToReceive*howManyThreads*numberTimesToLoop,
+			                  transport.GetType().FullName,
+			                  howManyThreads,
+			                  maxMessagesToReceive);
 
-        public static void TestThroughputAsynchronously(IMessageTransport transport, int howManyMessages, int howManyThreads, int? maxMessagesToReceive = null)
-        {
-            transport.Open();
+			for (var i = 0; i < numberTimesToLoop; i++)
+			{
+				var results = Parallel.For(0, howManyThreads, x =>
+				                                              	{
+				                                              		SendMessages(transport, maxMessagesToReceive.Value);
+				                                              		transport.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue);
+				                                              	});
 
-            var start = DateTime.Now;
+				Assert.True(results.IsCompleted);
+			}
 
-            var numberTimesToLoop = 1;
-            if (maxMessagesToReceive.HasValue)
-            {              
-                var numberMessagesPerThread = howManyMessages/howManyThreads + 2;
+			Console.WriteLine("Received {0} messages in {1} seconds", (maxMessagesToReceive*howManyThreads*numberTimesToLoop),
+			                  DateTime.Now.Subtract(start).TotalSeconds);
 
-                do
-                {
-                    numberMessagesPerThread--;
-                    numberTimesToLoop = howManyMessages/(numberMessagesPerThread * howManyThreads) + 1;
-                } while (numberMessagesPerThread > maxMessagesToReceive);
+			transport.Close();
+		}
 
-                Assert.LessOrEqual(numberMessagesPerThread, maxMessagesToReceive);
-                maxMessagesToReceive = numberMessagesPerThread;
-            }
-            else
-            {
-                maxMessagesToReceive = howManyMessages/howManyThreads + 1;
-            }
+		public static void TestThroughputSynchronously(IMessageTransport transport, int howManyMessages,
+		                                               int? maxMessagesToReceive)
+		{
+			var start = DateTime.Now;
 
-            Console.WriteLine("Sending {0} messages through the {1} transport across {2} threads in batches of {3}", 
-                                    maxMessagesToReceive * howManyThreads * numberTimesToLoop, 
-                                    transport.GetType().FullName, 
-                                    howManyThreads,
-                                    maxMessagesToReceive);
+			transport.Open();
 
-            for (var i = 0; i < numberTimesToLoop; i++)
-            {
-                var results = Parallel.For(0, howManyThreads, x =>
-                {
-                    SendMessages(transport, maxMessagesToReceive.Value);
-                    transport.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue);
-                });
+			Console.WriteLine("Sending {0} messages through the {1} transport", howManyMessages, transport.GetType().FullName);
 
-                Assert.True(results.IsCompleted);
-            }
+			SendMessages(transport, howManyMessages);
 
-            Console.WriteLine("Received {0} messages in {1} seconds", (maxMessagesToReceive * howManyThreads * numberTimesToLoop), DateTime.Now.Subtract(start).TotalSeconds);
+			Console.WriteLine("Sent {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
 
-            transport.Close();
-        }
+			start = DateTime.Now;
 
-        public static void TestSendingMessageOnClosedTransport(IMessageTransport transport)
-        {
-            transport.Open();
-            transport.Close();
+			var receivedMessageCount = 0;
 
-            var m = GetNewMessage();
+			var numberTimesToLoop = 1;
+			if (maxMessagesToReceive.HasValue)
+			{
+				numberTimesToLoop = howManyMessages/maxMessagesToReceive.Value + 1;
+			}
+			else
+			{
+				maxMessagesToReceive = howManyMessages;
+			}
 
-            Assert.Throws(typeof (InvalidOperationException), () => transport.Send(m));
-        }
+			for (var i = 0; i < numberTimesToLoop; i++)
+			{
+				foreach (var message in transport.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue))
+				{
+					receivedMessageCount++;
+				}
 
-        private static readonly Random Random = new Random((int)DateTime.Now.Ticks);
+				if (howManyMessages - receivedMessageCount < maxMessagesToReceive)
+					maxMessagesToReceive = (howManyMessages - receivedMessageCount);
+			}
 
-        public static IMessage GetNewMessage()
-        {
-            return new FakeMessage
-                        {
-                            Identifier = Guid.NewGuid(),
-                            Field1 = Random.Next(),
-                            Field2 = new List<string>
-                                         {
-                                             Random.Next().ToString(),
-                                             Random.Next().ToString(),
-                                             Random.Next().ToString()
-                                         }
-                        };
-        }
+			transport.Close();
 
-        private static void SendMessages(IMessageTransport transport, int numberOfMessagesToCreate)
-        {
-            for (var i = 0; i < numberOfMessagesToCreate; i++)
-            {
-                var msg = GetNewMessage();
-                transport.Send(msg);
-            }
-        }
-    }
+			Console.WriteLine("Received {0} messages in {1}", receivedMessageCount, DateTime.Now.Subtract(start).TotalSeconds);
+		}
+
+		private static void SendMessages(IMessageTransport transport, int numberOfMessagesToCreate)
+		{
+			for (var i = 0; i < numberOfMessagesToCreate; i++)
+			{
+				var msg = GetNewMessage();
+				transport.Send(msg);
+			}
+		}
+	}
 }

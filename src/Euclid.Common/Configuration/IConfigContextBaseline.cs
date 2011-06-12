@@ -19,7 +19,6 @@ namespace Euclid.Common.Configuration
 
 		public void Initialize()
 		{
-			
 		}
 	}
 }
