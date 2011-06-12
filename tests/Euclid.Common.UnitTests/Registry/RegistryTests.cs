@@ -13,7 +13,7 @@ namespace Euclid.Common.UnitTests.Registry
 			var r = new FakeRecord();
 
 			f.Add(r);
-			var r2 = f.Get(r.Identifier);
+			var r2 = f.GetCurrentRecord(r.Identifier);
 
 			Assert.NotNull(r2);
 			Assert.AreEqual(r2.Identifier, r.Identifier);

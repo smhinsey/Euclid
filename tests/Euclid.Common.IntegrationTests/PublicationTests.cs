@@ -58,7 +58,7 @@ namespace Euclid.Common.IntegrationTests
 
 			_registry.Add(receivedMsg as FakeRecord);
 
-			var d = _registry.Get(receivedMsg.Identifier);
+			var d = _registry.GetCurrentRecord(receivedMsg.Identifier);
 
 			Assert.NotNull(d);
 

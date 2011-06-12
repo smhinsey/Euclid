@@ -9,6 +9,6 @@ namespace Euclid.Common.Registry
 	{
 		void Add(TRecord record);
 		TRecord CreateRecord(TMessage message);
-		TRecord Get(Guid id);
+		TRecord GetCurrentRecord(Guid id);
 	}
 }

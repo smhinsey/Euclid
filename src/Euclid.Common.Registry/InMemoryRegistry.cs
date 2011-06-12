@@ -33,7 +33,7 @@ namespace Euclid.Common.Registry
 			       	};
 		}
 
-		public TRecord Get(Guid id)
+		public TRecord GetCurrentRecord(Guid id)
 		{
 			var deletedRecord = default(TRecord);
 
