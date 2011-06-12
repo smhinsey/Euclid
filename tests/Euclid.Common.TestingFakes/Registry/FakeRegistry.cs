@@ -1,4 +1,5 @@
 ﻿using Euclid.Common.Registry;
+using Euclid.Common.Storage;
 
 namespace Euclid.Common.TestingFakes.Registry
 {

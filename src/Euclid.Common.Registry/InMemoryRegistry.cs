@@ -1,4 +1,5 @@
 ﻿using System;
+using Euclid.Common.Storage;
 using Euclid.Common.Transport;
 
 namespace Euclid.Common.Registry

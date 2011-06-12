@@ -49,6 +49,7 @@
     <Compile Include="HostingFabric\FabricControllerState.cs" />
     <Compile Include="HostingFabric\IFabricController.cs" />
     <Compile Include="HostingFabric\IFabricRuntime.cs" />
+    <Compile Include="Storage\IBasicRecordRepository.cs" />
     <Compile Include="Registry\IRecord.cs" />
     <Compile Include="Registry\IRegistry.cs" />
     <Compile Include="ServiceHost\HostedServiceNotFoundException.cs" />
