@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4192538D-5E42-4841-8C8F-6A2072808D41}</ProjectGuid>
+    <ProjectGuid>{6B55CE77-2663-45F0-ADB2-DFC7AB01233C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Common.ServiceHost</RootNamespace>
-    <AssemblyName>Euclid.Common.ServiceHost</AssemblyName>
+    <RootNamespace>Euclid.Common.HostingFabric</RootNamespace>
+    <AssemblyName>Euclid.Common.HostingFabric</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,8 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultHostedService.cs" />
-    <Compile Include="MultitaskingServiceHost.cs" />
+    <Compile Include="DefaultFabricController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -50,7 +49,6 @@
       <Name>Euclid.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
