@@ -1,49 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
+using Euclid.Common.Storage;
 using Euclid.Common.Transport;
 
 namespace Euclid.Common.Registry
 {
-	public class InMemoryRegistry<TRecord, TMessage> : IRegistry<TRecord, TMessage> 
+	public class InMemoryRegistry<TRecord, TMessage> : IRegistry<TRecord, TMessage>
 		where TRecord : IRecord<TMessage>, new()
 		where TMessage : IMessage
 	{
-		private static Dictionary<Guid, TRecord> _records;
+		private readonly IBasicRecordRepository<TRecord, TMessage> _repository;
 
-		protected InMemoryRegistry()
+		public InMemoryRegistry(IBasicRecordRepository<TRecord, TMessage> repository)
 		{
-			_records = new Dictionary<Guid, TRecord>();
-		}
-
-		public void Add(TRecord record)
-		{
-			if (!_records.ContainsKey(record.Identifier))
-			{
-				_records.Add(record.Identifier, record);
-			}
+			_repository = repository;
 		}
 
 		public TRecord CreateRecord(TMessage message)
 		{
-			return new TRecord
-			       	{
-			       		Message = message,
-			       		Identifier = Guid.NewGuid(),
-			       		Created = DateTime.Now
-			       	};
+			return _repository.Create(message);
 		}
 
-		public TRecord GetCurrentRecord(Guid id)
+		public TRecord Get(Guid id)
 		{
-			var deletedRecord = default(TRecord);
+			return _repository.Retrieve(id);
+		}
 
-			if (_records.ContainsKey(id))
+		public TRecord MarkAsComplete(Guid id)
+		{
+			var record = _repository.Retrieve(id);
+
+			record.Completed = true;
+
+			return _repository.Update(record);
+		}
+
+		public TRecord MarkAsFailed(Guid id, string message = null, string callStack = null)
+		{
+			var record = _repository.Retrieve(id);
+
+			record.Completed = true;
+
+			record.Error = true;
+
+			if (!string.IsNullOrEmpty(message))
 			{
-				deletedRecord = _records[id];
-				_records.Remove(id);
+				record.ErrorMessage = message;
 			}
 
-			return deletedRecord;
+			if (!string.IsNullOrEmpty(callStack))
+			{
+				record.CallStack = callStack;
+			}
+
+			return _repository.Update(record);
 		}
 	}
 }

@@ -3,9 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using Euclid.Common.Extensions;
-using Euclid.Common.Storage;
 
-namespace Euclid.Common.Persistence
+namespace Euclid.Common.Storage
 {
 	public class InMemoryBlobStorage : IBlobStorage
 	{

@@ -4,8 +4,8 @@ namespace Euclid.Common.HostingFabric
 	// or a windows console for local machine operation
 	public interface IFabricRuntime
 	{
-		void Start();
-		void Shutdown();
 		FabricRuntimeState State { get; }
+		void Shutdown();
+		void Start();
 	}
 }

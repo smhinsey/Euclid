@@ -3,12 +3,14 @@ using Euclid.Common.Transport;
 
 namespace Euclid.Common.Registry
 {
-	public interface IRegistry<TRecord, in TMessage> 
-		where TRecord : IRecord<TMessage> 
+	public interface IRegistry<out TRecord, in TMessage>
+		where TRecord : IRecord<TMessage>, new()
 		where TMessage : IMessage
 	{
-		void Add(TRecord record);
 		TRecord CreateRecord(TMessage message);
-		TRecord GetCurrentRecord(Guid id);
+		TRecord Get(Guid id);
+
+		TRecord MarkAsComplete(Guid id);
+		TRecord MarkAsFailed(Guid id, string message = null, string callStack = null);
 	}
 }

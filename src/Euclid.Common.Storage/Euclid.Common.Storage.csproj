@@ -8,8 +8,8 @@
     <ProjectGuid>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Common.Persistence</RootNamespace>
-    <AssemblyName>Euclid.Common.Persistence</AssemblyName>
+    <RootNamespace>Euclid.Common.Storage</RootNamespace>
+    <AssemblyName>Euclid.Common.Storage</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InMemoryBlobStorage.cs" />
+    <Compile Include="InMemoryRecordRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
