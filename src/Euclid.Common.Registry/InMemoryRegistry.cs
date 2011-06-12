@@ -4,8 +4,9 @@ using Euclid.Common.Transport;
 
 namespace Euclid.Common.Registry
 {
-	public class InMemoryRegistry<TRecord, TMessage> : IRegistry<TRecord, TMessage> where TRecord : IRecord<TMessage>, new()
-	                                                                    where TMessage : IMessage
+	public class InMemoryRegistry<TRecord, TMessage> : IRegistry<TRecord, TMessage> 
+		where TRecord : IRecord<TMessage>, new()
+		where TMessage : IMessage
 	{
 		private static Dictionary<Guid, TRecord> _records;
 
