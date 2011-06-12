@@ -8,7 +8,7 @@ namespace Euclid.Common.Registry
         where TRecord : IRecord<TMessage>, new()
         where TMessage : IMessage
     {
-        private static readonly ConcurrentDictionary<Guid, TRecord> Records = new ConcurrentDictionary<Guid, TRecord>();
+        protected static readonly ConcurrentDictionary<Guid, TRecord> Records = new ConcurrentDictionary<Guid, TRecord>();
 
         public TRecord Create(TMessage message)
         {
