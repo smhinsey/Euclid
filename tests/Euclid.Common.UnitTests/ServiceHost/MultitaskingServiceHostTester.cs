@@ -18,7 +18,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 		}
 
 		[Test]
-		public void InstallsStartsAndStops()
+		public void InstallsStartsAndCancels()
 		{
 			var host = new MultitaskingServiceHost();
 
@@ -57,7 +57,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 		}
 
 		[Test]
-		public void StartAndStopIndividualService()
+		public void StartAndCancelIndividualService()
 		{
 			var host = new MultitaskingServiceHost();
 
@@ -86,7 +86,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 		}
 
 		[Test]
-		public void StartsAndStops()
+		public void StartsAndCancels()
 		{
 			var host = new MultitaskingServiceHost();
 
@@ -111,7 +111,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 
 		[Test]
 		[ExpectedException(typeof (HostedServiceNotFoundException))]
-		public void StopFailsForMissingService()
+		public void CancelFailsForMissingService()
 		{
 			var host = new MultitaskingServiceHost();
 
