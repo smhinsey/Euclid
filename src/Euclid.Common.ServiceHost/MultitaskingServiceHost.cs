@@ -75,7 +75,7 @@ namespace Euclid.Common.ServiceHost
 			State = ServiceHostState.Started;
 		}
 
-		public void Stop(Guid id)
+		public void Cancel(Guid id)
 		{
 			checkForHostedService(id);
 
@@ -86,7 +86,7 @@ namespace Euclid.Common.ServiceHost
 			State = ServiceHostState.Stopped;
 		}
 
-		public void StopAll()
+		public void CancelAll()
 		{
 			State = ServiceHostState.Stopping;
 
@@ -110,7 +110,7 @@ namespace Euclid.Common.ServiceHost
 
 		private Task createTask(IHostedService service, CancellationToken cancellationToken)
 		{
-			cancellationToken.Register(service.Stop);
+			cancellationToken.Register(service.Cancel);
 
 			return new Task(service.Start, cancellationToken, TaskCreationOptions.LongRunning);
 		}

@@ -18,7 +18,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 		}
 
 		[Test]
-		public void InstallsStartsAndStops()
+		public void InstallsStartsAndCancels()
 		{
 			var host = new MultitaskingServiceHost();
 
@@ -31,7 +31,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 
 			Assert.AreEqual(ServiceHostState.Started, host.State);
 
-			host.StopAll();
+			host.CancelAll();
 
 			Assert.AreEqual(ServiceHostState.Stopped, host.State);
 		}
@@ -50,14 +50,14 @@ namespace Euclid.Common.UnitTests.ServiceHost
 
 			Thread.Sleep(100);
 
-			host.Stop(serviceId);
+			host.Cancel(serviceId);
 
 			Assert.AreEqual(ServiceHostState.Stopped, host.State);
 			Assert.AreEqual(HostedServiceState.Stopped, host.GetState(serviceId));
 		}
 
 		[Test]
-		public void StartAndStopIndividualService()
+		public void StartAndCancelIndividualService()
 		{
 			var host = new MultitaskingServiceHost();
 
@@ -70,7 +70,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 
 			Thread.Sleep(100);
 
-			host.Stop(serviceId);
+			host.Cancel(serviceId);
 
 			Assert.AreEqual(ServiceHostState.Stopped, host.State);
 			Assert.AreEqual(HostedServiceState.Stopped, host.GetState(serviceId));
@@ -86,7 +86,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 		}
 
 		[Test]
-		public void StartsAndStops()
+		public void StartsAndCancels()
 		{
 			var host = new MultitaskingServiceHost();
 
@@ -94,7 +94,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 
 			Assert.AreEqual(ServiceHostState.Started, host.State);
 
-			host.StopAll();
+			host.CancelAll();
 
 			Assert.AreEqual(ServiceHostState.Stopped, host.State);
 		}
@@ -111,11 +111,11 @@ namespace Euclid.Common.UnitTests.ServiceHost
 
 		[Test]
 		[ExpectedException(typeof (HostedServiceNotFoundException))]
-		public void StopFailsForMissingService()
+		public void CancelFailsForMissingService()
 		{
 			var host = new MultitaskingServiceHost();
 
-			host.Stop(Guid.NewGuid());
+			host.Cancel(Guid.NewGuid());
 		}
 	}
 }

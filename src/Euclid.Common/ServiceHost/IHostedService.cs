@@ -10,6 +10,6 @@ namespace Euclid.Common.ServiceHost
 		HostedServiceState State { get; }
 
 		void Start();
-		void Stop();
+		void Cancel();
 	}
 }

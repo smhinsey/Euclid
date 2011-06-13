@@ -15,7 +15,7 @@ namespace Euclid.Common.ServiceHost
 			OnStart();
 		}
 
-		public void Stop()
+		public void Cancel()
 		{
 			State = HostedServiceState.Stopping;
 			OnStop();
