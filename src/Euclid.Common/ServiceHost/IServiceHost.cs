@@ -15,7 +15,7 @@ namespace Euclid.Common.ServiceHost
 		Guid Install(IHostedService service);
 		void Start(Guid id);
 		void StartAll();
-		void Stop(Guid id);
-		void StopAll();
+		void Cancel(Guid id);
+		void CancelAll();
 	}
 }
