@@ -5,8 +5,9 @@ using Euclid.Common.ServiceHost;
 namespace Euclid.Common.HostingFabric
 {
 	/// <summary>
-	/// 	An IFabricController instance runs wherever agents are hosted and is responsible for maintaining 
-	/// 	the integrity of the hosting environment.
+	/// An IFabricController instance runs inside an IFabricRuntime and is responsible for obtaining 
+	/// configured instances of IServiceHosts and installing them into the runtime. It is also responsible
+	/// for managing the lifecycle of those service hosts.
 	/// </summary>
 	public interface IFabricController
 	{
