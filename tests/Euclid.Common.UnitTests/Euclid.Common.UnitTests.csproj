@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HostingFabric\DefaultFabricControllerTests.cs" />
+    <Compile Include="HostingFabric\LocalMachineFabricTests.cs" />
     <Compile Include="Registry\InMemoryRegistryTests.cs" />
     <Compile Include="Registry\ITestRegistry.cs" />
     <Compile Include="Registry\RegistryTester.cs" />

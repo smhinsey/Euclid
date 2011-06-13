@@ -5,6 +5,7 @@ namespace Euclid.Common.HostingFabric
 	public interface IFabricRuntime
 	{
 		FabricRuntimeState State { get; }
+		void Initialize();
 		void Shutdown();
 		void Start();
 	}

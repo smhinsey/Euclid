@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using Euclid.Common.ServiceHost;
+
 namespace Euclid.Common.HostingFabric
 {
 	/// <summary>
@@ -7,8 +11,10 @@ namespace Euclid.Common.HostingFabric
 	public interface IFabricController
 	{
 		FabricControllerState State { get; }
-		void Start();
-		void Stop();
+		void StartServiceHosts();
+		void StopServiceHosts();
+		void InstallServiceHost(IServiceHost serviceHost);
+		IList<Type> ServiceHostTypes { get; }
 
 		// there should probably be status reporting/metrics stuff here, but we'll work that in later in a more
 		// systematic way
