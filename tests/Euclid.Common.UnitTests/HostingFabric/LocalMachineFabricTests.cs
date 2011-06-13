@@ -4,8 +4,6 @@ namespace Euclid.Common.UnitTests.HostingFabric
 {
 	public class LocalMachineFabricTests
 	{
-
-
 		[Test]
 		public void Initializes()
 		{
@@ -20,12 +18,6 @@ namespace Euclid.Common.UnitTests.HostingFabric
 
 		[Test]
 		public void ReportsRuntimeStatistics()
-		{
-			Assert.Fail();
-		}
-
-		[Test]
-		public void ServiceHostFailureIsIsolated()
 		{
 			Assert.Fail();
 		}
