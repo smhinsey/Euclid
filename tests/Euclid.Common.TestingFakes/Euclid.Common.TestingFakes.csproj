@@ -46,6 +46,8 @@
     <Compile Include="Serialization\FakeMessage.cs" />
     <Compile Include="ServiceHost\FakeHostedService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\FakeMessage.cs" />
+    <Compile Include="Storage\FakeRecord.cs" />
     <Compile Include="Transport\FakeMessage.cs" />
   </ItemGroup>
   <ItemGroup>
