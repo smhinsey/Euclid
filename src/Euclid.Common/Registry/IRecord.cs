@@ -2,12 +2,17 @@
 
 namespace Euclid.Common.Registry
 {
-	public interface IRecord<TMessage> : IMessage where TMessage : IMessage
+	public interface IRecord<TMessage> : IMessage, IRecord
+		where TMessage : IMessage
+	{
+		TMessage Message { get; set; }
+	}
+
+	public interface IRecord
 	{
 		string CallStack { get; set; }
 		bool Completed { get; set; }
 		bool Error { get; set; }
 		string ErrorMessage { get; set; }
-		TMessage Message { get; set; }
 	}
 }

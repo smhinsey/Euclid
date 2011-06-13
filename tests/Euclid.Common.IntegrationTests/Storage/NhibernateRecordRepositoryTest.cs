@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Euclid.Common.Registry;
 using Euclid.Common.TestingFakes.Storage;
 using Euclid.Common.Transport;
 using FluentNHibernate;
@@ -55,24 +56,24 @@ namespace Euclid.Common.IntegrationTests.Storage
     {
         public override bool ShouldMap(Member member)
         {
-            var shouldMap = member.DeclaringType.GetInterface(typeof (IMessage).FullName) != null;
-            Console.WriteLine("Should map {0}? {1}", member.DeclaringType.FullName, shouldMap); 
+            var shouldMap = member.DeclaringType.GetInterface(typeof (IRecord).FullName) != null;
+            Console.WriteLine("Should map {0}? {1}", member.DeclaringType.Name, shouldMap); 
             
             return shouldMap;
         }
 
         public override bool IsId(Member member)
         {
-            var shouldMap = member.DeclaringType.GetInterface(typeof(IMessage).FullName) != null;
+					var shouldMap = member.DeclaringType.GetInterface(typeof(IRecord).FullName) != null;
             var isId = (member.Name == "Identifier");
 
             if (shouldMap)
             {
-                Console.WriteLine("Is {0}.{1} the Id field? {2}", member.DeclaringType.FullName, member.Name, isId);
+							Console.WriteLine("Is {0}.{1} the Id field? {2}", member.DeclaringType.Name, member.Name, isId);
             }
             else
             {
-                Console.WriteLine("Not mapping {0}.{1}", member.DeclaringType.FullName, member.Name);
+							Console.WriteLine("Not mapping {0}.{1}", member.DeclaringType.Name, member.Name);
             }
 
             return isId;

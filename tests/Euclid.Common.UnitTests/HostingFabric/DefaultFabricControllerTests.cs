@@ -13,16 +13,19 @@ namespace Euclid.Common.UnitTests.HostingFabric
 		[Test]
 		public void InstalledServicesVisibleInController()
 		{
+			Assert.Fail();
 		}
 
 		[Test]
 		public void InstallsServiceHost()
 		{
+			Assert.Fail();
 		}
 
 		[Test]
 		public void InstallsServiceHostAndStarts()
 		{
+			Assert.Fail();
 		}
 
 		[Test]
@@ -34,6 +37,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 		[Test]
 		public void StartsAndStops()
 		{
+			Assert.Fail();
 		}
 	}
 }
