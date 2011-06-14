@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\IOverridableSetting.cs" />
+    <Compile Include="Configuration\IOverridableSettingList.cs" />
+    <Compile Include="Configuration\IOverridableSettings.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HostingFabric\Configuration\IFabricRuntimeSettings.cs" />
@@ -67,9 +70,7 @@
     <Compile Include="Transport\ITypeTransport.cs" />
     <Compile Include="Transport\TransportState.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
