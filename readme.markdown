@@ -1,1 +1,1 @@
-# [See the wiki](https://github.com/smhinsey/Euclid/wiki).
+See the [wiki](https://github.com/smhinsey/Euclid/wiki) for information on Euclid.
