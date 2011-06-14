@@ -13,16 +13,22 @@ namespace Euclid.Common.UnitTests.Configuration
 		{
 			const string fakeSettingDefaultValue = "Default value";
 			const bool anotherFakeSettingDefaultValue = true;
+			const FakeSettingModes enumSetting = FakeSettingModes.ModeTwo;
+			const int numericSetting = 15;
 
 			var config = OverridableSettings<FakeSettings>
 				.Build(settings =>
 				       	{
 				       		settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
-				       		settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
+									settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
+				       		settings.NumericConfigSetting.WithDefault(numericSetting);
+				       		settings.EnumConfigSetting.WithDefault(enumSetting);
 				       	});
 
 			Assert.AreEqual(fakeSettingDefaultValue, config.FakeConfigSetting.Value);
 			Assert.AreEqual(anotherFakeSettingDefaultValue, config.AnotherFakeConfigSetting.Value);
+			Assert.AreEqual(enumSetting, config.EnumConfigSetting.Value);
+			Assert.AreEqual(numericSetting, config.NumericConfigSetting.Value);
 		}
 
 		[Test]
@@ -31,18 +37,25 @@ namespace Euclid.Common.UnitTests.Configuration
 			const string fakeSettingDefaultValue = "Default value";
 			const string fakeSettingOverriddenValue = "Overridden value";
 			const bool anotherFakeSettingDefaultValue = true;
+			const FakeSettingModes enumSetting = FakeSettingModes.ModeTwo;
+			const int numericSetting = 15;
+			const int overriddenNumericSetting = 12;
 
 			var config = OverridableSettings<FakeSettings>
 				.Build(settings =>
 				{
 					settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
 					settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
+					settings.NumericConfigSetting.WithDefault(numericSetting);
+					settings.EnumConfigSetting.WithDefault(enumSetting);
 				});
 
 			config.OverrideFromAppSettings();
 
 			Assert.AreEqual(fakeSettingOverriddenValue, config.FakeConfigSetting.Value);
 			Assert.AreEqual(anotherFakeSettingDefaultValue, config.AnotherFakeConfigSetting.Value);
+			Assert.AreEqual(enumSetting, config.EnumConfigSetting.Value);
+			Assert.AreEqual(overriddenNumericSetting, config.NumericConfigSetting.Value);
 		}
 
 		[Test]
