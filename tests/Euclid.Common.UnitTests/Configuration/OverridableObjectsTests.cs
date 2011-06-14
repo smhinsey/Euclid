@@ -50,6 +50,7 @@ namespace Euclid.Common.UnitTests.Configuration
 		{
 			const string fakeSettingDefaultValue = "Default value";
 			const bool anotherFakeSettingDefaultValue = true;
+			var currentAssembly = GetType().Assembly;
 
 			var config = OverridableSettings<FakeSettings>
 				.Build(settings =>
@@ -58,12 +59,13 @@ namespace Euclid.Common.UnitTests.Configuration
 				       		settings.AnotherFakeConfigSetting.WithDefault(
 				       		                                              anotherFakeSettingDefaultValue);
 				       		settings.ListOfAssemblies.WithDefault(new List<Assembly>());
-				       		settings.ListOfAssemblies.Add(GetType().Assembly);
+				       		settings.ListOfAssemblies.Add(currentAssembly);
 				       	});
 
 			Assert.AreEqual(fakeSettingDefaultValue, config.FakeConfigSetting.Value);
 			Assert.AreEqual(anotherFakeSettingDefaultValue, config.AnotherFakeConfigSetting.Value);
 			Assert.AreEqual(1, config.ListOfAssemblies.Value.Count);
+			Assert.AreEqual(currentAssembly, config.ListOfAssemblies.Value[0]);
 		}
 	}
 }
