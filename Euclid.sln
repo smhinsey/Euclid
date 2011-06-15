@@ -18,9 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Composites.Mvc", "src\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj", "{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{7E0C2D73-9444-48E1-847F-F7C6EB39F892}"
-	ProjectSection(SolutionItems) = preProject
-		readme.markdown = readme.markdown
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.Cqrs", "src\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj", "{58D2349E-9C39-485E-861E-E337ACF186B6}"
 EndProject

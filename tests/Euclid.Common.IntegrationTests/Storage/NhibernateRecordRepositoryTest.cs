@@ -1,20 +1,13 @@
-
-D:\Projects\Euclid>@git.exe %*
-﻿using System;
-using Euclid.Common.Registry;
+using System;
 using Euclid.Common.Serialization;
 using Euclid.Common.Storage.Blob;
 using Euclid.Common.Storage.Nhibernate;
-using Euclid.Common.Storage.Registry;
 using Euclid.Common.TestingFakes.Storage;
-using Euclid.Common.Transport;
-using Euclid.Common.UnitTests.Registry;
 using Euclid.Common.UnitTests.Storage;
 using FluentNHibernate;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using NHibernate;
-using NHibernate.Cfg;
 using NHibernate.Linq;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
@@ -42,7 +35,7 @@ namespace Euclid.Common.IntegrationTests.Storage
                 .OpenSession();
         }
 
-        private static void BuildSchema(Configuration cfg)
+        private static void BuildSchema(NHibernate.Cfg.Configuration cfg)
         {
             new SchemaExport(cfg).Create(false, true);
         }
@@ -117,9 +110,3 @@ namespace Euclid.Common.IntegrationTests.Storage
         }
     }
 }
-
-D:\Projects\Euclid>@set ErrorLevel=%ErrorLevel%
-
-D:\Projects\Euclid>@rem Restore the original console codepage.
-
-D:\Projects\Euclid>@chcp %cp_oem% > nul < nul
