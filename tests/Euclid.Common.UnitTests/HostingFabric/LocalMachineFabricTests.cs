@@ -40,28 +40,62 @@ namespace Euclid.Common.UnitTests.HostingFabric
 		}
 
 		[Test]
-		public void ReportsErrorsThrownByHostedServices()
+		public void ReportsBasicRuntimeStatistics()
 		{
 			var container = new WindsorContainer();
 
 			container.Register(
-												 Component.For<IServiceHost>()
-													.Forward<MultitaskingServiceHost>()
-													.Instance(new MultitaskingServiceHost())
+			                   Component.For<IServiceHost>()
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost())
 				);
 
 			container.Register(
-												 Component.For<IHostedService>()
-													.Forward<FailingHostedService>()
-													.Instance(new FailingHostedService())
+			                   Component.For<IHostedService>()
+			                   	.Forward<FakeHostedService>()
+			                   	.Instance(new FakeHostedService())
 				);
 
 			var runtime = new LocalMachineFabric(container);
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> { typeof(FailingHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
+
+			runtime.Configure(settings);
+
+			runtime.Start();
+
+			Assert.AreEqual(FabricRuntimeState.Started, runtime.State);
+			Assert.AreEqual(FabricRuntimeState.Started, runtime.GetStatistics().RuntimeState);
+			Assert.AreEqual(typeof (MultitaskingServiceHost), runtime.GetStatistics().ConfiguredServiceHost);
+			Assert.AreEqual(typeof (FakeHostedService), runtime.GetStatistics().ConfiguredHostedServices[0]);
+		}
+
+		[Test]
+		public void ReportsErrorsThrownByHostedServices()
+		{
+			var container = new WindsorContainer();
+
+			container.Register(
+			                   Component.For<IServiceHost>()
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost())
+				);
+
+			container.Register(
+			                   Component.For<IHostedService>()
+			                   	.Forward<FailingHostedService>()
+			                   	.Instance(new FailingHostedService())
+				);
+
+			var runtime = new LocalMachineFabric(container);
+
+			var settings = new FabricRuntimeSettings();
+
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FailingHostedService)});
 
 			runtime.Configure(settings);
 
@@ -69,7 +103,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 
 			Assert.AreEqual(FabricRuntimeState.Started, runtime.State);
 
-			Thread.Sleep(100);
+			Thread.Sleep(100); // let the exception have a chance to be thrown and caught
 
 			var exceptions = runtime.GetExceptionsThrownByHostedServices();
 
@@ -77,9 +111,41 @@ namespace Euclid.Common.UnitTests.HostingFabric
 		}
 
 		[Test]
-		public void ReportsRuntimeStatistics()
+		public void ReportsRuntimeStatisticsWithExceptionInfo()
 		{
-			Assert.Ignore("Down the road.");
+			var container = new WindsorContainer();
+
+			container.Register(
+			                   Component.For<IServiceHost>()
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost())
+				);
+
+			container.Register(
+			                   Component.For<IHostedService>()
+			                   	.Forward<FailingHostedService>()
+			                   	.Instance(new FailingHostedService())
+				);
+
+			var runtime = new LocalMachineFabric(container);
+
+			var settings = new FabricRuntimeSettings();
+
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FailingHostedService)});
+
+			runtime.Configure(settings);
+
+			runtime.Start();
+
+			Assert.AreEqual(FabricRuntimeState.Started, runtime.State);
+
+			Thread.Sleep(100); // let the exception have a chance to be thrown and caught
+
+			Assert.AreEqual(FabricRuntimeState.Started, runtime.GetStatistics().RuntimeState);
+			Assert.AreEqual(typeof (MultitaskingServiceHost), runtime.GetStatistics().ConfiguredServiceHost);
+			Assert.AreEqual(typeof (FailingHostedService), runtime.GetStatistics().ConfiguredHostedServices[0]);
+			Assert.GreaterOrEqual(runtime.GetStatistics().HostedServiceExceptions.Count, 1);
 		}
 
 		[Test]

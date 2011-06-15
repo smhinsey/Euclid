@@ -6,9 +6,10 @@ namespace Euclid.Common.HostingFabric
 	public class DefaultRuntimeStatistics : IFabricRuntimeStatistics
 	{
 		public DefaultRuntimeStatistics
-			(IList<Type> configuredHostedServices, Type configuredServiceHost, FabricRuntimeState runtimeState,
-			 IFabricRuntimeSettings settings)
+			(IList<Exception> hostedServiceExceptions, IList<Type> configuredHostedServices, Type configuredServiceHost,
+			 FabricRuntimeState runtimeState, IFabricRuntimeSettings settings)
 		{
+			HostedServiceExceptions = hostedServiceExceptions;
 			ConfiguredHostedServices = configuredHostedServices;
 			ConfiguredServiceHost = configuredServiceHost;
 			RuntimeState = runtimeState;
@@ -17,6 +18,7 @@ namespace Euclid.Common.HostingFabric
 
 		public IList<Type> ConfiguredHostedServices { get; private set; }
 		public Type ConfiguredServiceHost { get; private set; }
+		public IList<Exception> HostedServiceExceptions { get; private set; }
 		public FabricRuntimeState RuntimeState { get; private set; }
 		public IFabricRuntimeSettings Settings { get; private set; }
 	}

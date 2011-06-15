@@ -5,6 +5,7 @@ namespace Euclid.Common.HostingFabric
 {
 	public interface IFabricRuntimeStatistics
 	{
+		IList<Exception> HostedServiceExceptions { get; }
 		IList<Type> ConfiguredHostedServices { get; }
 		Type ConfiguredServiceHost { get; }
 		FabricRuntimeState RuntimeState { get; }
