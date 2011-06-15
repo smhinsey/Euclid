@@ -60,6 +60,7 @@
     <Compile Include="HostingFabric\NoHostedServicesConfiguredException.cs" />
     <Compile Include="HostingFabric\NoServiceHostConfiguredException.cs" />
     <Compile Include="HostingFabric\ServiceHostNotResolvableException.cs" />
+    <Compile Include="Logging\ILoggingSource.cs" />
     <Compile Include="Storage\IBasicRecordRepository.cs" />
     <Compile Include="Registry\IRecord.cs" />
     <Compile Include="Registry\IRegistry.cs" />

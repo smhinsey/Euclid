@@ -3,11 +3,18 @@ using System.Threading;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.TestingFakes.ServiceHost;
 using NUnit.Framework;
+using log4net.Config;
 
 namespace Euclid.Common.UnitTests.ServiceHost
 {
 	public class MultitaskingServiceHostTester
 	{
+		[SetUp]
+		public void SetUp()
+		{
+			BasicConfigurator.Configure();
+		}
+
 		[Test]
 		[ExpectedException(typeof (HostedServiceNotFoundException))]
 		public void CancelFailsForMissingService()

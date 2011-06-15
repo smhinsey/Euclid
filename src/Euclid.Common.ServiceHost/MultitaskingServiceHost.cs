@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Euclid.Common.Logging;
 
 namespace Euclid.Common.ServiceHost
 {
-	public class MultitaskingServiceHost : IServiceHost
+	public class MultitaskingServiceHost : IServiceHost, ILoggingSource
 	{
 		private readonly IList<Exception> _serviceExceptions;
 		private readonly TimeSpan _shutdownTimeout;
@@ -30,6 +31,8 @@ namespace Euclid.Common.ServiceHost
 		{
 			checkForHostedService(id);
 
+			this.WriteInfoMessage(string.Format("Cancelling hosted service {0}, identifier {1}.", Services[id].Name, id));
+
 			State = ServiceHostState.Stopping;
 
 			_taskTokenSources[id].Cancel();
@@ -42,6 +45,8 @@ namespace Euclid.Common.ServiceHost
 		public void CancelAll()
 		{
 			State = ServiceHostState.Stopping;
+
+			this.WriteInfoMessage(string.Format("Cancelling {0} hosted services.", Services.Count));
 
 			foreach (var tokenSource in _taskTokenSources.Values)
 			{
@@ -108,6 +113,8 @@ namespace Euclid.Common.ServiceHost
 		{
 			checkForHostedService(id);
 
+			this.WriteInfoMessage(string.Format("Starting hosted service {0}, identifier {1}.", Services[id].Name, id));
+
 			State = ServiceHostState.Starting;
 
 			_taskMap[id].Start();
@@ -118,6 +125,8 @@ namespace Euclid.Common.ServiceHost
 		public void StartAll()
 		{
 			State = ServiceHostState.Starting;
+
+			this.WriteInfoMessage(string.Format("Starting service host with {0} hosted services.", Services.Count));
 
 			foreach (var task in _taskMap.Select(taskMapEntry => taskMapEntry.Value))
 			{
