@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\packages\Castle.Windsor.2.5.3\lib\NET40\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
@@ -74,6 +80,10 @@
     <ProjectReference Include="..\..\src\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common.HostingFabric\Euclid.Common.HostingFabric.csproj">
+      <Project>{6B55CE77-2663-45F0-ADB2-DFC7AB01233C}</Project>
+      <Name>Euclid.Common.HostingFabric</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Registry\Euclid.Common.Registry.csproj">
       <Project>{F0C8929B-718E-4360-85FF-520398DEA764}</Project>

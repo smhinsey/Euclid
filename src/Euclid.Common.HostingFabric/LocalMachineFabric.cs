@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Castle.MicroKernel;
 using Castle.Windsor;
 using Euclid.Common.ServiceHost;
 
@@ -23,15 +24,25 @@ namespace Euclid.Common.HostingFabric
 
 		public void Configure(IFabricRuntimeSettings settings)
 		{
-			_currentSettings = settings;
+			if (settings.ServiceHost.Value == null)
+			{
+				throw new NoServiceHostConfiguredException("You must configure a service host.");
+			}
 
+			if(settings.HostedServices.Value == null || settings.HostedServices.Value.Count == 0)
+			{
+				throw new NoHostedServicesConfiguredException("You must configure hosted services.");
+			}
+			
+			_currentSettings = settings;
+			
 			try
 			{
 				_serviceHost = (IServiceHost) _container.Resolve(settings.ServiceHost.Value);
 			}
-			catch (Exception e)
+			catch (ComponentNotFoundException e)
 			{
-				throw new RuntimeFabricConfigurationException
+				throw new ServiceHostNotResolvableException
 					(string.Format("Unable to resolve service host of type {0} from container.", settings.ServiceHost.Value), e);
 			}
 
@@ -45,9 +56,9 @@ namespace Euclid.Common.HostingFabric
 
 					_configuredHostedServices.Add(hostedServiceType);
 				}
-				catch (Exception e)
+				catch (ComponentNotFoundException e)
 				{
-					throw new RuntimeFabricConfigurationException
+					throw new HostedServiceNotResolvableException
 						(string.Format("Unable to resolve hosted service of type {0} from container.", settings.ServiceHost.Value), e);
 				}
 			}
@@ -65,12 +76,18 @@ namespace Euclid.Common.HostingFabric
 
 		public void Shutdown()
 		{
+			State = FabricRuntimeState.Stoppping;
+
 			_serviceHost.CancelAll();
+
+			State = FabricRuntimeState.Stopped;
 		}
 
 		public void Start()
 		{
 			_serviceHost.StartAll();
+
+			State = FabricRuntimeState.Started;
 		}
 	}
 }
