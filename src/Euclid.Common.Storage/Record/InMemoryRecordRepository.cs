@@ -4,7 +4,7 @@ using Euclid.Common.Registry;
 using Euclid.Common.Serialization;
 using Euclid.Common.Transport;
 
-namespace Euclid.Common.Storage.Registry
+namespace Euclid.Common.Storage.Record
 {
 	public class InMemoryRecordRepository<TRecord> : IBasicRecordRepository<TRecord>
 		where TRecord : class, IRecord, new()

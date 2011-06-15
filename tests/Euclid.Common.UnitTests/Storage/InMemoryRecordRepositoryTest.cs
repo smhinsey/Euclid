@@ -1,6 +1,6 @@
 ﻿using Euclid.Common.Serialization;
 using Euclid.Common.Storage.Blob;
-using Euclid.Common.Storage.Registry;
+using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Storage;
 using NUnit.Framework;
 
