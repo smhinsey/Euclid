@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\OverridableObjectsTests.cs" />
     <Compile Include="HostingFabric\DefaultFabricControllerTests.cs" />
     <Compile Include="HostingFabric\LocalMachineFabricTests.cs" />
     <Compile Include="Registry\InMemoryRegistryTests.cs" />
@@ -71,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
+      <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
+      <Name>Euclid.Common.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Registry\Euclid.Common.Registry.csproj">
       <Project>{F0C8929B-718E-4360-85FF-520398DEA764}</Project>
       <Name>Euclid.Common.Registry</Name>
