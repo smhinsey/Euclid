@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>E:\Program Files\Windows Azure SDK\v1.4\bin\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
@@ -53,6 +56,7 @@
     <Compile Include="HostingFabric\IFabricRuntime.cs" />
     <Compile Include="HostingFabric\IFabricRuntimeSettings.cs" />
     <Compile Include="HostingFabric\IFabricRuntimeStatistics.cs" />
+    <Compile Include="HostingFabric\RuntimeFabricConfigurationException.cs" />
     <Compile Include="Storage\IBasicRecordRepository.cs" />
     <Compile Include="Registry\IRecord.cs" />
     <Compile Include="Registry\IRegistry.cs" />

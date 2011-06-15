@@ -13,8 +13,8 @@ namespace Euclid.Common.HostingFabric
 	/// </summary>
 	public interface IFabricRuntime
 	{
-		IFabricRuntimeStatistics Statistics { get; }
 		void Configure(IFabricRuntimeSettings settings);
+		IFabricRuntimeStatistics GetStatistics();
 		void Shutdown();
 		void Start();
 	}
