@@ -19,7 +19,7 @@ namespace Euclid.Common.UnitTests.Transport
 			var settings = new MessageDispatcherSettings();
 
 			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> { processor.GetType() });
+			settings.MessageProcessorTypes.WithDefault(new List<Type> {processor.GetType()});
 
 			var dispatcher = new MultitaskingMessageDispatcher(container);
 
@@ -42,7 +42,7 @@ namespace Euclid.Common.UnitTests.Transport
 			var settings = new MessageDispatcherSettings();
 
 			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
+			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
@@ -106,14 +106,15 @@ namespace Euclid.Common.UnitTests.Transport
 		}
 
 		[Test]
-		[ExpectedException(typeof(NoDispatchingSliceDurationConfiguredException))]
-		public void ThrowsWithMissingSliceDuration()
+		[ExpectedException(typeof (NoNumberOfMessagesPerSliceConfiguredException))]
+		public void ThrowsWithMissingMessagesPerSliceSetting()
 		{
 			var container = new WindsorContainer();
 			var settings = new MessageDispatcherSettings();
 
 			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
+			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
 
 			var dispatcher = new MultitaskingMessageDispatcher(container);
 
@@ -121,15 +122,14 @@ namespace Euclid.Common.UnitTests.Transport
 		}
 
 		[Test]
-		[ExpectedException(typeof(NoNumberOfMessagesPerSliceConfiguredException))]
-		public void ThrowsWithMissingMessagesPerSliceSetting()
+		[ExpectedException(typeof (NoDispatchingSliceDurationConfiguredException))]
+		public void ThrowsWithMissingSliceDuration()
 		{
 			var container = new WindsorContainer();
 			var settings = new MessageDispatcherSettings();
 
 			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
-			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
+			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 
 			var dispatcher = new MultitaskingMessageDispatcher(container);
 
