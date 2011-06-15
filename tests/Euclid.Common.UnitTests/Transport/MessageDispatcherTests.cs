@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.TestingFakes.Transport;
 using Euclid.Common.Transport;
@@ -19,8 +20,14 @@ namespace Euclid.Common.UnitTests.Transport
 			var transport = new InMemoryMessageTransport();
 			var message = new FakeMessage();
 
+			container.Register
+				(
+				 Component.For<FakeMessageProcessor>()
+				 	.Instance(processor)
+				);
+
 			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
+			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
