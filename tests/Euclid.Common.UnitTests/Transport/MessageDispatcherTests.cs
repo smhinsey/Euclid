@@ -4,6 +4,7 @@ using Castle.Windsor;
 using Euclid.Common.TestingFakes.Transport;
 using Euclid.Common.Transport;
 using NUnit.Framework;
+using FakeMessage = Euclid.Common.TestingFakes.Registry.FakeMessage;
 
 namespace Euclid.Common.UnitTests.Transport
 {
@@ -13,19 +14,23 @@ namespace Euclid.Common.UnitTests.Transport
 		public void DispatchesMessage()
 		{
 			var container = new WindsorContainer();
-
 			var processor = new FakeMessageProcessor();
-
 			var settings = new MessageDispatcherSettings();
+			var transport = new InMemoryMessageTransport();
+			var message = new FakeMessage();
 
 			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> {processor.GetType()});
+			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
+			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
+			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
 			var dispatcher = new MultitaskingMessageDispatcher(container);
 
 			dispatcher.Configure(settings);
 
 			dispatcher.Enable();
+
+			transport.Send(message);
 
 			Assert.AreEqual(MessageDispatcherState.Enabled, dispatcher.State);
 

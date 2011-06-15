@@ -66,7 +66,7 @@ namespace Euclid.Common.Transport
 		public void Enable()
 		{
 			// SELF create a new task which periodically retrieves messages from the input transport
-			// and spawns new tasks to process them
+			// and spawns new tasks to process them. each processor should be resolved from the container on demand
 
 			//_inputTask = new Task(() => _inputTransport.Open());
 
