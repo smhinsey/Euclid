@@ -56,24 +56,24 @@ window.Modernizr = (function(window, document, undefined) {
                                                            
 
 	    enableHTML5 = true,
-    docElement = document.documentElement,
-        docHead = document.head || document.getElementsByTagName('head')[0],
+	    docElement = document.documentElement,
+	    docHead = document.head || document.getElementsByTagName('head')[0],
     /**
      * Create our "modernizr" element that we do most feature tests on.
      */
                                                            
 
 	    mod = 'modernizr',
-        modElem = document.createElement(mod),
-        m_style = modElem.style,
+	    modElem = document.createElement(mod),
+	    m_style = modElem.style,
     /**
      * Create the input element for various Web Forms feature tests.
      */
                                                            
 
 	    inputElem = document.createElement('input'),
-    smile = ':)',
-    tostring = Object.prototype.toString,
+	    smile = ':)',
+	    tostring = Object.prototype.toString,
     // List of property values to set for css tests. See ticket #21
                                                            
 
@@ -93,10 +93,10 @@ window.Modernizr = (function(window, document, undefined) {
 	    domPrefixes = 'Webkit Moz O ms Khtml'.split(' '),
 	    ns = { 'svg': 'http://www.w3.org/2000/svg' },
 	    tests = {  },
-        inputs = {  },
-        attrs = {  },
-    classes = [],
-    featurename, // used in testing loop
+	    inputs = {  },
+	    attrs = {  },
+	    classes = [],
+	    featurename, // used in testing loop
     
     
     
@@ -104,36 +104,42 @@ window.Modernizr = (function(window, document, undefined) {
                                                            
 
 	    testMediaQuery = function(mq) {
-                                                           
+
 
         	var st = document.createElement('style'),
+	                                   
+
+
         	    div = document.createElement('div'),
+	                                   
+
+
         	    ret;
-                                                           
+
 
         	st.textContent = mq + '{#modernizr{height:3px}}';
 
 
-        	docHead.appendChild(st);
+	    	docHead.appendChild(st);
 
 
-        	div.id = 'modernizr';
+	    	div.id = 'modernizr';
 
 
-        	docElement.appendChild(div);
-                                                           
+	    	docElement.appendChild(div);
+
 
         	ret = div.offsetHeight === 3;
-                                                           
+
 
         	st.parentNode.removeChild(st);
 
 
-        	div.parentNode.removeChild(div);
-                                                           
+	    	div.parentNode.removeChild(div);
+
 
         	return !!ret;
-                                                           
+
 
         },
     /**
@@ -143,105 +149,130 @@ window.Modernizr = (function(window, document, undefined) {
                                                            
 
 	    isEventSupported = (function() {
-                                                           
+
 
         	var TAGNAMES = {
-        		'select': 'input',                                                           
+	    	'select': 'input',
 
-        		'change': 'input',                                                           
+        		'change': 'input',
 
-        		'submit': 'form',                                                           
+        		'submit': 'form',
 
-        		'reset': 'form',                                                           
+        		'reset': 'form',
 
-        		'error': 'img',                                                           
+        		'error': 'img',
 
-        		'load': 'img',                                                           
+        		'load': 'img',
 
         		'abort': 'img'
-        	};
-                                                           
+	    };
+
 
         	function isEventSupported(eventName, element) {
-                                                           
+
 
         		element = element || document.createElement(TAGNAMES[eventName] || 'div');
 
 
-        		eventName = 'on' + eventName;
-                                                           
+	    	eventName = 'on' + eventName;
+
 
         		// When using `setAttribute`, IE skips "unload", WebKit skips "unload" and "resize", whereas `in` "catches" those
 	    	var isSupported = (eventName in element);
-                                                           
+
 
         		if (!isSupported) {
 
 
+	    	                                         
+
+
         			// If it has no `setAttribute` (i.e. doesn't implement Node interface), try generic element
 	    	                                         
-                                                           
+
 
         			if (!element.setAttribute) {
+
+
+	    	                                         
 
 
         				element = document.createElement('div');
 
 
+	    	                                         
+
+
         			}
+
+
+	    	                                         
 
 
         			if (element.setAttribute && element.removeAttribute) {
 
 
+	    	                                         
+
+
         				element.setAttribute(eventName, '');
 
 
+	    	                                         
+
+
         				isSupported = is(element[eventName], 'function');
-                                                           
+
 
         				// If property was created, "remove it" (by setting value to `undefined`)
 	    	                                         
-                                                           
-
-        			                            
-
-
-        				                                        
-
-
-        			 
 
 
         				if (!is(element[eventName], undefined)) {
 
 
+	    	                                         
+
+
         					element[eventName] = undefined;
+
+
+	    	                                         
 
 
         				}
 
 
+	    	                                         
+
+
         				element.removeAttribute(eventName);
+
+
+	    	                                         
 
 
         			}
 
 
+	    	                                         
+
+
         		}
-                                                           
+
 
         		element = null;
 
 
-        		return isSupported;
+	    	return isSupported;
 
 
-        	}
+	    }
+
 	    	return isEventSupported;
 
 
-        })();
+	    })();
 
 
 	// hasOwnProperty shim by kangax needed for Safari 2.0 support
@@ -312,7 +343,7 @@ window.Modernizr = (function(window, document, undefined) {
 	function test_props_all(prop, callback) {
 
 		var uc_prop = prop.charAt(0).toUpperCase() + prop.substr(1),
-            props = (prop + ' ' + domPrefixes.join(uc_prop + ' ') + uc_prop).split(' ');
+		    props = (prop + ' ' + domPrefixes.join(uc_prop + ' ') + uc_prop).split(' ');
 
 		return !!test_props(props, callback);
 	}
@@ -588,11 +619,11 @@ window.Modernizr = (function(window, document, undefined) {
          */
 
 		var str1 = 'background-image:',
-            str2 = 'gradient(linear,left top,right bottom,from(#9f9),to(white));',
-            str3 = 'linear-gradient(left top,#9f9, white);';
+		    str2 = 'gradient(linear,left top,right bottom,from(#9f9),to(white));',
+		    str3 = 'linear-gradient(left top,#9f9, white);';
 
 		set_css(
-            	(str1 + prefixes.join(str2 + str1) + prefixes.join(str3 + str1)).slice(0, -str1.length)
+			(str1 + prefixes.join(str2 + str1) + prefixes.join(str3 + str1)).slice(0, -str1.length)
         );
 
 		return contains(m_style.backgroundImage, 'gradient');
@@ -663,8 +694,8 @@ window.Modernizr = (function(window, document, undefined) {
 
 				return sheet.cssText.length !== 0 && ( /src/i ).test(sheet.cssText) &&
 					sheet.cssText
-		                            		.replace( /\r+|\n+/g , '')
-		                            		.indexOf(rule.split(' ')[0]) === 0;
+			                            			.replace( /\r+|\n+/g , '')
+			                            			.indexOf(rule.split(' ')[0]) === 0;
 			};
 
 		bool = supportAtRule('@font-face { font-family: "font"; src: url(data:,); }');
@@ -697,12 +728,12 @@ window.Modernizr = (function(window, document, undefined) {
 			var h264 = 'video/mp4; codecs="avc1.42E01E';
 
 
-        	bool.h264 = elem.canPlayType(h264 + '"') || elem.canPlayType(h264 + ', mp4a.40.2"');
+			bool.h264 = elem.canPlayType(h264 + '"') || elem.canPlayType(h264 + ', mp4a.40.2"');
 
 			bool.webm = elem.canPlayType('video/webm; codecs="vp8, vorbis"');
 
 
-        }
+		}
 		return bool;
 	};
 
@@ -715,7 +746,7 @@ window.Modernizr = (function(window, document, undefined) {
 			bool.ogg = elem.canPlayType('audio/ogg; codecs="vorbis"');
 
 
-        	bool.mp3 = elem.canPlayType('audio/mpeg;');
+			bool.mp3 = elem.canPlayType('audio/mpeg;');
 
 			// Mimetypes accepted: 
 			//   https://developer.mozilla.org/En/Media_formats_supported_by_the_audio_and_video_elements
@@ -723,10 +754,10 @@ window.Modernizr = (function(window, document, undefined) {
 			bool.wav = elem.canPlayType('audio/wav; codecs="1"');
 
 
-        	bool.m4a = elem.canPlayType('audio/x-m4a;') || elem.canPlayType('audio/aac;');
+			bool.m4a = elem.canPlayType('audio/x-m4a;') || elem.canPlayType('audio/aac;');
 
 
-        }
+		}
 		return bool;
 	};
 
@@ -829,7 +860,7 @@ window.Modernizr = (function(window, document, undefined) {
 				inputElem.setAttribute('type', inputElemType = props[i]);
 
 
-            	bool = inputElem.type !== 'text';
+				bool = inputElem.type !== 'text';
 
 				// We first check to see if the type we give it sticks.. 
 				// If the type does, we feed it a textual value, which shouldn't be valid.
@@ -839,12 +870,12 @@ window.Modernizr = (function(window, document, undefined) {
 					inputElem.value = smile;
 
 
-            		inputElem.style.cssText = 'position:absolute;visibility:hidden;';
+					inputElem.style.cssText = 'position:absolute;visibility:hidden;';
 
 					if ( /^range$/ .test(inputElemType) && inputElem.style.WebkitAppearance !== undefined) {
 
 						docElement.appendChild(inputElem);
-            		                                                                 
+
 
                     	defaultView = document.defaultView;
 
@@ -866,49 +897,49 @@ window.Modernizr = (function(window, document, undefined) {
 						docElement.removeChild(inputElem);
 
 					} else if ( /^(search|tel)$/ .test(inputElemType)) {
-            		                                                                 
+
 
                     	// Spec doesnt define any special parsing or detectable UI 
 						//   behaviors so we pass these through as true
 						// Interestingly, opera fails the earlier test, so it doesn't
 						//  even make it here.
 					} else if ( /^(url|email)$/ .test(inputElemType)) {
-            		                                                                 
+
 
                     	// Real url and email support comes with prebaked validation.
 						bool = inputElem.checkValidity && inputElem.checkValidity() === false;
 
 					} else if ( /^color$/ .test(inputElemType)) {
-            		                                                                 
+
 
                     	// chuck into DOM and force reflow for Opera bug in 11.00
 						// github.com/Modernizr/Modernizr/issues#issue/159
 						docElement.appendChild(inputElem);
-            		                                                                 
+
 
                     	docElement.offsetWidth;
 						bool = inputElem.value != smile;
-            		                                                                 
+
 
                     	docElement.removeChild(inputElem);
-            		                                                                 
+
 
                     } else {
-            		                                                                 
+
 
                     	// If the upgraded input compontent rejects the :) text, we got a winner
 						bool = inputElem.value != smile;
-            		                                                                 
+
 
                     }
 
 
-            	}
+				}
 
 				inputs[props[i]] = !!bool;
 
 
-            }
+			}
 			return inputs;
 		})('search tel url email datetime date month week time datetime-local number range color'.split(' '));
 
@@ -935,7 +966,7 @@ window.Modernizr = (function(window, document, undefined) {
 	if (!ret.input) webforms();
 
 
-    // Per 1.6: deprecated API is still accesible for now:
+	// Per 1.6: deprecated API is still accesible for now:
 	ret.crosswindowmessaging = ret.postmessage;
 	ret.historymanagement = ret.history;
 
@@ -954,7 +985,7 @@ window.Modernizr = (function(window, document, undefined) {
 		if (ret[feature]) {
 
 
-      	return; // quit if you're trying to overwrite an existing test
+			return; // quit if you're trying to overwrite an existing test
 		}
 		test = !!(test());
 		docElement.className += ' ' + (test ? '' : 'no-') + feature;

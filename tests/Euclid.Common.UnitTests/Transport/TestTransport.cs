@@ -139,25 +139,28 @@ namespace Euclid.Common.UnitTests.Transport
 				maxMessagesToReceive = howManyMessages/howManyThreads + 1;
 			}
 
-			Console.WriteLine("Sending {0} messages through the {1} transport across {2} threads in batches of {3}",
-			                  maxMessagesToReceive*howManyThreads*numberTimesToLoop,
-			                  transport.GetType().FullName,
-			                  howManyThreads,
-			                  maxMessagesToReceive);
+			Console.WriteLine
+				("Sending {0} messages through the {1} transport across {2} threads in batches of {3}",
+				 maxMessagesToReceive*howManyThreads*numberTimesToLoop,
+				 transport.GetType().FullName,
+				 howManyThreads,
+				 maxMessagesToReceive);
 
 			for (var i = 0; i < numberTimesToLoop; i++)
 			{
-				var results = Parallel.For(0, howManyThreads, x =>
-				                                              	{
-				                                              		SendMessages(transport, maxMessagesToReceive.Value);
-				                                              		transport.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue);
-				                                              	});
+				var results = Parallel.For
+					(0, howManyThreads, x =>
+					                    	{
+					                    		SendMessages(transport, maxMessagesToReceive.Value);
+					                    		transport.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue);
+					                    	});
 
 				Assert.True(results.IsCompleted);
 			}
 
-			Console.WriteLine("Received {0} messages in {1} seconds", (maxMessagesToReceive*howManyThreads*numberTimesToLoop),
-			                  DateTime.Now.Subtract(start).TotalSeconds);
+			Console.WriteLine
+				("Received {0} messages in {1} seconds", (maxMessagesToReceive*howManyThreads*numberTimesToLoop),
+				 DateTime.Now.Subtract(start).TotalSeconds);
 
 			transport.Close();
 		}

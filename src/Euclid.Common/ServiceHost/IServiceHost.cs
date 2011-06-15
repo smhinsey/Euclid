@@ -13,10 +13,10 @@ namespace Euclid.Common.ServiceHost
 		ServiceHostState State { get; }
 		void Cancel(Guid id);
 		void CancelAll();
+		IList<Exception> GetExceptionsThrownByHostedServices();
 		HostedServiceState GetState(Guid id);
 		Guid Install(IHostedService service);
 		void Start(Guid id);
 		void StartAll();
-		IList<Exception> GetExceptionsThrownByHostedServices();
 	}
 }

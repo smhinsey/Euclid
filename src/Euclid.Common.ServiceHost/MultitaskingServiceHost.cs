@@ -72,7 +72,7 @@ namespace Euclid.Common.ServiceHost
 		{
 			foreach (var task in _taskMap)
 			{
-				if(task.Value.Exception != null)
+				if (task.Value.Exception != null)
 				{
 					foreach (var innerException in task.Value.Exception.InnerExceptions)
 					{

@@ -15,16 +15,18 @@ namespace Euclid.Common.UnitTests.Transport
 		[TestFixtureSetUp]
 		public void Setup()
 		{
-			CloudStorageAccount.SetConfigurationSettingPublisher((configurationKey, publishConfigurationValue) =>
-			                                                     	{
-			                                                     		var connectionString =
-			                                                     			RoleEnvironment.IsAvailable
-			                                                     				? RoleEnvironment.GetConfigurationSettingValue(
-			                                                     				                                               configurationKey)
-			                                                     				: ConfigurationManager.AppSettings[configurationKey];
+			CloudStorageAccount.SetConfigurationSettingPublisher
+				((configurationKey, publishConfigurationValue) =>
+				 	{
+				 		var connectionString =
+				 			RoleEnvironment.IsAvailable
+				 				? RoleEnvironment.GetConfigurationSettingValue
+				 				  	(
+				 				  	 configurationKey)
+				 				: ConfigurationManager.AppSettings[configurationKey];
 
-			                                                     		publishConfigurationValue(connectionString);
-			                                                     	});
+				 		publishConfigurationValue(connectionString);
+				 	});
 
 			_serializer = new JsonMessageSerializer();
 		}
@@ -51,8 +53,9 @@ namespace Euclid.Common.UnitTests.Transport
 		[Test]
 		public void TestScaleAsynchronously()
 		{
-			TestTransport.TestThroughputAsynchronously(new AzureMessageTransport(_serializer), LargeNumber, NumberOfThreads,
-			                                           AzureMaxReceiveAmount);
+			TestTransport.TestThroughputAsynchronously
+				(new AzureMessageTransport(_serializer), LargeNumber, NumberOfThreads,
+				 AzureMaxReceiveAmount);
 		}
 
 		[Test]

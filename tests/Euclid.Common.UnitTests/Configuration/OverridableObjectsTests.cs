@@ -17,13 +17,14 @@ namespace Euclid.Common.UnitTests.Configuration
 			const int numericSetting = 15;
 
 			var config = OverridableSettings<FakeSettings>
-				.Build(settings =>
-				       	{
-				       		settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
-				       		settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
-				       		settings.NumericConfigSetting.WithDefault(numericSetting);
-				       		settings.EnumConfigSetting.WithDefault(enumSetting);
-				       	});
+				.Build
+				(settings =>
+				 	{
+				 		settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
+				 		settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
+				 		settings.NumericConfigSetting.WithDefault(numericSetting);
+				 		settings.EnumConfigSetting.WithDefault(enumSetting);
+				 	});
 
 			Assert.AreEqual(fakeSettingDefaultValue, config.FakeConfigSetting.Value);
 			Assert.AreEqual(anotherFakeSettingDefaultValue, config.AnotherFakeConfigSetting.Value);
@@ -42,13 +43,14 @@ namespace Euclid.Common.UnitTests.Configuration
 			const int overriddenNumericSetting = 12;
 
 			var config = OverridableSettings<FakeSettings>
-				.Build(settings =>
-				       	{
-				       		settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
-				       		settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
-				       		settings.NumericConfigSetting.WithDefault(numericSetting);
-				       		settings.EnumConfigSetting.WithDefault(enumSetting);
-				       	});
+				.Build
+				(settings =>
+				 	{
+				 		settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
+				 		settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
+				 		settings.NumericConfigSetting.WithDefault(numericSetting);
+				 		settings.EnumConfigSetting.WithDefault(enumSetting);
+				 	});
 
 			config.OverrideFromAppSettings();
 
@@ -66,14 +68,16 @@ namespace Euclid.Common.UnitTests.Configuration
 			var currentAssembly = GetType().Assembly;
 
 			var config = OverridableSettings<FakeSettings>
-				.Build(settings =>
-				       	{
-				       		settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
-				       		settings.AnotherFakeConfigSetting.WithDefault(
-				       		                                              anotherFakeSettingDefaultValue);
-				       		settings.ListOfAssemblies.WithDefault(new List<Assembly>());
-				       		settings.ListOfAssemblies.Add(currentAssembly);
-				       	});
+				.Build
+				(settings =>
+				 	{
+				 		settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
+				 		settings.AnotherFakeConfigSetting.WithDefault
+				 			(
+				 			 anotherFakeSettingDefaultValue);
+				 		settings.ListOfAssemblies.WithDefault(new List<Assembly>());
+				 		settings.ListOfAssemblies.Add(currentAssembly);
+				 	});
 
 			Assert.AreEqual(fakeSettingDefaultValue, config.FakeConfigSetting.Value);
 			Assert.AreEqual(anotherFakeSettingDefaultValue, config.AnotherFakeConfigSetting.Value);

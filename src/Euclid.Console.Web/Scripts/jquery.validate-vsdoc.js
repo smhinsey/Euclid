@@ -61,84 +61,111 @@
 					this.find("input, button").filter(".cancel").click(function() {
 
 
-				validator.cancelSubmit = true;
+						validator.cancelSubmit = true;
 
 
-			});
+					});
 
 					// when a submitHandler is used, capture the submitting button
 					if (validator.settings.submitHandler) {
 
 
-				this.find("input, button").filter(":submit").click(function() {
+						this.find("input, button").filter(":submit").click(function() {
 
 
-					validator.submitButton = this;
+							validator.submitButton = this;
 
 
-				});
+						});
 
 
-			}
+					}
 
 					// validate the form on submit
 					this.submit(function(event) {
 
 
-				if (validator.settings.debug)
+						if (validator.settings.debug)
 				                                        
 
-						// prevent form submit to be able to see console output
-						event.preventDefault();
+							// prevent form submit to be able to see console output
+							event.preventDefault();
 
 						function handle() {
 
 
-						if (validator.settings.submitHandler) {
+							if (validator.settings.submitHandler) {
 
 
-							if (validator.submitButton) {
+								if (validator.submitButton) {
 
 
-								// insert a hidden input as a replacement for the missing submit button
-						                   
+									// insert a hidden input as a replacement for the missing submit button
+									var hidden = $("<input type='hidden'/>").attr("name", validator.submitButton.name).val(validator.submitButton.value).appendTo(validator.currentForm);
 
 
-						                                       
+								}
 
 
-								var hidden = $("<input type='hidden'/>").attr("name", validator.submitButton.name).val(validator.submitButton.value).appendTo(validator.currentForm);
+								validator.settings.submitHandler.call(validator, validator.currentForm);
+
+
+								if (validator.submitButton) {
+
+
+									// and clean up afterwards; thanks to no-block-scope, hidden can be referenced
+									hidden.remove();
+
+
+								}
+
+
+								return false;
+
+
+							}
+
+
+							return true;
+
+
+						}
+
+						// prevent submit for invalid forms or custom submit handlers
+						if (validator.cancelSubmit) {
+
+
+							validator.cancelSubmit = false;
+
+
+							return handle();
+
+
+						}
+
+
+						if (validator.form()) {
+
+
+							if (validator.pendingRequest) {
+
+
+								validator.formSubmitted = true;
+
+
+								return false;
 
 
 							}
 
 
-							validator.settings.submitHandler.call(validator, validator.currentForm);
+							return handle();
 
 
-							if (validator.submitButton) {
+						} else {
 
 
-								// and clean up afterwards; thanks to no-block-scope, hidden can be referenced
-						                   
-
-
-						                                       
-
-
-								                                                                                                                                                     
-
-
-							 
-
-
-							                                                                        
-
-
-								hidden.remove();
-
-
-							}
+							validator.focusInvalid();
 
 
 							return false;
@@ -147,58 +174,10 @@
 						}
 
 
-						return true;
-
-
-					}
-
-						// prevent submit for invalid forms or custom submit handlers
-						if (validator.cancelSubmit) {
-
-
-					validator.cancelSubmit = false;
-
-
-					return handle();
+					});
 
 
 				}
-
-
-				if (validator.form()) {
-
-
-					if (validator.pendingRequest) {
-
-
-						validator.formSubmitted = true;
-
-
-						return false;
-
-
-					}
-
-
-					return handle();
-
-
-				} else {
-
-
-					validator.focusInvalid();
-
-
-					return false;
-
-
-				}
-
-
-			});
-
-
-		}
 
 				return validator;
 			},
@@ -257,69 +236,69 @@
 				if (command) {
 
 
-			var settings = $.data(element.form, 'validator').settings;
+					var settings = $.data(element.form, 'validator').settings;
 
 
-			var staticRules = settings.rules;
+					var staticRules = settings.rules;
 
 
-			var existingRules = $.validator.staticRules(element);
+					var existingRules = $.validator.staticRules(element);
 
 
-			switch (command) {
-			case "add":
-				$.extend(existingRules, $.validator.normalizeRule(argument));
+					switch (command) {
+					case "add":
+						$.extend(existingRules, $.validator.normalizeRule(argument));
 
 
-				staticRules[element.name] = existingRules;
+						staticRules[element.name] = existingRules;
 
 
-				if (argument.messages)
-					settings.messages[element.name] = $.extend(settings.messages[element.name], argument.messages);
+						if (argument.messages)
+							settings.messages[element.name] = $.extend(settings.messages[element.name], argument.messages);
 
 
-				break;
-			case "remove":
-				if (!argument) {
+						break;
+					case "remove":
+						if (!argument) {
 
 
-					delete staticRules[element.name];
+							delete staticRules[element.name];
 
 
-					return existingRules;
+							return existingRules;
+
+
+						}
+
+
+						var filtered = {  };
+
+
+						$.each(argument.split( /\s/ ), function(index, method) {
+
+
+							filtered[method] = existingRules[method];
+
+
+							delete existingRules[method];
+
+
+						});
+
+
+						return filtered;
+					}
 
 
 				}
 
-
-				var filtered = {  };
-
-
-				$.each(argument.split( /\s/ ), function(index, method) {
-
-
-					filtered[method] = existingRules[method];
-
-
-					delete existingRules[method];
-
-
-				});
-
-
-				return filtered;
-			}
-
-
-		}
-
 				var data = $.validator.normalizeRules(
-			$.extend(
-				{  },
-				$.validator.metadataRules(element),
-				$.validator.classRules(element),
-				$.validator.attributeRules(element),
-				$.validator.staticRules(element)
+					$.extend(
+						{  },
+						$.validator.metadataRules(element),
+						$.validator.classRules(element),
+						$.validator.attributeRules(element),
+						$.validator.staticRules(element)
 		), element);
 
 				// make sure required is at front
@@ -383,53 +362,53 @@
 	};
 
 	$.extend($.validator, {
-	defaults: {
-			messages: {  },
-			groups: {  },
-			rules: {  },
-			errorClass: "error",
-			validClass: "valid",
-			errorElement: "label",
-			focusInvalid: true,
-			errorContainer: $([]),
-			errorLabelContainer: $([]),
-			onsubmit: true,
-			ignore: [],
-			ignoreTitle: false,
-			onfocusin: function(element) {
-				this.lastActive = element;
+			defaults: {
+				messages: {  },
+				groups: {  },
+				rules: {  },
+				errorClass: "error",
+				validClass: "valid",
+				errorElement: "label",
+				focusInvalid: true,
+				errorContainer: $([]),
+				errorLabelContainer: $([]),
+				onsubmit: true,
+				ignore: [],
+				ignoreTitle: false,
+				onfocusin: function(element) {
+					this.lastActive = element;
 
-				// hide error label and remove error class on focus if enabled
-				if (this.settings.focusCleanup && !this.blockFocusCleanup) {
-					this.settings.unhighlight && this.settings.unhighlight.call(this, element, this.settings.errorClass, this.settings.validClass);
-					this.addWrapper(this.errorsFor(element)).hide();
+					// hide error label and remove error class on focus if enabled
+					if (this.settings.focusCleanup && !this.blockFocusCleanup) {
+						this.settings.unhighlight && this.settings.unhighlight.call(this, element, this.settings.errorClass, this.settings.validClass);
+						this.addWrapper(this.errorsFor(element)).hide();
+					}
+				},
+				onfocusout: function(element) {
+					if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))) {
+						this.element(element);
+					}
+				},
+				onkeyup: function(element) {
+					if (element.name in this.submitted || element == this.lastElement) {
+						this.element(element);
+					}
+				},
+				onclick: function(element) {
+					// click on selects, radiobuttons and checkboxes
+					if (element.name in this.submitted)
+						this.element(element);
+						// or option elements, check parent select in that case
+					else if (element.parentNode.name in this.submitted)
+						this.element(element.parentNode);
+				},
+				highlight: function(element, errorClass, validClass) {
+					$(element).addClass(errorClass).removeClass(validClass);
+				},
+				unhighlight: function(element, errorClass, validClass) {
+					$(element).removeClass(errorClass).addClass(validClass);
 				}
 			},
-			onfocusout: function(element) {
-				if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))) {
-					this.element(element);
-				}
-			},
-			onkeyup: function(element) {
-				if (element.name in this.submitted || element == this.lastElement) {
-					this.element(element);
-				}
-			},
-			onclick: function(element) {
-				// click on selects, radiobuttons and checkboxes
-				if (element.name in this.submitted)
-					this.element(element);
-					// or option elements, check parent select in that case
-				else if (element.parentNode.name in this.submitted)
-					this.element(element.parentNode);
-			},
-			highlight: function(element, errorClass, validClass) {
-				$(element).addClass(errorClass).removeClass(validClass);
-			},
-			unhighlight: function(element, errorClass, validClass) {
-				$(element).removeClass(errorClass).addClass(validClass);
-			}
-		},
 
 	// http://docs.jquery.com/Plugins/Validation/Validator/setDefaults
 			setDefaults: function(settings) {
@@ -468,41 +447,41 @@
 			autoCreateRanges: false,
 
 			prototype: {
-		init: function() {
-				this.labelContainer = $(this.settings.errorLabelContainer);
-				this.errorContext = this.labelContainer.length && this.labelContainer || $(this.currentForm);
-				this.containers = $(this.settings.errorContainer).add(this.settings.errorLabelContainer);
-				this.submitted = {  };
-				this.valueCache = {  };
-				this.pendingRequest = 0;
-				this.pending = {  };
-				this.invalid = {  };
-				this.reset();
+				init: function() {
+					this.labelContainer = $(this.settings.errorLabelContainer);
+					this.errorContext = this.labelContainer.length && this.labelContainer || $(this.currentForm);
+					this.containers = $(this.settings.errorContainer).add(this.settings.errorLabelContainer);
+					this.submitted = {  };
+					this.valueCache = {  };
+					this.pendingRequest = 0;
+					this.pending = {  };
+					this.invalid = {  };
+					this.reset();
 
-				var groups = (this.groups = {  });
-				$.each(this.settings.groups, function(key, value) {
-					$.each(value.split( /\s/ ), function(index, name) {
-						groups[name] = key;
+					var groups = (this.groups = {  });
+					$.each(this.settings.groups, function(key, value) {
+						$.each(value.split( /\s/ ), function(index, name) {
+							groups[name] = key;
+						});
 					});
-				});
-				var rules = this.settings.rules;
-				$.each(rules, function(key, value) {
-					rules[key] = $.validator.normalizeRule(value);
-				});
+					var rules = this.settings.rules;
+					$.each(rules, function(key, value) {
+						rules[key] = $.validator.normalizeRule(value);
+					});
 
-				function delegate(event) {
-					var validator = $.data(this[0].form, "validator"),
-					    eventType = "on" + event.type.replace( /^validate/ , "");
-					validator.settings[eventType] && validator.settings[eventType].call(validator, this[0]);
-				}
+					function delegate(event) {
+						var validator = $.data(this[0].form, "validator"),
+						    eventType = "on" + event.type.replace( /^validate/ , "");
+						validator.settings[eventType] && validator.settings[eventType].call(validator, this[0]);
+					}
 
-				$(this.currentForm)
-								.validateDelegate(":text, :password, :file, select, textarea", "focusin focusout keyup", delegate)
-								.validateDelegate(":radio, :checkbox, select, option", "click", delegate);
+					$(this.currentForm)
+										.validateDelegate(":text, :password, :file, select, textarea", "focusin focusout keyup", delegate)
+										.validateDelegate(":radio, :checkbox, select, option", "click", delegate);
 
-				if (this.settings.invalidHandler)
-					$(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
-			},
+					if (this.settings.invalidHandler)
+						$(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
+				},
 
 		// http://docs.jquery.com/Plugins/Validation/Validator/form
 				form: function() {
@@ -642,10 +621,10 @@
 					if (this.settings.focusInvalid) {
 						try {
 							$(this.findLastActive() || this.errorList.length && this.errorList[0].element || [])
-									.filter(":visible")
-									.focus()
+											.filter(":visible")
+											.focus()
 								// manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
-									.trigger("focusin");
+											.trigger("focusin");
 						} catch (e) {
 							// ignore IE throwing errors when focusing hidden elements
 						}
@@ -666,19 +645,19 @@
 					// select all valid inputs inside the form (no submit or reset buttons)
 					// workaround $Query([]).add until http://dev.jquery.com/ticket/2114 is solved
 					return $([]).add(this.currentForm.elements)
-							.filter(":input")
-							.not(":submit, :reset, :image, [disabled]")
-							.not(this.settings.ignore)
-							.filter(function() {
-						!this.name && validator.settings.debug && window.console && console.error("%o has no name assigned", this);
+									.filter(":input")
+									.not(":submit, :reset, :image, [disabled]")
+									.not(this.settings.ignore)
+									.filter(function() {
+								!this.name && validator.settings.debug && window.console && console.error("%o has no name assigned", this);
 
-						// select only the first element for each name, and only those with rules specified
-						if (this.name in rulesCache || !validator.objectLength($(this).rules()))
-							return false;
+								// select only the first element for each name, and only those with rules specified
+								if (this.name in rulesCache || !validator.objectLength($(this).rules()))
+									return false;
 
-						rulesCache[this.name] = true;
-						return true;
-					});
+								rulesCache[this.name] = true;
+								return true;
+							});
 				},
 
 				clean: function(selector) {
@@ -734,22 +713,22 @@
 							if (result == "pending") {
 
 
-						this.toHide = this.toHide.not(this.errorsFor(element));
+								this.toHide = this.toHide.not(this.errorsFor(element));
 
 
-						return;
+								return;
 
 
-					}
+							}
 
 							if (!result) {
-					 
+
 
 						this.formatAndAdd(element, rule);
-					 
+
 
 						return false;
-					 
+
 
 					}
 						} catch (e) {
@@ -874,9 +853,9 @@
 					} else {
 						// create label
 						label = $("<" + this.settings.errorElement + "/>")
-									.attr({ "for": this.idOrName(element), generated: true })
-									.addClass(this.settings.errorClass)
-									.html(message || "");
+											.attr({ "for": this.idOrName(element), generated: true })
+											.addClass(this.settings.errorClass)
+											.html(message || "");
 						if (this.settings.wrapper) {
 							// make sure the element is visible, even in IE
 							// actually showing the wrapped element is handled elsewhere
@@ -981,7 +960,7 @@
 							message: this.defaultMessage(element, "remote")
 						});
 				}
-	},
+			},
 
 			classRuleSettings: {
 				required: { required: true },
@@ -1108,38 +1087,38 @@
 				if ($.validator.autoCreateRanges) {
 
 
-			// auto-create ranges
+					// auto-create ranges
 					if (rules.min && rules.max) {
 
 
-				rules.range = [rules.min, rules.max];
+						rules.range = [rules.min, rules.max];
 
 
-				delete rules.min;
+						delete rules.min;
 
 
-				delete rules.max;
+						delete rules.max;
 
 
-			}
+					}
 
 
-			if (rules.minlength && rules.maxlength) {
+					if (rules.minlength && rules.maxlength) {
 
 
-				rules.rangelength = [rules.minlength, rules.maxlength];
+						rules.rangelength = [rules.minlength, rules.maxlength];
 
 
-				delete rules.minlength;
+						delete rules.minlength;
 
 
-				delete rules.maxlength;
+						delete rules.maxlength;
 
 
-			}
+					}
 
 
-		}
+				}
 
 				// To support custom messages in metadata ignore rule methods titled "messages"
 				if (rules.messages) {
@@ -1221,10 +1200,10 @@
 					param = typeof param == "string" && { url: param } || param;
 
 					if (this.pending[element.name]) {
-			                                                            
+
 
 				return "pending";
-			                                                            
+
 
 			}
 					if (previous.old === value) {
@@ -1370,7 +1349,7 @@
 					});
 					return value == target.val();
 				}
-	}
+			}
 		});
 
 // deprecated, use $.validator.format instead

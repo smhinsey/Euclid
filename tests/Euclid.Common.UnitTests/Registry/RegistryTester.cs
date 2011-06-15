@@ -95,12 +95,13 @@ namespace Euclid.Common.UnitTests.Registry
 
 			for (var i = 0; i < numberOfLoops; i++)
 			{
-				var results = Parallel.For(0, numberOfLoops, x =>
-				                                             	{
-				                                             		var record = CreateRecord(new FakeMessage());
+				var results = Parallel.For
+					(0, numberOfLoops, x =>
+					                   	{
+					                   		var record = CreateRecord(new FakeMessage());
 
-				                                             		Assert.NotNull(record);
-				                                             	});
+					                   		Assert.NotNull(record);
+					                   	});
 			}
 
 			Console.WriteLine("Created {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);

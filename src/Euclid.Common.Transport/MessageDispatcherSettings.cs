@@ -13,9 +13,10 @@ namespace Euclid.Common.Transport
 			DurationOfDispatchingSlice = new OverridableSetting<TimeSpan>();
 		}
 
+		public IOverridableSetting<TimeSpan> DurationOfDispatchingSlice { get; set; }
+
 		public IOverridableSetting<IMessageTransport> InputTransport { get; set; }
 		public IOverridableSettingList<Type> MessageProcessorTypes { get; set; }
 		public IOverridableSetting<int> NumberOfMessagesToDispatchPerSlice { get; set; }
-		public IOverridableSetting<TimeSpan> DurationOfDispatchingSlice { get; set; }
 	}
 }

@@ -24,9 +24,11 @@ namespace Euclid.Common.Transport
 		{
 			if (State != TransportState.Open)
 			{
-				throw new InvalidOperationException(string.Format(
-				                                                  "Cannot {0} a message when the transport is not open",
-				                                                  operationName));
+				throw new InvalidOperationException
+					(string.Format
+					 	(
+					 	 "Cannot {0} a message when the transport is not open",
+					 	 operationName));
 			}
 		}
 	}

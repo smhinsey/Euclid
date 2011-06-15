@@ -27,9 +27,10 @@ namespace Euclid.Common.IntegrationTests.Storage
 			_session = Fluently
 				.Configure()
 				.Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")))
-				.Mappings(map => map
-				                 	.AutoMappings
-				                 	.Add(AutoMap.AssemblyOf<FakeMessage>(cfg)))
+				.Mappings
+				(map => map
+				        	.AutoMappings
+				        	.Add(AutoMap.AssemblyOf<FakeMessage>(cfg)))
 				.ExposeConfiguration(BuildSchema)
 				.BuildSessionFactory()
 				.OpenSession();

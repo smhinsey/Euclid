@@ -305,8 +305,8 @@
 					}
 
 					$(this.currentForm)
-								.validateDelegate(":text, :password, :file, select, textarea", "focusin focusout keyup", delegate)
-								.validateDelegate(":radio, :checkbox, select, option", "click", delegate);
+										.validateDelegate(":text, :password, :file, select, textarea", "focusin focusout keyup", delegate)
+										.validateDelegate(":radio, :checkbox, select, option", "click", delegate);
 
 					if (this.settings.invalidHandler)
 						$(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
@@ -410,10 +410,10 @@
 					if (this.settings.focusInvalid) {
 						try {
 							$(this.findLastActive() || this.errorList.length && this.errorList[0].element || [])
-									.filter(":visible")
-									.focus()
+											.filter(":visible")
+											.focus()
 								// manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
-									.trigger("focusin");
+											.trigger("focusin");
 						} catch (e) {
 							// ignore IE throwing errors when focusing hidden elements
 						}
@@ -434,19 +434,19 @@
 					// select all valid inputs inside the form (no submit or reset buttons)
 					// workaround $Query([]).add until http://dev.jquery.com/ticket/2114 is solved
 					return $([]).add(this.currentForm.elements)
-							.filter(":input")
-							.not(":submit, :reset, :image, [disabled]")
-							.not(this.settings.ignore)
-							.filter(function() {
-						!this.name && validator.settings.debug && window.console && console.error("%o has no name assigned", this);
+									.filter(":input")
+									.not(":submit, :reset, :image, [disabled]")
+									.not(this.settings.ignore)
+									.filter(function() {
+								!this.name && validator.settings.debug && window.console && console.error("%o has no name assigned", this);
 
-						// select only the first element for each name, and only those with rules specified
-						if (this.name in rulesCache || !validator.objectLength($(this).rules()))
-							return false;
+								// select only the first element for each name, and only those with rules specified
+								if (this.name in rulesCache || !validator.objectLength($(this).rules()))
+									return false;
 
-						rulesCache[this.name] = true;
-						return true;
-					});
+								rulesCache[this.name] = true;
+								return true;
+							});
 				},
 
 				clean: function(selector) {
@@ -630,9 +630,9 @@
 					} else {
 						// create label
 						label = $("<" + this.settings.errorElement + "/>")
-									.attr({ "for": this.idOrName(element), generated: true })
-									.addClass(this.settings.errorClass)
-									.html(message || "");
+											.attr({ "for": this.idOrName(element), generated: true })
+											.addClass(this.settings.errorClass)
+											.html(message || "");
 						if (this.settings.wrapper) {
 							// make sure the element is visible, even in IE
 							// actually showing the wrapped element is handled elsewhere

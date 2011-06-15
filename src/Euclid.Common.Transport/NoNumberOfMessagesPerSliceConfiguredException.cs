@@ -6,7 +6,6 @@ namespace Euclid.Common.Transport
 	{
 		public NoNumberOfMessagesPerSliceConfiguredException(string message) : base(message)
 		{
-			
 		}
 	}
 }

@@ -4662,7 +4662,7 @@
 
 				CLASS: function(elem, match) {
 					return (" " + (elem.className || elem.getAttribute("class")) + " ")
-								.indexOf(match) > -1;
+										.indexOf(match) > -1;
 				},
 
 				ATTR: function(elem, match) {
@@ -7030,10 +7030,10 @@
 										jQuery("<div>")
 											// inject the contents of the document in, removing the scripts
 											// to avoid any 'Permission Denied' errors in IE
-											.append(res.responseText.replace(rscript, ""))
+													.append(res.responseText.replace(rscript, ""))
 
 											// Locate the specified elements
-											.find(selector) :
+													.find(selector) :
 						// If not, just inject the full result
 										res.responseText);
 							}
@@ -7065,22 +7065,22 @@
 				return this.map(function() {
 					return this.elements ? jQuery.makeArray(this.elements) : this;
 				})
-						.filter(function() {
-					return this.name && !this.disabled &&
-						(this.checked || rselectTextarea.test(this.nodeName) ||
-							rinput.test(this.type));
-				})
-						.map(function(i, elem) {
-					var val = jQuery(this).val();
+								.filter(function() {
+							return this.name && !this.disabled &&
+								(this.checked || rselectTextarea.test(this.nodeName) ||
+									rinput.test(this.type));
+						})
+								.map(function(i, elem) {
+							var val = jQuery(this).val();
 
-					return val == null ?
-						null :
-						jQuery.isArray(val) ?
-							jQuery.map(val, function(val, i) {
-								return { name: elem.name, value: val };
-							}) :
-							{ name: elem.name, value: val };
-				}).get();
+							return val == null ?
+								null :
+								jQuery.isArray(val) ?
+									jQuery.map(val, function(val, i) {
+										return { name: elem.name, value: val };
+									}) :
+									{ name: elem.name, value: val };
+						}).get();
 			}
 		});
 
@@ -8025,7 +8025,7 @@
 		///	<returns type="jQuery" />
 
 				return this.filter(":hidden").css("opacity", 0).show().end()
-									.animate({ opacity: to }, speed, easing, callback);
+											.animate({ opacity: to }, speed, easing, callback);
 			},
 
 			animate: function(prop, speed, easing, callback) {

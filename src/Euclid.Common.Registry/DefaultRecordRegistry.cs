@@ -31,13 +31,14 @@ namespace Euclid.Common.Registry
 
 		public TRecord MarkAsFailed(Guid id, string message, string callStack)
 		{
-			return UpdateRecord(id, r =>
-			                        	{
-			                        		r.Completed = true;
-			                        		r.Error = true;
-			                        		r.ErrorMessage = message;
-			                        		r.CallStack = callStack;
-			                        	});
+			return UpdateRecord
+				(id, r =>
+				     	{
+				     		r.Completed = true;
+				     		r.Error = true;
+				     		r.ErrorMessage = message;
+				     		r.CallStack = callStack;
+				     	});
 		}
 
 		private TRecord UpdateRecord(Guid id, Action<TRecord> actOnRecord)

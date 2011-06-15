@@ -69,14 +69,14 @@ namespace Euclid.Common.HostingFabric
 			}
 		}
 
-		public IFabricRuntimeStatistics GetStatistics()
-		{
-			return new DefaultRuntimeStatistics(_serviceHost.GetExceptionsThrownByHostedServices(), _configuredHostedServices, _serviceHost.GetType(), State, _currentSettings);
-		}
-
 		public IList<Exception> GetExceptionsThrownByHostedServices()
 		{
 			return _serviceHost.GetExceptionsThrownByHostedServices();
+		}
+
+		public IFabricRuntimeStatistics GetStatistics()
+		{
+			return new DefaultRuntimeStatistics(_serviceHost.GetExceptionsThrownByHostedServices(), _configuredHostedServices, _serviceHost.GetType(), State, _currentSettings);
 		}
 
 		public void Shutdown()

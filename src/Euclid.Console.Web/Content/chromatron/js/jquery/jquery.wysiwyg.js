@@ -612,21 +612,21 @@
 			    tooltip = control.tooltip || control.command || name || "";
 
 			return $('<li role="menuitem" unselectable="on">' + (className) + "</li>")
-								.addClass(className)
-								.attr("title", tooltip)
-								.hover(this.addHoverClass, this.removeHoverClass)
-								.click(function() {
-							if ("true" === $(this).attr("disabled")) {
-								return false;
-							}
+										.addClass(className)
+										.attr("title", tooltip)
+										.hover(this.addHoverClass, this.removeHoverClass)
+										.click(function() {
+									if ("true" === $(this).attr("disabled")) {
+										return false;
+									}
 
-							self.triggerControl.apply(self, [name, control]);
+									self.triggerControl.apply(self, [name, control]);
 
-							this.blur();
-							self.ui.returnRange();
-							self.ui.focus();
-						})
-								.appendTo(self.ui.toolbar);
+									this.blur();
+									self.ui.returnRange();
+									self.ui.focus();
+								})
+										.appendTo(self.ui.toolbar);
 		};
 
 		this.ui.appendItemCustom = function(name, control) {
@@ -638,25 +638,25 @@
 			}
 
 			return $('<li role="menuitem" unselectable="on" style="background: url(\'' + control.icon + '\') no-repeat;"></li>')
-								.addClass("custom-command-" + name)
-								.addClass("wysiwyg-custom-command")
-								.addClass(name)
-								.attr("title", control.tooltip)
-								.hover(this.addHoverClass, this.removeHoverClass)
-								.click(function() {
-							if ("true" === $(this).attr("disabled")) {
-								return false;
-							}
+										.addClass("custom-command-" + name)
+										.addClass("wysiwyg-custom-command")
+										.addClass(name)
+										.attr("title", control.tooltip)
+										.hover(this.addHoverClass, this.removeHoverClass)
+										.click(function() {
+									if ("true" === $(this).attr("disabled")) {
+										return false;
+									}
 
-							self.triggerControl.apply(self, [name, control]);
+									self.triggerControl.apply(self, [name, control]);
 
-							this.blur();
-							self.ui.returnRange();
-							self.ui.focus();
+									this.blur();
+									self.ui.returnRange();
+									self.ui.focus();
 
-							self.triggerControlCallback(name);
-						})
-								.appendTo(self.ui.toolbar);
+									self.triggerControlCallback(name);
+								})
+										.appendTo(self.ui.toolbar);
 		};
 
 		this.ui.appendItemSeparator = function() {
@@ -1038,11 +1038,11 @@
 
 			self.ui.appendControls();
 			self.element.append(self.ui.toolbar)
-								.append($("<div><!-- --></div>")
-								.css({
-								clear: "both"
-							}))
-								.append(self.editor);
+										.append($("<div><!-- --></div>")
+										.css({
+										clear: "both"
+									}))
+										.append(self.editor);
 
 			self.editorDoc = self.innerDocument();
 			self.ui.designMode();
@@ -1052,7 +1052,7 @@
 					/**
 					 * @link http://code.google.com/p/jwysiwyg/issues/detail?id=144
 					 */
-									.replace( /INITIAL_CONTENT/ , function() { return self.wrapInitialContent(); })
+											.replace( /INITIAL_CONTENT/ , function() { return self.wrapInitialContent(); })
 			);
 			self.editorDoc.close();
 
@@ -1139,9 +1139,9 @@
 
 			if (self.options.autoSave) {
 				$(self.editorDoc).keydown(function() { self.autoSaveFunction(); })
-									.keyup(function() { self.autoSaveFunction(); })
-									.mousedown(function() { self.autoSaveFunction(); })
-									.bind($.support.noCloneEvent ? "input.wysiwyg" : "paste.wysiwyg", function() { self.autoSaveFunction(); });
+											.keyup(function() { self.autoSaveFunction(); })
+											.mousedown(function() { self.autoSaveFunction(); })
+											.bind($.support.noCloneEvent ? "input.wysiwyg" : "paste.wysiwyg", function() { self.autoSaveFunction(); });
 			}
 
 			if (self.options.autoGrow) {

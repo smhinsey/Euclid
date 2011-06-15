@@ -9,17 +9,17 @@ namespace Euclid.Common.Transport
 	public class MultitaskingMessageDispatcher : IMessageDispatcher, ILoggingSource
 	{
 		private readonly IWindsorContainer _container;
+		private Task _inputTask;
 		private IMessageTransport _inputTransport;
 		private IList<Type> _messageProcessorTypes;
-		private Task _inputTask;
-
-		public IMessageDispatcherSettings CurrentSettings { get; private set; }
-		public MessageDispatcherState State { get; private set; }
 
 		public MultitaskingMessageDispatcher(IWindsorContainer container)
 		{
 			_container = container;
 		}
+
+		public IMessageDispatcherSettings CurrentSettings { get; private set; }
+		public MessageDispatcherState State { get; private set; }
 
 		public void Configure(IMessageDispatcherSettings settings)
 		{
@@ -56,7 +56,7 @@ namespace Euclid.Common.Transport
 
 		public void Disable()
 		{
-			_inputTransport.Close();
+			// stop the input
 
 			State = MessageDispatcherState.Disabled;
 
@@ -65,7 +65,10 @@ namespace Euclid.Common.Transport
 
 		public void Enable()
 		{
-			_inputTask = new Task(() => _inputTransport.Open());
+			// SELF create a new task which periodically retrieves messages from the input transport
+			// and spawns new tasks to process them
+
+			//_inputTask = new Task(() => _inputTransport.Open());
 
 			State = MessageDispatcherState.Enabled;
 

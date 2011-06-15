@@ -6,7 +6,6 @@ namespace Euclid.Common.Transport
 	{
 		public NoDispatchingSliceDurationConfiguredException(string message) : base(message)
 		{
-			
 		}
 	}
 }

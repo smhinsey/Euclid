@@ -101,7 +101,7 @@
 				showOverlay();
 				$('#facebox .content').empty();
 				$('#facebox .body').children().hide().end().
-		        		append('<div class="loading"><img src="' + $.facebox.settings.loadingImage + '"/></div>');
+			        			append('<div class="loading"><img src="' + $.facebox.settings.loadingImage + '"/></div>');
 				$('#facebox').css({
 						top: getPageScroll()[1] + (getPageHeight() / 10),
 						left: $(window).width() / 2 - 205
@@ -253,9 +253,9 @@
 		if ($('#facebox_overlay').length == 0)
 			$("body").append('<div id="facebox_overlay" class="facebox_hide"></div>');
 		$('#facebox_overlay').hide().addClass("facebox_overlayBG")
-		      		.css('opacity', $.facebox.settings.opacity)
-		      		.click(function() { $(document).trigger('close.facebox'); })
-		      		.fadeIn(200);
+			      			.css('opacity', $.facebox.settings.opacity)
+			      			.click(function() { $(document).trigger('close.facebox'); })
+			      			.fadeIn(200);
 		return false;
 	}
 
