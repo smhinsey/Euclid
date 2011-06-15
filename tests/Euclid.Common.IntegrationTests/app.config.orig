@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <connectionStrings>
+<<<<<<< HEAD
+    <add name="test-db" connectionString="Data Source=.\;Initial Catalog=test-db;Integrated Security=SSPI;Persist Security Info=False;"/>
+=======
     <add name="test-db" connectionString="Data Source=.;Initial Catalog=test-db;Integrated Security=SSPI;Persist Security Info=False;"/>
+>>>>>>> 4ce8cdad36c44d70a082c80b2614b62b79340d6a
   </connectionStrings>
   <system.data>
     <DbProviderFactories>
