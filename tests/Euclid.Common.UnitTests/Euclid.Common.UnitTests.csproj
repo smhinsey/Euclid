@@ -73,6 +73,7 @@
     <Compile Include="Storage\RecordRepositoryTest.cs" />
     <Compile Include="Transport\AzureTransportTest.cs" />
     <Compile Include="Transport\InMemoryTransportTests.cs" />
+    <Compile Include="Transport\MessageDispatcherTests.cs" />
     <Compile Include="Transport\TestTransport.cs" />
   </ItemGroup>
   <ItemGroup>
