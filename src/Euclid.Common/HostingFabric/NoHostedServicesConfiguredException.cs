@@ -6,7 +6,6 @@ namespace Euclid.Common.HostingFabric
 	{
 		public NoHostedServicesConfiguredException(string message) : base(message)
 		{
-			
 		}
 	}
 }

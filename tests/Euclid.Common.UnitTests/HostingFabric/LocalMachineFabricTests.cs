@@ -17,23 +17,23 @@ namespace Euclid.Common.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-					Component.For<IServiceHost>()
-						.Forward<MultitaskingServiceHost>()
-						.Instance(new MultitaskingServiceHost())
+			                   Component.For<IServiceHost>()
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost())
 				);
 
 			container.Register(
-					Component.For<IHostedService>()
-						.Forward<FakeHostedService>()
-						.Instance(new FakeHostedService())
+			                   Component.For<IHostedService>()
+			                   	.Forward<FakeHostedService>()
+			                   	.Instance(new FakeHostedService())
 				);
 
 			var runtime = new LocalMachineFabric(container);
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type>() { typeof(FakeHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
 			runtime.Configure(settings);
 		}
@@ -56,23 +56,23 @@ namespace Euclid.Common.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-					Component.For<IServiceHost>()
-						.Forward<MultitaskingServiceHost>()
-						.Instance(new MultitaskingServiceHost())
+			                   Component.For<IServiceHost>()
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost())
 				);
 
 			container.Register(
-					Component.For<IHostedService>()
-						.Forward<FakeHostedService>()
-						.Instance(new FakeHostedService())
+			                   Component.For<IHostedService>()
+			                   	.Forward<FakeHostedService>()
+			                   	.Instance(new FakeHostedService())
 				);
 
 			var runtime = new LocalMachineFabric(container);
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type>() { typeof(FakeHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
 			runtime.Configure(settings);
 
@@ -87,23 +87,23 @@ namespace Euclid.Common.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-					Component.For<IServiceHost>()
-						.Forward<MultitaskingServiceHost>()
-						.Instance(new MultitaskingServiceHost())
+			                   Component.For<IServiceHost>()
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost())
 				);
 
 			container.Register(
-					Component.For<IHostedService>()
-						.Forward<FakeHostedService>()
-						.Instance(new FakeHostedService())
+			                   Component.For<IHostedService>()
+			                   	.Forward<FakeHostedService>()
+			                   	.Instance(new FakeHostedService())
 				);
 
 			var runtime = new LocalMachineFabric(container);
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type>() { typeof(FakeHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
 			runtime.Configure(settings);
 
@@ -126,23 +126,23 @@ namespace Euclid.Common.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-					Component.For<IServiceHost>()
-						.Forward<MultitaskingServiceHost>()
-						.Instance(new MultitaskingServiceHost())
+			                   Component.For<IServiceHost>()
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost())
 				);
 
 			container.Register(
-					Component.For<IHostedService>()
-						.Forward<FakeHostedService>()
-						.Instance(new FakeHostedService())
+			                   Component.For<IHostedService>()
+			                   	.Forward<FakeHostedService>()
+			                   	.Instance(new FakeHostedService())
 				);
 
 			var runtime = new LocalMachineFabric(container);
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type>() { typeof(FakeHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
 			runtime.Configure(settings);
 
@@ -203,9 +203,9 @@ namespace Euclid.Common.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-					Component.For<IServiceHost>()
-						.Forward<MultitaskingServiceHost>()
-						.Instance(new MultitaskingServiceHost())
+			                   Component.For<IServiceHost>()
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost())
 				);
 
 			var runtime = new LocalMachineFabric(container);
@@ -213,7 +213,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 			var settings = new FabricRuntimeSettings();
 
 			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type>(){ GetType()});
+			settings.HostedServices.WithDefault(new List<Type> {GetType()});
 
 			runtime.Configure(settings);
 		}
@@ -229,7 +229,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 			var settings = new FabricRuntimeSettings();
 
 			settings.ServiceHost.WithDefault(GetType());
-			settings.HostedServices.WithDefault(new List<Type>() { GetType() });
+			settings.HostedServices.WithDefault(new List<Type> {GetType()});
 
 			runtime.Configure(settings);
 		}

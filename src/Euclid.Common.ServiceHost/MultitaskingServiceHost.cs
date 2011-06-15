@@ -46,7 +46,14 @@ namespace Euclid.Common.ServiceHost
 				tokenSource.Cancel();
 			}
 
-			Task.WaitAll(_taskMap.Values.ToArray(), _shutdownTimeout);
+			try
+			{
+				Task.WaitAll(_taskMap.Values.ToArray(), _shutdownTimeout);
+			}
+			catch (AggregateException e)
+			{
+				//  SELF this needs to bubble up to the host
+			}
 
 			State = ServiceHostState.Stopped;
 		}

@@ -29,13 +29,13 @@ namespace Euclid.Common.HostingFabric
 				throw new NoServiceHostConfiguredException("You must configure a service host.");
 			}
 
-			if(settings.HostedServices.Value == null || settings.HostedServices.Value.Count == 0)
+			if (settings.HostedServices.Value == null || settings.HostedServices.Value.Count == 0)
 			{
 				throw new NoHostedServicesConfiguredException("You must configure hosted services.");
 			}
-			
+
 			_currentSettings = settings;
-			
+
 			try
 			{
 				_serviceHost = (IServiceHost) _container.Resolve(settings.ServiceHost.Value);
