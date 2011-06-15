@@ -8,6 +8,7 @@ namespace Euclid.Common.ServiceHost
 {
 	public class MultitaskingServiceHost : IServiceHost
 	{
+		private readonly IList<Exception> _serviceExceptions;
 		private readonly TimeSpan _shutdownTimeout;
 		private readonly IDictionary<Guid, Task> _taskMap;
 		private readonly IDictionary<Guid, CancellationTokenSource> _taskTokenSources;
@@ -17,6 +18,7 @@ namespace Euclid.Common.ServiceHost
 			_taskMap = new Dictionary<Guid, Task>();
 			_taskTokenSources = new Dictionary<Guid, CancellationTokenSource>();
 			_shutdownTimeout = TimeSpan.Parse("00:00:10");
+			_serviceExceptions = new List<Exception>();
 
 			Services = new Dictionary<Guid, IHostedService>();
 		}
@@ -52,10 +54,29 @@ namespace Euclid.Common.ServiceHost
 			}
 			catch (AggregateException e)
 			{
-				//  SELF this needs to bubble up to the host
+				foreach (var innerException in e.InnerExceptions)
+				{
+					_serviceExceptions.Add(innerException);
+				}
 			}
 
 			State = ServiceHostState.Stopped;
+		}
+
+		public IList<Exception> GetExceptionsThrownByHostedServices()
+		{
+			foreach (var task in _taskMap)
+			{
+				if(task.Value.Exception != null)
+				{
+					foreach (var innerException in task.Value.Exception.InnerExceptions)
+					{
+						_serviceExceptions.Add(innerException);
+					}
+				}
+			}
+
+			return _serviceExceptions;
 		}
 
 		public HostedServiceState GetState(Guid id)

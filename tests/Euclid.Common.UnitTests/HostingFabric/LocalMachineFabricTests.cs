@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.HostingFabric;
@@ -41,7 +42,38 @@ namespace Euclid.Common.UnitTests.HostingFabric
 		[Test]
 		public void ReportsErrorsThrownByHostedServices()
 		{
-			Assert.Ignore("Down the road.");
+			var container = new WindsorContainer();
+
+			container.Register(
+												 Component.For<IServiceHost>()
+													.Forward<MultitaskingServiceHost>()
+													.Instance(new MultitaskingServiceHost())
+				);
+
+			container.Register(
+												 Component.For<IHostedService>()
+													.Forward<FailingHostedService>()
+													.Instance(new FailingHostedService())
+				);
+
+			var runtime = new LocalMachineFabric(container);
+
+			var settings = new FabricRuntimeSettings();
+
+			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> { typeof(FailingHostedService) });
+
+			runtime.Configure(settings);
+
+			runtime.Start();
+
+			Assert.AreEqual(FabricRuntimeState.Started, runtime.State);
+
+			Thread.Sleep(100);
+
+			var exceptions = runtime.GetExceptionsThrownByHostedServices();
+
+			Assert.AreEqual(1, exceptions.Count);
 		}
 
 		[Test]

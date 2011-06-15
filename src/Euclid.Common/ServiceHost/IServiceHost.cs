@@ -17,5 +17,6 @@ namespace Euclid.Common.ServiceHost
 		Guid Install(IHostedService service);
 		void Start(Guid id);
 		void StartAll();
+		IList<Exception> GetExceptionsThrownByHostedServices();
 	}
 }

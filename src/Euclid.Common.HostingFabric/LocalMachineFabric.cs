@@ -74,6 +74,11 @@ namespace Euclid.Common.HostingFabric
 			return new DefaultRuntimeStatistics(_configuredHostedServices, _serviceHost.GetType(), State, _currentSettings);
 		}
 
+		public IList<Exception> GetExceptionsThrownByHostedServices()
+		{
+			return _serviceHost.GetExceptionsThrownByHostedServices();
+		}
+
 		public void Shutdown()
 		{
 			State = FabricRuntimeState.Stoppping;

@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Euclid.Common.HostingFabric
 {
 	/// <summary>
@@ -15,6 +18,7 @@ namespace Euclid.Common.HostingFabric
 	{
 		void Configure(IFabricRuntimeSettings settings);
 		IFabricRuntimeStatistics GetStatistics();
+		IList<Exception> GetExceptionsThrownByHostedServices();
 		void Shutdown();
 		void Start();
 	}

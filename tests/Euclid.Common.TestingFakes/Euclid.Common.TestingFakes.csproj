@@ -46,6 +46,7 @@
     <Compile Include="Registry\FakeRecord.cs" />
     <Compile Include="Registry\FakeRegistry.cs" />
     <Compile Include="Serialization\FakeMessage.cs" />
+    <Compile Include="ServiceHost\FailingHostedService.cs" />
     <Compile Include="ServiceHost\FakeHostedService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\FakeMessage.cs" />
