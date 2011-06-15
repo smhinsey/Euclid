@@ -5,7 +5,7 @@
 		TSettingType DefaultValue { get; }
 		TSettingType Value { get; }
 		bool WasOverridden { get; }
-		void WithDefault(TSettingType value);
 		void ApplyOverride(TSettingType newValue);
+		void WithDefault(TSettingType value);
 	}
 }

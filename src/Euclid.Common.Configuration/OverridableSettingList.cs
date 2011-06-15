@@ -8,10 +8,9 @@ namespace Euclid.Common.Configuration
 		public IList<TSettingType> Value { get; private set; }
 		public bool WasOverridden { get; private set; }
 
-		public void WithDefault(IList<TSettingType> value)
+		public void Add(TSettingType newListItem)
 		{
-			DefaultValue = value;
-			Value = value;
+			Value.Add(newListItem);
 		}
 
 		public void ApplyOverride(IList<TSettingType> newValue)
@@ -20,9 +19,10 @@ namespace Euclid.Common.Configuration
 			WasOverridden = true;
 		}
 
-		public void Add(TSettingType newListItem)
+		public void WithDefault(IList<TSettingType> value)
 		{
-			Value.Add(newListItem);
+			DefaultValue = value;
+			Value = value;
 		}
 	}
 }

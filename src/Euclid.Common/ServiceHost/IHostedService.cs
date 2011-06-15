@@ -9,7 +9,7 @@ namespace Euclid.Common.ServiceHost
 		string Name { get; }
 		HostedServiceState State { get; }
 
-		void Start();
 		void Cancel();
+		void Start();
 	}
 }

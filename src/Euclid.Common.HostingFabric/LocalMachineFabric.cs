@@ -4,9 +4,16 @@ namespace Euclid.Common.HostingFabric
 {
 	public class LocalMachineFabric : IFabricRuntime
 	{
-		public FabricRuntimeState State { get; private set; }
+		public LocalMachineFabric()
+		{
+			State = FabricRuntimeState.Stopped;
+			Statistics = new StandardRuntimeStatistics();
+		}
 
-		public void Configure()
+		public FabricRuntimeState State { get; private set; }
+		public IFabricRuntimeStatistics Statistics { get; private set; }
+
+		public void Configure(IFabricRuntimeSettings settings)
 		{
 			throw new NotImplementedException();
 		}

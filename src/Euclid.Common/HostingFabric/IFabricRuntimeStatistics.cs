@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Euclid.Common.Configuration;
 
 namespace Euclid.Common.HostingFabric
 {
-	public interface IFabricRuntimeStatus
+	public interface IFabricRuntimeStatistics
 	{
-		FabricRuntimeState RuntimeState { get; }
 		IList<Type> ConfiguredHostedServices { get; }
 		IList<Type> ConfiguredServiceHosts { get; }
+		FabricRuntimeState RuntimeState { get; }
 		IFabricRuntimeSettings Settings { get; }
-	}
-
-	public interface IFabricRuntimeSettings : IOverridableSettings
-	{
 	}
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using Euclid.Common.Serialization;
 using Euclid.Common.TestingFakes.Serialization;
-using Newtonsoft.Json;
 using NUnit.Framework;
+using Newtonsoft.Json;
 
 namespace Euclid.Common.UnitTests.Serialization
 {

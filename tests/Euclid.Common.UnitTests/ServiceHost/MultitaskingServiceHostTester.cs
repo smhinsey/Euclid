@@ -10,6 +10,15 @@ namespace Euclid.Common.UnitTests.ServiceHost
 	{
 		[Test]
 		[ExpectedException(typeof (HostedServiceNotFoundException))]
+		public void CancelFailsForMissingService()
+		{
+			var host = new MultitaskingServiceHost();
+
+			host.Cancel(Guid.NewGuid());
+		}
+
+		[Test]
+		[ExpectedException(typeof (HostedServiceNotFoundException))]
 		public void GetStateFailsForMissingService()
 		{
 			var host = new MultitaskingServiceHost();
@@ -107,15 +116,6 @@ namespace Euclid.Common.UnitTests.ServiceHost
 			host.StartAll();
 
 			Assert.AreEqual(ServiceHostState.Started, host.State);
-		}
-
-		[Test]
-		[ExpectedException(typeof (HostedServiceNotFoundException))]
-		public void CancelFailsForMissingService()
-		{
-			var host = new MultitaskingServiceHost();
-
-			host.Cancel(Guid.NewGuid());
 		}
 	}
 }

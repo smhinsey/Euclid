@@ -6,16 +6,16 @@
 		public TSettingType Value { get; private set; }
 		public bool WasOverridden { get; private set; }
 
-		public void WithDefault(TSettingType value)
-		{
-			DefaultValue = value;
-			Value = value;
-		}
-
 		public void ApplyOverride(TSettingType newValue)
 		{
 			Value = newValue;
 			WasOverridden = true;
+		}
+
+		public void WithDefault(TSettingType value)
+		{
+			DefaultValue = value;
+			Value = value;
 		}
 	}
 }

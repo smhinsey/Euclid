@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="LocalMachineFabric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StandardRuntimeStatistics.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Euclid.Common\Euclid.Common.csproj">

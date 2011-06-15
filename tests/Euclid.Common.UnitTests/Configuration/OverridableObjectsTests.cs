@@ -20,7 +20,7 @@ namespace Euclid.Common.UnitTests.Configuration
 				.Build(settings =>
 				       	{
 				       		settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
-									settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
+				       		settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
 				       		settings.NumericConfigSetting.WithDefault(numericSetting);
 				       		settings.EnumConfigSetting.WithDefault(enumSetting);
 				       	});
@@ -43,12 +43,12 @@ namespace Euclid.Common.UnitTests.Configuration
 
 			var config = OverridableSettings<FakeSettings>
 				.Build(settings =>
-				{
-					settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
-					settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
-					settings.NumericConfigSetting.WithDefault(numericSetting);
-					settings.EnumConfigSetting.WithDefault(enumSetting);
-				});
+				       	{
+				       		settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
+				       		settings.AnotherFakeConfigSetting.WithDefault(anotherFakeSettingDefaultValue);
+				       		settings.NumericConfigSetting.WithDefault(numericSetting);
+				       		settings.EnumConfigSetting.WithDefault(enumSetting);
+				       	});
 
 			config.OverrideFromAppSettings();
 

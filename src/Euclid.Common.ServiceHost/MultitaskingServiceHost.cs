@@ -24,6 +24,33 @@ namespace Euclid.Common.ServiceHost
 		public IDictionary<Guid, IHostedService> Services { get; private set; }
 		public ServiceHostState State { get; private set; }
 
+		public void Cancel(Guid id)
+		{
+			checkForHostedService(id);
+
+			State = ServiceHostState.Stopping;
+
+			_taskTokenSources[id].Cancel();
+
+			_taskMap[id].Wait();
+
+			State = ServiceHostState.Stopped;
+		}
+
+		public void CancelAll()
+		{
+			State = ServiceHostState.Stopping;
+
+			foreach (var tokenSource in _taskTokenSources.Values)
+			{
+				tokenSource.Cancel();
+			}
+
+			Task.WaitAll(_taskMap.Values.ToArray(), _shutdownTimeout);
+
+			State = ServiceHostState.Stopped;
+		}
+
 		public HostedServiceState GetState(Guid id)
 		{
 			checkForHostedService(id);
@@ -73,33 +100,6 @@ namespace Euclid.Common.ServiceHost
 			}
 
 			State = ServiceHostState.Started;
-		}
-
-		public void Cancel(Guid id)
-		{
-			checkForHostedService(id);
-
-			State = ServiceHostState.Stopping;
-
-			_taskTokenSources[id].Cancel();
-
-			_taskMap[id].Wait();
-
-			State = ServiceHostState.Stopped;
-		}
-
-		public void CancelAll()
-		{
-			State = ServiceHostState.Stopping;
-
-			foreach (var tokenSource in _taskTokenSources.Values)
-			{
-				tokenSource.Cancel();
-			}
-
-			Task.WaitAll(_taskMap.Values.ToArray(), _shutdownTimeout);
-
-			State = ServiceHostState.Stopped;
 		}
 
 		private void checkForHostedService(Guid id)

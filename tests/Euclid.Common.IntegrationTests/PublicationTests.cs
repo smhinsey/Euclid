@@ -11,69 +11,69 @@ using NUnit.Framework;
 
 namespace Euclid.Common.IntegrationTests
 {
-    [TestFixture]
-    public class PublicationTests
-    {
-        private readonly IRegistry<FakeRecord> _registry;
-        private readonly IMessageTransport _transport;
-        private readonly IBasicRecordRepository<FakeRecord> _repository;
-        private readonly IBlobStorage _blobStorage;
-        private readonly IMessageSerializer _serializer;
+	[TestFixture]
+	public class PublicationTests
+	{
+		private readonly IRegistry<FakeRecord> _registry;
+		private readonly IMessageTransport _transport;
+		private readonly IBasicRecordRepository<FakeRecord> _repository;
+		private readonly IBlobStorage _blobStorage;
+		private readonly IMessageSerializer _serializer;
 
-        public PublicationTests()
-        {
-            _serializer = new JsonMessageSerializer();
-            _blobStorage = new InMemoryBlobStorage();
-            _repository = new InMemoryRecordRepository<FakeRecord>(_blobStorage, _serializer);
-            _registry = new FakeRegistry(_repository);
-            _transport = new InMemoryMessageTransport();
-        }
+		public PublicationTests()
+		{
+			_serializer = new JsonMessageSerializer();
+			_blobStorage = new InMemoryBlobStorage();
+			_repository = new InMemoryRecordRepository<FakeRecord>(_blobStorage, _serializer);
+			_registry = new FakeRegistry(_repository);
+			_transport = new InMemoryMessageTransport();
+		}
 
-        [Test]
-        public void TestSendMessageOverTransport()
-        {
-            _transport.Open();
+		[Test]
+		public void TestSendMessageOverTransport()
+		{
+			_transport.Open();
 
-            var msgId = Guid.NewGuid();
+			var msgId = Guid.NewGuid();
 
-            var createdById = Guid.NewGuid();
+			var createdById = Guid.NewGuid();
 
-            var created = DateTime.Now;
+			var created = DateTime.Now;
 
-            var msg = new FakeMessage
-                        {
-                            Created = created,
-                            CreatedBy = createdById,
-                            Identifier = msgId
-                        };
+			var msg = new FakeMessage
+			          	{
+			          		Created = created,
+			          		CreatedBy = createdById,
+			          		Identifier = msgId
+			          	};
 
-            var record = _registry.CreateRecord(msg);
+			var record = _registry.CreateRecord(msg);
 
-            _transport.Send(record);
+			_transport.Send(record);
 
-            var receivedMsg = _transport.ReceiveSingle(TimeSpan.MaxValue);
+			var receivedMsg = _transport.ReceiveSingle(TimeSpan.MaxValue);
 
-            Assert.NotNull(receivedMsg);
+			Assert.NotNull(receivedMsg);
 
-            Assert.NotNull(receivedMsg as FakeRecord);
+			Assert.NotNull(receivedMsg as FakeRecord);
 
-            var receivedRecord = receivedMsg as FakeRecord;
+			var receivedRecord = receivedMsg as FakeRecord;
 
-            Assert.AreEqual(typeof(FakeMessage), receivedRecord.MessageType);
+			Assert.AreEqual(typeof (FakeMessage), receivedRecord.MessageType);
 
-            var blobBytes = _blobStorage.Get(receivedRecord.MessageLocation);
+			var blobBytes = _blobStorage.Get(receivedRecord.MessageLocation);
 
-            Assert.NotNull(blobBytes);
+			Assert.NotNull(blobBytes);
 
-            var blobStream = new MemoryStream(blobBytes);
+			var blobStream = new MemoryStream(blobBytes);
 
-            var storedMessage = Convert.ChangeType(_serializer.Deserialize(blobStream), receivedRecord.MessageType);
+			var storedMessage = Convert.ChangeType(_serializer.Deserialize(blobStream), receivedRecord.MessageType);
 
-            Assert.NotNull(storedMessage);
+			Assert.NotNull(storedMessage);
 
-            Assert.AreEqual(typeof(FakeMessage), storedMessage.GetType());
+			Assert.AreEqual(typeof (FakeMessage), storedMessage.GetType());
 
-            _transport.Close();
-        }
-    }
+			_transport.Close();
+		}
+	}
 }

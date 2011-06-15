@@ -20,7 +20,7 @@ namespace Euclid.Common.UnitTests.Transport
 			                                                     		var connectionString =
 			                                                     			RoleEnvironment.IsAvailable
 			                                                     				? RoleEnvironment.GetConfigurationSettingValue(
-			                                                     					configurationKey)
+			                                                     				                                               configurationKey)
 			                                                     				: ConfigurationManager.AppSettings[configurationKey];
 
 			                                                     		publishConfigurationValue(connectionString);

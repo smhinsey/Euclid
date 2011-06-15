@@ -11,8 +11,8 @@ namespace Euclid.Common.TestingFakes.Registry
 		public Guid CreatedBy { get; set; }
 		public bool Error { get; set; }
 		public string ErrorMessage { get; set; }
-	    public Uri MessageLocation { get; set; }
-	    public Type MessageType { get; set; }
-	    public Guid Identifier { get; set; }
+		public Guid Identifier { get; set; }
+		public Uri MessageLocation { get; set; }
+		public Type MessageType { get; set; }
 	}
 }

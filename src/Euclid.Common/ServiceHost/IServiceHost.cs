@@ -11,11 +11,11 @@ namespace Euclid.Common.ServiceHost
 	{
 		IDictionary<Guid, IHostedService> Services { get; }
 		ServiceHostState State { get; }
+		void Cancel(Guid id);
+		void CancelAll();
 		HostedServiceState GetState(Guid id);
 		Guid Install(IHostedService service);
 		void Start(Guid id);
 		void StartAll();
-		void Cancel(Guid id);
-		void CancelAll();
 	}
 }

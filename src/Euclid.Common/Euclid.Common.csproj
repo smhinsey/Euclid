@@ -51,7 +51,8 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HostingFabric\FabricRuntimeState.cs" />
     <Compile Include="HostingFabric\IFabricRuntime.cs" />
-    <Compile Include="HostingFabric\IFabricRuntimeStatus.cs" />
+    <Compile Include="HostingFabric\IFabricRuntimeSettings.cs" />
+    <Compile Include="HostingFabric\IFabricRuntimeStatistics.cs" />
     <Compile Include="Storage\IBasicRecordRepository.cs" />
     <Compile Include="Registry\IRecord.cs" />
     <Compile Include="Registry\IRegistry.cs" />

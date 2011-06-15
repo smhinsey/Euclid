@@ -112,8 +112,9 @@ namespace Euclid.Common.UnitTests.Transport
 			Assert.Throws(typeof (InvalidOperationException), () => transport.Send(m));
 		}
 
-		public static void TestThroughputAsynchronously(IMessageTransport transport, int howManyMessages, int howManyThreads,
-		                                                int? maxMessagesToReceive = null)
+		public static void TestThroughputAsynchronously
+			(IMessageTransport transport, int howManyMessages, int howManyThreads,
+			 int? maxMessagesToReceive = null)
 		{
 			transport.Open();
 
@@ -161,8 +162,9 @@ namespace Euclid.Common.UnitTests.Transport
 			transport.Close();
 		}
 
-		public static void TestThroughputSynchronously(IMessageTransport transport, int howManyMessages,
-		                                               int? maxMessagesToReceive)
+		public static void TestThroughputSynchronously
+			(IMessageTransport transport, int howManyMessages,
+			 int? maxMessagesToReceive)
 		{
 			var start = DateTime.Now;
 
