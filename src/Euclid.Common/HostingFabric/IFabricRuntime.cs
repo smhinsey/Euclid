@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Euclid.Common.HostingFabric
 {
 	/// <summary>
@@ -13,8 +16,7 @@ namespace Euclid.Common.HostingFabric
 	/// </summary>
 	public interface IFabricRuntime
 	{
-		FabricRuntimeState State { get; }
-		void Initialize();
+		void Configure();
 		void Shutdown();
 		void Start();
 	}
