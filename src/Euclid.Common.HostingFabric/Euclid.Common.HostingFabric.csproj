@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultFabricController.cs" />
     <Compile Include="LocalMachineFabric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

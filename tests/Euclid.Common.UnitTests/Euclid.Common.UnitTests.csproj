@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\OverridableObjectsTests.cs" />
-    <Compile Include="HostingFabric\DefaultFabricControllerTests.cs" />
     <Compile Include="HostingFabric\LocalMachineFabricTests.cs" />
     <Compile Include="Registry\InMemoryRegistryTests.cs" />
     <Compile Include="Registry\RegistryTester.cs" />
