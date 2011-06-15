@@ -4,11 +4,9 @@ using Euclid.Common.Transport;
 
 namespace Euclid.Common.Storage
 {
-	public interface IBasicRecordRepository<TRecord, in TMessage>
-		where TRecord : IRecord<TMessage>
-		where TMessage : IMessage
+	public interface IBasicRecordRepository<TRecord>
 	{
-		TRecord Create(TMessage message);
+		TRecord Create(IMessage message);
 		TRecord Delete(Guid id);
 		TRecord Retrieve(Guid id);
 		TRecord Update(TRecord record);

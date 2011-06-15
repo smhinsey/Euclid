@@ -69,9 +69,17 @@
     <Compile Include="Storage\NhibernateRecordRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Euclid.Additional.Storage\Euclid.Common.Storage.Nhibernate.csproj">
+      <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
+      <Name>Euclid.Common.Storage.Nhibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Registry\Euclid.Common.Registry.csproj">
       <Project>{F0C8929B-718E-4360-85FF-520398DEA764}</Project>
       <Name>Euclid.Common.Registry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common.Serialization\Euclid.Common.Serialization.csproj">
+      <Project>{FEDCC429-C8F4-4D31-AC3B-4284C4E08B83}</Project>
+      <Name>Euclid.Common.Serialization</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
       <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>
@@ -88,6 +96,10 @@
     <ProjectReference Include="..\Euclid.Common.TestingFakes\Euclid.Common.TestingFakes.csproj">
       <Project>{B63C4D62-939A-45AB-95F2-EBFBE4B5013C}</Project>
       <Name>Euclid.Common.TestingFakes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Common.UnitTests\Euclid.Common.UnitTests.csproj">
+      <Project>{F1080594-08D8-44A7-A1FA-1AAAE608FE45}</Project>
+      <Name>Euclid.Common.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,26 +1,25 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Euclid.Common.Registry;
 using Euclid.Common.Serialization;
 using Euclid.Common.Transport;
-using NHibernate;
 
-namespace Euclid.Common.Storage.Nhibernate
+namespace Euclid.Common.Storage.Registry
 {
-    public class NhibernateRecordRepository<TRecord> : IBasicRecordRepository<TRecord>
+    public class InMemoryRecordRepository<TRecord> : IBasicRecordRepository<TRecord>
         where TRecord : class, IRecord, new()
     {
-        private readonly ISession _session;
+        protected static readonly ConcurrentDictionary<Guid, TRecord> Records = new ConcurrentDictionary<Guid, TRecord>();
 
         private readonly IBlobStorage _blobStorage;
 
         private readonly IMessageSerializer _serializer;
 
-        public NhibernateRecordRepository(IMessageSerializer serializer, IBlobStorage blobStorage, ISession session)
+        public InMemoryRecordRepository(IBlobStorage blobStorage, IMessageSerializer serializer)
         {
-            _serializer = serializer;
             _blobStorage = blobStorage;
-            _session = session;
+            _serializer = serializer;
         }
 
         public TRecord Create(IMessage message)
@@ -35,39 +34,36 @@ namespace Euclid.Common.Storage.Nhibernate
                                  Created = DateTime.Now,
                                  MessageLocation = uri,
                                  MessageType = message.GetType()
-                             };
+                            };
 
-            _session.Save(record);
-
-            _session.Flush();
+            Records.TryAdd(record.Identifier, record);
 
             return record;
         }
 
         public TRecord Delete(Guid id)
         {
-            var record = Retrieve(id);
+            TRecord record;
 
-            if (record == null)
-            {
-                throw new KeyNotFoundException();
-            }
-
-            _session.Delete(record);
+            Records.TryRemove(id, out record);
 
             return record;
         }
 
         public TRecord Retrieve(Guid id)
         {
-            return _session.Get<TRecord>(id);
+            TRecord record;
+
+            Records.TryGetValue(id, out record);
+
+            return record;
         }
 
         public TRecord Update(TRecord record)
         {
-            _session.Update(record, record.Identifier);
+            Records.TryUpdate(record.Identifier, record, Records[record.Identifier]);
 
-            return Retrieve(record.Identifier);
+            return record;
         }
     }
 }

@@ -6,15 +6,16 @@ using Euclid.Common.Registry;
 
 namespace Euclid.Common.TestingFakes.Storage
 {
-    public class FakeRecord : IRecord<FakeMessage>
+    public class FakeRecord : IRecord
     {
-        public DateTime Created { get; set; }
-        public Guid CreatedBy { get; set; }
-        public Guid Identifier { get; set; }
-        public string CallStack { get; set; }
-        public bool Completed { get; set; }
-        public bool Error { get; set; }
-        public string ErrorMessage { get; set; }
-        public FakeMessage Message { get; set; }
+        public virtual DateTime Created { get; set; }
+        public virtual Guid CreatedBy { get; set; }
+        public virtual Guid Identifier { get; set; }
+        public virtual string CallStack { get; set; }
+        public virtual bool Completed { get; set; }
+        public virtual bool Error { get; set; }
+        public virtual string ErrorMessage { get; set; }
+        public virtual Uri MessageLocation { get; set; }
+        public virtual Type MessageType { get; set; }
     }
 }

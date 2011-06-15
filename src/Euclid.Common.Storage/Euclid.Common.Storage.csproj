@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InMemoryBlobStorage.cs" />
-    <Compile Include="InMemoryRecordRepository.cs" />
+    <Compile Include="Blob\InMemoryBlobStorage.cs" />
+    <Compile Include="Registry\InMemoryRecordRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

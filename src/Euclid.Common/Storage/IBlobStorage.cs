@@ -15,6 +15,6 @@ namespace Euclid.Common.Storage
 		byte[] Get(Uri uri);
 		byte[] Get(string uri);
 
-		Uri Put(Stream blob, string name, KeyValuePair<string, string> metadata);
+		Uri Put(Stream blob, string name, IList<KeyValuePair<string, string>> metadata);
 	}
 }

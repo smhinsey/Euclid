@@ -1,14 +1,17 @@
 ﻿using System;
-using System.IO;
 using Euclid.Common.Registry;
+using Euclid.Common.Serialization;
+using Euclid.Common.Storage.Blob;
+using Euclid.Common.Storage.Nhibernate;
+using Euclid.Common.Storage.Registry;
 using Euclid.Common.TestingFakes.Storage;
 using Euclid.Common.Transport;
+using Euclid.Common.UnitTests.Registry;
+using Euclid.Common.UnitTests.Storage;
 using FluentNHibernate;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
-using FluentNHibernate.Conventions;
-using FluentNHibernate.Conventions.Helpers;
-using FluentNHibernate.Conventions.Instances;
+using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Linq;
 using NHibernate.Tool.hbm2ddl;
@@ -19,64 +22,96 @@ namespace Euclid.Common.IntegrationTests.Storage
 {
     public class NhibernateRecordRepositoryTest
     {
-        [Test]
-        public void FirstTest()
+        private ISession _session;
+
+        private RecordRepositoryTester<NhibernateRecordRepository<FakeRecord>> _repoTester;
+
+        public void ConfigureDatabase()
         {
             var cfg = new MessageConfiguration();
-            var session = Fluently
+            _session = Fluently
                 .Configure()
-                .Database(MsSqlConfiguration.MsSql2008.ConnectionString(c=>c.FromConnectionStringWithKey("test-db")))
+                .Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")))
                 .Mappings(map => map
-                                    .AutoMappings.Add(AutoMap.AssemblyOf<FakeMessage>(cfg)
-                                    .Conventions.Add(PrimaryKey.Name.Is(primaryKeyName => "Identifier"))))
+                                    .AutoMappings
+                                        .Add(AutoMap.AssemblyOf<FakeMessage>(cfg)))
                 .ExposeConfiguration(BuildSchema)
                 .BuildSessionFactory()
                 .OpenSession();
-
-            Assert.Null(session.Query<FakeMessage>().FirstOrDefault());
-
-            var id = Guid.NewGuid();
-            var msg = session.Save(new FakeMessage {Identifier = id}) as FakeMessage;
-            Assert.NotNull(msg);
-            Assert.AreEqual(id, msg.Identifier);
-
-            msg = session.Query<FakeMessage>().Where(m => m.Identifier == id).FirstOrDefault();
-            Assert.NotNull(msg);
-            Assert.AreEqual(id, msg.Identifier);
-
         }
 
         private static void BuildSchema(Configuration cfg)
         {
             new SchemaExport(cfg).Create(false, true);
         }
+
+        [SetUp]
+        public void Setup()
+        {
+            if (_session == null)
+            {
+                ConfigureDatabase();
+            }
+
+            var storage = new InMemoryBlobStorage();
+            var serializer = new JsonMessageSerializer();
+            var repo = new NhibernateRecordRepository<FakeRecord>(serializer, storage, _session);
+
+            _repoTester = new RecordRepositoryTester<NhibernateRecordRepository<FakeRecord>>(repo);
+        }
+
+        [Test]
+        public void TestAutoMap()
+        {
+            Assert.Null(_session.Query<FakeMessage>().FirstOrDefault());
+
+            var id = Guid.NewGuid();
+            var primaryKey = (Guid)_session.Save(new FakeMessage { Created = DateTime.Now, CreatedBy = Guid.NewGuid() });
+            Assert.NotNull(primaryKey);
+            _session.Flush();
+
+            var message = _session.Query<FakeMessage>().Where(m => m.Identifier == primaryKey).FirstOrDefault();
+            Assert.NotNull(message);
+            Assert.AreEqual(primaryKey, message.Identifier);
+
+        }
+
+        [Test]
+        public void TestCreate()
+        {
+            _repoTester.TestCreate();
+        }
+
+        [Test]
+        public void TestRetrieve()
+        {
+            _repoTester.TestRetrieve();
+        }
+
+        [Test]
+        public void TestUpdate()
+        {
+            _repoTester.TestUpdate();
+        }
+
+        [Test]
+        public void TestDelete()
+        {
+            _repoTester.TestDelete();
+        }
     }
 
     public class MessageConfiguration : DefaultAutomappingConfiguration
     {
-        public override bool ShouldMap(Member member)
+        public override bool ShouldMap(Type type)
         {
-            var shouldMap = member.DeclaringType.GetInterface(typeof (IRecord).FullName) != null;
-            Console.WriteLine("Should map {0}? {1}", member.DeclaringType.Name, shouldMap); 
-            
-            return shouldMap;
+            return type == typeof(FakeMessage) 
+                    || type ==typeof(FakeRecord);
         }
 
         public override bool IsId(Member member)
         {
-					var shouldMap = member.DeclaringType.GetInterface(typeof(IRecord).FullName) != null;
-            var isId = (member.Name == "Identifier");
-
-            if (shouldMap)
-            {
-							Console.WriteLine("Is {0}.{1} the Id field? {2}", member.DeclaringType.Name, member.Name, isId);
-            }
-            else
-            {
-							Console.WriteLine("Not mapping {0}.{1}", member.DeclaringType.Name, member.Name);
-            }
-
-            return isId;
+            return (member.Name == "Identifier");
         }
     }
 }

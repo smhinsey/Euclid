@@ -4,55 +4,49 @@ using Euclid.Common.Transport;
 
 namespace Euclid.Common.Registry
 {
-	public class InMemoryRegistry<TRecord, TMessage> : IRegistry<TRecord, TMessage>
-		where TRecord : IRecord<TMessage>, new()
-		where TMessage : IMessage
+	public class InMemoryRegistry<TRecord> : IRegistry<TRecord>
+        where TRecord : class, IRecord, new()
 	{
-		private readonly IBasicRecordRepository<TRecord, TMessage> _repository;
+		private readonly IBasicRecordRepository<TRecord> _repository;
 
-		public InMemoryRegistry(IBasicRecordRepository<TRecord, TMessage> repository)
-		{
-			_repository = repository;
-		}
+	    public InMemoryRegistry(IBasicRecordRepository<TRecord> repository)
+	    {
+	        _repository = repository;
+	    }
 
-		public TRecord CreateRecord(TMessage message)
-		{
-			return _repository.Create(message);
-		}
+	    public TRecord CreateRecord(IMessage message)
+	    {
+	        return _repository.Create(message);
+	    }
 
-		public TRecord Get(Guid id)
-		{
-			return _repository.Retrieve(id);
-		}
+	    public TRecord Get(Guid id)
+	    {
+	        return _repository.Retrieve(id);
+	    }
 
-		public TRecord MarkAsComplete(Guid id)
-		{
-			var record = _repository.Retrieve(id);
+	    public TRecord MarkAsComplete(Guid id)
+	    {
+	        return UpdateRecord(id, r => r.Completed = true);
+	    }
 
-			record.Completed = true;
+	    public TRecord MarkAsFailed(Guid id, string message, string callStack)
+	    {
+	        return UpdateRecord(id, r =>
+	                                    {
+	                                        r.Completed = true;
+	                                        r.Error = true;
+	                                        r.ErrorMessage = message;
+	                                        r.CallStack = callStack;
+	                                    });
+	    }
 
-			return _repository.Update(record);
-		}
+        private TRecord UpdateRecord(Guid id, Action<TRecord> actOnRecord)
+        {
+            var record = Get(id);
 
-		public TRecord MarkAsFailed(Guid id, string message = null, string callStack = null)
-		{
-			var record = _repository.Retrieve(id);
+            actOnRecord(record);
 
-			record.Completed = true;
-
-			record.Error = true;
-
-			if (!string.IsNullOrEmpty(message))
-			{
-				record.ErrorMessage = message;
-			}
-
-			if (!string.IsNullOrEmpty(callStack))
-			{
-				record.CallStack = callStack;
-			}
-
-			return _repository.Update(record);
-		}
+            return _repository.Update(record);
+        }
 	}
 }

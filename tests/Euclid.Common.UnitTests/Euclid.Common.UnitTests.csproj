@@ -56,11 +56,12 @@
     <Compile Include="HostingFabric\DefaultFabricControllerTests.cs" />
     <Compile Include="HostingFabric\LocalMachineFabricTests.cs" />
     <Compile Include="Registry\InMemoryRegistryTests.cs" />
-    <Compile Include="Registry\ITestRegistry.cs" />
     <Compile Include="Registry\RegistryTester.cs" />
     <Compile Include="ServiceHost\MultitaskingServiceHostTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\TestJsonSerialization.cs" />
+    <Compile Include="Storage\InMemoryRecordRepositoryTest.cs" />
+    <Compile Include="Storage\RecordRepositoryTest.cs" />
     <Compile Include="Transport\AzureTransportTest.cs" />
     <Compile Include="Transport\InMemoryTransportTests.cs" />
     <Compile Include="Transport\TestTransport.cs" />
@@ -99,9 +100,7 @@
       <Name>Euclid.Common.TestingFakes</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Storage\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
