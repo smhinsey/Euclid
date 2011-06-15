@@ -3,7 +3,7 @@ using log4net;
 
 namespace Euclid.Common.Logging
 {
-	public static class LoggingSourceExtensions
+	public static class Log4NetLoggingSourceExtensions
 	{
 		public static void WriteInfoMessage(this ILoggingSource source, string message)
 		{
