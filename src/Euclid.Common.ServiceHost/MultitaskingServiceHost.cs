@@ -83,6 +83,8 @@ namespace Euclid.Common.ServiceHost
 
 			_taskTokenSources[id].Cancel();
 
+			_taskMap[id].Wait();
+
 			State = ServiceHostState.Stopped;
 		}
 
