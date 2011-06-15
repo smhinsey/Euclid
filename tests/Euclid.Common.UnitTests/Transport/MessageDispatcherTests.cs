@@ -5,7 +5,6 @@ using Castle.Windsor;
 using Euclid.Common.TestingFakes.Transport;
 using Euclid.Common.Transport;
 using NUnit.Framework;
-using FakeMessage = Euclid.Common.TestingFakes.Registry.FakeMessage;
 
 namespace Euclid.Common.UnitTests.Transport
 {
