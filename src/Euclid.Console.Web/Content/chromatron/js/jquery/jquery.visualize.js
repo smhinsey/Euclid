@@ -196,7 +196,7 @@
 					var counter = 0.0;
 					var toRad = function(integer) { return (Math.PI / 180) * integer; };
 					var labels = $('<ul class="visualize-labels"></ul>')
-							.insertAfter(canvas);
+									.insertAfter(canvas);
 
 					//draw the pie pieces
 					$.each(memberTotals, function(i) {
@@ -223,17 +223,17 @@
 						if (percentage) {
 							var labelval = (o.pieLabelsAsPercent) ? percentage + '%' : this;
 							var labeltext = $('<span class="visualize-label">' + labelval + '</span>')
-					        		.css(leftRight, 0)
-					        		.css(topBottom, 0);
+						        			.css(leftRight, 0)
+						        			.css(topBottom, 0);
 							if (labeltext)
 								var label = $('<li class="visualize-label-pos"></li>')
-					        			.appendTo(labels)
-					        			.css({ left: labelx, top: labely })
-					        			.append(labeltext);
+						        				.appendTo(labels)
+						        				.css({ left: labelx, top: labely })
+						        				.append(labeltext);
 							labeltext
-					        		.css('font-size', radius / 8)
-					        		.css('margin-' + leftRight, -labeltext.width() / 2)
-					        		.css('margin-' + topBottom, -labeltext.outerHeight() / 2);
+						        			.css('font-size', radius / 8)
+						        			.css('margin-' + leftRight, -labeltext.width() / 2)
+						        			.css('margin-' + topBottom, -labeltext.outerHeight() / 2);
 
 							if (dataGroups[i].textColor) {
 								labeltext.css('color', dataGroups[i].textColor);
@@ -254,14 +254,14 @@
 					//write X labels
 					var xInterval = canvas.width() / (xLabels.length - 1);
 					var xlabelsUL = $('<ul class="visualize-labels-x"></ul>')
-							.width(canvas.width())
-							.height(canvas.height())
-							.insertBefore(canvas);
+									.width(canvas.width())
+									.height(canvas.height())
+									.insertBefore(canvas);
 					$.each(xLabels, function(i) {
 						var thisLi = $('<li><span>' + this + '</span></li>')
-								.prepend('<span class="line" />')
-								.css('left', xInterval * i)
-								.appendTo(xlabelsUL);
+										.prepend('<span class="line" />')
+										.css('left', xInterval * i)
+										.appendTo(xlabelsUL);
 						var label = thisLi.find('span:not(.line)');
 						var leftOffset = label.width() / -2;
 						if (i == 0) {
@@ -270,23 +270,23 @@
 							leftOffset = -label.width();
 						}
 						label
-								.css('margin-left', leftOffset)
-								.addClass('label');
+										.css('margin-left', leftOffset)
+										.addClass('label');
 					});
 
 					//write Y labels
 					var yScale = canvas.height() / totalYRange;
 					var liBottom = canvas.height() / (yLabels.length - 1);
 					var ylabelsUL = $('<ul class="visualize-labels-y"></ul>')
-							.width(canvas.width())
-							.height(canvas.height())
-							.insertBefore(canvas);
+									.width(canvas.width())
+									.height(canvas.height())
+									.insertBefore(canvas);
 
 					$.each(yLabels, function(i) {
 						var thisLi = $('<li><span>' + this + '</span></li>')
-								.prepend('<span class="line"  />')
-								.css('bottom', liBottom * i)
-								.prependTo(ylabelsUL);
+										.prepend('<span class="line"  />')
+										.css('bottom', liBottom * i)
+										.prependTo(ylabelsUL);
 						var label = thisLi.find('span:not(.line)');
 						var topOffset = label.height() / -2;
 						if (i == 0) {
@@ -295,8 +295,8 @@
 							topOffset = 0;
 						}
 						label
-								.css('margin-top', topOffset)
-								.addClass('label');
+										.css('margin-top', topOffset)
+										.addClass('label');
 					});
 
 					//start from the bottom left
@@ -340,15 +340,15 @@
 					//write X labels
 					var xInterval = canvas.width() / (xLabels.length);
 					var xlabelsUL = $('<ul class="visualize-labels-x"></ul>')
-							.width(canvas.width())
-							.height(canvas.height())
-							.insertBefore(canvas);
+									.width(canvas.width())
+									.height(canvas.height())
+									.insertBefore(canvas);
 					$.each(xLabels, function(i) {
 						var thisLi = $('<li><span class="label">' + this + '</span></li>')
-								.prepend('<span class="line" />')
-								.css('left', xInterval * i)
-								.width(xInterval)
-								.appendTo(xlabelsUL);
+										.prepend('<span class="line" />')
+										.css('left', xInterval * i)
+										.width(xInterval)
+										.appendTo(xlabelsUL);
 						var label = thisLi.find('span.label');
 						label.addClass('label');
 					});
@@ -357,14 +357,14 @@
 					var yScale = canvas.height() / totalYRange;
 					var liBottom = canvas.height() / (yLabels.length - 1);
 					var ylabelsUL = $('<ul class="visualize-labels-y"></ul>')
-							.width(canvas.width())
-							.height(canvas.height())
-							.insertBefore(canvas);
+									.width(canvas.width())
+									.height(canvas.height())
+									.insertBefore(canvas);
 					$.each(yLabels, function(i) {
 						var thisLi = $('<li><span>' + this + '</span></li>')
-								.prepend('<span class="line"  />')
-								.css('bottom', liBottom * i)
-								.prependTo(ylabelsUL);
+										.prepend('<span class="line"  />')
+										.css('bottom', liBottom * i)
+										.prependTo(ylabelsUL);
 						var label = thisLi.find('span:not(.line)');
 						var topOffset = label.height() / -2;
 						if (i == 0) {
@@ -373,8 +373,8 @@
 							topOffset = 0;
 						}
 						label
-									.css('margin-top', topOffset)
-									.addClass('label');
+											.css('margin-top', topOffset)
+											.addClass('label');
 					});
 
 					//start from the bottom left
@@ -413,9 +413,9 @@
 
 			//create canvas wrapper div, set inline w&h, append
 			var canvasContain = (container || $('<div class="visualize" role="img" aria-label="Chart representing data from the table: ' + title + '" />'))
-					.height(o.height)
-					.width(o.width)
-					.append(canvas);
+							.height(o.height)
+							.width(o.width)
+							.append(canvas);
 
 			//scrape table (this should be cleaned up into an obj)
 			var tableData = scrapeTable();
@@ -433,7 +433,7 @@
 			//title/key container
 			if (o.appendTitle || o.appendKey) {
 				var infoContain = $('<div class="visualize-info"></div>')
-						.appendTo(canvasContain);
+								.appendTo(canvasContain);
 			}
 
 			//append title
@@ -454,7 +454,7 @@
 
 				selector.each(function(i) {
 					$('<li><span class="visualize-key-color" style="background: ' + dataGroups[i].color + '"></span><span class="visualize-key-label">' + $(this).text() + '</span></li>')
-							.appendTo(newKey);
+									.appendTo(newKey);
 				});
 				newKey.appendTo(infoContain);
 			}

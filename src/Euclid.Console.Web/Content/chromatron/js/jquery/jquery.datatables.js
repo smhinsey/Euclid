@@ -683,7 +683,7 @@
 						}
 						if (!a.aoColumns[b].bVisible) {
 							c[b -
-	h].parentNode.removeChild(c[b - h]);
+		h].parentNode.removeChild(c[b - h]);
 							h++;
 						}
 					}

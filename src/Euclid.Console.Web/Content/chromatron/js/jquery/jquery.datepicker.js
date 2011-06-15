@@ -894,8 +894,8 @@
 				} else {
 					this._attachments(target, inst);
 					target.bind('keydown.' + this.dataName, this._keyDown).
-						bind('keypress.' + this.dataName, this._keyPress).
-						bind('keyup.' + this.dataName, this._keyUp);
+								bind('keypress.' + this.dataName, this._keyPress).
+								bind('keyup.' + this.dataName, this._keyUp);
 					if (target.attr('disabled')) {
 						this.disable(target[0]);
 					}
@@ -960,12 +960,12 @@
 				var trigger = inst.get('showTrigger');
 				inst.trigger = (!trigger ? $([]) :
 					$(trigger).clone().removeAttr('id').addClass(this._triggerClass)[inst.get('isRTL') ? 'insertBefore' : 'insertAfter'](target).
-						click(function() {
-					if (!$.datepick.isDisabled(target[0])) {
-						$.datepick[$.datepick.curInst == inst ?
-									'hide' : 'show'](target[0]);
-					}
-				}));
+								click(function() {
+							if (!$.datepick.isDisabled(target[0])) {
+								$.datepick[$.datepick.curInst == inst ?
+											'hide' : 'show'](target[0]);
+							}
+						}));
 				this._autoSize(target, inst);
 				var dates = this._extractDates(inst, target.val());
 				if (dates) {
@@ -1047,14 +1047,14 @@
 				var inst = $.data(target, this.dataName);
 				if (inst.inline)
 					$target.children('.' + this._disableClass).remove().end().
-						find('button,select').attr('disabled', '').end().
-						find('a').attr('href', 'javascript:void(0)');
+								find('button,select').attr('disabled', '').end().
+								find('a').attr('href', 'javascript:void(0)');
 				else {
 					target.disabled = false;
 					inst.trigger.filter('button.' + this._triggerClass).
-						attr('disabled', '').end().
-						filter('img.' + this._triggerClass).
-						css({ opacity: '1.0', cursor: '' });
+								attr('disabled', '').end().
+								filter('img.' + this._triggerClass).
+								css({ opacity: '1.0', cursor: '' });
 				}
 				this._disabled = $.map(this._disabled,
 					function(value) { return (value == target ? null : value); }); // Delete entry
@@ -1080,17 +1080,17 @@
 					var zIndex = $target.css('zIndex');
 					zIndex = (zIndex == 'auto' ? 0 : parseInt(zIndex, 10)) + 1;
 					$target.prepend('<div class="' + this._disableClass + '" style="' +
-					'width: ' + inline.outerWidth() + 'px; height: ' + inline.outerHeight() +
-					'px; left: ' + (offset.left - relOffset.left) + 'px; top: ' +
-					(offset.top - relOffset.top) + 'px; z-index: ' + zIndex + '"></div>').
-						find('button,select').attr('disabled', 'disabled').end().
-						find('a').removeAttr('href');
+							'width: ' + inline.outerWidth() + 'px; height: ' + inline.outerHeight() +
+							'px; left: ' + (offset.left - relOffset.left) + 'px; top: ' +
+							(offset.top - relOffset.top) + 'px; z-index: ' + zIndex + '"></div>').
+								find('button,select').attr('disabled', 'disabled').end().
+								find('a').removeAttr('href');
 				} else {
 					target.disabled = true;
 					inst.trigger.filter('button.' + this._triggerClass).
-						attr('disabled', 'disabled').end().
-						filter('img.' + this._triggerClass).
-						css({ opacity: '0.5', cursor: 'default' });
+								attr('disabled', 'disabled').end().
+								filter('img.' + this._triggerClass).
+								css({ opacity: '0.5', cursor: 'default' });
 				}
 				this._disabled = $.map(this._disabled,
 					function(value) { return (value == target ? null : value); }); // Delete entry
@@ -1226,13 +1226,13 @@
 					} else if ($.datepick.curInst == inst) {
 						if (!inst.div) {
 							inst.div = $('<div></div>').addClass(this._popupClass).
-								css({
-								display: (hidden ? 'none' : 'static'),
-								position: 'absolute',
-								left: target.offset().left,
-								top: target.offset().top + target.outerHeight()
-							}).
-								appendTo($(inst.get('popupContainer') || 'body'));
+										css({
+										display: (hidden ? 'none' : 'static'),
+										position: 'absolute',
+										left: target.offset().left,
+										top: target.offset().top + target.outerHeight()
+									}).
+										appendTo($(inst.get('popupContainer') || 'body'));
 							if ($.fn.mousewheel) {
 								inst.div.mousewheel(this._doMouseWheel);
 							}
@@ -1805,9 +1805,9 @@
 					monthRows += this._prepare(renderer.monthRow, inst).replace( /\{months\}/ , months);
 				}
 				var picker = this._prepare(renderer.picker, inst).replace( /\{months\}/ , monthRows).
-					replace( /\{weekHeader\}/g , this._generateDayHeaders(inst, renderer)) +
-						($.browser.msie && parseInt($.browser.version, 10) < 7 && !inst.inline ?
-							'<iframe src="javascript:void(0);" class="' + this._coverClass + '"></iframe>' : '');
+							replace( /\{weekHeader\}/g , this._generateDayHeaders(inst, renderer)) +
+								($.browser.msie && parseInt($.browser.version, 10) < 7 && !inst.inline ?
+									'<iframe src="javascript:void(0);" class="' + this._coverClass + '"></iframe>' : '');
 				// Add commands
 				var commands = inst.get('commands');
 				var asDateFormat = inst.get('commandsAsDateFormat');
@@ -1846,37 +1846,37 @@
 					function() { $(this).addClass(renderer.highlightedClass); },
 					function() {
 						(inst.inline ? $(this).parents('.' + self.markerClass) : inst.div).
-								find(renderer.daySelector + ' a').
-								removeClass(renderer.highlightedClass);
+										find(renderer.daySelector + ' a').
+										removeClass(renderer.highlightedClass);
 					}).
 					click(function() {
-				self.selectDate(target, this);
-			}).end().
+						self.selectDate(target, this);
+					}).end().
 					find('select.' + this._monthYearClass + ':not(.' + this._anyYearClass + ')').
 					change(function() {
-				var monthYear = $(this).val().split('/');
-				self.showMonth(target, parseInt(monthYear[1], 10), parseInt(monthYear[0], 10));
-			}).end().
+						var monthYear = $(this).val().split('/');
+						self.showMonth(target, parseInt(monthYear[1], 10), parseInt(monthYear[0], 10));
+					}).end().
 					find('select.' + this._anyYearClass).
 					click(function() {
-				$(this).css('visibility', 'hidden').
-							next('input').css({
-							left: this.offsetLeft,
-							top: this.offsetTop,
-							width: this.offsetWidth,
-							height: this.offsetHeight
-						}).show().focus();
-			}).end().
+						$(this).css('visibility', 'hidden').
+									next('input').css({
+									left: this.offsetLeft,
+									top: this.offsetTop,
+									width: this.offsetWidth,
+									height: this.offsetHeight
+								}).show().focus();
+					}).end().
 					find('input.' + self._monthYearClass).
 					change(function() {
-				try {
-					var year = parseInt($(this).val(), 10);
-					year = (isNaN(year) ? inst.drawDate.getFullYear() : year);
-					self.showMonth(target, year, inst.drawDate.getMonth() + 1, inst.drawDate.getDate());
-				} catch (e) {
-					alert(e);
-				}
-			}).keydown(function(event) {
+						try {
+							var year = parseInt($(this).val(), 10);
+							year = (isNaN(year) ? inst.drawDate.getFullYear() : year);
+							self.showMonth(target, year, inst.drawDate.getMonth() + 1, inst.drawDate.getDate());
+						} catch (e) {
+							alert(e);
+						}
+					}).keydown(function(event) {
 				if (event.keyCode == 13) { // Enter
 					$(event.target).change();
 				} else if (event.keyCode == 27) { // Escape
@@ -1992,7 +1992,7 @@
 						ts = drawDate.getTime();
 					}
 					weeks += this._prepare(renderer.week, inst).replace( /\{days\}/g , days).
-						replace( /\{weekOfYear\}/g , weekOfYear);
+								replace( /\{weekOfYear\}/g , weekOfYear);
 				}
 				var monthHeader = this._prepare(renderer.month, inst).match( /\{monthHeader(:[^\}]+)?\}/ );
 				monthHeader = (monthHeader[0].length <= 13 ? 'MM yyyy' :
@@ -2001,9 +2001,9 @@
 					inst, year, month, minDate, maxDate, monthHeader, renderer) :
 					$.datepick.formatDate(monthHeader, $.datepick.newDate(year, month, 1), inst.getConfig()));
 				var weekHeader = this._prepare(renderer.weekHeader, inst).
-					replace( /\{days\}/g , this._generateDayHeaders(inst, renderer));
+							replace( /\{days\}/g , this._generateDayHeaders(inst, renderer));
 				return this._prepare(renderer.month, inst).replace( /\{monthHeader(:[^\}]+)?\}/g , monthHeader).
-					replace( /\{weekHeader\}/g , weekHeader).replace( /\{weeks\}/g , weeks);
+							replace( /\{weekHeader\}/g , weekHeader).replace( /\{weeks\}/g , weeks);
 			},
 
 	/* Generate the HTML for the day headers.
@@ -2167,7 +2167,7 @@
 
 	$(function() {
 		$(document).mousedown($.datepick._checkExternalClick).
-				resize(function() { $.datepick.hide($.datepick.curInst); });
+						resize(function() { $.datepick.hide($.datepick.curInst); });
 	});
 
 })(jQuery);

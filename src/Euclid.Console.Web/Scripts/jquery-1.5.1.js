@@ -809,7 +809,7 @@
 						cancelled,
 			// the deferred itself
 						deferred = {
-				// done( f1, f2, ...)
+							// done( f1, f2, ...)
 							done: function() {
 								if (!cancelled) {
 									var args = arguments,
@@ -1302,7 +1302,7 @@
 	})();
 
 
-var rbrace = /^(?:\{.*\}|\[.*\])$/ ;
+	var rbrace = /^(?:\{.*\}|\[.*\])$/ ;
 
 	jQuery.extend({
 			cache: {  },
@@ -1618,7 +1618,7 @@ var rbrace = /^(?:\{.*\}|\[.*\])$/ ;
 	}
 
 
-jQuery.extend({
+	jQuery.extend({
 			queue: function(elem, type, data) {
 				if (!elem) {
 					return;
@@ -1715,34 +1715,13 @@ jQuery.extend({
 		});
 
 
-var rclass = /[\n\t\r]/g ,
-		   
-
-
+	var rclass = /[\n\t\r]/g ,
     rspaces = /\s+/ ,
-		   
-
-
     rreturn = /\r/g ,
-		   
-
-
     rspecialurl = /^(?:href|src|style)$/ ,
-		   
-
-
     rtype = /^(?:button|input)$/i ,
-		   
-
-
     rfocusable = /^(?:button|input|object|select|textarea)$/i ,
-		   
-
-
     rclickable = /^a(?:rea)?$/i ,
-		   
-
-
     rradiocheck = /^(?:radio|checkbox)$/i ;
 
 	jQuery.props = {
@@ -2123,32 +2102,15 @@ var rclass = /[\n\t\r]/g ,
 		});
 
 
-var rnamespaces = /\.(.*)$/ ,
-		   
-
-
+	var rnamespaces = /\.(.*)$/ ,
     rformElems = /^(?:textarea|input|select)$/i ,
-		   
-
-
     rperiod = /\./g ,
-		   
-
-
     rspace = / /g ,
-		   
-
-
     rescape = /[^\w\s.|`]/g ,
-		   
+    fcleanup = function(nm) {		   
 
 
-    fcleanup = function(nm) {
-		   
-
-
-    	return nm.replace(rescape, "\\$&");
-		   
+    	return nm.replace(rescape, "\\$&");		   
 
 
     };
@@ -2159,7 +2121,7 @@ var rnamespaces = /\.(.*)$/ ,
  * Dean Edwards' addEvent library.
  */
 	jQuery.event = {
-	// Bind an event to an element
+		// Bind an event to an element
 		// Original by Dean Edwards
 		add: function(elem, types, handler, data) {
 			if (elem.nodeType === 3 || elem.nodeType === 8) {
@@ -2889,50 +2851,50 @@ var rnamespaces = /\.(.*)$/ ,
 	if (!jQuery.support.changeBubbles) {
 
 		var changeFilters,
-	getVal = function(elem) {
-			var type = elem.type, val = elem.value;
+		    getVal = function(elem) {
+		    	var type = elem.type, val = elem.value;
 
-			if (type === "radio" || type === "checkbox") {
-				val = elem.checked;
+		    	if (type === "radio" || type === "checkbox") {
+		    		val = elem.checked;
 
-			} else if (type === "select-multiple") {
-				val = elem.selectedIndex > -1 ?
-					jQuery.map(elem.options, function(elem) {
-						return elem.selected;
-					}).join("-") :
-					"";
+		    	} else if (type === "select-multiple") {
+		    		val = elem.selectedIndex > -1 ?
+		    			jQuery.map(elem.options, function(elem) {
+		    				return elem.selected;
+		    			}).join("-") :
+		    			"";
 
-			} else if (elem.nodeName.toLowerCase() === "select") {
-				val = elem.selectedIndex;
-			}
+		    	} else if (elem.nodeName.toLowerCase() === "select") {
+		    		val = elem.selectedIndex;
+		    	}
 
-			return val;
-		},
-	testChange = function testChange(e) {
-			var elem = e.target, data, val;
+		    	return val;
+		    },
+		    testChange = function testChange(e) {
+		    	var elem = e.target, data, val;
 
-			if (!rformElems.test(elem.nodeName) || elem.readOnly) {
-				return;
-			}
+		    	if (!rformElems.test(elem.nodeName) || elem.readOnly) {
+		    		return;
+		    	}
 
-			data = jQuery._data(elem, "_change_data");
-			val = getVal(elem);
+		    	data = jQuery._data(elem, "_change_data");
+		    	val = getVal(elem);
 
-			// the current data will be also retrieved by beforeactivate
-			if (e.type !== "focusout" || elem.type !== "radio") {
-				jQuery._data(elem, "_change_data", val);
-			}
+		    	// the current data will be also retrieved by beforeactivate
+		    	if (e.type !== "focusout" || elem.type !== "radio") {
+		    		jQuery._data(elem, "_change_data", val);
+		    	}
 
-			if (data === undefined || val === data) {
-				return;
-			}
+		    	if (data === undefined || val === data) {
+		    		return;
+		    	}
 
-			if (data != null || val) {
-				e.type = "change";
-				e.liveFired = undefined;
-				jQuery.event.trigger(e, arguments[1], elem);
-			}
-		};
+		    	if (data != null || val) {
+		    		e.type = "change";
+		    		e.liveFired = undefined;
+		    		jQuery.event.trigger(e, arguments[1], elem);
+		    	}
+		    };
 
 		jQuery.event.special.change = {
 			filters: {
@@ -3355,11 +3317,11 @@ var rnamespaces = /\.(.*)$/ ,
 				return [];
 			}
 
-	if (!selector || typeof selector !== "string") {
-			 
+			if (!selector || typeof selector !== "string") {
+
 
 		return results;
-			 
+
 
 	}
 
@@ -3369,7 +3331,7 @@ var rnamespaces = /\.(.*)$/ ,
 			    parts = [],
 			    soFar = selector;
 
-	// Reset the position of the chunker regexp (start from head)
+			// Reset the position of the chunker regexp (start from head)
 			do {
 				chunker.exec("");
 				m = chunker.exec(soFar);
@@ -3377,21 +3339,15 @@ var rnamespaces = /\.(.*)$/ ,
 				if (m) {
 					soFar = m[3];
 
-			parts.push(m[1]);
+					parts.push(m[1]);
 
-			if (m[2]) {
-					             
-
+					if (m[2]) {
 			                 
 
 				extra = m[3];
-					             
-
 			                 
 
 				break;
-					             
-
 			                 
 
 			}
@@ -3415,7 +3371,7 @@ var rnamespaces = /\.(.*)$/ ,
 							selector += parts.shift();
 						}
 
-				set = posProcess(selector, set);
+						set = posProcess(selector, set);
 					}
 				}
 
@@ -3544,40 +3500,38 @@ var rnamespaces = /\.(.*)$/ ,
 				var match,
 				    type = Expr.order[i];
 
-		if ((match = Expr.leftMatch[type].exec(expr))) {
-				                         
+				if ((match = Expr.leftMatch[type].exec(expr))) {
+
 
 			var left = match[1];
-				                         
+
 
 			match.splice(1, 1);
-
 				                         
 
 			if (left.substr(left.length - 1) !== "\\") {
-				                         
+
 
 				match[1] = (match[1] || "").replace(rBackslash, "");
-				                         
+
 
 				set = Expr.find[type](match, context, isXML);
-
 				                         
 
 				if (set != null) {
-				                         
+
 
 					expr = expr.replace(Expr.match[type], "");
-				                         
+
 
 					break;
-				                         
+
 
 				}
-				                         
+
 
 			}
-				                         
+
 
 		}
 			}
@@ -3898,11 +3852,11 @@ var rnamespaces = /\.(.*)$/ ,
 				ATTR: function(match, curLoop, inplace, result, not, isXML) {
 					var name = match[1] = match[1].replace(rBackslash, "");
 
-			if (!isXML && Expr.attrMap[name]) {
-					                                                       
+					if (!isXML && Expr.attrMap[name]) {
+
 
 				match[1] = Expr.attrMap[name];
-					                                                       
+
 
 			}
 
@@ -3936,7 +3890,7 @@ var rnamespaces = /\.(.*)$/ ,
 						return true;
 					}
 
-			return match;
+					return match;
 				},
 
 				POS: function(match) {
@@ -3946,7 +3900,7 @@ var rnamespaces = /\.(.*)$/ ,
 				}
 			},
 
-	filters: {
+			filters: {
 				enabled: function(elem) {
 					return elem.disabled === false && elem.type !== "hidden";
 				},
@@ -3959,14 +3913,14 @@ var rnamespaces = /\.(.*)$/ ,
 					return elem.checked === true;
 				},
 
-		selected: function(elem) {
+				selected: function(elem) {
 					// Accessing this property makes selected-by-default
 					// options in Safari work properly
 					if (elem.parentNode) {
 						elem.parentNode.selectedIndex;
 					}
 
-			return elem.selected === true;
+					return elem.selected === true;
 				},
 
 				parent: function(elem) {
@@ -4094,88 +4048,66 @@ var rnamespaces = /\.(.*)$/ ,
 					case "first":
 						while ((node = node.previousSibling)) {
 							if (node.nodeType === 1) {
-							return false;
-						}
+								return false;
+							}
 						}
 
 						if (type === "first") {
-						return true;
-					}
+							return true;
+						}
 
 						node = elem;
-				case "last":
-							while ((node = node.nextSibling)) {
-								if (node.nodeType === 1) {
-							return false;
-						}
+					case "last":
+						while ((node = node.nextSibling)) {
+							if (node.nodeType === 1) {
+								return false;
 							}
+						}
 
+						return true;
+					case "nth":
+						var first = match[2],
+						    last = match[3];
+
+						if (first === 1 && last === 0) {
 							return true;
-				case "nth":
-								var first = match[2],
-								    last = match[3];
+						}
 
-								if (first === 1 && last === 0) {
-									return true;
-								}
-
-					var doneName = match[0],
-								 
-
+						var doneName = match[0],
 					    parent = elem.parentNode;
 
-					if (parent && (parent.sizcache !== doneName || !elem.nodeIndex)) {
-								 
-
+						if (parent && (parent.sizcache !== doneName || !elem.nodeIndex)) {
 					                             
 
 						var count = 0;
 
-						for (node = parent.firstChild; node; node = node.nextSibling) {
-								 
-
-					                             
-
+							for (node = parent.firstChild; node; node = node.nextSibling) {
 						              
 
 							if (node.nodeType === 1) {
-								 
-
-					                             
-
 						              
 
 								node.nodeIndex = ++count;
-								 
-
-					                             
-
 						              
 
 							}
-								 
-
-					                             
-
 						              
 
 						}
 
-						parent.sizcache = doneName;
-								 
-
+							parent.sizcache = doneName;
 					                             
 
 					}
 
-					var diff = elem.nodeIndex - last;
+						var diff = elem.nodeIndex - last;
 
-								if (first === 0) {
-									return diff === 0;
+						if (first === 0) {
+							return diff === 0;
 
-								} else {
-									return (diff % first === 0 && diff / first >= 0);
-								}
+						} else {
+							return (diff % first === 0 && diff / first >= 0);
+						}
 					}
 				},
 
@@ -4187,9 +4119,9 @@ var rnamespaces = /\.(.*)$/ ,
 					return (match === "*" && elem.nodeType === 1) || elem.nodeName.toLowerCase() === match;
 				},
 
-		CLASS: function(elem, match) {
+				CLASS: function(elem, match) {
 					return (" " + (elem.className || elem.getAttribute("class")) + " ")
-						.indexOf(match) > -1;
+								.indexOf(match) > -1;
 				},
 
 				ATTR: function(elem, match) {
@@ -4253,7 +4185,7 @@ var rnamespaces = /\.(.*)$/ ,
 				return results;
 			}
 
-	return array;
+			return array;
 		};
 
 // Perform a simple check to determine if the browser is capable of
@@ -4500,7 +4432,7 @@ var rnamespaces = /\.(.*)$/ ,
 					return;
 				}
 
-		Sizzle = function(query, context, extra, seed) {
+				Sizzle = function(query, context, extra, seed) {
 					context = context || document;
 
 					// Only use querySelectorAll on non-XML documents
@@ -4509,297 +4441,154 @@ var rnamespaces = /\.(.*)$/ ,
 						// See if we find a selector to speed up
 						var match = /^(\w+$)|^\.([\w\-]+$)|^#([\w\-]+$)/ .exec(query);
 
-				if (match && (context.nodeType === 1 || context.nodeType === 9)) {
-						                                                              
+						if (match && (context.nodeType === 1 || context.nodeType === 9)) {
+
 
 					// Speed-up: Sizzle("TAG")
-						                                                              
+							if (match[1]) {
 
-					if (match[1]) {
-						                                                              
 
 						return makeArray(context.getElementsByTagName(query), extra);
 
-					// Speed-up: Sizzle(".CLASS")
-						                                                              
+								// Speed-up: Sizzle(".CLASS")
+							} else if (match[2] && Expr.find.CLASS && context.getElementsByClassName) {
 
-					} else if (match[2] && Expr.find.CLASS && context.getElementsByClassName) {
-						                                                              
 
 						return makeArray(context.getElementsByClassName(match[2]), extra);
-						                                                              
+
 
 					}
-						                                                              
+
 
 				}
 
-				if (context.nodeType === 9) {
-						                                                              
-
+						if (context.nodeType === 9) {
 				 
 
 					// Speed-up: Sizzle("body")
-						                                                              
-
-				 
-
-					// The body element only exists once, optimize finding it
-						                                                              
-
-				 
-
-					if (query === "body" && context.body) {
-						                                                              
-
+							// The body element only exists once, optimize finding it
+							if (query === "body" && context.body) {
 				 
 
 						return makeArray([context.body], extra);
 
-					// Speed-up: Sizzle("#ID")
-						                                                              
-
-				 
-
-					} else if (match && match[3]) {
-						                                                              
-
+								// Speed-up: Sizzle("#ID")
+							} else if (match && match[3]) {
 				 
 
 						var elem = context.getElementById(match[3]);
-
-						                                                              
-
 				 
 
 						// Check parentNode to catch when Blackberry 4.6 returns
-						                                                              
-
-				 
-
-						// nodes that are no longer in the document #6963
-						                                                              
-
-				 
-
-						if (elem && elem.parentNode) {
-						                                                              
-
+								// nodes that are no longer in the document #6963
+								if (elem && elem.parentNode) {
 				 
 
 							// Handle the case where IE and Opera return items
-						                                                              
-
-				 
-
-							// by name instead of ID
-						                                                              
-
-				 
-
-							if (elem.id === match[3]) {
-						                                                              
-
+									// by name instead of ID
+									if (elem.id === match[3]) {
 				 
 
 								return makeArray([elem], extra);
-						                                                              
-
 				 
 
 							}
 
-						} else {
-						                                                              
-
+								} else {
 				 
 
 							return makeArray([], extra);
-						                                                              
-
 				 
 
 						}
-						                                                              
-
 				 
 
 					}
 
-					try {
-						                                                              
-
-				 
-
+							try {
 					 
 
 						return makeArray(context.querySelectorAll(query), extra);
-						                                                              
-
-				 
-
 					 
 
 					} catch (qsaError) {
-						                                                              
-
-				 
-
 					 
 
 					}
-
-						                                                              
-
 				 
 
 					// qSA works strangely on Element-rooted queries
-						                                                              
-
-				 
-
-					// We can work around this by specifying an extra ID on the root
-						                                                              
-
-				 
-
-					// and working up from there (Thanks to Andrew Dupont for the technique)
-						                                                              
-
-				 
-
-					// IE 8 doesn't work on object elements
-						                                                              
-
-				 
-
-				} else if (context.nodeType === 1 && context.nodeName.toLowerCase() !== "object") {
-						                                                              
-
+							// We can work around this by specifying an extra ID on the root
+							// and working up from there (Thanks to Andrew Dupont for the technique)
+							// IE 8 doesn't work on object elements
+						} else if (context.nodeType === 1 && context.nodeName.toLowerCase() !== "object") {
 				 
 
 					var oldContext = context,
-						                                                              
-
-				 
-
 					    old = context.getAttribute("id"),
-						                                                              
-
-				 
-
 					    nid = old || id,
-						                                                              
-
-				 
-
 					    hasParent = context.parentNode,
-						                                                              
-
-				 
-
 					    relativeHierarchySelector = /^\s*[+~]/ .test(query);
-
-						                                                              
-
 				 
 
 					if (!old) {
-						                                                              
-
 				 
 
 						context.setAttribute("id", nid);
-						                                                              
-
 				 
 
 					} else {
-						                                                              
-
 				 
 
 						nid = nid.replace( /'/g , "\\$&");
-						                                                              
-
 				 
 
 					}
-						                                                              
-
 				 
 
 					if (relativeHierarchySelector && hasParent) {
-						                                                              
-
 				 
 
 						context = context.parentNode;
-						                                                              
-
 				 
 
 					}
-
-						                                                              
-
 				 
 
 					try {
-						                                                              
-
 				 
 
 						if (!relativeHierarchySelector || hasParent) {
-						                                                              
-
 				 
 
 							return makeArray(context.querySelectorAll("[id='" + nid + "'] " + query), extra);
-						                                                              
-
 				 
 
 						}
-
-						                                                              
-
 				 
 
 					} catch (pseudoError) {
-						                                                              
-
 				 
 
 					} finally {
-						                                                              
-
 				 
 
 						if (!old) {
-						                                                              
-
 				 
 
 							oldContext.removeAttribute("id");
-						                                                              
-
 				 
 
 						}
-						                                                              
-
 				 
 
 					}
-						                                                              
-
 				 
 
 				}
 					}
 
-			return oldSizzle(query, context, extra, seed);
+					return oldSizzle(query, context, extra, seed);
 				};
 
 				for (var prop in oldSizzle) {
@@ -4821,7 +4610,7 @@ var rnamespaces = /\.(.*)$/ ,
 				// Gecko does not error, returns false instead
 				matches.call(document.documentElement, "[test!='']:sizzle");
 
-	} catch (pseudoError) {
+			} catch (pseudoError) {
 				pseudoWorks = true;
 			}
 
@@ -4832,10 +4621,10 @@ var rnamespaces = /\.(.*)$/ ,
 
 					if (!Sizzle.isXML(node)) {
 						try {
-					if (pseudoWorks || !Expr.match.PSEUDO.test(expr) && ! /!=/ .test(expr)) {
-						     
+							if (pseudoWorks || !Expr.match.PSEUDO.test(expr) && ! /!=/ .test(expr)) {
+
 						return matches.call(node, expr);
-						     
+
 					}
 						} catch (e) {
 						}
@@ -4864,7 +4653,7 @@ var rnamespaces = /\.(.*)$/ ,
 				return;
 			}
 
-	Expr.order.splice(1, 0, "CLASS");
+			Expr.order.splice(1, 0, "CLASS");
 			Expr.find.CLASS = function(match, context, isXML) {
 				if (typeof context.getElementsByClassName !== "undefined" && !isXML) {
 					return context.getElementsByClassName(match[1]);
@@ -4915,7 +4704,7 @@ var rnamespaces = /\.(.*)$/ ,
 				if (elem) {
 					var match = false;
 
-			elem = elem[dir];
+					elem = elem[dir];
 
 					while (elem) {
 						if (elem.sizcache === doneName) {
@@ -5319,75 +5108,34 @@ var rnamespaces = /\.(.*)$/ ,
 	}
 
 
-var rinlinejQuery = / jQuery\d+="(?:\d+|null)"/g ,
-	 
-
-
+	var rinlinejQuery = / jQuery\d+="(?:\d+|null)"/g ,
     rleadingWhitespace = /^\s+/ ,
-	 
-
-
     rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig ,
-	 
-
-
     rtagName = /<([\w:]+)/ ,
-	 
-
-
     rtbody = /<tbody/i ,
-	 
-
-
     rhtml = /<|&#?\w+;/ ,
-	 
-
-
     rnocache = /<(?:script|object|embed|option|style)/i ,
 	// checked="checked" or checked
 	 
 
 
-    rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i ,
-	 
-
-
+	    rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i ,
     wrapMap = {
-	 
-
-
     	option: [1, "<select multiple='multiple'>", "</select>"],
-	 
-
 
     	legend: [1, "<fieldset>", "</fieldset>"],
-	 
-
 
     	thead: [1, "<table>", "</table>"],
-	 
-
 
     	tr: [2, "<table><tbody>", "</tbody></table>"],
-	 
-
 
     	td: [3, "<table><tbody><tr>", "</tr></tbody></table>"],
-	 
-
 
     	col: [2, "<table><tbody></tbody><colgroup>", "</colgroup></table>"],
-	 
-
 
     	area: [1, "<map>", "</map>"],
-	 
-
 
     	_default: [0, "", ""]
-	 
-
-
     };
 
 	wrapMap.optgroup = wrapMap.option;
@@ -5863,7 +5611,7 @@ var rinlinejQuery = / jQuery\d+="(?:\d+|null)"/g ,
 		if ("getElementsByTagName" in elem) {
 			return elem.getElementsByTagName("*");
 
-	} else if ("querySelectorAll" in elem) {
+		} else if ("querySelectorAll" in elem) {
 			return elem.querySelectorAll("*");
 
 		} else {
@@ -6072,51 +5820,22 @@ var rinlinejQuery = / jQuery\d+="(?:\d+|null)"/g ,
 	}
 
 
-var ralpha = /alpha\([^)]*\)/i ,
-	 
-
-
+	var ralpha = /alpha\([^)]*\)/i ,
     ropacity = /opacity=([^)]*)/ ,
-	 
-
-
     rdashAlpha = /-([a-z])/ig ,
-	 
-
-
     rupper = /([A-Z])/g ,
-	 
-
-
     rnumpx = /^-?\d+(?:px)?$/i ,
-	 
-
-
     rnum = /^-?\d/ ,
-	cssShow = { position: "absolute", visibility: "hidden", display: "block" },
-	 
-
-
+	    cssShow = { position: "absolute", visibility: "hidden", display: "block" },
     cssWidth = ["Left", "Right"],
-	 
-
-
     cssHeight = ["Top", "Bottom"],
-	 
-
-
     curCSS,
-	getComputedStyle,
-	 
-
-
+	    getComputedStyle,
     currentStyle,
-	fcamelCase = function(all, letter) {
-	 
+	    fcamelCase = function(all, letter) {	 
 
 
-    	return letter.toUpperCase();
-	 
+    	return letter.toUpperCase();	 
 
 
     };
@@ -6438,85 +6157,41 @@ var ralpha = /alpha\([^)]*\)/i ,
 	}
 
 
-var r20 = /%20/g ,
-	 
-
-
+	var r20 = /%20/g ,
     rbracket = /\[\]$/ ,
-	 
-
-
     rCRLF = /\r?\n/g ,
-	 
-
-
     rhash = /#.*$/ ,
-	 
-
-
     rheaders = /^(.*?):[ \t]*([^\r\n]*)\r?$/mg , // IE leaves an \r character at EOL
 	 
 
 
-    rinput = /^(?:color|date|datetime|email|hidden|month|number|password|range|search|tel|text|time|url|week)$/i ,
+	    rinput = /^(?:color|date|datetime|email|hidden|month|number|password|range|search|tel|text|time|url|week)$/i ,
 	// #7653, #8125, #8152: local protocol detection
 	 
 
 
-    rlocalProtocol = /(?:^file|^widget|\-extension):$/ ,
-	 
-
-
+	    rlocalProtocol = /(?:^file|^widget|\-extension):$/ ,
     rnoContent = /^(?:GET|HEAD)$/ ,
-	 
-
-
     rprotocol = /^\/\// ,
-	 
-
-
     rquery = /\?/ ,
-	 
-
-
     rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi ,
-	 
-
-
     rselectTextarea = /^(?:select|textarea)/i ,
-	 
-
-
     rspacesAjax = /\s+/ ,
-	 
-
-
     rts = /([?&])_=[^&]*/ ,
-	 
-
-
     rucHeaders = /(^|\-)([a-z])/g ,
-	 
+    rucHeadersFunc = function(_, $1, $2) {	 
 
 
-    rucHeadersFunc = function(_, $1, $2) {
-	 
-
-
-    	return $1 + $2.toUpperCase();
-	 
+    	return $1 + $2.toUpperCase();	 
 
 
     },
-	 
-
-
     rurl = /^([\w\+\.\-]+:)\/\/([^\/?#:]*)(?::(\d+))?/ ,
 	// Keep a copy of the old load method
 	 
 
 
-    _load = jQuery.fn.load,
+	    _load = jQuery.fn.load,
 	/* Prefilters
 	 * 1) They are useful to introduce custom dataTypes (see ajax/jsonp.js for an example)
 	 * 2) These are called:
@@ -6529,7 +6204,7 @@ var r20 = /%20/g ,
 	 
 
 
-    prefilters = {  },
+	    prefilters = {  },
 	/* Transports bindings
 	 * 1) key is the dataType
 	 * 2) the catchall symbol "*" can be used
@@ -6538,17 +6213,17 @@ var r20 = /%20/g ,
 	 
 
 
-    transports = {  },
+	    transports = {  },
 	// Document location
 	 
 
 
-    ajaxLocation,
+	    ajaxLocation,
 	// Document location segments
 	 
 
 
-    ajaxLocParts;
+	    ajaxLocParts;
 
 // #8138, IE may throw an exception when accessing
 // a field from document.location if document.domain has been set
@@ -6702,10 +6377,10 @@ var r20 = /%20/g ,
 										jQuery("<div>")
 											// inject the contents of the document in, removing the scripts
 											// to avoid any 'Permission Denied' errors in IE
-									.append(responseText.replace(rscript, ""))
+											.append(responseText.replace(rscript, ""))
 
 											// Locate the specified elements
-									.find(selector) :
+											.find(selector) :
 						// If not, just inject the full result
 										responseText);
 							}
@@ -6727,22 +6402,22 @@ var r20 = /%20/g ,
 				return this.map(function() {
 					return this.elements ? jQuery.makeArray(this.elements) : this;
 				})
-				.filter(function() {
-			return this.name && !this.disabled &&
-				(this.checked || rselectTextarea.test(this.nodeName) ||
-					rinput.test(this.type));
-		})
-				.map(function(i, elem) {
-			var val = jQuery(this).val();
+						.filter(function() {
+					return this.name && !this.disabled &&
+						(this.checked || rselectTextarea.test(this.nodeName) ||
+							rinput.test(this.type));
+				})
+						.map(function(i, elem) {
+					var val = jQuery(this).val();
 
-			return val == null ?
-				null :
-				jQuery.isArray(val) ?
-					jQuery.map(val, function(val, i) {
-						return { name: elem.name, value: val.replace(rCRLF, "\r\n") };
-					}) :
-					{ name: elem.name, value: val.replace(rCRLF, "\r\n") };
-		}).get();
+					return val == null ?
+						null :
+						jQuery.isArray(val) ?
+							jQuery.map(val, function(val, i) {
+								return { name: elem.name, value: val.replace(rCRLF, "\r\n") };
+							}) :
+							{ name: elem.name, value: val.replace(rCRLF, "\r\n") };
+				}).get();
 			}
 		});
 
@@ -6773,9 +6448,9 @@ var r20 = /%20/g ,
 	});
 
 	jQuery.extend({
-	getScript: function(url, callback) {
-		return jQuery.get(url, undefined, callback, "script");
-	},
+			getScript: function(url, callback) {
+				return jQuery.get(url, undefined, callback, "script");
+			},
 
 			getJSON: function(url, data, callback) {
 				return jQuery.get(url, data, callback, "json");
@@ -6847,7 +6522,7 @@ var r20 = /%20/g ,
 		// 1) key format is "source_type destination_type" (a single space in-between)
 		// 2) the catchall symbol "*" can be used for source_type
 				converters: {
-			// Convert anything to text
+					// Convert anything to text
 					"* text": window.String,
 
 			// Text to html (true = no transformation)
@@ -6912,7 +6587,7 @@ var r20 = /%20/g ,
 					i,
 			// Fake xhr
 					jqXHR = {
-				readyState: 0,
+						readyState: 0,
 
 				// Caches the header
 						setRequestHeader: function(name, value) {
@@ -7316,7 +6991,7 @@ var r20 = /%20/g ,
 // This is still on the jQuery object... for now
 // Want to move this to jQuery.ajax some day
 	jQuery.extend({
-	// Counter for holding the number of active queries
+			// Counter for holding the number of active queries
 			active: 0,
 
 	// Last-Modified header cache for next request
@@ -7481,10 +7156,7 @@ var r20 = /%20/g ,
 	}
 
 
-var jsc = jQuery.now(),
-	 
-
-
+	var jsc = jQuery.now(),
     jsre = /(\=)\?(&|$)|()\?\?()/i ;
 
 // Default jsonp settings
@@ -7600,44 +7272,44 @@ var jsc = jQuery.now(),
 			    head = document.head || document.getElementsByTagName("head")[0] || document.documentElement;
 
 			return {
-			send: function(_, callback) {
+				send: function(_, callback) {
 
-				script = document.createElement("script");
+					script = document.createElement("script");
 
-				script.async = "async";
+					script.async = "async";
 
-				if (s.scriptCharset) {
-					script.charset = s.scriptCharset;
-				}
-
-				script.src = s.url;
-
-				// Attach handlers for all browsers
-				script.onload = script.onreadystatechange = function(_, isAbort) {
-
-					if (!script.readyState || /loaded|complete/ .test(script.readyState)) {
-
-						// Handle memory leak in IE
-						script.onload = script.onreadystatechange = null;
-
-						// Remove the script
-						if (head && script.parentNode) {
-							head.removeChild(script);
-						}
-
-						// Dereference the script
-						script = undefined;
-
-						// Callback if not abort
-						if (!isAbort) {
-							callback(200, "success");
-						}
+					if (s.scriptCharset) {
+						script.charset = s.scriptCharset;
 					}
-				};
-				// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
-				// This arises when a base node is used (#2709 and #4378).
-				head.insertBefore(script, head.firstChild);
-			},
+
+					script.src = s.url;
+
+					// Attach handlers for all browsers
+					script.onload = script.onreadystatechange = function(_, isAbort) {
+
+						if (!script.readyState || /loaded|complete/ .test(script.readyState)) {
+
+							// Handle memory leak in IE
+							script.onload = script.onreadystatechange = null;
+
+							// Remove the script
+							if (head && script.parentNode) {
+								head.removeChild(script);
+							}
+
+							// Dereference the script
+							script = undefined;
+
+							// Callback if not abort
+							if (!isAbort) {
+								callback(200, "success");
+							}
+						}
+					};
+					// Use insertBefore instead of appendChild  to circumvent an IE6 bug.
+					// This arises when a base node is used (#2709 and #4378).
+					head.insertBefore(script, head.firstChild);
+				},
 
 				abort: function() {
 					if (script) {
@@ -7649,7 +7321,7 @@ var jsc = jQuery.now(),
 	});
 
 
-var// #5280: next active xhr id and list of active xhrs' callbacks
+	var// #5280: next active xhr id and list of active xhrs' callbacks
 		xhrId = jQuery.now(),
 		xhrCallbacks,
 	// XHR used to determine supports properties
@@ -7872,41 +7544,26 @@ var// #5280: next active xhr id and list of active xhrs' callbacks
 	}
 
 
-var elemdisplay = {  },
-	 
-
-
+	var elemdisplay = {  },
     rfxtypes = /^(?:toggle|show|hide)$/ ,
-	 
-
-
     rfxnum = /^([+\-]=)?([\d+.\-]+)([a-z%]*)$/i ,
-	 
-
-
     timerId,
-	 
-
-
     fxAttrs = [
 		// height animations
 	 
 
 
-    	["height", "marginTop", "marginBottom", "paddingTop", "paddingBottom"],
+		["height", "marginTop", "marginBottom", "paddingTop", "paddingBottom"],
 		// width animations
 	 
 
 
-    	["width", "marginLeft", "marginRight", "paddingLeft", "paddingRight"],
+		["width", "marginLeft", "marginRight", "paddingLeft", "paddingRight"],
 		// opacity animations
 	 
 
 
-    	["opacity"]
-	 
-
-
+		["opacity"]
     ];
 
 	jQuery.fn.extend({
@@ -7997,7 +7654,7 @@ var elemdisplay = {  },
 
 			fadeTo: function(speed, to, easing, callback) {
 				return this.filter(":hidden").css("opacity", 0).show().end()
-							.animate({ opacity: to }, speed, easing, callback);
+									.animate({ opacity: to }, speed, easing, callback);
 			},
 
 			animate: function(prop, speed, easing, callback) {
@@ -8420,10 +8077,7 @@ var elemdisplay = {  },
 	}
 
 
-var rtable = /^t(?:able|d|h)$/i ,
-	 
-
-
+	var rtable = /^t(?:able|d|h)$/i ,
     rroot = /^(?:body|html)$/i ;
 
 	if ("getBoundingClientRect" in document.documentElement) {

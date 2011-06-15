@@ -96,17 +96,17 @@ if (!document.createElement('canvas').getContext) {
 					// recognized.
 					doc.createElement('canvas');
 
-        if (doc.readyState !== "complete") {
+					if (doc.readyState !== "complete") {
 
-            doc.attachEvent('onreadystatechange', bind(this.init_, this, doc));
+						doc.attachEvent('onreadystatechange', bind(this.init_, this, doc));
 
-        } else {
+					} else {
 
-           this.init_(doc);
+						this.init_(doc);
 
-        }
+					}
 
-    }
+				}
 			},
 
 			init_: function(doc) {
