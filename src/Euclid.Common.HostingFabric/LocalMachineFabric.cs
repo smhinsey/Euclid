@@ -6,7 +6,7 @@ namespace Euclid.Common.HostingFabric
 	{
 		public FabricRuntimeState State { get; private set; }
 
-		public void Initialize()
+		public void Configure()
 		{
 			throw new NotImplementedException();
 		}
