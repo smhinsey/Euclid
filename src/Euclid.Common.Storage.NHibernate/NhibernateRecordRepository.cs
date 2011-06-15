@@ -5,9 +5,9 @@ using Euclid.Common.Serialization;
 using Euclid.Common.Transport;
 using NHibernate;
 
-namespace Euclid.Common.Storage.Nhibernate
+namespace Euclid.Common.Storage.NHibernate
 {
-	public class NhibernateRecordRepository<TRecord> : IBasicRecordRepository<TRecord>
+	public class NHibernateRecordRepository<TRecord> : IBasicRecordRepository<TRecord>
 		where TRecord : class, IRecord, new()
 	{
 		private readonly IBlobStorage _blobStorage;
@@ -15,7 +15,7 @@ namespace Euclid.Common.Storage.Nhibernate
 		private readonly IMessageSerializer _serializer;
 		private readonly ISession _session;
 
-		public NhibernateRecordRepository(IMessageSerializer serializer, IBlobStorage blobStorage, ISession session)
+		public NHibernateRecordRepository(IMessageSerializer serializer, IBlobStorage blobStorage, ISession session)
 		{
 			_serializer = serializer;
 			_blobStorage = blobStorage;
