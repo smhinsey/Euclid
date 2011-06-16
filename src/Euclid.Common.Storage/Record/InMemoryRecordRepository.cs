@@ -11,28 +11,19 @@ namespace Euclid.Common.Storage.Record
 	{
 		protected static readonly ConcurrentDictionary<Guid, TRecord> Records = new ConcurrentDictionary<Guid, TRecord>();
 
-		private readonly IBlobStorage _blobStorage;
 
-		private readonly IMessageSerializer _serializer;
-
-		public InMemoryRecordRepository(IBlobStorage blobStorage, IMessageSerializer serializer)
+		public InMemoryRecordRepository()
 		{
-			_blobStorage = blobStorage;
-			_serializer = serializer;
 		}
 
-		public TRecord Create(IMessage message)
+		public TRecord Create(Uri messageLocation, Type messageType)
 		{
-			var msg = _serializer.Serialize(message);
-
-			var uri = _blobStorage.Put(msg, message.GetType().FullName, null);
-
 			var record = new TRecord
 			             	{
 			             		Identifier = Guid.NewGuid(),
 			             		Created = DateTime.Now,
-			             		MessageLocation = uri,
-			             		MessageType = message.GetType()
+			             		MessageLocation = messageLocation,
+			             		MessageType = messageType
 			             	};
 
 			Records.TryAdd(record.Identifier, record);

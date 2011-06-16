@@ -16,7 +16,7 @@ namespace Euclid.Common.UnitTests.Storage
 		{
 			var storage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
-			var repo = new InMemoryRecordRepository<FakeRecord>(storage, serializer);
+		    var repo = new InMemoryRecordRepository<FakeRecord>();
 
 			_repoTester = new RecordRepositoryTester<InMemoryRecordRepository<FakeRecord>>(repo);
 		}

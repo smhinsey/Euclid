@@ -10,30 +10,21 @@ namespace Euclid.Common.Storage.NHibernate
 	public class NHibernateRecordRepository<TRecord> : IBasicRecordRepository<TRecord>
 		where TRecord : class, IRecord, new()
 	{
-		private readonly IBlobStorage _blobStorage;
-
-		private readonly IMessageSerializer _serializer;
 		private readonly ISession _session;
 
-		public NHibernateRecordRepository(IMessageSerializer serializer, IBlobStorage blobStorage, ISession session)
+		public NHibernateRecordRepository(ISession session)
 		{
-			_serializer = serializer;
-			_blobStorage = blobStorage;
 			_session = session;
 		}
 
-		public TRecord Create(IMessage message)
+		public TRecord Create(Uri messageLocation, Type messageType)
 		{
-			var msg = _serializer.Serialize(message);
-
-			var uri = _blobStorage.Put(msg, message.GetType().FullName, null);
-
 			var record = new TRecord
 			             	{
 			             		Identifier = Guid.NewGuid(),
 			             		Created = DateTime.Now,
-			             		MessageLocation = uri,
-			             		MessageType = message.GetType()
+			             		MessageLocation = messageLocation,
+			             		MessageType = messageType
 			             	};
 
 			_session.Save(record);

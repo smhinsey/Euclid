@@ -24,8 +24,8 @@ namespace Euclid.Common.IntegrationTests
 		{
 			_serializer = new JsonMessageSerializer();
 			_blobStorage = new InMemoryBlobStorage();
-			_repository = new InMemoryRecordRepository<FakeRecord>(_blobStorage, _serializer);
-			_registry = new FakeRegistry(_repository);
+			_repository = new InMemoryRecordRepository<FakeRecord>();
+			_registry = new FakeRegistry(_repository, _blobStorage, _serializer);
 			_transport = new InMemoryMessageTransport();
 		}
 

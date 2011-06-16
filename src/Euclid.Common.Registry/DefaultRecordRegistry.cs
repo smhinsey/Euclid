@@ -1,53 +1,75 @@
 ﻿using System;
+using System.IO;
+using Euclid.Common.Serialization;
 using Euclid.Common.Storage;
 using Euclid.Common.Transport;
 
 namespace Euclid.Common.Registry
 {
-	public class DefaultRecordRegistry<TRecord> : IRegistry<TRecord>
-		where TRecord : class, IRecord, new()
-	{
-		private readonly IBasicRecordRepository<TRecord> _repository;
+    public class DefaultRecordRegistry<TRecord> : IRegistry<TRecord>
+        where TRecord : class, IRecord, new()
+    {
+        private readonly IBasicRecordRepository<TRecord> _repository;
 
-		public DefaultRecordRegistry(IBasicRecordRepository<TRecord> repository)
-		{
-			_repository = repository;
-		}
+        private readonly IBlobStorage _blobStorage;
 
-		public TRecord CreateRecord(IMessage message)
-		{
-			return _repository.Create(message);
-		}
+        private readonly IMessageSerializer _serializer;
 
-		public TRecord Get(Guid id)
-		{
-			return _repository.Retrieve(id);
-		}
 
-		public TRecord MarkAsComplete(Guid id)
-		{
-			return UpdateRecord(id, r => r.Completed = true);
-		}
+        public DefaultRecordRegistry(IBasicRecordRepository<TRecord> repository, IBlobStorage blobStorage, IMessageSerializer serializer)
+        {
+            _repository = repository;
+            _blobStorage = blobStorage;
+            _serializer = serializer;
+        }
 
-		public TRecord MarkAsFailed(Guid id, string message, string callStack)
-		{
-			return UpdateRecord
-				(id, r =>
-				     	{
-				     		r.Completed = true;
-				     		r.Error = true;
-				     		r.ErrorMessage = message;
-				     		r.CallStack = callStack;
-				     	});
-		}
+        public TRecord CreateRecord(IMessage message)
+        {
+            var msg = _serializer.Serialize(message);
 
-		private TRecord UpdateRecord(Guid id, Action<TRecord> actOnRecord)
-		{
-			var record = Get(id);
+            var uri = _blobStorage.Put(msg, message.GetType().FullName, null);
 
-			actOnRecord(record);
+            return _repository.Create(uri, message.GetType());
+        }
 
-			return _repository.Update(record);
-		}
-	}
+        public TRecord Get(Guid id)
+        {
+            return _repository.Retrieve(id);
+        }
+
+        public IMessage GetMessage(TRecord record)
+        {
+            var messgaeBytes = _blobStorage.Get(record.MessageLocation);
+
+            var messageStream = new MemoryStream(messgaeBytes);
+
+            return Convert.ChangeType(_serializer.Deserialize(messageStream), record.MessageType) as IMessage;
+        }
+
+        public TRecord MarkAsComplete(Guid id)
+        {
+            return UpdateRecord(id, r => r.Completed = true);
+        }
+
+        public TRecord MarkAsFailed(Guid id, string message, string callStack)
+        {
+            return UpdateRecord
+                (id, r =>
+                        {
+                            r.Completed = true;
+                            r.Error = true;
+                            r.ErrorMessage = message;
+                            r.CallStack = callStack;
+                        });
+        }
+
+        private TRecord UpdateRecord(Guid id, Action<TRecord> actOnRecord)
+        {
+            var record = Get(id);
+
+            actOnRecord(record);
+
+            return _repository.Update(record);
+        }
+    }
 }
