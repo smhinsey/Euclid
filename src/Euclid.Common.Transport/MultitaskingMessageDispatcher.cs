@@ -65,7 +65,7 @@ namespace Euclid.Common.Transport
 
 		public void Disable()
 		{
-			// stop the input
+			// cancel the listener task's cancellation token via its source
 
 			State = MessageDispatcherState.Disabled;
 
@@ -82,6 +82,8 @@ namespace Euclid.Common.Transport
 
 			this.WriteInfoMessage("Dispatcher enabled.");
 
+			// we want to keep a cancellation token source around
+			// so we can shut this down via disable
 			_listenerTask = Task.Factory.StartNew(startSlicingTime);
 		}
 
