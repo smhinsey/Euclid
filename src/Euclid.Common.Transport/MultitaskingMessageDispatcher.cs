@@ -102,9 +102,6 @@ namespace Euclid.Common.Transport
 
                                                               try
                                                               {
-                                                                  Console.WriteLine("Retrieved message '{0}'",
-                                                                                    message.Identifier);
-
                                                                   var messageProcessorType = _messageProcessorTypes
                                                                                                 .Where(processorType => processorType.
                                                                                                     GetGenericArguments().Any(messageType=> messageType ==msg.GetType()))
