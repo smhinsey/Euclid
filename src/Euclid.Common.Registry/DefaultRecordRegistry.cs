@@ -23,7 +23,7 @@ namespace Euclid.Common.Registry
             _serializer = serializer;
         }
 
-        public TRecord CreateRecord(IMessage message)
+        public virtual TRecord CreateRecord(IMessage message)
         {
             var msg = _serializer.Serialize(message);
 
@@ -32,26 +32,26 @@ namespace Euclid.Common.Registry
             return _repository.Create(uri, message.GetType());
         }
 
-        public TRecord Get(Guid id)
+        public TRecord GetRecord(Guid identifier)
         {
-            return _repository.Retrieve(id);
+            return _repository.Retrieve(identifier);
         }
 
-        public IMessage GetMessage(TRecord record)
+        public virtual IMessage GetMessage(Uri messageLocation, Type recordType)
         {
-            var messgaeBytes = _blobStorage.Get(record.MessageLocation);
+            var messgaeBytes = _blobStorage.Get(messageLocation);
 
             var messageStream = new MemoryStream(messgaeBytes);
 
-            return Convert.ChangeType(_serializer.Deserialize(messageStream), record.MessageType) as IMessage;
+            return Convert.ChangeType(_serializer.Deserialize(messageStream), recordType) as IMessage;
         }
 
-        public TRecord MarkAsComplete(Guid id)
+        public virtual TRecord MarkAsComplete(Guid id)
         {
             return UpdateRecord(id, r => r.Completed = true);
         }
 
-        public TRecord MarkAsFailed(Guid id, string message, string callStack)
+        public virtual TRecord MarkAsFailed(Guid id, string message, string callStack)
         {
             return UpdateRecord
                 (id, r =>
@@ -65,7 +65,7 @@ namespace Euclid.Common.Registry
 
         private TRecord UpdateRecord(Guid id, Action<TRecord> actOnRecord)
         {
-            var record = Get(id);
+            var record = GetRecord(id);
 
             actOnRecord(record);
 
