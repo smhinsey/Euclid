@@ -8,70 +8,71 @@ using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Registry
 {
-    [TestFixture]
-    public class InMemoryRegistryTests
-    {
-        private RegistryTester<DefaultRecordRegistry<FakeRecord>> _registryTester;
+	[TestFixture]
+	public class InMemoryRegistryTests
+	{
+		private RegistryTester<DefaultRecordRegistry<FakeRecord>> _registryTester;
 
-        [TestFixtureSetUp]
-        public void SetupTest()
-        {
-            var storage = new InMemoryBlobStorage();
-            var serializer = new JsonMessageSerializer();
-            var repository = new InMemoryRecordRepository<FakeRecord>();
-            _registryTester =
-                new RegistryTester<DefaultRecordRegistry<FakeRecord>>(new DefaultRecordRegistry<FakeRecord>(repository, storage, serializer));
-        }
+		[TestFixtureSetUp]
+		public void SetupTest()
+		{
+			var storage = new InMemoryBlobStorage();
+			var serializer = new JsonMessageSerializer();
+			var repository = new InMemoryRecordRepository<FakeRecord>();
+			_registryTester =
+				new RegistryTester<DefaultRecordRegistry<FakeRecord>>(new DefaultRecordRegistry<FakeRecord>(repository, storage, serializer));
+		}
 
-        private const int LargeNumber = 10000;
-        private const int NumberThreads = 15;
+		private const int LargeNumber = 10000;
+		private const int NumberThreads = 15;
 
-        [Test]
-        public void TestCreateRecord()
-        {
-            _registryTester.CreateRecord(new FakeMessage());
-        }
+		[Test]
+		public void TestCreateRecord()
+		{
+			_registryTester.CreateRecord(new FakeMessage());
+		}
 
-        [Test]
-        public void TestMarkAsCompleted()
-        {
-            _registryTester.MarkAsCompleted();
-        }
+		[Test]
+		public void TestGetMessage()
+		{
+			var start = DateTime.Now;
+			var createdById = new Guid("CBE5D20E-9B5A-46DF-B2FF-93B5F45A3460");
+			var record = _registryTester.CreateRecord
+				(new FakeMessage
+				 	{
+				 		Created = start,
+				 		CreatedBy = createdById
+				 	});
 
-        [Test]
-        public void TestMarkAsFailed()
-        {
-            _registryTester.MarkAsFailed();
-        }
+			var message = _registryTester.GetMessage(record);
 
-        [Test]
-        public void TestGetMessage()
-        {
-            var start = DateTime.Now;
-            var createdById = new Guid("CBE5D20E-9B5A-46DF-B2FF-93B5F45A3460");
-            var record = _registryTester.CreateRecord(new FakeMessage
-                                                          {
-                                                              Created = start,
-                                                              CreatedBy = createdById
-                                                          });
+			Assert.AreEqual(start.ToString(), message.Created.ToString());
 
-            var message = _registryTester.GetMessage(record);
+			Assert.AreEqual(createdById, message.CreatedBy);
+		}
 
-            Assert.AreEqual(start.ToString(), message.Created.ToString());
+		[Test]
+		public void TestMarkAsCompleted()
+		{
+			_registryTester.MarkAsCompleted();
+		}
 
-            Assert.AreEqual(createdById, message.CreatedBy);
-        }
+		[Test]
+		public void TestMarkAsFailed()
+		{
+			_registryTester.MarkAsFailed();
+		}
 
-        [Test]
-        public void TestThroughputAsynchronously()
-        {
-            _registryTester.TestThroughputAsynchronously(LargeNumber, NumberThreads);
-        }
+		[Test]
+		public void TestThroughputAsynchronously()
+		{
+			_registryTester.TestThroughputAsynchronously(LargeNumber, NumberThreads);
+		}
 
-        [Test]
-        public void TestThroughputSynchronously()
-        {
-            _registryTester.TestThroughputSynchronously(LargeNumber);
-        }
-    }
+		[Test]
+		public void TestThroughputSynchronously()
+		{
+			_registryTester.TestThroughputSynchronously(LargeNumber);
+		}
+	}
 }

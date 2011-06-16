@@ -8,7 +8,6 @@ namespace Euclid.Common.TestingFakes.Registry
 	{
 		public FakeRegistry(IBasicRecordRepository<FakeRecord> repository, IBlobStorage storage, IMessageSerializer serializer) : base(repository, storage, serializer)
 		{
-
 		}
 	}
 }

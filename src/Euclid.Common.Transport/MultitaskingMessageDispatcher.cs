@@ -107,8 +107,9 @@ namespace Euclid.Common.Transport
 					// i recommend replacing this with a loop or some other approach. the linq is way shorter but a huge hassle to debug
 					// static reflection might be ideal
 					var messageProcessorType = _messageProcessorTypes
-						.Where(processorType => processorType.GetGenericArguments()
-							.Any(messageType => messageType == msg.GetType()))
+						.Where
+						(processorType => processorType.GetGenericArguments()
+						                  	.Any(messageType => messageType == msg.GetType()))
 						.Select(x => x).FirstOrDefault();
 
 					var messageProessor =

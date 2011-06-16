@@ -13,142 +13,142 @@ using FakeMessage = Euclid.Common.TestingFakes.Transport.FakeMessage;
 
 namespace Euclid.Common.UnitTests.Transport
 {
-    public class MessageDispatcherTests
-    {
-        private FakeDispatcher _dispatcher;
-        private InMemoryMessageTransport _transport;
-
-        [SetUp]
-        public void Setup()
-        {
-            var container = new WindsorContainer();
-            var processor = new FakeMessageProcessor();
-            container.Register
-            (
-                Component.For<FakeMessageProcessor>()
-                .Instance(processor)
-            );
-
-            var registry = new FakeRegistry(new InMemoryRecordRepository<FakeRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
-
-            _dispatcher = new FakeDispatcher(container, registry);
-
-            _transport = new InMemoryMessageTransport();
-        }
+	public class MessageDispatcherTests
+	{
+		private FakeDispatcher _dispatcher;
+		private InMemoryMessageTransport _transport;
 
 
-        [Test]
-        public void DispatchesMessage()
-        {
-            var settings = new MessageDispatcherSettings();
-            var message = new FakeMessage();
-            
-            settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-            settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
-            settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
-            settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
+		[Test]
+		public void DispatchesMessage()
+		{
+			var settings = new MessageDispatcherSettings();
+			var message = new FakeMessage();
 
-            _dispatcher.Configure(settings);
+			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
+			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
-            _dispatcher.Enable();
+			_dispatcher.Configure(settings);
 
-            _transport.Send(message);
+			_dispatcher.Enable();
 
-            Assert.AreEqual(MessageDispatcherState.Enabled, _dispatcher.State);
+			_transport.Send(message);
 
-            _dispatcher.Disable();
+			Assert.AreEqual(MessageDispatcherState.Enabled, _dispatcher.State);
 
-            Assert.AreEqual(MessageDispatcherState.Disabled, _dispatcher.State);
-            Assert.IsTrue(FakeMessageProcessor.ProcessedAnyMessages);
-        }
+			_dispatcher.Disable();
 
-        [Test]
-        public void EnablesAndDisables()
-        {
-            var container = new WindsorContainer();
-            var settings = new MessageDispatcherSettings();
+			Assert.AreEqual(MessageDispatcherState.Disabled, _dispatcher.State);
+			Assert.IsTrue(FakeMessageProcessor.ProcessedAnyMessages);
+		}
 
-            settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-            settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
-            settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
-            settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
+		[Test]
+		public void EnablesAndDisables()
+		{
+			var container = new WindsorContainer();
+			var settings = new MessageDispatcherSettings();
 
-            _dispatcher.Configure(settings);
+			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
+			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
-            _dispatcher.Enable();
+			_dispatcher.Configure(settings);
 
-            Assert.AreEqual(MessageDispatcherState.Enabled, _dispatcher.State);
+			_dispatcher.Enable();
 
-            _dispatcher.Disable();
+			Assert.AreEqual(MessageDispatcherState.Enabled, _dispatcher.State);
 
-            Assert.AreEqual(MessageDispatcherState.Disabled, _dispatcher.State);
-        }
+			_dispatcher.Disable();
 
-        [Test]
-        public void EnablesWithoutError()
-        {
-            var container = new WindsorContainer();
-            var settings = new MessageDispatcherSettings();
+			Assert.AreEqual(MessageDispatcherState.Disabled, _dispatcher.State);
+		}
 
-            settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-            settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
-            settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
-            settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
+		[Test]
+		public void EnablesWithoutError()
+		{
+			var container = new WindsorContainer();
+			var settings = new MessageDispatcherSettings();
 
-            _dispatcher.Configure(settings);
+			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
+			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
-            _dispatcher.Enable();
+			_dispatcher.Configure(settings);
 
-            Assert.AreEqual(MessageDispatcherState.Enabled, _dispatcher.State);
-        }
+			_dispatcher.Enable();
 
-        [Test]
-        [ExpectedException(typeof (NoInputTransportConfiguredException))]
-        public void ThrowsWithMissingInputTransport()
-        {
-            var container = new WindsorContainer();
-            var settings = new MessageDispatcherSettings();
+			Assert.AreEqual(MessageDispatcherState.Enabled, _dispatcher.State);
+		}
 
-            _dispatcher.Configure(settings);
-        }
+		[SetUp]
+		public void Setup()
+		{
+			var container = new WindsorContainer();
+			var processor = new FakeMessageProcessor();
+			container.Register
+				(
+				 Component.For<FakeMessageProcessor>()
+				 	.Instance(processor)
+				);
 
-        [Test]
-        [ExpectedException(typeof (NoMessageProcessorsConfiguredException))]
-        public void ThrowsWithMissingMessageProcessors()
-        {
-            var container = new WindsorContainer();
-            var settings = new MessageDispatcherSettings();
+			var registry = new FakeRegistry(new InMemoryRecordRepository<FakeRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
 
-            settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			_dispatcher = new FakeDispatcher(container, registry);
 
-            _dispatcher.Configure(settings);
-        }
+			_transport = new InMemoryMessageTransport();
+		}
 
-        [Test]
-        [ExpectedException(typeof (NoNumberOfMessagesPerSliceConfiguredException))]
-        public void ThrowsWithMissingMessagesPerSliceSetting()
-        {
-            var container = new WindsorContainer();
-            var settings = new MessageDispatcherSettings();
+		[Test]
+		[ExpectedException(typeof (NoInputTransportConfiguredException))]
+		public void ThrowsWithMissingInputTransport()
+		{
+			var container = new WindsorContainer();
+			var settings = new MessageDispatcherSettings();
 
-            settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-            settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
-            settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
+			_dispatcher.Configure(settings);
+		}
 
-            _dispatcher.Configure(settings);
-        }
+		[Test]
+		[ExpectedException(typeof (NoMessageProcessorsConfiguredException))]
+		public void ThrowsWithMissingMessageProcessors()
+		{
+			var container = new WindsorContainer();
+			var settings = new MessageDispatcherSettings();
 
-        [Test]
-        [ExpectedException(typeof (NoDispatchingSliceDurationConfiguredException))]
-        public void ThrowsWithMissingSliceDuration()
-        {
-            var container = new WindsorContainer();
-            var settings = new MessageDispatcherSettings();
+			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
 
-            settings.InputTransport.WithDefault(new InMemoryMessageTransport());
-            settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			_dispatcher.Configure(settings);
+		}
 
-            _dispatcher.Configure(settings);
-        }
-    }
+		[Test]
+		[ExpectedException(typeof (NoNumberOfMessagesPerSliceConfiguredException))]
+		public void ThrowsWithMissingMessagesPerSliceSetting()
+		{
+			var container = new WindsorContainer();
+			var settings = new MessageDispatcherSettings();
+
+			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
+
+			_dispatcher.Configure(settings);
+		}
+
+		[Test]
+		[ExpectedException(typeof (NoDispatchingSliceDurationConfiguredException))]
+		public void ThrowsWithMissingSliceDuration()
+		{
+			var container = new WindsorContainer();
+			var settings = new MessageDispatcherSettings();
+
+			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+
+			_dispatcher.Configure(settings);
+		}
+	}
 }

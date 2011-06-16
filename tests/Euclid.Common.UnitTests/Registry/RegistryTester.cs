@@ -1,163 +1,162 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Euclid.Common.Registry;
 using Euclid.Common.TestingFakes.Registry;
 using Euclid.Common.Transport;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace Euclid.Common.UnitTests.Registry
 {
-    public class RegistryTester<TRegistry>
-        where TRegistry : IRegistry<FakeRecord>
-    {
-        private readonly TRegistry _registry;
+	public class RegistryTester<TRegistry>
+		where TRegistry : IRegistry<FakeRecord>
+	{
+		private readonly TRegistry _registry;
 
-        public RegistryTester(TRegistry registry)
-        {
-            _registry = registry;
-        }
+		public RegistryTester(TRegistry registry)
+		{
+			_registry = registry;
+		}
 
-        public FakeRecord CreateRecord(IMessage message)
-        {
-            var record = _registry.CreateRecord(message);
+		public FakeRecord CreateRecord(IMessage message)
+		{
+			var record = _registry.CreateRecord(message);
 
-            Assert.NotNull(record);
+			Assert.NotNull(record);
 
-            Assert.AreEqual(message.GetType(), record.MessageType);
+			Assert.AreEqual(message.GetType(), record.MessageType);
 
-            return record;
-        }
+			return record;
+		}
 
-        public FakeRecord GetRecord()
-        {
-            var record = CreateRecord(new FakeMessage());
+		public IMessage GetMessage(FakeRecord record)
+		{
+			var message = _registry.GetMessage(record.MessageLocation, record.MessageType);
 
-            Assert.NotNull(record);
+			Assert.NotNull(message);
 
-            var retrieved = _registry.GetRecord(record.Identifier);
+			Assert.AreEqual(record.MessageType, message.GetType());
 
-            Assert.AreEqual(record.Identifier, retrieved.Identifier);
+			return message;
+		}
 
-            return retrieved;
-        }
+		public FakeRecord GetRecord()
+		{
+			var record = CreateRecord(new FakeMessage());
 
-        public IMessage GetMessage(FakeRecord record)
-        {
-            var message = _registry.GetMessage(record.MessageLocation, record.MessageType);
+			Assert.NotNull(record);
 
-            Assert.NotNull(message);
+			var retrieved = _registry.GetRecord(record.Identifier);
 
-            Assert.AreEqual(record.MessageType, message.GetType());
+			Assert.AreEqual(record.Identifier, retrieved.Identifier);
 
-            return message;
-        }
+			return retrieved;
+		}
 
 
-        public FakeRecord MarkAsCompleted()
-        {
-            var record = CreateRecord(new FakeMessage());
+		public FakeRecord MarkAsCompleted()
+		{
+			var record = CreateRecord(new FakeMessage());
 
-            Assert.NotNull(record);
+			Assert.NotNull(record);
 
-            record = _registry.GetRecord(record.Identifier);
+			record = _registry.GetRecord(record.Identifier);
 
-            Assert.NotNull(record);
+			Assert.NotNull(record);
 
-            Assert.IsFalse(record.Completed);
+			Assert.IsFalse(record.Completed);
 
-            record = _registry.MarkAsComplete(record.Identifier);
+			record = _registry.MarkAsComplete(record.Identifier);
 
-            Assert.NotNull(record);
+			Assert.NotNull(record);
 
-            Assert.IsTrue(record.Completed);
+			Assert.IsTrue(record.Completed);
 
-            return record;
-        }
+			return record;
+		}
 
-        public IRecord MarkAsFailed()
-        {
-            const string errorMessage = "test error message";
+		public IRecord MarkAsFailed()
+		{
+			const string errorMessage = "test error message";
 
-            const string callStack = "call stack 1";
+			const string callStack = "call stack 1";
 
-            var record = CreateRecord(new FakeMessage());
+			var record = CreateRecord(new FakeMessage());
 
-            Assert.NotNull(record);
+			Assert.NotNull(record);
 
-            record = _registry.GetRecord(record.Identifier);
+			record = _registry.GetRecord(record.Identifier);
 
-            Assert.NotNull(record);
+			Assert.NotNull(record);
 
-            Assert.IsFalse(record.Error);
+			Assert.IsFalse(record.Error);
 
-            record = _registry.MarkAsFailed(record.Identifier, errorMessage, callStack);
+			record = _registry.MarkAsFailed(record.Identifier, errorMessage, callStack);
 
-            Assert.NotNull(record);
+			Assert.NotNull(record);
 
-            Assert.IsTrue(record.Error);
+			Assert.IsTrue(record.Error);
 
-            Assert.AreEqual(errorMessage, record.ErrorMessage);
+			Assert.AreEqual(errorMessage, record.ErrorMessage);
 
-            Assert.AreEqual(callStack, record.CallStack);
+			Assert.AreEqual(callStack, record.CallStack);
 
-            return record;
-        }
+			return record;
+		}
 
-        public void TestThroughputAsynchronously(int howManyMessages, int numberOfThreads)
-        {
-            var start = DateTime.Now;
+		public void TestThroughputAsynchronously(int howManyMessages, int numberOfThreads)
+		{
+			var start = DateTime.Now;
 
-            Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof (FakeMessage).FullName);
+			Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof (FakeMessage).FullName);
 
-            var numberOfLoops = howManyMessages/numberOfThreads + 1;
+			var numberOfLoops = howManyMessages/numberOfThreads + 1;
 
-            for (var i = 0; i < numberOfLoops; i++)
-            {
-                var results = Parallel.For
-                    (0, numberOfLoops, x =>
-                                        {
-                                            var record = CreateRecord(new FakeMessage());
+			for (var i = 0; i < numberOfLoops; i++)
+			{
+				var results = Parallel.For
+					(0, numberOfLoops, x =>
+					                   	{
+					                   		var record = CreateRecord(new FakeMessage());
 
-                                            Assert.NotNull(record);
-                                        });
-            }
+					                   		Assert.NotNull(record);
+					                   	});
+			}
 
-            Console.WriteLine("Created {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
-        }
+			Console.WriteLine("Created {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
+		}
 
-        public void TestThroughputSynchronously(int howManyMessages)
-        {
-            var recordIds = new List<Guid>();
+		public void TestThroughputSynchronously(int howManyMessages)
+		{
+			var recordIds = new List<Guid>();
 
-            var start = DateTime.Now;
+			var start = DateTime.Now;
 
-            Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof (FakeMessage).FullName);
+			Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof (FakeMessage).FullName);
 
-            for (var i = 0; i < howManyMessages; i++)
-            {
-                var record = CreateRecord(new FakeMessage());
+			for (var i = 0; i < howManyMessages; i++)
+			{
+				var record = CreateRecord(new FakeMessage());
 
-                Assert.NotNull(record);
+				Assert.NotNull(record);
 
-                recordIds.Add(record.Identifier);
-            }
+				recordIds.Add(record.Identifier);
+			}
 
-            Console.WriteLine("Created {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
+			Console.WriteLine("Created {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
 
-            start = DateTime.Now;
+			start = DateTime.Now;
 
-            foreach (var id in recordIds)
-            {
-                var retrieved = _registry.GetRecord(id);
+			foreach (var id in recordIds)
+			{
+				var retrieved = _registry.GetRecord(id);
 
-                Assert.AreEqual(id, retrieved.Identifier);
+				Assert.AreEqual(id, retrieved.Identifier);
 
-                Assert.AreEqual(retrieved.MessageType, typeof(FakeMessage));
-            }
+				Assert.AreEqual(retrieved.MessageType, typeof (FakeMessage));
+			}
 
-            Console.WriteLine("Retrieved {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
-        }
-
-    }
+			Console.WriteLine("Retrieved {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
+		}
+	}
 }

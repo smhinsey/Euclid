@@ -6,70 +6,69 @@ using Euclid.Common.Transport;
 
 namespace Euclid.Common.Registry
 {
-    public class DefaultRecordRegistry<TRecord> : IRegistry<TRecord>
-        where TRecord : class, IRecord, new()
-    {
-        private readonly IBasicRecordRepository<TRecord> _repository;
+	public class DefaultRecordRegistry<TRecord> : IRegistry<TRecord>
+		where TRecord : class, IRecord, new()
+	{
+		private readonly IBlobStorage _blobStorage;
+		private readonly IBasicRecordRepository<TRecord> _repository;
 
-        private readonly IBlobStorage _blobStorage;
-
-        private readonly IMessageSerializer _serializer;
+		private readonly IMessageSerializer _serializer;
 
 
-        public DefaultRecordRegistry(IBasicRecordRepository<TRecord> repository, IBlobStorage blobStorage, IMessageSerializer serializer)
-        {
-            _repository = repository;
-            _blobStorage = blobStorage;
-            _serializer = serializer;
-        }
+		public DefaultRecordRegistry(IBasicRecordRepository<TRecord> repository, IBlobStorage blobStorage, IMessageSerializer serializer)
+		{
+			_repository = repository;
+			_blobStorage = blobStorage;
+			_serializer = serializer;
+		}
 
-        public virtual TRecord CreateRecord(IMessage message)
-        {
-            var msg = _serializer.Serialize(message);
+		public virtual TRecord CreateRecord(IMessage message)
+		{
+			var msg = _serializer.Serialize(message);
 
-            var uri = _blobStorage.Put(msg, message.GetType().FullName, null);
+			var uri = _blobStorage.Put(msg, message.GetType().FullName, null);
 
-            return _repository.Create(uri, message.GetType());
-        }
+			return _repository.Create(uri, message.GetType());
+		}
 
-        public TRecord GetRecord(Guid identifier)
-        {
-            return _repository.Retrieve(identifier);
-        }
+		public virtual IMessage GetMessage(Uri messageLocation, Type recordType)
+		{
+			var messgaeBytes = _blobStorage.Get(messageLocation);
 
-        public virtual IMessage GetMessage(Uri messageLocation, Type recordType)
-        {
-            var messgaeBytes = _blobStorage.Get(messageLocation);
+			var messageStream = new MemoryStream(messgaeBytes);
 
-            var messageStream = new MemoryStream(messgaeBytes);
+			return Convert.ChangeType(_serializer.Deserialize(messageStream), recordType) as IMessage;
+		}
 
-            return Convert.ChangeType(_serializer.Deserialize(messageStream), recordType) as IMessage;
-        }
+		public virtual TRecord MarkAsComplete(Guid id)
+		{
+			return UpdateRecord(id, r => r.Completed = true);
+		}
 
-        public virtual TRecord MarkAsComplete(Guid id)
-        {
-            return UpdateRecord(id, r => r.Completed = true);
-        }
+		public virtual TRecord MarkAsFailed(Guid id, string message, string callStack)
+		{
+			return UpdateRecord
+				(id, r =>
+				     	{
+				     		r.Completed = true;
+				     		r.Error = true;
+				     		r.ErrorMessage = message;
+				     		r.CallStack = callStack;
+				     	});
+		}
 
-        public virtual TRecord MarkAsFailed(Guid id, string message, string callStack)
-        {
-            return UpdateRecord
-                (id, r =>
-                        {
-                            r.Completed = true;
-                            r.Error = true;
-                            r.ErrorMessage = message;
-                            r.CallStack = callStack;
-                        });
-        }
+		public TRecord GetRecord(Guid identifier)
+		{
+			return _repository.Retrieve(identifier);
+		}
 
-        private TRecord UpdateRecord(Guid id, Action<TRecord> actOnRecord)
-        {
-            var record = GetRecord(id);
+		private TRecord UpdateRecord(Guid id, Action<TRecord> actOnRecord)
+		{
+			var record = GetRecord(id);
 
-            actOnRecord(record);
+			actOnRecord(record);
 
-            return _repository.Update(record);
-        }
-    }
+			return _repository.Update(record);
+		}
+	}
 }
