@@ -102,8 +102,6 @@ namespace Euclid.Common.Transport
 
 				try
 				{
-					Console.WriteLine("Retrieved message '{0}'", message.Identifier);
-
 					// i recommend replacing this with a loop or some other approach. the linq is way shorter but a huge hassle to debug
 					// static reflection might be ideal
 					var messageProcessorType = _messageProcessorTypes
