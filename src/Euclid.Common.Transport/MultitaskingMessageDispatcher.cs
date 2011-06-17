@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Castle.Windsor;
@@ -14,12 +13,13 @@ namespace Euclid.Common.Transport
     public class MultitaskingMessageDispatcher<TMessage, TRegistry> : IMessageDispatcher, ILoggingSource
         where TMessage : IMessage
         where TRegistry : IRegistry<IRecord>
-        {
+    {
         private readonly IWindsorContainer _container;
-        private IRegistry<IRecord> _registry;
-        private Task _listenerTask;
+        private readonly IRegistry<IRecord> _registry;
         private IMessageTransport _inputTransport;
+        private Task _listenerTask;
         private IList<Type> _messageProcessorTypes;
+        private ConcurrentQueue<IMessage> _messageQueue;
 
         public MultitaskingMessageDispatcher(IWindsorContainer container, TRegistry registry)
         {
@@ -34,22 +34,26 @@ namespace Euclid.Common.Transport
         {
             if (settings.InputTransport.Value == null)
             {
-                throw new NoInputTransportConfiguredException("You must specify an input transport for a message dispatcher");
+                throw new NoInputTransportConfiguredException(
+                    "You must specify an input transport for a message dispatcher");
             }
 
             if (settings.MessageProcessorTypes.Value == null || settings.MessageProcessorTypes.Value.Count == 0)
             {
-                throw new NoMessageProcessorsConfiguredException("You must specify one or more message processors for a message dispatcher");
+                throw new NoMessageProcessorsConfiguredException(
+                    "You must specify one or more message processors for a message dispatcher");
             }
 
             if (settings.DurationOfDispatchingSlice.Value.TotalMilliseconds == 0)
             {
-                throw new NoDispatchingSliceDurationConfiguredException("You must specify a duration for the dispatcher to dispatch messages during.");
+                throw new NoDispatchingSliceDurationConfiguredException(
+                    "You must specify a duration for the dispatcher to dispatch messages during.");
             }
 
             if (settings.NumberOfMessagesToDispatchPerSlice.Value == 0)
             {
-                throw new NoNumberOfMessagesPerSliceConfiguredException("You must specify the maximum number of messages to be dispatched during a slice of time.");
+                throw new NoNumberOfMessagesPerSliceConfiguredException(
+                    "You must specify the maximum number of messages to be dispatched during a slice of time.");
             }
 
             CurrentSettings = settings;
@@ -59,8 +63,8 @@ namespace Euclid.Common.Transport
 
             this.WriteInfoMessage
                 (string.Format
-                    ("Dispatcher configured with input transport type {0} and {1} message processors.",
-                     _inputTransport.GetType(), _messageProcessorTypes.Count));
+                     ("Dispatcher configured with input transport type {0} and {1} message processors.",
+                      _inputTransport.GetType(), _messageProcessorTypes.Count));
         }
 
         public void Disable()
@@ -71,8 +75,6 @@ namespace Euclid.Common.Transport
 
             this.WriteInfoMessage("Dispatcher disabled.");
         }
-
-        private ConcurrentQueue<IMessage> _messageQueue;
 
         public void Enable()
         {
@@ -86,45 +88,75 @@ namespace Euclid.Common.Transport
 
             _listenerTask = Task.Factory.StartNew(() =>
                                                       {
-                                                          var sleepDuration = (int)CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds*2;
-                                                          Thread.Sleep(sleepDuration);
-
-                                                          var messages =
-                                                              _inputTransport.ReceiveMany(
-                                                                                CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value, 
-                                                                                CurrentSettings.DurationOfDispatchingSlice.Value);
-
-                                                          foreach (var message in messages)
+                                                          while (true)
                                                           {
-                                                              var msg = message;
+                                                              var sleepDuration = (int)CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds * 2;
+                                                              Thread.Sleep(sleepDuration);
 
-                                                              var record = _registry.CreateRecord(msg);
+                                                              var messages = _inputTransport
+                                                                                .ReceiveMany(CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value, CurrentSettings.DurationOfDispatchingSlice.Value);
 
-                                                              try
+                                                              foreach (var message in messages)
                                                               {
-                                                                  var messageProcessorType = _messageProcessorTypes
-                                                                                                .Where(processorType => processorType.
-                                                                                                    GetGenericArguments().Any(messageType=> messageType ==msg.GetType()))
-                                                                                                .Select(x => x).FirstOrDefault();
+                                                                  var msg = message;
 
-                                                                  var messageProessor =
-                                                                      _container.Resolve(messageProcessorType);
+                                                                  var record = _registry.CreateRecord(msg);
 
-                                                                  var handler = messageProcessorType.GetMethod(
-                                                                      "Process", new[] {msg.GetType()});
-                                                                  handler.Invoke(messageProessor, new[] {msg});
+                                                                  try
+                                                                  {
+                                                                      //find all processor types that implement IMessageProcessor<T>
+                                                                      //and get the first where T = record.MessageType
+                                                                      var messageProcessorType = _messageProcessorTypes
+                                                                                                    .Where(processorType =>
+                                                                                                            processorType
+                                                                                                                .GetInterface("IMessageProcessor`1")
+                                                                                                                .GetGenericArguments()
+                                                                                                                .Any(type => type == record.MessageType))
+                                                                                                    .Select(processorType => processorType)
+                                                                                                    .FirstOrDefault();
 
-                                                                  _registry.MarkAsComplete(record.Identifier);
-                                                              }
-                                                              catch (Exception e)
-                                                              {
-                                                                  _registry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
+                                                                      //couldn't find the processor type
+                                                                      if (messageProcessorType == null)
+                                                                      {
+                                                                          throw new MessageDispatcherException(
+                                                                              string.Format(
+                                                                                  "There is no message processor registered for {0}",
+                                                                                  record.MessageType.FullName));
+                                                                      }
+
+                                                                      var messageProcessor = _container.Resolve(messageProcessorType);
+
+                                                                      //couldn't resolve the processor type
+                                                                      if (messageProcessor == null)
+                                                                      {
+                                                                          throw new MessageDispatcherException(
+                                                                              string.Format(
+                                                                                  "The message handler class {0} could not be resolved by the container, so the message can not be dispatched",
+                                                                                  record.MessageType.FullName));
+                                                                      }
+
+                                                                      //call IMessageProcessor<T>.Process for the given message
+                                                                      var handler = messageProcessorType.GetMethod("Process", new[] {msg.GetType()});
+                                                                      handler.Invoke(messageProcessor, new[] {msg});
+
+                                                                      //message handled, mark it in the registry
+                                                                      _registry.MarkAsComplete(record.Identifier);
+                                                                  }
+                                                                  catch (Exception e)
+                                                                  {
+                                                                      _registry.MarkAsFailed(record.Identifier,
+                                                                                             e.Message, e.StackTrace);
+                                                                  }
                                                               }
                                                           }
+                                                      });
+        }
+    }
 
-                                                      }
-                );
-
+    public class MessageDispatcherException : Exception
+    {
+        public MessageDispatcherException(string message) : base(message)
+        {
         }
     }
 }

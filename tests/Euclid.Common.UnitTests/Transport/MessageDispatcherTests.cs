@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Serialization;
@@ -45,12 +46,14 @@ namespace Euclid.Common.UnitTests.Transport
             
             settings.InputTransport.WithDefault(new InMemoryMessageTransport());
             settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
-            settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
+            settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0,0,0,0,200));
             settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
             _dispatcher.Configure(settings);
 
             _dispatcher.Enable();
+
+            _transport.Open();
 
             _transport.Send(message);
 
@@ -59,7 +62,12 @@ namespace Euclid.Common.UnitTests.Transport
             _dispatcher.Disable();
 
             Assert.AreEqual(MessageDispatcherState.Disabled, _dispatcher.State);
+            
+
+            Thread.Sleep(30000);
+
             Assert.IsTrue(FakeMessageProcessor.ProcessedAnyMessages);
+
         }
 
         [Test]
