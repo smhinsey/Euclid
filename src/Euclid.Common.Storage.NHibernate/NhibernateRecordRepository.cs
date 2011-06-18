@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Euclid.Common.Registry;
-using Euclid.Common.Serialization;
-using Euclid.Common.Transport;
 using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate

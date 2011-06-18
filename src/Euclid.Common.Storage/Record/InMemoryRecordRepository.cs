@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Euclid.Common.Registry;
-using Euclid.Common.Serialization;
-using Euclid.Common.Transport;
 
 namespace Euclid.Common.Storage.Record
 {
@@ -11,10 +9,6 @@ namespace Euclid.Common.Storage.Record
 	{
 		protected static readonly ConcurrentDictionary<Guid, TRecord> Records = new ConcurrentDictionary<Guid, TRecord>();
 
-
-		public InMemoryRecordRepository()
-		{
-		}
 
 		public TRecord Create(Uri messageLocation, Type messageType)
 		{
