@@ -69,6 +69,8 @@ namespace Euclid.Common.UnitTests.Transport
             _dispatcher.Disable(); 
 
             Assert.AreEqual(MessageDispatcherState.Disabled, _dispatcher.State);
+
+            Assert.NotNull(_dispatcher);
         }
 
         [Test]
