@@ -110,7 +110,7 @@ namespace Euclid.Common.Transport
 
                 var euclidMessage = _serializer.Deserialize(cloudQueueMessage.AsString.ToMemoryStream(Encoding.UTF8));
 
-                if (!(euclidMessage.GetType() is TSubType) || (euclidMessage.GetType().GetInterface(typeof(TSubType).FullName) == null))
+                if (!(euclidMessage.GetType().IsAssignableFrom(typeof(TSubType)) || (euclidMessage.GetType().GetInterface(typeof(TSubType).FullName) != null)))
                 {
                     continue;
                 }
