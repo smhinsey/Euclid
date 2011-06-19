@@ -11,7 +11,7 @@ namespace Euclid.Common.Serialization
 {
 	public class JsonMessageSerializer : IMessageSerializer
 	{
-		public IMessage Deserialize(Stream source)
+		public IMessage Deserialize(byte[] source)
 		{
 			var serializer = new JsonSerializer();
 
@@ -34,7 +34,7 @@ namespace Euclid.Common.Serialization
 			}
 		}
 
-		public Stream Serialize(IMessage source)
+		public byte[] Serialize(IMessage source)
 		{
 			var envelope = new Envelope(source);
 
@@ -45,7 +45,7 @@ namespace Euclid.Common.Serialization
 
 			var s = JsonConvert.SerializeObject(envelope, Formatting.None, settings);
 
-			return s.ToMemoryStream(Encoding.UTF8);
+		    return Encoding.UTF8.GetBytes(s);
 		}
 	}
 }

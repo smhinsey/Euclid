@@ -41,6 +41,8 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Iesi.Collections.3.1.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="NHibernate">
       <HintPath>..\..\packages\NHibernate.3.1.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
@@ -57,6 +59,7 @@
       <HintPath>..\..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,7 +69,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicationTests.cs" />
+    <Compile Include="Storage\AzureBlobStorageTests.cs" />
     <Compile Include="Storage\NhibernateRecordRepositoryTest.cs" />
+    <Compile Include="Transport\AzureTransportTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Euclid.Common.Registry\Euclid.Common.Registry.csproj">
@@ -76,6 +81,10 @@
     <ProjectReference Include="..\..\src\Euclid.Common.Serialization\Euclid.Common.Serialization.csproj">
       <Project>{FEDCC429-C8F4-4D31-AC3B-4284C4E08B83}</Project>
       <Name>Euclid.Common.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj">
+      <Project>{9190A42E-76B2-4315-9374-DF188D78881B}</Project>
+      <Name>Euclid.Common.Storage.Azure</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
       <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>

@@ -14,9 +14,7 @@ namespace Euclid.Common.Transport
         private static readonly object Down = new object();
         private static CloudQueue _queue;
         private readonly IMessageSerializer _serializer;
-
         private const int MaximumNumberOfMessagesThatCanBeFetched = 32;
-
 
         public AzureMessageTransport(IMessageSerializer serializer)
         {
@@ -78,7 +76,7 @@ namespace Euclid.Common.Transport
 
                 _queue.DeleteMessage(message);
 
-                yield return _serializer.Deserialize(message.AsString.ToMemoryStream(Encoding.UTF8));
+                yield return _serializer.Deserialize(message.AsBytes);
             }
 
             yield break;
@@ -108,7 +106,7 @@ namespace Euclid.Common.Transport
 
                 if (cloudQueueMessage == null) continue;
 
-                var euclidMessage = _serializer.Deserialize(cloudQueueMessage.AsString.ToMemoryStream(Encoding.UTF8));
+                var euclidMessage = _serializer.Deserialize(cloudQueueMessage.AsBytes);
 
                 if (!(euclidMessage.GetType().IsAssignableFrom(typeof(TSubType)) || (euclidMessage.GetType().GetInterface(typeof(TSubType).FullName) != null)))
                 {
@@ -134,7 +132,7 @@ namespace Euclid.Common.Transport
 
             _queue.DeleteMessage(msg);
 
-            return _serializer.Deserialize(msg.AsString.ToMemoryStream(Encoding.UTF8));
+            return _serializer.Deserialize(msg.AsBytes);
         }
 
         public override void Send(IMessage message)
@@ -148,9 +146,9 @@ namespace Euclid.Common.Transport
 
         private CloudQueueMessage MessageIsNotTooBig(IMessage message)
         {
-            var msgStream = _serializer.Serialize(message);
+            var msgBytes = _serializer.Serialize(message);
 
-            var msg = msgStream.GetString(Encoding.UTF8);
+            var msg = msgBytes.GetString(Encoding.UTF8);
 
             if ((msg.Length/1024) > 8)
             {

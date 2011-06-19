@@ -19,16 +19,15 @@ namespace Euclid.Common.Transport
         private IMessageTransport _inputTransport;
         private Task _listenerTask;
         private IList<Type> _messageProcessorTypes;
+        private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+        public IMessageDispatcherSettings CurrentSettings { get; private set; }
+        public MessageDispatcherState State { get; private set; }
 
         public MultitaskingMessageDispatcher(IServiceLocator container, TRegistry registry)
         {
             _container = container;
             _registry = registry;
         }
-
-        public IMessageDispatcherSettings CurrentSettings { get; private set; }
-        public MessageDispatcherState State { get; private set; }
-        private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
 
         public void Configure(IMessageDispatcherSettings settings)
         {

@@ -61,13 +61,11 @@ namespace Euclid.Common.IntegrationTests
 
 			Assert.AreEqual(typeof (FakeMessage), receivedRecord.MessageType);
 
-			var blobBytes = _blobStorage.Get(receivedRecord.MessageLocation);
+			var blob = _blobStorage.Get(receivedRecord.MessageLocation);
 
-			Assert.NotNull(blobBytes);
+			Assert.NotNull(blob);
 
-			var blobStream = new MemoryStream(blobBytes);
-
-			var storedMessage = Convert.ChangeType(_serializer.Deserialize(blobStream), receivedRecord.MessageType);
+			var storedMessage = Convert.ChangeType(_serializer.Deserialize(blob.Bytes), receivedRecord.MessageType);
 
 			Assert.NotNull(storedMessage);
 

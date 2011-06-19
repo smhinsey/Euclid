@@ -40,11 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blob\Blob.cs" />
+    <Compile Include="Blob\BlobStorageSettings.cs" />
     <Compile Include="Blob\InMemoryBlobStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Record\InMemoryRecordRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
+      <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
+      <Name>Euclid.Common.Configuration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>

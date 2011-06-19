@@ -50,6 +50,7 @@
     <Compile Include="Configuration\IOverridableSetting.cs" />
     <Compile Include="Configuration\IOverridableSettingList.cs" />
     <Compile Include="Configuration\IOverridableSettings.cs" />
+    <Compile Include="Extensions\MimeTypes.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="HostingFabric\HostedServiceNotResolvableException.cs" />
@@ -61,6 +62,8 @@
     <Compile Include="HostingFabric\NoServiceHostConfiguredException.cs" />
     <Compile Include="HostingFabric\ServiceHostNotResolvableException.cs" />
     <Compile Include="Logging\ILoggingSource.cs" />
+    <Compile Include="Storage\IBlob.cs" />
+    <Compile Include="Storage\IBlobStorageSettings.cs" />
     <Compile Include="Storage\IBasicRecordRepository.cs" />
     <Compile Include="Registry\IRecord.cs" />
     <Compile Include="Registry\IRegistry.cs" />
