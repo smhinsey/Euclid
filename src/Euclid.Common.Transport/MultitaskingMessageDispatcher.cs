@@ -18,7 +18,7 @@ namespace Euclid.Common.Transport
 		private IMessageTransport _inputTransport;
 		private Task _listenerTask;
 		private IList<Type> _messageProcessorTypes;
-        private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+
         public IMessageDispatcherSettings CurrentSettings { get; private set; }
         public MessageDispatcherState State { get; private set; }
 

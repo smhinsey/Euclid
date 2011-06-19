@@ -47,7 +47,6 @@ namespace Euclid.Common.Registry
         public virtual TRecord MarkAsComplete(Guid id)
         {
             return UpdateRecord(id, r =>
-				(id, r =>
                                         {
                                             r.Completed = true;
                                             r.Dispatched = true;
@@ -71,8 +70,7 @@ namespace Euclid.Common.Registry
         public virtual TRecord MarkAsUnableToDispatch(Guid recordId, bool isError = false, string message = null)
         {
             return UpdateRecord(recordId, r =>
-				(recordId, r =>                                       
-                                       {
+                            {
 				           		r.Dispatched = false;
 				           		r.Completed = true;
 				           		r.Error = isError;
