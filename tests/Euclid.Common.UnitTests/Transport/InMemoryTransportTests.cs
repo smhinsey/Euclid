@@ -54,5 +54,11 @@ namespace Euclid.Common.UnitTests.Transport
 		{
 			TestTransport.ReceiveTimeout(new InMemoryMessageTransport());
 		}
+
+        [Test]
+        public void TestRetrieveSpecific()
+        {
+            TestTransport.TestRetrievingSpecificMessages(new InMemoryMessageTransport());
+        }
 	}
 }

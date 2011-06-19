@@ -209,6 +209,43 @@ namespace Euclid.Common.UnitTests.Transport
 			Console.WriteLine("Received {0} messages in {1}", receivedMessageCount, DateTime.Now.Subtract(start).TotalSeconds);
 		}
 
+        public static void TestRetrievingSpecificMessages(IMessageTransport transport, int maxNumberOfMessages = 100)
+        {
+            var r = new Random();
+            var fakeMessageCount = 0;
+            var differentMessageCount = 0;
+
+            transport.Open();
+
+            for (var i = 0; i < maxNumberOfMessages; i++)
+            {
+                IMessage msg;
+
+                if (r.Next() % 2 == 0)
+                {
+                    msg = new FakeMessage();
+                    fakeMessageCount++;
+                }
+                else
+                {
+                    msg = new DifferentFakeMessage();
+                    differentMessageCount++;
+                }
+
+                transport.Send(msg);
+            }
+
+            var differentMessages = transport.ReceiveMany<DifferentFakeMessage>(differentMessageCount, TimeSpan.MaxValue);
+
+            Assert.AreEqual(differentMessageCount, differentMessages.Count());
+
+            differentMessages = transport.ReceiveMany<DifferentFakeMessage>(differentMessageCount, TimeSpan.MaxValue);
+
+            Assert.AreEqual(0, differentMessages.Count());
+
+            transport.Close();
+        }
+
 		private static void SendMessages(IMessageTransport transport, int numberOfMessagesToCreate)
 		{
 			for (var i = 0; i < numberOfMessagesToCreate; i++)

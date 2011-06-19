@@ -74,5 +74,11 @@ namespace Euclid.Common.UnitTests.Registry
 		{
 			_registryTester.TestThroughputSynchronously(LargeNumber);
 		}
+
+        [Test]
+        public void TestUnableToDispatch()
+        {
+            _registryTester.MarkAsUnableToDispatch();
+        }
 	}
 }

@@ -72,6 +72,8 @@ namespace Euclid.Common.UnitTests.Registry
 
 			Assert.IsTrue(record.Completed);
 
+            Assert.IsTrue(record.Dispatched);
+
 			return record;
 		}
 
@@ -97,12 +99,42 @@ namespace Euclid.Common.UnitTests.Registry
 
 			Assert.IsTrue(record.Error);
 
+            Assert.IsTrue(record.Dispatched);
+
 			Assert.AreEqual(errorMessage, record.ErrorMessage);
 
 			Assert.AreEqual(callStack, record.CallStack);
 
 			return record;
 		}
+
+        public IRecord MarkAsUnableToDispatch()
+        {
+            var record = CreateRecord(new FakeMessage());
+
+            Assert.NotNull(record);
+
+            record = _registry.GetRecord(record.Identifier);
+
+            Assert.NotNull(record);
+
+            Assert.IsFalse(record.Error);
+
+            record = _registry.MarkAsUnableToDispatch(record.Identifier, true, "Unable to dispatch");
+
+            Assert.NotNull(record);
+
+            Assert.IsTrue(record.Error);
+
+            Assert.IsFalse(record.Dispatched);
+
+            Assert.IsTrue(record.Completed);
+
+            Assert.AreEqual(record.ErrorMessage, "Unable to dispatch");
+
+            return record;
+        }
+
 
 		public void TestThroughputAsynchronously(int howManyMessages, int numberOfThreads)
 		{

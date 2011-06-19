@@ -17,7 +17,11 @@ namespace Euclid.Common.Transport
 		public abstract TransportState Close();
 		public abstract TransportState Open();
 		public abstract IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout);
-		public abstract IMessage ReceiveSingle(TimeSpan timeout);
+
+	    public abstract IEnumerable<TSubType> ReceiveMany<TSubType>(int howMany, TimeSpan timeSpan)
+	        where TSubType : IMessage;
+
+	    public abstract IMessage ReceiveSingle(TimeSpan timeout);
 		public abstract void Send(IMessage message);
 
 		protected void TransportIsOpenFor(string operationName)

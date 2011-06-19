@@ -70,7 +70,7 @@ namespace Euclid.Common.Transport
         {
             // stop the input
             _cancellationToken.Cancel();
-            
+
             State = MessageDispatcherState.Disabled;
 
             // wait up to 10 seconds for the listener task to exit gracefully
@@ -98,22 +98,22 @@ namespace Euclid.Common.Transport
             {
                 Task.Factory.StartNew(dispatchTask => DispatchMessage(), _cancellationToken);
 
-                Thread.Sleep((int) CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
+                Thread.Sleep((int)CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
             }
         }
 
         private void DispatchMessage()
         {
             var records = _inputTransport
-                .ReceiveMany(CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value, CurrentSettings.DurationOfDispatchingSlice.Value)
-                .Cast<IRecord>();
+                .ReceiveMany<IRecord>(CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value,
+                                      CurrentSettings.DurationOfDispatchingSlice.Value);
 
             foreach (var record in records)
             {
-                var message = _registry.GetMessage(record.MessageLocation, record.MessageType);
-
                 try
                 {
+                    var message = _registry.GetMessage(record.MessageLocation, record.MessageType);
+
                     //find all processor types that implement IMessageProcessor<T>
                     //and get the first where T = record.MessageType
                     var messageProcessorType = _messageProcessorTypes
@@ -128,42 +128,61 @@ namespace Euclid.Common.Transport
                     //couldn't find the processor type
                     if (messageProcessorType == null)
                     {
-                        throw new MessageDispatcherException(
-                            string.Format(
-                                "There is no message processor registered for {0}",
-                                record.MessageType.FullName));
+                        _registry.MarkAsUnableToDispatch(record.Identifier, true,
+                                                         string.Format(
+                                                             "Could not find a processor for the message type {0}",
+                                                             record.MessageType.FullName));
                     }
 
-                    var messageProcessor = _container.Resolve(messageProcessorType);
-
-                    //couldn't resolve the processor type
-                    if (messageProcessor == null)
-                    {
-                        throw new MessageDispatcherException(
-                            string.Format(
-                                "The message handler class {0} could not be resolved by the container, so the message can not be dispatched",
-                                record.MessageType.FullName));
-                    }
-
-                    //call IMessageProcessor<T>.Process for the given message
-                    var handler = messageProcessorType.GetMethod("Process", new[] { message.GetType() });
-                    handler.Invoke(messageProcessor, new[] { message });
-
-                    //message handled, mark it in the registry
-                    _registry.MarkAsComplete(record.Identifier);
+                    ProcessMessage(record.Identifier, message, messageProcessorType);
                 }
                 catch (Exception e)
                 {
-                    _registry.MarkAsFailed(record.Identifier,
-                                           e.Message, e.StackTrace);
+                    _registry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
                 }
             }
+        }
+
+        private void ProcessMessage(Guid recordId, IMessage message, Type messageProcessorType)
+        {
+            var messageProcessor = _container.Resolve(messageProcessorType);
+
+            //couldn't resolve the processor type
+            if (messageProcessor == null)
+            {
+                _registry.MarkAsUnableToDispatch(recordId, true,
+                                                 string.Format(
+                                                     "Unable to resolve a processor of type {0}, please ensure it has been registered with the container",
+                                                     messageProcessorType.FullName));
+
+                return;
+            }
+
+            Task.Factory.StartNew(() =>
+                                              {
+                                                  try
+                                                  {
+                                                      //call IMessageProcessor<T>.Process for the given message
+                                                      var handler = messageProcessorType.GetMethod("Process", new[] { message.GetType() });
+                                                      handler.Invoke(messageProcessor, new[] { message });
+
+                                                      //message handled, mark it in the registry
+                                                      _registry.MarkAsComplete(recordId);
+                                                  }
+                                                  catch (Exception e)
+                                                  {
+                                                      _registry.MarkAsFailed(recordId,
+                                                                             e.Message, e.StackTrace);
+                                                  }
+
+                                              });
         }
     }
 
     public class MessageDispatcherException : Exception
     {
-        public MessageDispatcherException(string message) : base(message)
+        public MessageDispatcherException(string message)
+            : base(message)
         {
         }
     }

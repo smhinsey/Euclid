@@ -42,19 +42,36 @@ namespace Euclid.Common.Registry
 
 		public virtual TRecord MarkAsComplete(Guid id)
 		{
-			return UpdateRecord(id, r => r.Completed = true);
+			return UpdateRecord(id, r =>
+			                            {
+			                                r.Completed = true;
+			                                r.Dispatched = true;
+			                                r.Error = false;
+			                            });
 		}
 
 		public virtual TRecord MarkAsFailed(Guid id, string message, string callStack)
 		{
 			return UpdateRecord
 				(id, r =>
-				     	{
-				     		r.Completed = true;
-				     		r.Error = true;
-				     		r.ErrorMessage = message;
-				     		r.CallStack = callStack;
-				     	});
+				         {
+				             r.Dispatched = true;
+							r.Completed = true;
+							r.Error = true;
+							r.ErrorMessage = message;
+							r.CallStack = callStack;
+						});
+		}
+
+		public virtual TRecord MarkAsUnableToDispatch(Guid recordId, bool isError = false, string message = null)
+		{
+		    return UpdateRecord(recordId, r =>
+		                               {
+                                           r.Dispatched = false;
+                                           r.Completed = true;
+                                           r.Error = isError;
+                                           r.ErrorMessage = string.IsNullOrEmpty(message) ? string.Empty : message;
+                                       });
 		}
 
 		public TRecord GetRecord(Guid identifier)

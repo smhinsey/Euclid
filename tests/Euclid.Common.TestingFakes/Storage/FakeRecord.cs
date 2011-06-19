@@ -14,5 +14,6 @@ namespace Euclid.Common.TestingFakes.Storage
 		public virtual Guid Identifier { get; set; }
 		public virtual Uri MessageLocation { get; set; }
 		public virtual Type MessageType { get; set; }
+	    public virtual bool Dispatched { get; set; }
 	}
 }
