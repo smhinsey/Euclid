@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 using Castle.Windsor;
 using Euclid.Common.Logging;
 using Euclid.Common.Registry;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Euclid.Common.Transport
 {
     public class MultitaskingMessageDispatcher<TRegistry> : IMessageDispatcher, ILoggingSource
         where TRegistry : IRegistry<IRecord>
     {
-        private readonly IWindsorContainer _container;
+        private readonly IServiceLocator _container;
         private readonly IRegistry<IRecord> _registry;
         private IMessageTransport _inputTransport;
         private Task _listenerTask;
         private IList<Type> _messageProcessorTypes;
 
-        public MultitaskingMessageDispatcher(IWindsorContainer container, TRegistry registry)
+        public MultitaskingMessageDispatcher(IServiceLocator container, TRegistry registry)
         {
             _container = container;
             _registry = registry;
@@ -136,6 +137,10 @@ namespace Euclid.Common.Transport
 
                     ProcessMessage(record.Identifier, message, messageProcessorType);
                 }
+                catch (ActivationException ae)
+                {
+                    _registry.MarkAsUnableToDispatch(record.Identifier, true, ae.Message);
+                }
                 catch (Exception e)
                 {
                     _registry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
@@ -145,18 +150,7 @@ namespace Euclid.Common.Transport
 
         private void ProcessMessage(Guid recordId, IMessage message, Type messageProcessorType)
         {
-            var messageProcessor = _container.Resolve(messageProcessorType);
-
-            //couldn't resolve the processor type
-            if (messageProcessor == null)
-            {
-                _registry.MarkAsUnableToDispatch(recordId, true,
-                                                 string.Format(
-                                                     "Unable to resolve a processor of type {0}, please ensure it has been registered with the container",
-                                                     messageProcessorType.FullName));
-
-                return;
-            }
+            var messageProcessor = _container.GetInstance(messageProcessorType); // throws an activation exception if the type can't be resolved
 
             Task.Factory.StartNew(() =>
                                               {

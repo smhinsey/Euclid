@@ -1,12 +1,13 @@
 ﻿using Castle.Windsor;
 using Euclid.Common.TestingFakes.Registry;
 using Euclid.Common.Transport;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Euclid.Common.TestingFakes.Transport
 {
 	public class FakeDispatcher : MultitaskingMessageDispatcher<FakeRegistry>
 	{
-		public FakeDispatcher(IWindsorContainer container, FakeRegistry registry) : base(container, registry)
+		public FakeDispatcher(IServiceLocator container, FakeRegistry registry) : base(container, registry)
 		{
 		}
 	}
