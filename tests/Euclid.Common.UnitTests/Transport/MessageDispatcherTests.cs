@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.Registry;
 using Euclid.Common.Serialization;
 using Euclid.Common.Storage.Blob;
@@ -37,7 +38,9 @@ namespace Euclid.Common.UnitTests.Transport
 
             _registry = new FakeRegistry(new InMemoryRecordRepository<FakeRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
 
-            _dispatcher = new FakeDispatcher(container, _registry);
+            var locator = new WindsorServiceLocator(container);
+
+            _dispatcher = new FakeDispatcher(locator, _registry);
 
             _transport = new InMemoryMessageTransport();
         }
@@ -74,7 +77,7 @@ namespace Euclid.Common.UnitTests.Transport
         }
 
         [Test]
-        public void DispatchMessages()
+        public void DispatchesMessages()
         {
             var settings = new MessageDispatcherSettings();
 
