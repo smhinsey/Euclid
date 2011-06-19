@@ -1,5 +1,4 @@
-﻿using Castle.Windsor;
-using Euclid.Common.TestingFakes.Registry;
+﻿using Euclid.Common.TestingFakes.Registry;
 using Euclid.Common.Transport;
 using Microsoft.Practices.ServiceLocation;
 
