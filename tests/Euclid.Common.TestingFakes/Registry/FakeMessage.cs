@@ -1,5 +1,5 @@
 ﻿using System;
-using Euclid.Common.Transport;
+using Euclid.Common.Messaging;
 
 namespace Euclid.Common.TestingFakes.Registry
 {

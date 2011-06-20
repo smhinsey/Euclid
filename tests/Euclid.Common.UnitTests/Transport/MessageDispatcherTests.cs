@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
-using Euclid.Common.Registry;
-using Euclid.Common.Serialization;
+using Euclid.Common.Messaging;
+using Euclid.Common.Messaging.Exceptions;
 using Euclid.Common.Storage.Blob;
 using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Registry;
 using Euclid.Common.TestingFakes.Transport;
-using Euclid.Common.Transport;
 using NUnit.Framework;
 using FakeMessage = Euclid.Common.TestingFakes.Transport.FakeMessage;
 
@@ -23,14 +22,14 @@ namespace Euclid.Common.UnitTests.Transport
 	{
 		private FakeDispatcher _dispatcher;
 		private FakeRegistry _registry;
-		private InMemoryMessageTransport _transport;
+		private InMemoryMessageChannel _transport;
 
 		[Test]
 		public void DispatchesMessage()
 		{
 			var settings = new MessageDispatcherSettings();
 
-			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.InputTransport.WithDefault(new InMemoryMessageChannel());
 			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 			settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 200));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
@@ -61,7 +60,7 @@ namespace Euclid.Common.UnitTests.Transport
 		{
 			var settings = new MessageDispatcherSettings();
 
-			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.InputTransport.WithDefault(new InMemoryMessageChannel());
 			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 			settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 200));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
@@ -123,7 +122,7 @@ namespace Euclid.Common.UnitTests.Transport
 			var container = new WindsorContainer();
 			var settings = new MessageDispatcherSettings();
 
-			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.InputTransport.WithDefault(new InMemoryMessageChannel());
 			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
@@ -145,7 +144,7 @@ namespace Euclid.Common.UnitTests.Transport
 			var container = new WindsorContainer();
 			var settings = new MessageDispatcherSettings();
 
-			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.InputTransport.WithDefault(new InMemoryMessageChannel());
 			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
@@ -168,13 +167,13 @@ namespace Euclid.Common.UnitTests.Transport
 				 	.Instance(processor)
 				);
 
-			_registry = new FakeRegistry(new InMemoryRecordRepository<FakeRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
+			_registry = new FakeRegistry(new InMemoryRecordRepository<FakePublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
 
 			var locator = new WindsorServiceLocator(container);
 
 			_dispatcher = new FakeDispatcher(locator, _registry);
 
-			_transport = new InMemoryMessageTransport();
+			_transport = new InMemoryMessageChannel();
 		}
 
 		[Test]
@@ -194,7 +193,7 @@ namespace Euclid.Common.UnitTests.Transport
 			var container = new WindsorContainer();
 			var settings = new MessageDispatcherSettings();
 
-			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.InputTransport.WithDefault(new InMemoryMessageChannel());
 
 			_dispatcher.Configure(settings);
 		}
@@ -206,7 +205,7 @@ namespace Euclid.Common.UnitTests.Transport
 			var container = new WindsorContainer();
 			var settings = new MessageDispatcherSettings();
 
-			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.InputTransport.WithDefault(new InMemoryMessageChannel());
 			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
 
@@ -220,13 +219,13 @@ namespace Euclid.Common.UnitTests.Transport
 			var container = new WindsorContainer();
 			var settings = new MessageDispatcherSettings();
 
-			settings.InputTransport.WithDefault(new InMemoryMessageTransport());
+			settings.InputTransport.WithDefault(new InMemoryMessageChannel());
 			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 
 			_dispatcher.Configure(settings);
 		}
 
-		private IRecord GetRecord()
+		private IPublicationRecord GetRecord()
 		{
 			var msg = new FakeMessage
 			          	{

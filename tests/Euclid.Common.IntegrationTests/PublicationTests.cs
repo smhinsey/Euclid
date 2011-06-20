@@ -1,12 +1,9 @@
 ﻿using System;
-using System.IO;
-using Euclid.Common.Registry;
-using Euclid.Common.Serialization;
+using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
 using Euclid.Common.Storage.Blob;
 using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Registry;
-using Euclid.Common.Transport;
 using NUnit.Framework;
 
 namespace Euclid.Common.IntegrationTests
@@ -14,9 +11,9 @@ namespace Euclid.Common.IntegrationTests
 	[TestFixture]
 	public class PublicationTests
 	{
-		private readonly IRegistry<FakeRecord> _registry;
-		private readonly IMessageTransport _transport;
-		private readonly IBasicRecordRepository<FakeRecord> _repository;
+		private readonly IPublicationRegistry<FakePublicationRecord> _publicationRegistry;
+		private readonly IMessageChannel _channel;
+		private readonly IBasicRecordRepository<FakePublicationRecord> _repository;
 		private readonly IBlobStorage _blobStorage;
 		private readonly IMessageSerializer _serializer;
 
@@ -24,15 +21,15 @@ namespace Euclid.Common.IntegrationTests
 		{
 			_serializer = new JsonMessageSerializer();
 			_blobStorage = new InMemoryBlobStorage();
-			_repository = new InMemoryRecordRepository<FakeRecord>();
-			_registry = new FakeRegistry(_repository, _blobStorage, _serializer);
-			_transport = new InMemoryMessageTransport();
+			_repository = new InMemoryRecordRepository<FakePublicationRecord>();
+			_publicationRegistry = new FakeRegistry(_repository, _blobStorage, _serializer);
+			_channel = new InMemoryMessageChannel();
 		}
 
 		[Test]
 		public void TestSendMessageOverTransport()
 		{
-			_transport.Open();
+			_channel.Open();
 
 			var msgId = Guid.NewGuid();
 
@@ -47,17 +44,17 @@ namespace Euclid.Common.IntegrationTests
 			          		Identifier = msgId
 			          	};
 
-			var record = _registry.CreateRecord(msg);
+			var record = _publicationRegistry.CreateRecord(msg);
 
-			_transport.Send(record);
+			_channel.Send(record);
 
-			var receivedMsg = _transport.ReceiveSingle(TimeSpan.MaxValue);
+			var receivedMsg = _channel.ReceiveSingle(TimeSpan.MaxValue);
 
 			Assert.NotNull(receivedMsg);
 
-			Assert.NotNull(receivedMsg as FakeRecord);
+			Assert.NotNull(receivedMsg as FakePublicationRecord);
 
-			var receivedRecord = receivedMsg as FakeRecord;
+			var receivedRecord = receivedMsg as FakePublicationRecord;
 
 			Assert.AreEqual(typeof (FakeMessage), receivedRecord.MessageType);
 
@@ -71,7 +68,7 @@ namespace Euclid.Common.IntegrationTests
 
 			Assert.AreEqual(typeof (FakeMessage), storedMessage.GetType());
 
-			_transport.Close();
+			_channel.Close();
 		}
 	}
 }

@@ -1,6 +1,5 @@
 ﻿using System;
-using Euclid.Common.Registry;
-using Euclid.Common.Serialization;
+using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Blob;
 using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Registry;
@@ -11,16 +10,16 @@ namespace Euclid.Common.UnitTests.Registry
 	[TestFixture]
 	public class InMemoryRegistryTests
 	{
-		private RegistryTester<DefaultRecordRegistry<FakeRecord>> _registryTester;
+		private RegistryTester<PublicationRegistry<FakePublicationRecord>> _registryTester;
 
 		[TestFixtureSetUp]
 		public void SetupTest()
 		{
 			var storage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
-			var repository = new InMemoryRecordRepository<FakeRecord>();
+			var repository = new InMemoryRecordRepository<FakePublicationRecord>();
 			_registryTester =
-				new RegistryTester<DefaultRecordRegistry<FakeRecord>>(new DefaultRecordRegistry<FakeRecord>(repository, storage, serializer));
+				new RegistryTester<PublicationRegistry<FakePublicationRecord>>(new PublicationRegistry<FakePublicationRecord>(repository, storage, serializer));
 		}
 
 		private const int LargeNumber = 10000;

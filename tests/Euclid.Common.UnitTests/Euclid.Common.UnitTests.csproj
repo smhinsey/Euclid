@@ -95,17 +95,9 @@
       <Project>{6B55CE77-2663-45F0-ADB2-DFC7AB01233C}</Project>
       <Name>Euclid.Common.HostingFabric</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Publishing\Euclid.Common.Publishing.csproj">
-      <Project>{DD84814A-21BA-4647-89A7-19F6AB8D22BF}</Project>
-      <Name>Euclid.Common.Publishing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Registry\Euclid.Common.Registry.csproj">
-      <Project>{F0C8929B-718E-4360-85FF-520398DEA764}</Project>
-      <Name>Euclid.Common.Registry</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Serialization\Euclid.Common.Serialization.csproj">
-      <Project>{FEDCC429-C8F4-4D31-AC3B-4284C4E08B83}</Project>
-      <Name>Euclid.Common.Serialization</Name>
+    <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+      <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
+      <Name>Euclid.Common.Messaging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
       <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>
@@ -118,10 +110,6 @@
     <ProjectReference Include="..\..\src\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
       <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>
       <Name>Euclid.Common.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Transport\Euclid.Common.Transport.csproj">
-      <Project>{B2D19FB7-F317-4122-93B2-F13727CE490E}</Project>
-      <Name>Euclid.Common.Transport</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Euclid.Common.Registry;
+using Euclid.Common.Messaging;
 using Euclid.Common.TestingFakes.Registry;
-using Euclid.Common.Transport;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Registry
 {
 	public class RegistryTester<TRegistry>
-		where TRegistry : IRegistry<FakeRecord>
+		where TRegistry : IPublicationRegistry<FakePublicationRecord>
 	{
 		private readonly TRegistry _registry;
 
@@ -18,7 +17,7 @@ namespace Euclid.Common.UnitTests.Registry
 			_registry = registry;
 		}
 
-		public FakeRecord CreateRecord(IMessage message)
+		public FakePublicationRecord CreateRecord(IMessage message)
 		{
 			var record = _registry.CreateRecord(message);
 
@@ -29,18 +28,18 @@ namespace Euclid.Common.UnitTests.Registry
 			return record;
 		}
 
-		public IMessage GetMessage(FakeRecord record)
+		public IMessage GetMessage(FakePublicationRecord publicationRecord)
 		{
-			var message = _registry.GetMessage(record.MessageLocation, record.MessageType);
+			var message = _registry.GetMessage(publicationRecord.MessageLocation, publicationRecord.MessageType);
 
 			Assert.NotNull(message);
 
-			Assert.AreEqual(record.MessageType, message.GetType());
+			Assert.AreEqual(publicationRecord.MessageType, message.GetType());
 
 			return message;
 		}
 
-		public FakeRecord GetRecord()
+		public FakePublicationRecord GetRecord()
 		{
 			var record = CreateRecord(new FakeMessage());
 
@@ -54,7 +53,7 @@ namespace Euclid.Common.UnitTests.Registry
 		}
 
 
-		public FakeRecord MarkAsCompleted()
+		public FakePublicationRecord MarkAsCompleted()
 		{
 			var record = CreateRecord(new FakeMessage());
 
@@ -77,7 +76,7 @@ namespace Euclid.Common.UnitTests.Registry
 			return record;
 		}
 
-		public IRecord MarkAsFailed()
+		public IPublicationRecord MarkAsFailed()
 		{
 			const string errorMessage = "test error message";
 
@@ -108,7 +107,7 @@ namespace Euclid.Common.UnitTests.Registry
 			return record;
 		}
 
-		public IRecord MarkAsUnableToDispatch()
+		public IPublicationRecord MarkAsUnableToDispatch()
 		{
 			var record = CreateRecord(new FakeMessage());
 

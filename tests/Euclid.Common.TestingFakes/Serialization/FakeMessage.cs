@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Euclid.Common.Transport;
+using Euclid.Common.Messaging;
 
 namespace Euclid.Common.TestingFakes.Serialization
 {

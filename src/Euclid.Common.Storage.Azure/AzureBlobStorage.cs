@@ -8,133 +8,131 @@ using Microsoft.WindowsAzure.StorageClient;
 
 namespace Euclid.Common.Storage.Azure
 {
-    public class AzureBlobStorage : IBlobStorage
-    {
-        private readonly CloudStorageAccount _storageAccount;
-        private string _containerName;
-        private bool _init;
+	public class AzureBlobStorage : IBlobStorage
+	{
+		private readonly CloudStorageAccount _storageAccount;
+		private string _containerName;
+		private bool _init;
 
-        public void Configure(IBlobStorageSettings settings)
-        {
-            _containerName = settings.ContainerName.Value.ToLower();
-        }
- 
-        public AzureBlobStorage(CloudStorageAccount storageAccount)
-        {
-            _storageAccount = storageAccount;
-        }
+		public AzureBlobStorage(CloudStorageAccount storageAccount)
+		{
+			_storageAccount = storageAccount;
+		}
 
-        public void Delete(Uri uri)
-        {
-            var container = GetContainer();
+		public void Configure(IBlobStorageSettings settings)
+		{
+			_containerName = settings.ContainerName.Value.ToLower();
+		}
 
-            var target = container.GetBlobReference(uri.ToString());
+		public void Delete(Uri uri)
+		{
+			var container = GetContainer();
 
-            target.Delete(new BlobRequestOptions { DeleteSnapshotsOption = DeleteSnapshotsOption.IncludeSnapshots, UseFlatBlobListing = true });
-        }
+			var target = container.GetBlobReference(uri.ToString());
 
-        public bool Exists(Uri uri)
-        {
-            var exists = true;
-            
-            var container = GetContainer();
-            
-            var target = container.GetBlobReference(uri.ToString());
+			target.Delete(new BlobRequestOptions {DeleteSnapshotsOption = DeleteSnapshotsOption.IncludeSnapshots, UseFlatBlobListing = true});
+		}
 
-            try
-            {
-                target.FetchAttributes();
-            }
-            catch (StorageClientException s)
-            {
-                exists = false;
-            }
+		public bool Exists(Uri uri)
+		{
+			var exists = true;
 
-            return exists;
-        }
+			var container = GetContainer();
 
-        public IBlob Get(Uri uri)
-        {
-            IBlob blob = null;
+			var target = container.GetBlobReference(uri.ToString());
 
-            var options = new BlobRequestOptions
-                              {
-                                  BlobListingDetails = BlobListingDetails.Metadata
-                              };
+			try
+			{
+				target.FetchAttributes();
+			}
+			catch (StorageClientException s)
+			{
+				exists = false;
+			}
 
-            var container = GetContainer();
-            var target = container.GetBlobReference(uri.ToString());
-            
-            try
-            {
-                target.FetchAttributes(); 
-                blob = new Blob.Blob(target.Properties.ContentMD5, target.Properties.ETag)
-                           {
-                               Bytes = target.DownloadByteArray(),
-                               ContentType = target.Properties.ContentType,
-                           };
+			return exists;
+		}
 
-                foreach (var key in target.Metadata.AllKeys)
-                {
-                    blob.Metdata.Add(new KeyValuePair<string, string>(key, target.Metadata[key]));
-                }
+		public IBlob Get(Uri uri)
+		{
+			IBlob blob = null;
 
-            }
-            catch (StorageClientException s)
-            {
-                this.WriteErrorMessage(string.Format("An error occurred retrieving the blob from {0}", uri), s);
-                blob = null;
-            }
+			var options = new BlobRequestOptions
+			              	{
+			              		BlobListingDetails = BlobListingDetails.Metadata
+			              	};
 
-            return blob;
-        }
+			var container = GetContainer();
+			var target = container.GetBlobReference(uri.ToString());
 
-        public Uri Put(IBlob blob, string name)
-        {
-            var container = GetContainer();
-            var uri = container.Uri;
-            try
-            {
+			try
+			{
+				target.FetchAttributes();
+				blob = new Blob.Blob(target.Properties.ContentMD5, target.Properties.ETag)
+				       	{
+				       		Bytes = target.DownloadByteArray(),
+				       		ContentType = target.Properties.ContentType,
+				       	};
 
-                var blobName = string.Format("{2}.{0}.{1}", name, MimeTypes.GetExtensionFromContentType(blob.ContentType), Guid.NewGuid());
+				foreach (var key in target.Metadata.AllKeys)
+				{
+					blob.Metdata.Add(new KeyValuePair<string, string>(key, target.Metadata[key]));
+				}
+			}
+			catch (StorageClientException s)
+			{
+				this.WriteErrorMessage(string.Format("An error occurred retrieving the blob from {0}", uri), s);
+				blob = null;
+			}
 
-                var azureBlob = container.GetBlobReference(blobName);
+			return blob;
+		}
 
-                azureBlob.Properties.ContentType = blob.ContentType;
+		public Uri Put(IBlob blob, string name)
+		{
+			var container = GetContainer();
+			var uri = container.Uri;
+			try
+			{
+				var blobName = string.Format("{2}.{0}.{1}", name, MimeTypes.GetExtensionFromContentType(blob.ContentType), Guid.NewGuid());
 
-                azureBlob.Properties.ContentMD5 = blob.MD5;
+				var azureBlob = container.GetBlobReference(blobName);
 
-                if (blob.Metdata != null)
-                {
-                    blob.Metdata.ToList().ForEach(item => azureBlob.Metadata.Add(item.Key, item.Value));
-                }
+				azureBlob.Properties.ContentType = blob.ContentType;
 
-                azureBlob.UploadByteArray(blob.Bytes);
+				azureBlob.Properties.ContentMD5 = blob.MD5;
 
-                uri = azureBlob.Uri;
-            }
-            catch (Exception e)
-            {
-                this.WriteErrorMessage(string.Format("An error occurred putting the blob into azure storage '{0}'", uri), e);
-                uri = null;
-            }
+				if (blob.Metdata != null)
+				{
+					blob.Metdata.ToList().ForEach(item => azureBlob.Metadata.Add(item.Key, item.Value));
+				}
 
-            return uri;
-        }
+				azureBlob.UploadByteArray(blob.Bytes);
 
-        private CloudBlobContainer GetContainer()
-        {
-            var blobStorage = _storageAccount.CreateCloudBlobClient();
-            var container = blobStorage.GetContainerReference(_containerName);
+				uri = azureBlob.Uri;
+			}
+			catch (Exception e)
+			{
+				this.WriteErrorMessage(string.Format("An error occurred putting the blob into azure storage '{0}'", uri), e);
+				uri = null;
+			}
 
-            if (!_init)
-            {
-                container.CreateIfNotExist();
-                container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
-                _init = true;
-            }
+			return uri;
+		}
 
-            return container;
-        }
-    }
+		private CloudBlobContainer GetContainer()
+		{
+			var blobStorage = _storageAccount.CreateCloudBlobClient();
+			var container = blobStorage.GetContainerReference(_containerName);
+
+			if (!_init)
+			{
+				container.CreateIfNotExist();
+				container.SetPermissions(new BlobContainerPermissions {PublicAccess = BlobContainerPublicAccessType.Container});
+				_init = true;
+			}
+
+			return container;
+		}
+	}
 }

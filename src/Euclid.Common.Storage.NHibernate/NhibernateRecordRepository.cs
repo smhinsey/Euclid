@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Euclid.Common.Registry;
+using Euclid.Common.Messaging;
 using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate
 {
 	public class NHibernateRecordRepository<TRecord> : IBasicRecordRepository<TRecord>
-		where TRecord : class, IRecord, new()
+		where TRecord : class, IPublicationRecord, new()
 	{
 		private readonly ISession _session;
 

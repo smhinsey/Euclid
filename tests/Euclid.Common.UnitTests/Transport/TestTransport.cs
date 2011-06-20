@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Euclid.Common.Messaging;
 using Euclid.Common.TestingFakes.Transport;
-using Euclid.Common.Transport;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Transport
@@ -13,23 +13,23 @@ namespace Euclid.Common.UnitTests.Transport
 	{
 		private static readonly Random Random = new Random((int) DateTime.Now.Ticks);
 
-		public static void Clear(IMessageTransport transport)
+		public static void Clear(IMessageChannel channel)
 		{
-			transport.Open();
+			channel.Open();
 
 			for (var i = 0; i < 5; i++)
 			{
 				var m = new FakeMessage();
-				transport.Send(m);
+				channel.Send(m);
 			}
 
-			transport.Clear();
+			channel.Clear();
 
-			var messages = transport.ReceiveMany(5, TimeSpan.MaxValue);
+			var messages = channel.ReceiveMany(5, TimeSpan.MaxValue);
 
 			Assert.AreEqual(0, messages.Count());
 
-			transport.Close();
+			channel.Close();
 		}
 
 		public static IMessage GetNewMessage()
@@ -47,21 +47,21 @@ namespace Euclid.Common.UnitTests.Transport
 			       	};
 		}
 
-		public static void ReceiveTimeout(IMessageTransport transport)
+		public static void ReceiveTimeout(IMessageChannel channel)
 		{
 			var ts = new TimeSpan(0, 0, 0, 0, 500);
 
-			transport.Open();
-			transport.Clear();
+			channel.Open();
+			channel.Clear();
 
 			var m = new FakeMessage();
 			var m2 = new FakeMessage();
 
-			transport.Send(m);
-			transport.Send(m2);
+			channel.Send(m);
+			channel.Send(m2);
 
 			var count = 0;
-			foreach (var msg in transport.ReceiveMany(2, ts))
+			foreach (var msg in channel.ReceiveMany(2, ts))
 			{
 				count++;
 				Thread.Sleep(500);
@@ -70,45 +70,45 @@ namespace Euclid.Common.UnitTests.Transport
 			Assert.AreEqual(1, count);
 		}
 
-		public static void SendAndReceiveSingleMessage(IMessageTransport transport)
+		public static void SendAndReceiveSingleMessage(IMessageChannel channel)
 		{
-			transport.Open();
-			transport.Clear();
+			channel.Open();
+			channel.Clear();
 
 			var m = GetNewMessage();
 
-			transport.Send(m);
+			channel.Send(m);
 
-			var m2 = transport.ReceiveSingle(TimeSpan.MaxValue);
+			var m2 = channel.ReceiveSingle(TimeSpan.MaxValue);
 
 			Assert.NotNull(m2);
 
 			Assert.AreEqual(m.Identifier, m2.Identifier);
 
-			transport.Close();
+			channel.Close();
 		}
 
-		public static void StateTransitions(IMessageTransport transport)
+		public static void StateTransitions(IMessageChannel channel)
 		{
-			Assert.AreNotEqual(TransportState.Closed, transport.State);
+			Assert.AreNotEqual(ChannelState.Closed, channel.State);
 
-			var newState = transport.Open();
-			transport.Clear();
+			var newState = channel.Open();
+			channel.Clear();
 
-			Assert.AreEqual(TransportState.Open, newState);
+			Assert.AreEqual(ChannelState.Open, newState);
 
-			newState = transport.Close();
+			newState = channel.Close();
 
-			Assert.AreEqual(TransportState.Closed, newState);
+			Assert.AreEqual(ChannelState.Closed, newState);
 		}
 
-		public static void TestRetrievingSpecificMessages(IMessageTransport transport, int maxNumberOfMessages = 100)
+		public static void TestRetrievingSpecificMessages(IMessageChannel channel, int maxNumberOfMessages = 100)
 		{
 			var r = new Random();
 			var fakeMessageCount = 0;
 			var differentMessageCount = 0;
 
-			transport.Open();
+			channel.Open();
 
 			for (var i = 0; i < maxNumberOfMessages; i++)
 			{
@@ -125,35 +125,35 @@ namespace Euclid.Common.UnitTests.Transport
 					differentMessageCount++;
 				}
 
-				transport.Send(msg);
+				channel.Send(msg);
 			}
 
-			var differentMessages = transport.ReceiveMany<DifferentFakeMessage>(differentMessageCount, TimeSpan.MaxValue);
+			var differentMessages = channel.ReceiveMany<DifferentFakeMessage>(differentMessageCount, TimeSpan.MaxValue);
 
 			Assert.AreEqual(differentMessageCount, differentMessages.Count());
 
-			differentMessages = transport.ReceiveMany<DifferentFakeMessage>(differentMessageCount, TimeSpan.MaxValue);
+			differentMessages = channel.ReceiveMany<DifferentFakeMessage>(differentMessageCount, TimeSpan.MaxValue);
 
 			Assert.AreEqual(0, differentMessages.Count());
 
-			transport.Close();
+			channel.Close();
 		}
 
-		public static void TestSendingMessageOnClosedTransport(IMessageTransport transport)
+		public static void TestSendingMessageOnClosedTransport(IMessageChannel channel)
 		{
-			transport.Open();
-			transport.Close();
+			channel.Open();
+			channel.Close();
 
 			var m = GetNewMessage();
 
-			Assert.Throws(typeof (InvalidOperationException), () => transport.Send(m));
+			Assert.Throws(typeof (InvalidOperationException), () => channel.Send(m));
 		}
 
 		public static void TestThroughputAsynchronously
-			(IMessageTransport transport, int howManyMessages, int howManyThreads,
+			(IMessageChannel channel, int howManyMessages, int howManyThreads,
 			 int? maxMessagesToReceive = null)
 		{
-			transport.Open();
+			channel.Open();
 
 			var start = DateTime.Now;
 
@@ -177,9 +177,9 @@ namespace Euclid.Common.UnitTests.Transport
 			}
 
 			Console.WriteLine
-				("Sending {0} messages through the {1} transport across {2} threads in batches of {3}",
+				("Sending {0} messages through the {1} channel across {2} threads in batches of {3}",
 				 maxMessagesToReceive*howManyThreads*numberTimesToLoop,
-				 transport.GetType().FullName,
+				 channel.GetType().FullName,
 				 howManyThreads,
 				 maxMessagesToReceive);
 
@@ -188,8 +188,8 @@ namespace Euclid.Common.UnitTests.Transport
 				var results = Parallel.For
 					(0, howManyThreads, x =>
 					                    	{
-					                    		SendMessages(transport, maxMessagesToReceive.Value);
-					                    		transport.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue);
+					                    		SendMessages(channel, maxMessagesToReceive.Value);
+					                    		channel.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue);
 					                    	});
 
 				Assert.True(results.IsCompleted);
@@ -199,20 +199,20 @@ namespace Euclid.Common.UnitTests.Transport
 				("Received {0} messages in {1} seconds", (maxMessagesToReceive*howManyThreads*numberTimesToLoop),
 				 DateTime.Now.Subtract(start).TotalSeconds);
 
-			transport.Close();
+			channel.Close();
 		}
 
 		public static void TestThroughputSynchronously
-			(IMessageTransport transport, int howManyMessages,
+			(IMessageChannel channel, int howManyMessages,
 			 int? maxMessagesToReceive)
 		{
 			var start = DateTime.Now;
 
-			transport.Open();
+			channel.Open();
 
-			Console.WriteLine("Sending {0} messages through the {1} transport", howManyMessages, transport.GetType().FullName);
+			Console.WriteLine("Sending {0} messages through the {1} channel", howManyMessages, channel.GetType().FullName);
 
-			SendMessages(transport, howManyMessages);
+			SendMessages(channel, howManyMessages);
 
 			Console.WriteLine("Sent {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
 
@@ -232,7 +232,7 @@ namespace Euclid.Common.UnitTests.Transport
 
 			for (var i = 0; i < numberTimesToLoop; i++)
 			{
-				foreach (var message in transport.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue))
+				foreach (var message in channel.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue))
 				{
 					receivedMessageCount++;
 				}
@@ -241,17 +241,17 @@ namespace Euclid.Common.UnitTests.Transport
 					maxMessagesToReceive = (howManyMessages - receivedMessageCount);
 			}
 
-			transport.Close();
+			channel.Close();
 
 			Console.WriteLine("Received {0} messages in {1}", receivedMessageCount, DateTime.Now.Subtract(start).TotalSeconds);
 		}
 
-		private static void SendMessages(IMessageTransport transport, int numberOfMessagesToCreate)
+		private static void SendMessages(IMessageChannel channel, int numberOfMessagesToCreate)
 		{
 			for (var i = 0; i < numberOfMessagesToCreate; i++)
 			{
 				var msg = GetNewMessage();
-				transport.Send(msg);
+				channel.Send(msg);
 			}
 		}
 	}

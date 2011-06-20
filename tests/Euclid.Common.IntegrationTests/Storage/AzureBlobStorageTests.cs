@@ -6,66 +6,70 @@ using NUnit.Framework;
 
 namespace Euclid.Common.IntegrationTests.Storage
 {
-    [TestFixture]
-    public class AzureBlobStorageTests
-    {
-        private BlobTester _blobTester;
+	[TestFixture]
+	public class AzureBlobStorageTests
+	{
+		#region Setup/Teardown
 
-        [SetUp]
-        public void Setup()
-        {
-            var settings = new BlobStorageSettings();
+		[SetUp]
+		public void Setup()
+		{
+			var settings = new BlobStorageSettings();
 
-            var storageAccount = new CloudStorageAccount(CloudStorageAccount.DevelopmentStorageAccount.Credentials,
-                                                         CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
-                                                         CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
-                                                         CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
+			var storageAccount = new CloudStorageAccount
+				(CloudStorageAccount.DevelopmentStorageAccount.Credentials,
+				 CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
+				 CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
+				 CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
-            var blobStorage = new AzureBlobStorage(storageAccount);
-            blobStorage.Configure(settings);
+			var blobStorage = new AzureBlobStorage(storageAccount);
+			blobStorage.Configure(settings);
 
-            _blobTester= new BlobTester(blobStorage);
-        }
+			_blobTester = new BlobTester(blobStorage);
+		}
 
-        [Test]
-        public void Puts()
-        {
-            var blob = _blobTester.GetNewBlob();
-            
-            _blobTester.Put(blob);
-        }
+		#endregion
 
-        [Test]
-        public void Gets()
-        {
-            var blob = _blobTester.GetNewBlob();
+		private BlobTester _blobTester;
 
-            var uri = _blobTester.Put(blob);
+		[Test]
+		public void Deletes()
+		{
+			var blob = _blobTester.GetNewBlob();
 
-            var retrieved = _blobTester.Get(uri);
+			var uri = _blobTester.Put(blob);
 
-            Assert.AreEqual(blob.MD5, retrieved.MD5);
+			_blobTester.Delete(uri);
 
-            Assert.AreEqual(blob.ContentType, retrieved.ContentType);
+			var retrieved = _blobTester.Get(uri);
 
-            Assert.AreEqual(blob.Metdata, retrieved.Metdata);
+			Assert.IsNull(retrieved);
+		}
 
-            Assert.False(string.IsNullOrEmpty(retrieved.ETag));
-        }
+		[Test]
+		public void Gets()
+		{
+			var blob = _blobTester.GetNewBlob();
 
-        [Test]
-        public void Deletes()
-        {
-            var blob = _blobTester.GetNewBlob();
+			var uri = _blobTester.Put(blob);
 
-            var uri = _blobTester.Put(blob);
+			var retrieved = _blobTester.Get(uri);
 
-            _blobTester.Delete(uri);
+			Assert.AreEqual(blob.MD5, retrieved.MD5);
 
-            var retrieved = _blobTester.Get(uri);
+			Assert.AreEqual(blob.ContentType, retrieved.ContentType);
 
-            Assert.IsNull(retrieved);
-        }
+			Assert.AreEqual(blob.Metdata, retrieved.Metdata);
 
-    }
+			Assert.False(string.IsNullOrEmpty(retrieved.ETag));
+		}
+
+		[Test]
+		public void Puts()
+		{
+			var blob = _blobTester.GetNewBlob();
+
+			_blobTester.Put(blob);
+		}
+	}
 }

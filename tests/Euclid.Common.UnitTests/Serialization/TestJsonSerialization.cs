@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Euclid.Common.Serialization;
+using Euclid.Common.Messaging;
 using Euclid.Common.TestingFakes.Serialization;
 using NUnit.Framework;
 using Newtonsoft.Json;

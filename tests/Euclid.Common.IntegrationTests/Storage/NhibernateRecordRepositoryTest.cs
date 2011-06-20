@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using Euclid.Common.Serialization;
+using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Blob;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.TestingFakes.Storage;
@@ -18,7 +18,7 @@ namespace Euclid.Common.IntegrationTests.Storage
 {
 	public class NhibernateRecordRepositoryTest
 	{
-		private RecordRepositoryTester<NHibernateRecordRepository<FakeRecord>> _repoTester;
+		private RecordRepositoryTester<NHibernateRecordRepository<FakePublicationRecord>> _repoTester;
 		private ISession _session;
 
 		public void ConfigureDatabase()
@@ -46,9 +46,9 @@ namespace Euclid.Common.IntegrationTests.Storage
 
 			var storage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
-			var repo = new NHibernateRecordRepository<FakeRecord>(_session);
+			var repo = new NHibernateRecordRepository<FakePublicationRecord>(_session);
 
-			_repoTester = new RecordRepositoryTester<NHibernateRecordRepository<FakeRecord>>(repo);
+			_repoTester = new RecordRepositoryTester<NHibernateRecordRepository<FakePublicationRecord>>(repo);
 		}
 
 		[Test]
@@ -106,7 +106,7 @@ namespace Euclid.Common.IntegrationTests.Storage
 		public override bool ShouldMap(Type type)
 		{
 			return type == typeof (FakeMessage)
-			       || type == typeof (FakeRecord);
+			       || type == typeof (FakePublicationRecord);
 		}
 	}
 }

@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using Euclid.Common.Logging;
 
 namespace Euclid.Common.Storage
 {
-    public interface IBlobStorage : ILoggingSource
-    {
-        void Configure(IBlobStorageSettings settings);
+	public interface IBlobStorage : ILoggingSource
+	{
+		void Configure(IBlobStorageSettings settings);
 
-        void Delete(Uri uri);
-        bool Exists(Uri uri);
-        IBlob Get(Uri uri);
-        Uri Put(IBlob blob, string name);
-    }
+		void Delete(Uri uri);
+		bool Exists(Uri uri);
+		IBlob Get(Uri uri);
+		Uri Put(IBlob blob, string name);
+	}
 }

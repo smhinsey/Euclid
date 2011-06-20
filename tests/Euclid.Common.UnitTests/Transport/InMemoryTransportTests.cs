@@ -1,5 +1,5 @@
 ﻿using System;
-using Euclid.Common.Transport;
+using Euclid.Common.Messaging;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Transport
@@ -12,53 +12,53 @@ namespace Euclid.Common.UnitTests.Transport
 		[Test]
 		public void TestClear()
 		{
-			TestTransport.Clear(new InMemoryMessageTransport());
+			TestTransport.Clear(new InMemoryMessageChannel());
 		}
 
 		[Test]
 		public void TestRetrieveSpecific()
 		{
-			TestTransport.TestRetrievingSpecificMessages(new InMemoryMessageTransport());
+			TestTransport.TestRetrievingSpecificMessages(new InMemoryMessageChannel());
 		}
 
 		[Test]
 		public void TestSendReceive()
 		{
-			TestTransport.SendAndReceiveSingleMessage(new InMemoryMessageTransport());
+			TestTransport.SendAndReceiveSingleMessage(new InMemoryMessageChannel());
 		}
 
 		[Test]
 		public void TestSendingMessageOnClosedTransport()
 		{
-			TestTransport.TestSendingMessageOnClosedTransport(new InMemoryMessageTransport());
+			TestTransport.TestSendingMessageOnClosedTransport(new InMemoryMessageChannel());
 		}
 
 		[Test]
 		public void TestStateTransitions()
 		{
-			TestTransport.StateTransitions(new InMemoryMessageTransport());
+			TestTransport.StateTransitions(new InMemoryMessageChannel());
 		}
 
 		[Test]
 		public void TestThroughputAsynchronously()
 		{
-			TestTransport.TestThroughputAsynchronously(new InMemoryMessageTransport(), LargeNumber, 17);
+			TestTransport.TestThroughputAsynchronously(new InMemoryMessageChannel(), LargeNumber, 17);
 
 			Console.WriteLine();
 
-			TestTransport.TestThroughputAsynchronously(new InMemoryMessageTransport(), LargeNumber, 17, 32);
+			TestTransport.TestThroughputAsynchronously(new InMemoryMessageChannel(), LargeNumber, 17, 32);
 		}
 
 		[Test]
 		public void TestThroughputSynchronously()
 		{
-			TestTransport.TestThroughputSynchronously(new InMemoryMessageTransport(), LargeNumber, null);
+			TestTransport.TestThroughputSynchronously(new InMemoryMessageChannel(), LargeNumber, null);
 		}
 
 		[Test]
 		public void TestTimeout()
 		{
-			TestTransport.ReceiveTimeout(new InMemoryMessageTransport());
+			TestTransport.ReceiveTimeout(new InMemoryMessageChannel());
 		}
 	}
 }

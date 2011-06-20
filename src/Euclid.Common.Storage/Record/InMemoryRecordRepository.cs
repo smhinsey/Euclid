@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using Euclid.Common.Registry;
+using Euclid.Common.Messaging;
 
 namespace Euclid.Common.Storage.Record
 {
 	public class InMemoryRecordRepository<TRecord> : IBasicRecordRepository<TRecord>
-		where TRecord : class, IRecord, new()
+		where TRecord : class, IPublicationRecord, new()
 	{
 		protected static readonly ConcurrentDictionary<Guid, TRecord> Records = new ConcurrentDictionary<Guid, TRecord>();
 

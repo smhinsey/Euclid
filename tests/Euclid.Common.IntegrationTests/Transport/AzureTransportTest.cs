@@ -1,7 +1,6 @@
 ﻿using System.Configuration;
-using Euclid.Common.Serialization;
+using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Azure;
-using Euclid.Common.Transport;
 using Euclid.Common.UnitTests.Transport;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
@@ -37,63 +36,63 @@ namespace Euclid.Common.IntegrationTests.Transport
 		private const int AzureMaxReceiveAmount = 32;
 		private const int NumberOfThreads = 10;
 
-		private static void SendMessages(IMessageTransport transport, int numberOfMessagesToCreate)
+		private static void SendMessages(IMessageChannel channel, int numberOfMessagesToCreate)
 		{
 			for (var i = 0; i < numberOfMessagesToCreate; i++)
 			{
 				var msg = TestTransport.GetNewMessage();
-				transport.Send(msg);
+				channel.Send(msg);
 			}
 		}
 
 		[Test]
 		public void TestClear()
 		{
-			TestTransport.Clear(new AzureMessageTransport(_serializer));
+			TestTransport.Clear(new AzureMessageChannel(_serializer));
 		}
 
 		[Test]
 		public void TestScaleAsynchronously()
 		{
 			TestTransport.TestThroughputAsynchronously
-				(new AzureMessageTransport(_serializer), LargeNumber, NumberOfThreads,
+				(new AzureMessageChannel(_serializer), LargeNumber, NumberOfThreads,
 				 AzureMaxReceiveAmount);
 		}
 
 		[Test]
 		public void TestScaleSynchronously()
 		{
-			TestTransport.TestThroughputSynchronously(new AzureMessageTransport(_serializer), LargeNumber, AzureMaxReceiveAmount);
+			TestTransport.TestThroughputSynchronously(new AzureMessageChannel(_serializer), LargeNumber, AzureMaxReceiveAmount);
 		}
 
 		[Test]
 		public void TestSendReceive()
 		{
-			TestTransport.SendAndReceiveSingleMessage(new AzureMessageTransport(_serializer));
+			TestTransport.SendAndReceiveSingleMessage(new AzureMessageChannel(_serializer));
 		}
 
 		[Test]
 		public void TestSendingMessageOnClosedTransport()
 		{
-			TestTransport.TestSendingMessageOnClosedTransport(new AzureMessageTransport(_serializer));
+			TestTransport.TestSendingMessageOnClosedTransport(new AzureMessageChannel(_serializer));
 		}
 
 		[Test]
 		public void TestSpecificMessageRetrieval()
 		{
-			TestTransport.TestRetrievingSpecificMessages(new AzureMessageTransport(_serializer), 32);
+			TestTransport.TestRetrievingSpecificMessages(new AzureMessageChannel(_serializer), 32);
 		}
 
 		[Test]
 		public void TestStateTransitions()
 		{
-			TestTransport.StateTransitions(new AzureMessageTransport(_serializer));
+			TestTransport.StateTransitions(new AzureMessageChannel(_serializer));
 		}
 
 		[Test]
 		public void TestTimeout()
 		{
-			TestTransport.ReceiveTimeout(new AzureMessageTransport(_serializer));
+			TestTransport.ReceiveTimeout(new AzureMessageChannel(_serializer));
 		}
 	}
 }

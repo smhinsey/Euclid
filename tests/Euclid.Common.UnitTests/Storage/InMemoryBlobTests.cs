@@ -3,59 +3,63 @@ using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Storage
 {
-    [TestFixture]
-    public class InMemoryBlobTests
-    {
-        private BlobTester _blobTester;
+	[TestFixture]
+	public class InMemoryBlobTests
+	{
+		#region Setup/Teardown
 
-        [SetUp]
-        public void Setup()
-        {
-            var blobStorage = new InMemoryBlobStorage();
+		[SetUp]
+		public void Setup()
+		{
+			var blobStorage = new InMemoryBlobStorage();
 
-            blobStorage.Configure(new BlobStorageSettings());
+			blobStorage.Configure(new BlobStorageSettings());
 
-            _blobTester = new BlobTester(blobStorage);
-        }
+			_blobTester = new BlobTester(blobStorage);
+		}
 
-        [Test]
-        public void Puts()
-        {
-            var blob = _blobTester.GetNewBlob();
+		#endregion
 
-            _blobTester.Put(blob);
-        }
+		private BlobTester _blobTester;
 
-        [Test]
-        public void Gets()
-        {
-            var blob = _blobTester.GetNewBlob();
+		[Test]
+		public void Deletes()
+		{
+			var blob = _blobTester.GetNewBlob();
 
-            var uri = _blobTester.Put(blob);
+			var uri = _blobTester.Put(blob);
 
-            var retrieved = _blobTester.Get(uri);
+			_blobTester.Delete(uri);
 
-            Assert.AreEqual(blob.MD5, retrieved.MD5);
+			var retrieved = _blobTester.Get(uri);
 
-            Assert.AreEqual(blob.ContentType, retrieved.ContentType);
+			Assert.IsNull(retrieved);
+		}
 
-            Assert.AreEqual(blob.Metdata, retrieved.Metdata);
+		[Test]
+		public void Gets()
+		{
+			var blob = _blobTester.GetNewBlob();
 
-            Assert.False(string.IsNullOrEmpty(retrieved.ETag));
-        }
+			var uri = _blobTester.Put(blob);
 
-        [Test]
-        public void Deletes()
-        {
-            var blob = _blobTester.GetNewBlob();
+			var retrieved = _blobTester.Get(uri);
 
-            var uri = _blobTester.Put(blob);
+			Assert.AreEqual(blob.MD5, retrieved.MD5);
 
-            _blobTester.Delete(uri);
+			Assert.AreEqual(blob.ContentType, retrieved.ContentType);
 
-            var retrieved = _blobTester.Get(uri);
+			Assert.AreEqual(blob.Metdata, retrieved.Metdata);
 
-            Assert.IsNull(retrieved);
-        }
-    }
+			Assert.False(string.IsNullOrEmpty(retrieved.ETag));
+		}
+
+		[Test]
+		public void Puts()
+		{
+			var blob = _blobTester.GetNewBlob();
+
+			_blobTester.Put(blob);
+		}
+	}
 }
