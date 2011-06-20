@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using Euclid.Common.Serialization;
+using Euclid.Common.Storage.Azure;
 using Euclid.Common.Transport;
 using Euclid.Common.UnitTests.Transport;
 using Microsoft.WindowsAzure;

@@ -62,6 +62,7 @@
     <Compile Include="HostingFabric\NoServiceHostConfiguredException.cs" />
     <Compile Include="HostingFabric\ServiceHostNotResolvableException.cs" />
     <Compile Include="Logging\ILoggingSource.cs" />
+    <Compile Include="Publishing\Publisher.cs" />
     <Compile Include="Storage\IBlob.cs" />
     <Compile Include="Storage\IBlobStorageSettings.cs" />
     <Compile Include="Storage\IBasicRecordRepository.cs" />

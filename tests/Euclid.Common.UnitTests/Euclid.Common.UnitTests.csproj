@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Configuration\OverridableObjectsTests.cs" />
     <Compile Include="HostingFabric\LocalMachineFabricTests.cs" />
+    <Compile Include="Publishing\PublisherTests.cs" />
     <Compile Include="Registry\InMemoryRegistryTests.cs" />
     <Compile Include="Registry\RegistryTester.cs" />
     <Compile Include="ServiceHost\MultitaskingServiceHostTester.cs" />
@@ -93,6 +94,10 @@
     <ProjectReference Include="..\..\src\Euclid.Common.HostingFabric\Euclid.Common.HostingFabric.csproj">
       <Project>{6B55CE77-2663-45F0-ADB2-DFC7AB01233C}</Project>
       <Name>Euclid.Common.HostingFabric</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common.Publishing\Euclid.Common.Publishing.csproj">
+      <Project>{DD84814A-21BA-4647-89A7-19F6AB8D22BF}</Project>
+      <Name>Euclid.Common.Publishing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Registry\Euclid.Common.Registry.csproj">
       <Project>{F0C8929B-718E-4360-85FF-520398DEA764}</Project>

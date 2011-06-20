@@ -96,7 +96,7 @@ namespace Euclid.Common.Storage.Azure
             try
             {
 
-                var blobName = string.Format("{0}.{1}", name, MimeTypes.GetExtensionFromContentType(blob.ContentType));
+                var blobName = string.Format("{2}.{0}.{1}", name, MimeTypes.GetExtensionFromContentType(blob.ContentType), Guid.NewGuid());
 
                 var azureBlob = container.GetBlobReference(blobName);
 

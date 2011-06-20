@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9190A42E-76B2-4315-9374-DF188D78881B}</ProjectGuid>
+    <ProjectGuid>{DD84814A-21BA-4647-89A7-19F6AB8D22BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Common.Storage.Azure</RootNamespace>
-    <AssemblyName>Euclid.Common.Storage.Azure</AssemblyName>
+    <RootNamespace>Euclid.Common.Publishing</RootNamespace>
+    <AssemblyName>Euclid.Common.Publishing</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,13 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,30 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AzureBlobStorage.cs" />
-    <Compile Include="AzureMessageTransport.cs" />
+    <Compile Include="EuclidPublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Euclid.Common.Logging\Euclid.Common.Logging.csproj">
-      <Project>{8D46ACE3-E0DC-4317-B321-BDFE71F843E7}</Project>
-      <Name>Euclid.Common.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
-      <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>
-      <Name>Euclid.Common.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Euclid.Common.Transport\Euclid.Common.Transport.csproj">
-      <Project>{B2D19FB7-F317-4122-93B2-F13727CE490E}</Project>
-      <Name>Euclid.Common.Transport</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
