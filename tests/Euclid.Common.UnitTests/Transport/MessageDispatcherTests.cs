@@ -196,6 +196,70 @@ namespace Euclid.Common.UnitTests.Transport
             settings.InputChannel.Value.Close();
         }
 
+        [Test]
+        public void ErrorsWhenChannelsArentConfigured()
+        {
+            var settings = new MessageDispatcherSettings();
+
+            Assert.Throws(typeof (NoInputChannelConfiguredException), () => _dispatcher.Configure(settings));
+
+            settings.InputChannel.WithDefault(new InMemoryMessageChannel());
+
+            Assert.Throws(typeof(NoInputChannelConfiguredException), () => _dispatcher.Configure(settings));
+
+            settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
+
+            Assert.Throws(typeof (NoMessageProcessorsConfiguredException), () => _dispatcher.Configure(settings));
+
+            settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor)});
+
+            Assert.Throws(typeof(NoDispatchingSliceDurationConfiguredException), () => _dispatcher.Configure(settings));
+
+            settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.MaxValue);
+
+            Assert.Throws(typeof(NoNumberOfMessagesPerSliceConfiguredException), () => _dispatcher.Configure(settings));
+
+            settings.NumberOfMessagesToDispatchPerSlice.WithDefault(2);
+
+            _dispatcher.Configure(settings);
+        }
+
+        [Test]
+        public void DispatchesToMultipleProcessors()
+        {
+            var settings = new MessageDispatcherSettings();
+
+            settings.InputChannel.WithDefault(new InMemoryMessageChannel());
+            settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
+            settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor), typeof(FakeMessageProcessor2) });
+            settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 200));
+            settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
+
+            _dispatcher.Configure(settings);
+
+            _dispatcher.Enable();
+
+            settings.InputChannel.Value.Open();
+
+            settings.InvalidChannel.Value.Open();
+
+            settings.InputChannel.Value.Send(GetRecord());
+
+            Thread.Sleep(750);
+
+            Assert.IsTrue(FakeMessageProcessor.ProcessedAnyMessages);
+
+            Thread.Sleep(750);
+
+            Assert.IsTrue(FakeMessageProcessor2.ProcessedAnyMessages);
+
+            _dispatcher.Disable();
+
+            settings.InvalidChannel.Value.Close();
+
+            settings.InputChannel.Value.Close();
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -206,6 +270,8 @@ namespace Euclid.Common.UnitTests.Transport
                  Component.For<FakeMessageProcessor>()
                     .Instance(processor)
                 );
+
+            container.Register(Component.For<FakeMessageProcessor2>().Instance(new FakeMessageProcessor2()));
 
             _registry = new FakeRegistry(new InMemoryRecordRepository<FakePublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
 

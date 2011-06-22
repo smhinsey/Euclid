@@ -95,11 +95,13 @@ namespace Euclid.Common.Messaging
             // and spawns new tasks to process them. each processor should be resolved from the container on demand
             _inputChannel.Open();
 
+            _invalidChannel.Open();
+
             State = MessageDispatcherState.Enabled;
 
             this.WriteInfoMessage("Dispatcher enabled.");
 
-            _listenerTask = Task.Factory.StartNew(taskMethod => PollRegistryForRecords(), _cancellationToken);
+            _listenerTask = Task.Factory.StartNew(taskMethod => PollChannelForRecords(), _cancellationToken);
         }
 
         private void DispatchMessage()
@@ -121,26 +123,20 @@ namespace Euclid.Common.Messaging
                 {
                     var message = _publicationRegistry.GetMessage(record.MessageLocation, record.MessageType);
 
-                    if (message.GetType().GetInterface(typeof(IPublicationRecord).FullName) == null)
-                    {
-                        _invalidChannel.Send(message);
-                        continue;
-                    }
-
                     //find all processor types that implement IMessageProcessor<T>
                     //and get the first where T = record.MessageType
-                    var messageProcessorType = _messageProcessorTypes
-                        .Where
-                        (processorType =>
-                         processorType
-                            .GetInterface("IMessageProcessor`1")
-                            .GetGenericArguments()
-                            .Any(type => type == message.GetType()))
-                        .Select(processorType => processorType)
-                        .FirstOrDefault();
+                    var messageProcessorTypes = _messageProcessorTypes
+                                                    .Where
+                                                    (processorType =>
+                                                     processorType
+                                                         .GetInterface("IMessageProcessor`1")
+                                                         .GetGenericArguments()
+                                                         .Any(type => type == message.GetType()))
+                                                    .Select(processorType => processorType);
+                        
 
                     //couldn't find the processor type
-                    if (messageProcessorType == null)
+                    if (messageProcessorTypes.Count() == 0)
                     {
                         _publicationRegistry.MarkAsUnableToDispatch
                             (record.Identifier, true,
@@ -149,8 +145,13 @@ namespace Euclid.Common.Messaging
                                  "Could not find a processor for the message type {0}",
                                  record.MessageType.FullName));
                     }
-
-                    ProcessMessage(record.Identifier, message, messageProcessorType);
+                    else
+                    {
+                        foreach (var messageProcessorType in messageProcessorTypes)
+                        {
+                            ProcessMessage(record.Identifier, message, messageProcessorType);
+                        }
+                    }
                 }
                 catch (ActivationException ae)
                 {
@@ -163,7 +164,7 @@ namespace Euclid.Common.Messaging
             }
         }
 
-        private void PollRegistryForRecords()
+        private void PollChannelForRecords()
         {
             while (!_cancellationToken.IsCancellationRequested)
             {
