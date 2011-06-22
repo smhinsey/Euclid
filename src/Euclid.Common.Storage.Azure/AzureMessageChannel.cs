@@ -48,7 +48,7 @@ namespace Euclid.Common.Storage.Azure
 			{
 				if (_queue == null)
 				{
-					CreateQueue(TransportName);
+					CreateQueue(ChannelName);
 					State = ChannelState.Open;
 				}
 			}
@@ -116,12 +116,12 @@ namespace Euclid.Common.Storage.Azure
 			return new CloudQueueMessage(msg);
 		}
 
-		private static void CreateQueue(string transportName)
+		private static void CreateQueue(string channelName)
 		{
 			var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
 			var queueClient = storageAccount.CreateCloudQueueClient();
 
-			_queue = queueClient.GetQueueReference(transportName);
+			_queue = queueClient.GetQueueReference(channelName);
 			_queue.CreateIfNotExist();
 		}
 

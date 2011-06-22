@@ -8,11 +8,11 @@ namespace Euclid.Common.Messaging
 		protected MessageChannelBase()
 		{
 			State = ChannelState.Invalid;
-			TransportName = Guid.NewGuid().ToString();
+			ChannelName = Guid.NewGuid().ToString();
 		}
 
 		public ChannelState State { get; protected set; }
-		public string TransportName { get; set; }
+		public string ChannelName { get; set; }
 		public abstract void Clear();
 		public abstract ChannelState Close();
 		public abstract ChannelState Open();

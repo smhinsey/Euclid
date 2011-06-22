@@ -7,7 +7,7 @@ namespace Euclid.Common.Messaging
 	public interface IChannel<T>
 	{
 		ChannelState State { get; }
-		string TransportName { get; set; }
+		string ChannelName { get; set; }
 		void Clear();
 		ChannelState Close();
 		ChannelState Open();
