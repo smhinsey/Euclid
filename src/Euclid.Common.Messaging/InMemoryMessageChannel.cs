@@ -83,44 +83,6 @@ namespace Euclid.Common.Messaging
 			}
 		}
 
-		public override IEnumerable<TSubType> ReceiveMany<TSubType>(int howMany, TimeSpan timeSpan)
-		{
-			TransportIsOpenFor(string.Format("ReceiveMany<{0}>", typeof (TSubType).Name));
-
-			var start = DateTime.Now;
-
-			var count = 0;
-
-			Lock.EnterWriteLock();
-
-			try
-			{
-				while (MessageList.Count > 0 && DateTime.Now.Subtract(start) <= timeSpan && count < howMany)
-				{
-					var subTypeList = MessageList.OfType<TSubType>().ToList();
-
-					if (subTypeList.Count() == 0)
-					{
-						break;
-					}
-
-					var message = subTypeList.First();
-
-					MessageList.Remove(message);
-
-					count++;
-
-					yield return message;
-				}
-
-				yield break;
-			}
-			finally
-			{
-				Lock.ExitWriteLock();
-			}
-		}
-
 		public override IMessage ReceiveSingle(TimeSpan timeout)
 		{
 			TransportIsOpenFor("ReceiveSingle");

@@ -98,9 +98,7 @@ namespace Euclid.Common.Messaging
 		private void DispatchMessage()
 		{
 			var records = _inputChannel
-				.ReceiveMany<IPublicationRecord>
-				(CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value,
-				 CurrentSettings.DurationOfDispatchingSlice.Value);
+				.ReceiveMany(CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value, CurrentSettings.DurationOfDispatchingSlice.Value).Cast<IPublicationRecord>();
 
 			foreach (var record in records)
 			{

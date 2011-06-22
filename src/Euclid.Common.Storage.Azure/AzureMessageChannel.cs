@@ -82,47 +82,6 @@ namespace Euclid.Common.Storage.Azure
 			yield break;
 		}
 
-		public override IEnumerable<TSubType> ReceiveMany<TSubType>(int howMany, TimeSpan timeSpan)
-		{
-			TransportIsOpenFor(string.Format("ReceiveMany<{0}>", typeof (TSubType).Name));
-
-			ValidNumberOfMessagesRequested(howMany);
-
-			var start = DateTime.Now;
-
-			var count = 0;
-
-			var loopCount = 0;
-
-			//NOTE: this is tricky:
-			// if the message retrieved after the call to _queue.GetMessage isn't the type we are looking for it won't be available to be dequeued for 30s
-			// if it is the type we are looking for we delete it form the queue
-			// a message may get added to the queue while it is being enumerated, is that a problem?
-			while (count < howMany && DateTime.Now.Subtract(start) <= timeSpan && loopCount <= MaximumNumberOfMessagesThatCanBeFetched)
-			{
-				loopCount++;
-
-				var cloudQueueMessage = _queue.GetMessage();
-
-				if (cloudQueueMessage == null) continue;
-
-				var euclidMessage = _serializer.Deserialize(cloudQueueMessage.AsBytes);
-
-				if (!(euclidMessage.GetType().IsAssignableFrom(typeof (TSubType)) || (euclidMessage.GetType().GetInterface(typeof (TSubType).FullName) != null)))
-				{
-					continue;
-				}
-
-				count++;
-
-				_queue.DeleteMessage(cloudQueueMessage);
-
-				yield return (TSubType) euclidMessage;
-			}
-
-			yield break;
-		}
-
 		public override IMessage ReceiveSingle(TimeSpan timeSpan)
 		{
 			TransportIsOpenFor("ReceiveSingle");

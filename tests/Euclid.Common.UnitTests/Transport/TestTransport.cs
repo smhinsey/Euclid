@@ -102,43 +102,6 @@ namespace Euclid.Common.UnitTests.Transport
 			Assert.AreEqual(ChannelState.Closed, newState);
 		}
 
-		public static void TestRetrievingSpecificMessages(IMessageChannel channel, int maxNumberOfMessages = 100)
-		{
-			var r = new Random();
-			var fakeMessageCount = 0;
-			var differentMessageCount = 0;
-
-			channel.Open();
-
-			for (var i = 0; i < maxNumberOfMessages; i++)
-			{
-				IMessage msg;
-
-				if (r.Next()%2 == 0)
-				{
-					msg = new FakeMessage();
-					fakeMessageCount++;
-				}
-				else
-				{
-					msg = new DifferentFakeMessage();
-					differentMessageCount++;
-				}
-
-				channel.Send(msg);
-			}
-
-			var differentMessages = channel.ReceiveMany<DifferentFakeMessage>(differentMessageCount, TimeSpan.MaxValue);
-
-			Assert.AreEqual(differentMessageCount, differentMessages.Count());
-
-			differentMessages = channel.ReceiveMany<DifferentFakeMessage>(differentMessageCount, TimeSpan.MaxValue);
-
-			Assert.AreEqual(0, differentMessages.Count());
-
-			channel.Close();
-		}
-
 		public static void TestSendingMessageOnClosedTransport(IMessageChannel channel)
 		{
 			channel.Open();

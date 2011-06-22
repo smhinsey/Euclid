@@ -78,12 +78,6 @@ namespace Euclid.Common.IntegrationTests.Transport
 		}
 
 		[Test]
-		public void TestSpecificMessageRetrieval()
-		{
-			TestTransport.TestRetrievingSpecificMessages(new AzureMessageChannel(_serializer), 32);
-		}
-
-		[Test]
 		public void TestStateTransitions()
 		{
 			TestTransport.StateTransitions(new AzureMessageChannel(_serializer));

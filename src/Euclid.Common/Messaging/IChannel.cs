@@ -13,7 +13,6 @@ namespace Euclid.Common.Messaging
 		ChannelState Open();
 
 		IEnumerable<T> ReceiveMany(int howMany, TimeSpan timeSpan);
-		IEnumerable<TSubType> ReceiveMany<TSubType>(int howMany, TimeSpan timeSpan) where TSubType : T;
 		T ReceiveSingle(TimeSpan timeSpan);
 
 		void Send(T message);

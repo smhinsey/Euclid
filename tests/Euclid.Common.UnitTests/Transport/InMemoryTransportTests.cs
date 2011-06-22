@@ -16,12 +16,6 @@ namespace Euclid.Common.UnitTests.Transport
 		}
 
 		[Test]
-		public void TestRetrieveSpecific()
-		{
-			TestTransport.TestRetrievingSpecificMessages(new InMemoryMessageChannel());
-		}
-
-		[Test]
 		public void TestSendReceive()
 		{
 			TestTransport.SendAndReceiveSingleMessage(new InMemoryMessageChannel());
