@@ -57,7 +57,7 @@
     <Compile Include="MessageChannelBase.cs" />
     <Compile Include="MultitaskingMessageDispatcher.cs" />
     <Compile Include="Exceptions\NoDispatchingSliceDurationConfiguredException.cs" />
-    <Compile Include="Exceptions\NoInputTransportConfiguredException.cs" />
+    <Compile Include="Exceptions\NoInputChannelConfiguredException.cs" />
     <Compile Include="Exceptions\NoMessageProcessorsConfiguredException.cs" />
     <Compile Include="Exceptions\NoNumberOfMessagesPerSliceConfiguredException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

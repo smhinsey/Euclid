@@ -122,7 +122,7 @@ namespace Euclid.Common.Storage.Azure
 			var queueClient = storageAccount.CreateCloudQueueClient();
 
 			_queue = queueClient.GetQueueReference(channelName);
-			_queue.CreateIfNotExist();
+            _queue.CreateIfNotExist();
 		}
 
 		private static void ValidNumberOfMessagesRequested(int howMany)
