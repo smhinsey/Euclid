@@ -49,10 +49,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cqrs\DispatcherTests.cs" />
+    <Compile Include="Cqrs\Metadata\MetadataExtractionServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+      <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
+      <Name>Euclid.Common.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
+      <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>
+      <Name>Euclid.Common.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
+      <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
+      <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
+      <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
+      <Name>Euclid.Framework.Cqrs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Framework\Euclid.Framework.csproj">
+      <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
+      <Name>Euclid.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Framework.TestingFakes\Euclid.Framework.TestingFakes.csproj">
+      <Project>{793DEE69-90CB-45D7-94CC-FD2D7CE59790}</Project>
+      <Name>Euclid.Framework.TestingFakes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

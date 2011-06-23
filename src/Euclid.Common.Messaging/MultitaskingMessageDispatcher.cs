@@ -133,7 +133,6 @@ namespace Euclid.Common.Messaging
                                                          .GetGenericArguments()
                                                          .Any(type => type == message.GetType()))
                                                     .Select(processorType => processorType);
-                        
 
                     //couldn't find the processor type
                     if (messageProcessorTypes.Count() == 0)

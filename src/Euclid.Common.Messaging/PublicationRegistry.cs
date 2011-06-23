@@ -7,37 +7,36 @@ namespace Euclid.Common.Messaging
 	public class PublicationRegistry<TRecord> : IPublicationRegistry<TRecord>
 		where TRecord : class, IPublicationRecord, new()
 	{
-		private readonly IBlobStorage _blobStorage;
-		private readonly IBasicRecordRepository<TRecord> _repository;
-
-		private readonly IMessageSerializer _serializer;
+		protected readonly IBlobStorage BlobStorage;
+		protected readonly IBasicRecordRepository<TRecord> Repository;
+		protected readonly IMessageSerializer Serializer;
 
 
 		public PublicationRegistry(IBasicRecordRepository<TRecord> repository, IBlobStorage blobStorage, IMessageSerializer serializer)
 		{
-			_repository = repository;
-			_blobStorage = blobStorage;
-			_serializer = serializer;
+			Repository = repository;
+			BlobStorage = blobStorage;
+			Serializer = serializer;
 		}
 
 		public virtual TRecord CreateRecord(IMessage message)
 		{
 			var msgBlob = new Blob
 			              	{
-			              		Bytes = _serializer.Serialize(message),
+			              		Bytes = Serializer.Serialize(message),
 			              		ContentType = "application/octet-stream"
 			              	};
 
-			var uri = _blobStorage.Put(msgBlob, message.GetType().FullName);
+			var uri = BlobStorage.Put(msgBlob, message.GetType().FullName);
 
-			return _repository.Create(uri, message.GetType());
+			return Repository.Create(uri, message.GetType());
 		}
 
 		public virtual IMessage GetMessage(Uri messageLocation, Type recordType)
 		{
-			var messageBlob = _blobStorage.Get(messageLocation);
+			var messageBlob = BlobStorage.Get(messageLocation);
 
-			return Convert.ChangeType(_serializer.Deserialize(messageBlob.Bytes), recordType) as IMessage;
+			return Convert.ChangeType(Serializer.Deserialize(messageBlob.Bytes), recordType) as IMessage;
 		}
 
 		public virtual TRecord MarkAsComplete(Guid id)
@@ -78,7 +77,7 @@ namespace Euclid.Common.Messaging
 
 		public TRecord GetRecord(Guid identifier)
 		{
-			return _repository.Retrieve(identifier);
+			return Repository.Retrieve(identifier);
 		}
 
 		private TRecord UpdateRecord(Guid id, Action<TRecord> actOnRecord)
@@ -87,7 +86,7 @@ namespace Euclid.Common.Messaging
 
 			actOnRecord(record);
 
-			return _repository.Update(record);
+			return Repository.Update(record);
 		}
 	}
 }
