@@ -41,11 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cqrs\ICommand.cs" />
+    <Compile Include="Cqrs\ICommandDispatcher.cs" />
     <Compile Include="Cqrs\ICommandProcessor.cs" />
     <Compile Include="Cqrs\ICommandPublicationRecord.cs" />
     <Compile Include="Cqrs\ICommandRegistry.cs" />
     <Compile Include="Cqrs\IQuery.cs" />
     <Compile Include="Cqrs\Metadata\IExtractor.cs" />
+    <Compile Include="Cqrs\Metadata\IExtractorSettings.cs" />
     <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
@@ -55,6 +57,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+      <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
+      <Name>Euclid.Common.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>

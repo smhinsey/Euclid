@@ -9,10 +9,6 @@ namespace Euclid.Framework.Cqrs.Metadata
     public class MetadataService : IExtractor
     {
         private readonly IList<Type> _commandTypes;
-        public MetadataService(Assembly currentAssembly)
-        {
-            _commandTypes = currentAssembly.GetTypes().Where(type => type.GetInterface(typeof(ICommand).FullName) != null).ToList();
-        }
 
         public IList<Type> GetVisibleCommandTypes()
         {
@@ -22,6 +18,14 @@ namespace Euclid.Framework.Cqrs.Metadata
         public ICommand CreateCommand(Type commandType)
         {
             return Activator.CreateInstance(commandType) as ICommand;
+        }
+
+        public MetadataService(IExtractorSettings settings)
+        {
+            foreach (var assembly in settings.AssembliesContainingCommands.Value)
+            {
+                _commandTypes = assembly.GetTypes().Where(x => x as ICommand != null).ToList();
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Euclid.Common.Logging;
@@ -137,6 +138,8 @@ namespace Euclid.Common.Messaging
                     //couldn't find the processor type
                     if (messageProcessorTypes.Count() == 0)
                     {
+                        this.WriteErrorMessage("No message processors found in this dispatcher [{0}]", null, GetType().FullName);
+
                         _publicationRegistry.MarkAsUnableToDispatch
                             (record.Identifier, true,
                              string.Format
@@ -154,10 +157,12 @@ namespace Euclid.Common.Messaging
                 }
                 catch (ActivationException ae)
                 {
+                    this.WriteErrorMessage("Unable to dispatch message", ae);
                     _publicationRegistry.MarkAsUnableToDispatch(record.Identifier, true, ae.Message);
                 }
                 catch (Exception e)
                 {
+                    this.WriteErrorMessage("Unable to dispatch message", e);
                     _publicationRegistry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
                 }
             }

@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace Euclid.Framework.UnitTests.Cqrs
 {
     [TestFixture]
-    public class DispatcherTests
+    public class CommandDispatcherTests
     {
         [Test]
         public void CommandPublicationRecordCreates()

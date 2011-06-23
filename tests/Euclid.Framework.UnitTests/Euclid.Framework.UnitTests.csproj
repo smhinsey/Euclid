@@ -31,6 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\Euclid.Common.TestingFakes\bin\Debug\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator.WindsorAdapter">
+      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -49,7 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cqrs\DispatcherTests.cs" />
+    <Compile Include="Cqrs\CommandDispatcherTests.cs" />
+    <Compile Include="Cqrs\CommandHostTests.cs" />
     <Compile Include="Cqrs\Metadata\MetadataExtractionServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,6 +71,10 @@
     <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
+      <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>
+      <Name>Euclid.Common.ServiceHost</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
       <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>

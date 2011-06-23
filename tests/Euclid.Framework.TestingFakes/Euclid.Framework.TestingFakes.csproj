@@ -44,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+      <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
+      <Name>Euclid.Common.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>

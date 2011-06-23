@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Euclid.Framework.Cqrs.Metadata;
 using Euclid.Framework.TestingFakes.Cqrs;
@@ -14,7 +15,8 @@ namespace Euclid.Framework.UnitTests.Cqrs.Metadata
         [Test]
         public void ExtractsCommandData()
         {
-            var svc = new MetadataService(typeof (FakeCommand).Assembly);
+            var settings = new MetadataServiceSettings(new List<Assembly> {typeof (FakeCommand).Assembly});
+            var svc = new MetadataService(settings);
             var commands = svc.GetVisibleCommandTypes();
 
             Assert.AreEqual(2, commands.Count());
@@ -25,7 +27,8 @@ namespace Euclid.Framework.UnitTests.Cqrs.Metadata
         [Test]
         public void GetCommand()
         {
-            var svc = new MetadataService(typeof(FakeCommand).Assembly);
+            var settings = new MetadataServiceSettings(new List<Assembly> { typeof(FakeCommand).Assembly });
+            var svc = new MetadataService(settings);
             var commands = svc.GetVisibleCommandTypes();
 
             Assert.AreEqual(2, commands.Count());

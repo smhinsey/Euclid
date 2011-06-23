@@ -15,13 +15,13 @@ namespace Euclid.Common.Logging
 			}
 		}
 
-		public static void WriteErrorMessage(this ILoggingSource source, string message, Exception exception)
+        public static void WriteErrorMessage(this ILoggingSource source, string message, Exception exception, params object[] formatParameters)
 		{
 			var logger = LogManager.GetLogger(source.GetType());
 
 			if (logger.IsErrorEnabled)
 			{
-				logger.Error(message, exception);
+				logger.Error(string.Format(message, formatParameters), exception);
 			}
 		}
 
@@ -35,13 +35,13 @@ namespace Euclid.Common.Logging
 			}
 		}
 
-		public static void WriteInfoMessage(this ILoggingSource source, string message)
+		public static void WriteInfoMessage(this ILoggingSource source, string message, params object[] formatParameters)
 		{
 			var logger = LogManager.GetLogger(source.GetType());
 
 			if (logger.IsInfoEnabled)
 			{
-				logger.Info(message);
+				logger.Info(string.Format(message, formatParameters));
 			}
 		}
 
