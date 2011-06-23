@@ -1,109 +1,84 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace Euclid.Common.Messaging
 {
-	public class InMemoryMessageChannel : MessageChannelBase
-	{
-		//private static readonly ConcurrentQueue<IMessage> Queue = new ConcurrentQueue<IMessage>();
-		private static readonly ReaderWriterLockSlim Lock = new ReaderWriterLockSlim();
-		private static readonly LinkedList<IMessage> MessageList = new LinkedList<IMessage>();
+    public class InMemoryMessageChannel : MessageChannelBase
+    {
+        private static readonly ConcurrentQueue<IMessage> Queue = new ConcurrentQueue<IMessage>();
 
-		public override void Clear()
-		{
-			TransportIsOpenFor("Clear");
+        public override void Clear()
+        {
+            TransportIsOpenFor("Clear");
 
-			Lock.EnterWriteLock();
 
-			try
-			{
-				MessageList.Clear();
-			}
-			finally
-			{
-				Lock.ExitWriteLock();
-			}
-		}
+            while (!Queue.IsEmpty)
+            {
+                IMessage m = null;
+                if (!Queue.TryDequeue(out m))
+                {
+                    throw new ApplicationException("Unable to clear InMemoryTransport");
+                }
+            }
+        }
 
-		public override ChannelState Close()
-		{
-			State = ChannelState.Closed;
+        public override ChannelState Close()
+        {
+            State = ChannelState.Closed;
 
-			return State;
-		}
+            return State;
+        }
 
-		public override ChannelState Open()
-		{
-			State = ChannelState.Open;
+        public override ChannelState Open()
+        {
+            State = ChannelState.Open;
 
-			return State;
-		}
+            return State;
+        }
 
-		public override IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout)
-		{
-			TransportIsOpenFor("ReceiveMany");
+        public override IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout)
+        {
+            TransportIsOpenFor("ReceiveMany");
 
-			var start = DateTime.Now;
+            var start = DateTime.Now;
 
-			var count = 0;
+            var count = 0;
 
-			Lock.EnterUpgradeableReadLock();
+            while (Queue.Count > 0 && DateTime.Now.Subtract(start) <= timeout && count < howMany)
+            {
+                IMessage message;
 
-			try
-			{
-				while (MessageList.Count > 0 && DateTime.Now.Subtract(start) <= timeout && count < howMany)
-				{
-					var message = MessageList.First.Value;
+                Queue.TryDequeue(out message);
 
-					Lock.EnterWriteLock();
+                if (message == null) continue;
 
-					try
-					{
-						MessageList.RemoveFirst();
-					}
-					finally
-					{
-						Lock.ExitWriteLock();
-					}
+                count++;
 
-					if (message == null) continue;
+                yield return message;
+            }
 
-					count++;
+            yield break;
+        }
 
-					yield return message;
-				}
+        public override IMessage ReceiveSingle(TimeSpan timeout)
+        {
+            TransportIsOpenFor("ReceiveSingle");
 
-				yield break;
-			}
-			finally
-			{
-				Lock.ExitUpgradeableReadLock();
-			}
-		}
+            return Queue.Count == 0 ? null : ReceiveMany(1, timeout).First();
+        }
 
-		public override IMessage ReceiveSingle(TimeSpan timeout)
-		{
-			TransportIsOpenFor("ReceiveSingle");
+        public override void Send(IMessage message)
+        {
+            TransportIsOpenFor("Send");
 
-			return ReceiveMany(1, timeout).First();
-		}
+            if (message.Identifier == Guid.Empty)
+            {
+                message.Identifier = Guid.NewGuid();
+            }
 
-		public override void Send(IMessage message)
-		{
-			TransportIsOpenFor("Send");
-
-			Lock.EnterWriteLock();
-
-			try
-			{
-				MessageList.AddLast(message);
-			}
-			finally
-			{
-				Lock.ExitWriteLock();
-			}
-		}
-	}
+            Queue.Enqueue(message);
+        }
+    }
 }

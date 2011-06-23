@@ -126,26 +126,19 @@ namespace Euclid.Common.Messaging
 
                     //find all processor types that implement IMessageProcessor<T>
                     //and get the first where T = record.MessageType
-                    var messageProcessorTypes = _messageProcessorTypes
-                                                    .Where
-                                                    (processorType =>
-                                                     processorType
-                                                         .GetInterface("IMessageProcessor`1")
-                                                         .GetGenericArguments()
-                                                         .Any(type => type == message.GetType()))
-                                                    .Select(processorType => processorType);
+                    var messageProcessorTypes = 
+                        _messageProcessorTypes
+                           .Where(type=>type.GetInterfaces().Where(i=>i.Name == "IMessageProcessor`1") != null)
+                           .Select(processorType=>processorType);
 
-                    //couldn't find the processor type
                     if (messageProcessorTypes.Count() == 0)
                     {
                         this.WriteErrorMessage("No message processors found in this dispatcher [{0}]", null, GetType().FullName);
 
-                        _publicationRegistry.MarkAsUnableToDispatch
-                            (record.Identifier, true,
-                             string.Format
-                                (
-                                 "Could not find a processor for the message type {0}",
-                                 record.MessageType.FullName));
+                        _publicationRegistry.MarkAsUnableToDispatch(
+                                                record.Identifier, 
+                                                true,
+                                                string.Format("No message processors found in this dispatcher [{0}]", GetType().FullName));
                     }
                     else
                     {
@@ -189,6 +182,16 @@ namespace Euclid.Common.Messaging
                         {
                             //call IMessageProcessor<T>.Process for the given message
                             var handler = messageProcessorType.GetMethod("Process", new[] {message.GetType()});
+
+                            if (handler == null)
+                            {
+                                var errorMessage = string.Format("No processor for a message of type '{0}' is registered with the dispatcher ({1})", message.GetType().FullName, GetType().FullName);
+
+                                this.WriteErrorMessage(errorMessage, null);
+                                _publicationRegistry.MarkAsUnableToDispatch(recordId, true, errorMessage);
+                                return;
+                            }
+                            
                             handler.Invoke(messageProcessor, new[] {message});
 
                             //message handled, mark it in the publicationRegistry
@@ -196,6 +199,7 @@ namespace Euclid.Common.Messaging
                         }
                         catch (Exception e)
                         {
+                            this.WriteErrorMessage("An error occurred processing the message", e);
                             _publicationRegistry.MarkAsFailed
                                 (recordId,
                                  e.Message, e.StackTrace);

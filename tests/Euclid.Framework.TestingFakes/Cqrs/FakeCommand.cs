@@ -20,6 +20,14 @@ namespace Euclid.Framework.TestingFakes.Cqrs
         public string CommandName { get; set; }
     }
 
+
+    public class FakeCommand3 : ICommand
+    {
+        public DateTime Created { get; set; }
+        public Guid CreatedBy { get; set; }
+        public Guid Identifier { get; set; }
+    }
+
     public class FakeCommandProcessor : ICommandProcessor<FakeCommand>, ICommandProcessor<FakeCommand2>
     {
         public static int FakeCommandCount;

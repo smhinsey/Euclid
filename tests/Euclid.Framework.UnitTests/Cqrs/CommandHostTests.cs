@@ -11,6 +11,7 @@ using Euclid.Common.Storage.Blob;
 using Euclid.Common.Storage.Record;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.TestingFakes.Cqrs;
+using log4net.Config;
 using NUnit.Framework;
 
 namespace Euclid.Framework.UnitTests.Cqrs
@@ -26,6 +27,8 @@ namespace Euclid.Framework.UnitTests.Cqrs
         [SetUp]
         public void Setup()
         {
+            BasicConfigurator.Configure();
+
             ConfigureContainer();
 
             _dispatcherSettings = new MessageDispatcherSettings();
@@ -99,7 +102,7 @@ namespace Euclid.Framework.UnitTests.Cqrs
 
             _container.Register(
                 Component
-                    .For<IMessageProcessor<FakeCommand>>()
+                    .For<FakeCommandProcessor>()
                     .ImplementedBy(typeof (FakeCommandProcessor)));
 
             _locator=  new WindsorServiceLocator(_container);
@@ -120,23 +123,38 @@ namespace Euclid.Framework.UnitTests.Cqrs
 
             channel.Send(recordOfCommandOne);
 
-            Thread.Sleep(2000);
+            Thread.Sleep(750);
 
             Assert.Null(invalid.ReceiveSingle(TimeSpan.MaxValue));
 
-            Assert.Greater(0, FakeCommandProcessor.FakeCommandCount);
+            Assert.Greater(FakeCommandProcessor.FakeCommandCount, 0);
 
             var recordOfCommandTwo = registry.CreateRecord(new FakeCommand2());
 
             channel.Send(recordOfCommandTwo);
 
-            Thread.Sleep(2000);
+            Thread.Sleep(750);
 
             Assert.Null(invalid.ReceiveSingle(TimeSpan.MaxValue));
         
-            Assert.Greater(0, FakeCommandProcessor.FakeCommandTwoCount);
-        }
+            Assert.Greater(FakeCommandProcessor.FakeCommandTwoCount, 0);
 
+            var recordOfCommandThree = registry.CreateRecord(new FakeCommand3());
+
+            channel.Send(recordOfCommandThree);
+
+            Thread.Sleep(750);
+
+            recordOfCommandThree = registry.GetRecord(recordOfCommandThree.Identifier);
+
+            Assert.True(recordOfCommandThree.Error);
+
+            Assert.False(recordOfCommandThree.Dispatched);
+
+            Assert.True(recordOfCommandThree.Completed);
+
+        }
+       
         private ICommandRegistry GetRegistry()
         {
             var repo = _locator.GetInstance<IBasicRecordRepository<CommandPublicationRecord>>();
