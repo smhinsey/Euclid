@@ -19,7 +19,7 @@ namespace Euclid.Common.Messaging
         private IMessageChannel _inputChannel;
         private IMessageChannel _invalidChannel;
         private Task _listenerTask;
-        private IList<Type> _messageProcessorTypes;
+        private IDictionary<Type, IMessageProcessor> _messageProcessors; 
 
         public MultitaskingMessageDispatcher(IServiceLocator container, TRegistry publicationRegistry)
         {
@@ -69,12 +69,23 @@ namespace Euclid.Common.Messaging
 
             _inputChannel = settings.InputChannel.Value;
             _invalidChannel = settings.InvalidChannel.Value;
-            _messageProcessorTypes = settings.MessageProcessorTypes.Value;
+            //_messageProcessorTypes = settings.MessageProcessorTypes.Value;
+
+            _messageProcessors = new Dictionary<Type, IMessageProcessor>();
+
+            foreach (var type in settings.MessageProcessorTypes.Value)
+            {
+                var processor = _container.GetInstance(type) as IMessageProcessor;
+
+                if (processor == null) continue;
+
+                _messageProcessors.Add(type, processor);
+            }
 
             this.WriteInfoMessage
                 (string.Format
                     ("Dispatcher configured with input channel type {0} and {1} message processors.",
-                     _inputChannel.GetType(), _messageProcessorTypes.Count));
+                     _inputChannel.GetType(), _messageProcessors.Count));
         }
 
         public void Disable()
@@ -120,43 +131,40 @@ namespace Euclid.Common.Messaging
                     continue;
                 }
 
-                try
+                var message = _publicationRegistry.GetMessage(record.MessageLocation, record.MessageType);
+                var processors = _messageProcessors.Values.Where(x => x.CanProcessMessage(message));
+
+                if (processors.Count() == 0)
                 {
-                    var message = _publicationRegistry.GetMessage(record.MessageLocation, record.MessageType);
+                    var msg = string.Format("The dispatcher {0} has no processors configured to handle a message of type {1}", GetType().FullName, message.GetType().FullName);
 
-                    //find all processor types that implement IMessageProcessor<T>
-                    //and get the first where T = record.MessageType
-                    var messageProcessorTypes = 
-                        _messageProcessorTypes
-                           .Where(type=>type.GetInterfaces().Where(i=>i.Name == "IMessageProcessor`1") != null)
-                           .Select(processorType=>processorType);
-
-                    if (messageProcessorTypes.Count() == 0)
-                    {
-                        this.WriteErrorMessage("No message processors found in this dispatcher [{0}]", null, GetType().FullName);
-
-                        _publicationRegistry.MarkAsUnableToDispatch(
-                                                record.Identifier, 
-                                                true,
-                                                string.Format("No message processors found in this dispatcher [{0}]", GetType().FullName));
-                    }
-                    else
-                    {
-                        foreach (var messageProcessorType in messageProcessorTypes)
-                        {
-                            ProcessMessage(record.Identifier, message, messageProcessorType);
-                        }
-                    }
+                    this.WriteErrorMessage(msg, null);
+                    _publicationRegistry.MarkAsUnableToDispatch(record.Identifier, true, msg);
+                    continue;
                 }
-                catch (ActivationException ae)
+
+                foreach (var messageProcessor in processors)
                 {
-                    this.WriteErrorMessage("Unable to dispatch message", ae);
-                    _publicationRegistry.MarkAsUnableToDispatch(record.Identifier, true, ae.Message);
-                }
-                catch (Exception e)
-                {
-                    this.WriteErrorMessage("Unable to dispatch message", e);
-                    _publicationRegistry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
+                    var processor = messageProcessor;
+                    Task.Factory.StartNew
+                         (() =>
+                         {
+                             try
+                             {
+                                 //call IMessageProcessor<T>.Process for the given message
+                                 var handler = processor.GetType().GetMethod("Process", new[] { message.GetType() });
+
+                                 handler.Invoke(processor, new[] { message });
+
+                                 //message handled, mark it in the publicationRegistry
+                                 _publicationRegistry.MarkAsComplete(record.Identifier);
+                             }
+                             catch (Exception e)
+                             {
+                                 this.WriteErrorMessage("An error occurred processing the message", e);
+                                 _publicationRegistry.MarkAsFailed (record.Identifier, e.Message, e.StackTrace);
+                             }
+                         });
                 }
             }
         }
@@ -170,43 +178,7 @@ namespace Euclid.Common.Messaging
                 Thread.Sleep((int) CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
             }
         }
-
-        private void ProcessMessage(Guid recordId, IMessage message, Type messageProcessorType)
-        {
-            var messageProcessor = _container.GetInstance(messageProcessorType); // throws an activation exception if the type can't be resolved
-
-            Task.Factory.StartNew
-                (() =>
-                    {
-                        try
-                        {
-                            //call IMessageProcessor<T>.Process for the given message
-                            var handler = messageProcessorType.GetMethod("Process", new[] {message.GetType()});
-
-                            if (handler == null)
-                            {
-                                var errorMessage = string.Format("No processor for a message of type '{0}' is registered with the dispatcher ({1})", message.GetType().FullName, GetType().FullName);
-
-                                this.WriteErrorMessage(errorMessage, null);
-                                _publicationRegistry.MarkAsUnableToDispatch(recordId, true, errorMessage);
-                                return;
-                            }
-                            
-                            handler.Invoke(messageProcessor, new[] {message});
-
-                            //message handled, mark it in the publicationRegistry
-                            _publicationRegistry.MarkAsComplete(recordId);
-                        }
-                        catch (Exception e)
-                        {
-                            this.WriteErrorMessage("An error occurred processing the message", e);
-                            _publicationRegistry.MarkAsFailed
-                                (recordId,
-                                 e.Message, e.StackTrace);
-                        }
-                    });
-        }
-    }
+   }
 
     public class MessageDispatcherException : Exception
     {

@@ -37,6 +37,11 @@ namespace Euclid.Framework.TestingFakes.Cqrs
             FakeCommandCount++;
         }
 
+        public bool CanProcessMessage(IMessage message)
+        {
+            return (message.GetType() == typeof (FakeCommand) || message.GetType() == typeof(FakeCommand2));
+        }
+
         public void Process(FakeCommand2 message)
         {
             FakeCommandTwoCount++;
