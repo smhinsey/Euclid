@@ -56,9 +56,11 @@ namespace Euclid.Common.UnitTests.ServiceHost
 			host.Start(serviceId);
 
 			Assert.AreEqual(ServiceHostState.Started, host.State);
-			Assert.AreEqual(HostedServiceState.Started, host.GetState(serviceId));
+            
+            Thread.Sleep(100); 
+            
+            Assert.AreEqual(HostedServiceState.Started, host.GetState(serviceId));
 
-			Thread.Sleep(100);
 
 			host.Cancel(serviceId);
 
@@ -82,9 +84,10 @@ namespace Euclid.Common.UnitTests.ServiceHost
 			host.Start(serviceId);
 
 			Assert.AreEqual(ServiceHostState.Started, host.State);
-			Assert.AreEqual(HostedServiceState.Started, host.GetState(serviceId));
 
 			Thread.Sleep(100);
+
+            Assert.AreEqual(HostedServiceState.Started, host.GetState(serviceId));
 
 			host.Cancel(serviceId);
 

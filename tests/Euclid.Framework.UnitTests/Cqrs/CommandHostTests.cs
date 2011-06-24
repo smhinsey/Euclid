@@ -72,6 +72,11 @@ namespace Euclid.Framework.UnitTests.Cqrs
                     .For<IMessageChannel>()
                     .Instance(new InMemoryMessageChannel())
                     .Named("invalid"));
+
+            _container.Register(
+                Component
+                    .For<FakeCommandProcessor>()
+                    .ImplementedBy(typeof(FakeCommandProcessor)));
         }
 
         [Test]
@@ -99,11 +104,6 @@ namespace Euclid.Framework.UnitTests.Cqrs
         public void CommandHostDispatches()
         {
             var processor = new FakeCommandProcessor();
-
-            _container.Register(
-                Component
-                    .For<FakeCommandProcessor>()
-                    .ImplementedBy(typeof (FakeCommandProcessor)));
 
             _locator=  new WindsorServiceLocator(_container);
 

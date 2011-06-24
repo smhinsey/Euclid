@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Euclid.Common.Logging;
@@ -19,7 +18,7 @@ namespace Euclid.Common.Messaging
         private IMessageChannel _inputChannel;
         private IMessageChannel _invalidChannel;
         private Task _listenerTask;
-        private IDictionary<Type, IMessageProcessor> _messageProcessors; 
+        private IEnumerable<IMessageProcessor> _messageProcessors; 
 
         public MultitaskingMessageDispatcher(IServiceLocator container, TRegistry publicationRegistry)
         {
@@ -69,9 +68,8 @@ namespace Euclid.Common.Messaging
 
             _inputChannel = settings.InputChannel.Value;
             _invalidChannel = settings.InvalidChannel.Value;
-            //_messageProcessorTypes = settings.MessageProcessorTypes.Value;
 
-            _messageProcessors = new Dictionary<Type, IMessageProcessor>();
+            _messageProcessors = new List<IMessageProcessor>();
 
             foreach (var type in settings.MessageProcessorTypes.Value)
             {
@@ -79,13 +77,12 @@ namespace Euclid.Common.Messaging
 
                 if (processor == null) continue;
 
-                _messageProcessors.Add(type, processor);
+                (_messageProcessors as List<IMessageProcessor>).Add(processor);
             }
 
             this.WriteInfoMessage
                 (string.Format
-                    ("Dispatcher configured with input channel type {0} and {1} message processors.",
-                     _inputChannel.GetType(), _messageProcessors.Count));
+                    ("Dispatcher configured with input channel type {0} and {1} message processors.", _inputChannel.GetType(), _messageProcessors.Count()));
         }
 
         public void Disable()
@@ -132,7 +129,7 @@ namespace Euclid.Common.Messaging
                 }
 
                 var message = _publicationRegistry.GetMessage(record.MessageLocation, record.MessageType);
-                var processors = _messageProcessors.Values.Where(x => x.CanProcessMessage(message));
+                var processors = _messageProcessors.Where(x => x.CanProcessMessage(message));
 
                 if (processors.Count() == 0)
                 {
@@ -179,12 +176,4 @@ namespace Euclid.Common.Messaging
             }
         }
    }
-
-    public class MessageDispatcherException : Exception
-    {
-        public MessageDispatcherException(string message)
-            : base(message)
-        {
-        }
-    }
 }
