@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
@@ -10,11 +11,17 @@ namespace Euclid.Framework.Cqrs.Configuration
 {
     public class Dispatcher
     {
-        private int _bs;
+        private int _bs = 25;
         private readonly TimeSpanConfiguration<Dispatcher> _tsc;
         private readonly IWindsorContainer _container;
         private readonly IList<Type> _messageProcessors;
-        
+
+        private bool _hasBlob;
+        private bool _hasRepo;
+        private bool _hasSerializer;
+        private bool _hasInput;
+        private bool _hasInvalid;
+
         public static Dispatcher Configure()
         {
             return new Dispatcher();
@@ -34,6 +41,8 @@ namespace Euclid.Framework.Cqrs.Configuration
                     .For<IBlobStorage>()
                     .ImplementedBy(typeof (T)));
 
+            _hasBlob = true;
+
             return this;
         }
 
@@ -44,6 +53,8 @@ namespace Euclid.Framework.Cqrs.Configuration
                     .For<IBasicRecordRepository<CommandPublicationRecord>>()
                     .ImplementedBy(typeof (T)));
 
+            _hasRepo = true;
+
             return this;
         }
 
@@ -53,6 +64,8 @@ namespace Euclid.Framework.Cqrs.Configuration
                 Component
                     .For<IMessageSerializer>()
                     .ImplementedBy(typeof (T)));
+
+            _hasSerializer = true;
 
             return this;
         }
@@ -65,6 +78,8 @@ namespace Euclid.Framework.Cqrs.Configuration
                     .ImplementedBy(typeof (T))
                     .Named("input"));
 
+            _hasInput = true;
+
             return this;
         }
 
@@ -75,6 +90,8 @@ namespace Euclid.Framework.Cqrs.Configuration
                     .For<IMessageChannel>()
                     .ImplementedBy(typeof(T))
                     .Named("invalid"));
+
+            _hasInvalid = true;
 
             return this;
         }
@@ -93,7 +110,7 @@ namespace Euclid.Framework.Cqrs.Configuration
 
         public TimeSpanConfiguration<Dispatcher> PollingInterval()
         {
-            return _tsc;
+           return _tsc;
         }
 
         public Dispatcher ProcessMessageInBatchesOf(int batchSize)
@@ -105,11 +122,15 @@ namespace Euclid.Framework.Cqrs.Configuration
 
         public static ICommandDispatcher GetConfiguredCommandDispatcher(Dispatcher config)
         {
+            EnsureDispatcherConfiguration(config);
+
+            var dispatchInterval = config._tsc == null ? new TimeSpan(0, 0, 0, 0, 1500) : (TimeSpan)config._tsc;
+            
             var settings = new MessageDispatcherSettings();
             settings.InvalidChannel.WithDefault(config._container.Resolve<IMessageChannel>("invalid"));
             settings.InputChannel.WithDefault(config._container.Resolve<IMessageChannel>("input"));
             settings.NumberOfMessagesToDispatchPerSlice.WithDefault(config._bs);
-            settings.DurationOfDispatchingSlice.WithDefault((TimeSpan)config._tsc);
+            settings.DurationOfDispatchingSlice.WithDefault(dispatchInterval);
             settings.MessageProcessorTypes.WithDefault(config._messageProcessors);
 
             var locator = new WindsorServiceLocator(config._container);
@@ -124,6 +145,54 @@ namespace Euclid.Framework.Cqrs.Configuration
             dispatcher.Configure(settings);
 
             return dispatcher;
+        }
+
+        private static void EnsureDispatcherConfiguration(Dispatcher config)
+        {
+            var configErrors = new List<string>();
+            if (!config._hasBlob)
+            {
+                configErrors.Add("No BlobStorage service configured, call BlobStorageAs<T> with the appropriate IBlobStorage implementation");
+            }
+
+            if (!config._hasInput)
+            {
+                configErrors.Add("No InputChannel configured, call InputChannelAs<T> with the appropriate IMessageChannel implementation");
+            }
+
+            if (!config._hasInvalid)
+            {
+                configErrors.Add("No InvalidChannel configured, call InvalidChannelAs<T> with the appropriate IMessageChannel implementation");
+            }
+
+            if (!config._hasRepo)
+            {
+                configErrors.Add("No RecordRepository configured, call RecordRepositoryAs<T> with the appropriate IBasicRecordRepository<CommandPublicationRecord>");
+            }
+
+            if (!config._hasSerializer)
+            {
+                configErrors.Add("No MessageSerializer configured, call CommandSerializerAs<T> with the appropriate IMessageSerializer implementation");
+            }
+
+            if (config._messageProcessors.Count == 0)
+            {
+                configErrors.Add("No CommandProcessors configured, add one or more CommandProcessors by calling AddCommandProcessor<T> with the appropriate IMessageProcessor implementation");
+            }
+
+            if (configErrors.Count > 0)
+            {
+                throw new CommandDispatcherConfigurationException(configErrors);
+            }
+        }
+    }
+
+    public class CommandDispatcherConfigurationException : Exception
+    {
+        public IEnumerable<string> ConfigurationErrors { get; private set; }
+        public CommandDispatcherConfigurationException(IList<string> errors)
+        {
+            ConfigurationErrors = errors;
         }
     }
 }
