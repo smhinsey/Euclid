@@ -15,7 +15,7 @@ namespace Euclid.Framework.Cqrs.Configuration
             return new CommandHostService();
         }
 
-        public CommandHostService AddDispatcher<T>(Dispatcher dispatcher)
+        public CommandHostService AddDispatcher(Dispatcher dispatcher)
         {
             _dispatchers.Add(Dispatcher.GetConfiguredCommandDispatcher(dispatcher));
 

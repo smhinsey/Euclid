@@ -171,7 +171,7 @@ namespace Euclid.Framework.UnitTests.Cqrs
         public void TestFluentConfiguration()
         {
             var c = CommandHostService.Configure()
-                    .AddDispatcher<CommandDispatcher>(
+                    .AddDispatcher(
                         Dispatcher.Configure()
                             .AddCommandProcessor<FakeCommandProcessor>()
                             .InputChannelAs<InMemoryMessageChannel>()
