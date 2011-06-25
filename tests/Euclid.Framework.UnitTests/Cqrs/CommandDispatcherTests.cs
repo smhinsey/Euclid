@@ -15,7 +15,7 @@ namespace Euclid.Framework.UnitTests.Cqrs
     public class CommandDispatcherTests
     {
         [Test]
-        public void CommandPublicationRecordCreates()
+        public void CommandRegistryTests()
         {
             var command = new FakeCommand { Identifier = Guid.NewGuid()};
             var registry = new CommandRegistry(new InMemoryRecordRepository<CommandPublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());

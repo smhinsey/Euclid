@@ -18,7 +18,8 @@ namespace Euclid.Common.Messaging
         private IMessageChannel _inputChannel;
         private IMessageChannel _invalidChannel;
         private Task _listenerTask;
-        private IEnumerable<IMessageProcessor> _messageProcessors; 
+        private IEnumerable<IMessageProcessor> _messageProcessors;
+        private bool _configured;
 
         public MultitaskingMessageDispatcher(IServiceLocator container, TRegistry publicationRegistry)
         {
@@ -83,23 +84,32 @@ namespace Euclid.Common.Messaging
             this.WriteInfoMessage
                 (string.Format
                     ("Dispatcher configured with input channel type {0} and {1} message processors.", _inputChannel.GetType(), _messageProcessors.Count()));
+
+            _configured = true;
         }
 
         public void Disable()
         {
+            DispatcherIsConfigured();
+
             // stop the input
             _cancellationToken.Cancel();
 
             State = MessageDispatcherState.Disabled;
 
-            // wait up to 10 seconds for the listener task to exit gracefully
-            _listenerTask.Wait(10000);
+            if (_listenerTask != null)
+            {
+                // wait up to 10 seconds for the listener task to exit gracefully
+                _listenerTask.Wait(10000);
+            }
 
             this.WriteInfoMessage("Dispatcher disabled.");
         }
 
         public void Enable()
         {
+            DispatcherIsConfigured();
+
             // SELF create a new task which periodically retrieves messages from the input channel
             // and spawns new tasks to process them. each processor should be resolved from the container on demand
             _inputChannel.Open();
@@ -111,6 +121,16 @@ namespace Euclid.Common.Messaging
             this.WriteInfoMessage("Dispatcher enabled.");
 
             _listenerTask = Task.Factory.StartNew(taskMethod => PollChannelForRecords(), _cancellationToken);
+        }
+
+        private void PollChannelForRecords()
+        {
+            while (!_cancellationToken.IsCancellationRequested)
+            {
+                Task.Factory.StartNew(dispatchTask => DispatchMessage(), _cancellationToken);
+
+                Thread.Sleep((int)CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
+            }
         }
 
         private void DispatchMessage()
@@ -159,21 +179,31 @@ namespace Euclid.Common.Messaging
                              catch (Exception e)
                              {
                                  this.WriteErrorMessage("An error occurred processing the message", e);
-                                 _publicationRegistry.MarkAsFailed (record.Identifier, e.Message, e.StackTrace);
+                                 _publicationRegistry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
                              }
                          });
                 }
             }
         }
 
-        private void PollChannelForRecords()
+        private void DispatcherIsConfigured()
         {
-            while (!_cancellationToken.IsCancellationRequested)
+            if (!_configured)
             {
-                Task.Factory.StartNew(dispatchTask => DispatchMessage(), _cancellationToken);
-
-                Thread.Sleep((int) CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
+                throw new DispatcherNotConfiguredException(string.Format("The dispatcher {0} has not been configured", GetType().FullName));
             }
         }
-   }
+    }
+
+    public class DispatcherNotConfiguredException : Exception
+    {
+        public DispatcherNotConfiguredException(string message) : base(message)
+        {
+        }
+
+        public DispatcherNotConfiguredException(string message, Exception inner) : base(message, inner)
+        {
+        }
+    }
 }
+

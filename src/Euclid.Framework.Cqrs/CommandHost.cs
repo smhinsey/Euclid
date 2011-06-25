@@ -1,4 +1,5 @@
-﻿using Euclid.Common.Logging;
+﻿using System.Collections.Generic;
+using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.Storage;
@@ -8,32 +9,29 @@ namespace Euclid.Framework.Cqrs
 {
     public class CommandHost : DefaultHostedService, ILoggingSource
     {
-        private readonly ICommandDispatcher _dispatcher;
+        private readonly IEnumerable<ICommandDispatcher> _dispatchers;
 
-        public CommandHost(IServiceLocator config, IMessageDispatcherSettings dispatcherSettings)
+        public CommandHost(IEnumerable<ICommandDispatcher> dispatchers)
         {
-            State = HostedServiceState.Unspecified; 
-            var repo = config.GetInstance<IBasicRecordRepository<CommandPublicationRecord>>();
-            var blob = config.GetInstance<IBlobStorage>();
-            var serializer = config.GetInstance<IMessageSerializer>();
+            State = HostedServiceState.Unspecified;
 
-            var registry = new CommandRegistry(repo, blob, serializer);
-
-            //TODO: instantiating the command dispatcher may be limiting
-            _dispatcher = new CommandDispatcher(config, registry);
-            _dispatcher.Configure(dispatcherSettings);
+            _dispatchers = new List<ICommandDispatcher>(dispatchers);
         }
 
         protected override void OnStart()
         {
-            _dispatcher.Enable();
-            this.WriteInfoMessage("Dispatcher enabled [{0}]", _dispatcher.GetType().FullName);
+            foreach(var d in _dispatchers)
+            {
+                d.Enable();
+            }
         }
 
         protected override void OnStop()
         {
-            _dispatcher.Disable();
-            this.WriteInfoMessage("Dispatcher disabled [{0}]", _dispatcher.GetType().FullName);
+            foreach(var d in _dispatchers)
+            {
+                d.Disable();
+            }
         }
     }
 }

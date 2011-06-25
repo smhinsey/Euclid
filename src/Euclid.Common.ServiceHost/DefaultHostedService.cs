@@ -1,6 +1,8 @@
+using Euclid.Common.Logging;
+
 namespace Euclid.Common.ServiceHost
 {
-	public abstract class DefaultHostedService : IHostedService
+	public abstract class DefaultHostedService : IHostedService, ILoggingSource
 	{
 		public string Name
 		{
@@ -14,12 +16,16 @@ namespace Euclid.Common.ServiceHost
 			State = HostedServiceState.Stopping;
 			OnStop();
 			State = HostedServiceState.Stopped;
-		}
+        
+            this.WriteInfoMessage("{0} stopped", GetType().FullName);
+        }
 
 		public void Start()
 		{
 			State = HostedServiceState.Started;
 			OnStart();
+
+            this.WriteInfoMessage("{0} started", GetType().FullName);
 		}
 
 		protected abstract void OnStart();
