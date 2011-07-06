@@ -12,11 +12,11 @@ namespace Euclid.Framework.Cqrs.Metadata
         public MetadataServiceSettings()
         {
             _assemblies = new OverridableSettingList<Assembly>();
+            _assemblies.WithDefault(new List<Assembly>());
         }
 
-        public MetadataServiceSettings(IEnumerable<Assembly> assemblies)
+        public MetadataServiceSettings(IEnumerable<Assembly> assemblies) : this()
         {
-            _assemblies = new OverridableSettingList<Assembly>();
             assemblies.ToList().ForEach(_assemblies.Add);
         }
 

@@ -24,7 +24,7 @@ namespace Euclid.Framework.Cqrs.Metadata
         {
             foreach (var assembly in settings.AssembliesContainingCommands.Value)
             {
-                _commandTypes = assembly.GetTypes().Where(x => x as ICommand != null).ToList();
+                _commandTypes = assembly.GetTypes().Where(x => x.GetInterface("ICommand") != null).ToList();
             }
         }
     }

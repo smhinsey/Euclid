@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Castle.MicroKernel.Registration;
 using CommonServiceLocator.WindsorAdapter;
@@ -10,6 +11,7 @@ using Castle.Windsor;
 using Euclid.Common.Storage.Blob;
 using Euclid.Common.Storage.Record;
 using Euclid.Framework.Cqrs;
+using Euclid.Framework.Cqrs.Configuration;
 using Euclid.Framework.TestingFakes.Cqrs;
 using log4net.Config;
 using NUnit.Framework;
@@ -22,7 +24,7 @@ namespace Euclid.Framework.UnitTests.Cqrs
         private IMessageDispatcherSettings _dispatcherSettings;
         private IWindsorContainer _container;
         private WindsorServiceLocator _locator;
-
+        //private IList<ICommandDispatcher> _dispatchers = new List<ICommandDispatcher>();
 
         [SetUp]
         public void Setup()
@@ -72,12 +74,29 @@ namespace Euclid.Framework.UnitTests.Cqrs
                     .For<IMessageChannel>()
                     .Instance(new InMemoryMessageChannel())
                     .Named("invalid"));
+
+            _container.Register(
+                Component
+                    .For<FakeCommandProcessor>()
+                    .ImplementedBy(typeof(FakeCommandProcessor)));
+        }
+
+        private CommandHost GetCommandHost()
+        {
+            var dispatchers = new List<ICommandDispatcher>();
+            var dispatcher = new CommandDispatcher(_locator, GetRegistry());
+
+                dispatcher.Configure(_dispatcherSettings);
+
+            dispatchers.Add(dispatcher);
+
+            return new CommandHost(dispatchers);
         }
 
         [Test]
         public void CommandHostStarts()
         {
-            var host = new CommandHost(_locator, _dispatcherSettings);
+            var host = GetCommandHost();
 
             host.Start();
 
@@ -86,28 +105,21 @@ namespace Euclid.Framework.UnitTests.Cqrs
         }
 
         [Test]
-        public void CommandHostStops()
+        public void CommandHostCancel()
         {
-            var host = new CommandHost(_locator, _dispatcherSettings);
+            var host = GetCommandHost();
 
-            host.Start();
+            host.Cancel();
 
-            Assert.AreEqual(HostedServiceState.Started, host.State);
+            Thread.Sleep(250);
+
+            Assert.AreEqual(HostedServiceState.Stopped, host.State);
         }
 
         [Test]
         public void CommandHostDispatches()
         {
-            var processor = new FakeCommandProcessor();
-
-            _container.Register(
-                Component
-                    .For<FakeCommandProcessor>()
-                    .ImplementedBy(typeof (FakeCommandProcessor)));
-
-            _locator=  new WindsorServiceLocator(_container);
-
-            var host = new CommandHost(_locator, _dispatcherSettings);
+            var host = GetCommandHost();
 
             host.Start();
 
@@ -155,6 +167,36 @@ namespace Euclid.Framework.UnitTests.Cqrs
 
         }
        
+        [Test]
+        public void TestFluentConfiguration()
+        {
+            var c = CommandHostService.Configure()
+                    .AddDispatcher(
+                        Dispatcher.Configure()
+                            .AddCommandProcessor<FakeCommandProcessor>()
+                            .InputChannelAs<InMemoryMessageChannel>()
+                            .InvalidChannelAs<InMemoryMessageChannel>()
+                            .BlobStorageAs<InMemoryBlobStorage>()
+                            .RecordRepositoryAs<InMemoryRecordRepository<CommandPublicationRecord>>()
+                            .CommandSerializerAs<JsonMessageSerializer>()
+                            .PollingInterval().Milliseconds(50)
+                            .ProcessMessageInBatchesOf(25))
+                    .GetCommandHost();
+
+            Assert.NotNull(c);
+
+            Assert.AreEqual(typeof(CommandHost), c.GetType());
+
+            c.Start();
+
+            Assert.AreEqual(HostedServiceState.Started, c.State);
+
+            c.Cancel();
+
+            Assert.AreEqual(HostedServiceState.Stopped, c.State);
+        }
+
+
         private ICommandRegistry GetRegistry()
         {
             var repo = _locator.GetInstance<IBasicRecordRepository<CommandPublicationRecord>>();

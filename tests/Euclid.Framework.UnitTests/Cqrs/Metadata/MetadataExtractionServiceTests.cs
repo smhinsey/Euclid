@@ -19,7 +19,7 @@ namespace Euclid.Framework.UnitTests.Cqrs.Metadata
             var svc = new MetadataService(settings);
             var commands = svc.GetVisibleCommandTypes();
 
-            Assert.AreEqual(2, commands.Count());
+            Assert.AreEqual(3, commands.Count());
             Assert.NotNull(commands.Where(t=>t == typeof(FakeCommand)).First());
             Assert.NotNull(commands.Where(t => t == typeof(FakeCommand2)).First());
         }
@@ -31,7 +31,7 @@ namespace Euclid.Framework.UnitTests.Cqrs.Metadata
             var svc = new MetadataService(settings);
             var commands = svc.GetVisibleCommandTypes();
 
-            Assert.AreEqual(2, commands.Count());
+            Assert.AreEqual(3, commands.Count());
             var fakeCommandType = commands.Where(t => t == typeof(FakeCommand)).First();
             Assert.NotNull(fakeCommandType);
 
