@@ -1,6 +1,8 @@
 ﻿using System;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
+using Euclid.Common.Storage.Binary;
+using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Registry;
 using NUnit.Framework;
 

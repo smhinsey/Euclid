@@ -1,5 +1,6 @@
 ﻿using System;
 using Euclid.Common.Storage;
+using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Storage;
 using NUnit.Framework;
 

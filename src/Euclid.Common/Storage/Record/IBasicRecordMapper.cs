@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Euclid.Common.Storage
+namespace Euclid.Common.Storage.Record
 {
 	public interface IBasicRecordMapper<TRecord>
 	{

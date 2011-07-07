@@ -1,7 +1,7 @@
 ﻿using System;
 using Euclid.Common.Logging;
 
-namespace Euclid.Common.Storage
+namespace Euclid.Common.Storage.Binary
 {
 	public interface IBlobStorage : ILoggingSource
 	{

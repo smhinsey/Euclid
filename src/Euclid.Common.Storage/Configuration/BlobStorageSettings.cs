@@ -1,4 +1,5 @@
 ﻿using Euclid.Common.Configuration;
+using Euclid.Common.Storage.Binary;
 
 namespace Euclid.Common.Storage.Configuration
 {

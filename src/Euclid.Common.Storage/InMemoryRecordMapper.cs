@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Euclid.Common.Messaging;
+using Euclid.Common.Storage.Record;
 
 namespace Euclid.Common.Storage
 {

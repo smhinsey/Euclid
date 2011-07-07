@@ -1,6 +1,6 @@
 ﻿using Euclid.Common.Configuration;
 
-namespace Euclid.Common.Storage
+namespace Euclid.Common.Storage.Binary
 {
 	public interface IBlobStorageSettings : IOverridableSettings
 	{

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Euclid.Common.Messaging;
+using Euclid.Common.Storage.Record;
 using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate

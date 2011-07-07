@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Euclid.Common.Extensions;
 using Euclid.Common.Logging;
+using Euclid.Common.Storage.Binary;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.StorageClient;
 

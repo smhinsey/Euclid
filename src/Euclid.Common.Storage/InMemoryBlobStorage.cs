@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Euclid.Common.Extensions;
+using Euclid.Common.Storage.Binary;
 
 namespace Euclid.Common.Storage
 {
