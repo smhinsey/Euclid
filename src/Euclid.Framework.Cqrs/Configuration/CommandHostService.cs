@@ -2,29 +2,30 @@
 
 namespace Euclid.Framework.Cqrs.Configuration
 {
-    public class CommandHostService
-    {
-        private readonly IList<ICommandDispatcher> _dispatchers;
-        private CommandHostService()
-        {
-            _dispatchers = new List<ICommandDispatcher>();
-        }
+	public class CommandHostService
+	{
+		private readonly IList<ICommandDispatcher> _dispatchers;
 
-        public static CommandHostService Configure()
-        {
-            return new CommandHostService();
-        }
+		private CommandHostService()
+		{
+			_dispatchers = new List<ICommandDispatcher>();
+		}
 
-        public CommandHostService AddDispatcher(Dispatcher dispatcher)
-        {
-            _dispatchers.Add(Dispatcher.GetConfiguredCommandDispatcher(dispatcher));
+		public CommandHostService AddDispatcher(Dispatcher dispatcher)
+		{
+			_dispatchers.Add(Dispatcher.GetConfiguredCommandDispatcher(dispatcher));
 
-            return this;
-        }
+			return this;
+		}
 
-        public CommandHost GetCommandHost()
-        {
-            return new CommandHost(_dispatchers);
-        }
-    }
+		public CommandHost GetCommandHost()
+		{
+			return new CommandHost(_dispatchers);
+		}
+
+		public static CommandHostService Configure()
+		{
+			return new CommandHostService();
+		}
+	}
 }

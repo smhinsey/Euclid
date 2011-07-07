@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using Euclid.Common.Messaging;
-using NHibernate;
 
-namespace Euclid.Common.Storage.NHibernate
+namespace Euclid.Common.Storage
 {
-	public class NHibernateRecordRepository<TRecord> : IBasicRecordRepository<TRecord>
+	public class InMemoryRecordMapper<TRecord> : IBasicRecordMapper<TRecord>
 		where TRecord : class, IPublicationRecord, new()
 	{
-		private readonly ISession _session;
+		protected static readonly ConcurrentDictionary<Guid, TRecord> Records = new ConcurrentDictionary<Guid, TRecord>();
 
-		public NHibernateRecordRepository(ISession session)
-		{
-			_session = session;
-		}
 
 		public TRecord Create(Uri messageLocation, Type messageType)
 		{
@@ -25,37 +20,34 @@ namespace Euclid.Common.Storage.NHibernate
 			             		MessageType = messageType
 			             	};
 
-			_session.Save(record);
-
-			_session.Flush();
+			Records.TryAdd(record.Identifier, record);
 
 			return record;
 		}
 
 		public TRecord Delete(Guid id)
 		{
-			var record = Retrieve(id);
+			TRecord record;
 
-			if (record == null)
-			{
-				throw new KeyNotFoundException();
-			}
-
-			_session.Delete(record);
+			Records.TryRemove(id, out record);
 
 			return record;
 		}
 
 		public TRecord Retrieve(Guid id)
 		{
-			return _session.Get<TRecord>(id);
+			TRecord record;
+
+			Records.TryGetValue(id, out record);
+
+			return record;
 		}
 
 		public TRecord Update(TRecord record)
 		{
-			_session.Update(record, record.Identifier);
+			Records.TryUpdate(record.Identifier, record, Records[record.Identifier]);
 
-			return Retrieve(record.Identifier);
+			return record;
 		}
 	}
 }

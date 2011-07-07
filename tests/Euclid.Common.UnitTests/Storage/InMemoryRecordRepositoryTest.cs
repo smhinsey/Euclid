@@ -1,13 +1,12 @@
 ﻿using Euclid.Common.Messaging;
-using Euclid.Common.Storage.Blob;
-using Euclid.Common.Storage.Record;
+using Euclid.Common.Storage;
 using Euclid.Common.TestingFakes.Storage;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Storage
 {
 	[TestFixture]
-	public class InMemoryRecordRepositoryTest
+	public class InMemoryRecordMapperTest
 	{
 		#region Setup/Teardown
 
@@ -16,14 +15,14 @@ namespace Euclid.Common.UnitTests.Storage
 		{
 			var storage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
-			var repo = new InMemoryRecordRepository<FakePublicationRecord>();
+			var repo = new InMemoryRecordMapper<FakePublicationRecord>();
 
-			_repoTester = new RecordRepositoryTester<InMemoryRecordRepository<FakePublicationRecord>>(repo);
+			_repoTester = new RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>>(repo);
 		}
 
 		#endregion
 
-		private RecordRepositoryTester<InMemoryRecordRepository<FakePublicationRecord>> _repoTester;
+		private RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>> _repoTester;
 
 		[Test]
 		public void TestCreate()

@@ -1,6 +1,6 @@
 ﻿using Euclid.Common.Configuration;
 
-namespace Euclid.Common.Storage.Blob
+namespace Euclid.Common.Storage.Configuration
 {
 	public class BlobStorageSettings : IBlobStorageSettings
 	{

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using Euclid.Common.Storage;
-using Euclid.Common.Storage.Blob;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Storage

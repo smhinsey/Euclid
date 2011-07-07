@@ -1,8 +1,6 @@
 ﻿using System;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
-using Euclid.Common.Storage.Blob;
-using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Registry;
 using NUnit.Framework;
 
@@ -13,7 +11,7 @@ namespace Euclid.Common.IntegrationTests
 	{
 		private readonly IPublicationRegistry<FakePublicationRecord> _publicationRegistry;
 		private readonly IMessageChannel _channel;
-		private readonly IBasicRecordRepository<FakePublicationRecord> _repository;
+		private readonly IBasicRecordMapper<FakePublicationRecord> _mapper;
 		private readonly IBlobStorage _blobStorage;
 		private readonly IMessageSerializer _serializer;
 
@@ -21,8 +19,8 @@ namespace Euclid.Common.IntegrationTests
 		{
 			_serializer = new JsonMessageSerializer();
 			_blobStorage = new InMemoryBlobStorage();
-			_repository = new InMemoryRecordRepository<FakePublicationRecord>();
-			_publicationRegistry = new FakeRegistry(_repository, _blobStorage, _serializer);
+			_mapper = new InMemoryRecordMapper<FakePublicationRecord>();
+			_publicationRegistry = new FakeRegistry(_mapper, _blobStorage, _serializer);
 			_channel = new InMemoryMessageChannel();
 		}
 

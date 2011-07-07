@@ -17,8 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{A2581B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Composites.Mvc", "src\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj", "{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{7E0C2D73-9444-48E1-847F-F7C6EB39F892}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.Cqrs", "src\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj", "{58D2349E-9C39-485E-861E-E337ACF186B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.EventSourcing", "src\Euclid.Framework.EventSourcing\Euclid.Framework.EventSourcing.csproj", "{35457F8B-839A-42B5-9CAC-CDDEFC7B7515}"
@@ -58,6 +56,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Common.Storage.Azure", "src\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj", "{9190A42E-76B2-4315-9374-DF188D78881B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Common.Messaging", "src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj", "{4F499249-B39C-4DD2-A75C-FE768E90579F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Common.Messaging.Azure", "src\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj", "{BB6CE799-54E1-4019-B918-992DCD78480A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -225,6 +225,12 @@ Global
 		{4F499249-B39C-4DD2-A75C-FE768E90579F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F499249-B39C-4DD2-A75C-FE768E90579F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F499249-B39C-4DD2-A75C-FE768E90579F}.Release|x86.ActiveCfg = Release|Any CPU
+		{BB6CE799-54E1-4019-B918-992DCD78480A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6CE799-54E1-4019-B918-992DCD78480A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6CE799-54E1-4019-B918-992DCD78480A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BB6CE799-54E1-4019-B918-992DCD78480A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB6CE799-54E1-4019-B918-992DCD78480A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB6CE799-54E1-4019-B918-992DCD78480A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -249,6 +255,7 @@ Global
 		{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E} = {A2581B83-5C10-4F25-A225-0EA00448352F}
 		{9190A42E-76B2-4315-9374-DF188D78881B} = {A2581B83-5C10-4F25-A225-0EA00448352F}
 		{4F499249-B39C-4DD2-A75C-FE768E90579F} = {A2581B83-5C10-4F25-A225-0EA00448352F}
+		{BB6CE799-54E1-4019-B918-992DCD78480A} = {A2581B83-5C10-4F25-A225-0EA00448352F}
 		{B66BD805-49C3-4DC8-B530-15776A68A48A} = {2FCA90C0-899D-436D-B9BD-895BDD049558}
 		{7F5BA044-DA1D-418D-A14F-708BC69C926E} = {2FCA90C0-899D-436D-B9BD-895BDD049558}
 		{793DEE69-90CB-45D7-94CC-FD2D7CE59790} = {2FCA90C0-899D-436D-B9BD-895BDD049558}

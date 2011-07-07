@@ -5,13 +5,13 @@ using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Storage
 {
-	public class RecordRepositoryTester<T> where T : IBasicRecordRepository<FakePublicationRecord>
+	public class RecordMapperTester<T> where T : IBasicRecordMapper<FakePublicationRecord>
 	{
 		private readonly Type _fakeType = typeof (FakeMessage);
 		private readonly Uri _fakeUri = new Uri("http://euclid.common.unittests.storage/fake/uri");
 		private readonly T _repo;
 
-		public RecordRepositoryTester(T repo)
+		public RecordMapperTester(T repo)
 		{
 			_repo = repo;
 		}

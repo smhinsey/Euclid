@@ -74,6 +74,10 @@
     <Compile Include="Transport\AzureTransportTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj">
+      <Project>{BB6CE799-54E1-4019-B918-992DCD78480A}</Project>
+      <Name>Euclid.Common.Messaging.Azure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>

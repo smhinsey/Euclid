@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using Euclid.Common.Extensions;
 
-namespace Euclid.Common.Storage.Blob
+namespace Euclid.Common.Storage
 {
 	public class InMemoryBlobStorage : IBlobStorage
 	{

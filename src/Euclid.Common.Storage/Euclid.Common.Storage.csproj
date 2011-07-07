@@ -40,11 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blob\Blob.cs" />
-    <Compile Include="Blob\BlobStorageSettings.cs" />
-    <Compile Include="Blob\InMemoryBlobStorage.cs" />
+    <Compile Include="Blob.cs" />
+    <Compile Include="Configuration\BlobStorageSettings.cs" />
+    <Compile Include="InMemoryBlobStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Record\InMemoryRecordRepository.cs" />
+    <Compile Include="InMemoryRecordMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">

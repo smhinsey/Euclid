@@ -2,7 +2,7 @@
 
 namespace Euclid.Common.Storage
 {
-	public interface IBasicRecordRepository<TRecord>
+	public interface IBasicRecordMapper<TRecord>
 	{
 		TRecord Create(Uri messageLocation, Type messageType);
 		TRecord Delete(Guid id);

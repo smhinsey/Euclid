@@ -68,7 +68,7 @@ namespace Euclid.Common.Storage.Azure
 			try
 			{
 				target.FetchAttributes();
-				blob = new Blob.Blob(target.Properties.ContentMD5, target.Properties.ETag)
+				blob = new Blob(target.Properties.ContentMD5, target.Properties.ETag)
 				       	{
 				       		Bytes = target.DownloadByteArray(),
 				       		ContentType = target.Properties.ContentType,

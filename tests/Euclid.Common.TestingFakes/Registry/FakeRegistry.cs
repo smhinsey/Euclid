@@ -5,7 +5,7 @@ namespace Euclid.Common.TestingFakes.Registry
 {
 	public class FakeRegistry : PublicationRegistry<FakePublicationRecord>
 	{
-		public FakeRegistry(IBasicRecordRepository<FakePublicationRecord> repository, IBlobStorage storage, IMessageSerializer serializer) : base(repository, storage, serializer)
+		public FakeRegistry(IBasicRecordMapper<FakePublicationRecord> mapper, IBlobStorage storage, IMessageSerializer serializer) : base(mapper, storage, serializer)
 		{
 		}
 	}

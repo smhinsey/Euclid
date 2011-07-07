@@ -2,8 +2,7 @@
 
 namespace Euclid.Framework.Cqrs
 {
-    public interface ICommandDispatcher : IMessageDispatcher
-    {
-        
-    }
+	public interface ICommandDispatcher : IMessageDispatcher
+	{
+	}
 }

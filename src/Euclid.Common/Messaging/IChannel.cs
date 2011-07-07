@@ -6,8 +6,8 @@ namespace Euclid.Common.Messaging
 	// SELF this should be combined with IMessageChannel, also this TSubType stuff is is super confusing
 	public interface IChannel<T>
 	{
-		ChannelState State { get; }
 		string ChannelName { get; set; }
+		ChannelState State { get; }
 		void Clear();
 		ChannelState Close();
 		ChannelState Open();

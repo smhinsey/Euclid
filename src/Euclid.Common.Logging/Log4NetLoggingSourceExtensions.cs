@@ -15,7 +15,7 @@ namespace Euclid.Common.Logging
 			}
 		}
 
-        public static void WriteErrorMessage(this ILoggingSource source, string message, Exception exception, params object[] formatParameters)
+		public static void WriteErrorMessage(this ILoggingSource source, string message, Exception exception, params object[] formatParameters)
 		{
 			var logger = LogManager.GetLogger(source.GetType());
 

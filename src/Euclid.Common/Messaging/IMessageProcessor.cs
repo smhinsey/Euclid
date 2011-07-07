@@ -13,6 +13,6 @@
 
 	public interface IMessageProcessor
 	{
-        bool CanProcessMessage(IMessage message);
-    }
+		bool CanProcessMessage(IMessage message);
+	}
 }

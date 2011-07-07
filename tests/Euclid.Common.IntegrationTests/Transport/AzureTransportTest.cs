@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 using Euclid.Common.Messaging;
-using Euclid.Common.Storage.Azure;
+using Euclid.Common.Messaging.Azure;
 using Euclid.Common.UnitTests.Transport;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
@@ -22,8 +22,7 @@ namespace Euclid.Common.IntegrationTests.Transport
 				 		var connectionString =
 				 			RoleEnvironment.IsAvailable
 				 				? RoleEnvironment.GetConfigurationSettingValue
-				 				  	(
-				 				  	 configurationKey)
+				 				  	(configurationKey)
 				 				: ConfigurationManager.AppSettings[configurationKey];
 
 				 		publishConfigurationValue(connectionString);

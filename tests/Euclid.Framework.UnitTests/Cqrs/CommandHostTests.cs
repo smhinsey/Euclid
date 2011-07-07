@@ -2,208 +2,213 @@
 using System.Collections.Generic;
 using System.Threading;
 using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
-using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.Storage;
-using Castle.Windsor;
-using Euclid.Common.Storage.Blob;
-using Euclid.Common.Storage.Record;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Cqrs.Configuration;
 using Euclid.Framework.TestingFakes.Cqrs;
-using log4net.Config;
 using NUnit.Framework;
+using log4net.Config;
 
 namespace Euclid.Framework.UnitTests.Cqrs
 {
-    [TestFixture]
-    public class CommandHostTests
-    {
-        private IMessageDispatcherSettings _dispatcherSettings;
-        private IWindsorContainer _container;
-        private WindsorServiceLocator _locator;
-        //private IList<ICommandDispatcher> _dispatchers = new List<ICommandDispatcher>();
+	[TestFixture]
+	public class CommandHostTests
+	{
+		#region Setup/Teardown
 
-        [SetUp]
-        public void Setup()
-        {
-            BasicConfigurator.Configure();
+		[SetUp]
+		public void Setup()
+		{
+			BasicConfigurator.Configure();
 
-            ConfigureContainer();
+			ConfigureContainer();
 
-            _dispatcherSettings = new MessageDispatcherSettings();
+			_dispatcherSettings = new MessageDispatcherSettings();
 
-            _dispatcherSettings.InvalidChannel.WithDefault(_container.Resolve<IMessageChannel>("invalid"));
-            _dispatcherSettings.InputChannel.WithDefault(_container.Resolve<IMessageChannel>("input"));
-            _dispatcherSettings.NumberOfMessagesToDispatchPerSlice.WithDefault(20);
-            _dispatcherSettings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 500));
-            _dispatcherSettings.MessageProcessorTypes.WithDefault(new System.Collections.Generic.List<Type> {typeof (FakeCommandProcessor)});
+			_dispatcherSettings.InvalidChannel.WithDefault(_container.Resolve<IMessageChannel>("invalid"));
+			_dispatcherSettings.InputChannel.WithDefault(_container.Resolve<IMessageChannel>("input"));
+			_dispatcherSettings.NumberOfMessagesToDispatchPerSlice.WithDefault(20);
+			_dispatcherSettings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 500));
+			_dispatcherSettings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeCommandProcessor)});
 
-            _locator = new WindsorServiceLocator(_container);
+			_locator = new WindsorServiceLocator(_container);
+		}
 
-        }
+		#endregion
 
-        private void ConfigureContainer()
-        {
-            _container = new WindsorContainer();
-            _container.Register(
-                Component
-                    .For<IBasicRecordRepository<CommandPublicationRecord>>()
-                    .Instance(new InMemoryRecordRepository<CommandPublicationRecord>()));
+		private IMessageDispatcherSettings _dispatcherSettings;
+		private IWindsorContainer _container;
+		private WindsorServiceLocator _locator;
+		//private IList<ICommandDispatcher> _dispatchers = new List<ICommandDispatcher>();
 
-            _container.Register(
-                Component
-                    .For<IBlobStorage>()
-                    .Instance(new InMemoryBlobStorage()));
+		private void ConfigureContainer()
+		{
+			_container = new WindsorContainer();
+			_container.Register
+				(
+				 Component
+				 	.For<IBasicRecordMapper<CommandPublicationRecord>>()
+				 	.Instance(new InMemoryRecordMapper<CommandPublicationRecord>()));
 
-            _container.Register(
-                Component
-                    .For<IMessageSerializer>()
-                    .Instance(new JsonMessageSerializer()));
+			_container.Register
+				(
+				 Component
+				 	.For<IBlobStorage>()
+				 	.Instance(new InMemoryBlobStorage()));
 
-            _container.Register(
-                Component
-                    .For<IMessageChannel>()
-                    .Instance(new InMemoryMessageChannel())
-                    .Named("input"));
+			_container.Register
+				(
+				 Component
+				 	.For<IMessageSerializer>()
+				 	.Instance(new JsonMessageSerializer()));
 
-            _container.Register(
-                Component
-                    .For<IMessageChannel>()
-                    .Instance(new InMemoryMessageChannel())
-                    .Named("invalid"));
+			_container.Register
+				(
+				 Component
+				 	.For<IMessageChannel>()
+				 	.Instance(new InMemoryMessageChannel())
+				 	.Named("input"));
 
-            _container.Register(
-                Component
-                    .For<FakeCommandProcessor>()
-                    .ImplementedBy(typeof(FakeCommandProcessor)));
-        }
+			_container.Register
+				(
+				 Component
+				 	.For<IMessageChannel>()
+				 	.Instance(new InMemoryMessageChannel())
+				 	.Named("invalid"));
 
-        private CommandHost GetCommandHost()
-        {
-            var dispatchers = new List<ICommandDispatcher>();
-            var dispatcher = new CommandDispatcher(_locator, GetRegistry());
+			_container.Register
+				(
+				 Component
+				 	.For<FakeCommandProcessor>()
+				 	.ImplementedBy(typeof (FakeCommandProcessor)));
+		}
 
-                dispatcher.Configure(_dispatcherSettings);
+		private CommandHost GetCommandHost()
+		{
+			var dispatchers = new List<ICommandDispatcher>();
+			var dispatcher = new CommandDispatcher(_locator, GetRegistry());
 
-            dispatchers.Add(dispatcher);
+			dispatcher.Configure(_dispatcherSettings);
 
-            return new CommandHost(dispatchers);
-        }
+			dispatchers.Add(dispatcher);
 
-        [Test]
-        public void CommandHostStarts()
-        {
-            var host = GetCommandHost();
+			return new CommandHost(dispatchers);
+		}
 
-            host.Start();
+		private ICommandRegistry GetRegistry()
+		{
+			var repo = _locator.GetInstance<IBasicRecordMapper<CommandPublicationRecord>>();
+			var blob = _locator.GetInstance<IBlobStorage>();
+			var serializer = _locator.GetInstance<IMessageSerializer>();
 
-            Assert.AreEqual(HostedServiceState.Started, host.State);
-            //container.Register<
-        }
+			return new CommandRegistry(repo, blob, serializer);
+		}
 
-        [Test]
-        public void CommandHostCancel()
-        {
-            var host = GetCommandHost();
+		[Test]
+		public void CommandHostCancel()
+		{
+			var host = GetCommandHost();
 
-            host.Cancel();
+			host.Cancel();
 
-            Thread.Sleep(250);
+			Thread.Sleep(250);
 
-            Assert.AreEqual(HostedServiceState.Stopped, host.State);
-        }
+			Assert.AreEqual(HostedServiceState.Stopped, host.State);
+		}
 
-        [Test]
-        public void CommandHostDispatches()
-        {
-            var host = GetCommandHost();
+		[Test]
+		public void CommandHostDispatches()
+		{
+			var host = GetCommandHost();
 
-            host.Start();
+			host.Start();
 
-            var channel = _container.Resolve<IMessageChannel>("input");
+			var channel = _container.Resolve<IMessageChannel>("input");
 
-            var invalid = _container.Resolve<IMessageChannel>("invalid");
+			var invalid = _container.Resolve<IMessageChannel>("invalid");
 
-            var registry = GetRegistry();
+			var registry = GetRegistry();
 
-            channel.Open();
+			channel.Open();
 
-            var recordOfCommandOne = registry.CreateRecord(new FakeCommand());
+			var recordOfCommandOne = registry.CreateRecord(new FakeCommand());
 
-            channel.Send(recordOfCommandOne);
+			channel.Send(recordOfCommandOne);
 
-            Thread.Sleep(750);
+			Thread.Sleep(750);
 
-            Assert.Null(invalid.ReceiveSingle(TimeSpan.MaxValue));
+			Assert.Null(invalid.ReceiveSingle(TimeSpan.MaxValue));
 
-            Assert.Greater(FakeCommandProcessor.FakeCommandCount, 0);
+			Assert.Greater(FakeCommandProcessor.FakeCommandCount, 0);
 
-            var recordOfCommandTwo = registry.CreateRecord(new FakeCommand2());
+			var recordOfCommandTwo = registry.CreateRecord(new FakeCommand2());
 
-            channel.Send(recordOfCommandTwo);
+			channel.Send(recordOfCommandTwo);
 
-            Thread.Sleep(750);
+			Thread.Sleep(750);
 
-            Assert.Null(invalid.ReceiveSingle(TimeSpan.MaxValue));
-        
-            Assert.Greater(FakeCommandProcessor.FakeCommandTwoCount, 0);
+			Assert.Null(invalid.ReceiveSingle(TimeSpan.MaxValue));
 
-            var recordOfCommandThree = registry.CreateRecord(new FakeCommand3());
+			Assert.Greater(FakeCommandProcessor.FakeCommandTwoCount, 0);
 
-            channel.Send(recordOfCommandThree);
+			var recordOfCommandThree = registry.CreateRecord(new FakeCommand3());
 
-            Thread.Sleep(750);
+			channel.Send(recordOfCommandThree);
 
-            recordOfCommandThree = registry.GetRecord(recordOfCommandThree.Identifier);
+			Thread.Sleep(750);
 
-            Assert.True(recordOfCommandThree.Error);
+			recordOfCommandThree = registry.GetRecord(recordOfCommandThree.Identifier);
 
-            Assert.False(recordOfCommandThree.Dispatched);
+			Assert.True(recordOfCommandThree.Error);
 
-            Assert.True(recordOfCommandThree.Completed);
+			Assert.False(recordOfCommandThree.Dispatched);
 
-        }
-       
-        [Test]
-        public void TestFluentConfiguration()
-        {
-            var c = CommandHostService.Configure()
-                    .AddDispatcher(
-                        Dispatcher.Configure()
-                            .AddCommandProcessor<FakeCommandProcessor>()
-                            .InputChannelAs<InMemoryMessageChannel>()
-                            .InvalidChannelAs<InMemoryMessageChannel>()
-                            .BlobStorageAs<InMemoryBlobStorage>()
-                            .RecordRepositoryAs<InMemoryRecordRepository<CommandPublicationRecord>>()
-                            .CommandSerializerAs<JsonMessageSerializer>()
-                            .PollingInterval().Milliseconds(50)
-                            .ProcessMessageInBatchesOf(25))
-                    .GetCommandHost();
+			Assert.True(recordOfCommandThree.Completed);
+		}
 
-            Assert.NotNull(c);
+		[Test]
+		public void CommandHostStarts()
+		{
+			var host = GetCommandHost();
 
-            Assert.AreEqual(typeof(CommandHost), c.GetType());
+			host.Start();
 
-            c.Start();
+			Assert.AreEqual(HostedServiceState.Started, host.State);
+			//container.Register<
+		}
 
-            Assert.AreEqual(HostedServiceState.Started, c.State);
+		[Test]
+		public void TestFluentConfiguration()
+		{
+			var c = CommandHostService.Configure()
+				.AddDispatcher
+				(
+				 Dispatcher.Configure()
+				 	.AddCommandProcessor<FakeCommandProcessor>()
+				 	.InputChannelAs<InMemoryMessageChannel>()
+				 	.InvalidChannelAs<InMemoryMessageChannel>()
+				 	.BlobStorageAs<InMemoryBlobStorage>()
+				 	.RecordRepositoryAs<InMemoryRecordMapper<CommandPublicationRecord>>()
+				 	.CommandSerializerAs<JsonMessageSerializer>()
+				 	.PollingInterval().Milliseconds(50)
+				 	.ProcessMessageInBatchesOf(25))
+				.GetCommandHost();
 
-            c.Cancel();
+			Assert.NotNull(c);
 
-            Assert.AreEqual(HostedServiceState.Stopped, c.State);
-        }
+			Assert.AreEqual(typeof (CommandHost), c.GetType());
 
+			c.Start();
 
-        private ICommandRegistry GetRegistry()
-        {
-            var repo = _locator.GetInstance<IBasicRecordRepository<CommandPublicationRecord>>();
-            var blob = _locator.GetInstance<IBlobStorage>();
-            var serializer = _locator.GetInstance<IMessageSerializer>();
+			Assert.AreEqual(HostedServiceState.Started, c.State);
 
-            return new CommandRegistry(repo, blob, serializer);
-        }
-    }
+			c.Cancel();
+
+			Assert.AreEqual(HostedServiceState.Stopped, c.State);
+		}
+	}
 }

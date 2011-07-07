@@ -16,16 +16,16 @@ namespace Euclid.Common.ServiceHost
 			State = HostedServiceState.Stopping;
 			OnStop();
 			State = HostedServiceState.Stopped;
-        
-            this.WriteInfoMessage("{0} stopped", GetType().FullName);
-        }
+
+			this.WriteInfoMessage("{0} stopped", GetType().FullName);
+		}
 
 		public void Start()
 		{
 			State = HostedServiceState.Started;
 			OnStart();
 
-            this.WriteInfoMessage("{0} started", GetType().FullName);
+			this.WriteInfoMessage("{0} started", GetType().FullName);
 		}
 
 		protected abstract void OnStart();

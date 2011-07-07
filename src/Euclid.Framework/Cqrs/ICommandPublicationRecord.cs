@@ -2,7 +2,7 @@
 
 namespace Euclid.Framework.Cqrs
 {
-    public interface ICommandPublicationRecord : IPublicationRecord
-    {
-    }
+	public interface ICommandPublicationRecord : IPublicationRecord
+	{
+	}
 }

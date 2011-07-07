@@ -2,7 +2,7 @@
 {
 	public enum HostedServiceState
 	{
-        Unspecified,
+		Unspecified,
 		Started,
 		Stopping,
 		Stopped,

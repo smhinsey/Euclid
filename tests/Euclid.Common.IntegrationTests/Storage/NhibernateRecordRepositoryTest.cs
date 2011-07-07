@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Euclid.Common.Messaging;
-using Euclid.Common.Storage.Blob;
+using Euclid.Common.Storage;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.TestingFakes.Storage;
 using Euclid.Common.UnitTests.Storage;
@@ -18,7 +18,7 @@ namespace Euclid.Common.IntegrationTests.Storage
 {
 	public class NhibernateRecordRepositoryTest
 	{
-		private RecordRepositoryTester<NHibernateRecordRepository<FakePublicationRecord>> _repoTester;
+		private RecordMapperTester<NHibernateRecordMapper<FakePublicationRecord>> _repoTester;
 		private ISession _session;
 
 		public void ConfigureDatabase()
@@ -46,9 +46,9 @@ namespace Euclid.Common.IntegrationTests.Storage
 
 			var storage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
-			var repo = new NHibernateRecordRepository<FakePublicationRecord>(_session);
+			var repo = new NHibernateRecordMapper<FakePublicationRecord>(_session);
 
-			_repoTester = new RecordRepositoryTester<NHibernateRecordRepository<FakePublicationRecord>>(repo);
+			_repoTester = new RecordMapperTester<NHibernateRecordMapper<FakePublicationRecord>>(repo);
 		}
 
 		[Test]

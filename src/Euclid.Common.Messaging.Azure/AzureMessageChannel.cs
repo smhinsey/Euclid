@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ServiceModel.Security;
 using System.Text;
 using Euclid.Common.Extensions;
-using Euclid.Common.Messaging;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.StorageClient;
 
-namespace Euclid.Common.Storage.Azure
+namespace Euclid.Common.Messaging.Azure
 {
 	public class AzureMessageChannel : MessageChannelBase
 	{
@@ -110,7 +108,7 @@ namespace Euclid.Common.Storage.Azure
 
 			if ((msg.Length/1024) > 8)
 			{
-				throw new MessageSecurityException("The message is larger than 8k and can't be saved to the azure channel");
+				throw new Exception("The message is larger than 8k and can't be saved to the azure channel");
 			}
 
 			return new CloudQueueMessage(msg);
@@ -122,7 +120,7 @@ namespace Euclid.Common.Storage.Azure
 			var queueClient = storageAccount.CreateCloudQueueClient();
 
 			_queue = queueClient.GetQueueReference(channelName);
-            _queue.CreateIfNotExist();
+			_queue.CreateIfNotExist();
 		}
 
 		private static void ValidNumberOfMessagesRequested(int howMany)

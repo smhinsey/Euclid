@@ -1,7 +1,6 @@
 ﻿using System;
 using Euclid.Common.Messaging;
-using Euclid.Common.Storage.Blob;
-using Euclid.Common.Storage.Record;
+using Euclid.Common.Storage;
 using Euclid.Common.TestingFakes.Storage;
 using NUnit.Framework;
 
@@ -13,7 +12,7 @@ namespace Euclid.Common.UnitTests.Publishing
 		[Test]
 		public void Publishes()
 		{
-			var repository = new InMemoryRecordRepository<FakePublicationRecord>();
+			var repository = new InMemoryRecordMapper<FakePublicationRecord>();
 			var blobStorage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
 			var transport = new InMemoryMessageChannel();

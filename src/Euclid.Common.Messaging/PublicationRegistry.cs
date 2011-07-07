@@ -1,6 +1,5 @@
 ﻿using System;
 using Euclid.Common.Storage;
-using Euclid.Common.Storage.Blob;
 
 namespace Euclid.Common.Messaging
 {
@@ -8,13 +7,13 @@ namespace Euclid.Common.Messaging
 		where TRecord : class, IPublicationRecord, new()
 	{
 		protected readonly IBlobStorage BlobStorage;
-		protected readonly IBasicRecordRepository<TRecord> Repository;
+		protected readonly IBasicRecordMapper<TRecord> Mapper;
 		protected readonly IMessageSerializer Serializer;
 
 
-		public PublicationRegistry(IBasicRecordRepository<TRecord> repository, IBlobStorage blobStorage, IMessageSerializer serializer)
+		public PublicationRegistry(IBasicRecordMapper<TRecord> mapper, IBlobStorage blobStorage, IMessageSerializer serializer)
 		{
-			Repository = repository;
+			Mapper = mapper;
 			BlobStorage = blobStorage;
 			Serializer = serializer;
 		}
@@ -29,7 +28,7 @@ namespace Euclid.Common.Messaging
 
 			var uri = BlobStorage.Put(msgBlob, message.GetType().FullName);
 
-			return Repository.Create(uri, message.GetType());
+			return Mapper.Create(uri, message.GetType());
 		}
 
 		public virtual IMessage GetMessage(Uri messageLocation, Type recordType)
@@ -77,7 +76,7 @@ namespace Euclid.Common.Messaging
 
 		public TRecord GetRecord(Guid identifier)
 		{
-			return Repository.Retrieve(identifier);
+			return Mapper.Retrieve(identifier);
 		}
 
 		private TRecord UpdateRecord(Guid id, Action<TRecord> actOnRecord)
@@ -86,7 +85,7 @@ namespace Euclid.Common.Messaging
 
 			actOnRecord(record);
 
-			return Repository.Update(record);
+			return Mapper.Update(record);
 		}
 	}
 }

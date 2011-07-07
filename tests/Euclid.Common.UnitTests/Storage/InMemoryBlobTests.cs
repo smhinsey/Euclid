@@ -1,4 +1,5 @@
-﻿using Euclid.Common.Storage.Blob;
+﻿using Euclid.Common.Storage;
+using Euclid.Common.Storage.Configuration;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Storage

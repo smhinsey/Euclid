@@ -11,13 +11,13 @@ namespace Euclid.Common.Messaging
 			ChannelName = Guid.NewGuid().ToString();
 		}
 
-		public ChannelState State { get; protected set; }
 		public string ChannelName { get; set; }
+		public ChannelState State { get; protected set; }
 		public abstract void Clear();
 		public abstract ChannelState Close();
 		public abstract ChannelState Open();
 		public abstract IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout);
-        public abstract IMessage ReceiveSingle(TimeSpan timeout);
+		public abstract IMessage ReceiveSingle(TimeSpan timeout);
 		public abstract void Send(IMessage message);
 
 		protected void TransportIsOpenFor(string operationName)

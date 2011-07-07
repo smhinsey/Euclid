@@ -1,5 +1,5 @@
 ﻿using Euclid.Common.Storage.Azure;
-using Euclid.Common.Storage.Blob;
+using Euclid.Common.Storage.Configuration;
 using Euclid.Common.UnitTests.Storage;
 using Microsoft.WindowsAzure;
 using NUnit.Framework;

@@ -65,7 +65,7 @@
     <Compile Include="Messaging\IPublisher.cs" />
     <Compile Include="Storage\IBlob.cs" />
     <Compile Include="Storage\IBlobStorageSettings.cs" />
-    <Compile Include="Storage\IBasicRecordRepository.cs" />
+    <Compile Include="Storage\IBasicRecordMapper.cs" />
     <Compile Include="Messaging\IPublicationRecord.cs" />
     <Compile Include="Messaging\IPublicationRegistry.cs" />
     <Compile Include="ServiceHost\HostedServiceNotFoundException.cs" />
