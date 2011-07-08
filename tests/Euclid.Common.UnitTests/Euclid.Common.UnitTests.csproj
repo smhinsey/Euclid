@@ -76,8 +76,8 @@
     <Compile Include="Serialization\TestJsonSerialization.cs" />
     <Compile Include="Storage\BlobTester.cs" />
     <Compile Include="Storage\InMemoryBlobTests.cs" />
-    <Compile Include="Storage\InMemoryRecordRepositoryTest.cs" />
-    <Compile Include="Storage\RecordRepositoryTest.cs" />
+    <Compile Include="Storage\InMemoryRecordMapperTest.cs" />
+    <Compile Include="Storage\RecordMapperTester.cs" />
     <Compile Include="Transport\InMemoryTransportTests.cs" />
     <Compile Include="Transport\MessageDispatcherTests.cs" />
     <Compile Include="Transport\TestTransport.cs" />

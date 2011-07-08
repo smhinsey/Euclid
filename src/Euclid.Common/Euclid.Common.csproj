@@ -64,8 +64,12 @@
     <Compile Include="Logging\ILoggingSource.cs" />
     <Compile Include="Messaging\IPublisher.cs" />
     <Compile Include="Storage\IBlob.cs" />
-    <Compile Include="Storage\IBlobStorageSettings.cs" />
-    <Compile Include="Storage\IBasicRecordMapper.cs" />
+    <Compile Include="Storage\Binary\IBlobStorageSettings.cs" />
+    <Compile Include="Storage\Record\FindRecordByDateCreated.cs" />
+    <Compile Include="Storage\Record\FindRecordByDateCreatedRange.cs" />
+    <Compile Include="Storage\Record\FindRecordByDateModified.cs" />
+    <Compile Include="Storage\Record\FindRecordByDateModifiedRange.cs" />
+    <Compile Include="Storage\Record\IBasicRecordMapper.cs" />
     <Compile Include="Messaging\IPublicationRecord.cs" />
     <Compile Include="Messaging\IPublicationRegistry.cs" />
     <Compile Include="ServiceHost\HostedServiceNotFoundException.cs" />
@@ -74,7 +78,7 @@
     <Compile Include="ServiceHost\IServiceHost.cs" />
     <Compile Include="ServiceHost\ServiceHostState.cs" />
     <Compile Include="Messaging\IMessageSerializer.cs" />
-    <Compile Include="Storage\IBlobStorage.cs" />
+    <Compile Include="Storage\Binary\IBlobStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Messaging\IMessage.cs" />
     <Compile Include="Messaging\IMessageDispatcher.cs" />
@@ -84,6 +88,10 @@
     <Compile Include="Messaging\IChannel.cs" />
     <Compile Include="Messaging\MessageDispatcherState.cs" />
     <Compile Include="Messaging\ChannelState.cs" />
+    <Compile Include="Storage\IQuery.cs" />
+    <Compile Include="Storage\Record\IQueryableRecordMapper.cs" />
+    <Compile Include="Storage\IRecord.cs" />
+    <Compile Include="Storage\Record\FindRecordById.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
