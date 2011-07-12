@@ -9,11 +9,11 @@ namespace Euclid.Common.Messaging
 		where TRecord : class, IPublicationRecord, new()
 	{
 		protected readonly IBlobStorage BlobStorage;
-		protected readonly IBasicRecordMapper<TRecord> Mapper;
+		protected readonly IRecordMapper<TRecord> Mapper;
 		protected readonly IMessageSerializer Serializer;
 
 
-		public PublicationRegistry(IBasicRecordMapper<TRecord> mapper, IBlobStorage blobStorage, IMessageSerializer serializer)
+		public PublicationRegistry(IRecordMapper<TRecord> mapper, IBlobStorage blobStorage, IMessageSerializer serializer)
 		{
 			Mapper = mapper;
 			BlobStorage = blobStorage;

@@ -8,7 +8,7 @@ namespace Euclid.Framework.Cqrs
 {
 	public class CommandRegistry : PublicationRegistry<CommandPublicationRecord>, ICommandRegistry
 	{
-		public CommandRegistry(IBasicRecordMapper<CommandPublicationRecord> mapper, IBlobStorage blobStorage, IMessageSerializer serializer)
+		public CommandRegistry(IRecordMapper<CommandPublicationRecord> mapper, IBlobStorage blobStorage, IMessageSerializer serializer)
 			: base(mapper, blobStorage, serializer)
 		{
 		}

@@ -69,7 +69,7 @@
     <Compile Include="Storage\Record\FindRecordByDateCreatedRange.cs" />
     <Compile Include="Storage\Record\FindRecordByDateModified.cs" />
     <Compile Include="Storage\Record\FindRecordByDateModifiedRange.cs" />
-    <Compile Include="Storage\Record\IBasicRecordMapper.cs" />
+    <Compile Include="Storage\Record\IRecordMapper.cs" />
     <Compile Include="Messaging\IPublicationRecord.cs" />
     <Compile Include="Messaging\IPublicationRegistry.cs" />
     <Compile Include="ServiceHost\HostedServiceNotFoundException.cs" />
@@ -89,7 +89,7 @@
     <Compile Include="Messaging\MessageDispatcherState.cs" />
     <Compile Include="Messaging\ChannelState.cs" />
     <Compile Include="Storage\IQuery.cs" />
-    <Compile Include="Storage\Record\IQueryableRecordMapper.cs" />
+    <Compile Include="Storage\Record\IRecordFinder.cs" />
     <Compile Include="Storage\IRecord.cs" />
     <Compile Include="Storage\Record\FindRecordById.cs" />
   </ItemGroup>

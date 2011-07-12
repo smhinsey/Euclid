@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Storage
 {
-	public class RecordMapperTester<T> where T : IBasicRecordMapper<FakePublicationRecord>
+	public class RecordMapperTester<T> where T : IRecordMapper<FakePublicationRecord>
 	{
 		private readonly Type _fakeType = typeof (FakeMessage);
 		private readonly Uri _fakeUri = new Uri("http://euclid.common.unittests.storage/fake/uri");

@@ -50,7 +50,7 @@
     <Compile Include="PublicationRegistry.cs" />
     <Compile Include="Envelope.cs" />
     <Compile Include="EnvelopeConverter.cs" />
-    <Compile Include="EuclidPublisher.cs" />
+    <Compile Include="DefaultPublisher.cs" />
     <Compile Include="InMemoryMessageChannel.cs" />
     <Compile Include="JsonMessageSerializer.cs" />
     <Compile Include="MessageDispatcherSettings.cs" />

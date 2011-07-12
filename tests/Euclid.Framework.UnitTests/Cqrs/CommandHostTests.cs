@@ -53,7 +53,7 @@ namespace Euclid.Framework.UnitTests.Cqrs
 			_container.Register
 				(
 				 Component
-				 	.For<IBasicRecordMapper<CommandPublicationRecord>>()
+				 	.For<IRecordMapper<CommandPublicationRecord>>()
 				 	.Instance(new InMemoryRecordMapper<CommandPublicationRecord>()));
 
 			_container.Register
@@ -103,7 +103,7 @@ namespace Euclid.Framework.UnitTests.Cqrs
 
 		private ICommandRegistry GetRegistry()
 		{
-			var repo = _locator.GetInstance<IBasicRecordMapper<CommandPublicationRecord>>();
+			var repo = _locator.GetInstance<IRecordMapper<CommandPublicationRecord>>();
 			var blob = _locator.GetInstance<IBlobStorage>();
 			var serializer = _locator.GetInstance<IMessageSerializer>();
 

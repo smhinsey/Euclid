@@ -6,7 +6,7 @@ using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate
 {
-	public class NHibernateRecordMapper<TRecord> : IBasicRecordMapper<TRecord>
+	public class NHibernateRecordMapper<TRecord> : IRecordMapper<TRecord>
 		where TRecord : class, IPublicationRecord, new()
 	{
 		private readonly ISession _session;

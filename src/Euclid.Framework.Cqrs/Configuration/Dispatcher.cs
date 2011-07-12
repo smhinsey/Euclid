@@ -109,12 +109,12 @@ namespace Euclid.Framework.Cqrs.Configuration
 			return this;
 		}
 
-		public Dispatcher RecordRepositoryAs<T>() where T : IBasicRecordMapper<CommandPublicationRecord>
+		public Dispatcher RecordRepositoryAs<T>() where T : IRecordMapper<CommandPublicationRecord>
 		{
 			_container.Register
 				(
 				 Component
-				 	.For<IBasicRecordMapper<CommandPublicationRecord>>()
+				 	.For<IRecordMapper<CommandPublicationRecord>>()
 				 	.ImplementedBy(typeof (T)));
 
 			_hasRepo = true;
@@ -142,7 +142,7 @@ namespace Euclid.Framework.Cqrs.Configuration
 
 			var locator = new WindsorServiceLocator(config._container);
 
-			var repo = locator.GetInstance<IBasicRecordMapper<CommandPublicationRecord>>();
+			var repo = locator.GetInstance<IRecordMapper<CommandPublicationRecord>>();
 			var blob = locator.GetInstance<IBlobStorage>();
 			var serializer = locator.GetInstance<IMessageSerializer>();
 

@@ -2,12 +2,12 @@
 
 namespace Euclid.Common.Messaging
 {
-	public class EuclidPublisher : IPublisher
+	public class DefaultPublisher : IPublisher
 	{
 		private readonly IMessageChannel _channel;
 		private readonly IPublicationRegistry<IPublicationRecord> _publicationRegistry;
 
-		public EuclidPublisher(IPublicationRegistry<IPublicationRecord> publicationRegistry, IMessageChannel channel)
+		public DefaultPublisher(IPublicationRegistry<IPublicationRecord> publicationRegistry, IMessageChannel channel)
 		{
 			_publicationRegistry = publicationRegistry;
 			_channel = channel;

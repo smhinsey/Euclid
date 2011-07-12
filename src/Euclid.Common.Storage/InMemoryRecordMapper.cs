@@ -5,7 +5,7 @@ using Euclid.Common.Storage.Record;
 
 namespace Euclid.Common.Storage
 {
-	public class InMemoryRecordMapper<TRecord> : IBasicRecordMapper<TRecord>
+	public class InMemoryRecordMapper<TRecord> : IRecordMapper<TRecord>
 		where TRecord : class, IPublicationRecord, new()
 	{
 		protected static readonly ConcurrentDictionary<Guid, TRecord> Records = new ConcurrentDictionary<Guid, TRecord>();

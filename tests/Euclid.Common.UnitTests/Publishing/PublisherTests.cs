@@ -18,7 +18,7 @@ namespace Euclid.Common.UnitTests.Publishing
 			var transport = new InMemoryMessageChannel();
 			var registry = new PublicationRegistry<FakePublicationRecord>(repository, blobStorage, serializer);
 
-			var publisher = new EuclidPublisher(registry, transport);
+			var publisher = new DefaultPublisher(registry, transport);
 
 			var start = DateTime.Now;
 			var createdBy = new Guid("C60696AF-F2F8-44EB-B9A1-7967693AC466");

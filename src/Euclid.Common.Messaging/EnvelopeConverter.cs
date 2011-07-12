@@ -17,7 +17,7 @@ namespace Euclid.Common.Messaging
 			{
 				reader.Read();
 
-				// this depends on the alphabetical order of the property names and should be changed
+				// SELF this depends on the alphabetical order of the property names and should be changed
 
 				if (reader.TokenType == JsonToken.PropertyName &&
 				    string.Compare(reader.Value as string, "MessageTypeName", true) == 0)
