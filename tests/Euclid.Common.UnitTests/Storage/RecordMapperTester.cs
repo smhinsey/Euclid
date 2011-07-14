@@ -19,13 +19,25 @@ namespace Euclid.Common.UnitTests.Storage
 
 		public void TestCreate()
 		{
-			var r = _repo.Create(_fakeUri, _fakeType);
+			var r = _repo.Create(createFakeRecord());
 			Assert.NotNull(r);
+		}
+
+		private FakePublicationRecord createFakeRecord()
+		{
+			var record = new FakePublicationRecord()
+			             	{
+			             		Created = DateTime.Now,
+			             		Identifier = Guid.NewGuid(),
+			             		MessageLocation = _fakeUri,
+			             		MessageType = _fakeType
+			             	};
+			return record;
 		}
 
 		public void TestDelete()
 		{
-			var r = _repo.Create(_fakeUri, _fakeType);
+			var r = _repo.Create(createFakeRecord());
 
 			var deleted = _repo.Delete(r.Identifier);
 			Assert.NotNull(deleted);
@@ -38,7 +50,7 @@ namespace Euclid.Common.UnitTests.Storage
 		public void TestRetrieve()
 		{
 			var start = DateTime.Now;
-			var r = _repo.Create(_fakeUri, _fakeType);
+			var r = _repo.Create(createFakeRecord());
 			r.Created = start;
 
 			var retrieved = _repo.Retrieve(r.Identifier);
@@ -50,7 +62,7 @@ namespace Euclid.Common.UnitTests.Storage
 		public void TestUpdate()
 		{
 			var start = DateTime.Now;
-			var r = _repo.Create(_fakeUri, _fakeType);
+			var r = _repo.Create(createFakeRecord());
 			r.Created = start;
 
 			var retrieved = _repo.Retrieve(r.Identifier);

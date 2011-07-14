@@ -30,7 +30,15 @@ namespace Euclid.Common.Messaging
 
 			var uri = BlobStorage.Put(msgBlob, message.GetType().FullName);
 
-			return Mapper.Create(uri, message.GetType());
+			var record = new TRecord
+			             	{
+			             		Identifier = Guid.NewGuid(),
+			             		Created = DateTime.Now,
+			             		MessageLocation = uri,
+			             		MessageType = message.GetType()
+			             	};
+
+			return Mapper.Create(record);
 		}
 
 		public virtual IMessage GetMessage(Uri messageLocation, Type recordType)
@@ -42,7 +50,7 @@ namespace Euclid.Common.Messaging
 
 		public virtual TRecord MarkAsComplete(Guid id)
 		{
-			return UpdateRecord
+			return updateRecord
 				(id, r =>
 				     	{
 				     		r.Completed = true;
@@ -53,7 +61,7 @@ namespace Euclid.Common.Messaging
 
 		public virtual TRecord MarkAsFailed(Guid id, string message, string callStack)
 		{
-			return UpdateRecord
+			return updateRecord
 				(id, r =>
 				     	{
 				     		r.Dispatched = true;
@@ -66,7 +74,7 @@ namespace Euclid.Common.Messaging
 
 		public virtual TRecord MarkAsUnableToDispatch(Guid recordId, bool isError = false, string message = null)
 		{
-			return UpdateRecord
+			return updateRecord
 				(recordId, r =>
 				           	{
 				           		r.Dispatched = false;
@@ -78,16 +86,16 @@ namespace Euclid.Common.Messaging
 
 		public TRecord GetRecord(Guid identifier)
 		{
-			return Mapper.Retrieve(identifier);
+			return Mapper.Retrieve(identifier) as TRecord;
 		}
 
-		private TRecord UpdateRecord(Guid id, Action<TRecord> actOnRecord)
+		private TRecord updateRecord(Guid id, Action<TRecord> actOnRecord)
 		{
 			var record = GetRecord(id);
 
 			actOnRecord(record);
 
-			return Mapper.Update(record);
+			return Mapper.Update(record) as TRecord;
 		}
 	}
 }

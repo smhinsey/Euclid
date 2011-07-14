@@ -10,17 +10,8 @@ namespace Euclid.Common.Storage
 	{
 		protected static readonly ConcurrentDictionary<Guid, TRecord> Records = new ConcurrentDictionary<Guid, TRecord>();
 
-
-		public TRecord Create(Uri messageLocation, Type messageType)
+		public TRecord Create(TRecord record)
 		{
-			var record = new TRecord
-			             	{
-			             		Identifier = Guid.NewGuid(),
-			             		Created = DateTime.Now,
-			             		MessageLocation = messageLocation,
-			             		MessageType = messageType
-			             	};
-
 			Records.TryAdd(record.Identifier, record);
 
 			return record;

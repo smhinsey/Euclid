@@ -16,16 +16,8 @@ namespace Euclid.Common.Storage.NHibernate
 			_session = session;
 		}
 
-		public TRecord Create(Uri messageLocation, Type messageType)
+		public TRecord Create(TRecord record)
 		{
-			var record = new TRecord
-			             	{
-			             		Identifier = Guid.NewGuid(),
-			             		Created = DateTime.Now,
-			             		MessageLocation = messageLocation,
-			             		MessageType = messageType
-			             	};
-
 			_session.Save(record);
 
 			_session.Flush();

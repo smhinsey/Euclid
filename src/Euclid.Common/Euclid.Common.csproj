@@ -65,10 +65,6 @@
     <Compile Include="Messaging\IPublisher.cs" />
     <Compile Include="Storage\IBlob.cs" />
     <Compile Include="Storage\Binary\IBlobStorageSettings.cs" />
-    <Compile Include="Storage\Record\FindRecordByDateCreated.cs" />
-    <Compile Include="Storage\Record\FindRecordByDateCreatedRange.cs" />
-    <Compile Include="Storage\Record\FindRecordByDateModified.cs" />
-    <Compile Include="Storage\Record\FindRecordByDateModifiedRange.cs" />
     <Compile Include="Storage\Record\IRecordMapper.cs" />
     <Compile Include="Messaging\IPublicationRecord.cs" />
     <Compile Include="Messaging\IPublicationRegistry.cs" />
@@ -89,9 +85,8 @@
     <Compile Include="Messaging\MessageDispatcherState.cs" />
     <Compile Include="Messaging\ChannelState.cs" />
     <Compile Include="Storage\IQuery.cs" />
-    <Compile Include="Storage\Record\IRecordFinder.cs" />
     <Compile Include="Storage\IRecord.cs" />
-    <Compile Include="Storage\Record\FindRecordById.cs" />
+    <Compile Include="Storage\Record\IStandardRecordQueries.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

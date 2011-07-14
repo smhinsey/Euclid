@@ -45,7 +45,6 @@
     <Compile Include="InMemoryBlobStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InMemoryRecordMapper.cs" />
-    <Compile Include="InMemoryRecordFinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
