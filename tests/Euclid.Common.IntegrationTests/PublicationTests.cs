@@ -13,7 +13,7 @@ namespace Euclid.Common.IntegrationTests
 	{
 		private readonly IPublicationRegistry<FakePublicationRecord> _publicationRegistry;
 		private readonly IMessageChannel _channel;
-		private readonly IBasicRecordMapper<FakePublicationRecord> _mapper;
+		private readonly IRecordMapper<FakePublicationRecord> _mapper;
 		private readonly IBlobStorage _blobStorage;
 		private readonly IMessageSerializer _serializer;
 
