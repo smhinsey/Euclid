@@ -5,24 +5,24 @@ using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate
 {
-	public class NhSimpleRepository<TModel> : ISimpleRepository<TModel>
+	public class NhSimpleRepository<TModel> : NhSessionConsumer, ISimpleRepository<TModel>
 		where TModel : class, IModel
 	{
-		private readonly ISessionFactory _sessionFactory;
-
-		public NhSimpleRepository(ISessionFactory sessionFactory)
+		public NhSimpleRepository(ISession session) : base(session)
 		{
-			_sessionFactory = sessionFactory;
 		}
 
 		public void Delete(TModel model)
 		{
-			using (var session = _sessionFactory.OpenSession())
+			var session = GetCurrentSession();
+
 			using (var transaction = session.BeginTransaction())
 			{
 				try
 				{
 					session.Delete(model);
+
+					transaction.Commit();
 				}
 				catch (Exception)
 				{
@@ -31,11 +31,12 @@ namespace Euclid.Common.Storage.NHibernate
 					throw;
 				}
 			}
-	}
+		}
 
 		public void Delete(Guid id)
 		{
-			using (var session = _sessionFactory.OpenSession())
+			var session = GetCurrentSession();
+
 			using (var transaction = session.BeginTransaction())
 			{
 				try
@@ -55,67 +56,65 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public IList<TModel> FindByCreationDate(DateTime specificDate)
 		{
-			using (var session = _sessionFactory.OpenSession())
-			{
-				var query = session.QueryOver<TModel>()
-					.Where(x => x.Created == specificDate);
+			var session = GetCurrentSession();
 
-				return query.List();
-			}
+			var query = session.QueryOver<TModel>()
+				.Where(x => x.Created == specificDate);
+
+			return query.List();
 		}
 
 		public IList<TModel> FindByCreationDate(DateTime begin, DateTime end)
 		{
-			using (var session = _sessionFactory.OpenSession())
-			{
-				var query = session.QueryOver<TModel>()
-					.WhereRestrictionOn(x => x.Created).IsBetween(begin).And(end);
+			var session = GetCurrentSession();
 
-				return query.List();
-			}
+			var query = session.QueryOver<TModel>()
+				.WhereRestrictionOn(x => x.Created).IsBetween(begin).And(end);
+
+			return query.List();
 		}
 
 		public TModel FindById(Guid id)
 		{
-			using (var session = _sessionFactory.OpenSession())
-			{
-				var query = session.QueryOver<TModel>()
-					.Where(x => x.Identifier == id);
+			var session = GetCurrentSession();
 
-				return query.SingleOrDefault();
-			}
+			var query = session.QueryOver<TModel>()
+				.Where(x => x.Identifier == id);
+
+			return query.SingleOrDefault();
 		}
 
 		public IList<TModel> FindByModificationDate(DateTime specificDate)
 		{
-			using (var session = _sessionFactory.OpenSession())
-			{
-				var query = session.QueryOver<TModel>()
-					.Where(x => x.Modified == specificDate);
+			var session = GetCurrentSession();
 
-				return query.List();
-			}
+			var query = session.QueryOver<TModel>()
+				.Where(x => x.Modified == specificDate);
+
+			return query.List();
 		}
 
 		public IList<TModel> FindByModificationDate(DateTime begin, DateTime end)
 		{
-			using (var session = _sessionFactory.OpenSession())
-			{
-				var query = session.QueryOver<TModel>()
-					.WhereRestrictionOn(x => x.Modified).IsBetween(begin).And(end);
+			var session = GetCurrentSession();
 
-				return query.List();
-			}
+			var query = session.QueryOver<TModel>()
+				.WhereRestrictionOn(x => x.Modified).IsBetween(begin).And(end);
+
+			return query.List();
 		}
 
 		public void Save(TModel model)
 		{
-			using (var session = _sessionFactory.OpenSession())
+			var session = GetCurrentSession();
+
 			using (var transaction = session.BeginTransaction())
 			{
 				try
 				{
 					session.Save(model);
+
+					transaction.Commit();
 				}
 				catch (Exception)
 				{
@@ -128,12 +127,15 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public void Update(TModel model)
 		{
-			using (var session = _sessionFactory.OpenSession())
+			var session = GetCurrentSession();
+
 			using (var transaction = session.BeginTransaction())
 			{
 				try
 				{
 					session.Update(model);
+
+					transaction.Commit();
 				}
 				catch (Exception)
 				{

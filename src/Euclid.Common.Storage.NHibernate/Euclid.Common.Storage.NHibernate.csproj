@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NhRecordMapper.cs" />
+    <Compile Include="NhSessionConsumer.cs" />
     <Compile Include="NhSimpleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

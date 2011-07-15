@@ -66,6 +66,7 @@
     <Compile Include="Storage\IBlob.cs" />
     <Compile Include="Storage\Binary\IBlobStorageSettings.cs" />
     <Compile Include="Storage\IModel.cs" />
+    <Compile Include="Storage\Model\ModelRepositoryException.cs" />
     <Compile Include="Storage\Record\IRecordMapper.cs" />
     <Compile Include="Messaging\IPublicationRecord.cs" />
     <Compile Include="Messaging\IPublicationRegistry.cs" />
