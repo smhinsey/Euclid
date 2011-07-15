@@ -1,5 +1,4 @@
 ﻿using System;
-using Euclid.Common.Storage;
 using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Storage;
 using NUnit.Framework;
@@ -21,18 +20,6 @@ namespace Euclid.Common.UnitTests.Storage
 		{
 			var r = _repo.Create(createFakeRecord());
 			Assert.NotNull(r);
-		}
-
-		private FakePublicationRecord createFakeRecord()
-		{
-			var record = new FakePublicationRecord()
-			             	{
-			             		Created = DateTime.Now,
-			             		Identifier = Guid.NewGuid(),
-			             		MessageLocation = _fakeUri,
-			             		MessageType = _fakeType
-			             	};
-			return record;
 		}
 
 		public void TestDelete()
@@ -74,6 +61,18 @@ namespace Euclid.Common.UnitTests.Storage
 			var updated = _repo.Update(retrieved);
 			Assert.NotNull(updated);
 			Assert.AreEqual(true, updated.Completed);
+		}
+
+		private FakePublicationRecord createFakeRecord()
+		{
+			var record = new FakePublicationRecord
+			             	{
+			             		Created = DateTime.Now,
+			             		Identifier = Guid.NewGuid(),
+			             		MessageLocation = _fakeUri,
+			             		MessageType = _fakeType
+			             	};
+			return record;
 		}
 	}
 }

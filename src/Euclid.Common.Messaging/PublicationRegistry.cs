@@ -86,7 +86,7 @@ namespace Euclid.Common.Messaging
 
 		public TRecord GetRecord(Guid identifier)
 		{
-			return Mapper.Retrieve(identifier) as TRecord;
+			return Mapper.Retrieve(identifier);
 		}
 
 		private TRecord updateRecord(Guid id, Action<TRecord> actOnRecord)
@@ -95,7 +95,7 @@ namespace Euclid.Common.Messaging
 
 			actOnRecord(record);
 
-			return Mapper.Update(record) as TRecord;
+			return Mapper.Update(record);
 		}
 	}
 }
