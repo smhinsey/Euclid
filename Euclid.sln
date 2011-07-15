@@ -59,6 +59,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Common.Messaging", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Common.Messaging.Azure", "src\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj", "{BB6CE799-54E1-4019-B918-992DCD78480A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{F056C8DB-206E-4480-95A2-242AEA0C5AFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicForum", "apps\PublicForum\PublicForum.csproj", "{0B928411-185B-4E52-A583-8E1B7EF26AB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -231,6 +235,12 @@ Global
 		{BB6CE799-54E1-4019-B918-992DCD78480A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB6CE799-54E1-4019-B918-992DCD78480A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BB6CE799-54E1-4019-B918-992DCD78480A}.Release|x86.ActiveCfg = Release|Any CPU
+		{0B928411-185B-4E52-A583-8E1B7EF26AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B928411-185B-4E52-A583-8E1B7EF26AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B928411-185B-4E52-A583-8E1B7EF26AB3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0B928411-185B-4E52-A583-8E1B7EF26AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B928411-185B-4E52-A583-8E1B7EF26AB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B928411-185B-4E52-A583-8E1B7EF26AB3}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -262,5 +272,6 @@ Global
 		{B63C4D62-939A-45AB-95F2-EBFBE4B5013C} = {5D1F1C5C-AFB9-43FC-B48D-3FCFE54F57C4}
 		{F1080594-08D8-44A7-A1FA-1AAAE608FE45} = {5D1F1C5C-AFB9-43FC-B48D-3FCFE54F57C4}
 		{9D90C0A5-BD70-4DBB-A3EF-3B9D035BF41F} = {5D1F1C5C-AFB9-43FC-B48D-3FCFE54F57C4}
+		{0B928411-185B-4E52-A583-8E1B7EF26AB3} = {F056C8DB-206E-4480-95A2-242AEA0C5AFC}
 	EndGlobalSection
 EndGlobal
