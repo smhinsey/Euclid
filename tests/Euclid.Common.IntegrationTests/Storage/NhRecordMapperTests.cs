@@ -5,7 +5,6 @@ using Euclid.Common.Storage;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.TestingFakes.Storage;
 using Euclid.Common.UnitTests.Storage;
-using FluentNHibernate;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -16,7 +15,7 @@ using NUnit.Framework;
 
 namespace Euclid.Common.IntegrationTests.Storage
 {
-	public class NhibernateRecordRepositoryTest
+	public class NhRecordMapperTests
 	{
 		private RecordMapperTester<NhRecordMapper<FakePublicationRecord>> _repoTester;
 		private ISession _session;
@@ -93,20 +92,6 @@ namespace Euclid.Common.IntegrationTests.Storage
 		private static void BuildSchema(NHibernate.Cfg.Configuration cfg)
 		{
 			new SchemaExport(cfg).Create(false, true);
-		}
-	}
-
-	public class MessageConfiguration : DefaultAutomappingConfiguration
-	{
-		public override bool IsId(Member member)
-		{
-			return (member.Name == "Identifier");
-		}
-
-		public override bool ShouldMap(Type type)
-		{
-			return type == typeof (FakeMessage)
-			       || type == typeof (FakePublicationRecord);
 		}
 	}
 }
