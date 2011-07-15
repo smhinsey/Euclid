@@ -4,15 +4,15 @@ using System.Collections.Generic;
 namespace Euclid.Common.Storage.Model
 {
 	public interface ISimpleRepository<TModel> : IModelRepository<TModel>
-		where TModel : IModel
+		where TModel : class, IModel
 	{
 		void Delete(TModel model);
 		void Delete(Guid id);
 		IList<TModel> FindByCreationDate(DateTime specificDate);
-		IList<TModel> FindByCreationDate(TimeSpan range);
+		IList<TModel> FindByCreationDate(DateTime begin, DateTime end);
 		TModel FindById(Guid id);
 		IList<TModel> FindByModificationDate(DateTime specificDate);
-		IList<TModel> FindByModificationDate(TimeSpan range);
+		IList<TModel> FindByModificationDate(DateTime begin, DateTime end);
 		void Save(TModel model);
 		void Update(TModel model);
 	}

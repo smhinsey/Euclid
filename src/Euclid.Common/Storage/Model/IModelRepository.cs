@@ -4,7 +4,7 @@
 	/// 	Marker interface
 	/// </summary>
 	public interface IModelRepository<TModel>
-		where TModel : IModel
+		where TModel : class, IModel
 	{
 	}
 }

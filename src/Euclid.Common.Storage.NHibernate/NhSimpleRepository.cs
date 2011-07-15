@@ -6,7 +6,7 @@ using NHibernate;
 namespace Euclid.Common.Storage.NHibernate
 {
 	public class NhSimpleRepository<TModel> : ISimpleRepository<TModel>
-		where TModel : IModel
+		where TModel : class, IModel
 	{
 		private readonly ISessionFactory _sessionFactory;
 
@@ -17,47 +17,131 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public void Delete(TModel model)
 		{
-			throw new NotImplementedException();
-		}
+			using (var session = _sessionFactory.OpenSession())
+			using (var transaction = session.BeginTransaction())
+			{
+				try
+				{
+					session.Delete(model);
+				}
+				catch (Exception)
+				{
+					transaction.Rollback();
+
+					throw;
+				}
+			}
+	}
 
 		public void Delete(Guid id)
 		{
-			throw new NotImplementedException();
+			using (var session = _sessionFactory.OpenSession())
+			using (var transaction = session.BeginTransaction())
+			{
+				try
+				{
+					var model = session.Get(typeof(TModel), id);
+
+					session.Delete(model);
+				}
+				catch (Exception)
+				{
+					transaction.Rollback();
+
+					throw;
+				}
+			}
 		}
 
 		public IList<TModel> FindByCreationDate(DateTime specificDate)
 		{
-			throw new NotImplementedException();
+			using (var session = _sessionFactory.OpenSession())
+			{
+				var query = session.QueryOver<TModel>()
+					.Where(x => x.Created == specificDate);
+
+				return query.List();
+			}
 		}
 
-		public IList<TModel> FindByCreationDate(TimeSpan range)
+		public IList<TModel> FindByCreationDate(DateTime begin, DateTime end)
 		{
-			throw new NotImplementedException();
+			using (var session = _sessionFactory.OpenSession())
+			{
+				var query = session.QueryOver<TModel>()
+					.WhereRestrictionOn(x => x.Created).IsBetween(begin).And(end);
+
+				return query.List();
+			}
 		}
 
 		public TModel FindById(Guid id)
 		{
-			throw new NotImplementedException();
+			using (var session = _sessionFactory.OpenSession())
+			{
+				var query = session.QueryOver<TModel>()
+					.Where(x => x.Identifier == id);
+
+				return query.SingleOrDefault();
+			}
 		}
 
 		public IList<TModel> FindByModificationDate(DateTime specificDate)
 		{
-			throw new NotImplementedException();
+			using (var session = _sessionFactory.OpenSession())
+			{
+				var query = session.QueryOver<TModel>()
+					.Where(x => x.Modified == specificDate);
+
+				return query.List();
+			}
 		}
 
-		public IList<TModel> FindByModificationDate(TimeSpan range)
+		public IList<TModel> FindByModificationDate(DateTime begin, DateTime end)
 		{
-			throw new NotImplementedException();
+			using (var session = _sessionFactory.OpenSession())
+			{
+				var query = session.QueryOver<TModel>()
+					.WhereRestrictionOn(x => x.Modified).IsBetween(begin).And(end);
+
+				return query.List();
+			}
 		}
 
 		public void Save(TModel model)
 		{
-			throw new NotImplementedException();
+			using (var session = _sessionFactory.OpenSession())
+			using (var transaction = session.BeginTransaction())
+			{
+				try
+				{
+					session.Save(model);
+				}
+				catch (Exception)
+				{
+					transaction.Rollback();
+
+					throw;
+				}
+			}
 		}
 
 		public void Update(TModel model)
 		{
-			throw new NotImplementedException();
+			using (var session = _sessionFactory.OpenSession())
+			using (var transaction = session.BeginTransaction())
+			{
+				try
+				{
+					session.Update(model);
+				}
+				catch (Exception)
+				{
+					transaction.Rollback();
+
+					throw;
+				}
+			}
 		}
 	}
 }
