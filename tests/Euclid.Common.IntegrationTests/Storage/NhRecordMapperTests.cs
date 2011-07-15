@@ -22,10 +22,10 @@ namespace Euclid.Common.IntegrationTests.Storage
 
 		public void ConfigureDatabase()
 		{
-			var cfg = new MessageConfiguration();
+			var cfg = new AutoMapperConfiguration();
 			_session = Fluently
 				.Configure()
-				.Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")))
+				.Database(SQLiteConfiguration.Standard.UsingFile("NhRecordMapperTests"))
 				.Mappings
 				(map => map
 				        	.AutoMappings

@@ -8,8 +8,8 @@ namespace Euclid.Common.Storage
 	/// </summary>
 	public interface IModel
 	{
-		DateTime Created { get; }
-		Guid Identifier { get; }
-		DateTime Modified { get; }
+		DateTime Created { get; set; }
+		Guid Identifier { get; set; }
+		DateTime Modified { get; set; }
 	}
 }

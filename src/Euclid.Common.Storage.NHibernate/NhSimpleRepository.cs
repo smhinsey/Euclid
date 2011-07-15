@@ -104,7 +104,7 @@ namespace Euclid.Common.Storage.NHibernate
 			return query.List();
 		}
 
-		public void Save(TModel model)
+		public TModel Save(TModel model)
 		{
 			var session = GetCurrentSession();
 
@@ -123,9 +123,11 @@ namespace Euclid.Common.Storage.NHibernate
 					throw;
 				}
 			}
+
+			return model;
 		}
 
-		public void Update(TModel model)
+		public TModel Update(TModel model)
 		{
 			var session = GetCurrentSession();
 
@@ -144,6 +146,8 @@ namespace Euclid.Common.Storage.NHibernate
 					throw;
 				}
 			}
+
+			return model;
 		}
 	}
 }

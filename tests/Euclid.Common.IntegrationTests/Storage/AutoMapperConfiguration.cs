@@ -1,11 +1,12 @@
 using System;
 using Euclid.Common.TestingFakes.Storage;
+using Euclid.Common.TestingFakes.Storage.Model;
 using FluentNHibernate;
 using FluentNHibernate.Automapping;
 
 namespace Euclid.Common.IntegrationTests.Storage
 {
-	public class MessageConfiguration : DefaultAutomappingConfiguration
+	public class AutoMapperConfiguration : DefaultAutomappingConfiguration
 	{
 		public override bool IsId(Member member)
 		{
@@ -15,7 +16,7 @@ namespace Euclid.Common.IntegrationTests.Storage
 		public override bool ShouldMap(Type type)
 		{
 			return type == typeof (FakeMessage)
-			       || type == typeof (FakePublicationRecord);
+			       || type == typeof (FakePublicationRecord) || type == typeof(FakeModel);
 		}
 	}
 }

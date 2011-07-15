@@ -13,7 +13,7 @@ namespace Euclid.Common.Storage.Model
 		TModel FindById(Guid id);
 		IList<TModel> FindByModificationDate(DateTime specificDate);
 		IList<TModel> FindByModificationDate(DateTime begin, DateTime end);
-		void Save(TModel model);
-		void Update(TModel model);
+		TModel Save(TModel model);
+		TModel Update(TModel model);
 	}
 }
