@@ -3,7 +3,7 @@
 	/// <summary>
 	/// 	Marker interface
 	/// </summary>
-	public interface IModelQueries
+	public interface IModelRepository
 	{
 	}
 }

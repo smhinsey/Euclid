@@ -6,12 +6,12 @@ using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate
 {
-	public class NHibernateRecordMapper<TRecord> : IRecordMapper<TRecord>
+	public class NhRecordMapper<TRecord> : IRecordMapper<TRecord>
 		where TRecord : class, IPublicationRecord, new()
 	{
 		private readonly ISession _session;
 
-		public NHibernateRecordMapper(ISession session)
+		public NhRecordMapper(ISession session)
 		{
 			_session = session;
 		}

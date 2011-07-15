@@ -85,9 +85,9 @@
     <Compile Include="Messaging\IChannel.cs" />
     <Compile Include="Messaging\MessageDispatcherState.cs" />
     <Compile Include="Messaging\ChannelState.cs" />
-    <Compile Include="Storage\Model\IModelQueries.cs" />
+    <Compile Include="Storage\Model\IModelRepository.cs" />
     <Compile Include="Storage\IRecord.cs" />
-    <Compile Include="Storage\Model\IStandardModelQueries.cs" />
+    <Compile Include="Storage\Model\ISimpleRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -18,7 +18,7 @@ namespace Euclid.Common.IntegrationTests.Storage
 {
 	public class NhibernateRecordRepositoryTest
 	{
-		private RecordMapperTester<NHibernateRecordMapper<FakePublicationRecord>> _repoTester;
+		private RecordMapperTester<NhRecordMapper<FakePublicationRecord>> _repoTester;
 		private ISession _session;
 
 		public void ConfigureDatabase()
@@ -46,9 +46,9 @@ namespace Euclid.Common.IntegrationTests.Storage
 
 			var storage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
-			var repo = new NHibernateRecordMapper<FakePublicationRecord>(_session);
+			var repo = new NhRecordMapper<FakePublicationRecord>(_session);
 
-			_repoTester = new RecordMapperTester<NHibernateRecordMapper<FakePublicationRecord>>(repo);
+			_repoTester = new RecordMapperTester<NhRecordMapper<FakePublicationRecord>>(repo);
 		}
 
 		[Test]
