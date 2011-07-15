@@ -5,7 +5,8 @@ using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate
 {
-	public class NhSimpleRepository : ISimpleRepository
+	public class NhSimpleRepository<TModel> : ISimpleRepository<TModel>
+		where TModel : IModel
 	{
 		private readonly ISessionFactory _sessionFactory;
 
@@ -14,7 +15,7 @@ namespace Euclid.Common.Storage.NHibernate
 			_sessionFactory = sessionFactory;
 		}
 
-		public void Delete(IModel model)
+		public void Delete(TModel model)
 		{
 			throw new NotImplementedException();
 		}
@@ -24,37 +25,37 @@ namespace Euclid.Common.Storage.NHibernate
 			throw new NotImplementedException();
 		}
 
-		public IList<IModel> FindByCreationDate(DateTime specificDate)
+		public IList<TModel> FindByCreationDate(DateTime specificDate)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IList<IModel> FindByCreationDate(DateTime from, DateTime to)
+		public IList<TModel> FindByCreationDate(DateTime @from, DateTime to)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IModel FindById(Guid id)
+		public TModel FindById(Guid id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IList<IModel> FindByModificationDate(DateTime specificDate)
+		public IList<TModel> FindByModificationDate(DateTime specificDate)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IList<IModel> FindByModificationDate(DateTime from, DateTime to)
+		public IList<TModel> FindByModificationDate(DateTime @from, DateTime to)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Save(IModel model)
+		public void Save(TModel model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public void Update(IModel model)
+		public void Update(TModel model)
 		{
 			throw new NotImplementedException();
 		}

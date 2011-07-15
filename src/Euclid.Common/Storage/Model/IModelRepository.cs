@@ -3,7 +3,8 @@
 	/// <summary>
 	/// 	Marker interface
 	/// </summary>
-	public interface IModelRepository
+	public interface IModelRepository<TModel>
+		where TModel : IModel
 	{
 	}
 }

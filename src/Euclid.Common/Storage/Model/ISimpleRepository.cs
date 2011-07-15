@@ -3,16 +3,17 @@ using System.Collections.Generic;
 
 namespace Euclid.Common.Storage.Model
 {
-	public interface ISimpleRepository : IModelRepository
+	public interface ISimpleRepository<TModel> : IModelRepository<TModel> 
+		where TModel : IModel
 	{
-		IList<IModel> FindByCreationDate(DateTime specificDate);
-		IList<IModel> FindByCreationDate(DateTime from, DateTime to);
-		IModel FindById(Guid id);
-		IList<IModel> FindByModificationDate(DateTime specificDate);
-		IList<IModel> FindByModificationDate(DateTime from, DateTime to);
-		void Save(IModel model);
-		void Update(IModel model);
-		void Delete(IModel model);
+		void Delete(TModel model);
 		void Delete(Guid id);
+		IList<TModel> FindByCreationDate(DateTime specificDate);
+		IList<TModel> FindByCreationDate(DateTime from, DateTime to);
+		TModel FindById(Guid id);
+		IList<TModel> FindByModificationDate(DateTime specificDate);
+		IList<TModel> FindByModificationDate(DateTime from, DateTime to);
+		void Save(TModel model);
+		void Update(TModel model);
 	}
 }
