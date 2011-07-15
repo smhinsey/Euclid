@@ -30,7 +30,7 @@ namespace Euclid.Common.Storage.NHibernate
 			throw new NotImplementedException();
 		}
 
-		public IList<TModel> FindByCreationDate(DateTime @from, DateTime to)
+		public IList<TModel> FindByCreationDate(TimeSpan range)
 		{
 			throw new NotImplementedException();
 		}
@@ -45,7 +45,7 @@ namespace Euclid.Common.Storage.NHibernate
 			throw new NotImplementedException();
 		}
 
-		public IList<TModel> FindByModificationDate(DateTime @from, DateTime to)
+		public IList<TModel> FindByModificationDate(TimeSpan range)
 		{
 			throw new NotImplementedException();
 		}
