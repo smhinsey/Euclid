@@ -16,7 +16,7 @@ namespace Euclid.Common.IntegrationTests.Storage
 		public override bool ShouldMap(Type type)
 		{
 			return type == typeof (FakeMessage)
-			       || type == typeof (FakePublicationRecord) || type == typeof(FakeModel);
+			       || type == typeof (FakePublicationRecord) || type == typeof (FakeModel);
 		}
 	}
 }

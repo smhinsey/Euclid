@@ -97,14 +97,14 @@ namespace Euclid.Common.UnitTests.Configuration
 			var config = OverridableSettings<FakeSettings>
 				.Build
 				(settings =>
-				{
-					settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
-					settings.AnotherFakeConfigSetting.WithDefault
-						(
-						 anotherFakeSettingDefaultValue);
-					settings.ListOfAssemblies.WithDefault(new List<Assembly>());
-					settings.ListOfAssemblies.Add(currentAssembly);
-				});
+				 	{
+				 		settings.FakeConfigSetting.WithDefault(fakeSettingDefaultValue);
+				 		settings.AnotherFakeConfigSetting.WithDefault
+				 			(
+				 			 anotherFakeSettingDefaultValue);
+				 		settings.ListOfAssemblies.WithDefault(new List<Assembly>());
+				 		settings.ListOfAssemblies.Add(currentAssembly);
+				 	});
 
 			var path = Path.Combine(Environment.CurrentDirectory, "Euclid.Common.TestingFakes.dll");
 

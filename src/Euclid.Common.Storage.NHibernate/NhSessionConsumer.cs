@@ -18,7 +18,7 @@ namespace Euclid.Common.Storage.NHibernate
 			{
 				return _session;
 			}
-			
+
 			throw new ModelRepositoryException("The current session is closed");
 		}
 	}
