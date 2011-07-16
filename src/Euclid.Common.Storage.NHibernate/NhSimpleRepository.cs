@@ -44,6 +44,8 @@ namespace Euclid.Common.Storage.NHibernate
 					var model = session.Get(typeof(TModel), id);
 
 					session.Delete(model);
+
+					transaction.Commit();
 				}
 				catch (Exception)
 				{

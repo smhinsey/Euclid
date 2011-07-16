@@ -15,7 +15,7 @@ namespace Euclid.Common.Configuration
 
 		public void ApplyOverride(IList<TSettingType> newValue)
 		{
-			Value = Value;
+			Value = newValue;
 			WasOverridden = true;
 		}
 

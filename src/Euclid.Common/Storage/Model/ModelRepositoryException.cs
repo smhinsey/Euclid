@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Common.Storage.NHibernate
+namespace Euclid.Common.Storage.Model
 {
 	public class ModelRepositoryException : Exception
 	{

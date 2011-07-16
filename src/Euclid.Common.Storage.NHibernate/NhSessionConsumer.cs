@@ -1,3 +1,4 @@
+using Euclid.Common.Storage.Model;
 using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate

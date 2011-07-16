@@ -7,10 +7,5 @@ namespace Euclid.Common.HostingFabric
 		public HostedServiceNotResolvableException(string message, Exception exception) : base(message, exception)
 		{
 		}
-
-		public HostedServiceNotResolvableException(string message)
-			: base(message)
-		{
-		}
 	}
 }

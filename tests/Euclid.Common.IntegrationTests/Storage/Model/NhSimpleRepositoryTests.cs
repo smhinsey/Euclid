@@ -66,6 +66,27 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		}
 
 		[Test]
+		public void DeleteById()
+		{
+			var model = new FakeModel()
+			{
+				Created = DateTime.Now,
+				Modified = DateTime.Now,
+				Name = "Name"
+			};
+
+			var repo = new NhSimpleRepository<FakeModel>(_sessionFactory.OpenSession());
+
+			var saved = repo.Save(model);
+
+			repo.Delete(saved.Identifier);
+
+			var deleted = repo.FindById(saved.Identifier);
+
+			Assert.IsNull(deleted);
+		}
+
+		[Test]
 		public void Update()
 		{
 			const string firstName = "Name1";
