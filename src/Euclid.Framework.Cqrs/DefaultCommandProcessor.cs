@@ -6,7 +6,7 @@ namespace Euclid.Framework.Cqrs
 		where TCommand : ICommand
 	{
 		public abstract void Process(TCommand message);
-		
+
 		public bool CanProcessMessage(IMessage message)
 		{
 			return message.GetType() == typeof (TCommand);

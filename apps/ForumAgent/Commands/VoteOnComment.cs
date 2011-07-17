@@ -7,6 +7,6 @@ namespace ForumAgent.Commands
 	{
 		public Guid AuthorIdentifier { get; set; }
 		public Guid PostIdentifier { get; set; }
-		public bool VoteUp { get; set; } 
+		public bool VoteUp { get; set; }
 	}
 }

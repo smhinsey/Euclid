@@ -1,5 +1,4 @@
-﻿using System;
-using Euclid.Common.Storage.Model;
+﻿using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
 using ForumAgent.ReadModels;

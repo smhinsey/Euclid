@@ -89,6 +89,7 @@
     <Compile Include="Transport\FakeDispatcher.cs" />
     <Compile Include="Transport\FakeMessage.cs" />
     <Compile Include="Transport\FakeMessageProcessor.cs" />
+    <Compile Include="Transport\FakeMessageProcessor2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">

@@ -1,4 +1,3 @@
-using System;
 using Euclid.Common.Storage;
 
 namespace Euclid.Framework

@@ -82,7 +82,7 @@
     <Compile Include="Configuration\IOverridableSettings.cs" />
     <Compile Include="Extensions\MimeTypes.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="HostingFabric\HostedServiceNotResolvableException.cs" />
     <Compile Include="HostingFabric\FabricRuntimeState.cs" />
     <Compile Include="HostingFabric\IFabricRuntime.cs" />

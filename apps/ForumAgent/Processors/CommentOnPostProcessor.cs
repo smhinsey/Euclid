@@ -1,5 +1,4 @@
-﻿using System;
-using Euclid.Common.Storage.Model;
+﻿using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
 using ForumAgent.ReadModels;
@@ -17,7 +16,7 @@ namespace ForumAgent.Processors
 
 		public override void Process(CommentOnPost message)
 		{
-			var comment = new Comment()
+			var comment = new Comment
 			              	{
 			              		AuthorIdentifier = message.AuthorIdentifier,
 			              		Body = message.Body,

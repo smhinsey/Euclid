@@ -6,6 +6,6 @@ namespace ProfileAgent.Commands
 	{
 		public string PasswordHash { get; set; }
 		public string PasswordSalt { get; set; }
-		public string Username { get; set; } 
+		public string Username { get; set; }
 	}
 }

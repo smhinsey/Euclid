@@ -1,5 +1,4 @@
-﻿using System;
-using Euclid.Common.Storage.Model;
+﻿using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
 using ForumAgent.ReadModels;
@@ -19,7 +18,7 @@ namespace ForumAgent.Processors
 		{
 			var post = _repository.FindById(message.PostIdentifier);
 
-			if(message.VoteUp)
+			if (message.VoteUp)
 			{
 				post.Score++;
 			}

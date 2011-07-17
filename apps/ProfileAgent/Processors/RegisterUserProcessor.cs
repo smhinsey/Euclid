@@ -17,7 +17,7 @@ namespace ProfileAgent.Processors
 
 		public override void Process(RegisterUser message)
 		{
-			var newUser = new User()
+			var newUser = new User
 			              	{
 			              		PasswordHash = message.PasswordHash,
 			              		PasswordSalt = message.PasswordSalt,

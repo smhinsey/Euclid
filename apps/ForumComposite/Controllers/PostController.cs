@@ -2,20 +2,19 @@
 
 namespace ForumComposite.Controllers
 {
-    public class PostController : Controller
-    {
-        //
-        // GET: /Home/
+	public class PostController : Controller
+	{
+		//
+		// GET: /Home/
 
-        public ActionResult List()
-        {
-            return View();
-        }
+		public ActionResult List()
+		{
+			return View();
+		}
 
-				public ActionResult Thread()
-				{
-					return View();
-				}
-
-    }
+		public ActionResult Thread()
+		{
+			return View();
+		}
+	}
 }

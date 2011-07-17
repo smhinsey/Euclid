@@ -12,7 +12,7 @@ namespace Euclid.Common.Storage.NHibernate
 			_session = session;
 		}
 
-		protected ISession GetCurrentSession()
+		public ISession GetCurrentSession()
 		{
 			if (_session.IsOpen)
 			{

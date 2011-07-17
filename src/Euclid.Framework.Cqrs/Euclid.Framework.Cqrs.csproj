@@ -89,11 +89,13 @@
     <Compile Include="CommandPublicationRecord.cs" />
     <Compile Include="CommandPublisher.cs" />
     <Compile Include="CommandRegistry.cs" />
+    <Compile Include="Configuration\CommandDispatcherConfigurationException.cs" />
     <Compile Include="Configuration\CommandHostService.cs" />
     <Compile Include="Configuration\Dispatcher.cs" />
     <Compile Include="Configuration\TimeSpanConfiguration.cs" />
     <Compile Include="DefaultCommand.cs" />
-    <Compile Include="Exceptions\InvalidMessageType.cs" />
+    <Compile Include="DefaultCommandProcessor.cs" />
+    <Compile Include="Exceptions\InvalidMessageTypeException.cs" />
     <Compile Include="Metadata\CommandMetadataService.cs" />
     <Compile Include="Metadata\MetadataServiceSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

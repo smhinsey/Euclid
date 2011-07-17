@@ -1,5 +1,4 @@
-﻿using System;
-using Euclid.Common.Storage.Model;
+﻿using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
 using ForumAgent.ReadModels;
@@ -17,12 +16,13 @@ namespace ForumAgent.Processors
 
 		public override void Process(PublishPost message)
 		{
-			var post = new Post()
+			var post = new Post
 			           	{
 			           		AuthorIdentifier = message.AuthorIdentifier,
 			           		Body = message.Body,
 			           		Score = 0,
-			           		Title = message.Title
+			           		Title = message.Title,
+										CategoryIdentifier = message.CategoryIdentifier
 			           	};
 
 			_repository.Save(post);

@@ -74,6 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cqrs\FakeCommand.cs" />
+    <Compile Include="Cqrs\FakeCommand2.cs" />
+    <Compile Include="Cqrs\FakeCommand3.cs" />
+    <Compile Include="Cqrs\FakeCommandProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
