@@ -1,8 +1,8 @@
-﻿using Euclid.Common.Messaging;
+using Euclid.Common.Messaging;
 
 namespace Euclid.Common.TestingFakes.Transport
 {
-	public class FakeMessageProcessor : MessageProcessorBase<FakeMessage>
+	public class FakeMessageProcessor2 : MessageProcessorBase<FakeMessage>
 	{
 		public static bool ProcessedAnyMessages;
 
