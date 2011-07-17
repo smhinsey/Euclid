@@ -1,7 +1,7 @@
 ﻿using System;
 using Euclid.Framework.Cqrs;
 
-namespace PublicForm.ForumAgent.Commands
+namespace ForumAgent.Commands
 {
 	public class CommentOnPost : DefaultCommand
 	{

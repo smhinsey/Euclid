@@ -1,6 +1,6 @@
 ﻿using Euclid.Framework;
 
-namespace PublicForum.ProfileAgent.ReadModel
+namespace ProfileAgent.ReadModel
 {
 	public class User : DefaultReadModel
 	{

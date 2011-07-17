@@ -1,7 +1,7 @@
 ﻿using System;
 using Euclid.Framework.Cqrs;
 
-namespace PublicForum.ProfileAgent.Commands
+namespace ProfileAgent.Commands
 {
 	public class UpdateUserProfile : DefaultCommand
 	{

@@ -1,6 +1,8 @@
-﻿namespace PublicForum.ProfileAgent.Commands
+﻿using Euclid.Framework.Cqrs;
+
+namespace ProfileAgent.Commands
 {
-	public class RegisterUser
+	public class RegisterUser : DefaultCommand
 	{
 		public string PasswordHash { get; set; }
 		public string PasswordSalt { get; set; }

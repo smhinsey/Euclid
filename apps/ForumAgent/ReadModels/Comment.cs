@@ -1,7 +1,7 @@
 ﻿using System;
 using Euclid.Framework;
 
-namespace PublicForm.ForumAgent.ReadModels
+namespace ForumAgent.ReadModels
 {
 	public class Comment : DefaultReadModel
 	{

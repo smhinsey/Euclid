@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Euclid.Console.Web.Controllers
+namespace AdminComposite.Controllers
 {
 	public class SetupController : Controller
 	{
