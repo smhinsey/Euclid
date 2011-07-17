@@ -14,21 +14,10 @@
 					<a href="#"><img src="../../Content/themes/swiss/images/logo.gif" alt="" /></a>
 				</div>
 				<div id="menu" class="sidebar-block">
-					<ul>
-						<li><a href="#mydiscussions">Discussions</a><a href="#feed"	id="discussions-rss"></a></li>
-						<li><a href="#">Activity</a></li>
-						<li><a href="#">Inbox</a></li>
-						<li><a href="#">Sign Out</a></li>
-						<!--<li><a href="#" class="SignInPopup">Sign In</a></li>-->
-					</ul>
+					@RenderPage("LeftMenu.cshtml")
 				</div>
 				<div id="search" class="sidebar-block">
-					<form method="get" action="#search">
-						<div>
-							<input type="text" id="Form_Search" name="Search" value="Search" class="InputBox" />
-							<input type="submit" id="Form_Go" value="Go" class="Button" />
-						</div>
-					</form>
+					@RenderPage("Search.cshtml")
 				</div>
 				<div id="categories" class="sidebar-block">
 					<!--
