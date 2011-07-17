@@ -2,7 +2,7 @@
 
 namespace ForumTests.UnitTests
 {
-	public class ProfileAgentCommandTests
+	public class UserCommandTests
 	{
 		[Test]
 		public void TestRegisterUser()

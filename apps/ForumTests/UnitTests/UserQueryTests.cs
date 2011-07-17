@@ -2,7 +2,7 @@
 
 namespace ForumTests.UnitTests
 {
-	public class ProfileAgentQueryTests
+	public class UserQueryTests
 	{
 		[Test]
 		public void TestAuthenticationQuery()

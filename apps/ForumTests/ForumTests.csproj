@@ -51,10 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTests\ForumAgentCommandTests.cs" />
-    <Compile Include="UnitTests\ForumAgentQueryTests.cs" />
-    <Compile Include="UnitTests\ProfileAgentCommandTests.cs" />
-    <Compile Include="UnitTests\ProfileAgentQueryTests.cs" />
+    <Compile Include="UnitTests\ForumCommandTests.cs" />
+    <Compile Include="UnitTests\ForumQueryTests.cs" />
+    <Compile Include="UnitTests\UserCommandTests.cs" />
+    <Compile Include="UnitTests\UserQueryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

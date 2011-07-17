@@ -2,7 +2,7 @@
 
 namespace ForumTests.UnitTests
 {
-	public class ForumAgentCommandTests
+	public class ForumCommandTests
 	{
 		[Test]
 		public void TestCommentOnPost()

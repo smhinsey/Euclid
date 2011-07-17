@@ -2,7 +2,7 @@
 
 namespace ForumTests.UnitTests
 {
-	public class ForumAgentQueryTests
+	public class ForumQueryTests
 	{
 		[Test]
 		public void TestListPostsByCategoryName()
