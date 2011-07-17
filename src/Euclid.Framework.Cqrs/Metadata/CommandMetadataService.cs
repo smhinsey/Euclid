@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Euclid.Framework.Cqrs.Metadata
 {
-	public class MetadataService : IExtractor
+	public class CommandMetadataService : IExtractor
 	{
 		private readonly IList<Type> _commandTypes;
 
-		public MetadataService(IExtractorSettings settings)
+		public CommandMetadataService(IExtractorSettings settings)
 		{
 			foreach (var assembly in settings.AssembliesContainingCommands.Value)
 			{

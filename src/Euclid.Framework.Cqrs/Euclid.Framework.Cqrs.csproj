@@ -92,8 +92,9 @@
     <Compile Include="Configuration\CommandHostService.cs" />
     <Compile Include="Configuration\Dispatcher.cs" />
     <Compile Include="Configuration\TimeSpanConfiguration.cs" />
+    <Compile Include="DefaultCommand.cs" />
     <Compile Include="Exceptions\InvalidMessageType.cs" />
-    <Compile Include="Metadata\MetadataService.cs" />
+    <Compile Include="Metadata\CommandMetadataService.cs" />
     <Compile Include="Metadata\MetadataServiceSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

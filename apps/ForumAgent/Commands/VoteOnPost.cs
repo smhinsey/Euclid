@@ -1,0 +1,12 @@
+﻿using System;
+using Euclid.Framework.Cqrs;
+
+namespace PublicForm.ForumAgent.Commands
+{
+	public class VoteOnPost : DefaultCommand
+	{
+		public Guid AuthorIdentifier { get; set; }
+		public Guid PostIdentifier { get; set; }
+		public bool VoteUp { get; set; }
+	}
+}

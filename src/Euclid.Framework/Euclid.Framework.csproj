@@ -79,6 +79,7 @@
     <Compile Include="Cqrs\IQuery.cs" />
     <Compile Include="Cqrs\Metadata\IExtractor.cs" />
     <Compile Include="Cqrs\Metadata\IExtractorSettings.cs" />
+    <Compile Include="DefaultReadModel.cs" />
     <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
