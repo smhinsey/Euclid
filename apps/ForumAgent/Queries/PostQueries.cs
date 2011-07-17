@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
-using Euclid.Common.Storage.Model;
 using Euclid.Common.Storage.NHibernate;
 using ForumAgent.ReadModels;
+using NHibernate;
 
 namespace ForumAgent.Queries
 {
-	public class PostQueries : IModelRepository<Post>
+	public class PostQueries : NhSimpleRepository<Post>
 	{
-		private readonly NhSimpleRepository<Post> _repository;
-
-		public PostQueries(NhSimpleRepository<Post> repository)
+		public PostQueries(ISession session) : base(session)
 		{
-			_repository = repository;
 		}
 
 		public IList<Post> GetPostsByCategory(string name)
 		{
-			var session = _repository.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var category = session.QueryOver<Category>()
 				.Where(x => x.Name == name).SingleOrDefault();

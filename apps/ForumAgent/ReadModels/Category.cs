@@ -1,4 +1,5 @@
-﻿using Euclid.Framework;
+﻿using System;
+using Euclid.Framework;
 
 namespace ForumAgent.ReadModels
 {
@@ -7,5 +8,6 @@ namespace ForumAgent.ReadModels
 		public virtual string Name { get; set; }
 		public virtual int PostCount { get; set; }
 		public virtual int CommentCount { get; set; }
+		public virtual Guid ParentCategoryIdentifier { get; set; }
 	}
 }

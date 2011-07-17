@@ -1,23 +1,20 @@
-﻿using Euclid.Common.Storage.Model;
-using Euclid.Common.Storage.NHibernate;
+﻿using Euclid.Common.Storage.NHibernate;
 using ForumAgent.ReadModels;
+using NHibernate;
 
 namespace ForumAgent.Queries
 {
-	public class UserQueries : IModelRepository<User>
+	public class UserQueries : NhSimpleRepository<User>
 	{
-		private readonly NhSimpleRepository<User> _repository;
-
-		public UserQueries(NhSimpleRepository<User> repository)
+		public UserQueries(ISession session) : base(session)
 		{
-			_repository = repository;
 		}
 
 		public bool Authenticate(string username, string password)
 		{
 			// TODO: implement safe hashing/salting and all that noise
 
-			var session = _repository.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var category = session.QueryOver<User>()
 				.Where(x => x.PasswordHash == password)
