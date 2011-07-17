@@ -101,26 +101,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\swiss\blue\search-arrow.png" />
-    <Content Include="Content\swiss\custom.css" />
-    <Content Include="Content\swiss\custom_blue.css" />
-    <Content Include="Content\swiss\custom_green.css" />
-    <Content Include="Content\swiss\custom_purple.css" />
-    <Content Include="Content\swiss\favicon.png" />
-    <Content Include="Content\swiss\green\search-arrow.png" />
-    <Content Include="Content\swiss\images\bookmark-off.png" />
-    <Content Include="Content\swiss\images\bookmark-on.png" />
-    <Content Include="Content\swiss\images\logo.gif" />
-    <Content Include="Content\swiss\images\rss.png" />
-    <Content Include="Content\swiss\images\rss_thread.png" />
-    <Content Include="Content\swiss\purple\search-arrow.png" />
-    <Content Include="Content\swiss\red\search-arrow copy.png" />
-    <Content Include="Content\swiss\red\search-arrow.png" />
-    <Content Include="Content\swiss\screenshot.png" />
-    <Content Include="Content\swiss\screenshot_blue.png" />
-    <Content Include="Content\swiss\screenshot_green.png" />
-    <Content Include="Content\swiss\screenshot_purple.png" />
-    <Content Include="Content\swiss\style.css" />
+    <Content Include="Content\themes\swiss\custom.css" />
+    <Content Include="Content\themes\swiss\favicon.png" />
+    <Content Include="Content\themes\swiss\images\bookmark-off.png" />
+    <Content Include="Content\themes\swiss\images\bookmark-on.png" />
+    <Content Include="Content\themes\swiss\images\logo.gif" />
+    <Content Include="Content\themes\swiss\images\rss.png" />
+    <Content Include="Content\themes\swiss\images\rss_thread.png" />
+    <Content Include="Content\themes\swiss\red\search-arrow copy.png" />
+    <Content Include="Content\themes\swiss\red\search-arrow.png" />
+    <Content Include="Content\themes\swiss\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -184,7 +174,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\swiss\js\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
