@@ -1,8 +1,8 @@
 ﻿using Euclid.Common.Storage.Model;
 using Euclid.Common.Storage.NHibernate;
-using ProfileAgent.ReadModel;
+using ForumAgent.ReadModels;
 
-namespace ProfileAgent.Queries
+namespace ForumAgent.Queries
 {
 	public class UserQueries : IModelRepository<User>
 	{

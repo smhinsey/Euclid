@@ -1,6 +1,6 @@
 ﻿using Euclid.Framework.Cqrs;
 
-namespace ProfileAgent.Commands
+namespace ForumAgent.Commands
 {
 	public class RegisterUser : DefaultCommand
 	{
