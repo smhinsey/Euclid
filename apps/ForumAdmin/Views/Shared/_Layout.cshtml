@@ -1,0 +1,48 @@
+﻿<!doctype html>
+<html lang="en" class="no-js">
+	<head>
+		<title>@ViewBag.Title</title>
+		@RenderPage("Header/Meta.cshtml")
+		<link rel="shortcut icon" href="@Url.Content("~/Content/chromatron/img/favicon.ico")">
+		<link rel="apple-touch-icon" href="@Url.Content("~/Content/chromatron/img/apple-touch-icon.png")">
+		@RenderPage("Header/Styles.cshtml")
+		@RenderPage("Header/Scripts.cshtml")
+	</head>
+	<body>
+		<!-- Right Rail -->
+		<section role="navigation">
+			<!-- Header with logo and headline -->
+			<header><a href="/" title="Back to Homepage"></a>
+				<h1>Lorem ipsum dolor sit amet!</h1>
+			</header>
+			<!-- Badge -->
+			@RenderPage("RightRail/Badge.cshtml")
+			<!-- /Badge -->
+			<!-- Main Navigation -->
+			<nav id="main-nav">
+				@RenderPage("RightRail/SitewideNavigation.cshtml")
+			</nav>
+			<!-- /Main Navigation -->
+			<!-- Sidebar Content -->
+			@RenderSection("Sidebar", required: false)
+			<!-- /Sidebar Content -->
+		</section>
+		<!-- /Right Rail -->
+		<!-- Main Content -->
+		<section role="main">
+			<!-- InfoWidget Header Container -->
+			@RenderPage("Header/InfoWidgets.cshtml")
+			<!-- /InfoWidget Header Container -->
+			<!-- Breadcumbs -->
+			@RenderPage("Header/Breadcrumbs.cshtml")
+			<!-- /Breadcumbs -->
+			<!-- Body Content -->
+			<article class="full-block clearfix">
+				@RenderBody()
+			</article>
+			<!-- /Body Content -->
+		</section>
+		<!-- /Main Content -->
+		@RenderPage("Footer/Scripts.cshtml")
+	</body>
+</html>

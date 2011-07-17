@@ -1,0 +1,54 @@
+﻿@{
+	ViewBag.Title = "Forum Home";
+}
+
+<ul class="DataList Discussions">
+	<li class="Item Alt  Announcement">
+		<div class="Options">
+			<a href="#addbookmark" class="Bookmark" title="Bookmark"><span class="Star"><img src="../../Content/swiss/images/pixel.png" alt="Bookmark" /></span></a>         
+			<ul class="Options"> 
+				<li> 
+					<strong>Options</strong> 
+					<ul> 
+						<li><a href="#edit" class="EditDiscussion">Edit</a></li>               
+					</ul> 
+				</li> 
+			</ul> 
+		</div>   
+		<div class="ItemContent Discussion">
+			@Html.ActionLink("Forum Etiquette", "Thread", "Post", new {@class = "Title"})
+
+			<div class="Meta">
+				<span class="Announcement">Pinned</span> 
+				<span class="CommentCount">1 comment</span> 
+				<span class="LastCommentBy">Started by <a href="../../Content/swiss/profile/2/test">test</a></span>
+				<span class="LastCommentDate">July 14</span>
+				<span>@Html.ActionLink("Nested Category", "Thread", "Post", new {category = "nested-category"}, new {@class = "Category"})</span>
+			</div>
+		</div>
+
+	</li>
+	<li class="Item Alt ">
+
+		<div class="ItemContent Discussion">
+			@Html.ActionLink("Lorem ipsum", "Thread", "Post", new {@class = "Title"})
+
+			<div class="Meta">
+				<span class="CommentCount">1 comment</span> 
+				<span class="LastCommentBy">Started by <a href="../../Content/swiss/profile/2/test">test</a></span>
+				<span class="LastCommentDate">July 14</span>
+				<span>@Html.ActionLink("Nested Category", "Thread", "Post", new {category = "nested-category"}, new {@class = "Category"})</span>
+			</div>
+
+		</div>
+
+	</li>
+</ul>
+
+<div id="PagerAfter" class="NumberedPager">
+	<span class="Previous">‹</span>
+	<a href="#1" class="Highlight">1</a>
+	<a href="#2">2</a>
+	<a href="#p3">3</a>
+	<a href="#2" class="Next">›</a>
+</div>
