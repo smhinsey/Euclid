@@ -5,7 +5,8 @@ namespace Euclid.Framework.Cqrs
 {
 	/// <summary>
 	/// 	A query represents a request for one or more instances of a particular type
-	/// 	of IReadModel.
+	/// 	of IReadModel. Typically, a query will be backed by a repository, but this
+	/// 	decision is up in the hands of the query implementor.
 	/// </summary>
 	public interface IQuery<TReadModel>
 		where TReadModel : IReadModel

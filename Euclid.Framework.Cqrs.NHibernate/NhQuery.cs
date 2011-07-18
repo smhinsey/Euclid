@@ -5,6 +5,11 @@ using NHibernate;
 
 namespace Euclid.Framework.Cqrs.NHibernate
 {
+	/// <summary>
+	/// NhQuery wraps an NhSimpleRepository in order to provide read-only access
+	/// to a database managed by NHibernate.
+	/// </summary>
+	/// <typeparam name="TReadModel"></typeparam>
 	public class NhQuery<TReadModel> : IQuery<TReadModel>
 		where TReadModel : class, IReadModel
 	{
