@@ -16,7 +16,7 @@ namespace ForumTests.IntegrationTests
 
 			var query = new PostQueries(session);
 
-			var results = query.GetPostsByCategory("all");
+			var results = query.FindPostsByCategory("all");
 
 			Assert.IsNotNull(results);
 		}

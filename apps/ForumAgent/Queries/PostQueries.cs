@@ -11,7 +11,7 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public IList<Post> GetPostsByCategory(string name)
+		public IList<Post> FindPostsByCategory(string name)
 		{
 			var session = GetCurrentSession();
 

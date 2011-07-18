@@ -12,7 +12,7 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public IList<Category> GetTopLevelCategories()
+		public IList<Category> FindTopLevelCategories()
 		{
 			var session = GetCurrentSession();
 
