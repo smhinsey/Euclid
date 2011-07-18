@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Euclid.Common.Storage.NHibernate;
+using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.ReadModels;
 using NHibernate;
 
 namespace ForumAgent.Queries
 {
-	public class CategoryQueries : NhSimpleRepository<Category>
+	public class CategoryQueries : NhQuery<Category>
 	{
 		public CategoryQueries(ISession session) : base(session)
 		{

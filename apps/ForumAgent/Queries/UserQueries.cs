@@ -1,11 +1,10 @@
-﻿using Euclid.Common.Storage.NHibernate;
+﻿using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.ReadModels;
 using NHibernate;
 
 namespace ForumAgent.Queries
 {
-	// SELF long-term, we can't actually inherit directly from NhSimpleRepo here, we need something that filters out the save, update, and delete features
-	public class UserQueries : NhSimpleRepository<User>
+	public class UserQueries : NhQuery<User>
 	{
 		public UserQueries(ISession session) : base(session)
 		{
