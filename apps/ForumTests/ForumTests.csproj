@@ -81,6 +81,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
+      <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
+      <Name>Euclid.Framework.Cqrs.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
       <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
       <Name>Euclid.Common.Storage.NHibernate</Name>
