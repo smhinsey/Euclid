@@ -1,19 +1,12 @@
 ﻿using System;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.TestingFakes.Storage.Model;
-using FluentNHibernate.Automapping;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-using NHibernate;
-using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 
 namespace Euclid.Common.IntegrationTests.Storage.Model
 {
-	public class NhSimpleRepositoryTests
+	public class NhSimpleRepositoryTests : NhTestFixture
 	{
-		private ISessionFactory _sessionFactory;
-
 		[Test]
 		public void Delete()
 		{
@@ -24,7 +17,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			            		Name = "Name"
 			            	};
 
-			var repo = new NhSimpleRepository<FakeModel>(_sessionFactory.OpenSession());
+			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
 			var saved = repo.Save(model);
 
@@ -45,7 +38,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			            		Name = "Name"
 			            	};
 
-			var repo = new NhSimpleRepository<FakeModel>(_sessionFactory.OpenSession());
+			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
 			var saved = repo.Save(model);
 
@@ -68,7 +61,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			            		Name = "Name"
 			            	};
 
-			var session = _sessionFactory.OpenSession();
+			var session = SessionFactory.OpenSession();
 
 			var repo = new NhSimpleRepository<FakeModel>(session);
 
@@ -92,7 +85,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			            		Name = "Name"
 			            	};
 
-			var session = _sessionFactory.OpenSession();
+			var session = SessionFactory.OpenSession();
 
 			var repo = new NhSimpleRepository<FakeModel>(session);
 
@@ -116,7 +109,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			            		Name = "Name"
 			            	};
 
-			var session = _sessionFactory.OpenSession();
+			var session = SessionFactory.OpenSession();
 
 			var repo = new NhSimpleRepository<FakeModel>(session);
 
@@ -140,7 +133,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			            		Name = "Name"
 			            	};
 
-			var session = _sessionFactory.OpenSession();
+			var session = SessionFactory.OpenSession();
 
 			var repo = new NhSimpleRepository<FakeModel>(session);
 
@@ -162,7 +155,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			            		Name = "Name"
 			            	};
 
-			var session = _sessionFactory.OpenSession();
+			var session = SessionFactory.OpenSession();
 
 			var repo = new NhSimpleRepository<FakeModel>(session);
 
@@ -184,22 +177,9 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			            		Name = "Name"
 			            	};
 
-			var repo = new NhSimpleRepository<FakeModel>(_sessionFactory.OpenSession());
+			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
 			repo.Save(model);
-		}
-
-		[SetUp]
-		public void SetUp()
-		{
-			var cfg = new AutoMapperConfiguration();
-
-			_sessionFactory = Fluently
-				.Configure()
-				.Database(SQLiteConfiguration.Standard.UsingFile("NhSimpleRepositoryTests"))
-				.Mappings(map => map.AutoMappings.Add(AutoMap.AssemblyOf<FakeModel>(cfg)))
-				.ExposeConfiguration(buildSchema)
-				.BuildSessionFactory();
 		}
 
 		[Test]
@@ -215,7 +195,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			            		Name = firstName
 			            	};
 
-			var repo = new NhSimpleRepository<FakeModel>(_sessionFactory.OpenSession());
+			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
 			var saved = repo.Save(model);
 
@@ -224,11 +204,6 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			var updated = repo.Update(saved);
 
 			Assert.AreEqual(secondName, updated.Name);
-		}
-
-		private static void buildSchema(NHibernate.Cfg.Configuration cfg)
-		{
-			new SchemaExport(cfg).Create(false, true);
 		}
 	}
 }

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Euclid.Common.Storage.NHibernate;
+using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.ReadModels;
 using NHibernate;
 
 namespace ForumAgent.Queries
 {
-	public class PostQueries : NhSimpleRepository<Post>
+	public class PostQueries : NhQuery<Post>
 	{
 		public PostQueries(ISession session) : base(session)
 		{

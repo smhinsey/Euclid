@@ -10,7 +10,10 @@ namespace Euclid.Framework.Cqrs
 	public interface IQuery<TReadModel>
 		where TReadModel : IReadModel
 	{
-		TReadModel GetByIdentifier(Guid identifier);
-		IList<TReadModel> GetList(int count, int skip);
+		IList<TReadModel> FindByCreationDate(DateTime specificDate);
+		IList<TReadModel> FindByCreationDate(DateTime begin, DateTime end);
+		TReadModel FindById(Guid id);
+		IList<TReadModel> FindByModificationDate(DateTime specificDate);
+		IList<TReadModel> FindByModificationDate(DateTime begin, DateTime end);
 	}
 }

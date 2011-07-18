@@ -4,6 +4,7 @@ using NHibernate;
 
 namespace ForumAgent.Queries
 {
+	// SELF long-term, we can't actually inherit directly from NhSimpleRepo here, we need something that filters out the save, update, and delete features
 	public class UserQueries : NhSimpleRepository<User>
 	{
 		public UserQueries(ISession session) : base(session)

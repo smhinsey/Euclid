@@ -101,8 +101,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicationTests.cs" />
     <Compile Include="Storage\AzureBlobStorageTests.cs" />
-    <Compile Include="Storage\AutoMapperConfiguration.cs" />
+    <Compile Include="AutoMapperConfiguration.cs" />
     <Compile Include="Storage\Model\NhSimpleRepositoryTests.cs" />
+    <Compile Include="NhTestFixture.cs" />
     <Compile Include="Storage\NhRecordMapperTests.cs" />
     <Compile Include="Transport\AzureTransportTest.cs" />
   </ItemGroup>
