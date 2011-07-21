@@ -19,18 +19,14 @@ namespace Euclid.Common.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register
-				(
-				 Component.For<IServiceHost>()
+				(Component.For<IServiceHost>()
 				 	.Forward<MultitaskingServiceHost>()
-				 	.Instance(new MultitaskingServiceHost())
-				);
+				 	.Instance(new MultitaskingServiceHost()));
 
 			container.Register
-				(
-				 Component.For<IHostedService>()
+				(Component.For<IHostedService>()
 				 	.Forward<FakeHostedService>()
-				 	.Instance(new FakeHostedService())
-				);
+				 	.Instance(new FakeHostedService()));
 
 			var locator = new WindsorServiceLocator(container);
 
@@ -165,18 +161,14 @@ namespace Euclid.Common.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register
-				(
-				 Component.For<IServiceHost>()
+				(Component.For<IServiceHost>()
 				 	.Forward<MultitaskingServiceHost>()
-				 	.Instance(new MultitaskingServiceHost())
-				);
+				 	.Instance(new MultitaskingServiceHost()));
 
 			container.Register
-				(
-				 Component.For<IHostedService>()
+				(Component.For<IHostedService>()
 				 	.Forward<FakeHostedService>()
-				 	.Instance(new FakeHostedService())
-				);
+				 	.Instance(new FakeHostedService()));
 
 			var runtime = new LocalMachineFabric(new WindsorServiceLocator(container));
 
