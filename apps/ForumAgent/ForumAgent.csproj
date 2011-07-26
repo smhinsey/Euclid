@@ -91,6 +91,10 @@
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
+      <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
+      <Name>Euclid.Framework.Cqrs.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
       <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
       <Name>Euclid.Framework.Cqrs</Name>

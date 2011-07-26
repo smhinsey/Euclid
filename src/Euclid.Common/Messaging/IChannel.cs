@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Euclid.Common.Messaging
 {
-	// SELF this should be combined with IMessageChannel, also this TSubType stuff is is super confusing
 	public interface IChannel<T>
 	{
 		string ChannelName { get; set; }

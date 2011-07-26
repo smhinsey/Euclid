@@ -2,14 +2,21 @@
 
 namespace Euclid.Agent
 {
-	[AttributeUsage(AttributeTargets.Assembly)]
-	public class AgentNameAttribute : Attribute
-	{
-		public AgentNameAttribute(string name)
-		{
-			Name = name;
-		}
+    [AttributeUsage(AttributeTargets.Assembly)]
+    public abstract class TextAttribute : Attribute, IAgentAttribute
+    {
+        public string Value { get; set; }
+    }
 
-		public string Name { get; set; }
-	}
+    public class AgentNameAttribute : TextAttribute
+    {
+    }
+
+    public class AgentSystemNameAttribute : TextAttribute
+    {
+    }
+
+    public class AgentSchemeAttribute : TextAttribute
+    {
+    }    
 }
