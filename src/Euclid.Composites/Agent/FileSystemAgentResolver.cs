@@ -19,7 +19,7 @@ namespace Euclid.Composites.Agent
         {
             foreach (var filePath in Directory.EnumerateFiles(directory, "*.dll", SearchOption.AllDirectories))
             {
-                var assembly = System.Reflection.Assembly.LoadFile(filePath);
+                var assembly = System.Reflection.Assembly.LoadFrom(filePath);
 
                 if (IsAgent(assembly, scheme, systemName))
                 {

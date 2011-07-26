@@ -75,7 +75,7 @@ namespace Euclid.Composites.UnitTests
         [Test]
         public void GetListOfCommandsFromAgent()
         {
-            var resolver = new AppDomainAgentResolver();
+					var resolver = new FileSystemAgentResolver();
 
             var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
 
