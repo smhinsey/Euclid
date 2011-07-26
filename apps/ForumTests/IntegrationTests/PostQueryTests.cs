@@ -23,7 +23,7 @@ namespace ForumTests.IntegrationTests
 
 		private static void addFakeData(ISession session)
 		{
-			var category = new Category()
+			var category = new Category
 			               	{
 			               		CommentCount = 0,
 			               		PostCount = 0,
@@ -32,7 +32,7 @@ namespace ForumTests.IntegrationTests
 
 			session.Save(category);
 
-			var post = new Post()
+			var post = new Post
 			           	{
 			           		Body = "Lorem ipsum",
 			           		CategoryIdentifier = category.Identifier,

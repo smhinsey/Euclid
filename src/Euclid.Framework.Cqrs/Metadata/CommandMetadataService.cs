@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 // JT: this namespace may move to composite
+
 namespace Euclid.Framework.Cqrs.Metadata
 {
 	public class CommandMetadataService : IExtractor

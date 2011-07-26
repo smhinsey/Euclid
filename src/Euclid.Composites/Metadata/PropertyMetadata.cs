@@ -1,31 +1,29 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Euclid.Framework.Cqrs.Metadata;
 
 namespace Euclid.Composites.Metadata
 {
-    public class PropertyMetadata : Metadata, IPropertyMetadata
-    {
-        public object Value { get; set; }
-        public IList<IMetadata> CustomAttributes { get; private set; }
+	public class PropertyMetadata : Metadata, IPropertyMetadata
+	{
+		public PropertyMetadata(PropertyInfo propertyInfo) : base(propertyInfo.PropertyType)
+		{
+			Name = propertyInfo.Name;
 
-        public PropertyMetadata(PropertyInfo propertyInfo) : base(propertyInfo.PropertyType)
-        {
-            Name = propertyInfo.Name;
+			CustomAttributes = new List<IMetadata>();
 
-            CustomAttributes = new List<IMetadata>();
+			foreach (var attr in propertyInfo.GetCustomAttributes(true))
+			{
+				CustomAttributes.Add(Extract(attr.GetType()));
+			}
+		}
 
-            foreach (var attr in propertyInfo.GetCustomAttributes(true))
-            {
-                CustomAttributes.Add(Metadata.Extract(attr.GetType()));
-            }
-        }
+		public IList<IMetadata> CustomAttributes { get; private set; }
+		public object Value { get; set; }
 
-        internal static IPropertyMetadata Extract(PropertyInfo propertyInfo)
-        {
-            return new PropertyMetadata(propertyInfo);
-        }       
-
-    }
+		internal static IPropertyMetadata Extract(PropertyInfo propertyInfo)
+		{
+			return new PropertyMetadata(propertyInfo);
+		}
+	}
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Euclid.Composites.InputModel
+﻿namespace Euclid.Composites.InputModel
 {
-    public interface IInputModel
-    {
-         
-    }
+	public interface IInputModel
+	{
+	}
 }

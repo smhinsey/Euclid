@@ -6,8 +6,8 @@ namespace ForumAgent.Commands
 	public class PublishPost : DefaultCommand
 	{
 		public Guid AuthorIdentifier { get; set; }
-		public Guid CategoryIdentifier { get; set; }
 		public string Body { get; set; }
+		public Guid CategoryIdentifier { get; set; }
 		public string Title { get; set; }
 	}
 }

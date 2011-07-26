@@ -2,8 +2,8 @@
 
 namespace Euclid.Composites.Agent
 {
-    public interface IAgentResolutionStrategy
-    {
-        Assembly GetAgent(string scheme, string systemName);
-    }
+	public interface IAgentResolutionStrategy
+	{
+		Assembly GetAgent(string scheme, string systemName);
+	}
 }

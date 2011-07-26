@@ -1,101 +1,99 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using Euclid.Composites.Agent;
 using Euclid.Composites.Extensions;
 using Euclid.Composites.Metadata;
-using Euclid.Framework.Cqrs;
 using Euclid.SDK.TestingFakes.Composites;
 using NUnit.Framework;
-using System.Linq;
 
 namespace Euclid.Composites.UnitTests
 {
-    [TestFixture]
-    public class MetadataServiceTester
-    {
-        [Test]
-        public void TestCommandMetadata()
-        {
-            var metadata = new CommandMetadata(typeof(FakeCommand));
-            
-            Assert.AreEqual(3, metadata.Interfaces.Count);
-            Assert.True(metadata.Interfaces.Any(x => x.Name == "ICommand"));
-            Assert.True(metadata.Interfaces.Any(x => x.Name == "IMessage"));
-            Assert.True(metadata.Interfaces.Any(x => x.Name == "IFakeMarker"));
+	[TestFixture]
+	public class MetadataServiceTester
+	{
+		private static void TestFakeAgent(Assembly agent)
+		{
+			var metadata = agent.GetAgentMetadata();
+			Assert.AreEqual("Fake Agent", metadata.FriendlyName);
+			Assert.AreEqual("Fake", metadata.SystemName);
+			Assert.AreEqual("FakeAgent.Commands", metadata.CommandNamespace);
+			Assert.AreEqual("FakeAgent.Queries", metadata.QueryNamespace);
+			Assert.AreEqual("FakeAgent.Processors", metadata.CommandProcessorNamespace);
+			Assert.AreEqual("Euclid.SDK.TestingFakes.Agent", metadata.Scheme);
+		}
 
-            Assert.AreEqual(5, metadata.Properties.Count);
-            var p = metadata.Properties.Where(x => x.Name == "Created").FirstOrDefault();
-            Assert.NotNull(p);
-            Assert.AreEqual(p.Name, "Created");
-            Assert.AreEqual(p.Type, typeof(DateTime));
-            Assert.AreEqual(2, p.CustomAttributes.Count);
-            Assert.True(p.CustomAttributes.Any(x=>x.Name =="FakeAttribute"));
-            Assert.True(p.CustomAttributes.Any(x=>x.Name == "DescriptionAttribute"));
+		[Test]
+		public void GetListOfCommandsFromAgent()
+		{
+			var resolver = new FileSystemAgentResolver();
 
-            Assert.True(metadata.Properties.Any(prop => prop.Name == "CreatedBy" && prop.Type == typeof(Guid)));
-            Assert.True(metadata.Properties.Any(prop => prop.Name == "Identifier" && prop.Type == typeof(Guid)));
+			var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
 
-        }
+			var agentMetadata = agent.GetAgentMetadata();
 
-        [Test]
-        public void TestAssemblyMetadata()
-        {
-            var assembly = typeof (FakeCommand).Assembly; 
-            Assert.True(assembly.ContainsAgent());
+			var commandTypes = agent.GetTypes().Where(x => x.Namespace == agentMetadata.CommandNamespace).ToList();
 
-            TestFakeAgent(assembly);
-        }
+			Assert.Contains(typeof (FakeCommand), commandTypes);
+			//Assert.True(commandTypes.Any(x => x == typeof (FakeCommand)));
+		}
 
-        [Test]
-        public void TestResolveAgentFromFileSystem()
-        {
-            var resolver = new FileSystemAgentResolver();
+		[Test]
+		public void TestAssemblyMetadata()
+		{
+			var assembly = typeof (FakeCommand).Assembly;
+			Assert.True(assembly.ContainsAgent());
 
-            var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
+			TestFakeAgent(assembly);
+		}
 
-            Assert.NotNull(agent);
+		[Test]
+		public void TestCommandMetadata()
+		{
+			var metadata = new CommandMetadata(typeof (FakeCommand));
 
-            TestFakeAgent(agent);
-        }
+			Assert.AreEqual(3, metadata.Interfaces.Count);
+			Assert.True(metadata.Interfaces.Any(x => x.Name == "ICommand"));
+			Assert.True(metadata.Interfaces.Any(x => x.Name == "IMessage"));
+			Assert.True(metadata.Interfaces.Any(x => x.Name == "IFakeMarker"));
 
-        [Test]
-        public void TestResolveAgentFromAppDomain()
-        {
-            var resolver = new AppDomainAgentResolver();
+			Assert.AreEqual(5, metadata.Properties.Count);
+			var p = metadata.Properties.Where(x => x.Name == "Created").FirstOrDefault();
+			Assert.NotNull(p);
+			Assert.AreEqual(p.Name, "Created");
+			Assert.AreEqual(p.Type, typeof (DateTime));
+			Assert.AreEqual(2, p.CustomAttributes.Count);
+			Assert.True(p.CustomAttributes.Any(x => x.Name == "FakeAttribute"));
+			Assert.True(p.CustomAttributes.Any(x => x.Name == "DescriptionAttribute"));
 
-            var assembly = typeof (FakeCommand).Assembly;
+			Assert.True(metadata.Properties.Any(prop => prop.Name == "CreatedBy" && prop.Type == typeof (Guid)));
+			Assert.True(metadata.Properties.Any(prop => prop.Name == "Identifier" && prop.Type == typeof (Guid)));
+		}
 
-            var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
+		[Test]
+		public void TestResolveAgentFromAppDomain()
+		{
+			var resolver = new AppDomainAgentResolver();
 
-            Assert.NotNull(agent);
+			var assembly = typeof (FakeCommand).Assembly;
 
-            TestFakeAgent(agent);
-        }
+			var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
 
-        [Test]
-        public void GetListOfCommandsFromAgent()
-        {
-					var resolver = new FileSystemAgentResolver();
+			Assert.NotNull(agent);
 
-            var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
+			TestFakeAgent(agent);
+		}
 
-            var agentMetadata = agent.GetAgentMetadata();
+		[Test]
+		public void TestResolveAgentFromFileSystem()
+		{
+			var resolver = new FileSystemAgentResolver();
 
-            var commandTypes = agent.GetTypes().Where(x => x.Namespace == agentMetadata.CommandNamespace).ToList();
+			var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
 
-            Assert.Contains(typeof(FakeCommand), commandTypes);
-            //Assert.True(commandTypes.Any(x => x == typeof (FakeCommand)));
-        }
+			Assert.NotNull(agent);
 
-        private static void TestFakeAgent(Assembly agent)
-        {
-            var metadata = agent.GetAgentMetadata();
-            Assert.AreEqual("Fake Agent", metadata.FriendlyName);
-            Assert.AreEqual("Fake", metadata.SystemName);
-            Assert.AreEqual("FakeAgent.Commands", metadata.CommandNamespace);
-            Assert.AreEqual("FakeAgent.Queries", metadata.QueryNamespace);
-            Assert.AreEqual("FakeAgent.Processors", metadata.CommandProcessorNamespace);
-            Assert.AreEqual("Euclid.SDK.TestingFakes.Agent", metadata.Scheme);
-        }
-    }
+			TestFakeAgent(agent);
+		}
+	}
 }
