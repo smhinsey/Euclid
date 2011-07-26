@@ -73,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentNameAttribute.cs" />
+    <Compile Include="AgentNotFoundException.cs" />
+    <Compile Include="AssemblyNotAgentException.cs" />
+    <Compile Include="IAgentAttribute.cs" />
     <Compile Include="LocationOfCommandsAttribute.cs" />
     <Compile Include="LocationOfProcessorsAttribute.cs" />
     <Compile Include="LocationOfQueriesAttribute.cs" />

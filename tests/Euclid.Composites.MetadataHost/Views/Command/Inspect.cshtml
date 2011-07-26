@@ -1,0 +1,20 @@
+﻿@using Euclid.SDK.TestingFakes.Composites.InputModel
+@model FakeInputModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@ViewBag.CommandName</title>
+        @Html.EditorFor(x=>x)
+    </head>
+    <body>
+        <div>
+              <strong>@ViewBag.CommandName</strong>
+        </div>
+    </body>
+</html>

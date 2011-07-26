@@ -110,8 +110,6 @@ namespace Euclid.Common.Messaging
 		{
 			DispatcherIsConfigured();
 
-			// SELF create a new task which periodically retrieves messages from the input channel
-			// and spawns new tasks to process them. each processor should be resolved from the container on demand
 			_inputChannel.Open();
 
 			_invalidChannel.Open();

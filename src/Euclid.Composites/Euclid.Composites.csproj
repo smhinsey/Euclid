@@ -74,7 +74,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agent\AgentResolverBase.cs" />
+    <Compile Include="Agent\AppDomainAgentResolver.cs" />
+    <Compile Include="Agent\FileSystemAgentResolver.cs" />
+    <Compile Include="Agent\IAgentResolutionStrategy.cs" />
+    <Compile Include="Extensions\AssemblyExtensions.cs" />
+    <Compile Include="InputModel\IInputModel.cs" />
+    <Compile Include="IViewModel.cs" />
+    <Compile Include="Metadata\AgentMetadata.cs" />
+    <Compile Include="Metadata\Metadata.cs" />
+    <Compile Include="Metadata\CommandMetadata.cs" />
+    <Compile Include="Metadata\PropertyMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Euclid.Agent\Euclid.Agent.csproj">
+      <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
+      <Name>Euclid.Agent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Common\Euclid.Common.csproj">
+      <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
+      <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Framework\Euclid.Framework.csproj">
+      <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
+      <Name>Euclid.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

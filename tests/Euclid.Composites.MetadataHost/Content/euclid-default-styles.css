@@ -1,0 +1,19 @@
+﻿.model-header {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.property-set {
+    margin-bottom: 8px;
+}
+
+.property-label 
+{
+    font-weight: bold;
+}
+
+.property-value 
+{
+}

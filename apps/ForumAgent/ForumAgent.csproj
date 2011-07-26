@@ -79,10 +79,6 @@
     <Compile Include="ReadModels\UserProfile.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
-      <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
-      <Name>Euclid.Framework.Cqrs.NHibernate</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Agent\Euclid.Agent.csproj">
       <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
       <Name>Euclid.Agent</Name>
@@ -94,6 +90,10 @@
     <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
+      <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
+      <Name>Euclid.Framework.Cqrs.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
       <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
