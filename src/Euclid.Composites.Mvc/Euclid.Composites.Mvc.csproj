@@ -97,6 +97,7 @@
     <Compile Include="EuclidComposite.cs" />
     <Compile Include="Binders\IEuclidModelBinder.cs" />
     <Compile Include="ComponentRegistration\ModelBinderIntstaller.cs" />
+    <Compile Include="Models\CommandModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Binders\EuclidDefaultBinder.cs" />
     <Compile Include="WindsorControllerFactory.cs" />
@@ -129,6 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Maps\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Euclid.Agent;
 using Euclid.Composites.Agent;
 using Euclid.Composites.Extensions;
-using Euclid.Composites.Metadata;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Cqrs.Metadata;
 
@@ -23,58 +22,47 @@ namespace Euclid.Composites.Mvc.Binders
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            var scheme = (string)controllerContext.RouteData.Values["scheme"];
-
-            var systemName = (string)controllerContext.RouteData.Values["systemName"];
+            var agent = GetAgent(controllerContext);
 
             var command = (string)controllerContext.RouteData.Values["command"];
 
-            var action = (string) controllerContext.RouteData.Values["action"];
+            var action = ((string)controllerContext.RouteData.Values["action"]).ToLower();
 
-            if (string.IsNullOrEmpty(scheme) || string.IsNullOrEmpty(systemName) || string.IsNullOrEmpty(action)) return null;
+            if (action == "list")
+            {
+                return agent.GetCommands();
+            }
+            else if (action == "inspect")
+            {
+                return agent.GetCommand(command);
+            }
 
-            var agent = _resolvers.Select(rslvr => rslvr.GetAgent(scheme, systemName)).FirstOrDefault(assembly => assembly != null);
+            return null;
+        }
+
+        private Assembly GetAgent(ControllerContext controllerContext)
+        {
+            var scheme = (string) controllerContext.RouteData.Values["scheme"];
+
+            var systemName = (string) controllerContext.RouteData.Values["systemName"];
+
+            if (string.IsNullOrEmpty(scheme) || string.IsNullOrEmpty(systemName)) return null;
+
+            var agent =
+                _resolvers.Select(rslvr => rslvr.GetAgent(scheme, systemName)).FirstOrDefault(assembly => assembly != null);
 
             if (agent == null)
             {
                 throw new AgentNotFoundException(scheme, systemName);
             }
 
-
-            object model = null;
-
-            switch(action.ToLower())
-            {
-                case "list":
-                    model = GetCommandList(agent);
-                    break;
-                case "inspect":
-                    model = GetCommand(agent, command);
-                    break;
-                default:
-                    return null;
-            }
-
-            return model;
-        }
-
-        private IEnumerable<ICommandMetadata> GetCommandList(Assembly agent)
-        {
-            var agentMetadata = agent.GetAgentMetadata();
-
-            var commandTypes = agent.GetTypes().Where(x => x.Namespace == agentMetadata.CommandNamespace && x.IsAssignableFrom(typeof(ICommand)));
-
-            return null;
-        }
-
-        private ICommandMetadata GetCommand(Assembly agent, string commandName)
-        {
-            throw new NotImplementedException();
+            return agent;
         }
 
         public bool IsMatch(Type modelType)
         {
-            return modelType == typeof (ICommandMetadata);
+            return modelType == typeof (ICommandMetadata) ||
+                    modelType == typeof(IEnumerable<ICommandMetadata>);
         }
     }
 }

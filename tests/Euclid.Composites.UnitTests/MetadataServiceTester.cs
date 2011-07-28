@@ -75,16 +75,15 @@ namespace Euclid.Composites.UnitTests
         [Test]
         public void GetListOfCommandsFromAgent()
         {
-            var resolver = new AppDomainAgentResolver();
+            var resolver = new FileSystemAgentResolver();
 
             var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
 
             var agentMetadata = agent.GetAgentMetadata();
 
-            var commandTypes = agent.GetTypes().Where(x => x.Namespace == agentMetadata.CommandNamespace).ToList();
+            var commandTypes = agent.GetTypes().Where(x => x.Namespace == agentMetadata.CommandNamespace && typeof(ICommand).IsAssignableFrom(x)).ToList();
 
             Assert.Contains(typeof(FakeCommand), commandTypes);
-            //Assert.True(commandTypes.Any(x => x == typeof (FakeCommand)));
         }
 
         private static void TestFakeAgent(Assembly agent)

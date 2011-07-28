@@ -22,7 +22,11 @@
 
 <div class="property-set">
     <div class="property-label">@Html.LabelFor(x=>x.CommandNamespace)</div>
-    <div class="property-value">@Model.CommandNamespace</div>
+    <div class="property-value">
+        <a href="@Url.Action("list", "command", new {scheme=Model.Scheme, systemName = Model.SystemName})">
+            @Model.CommandNamespace
+        </a>
+    </div>
 </div>
     
 <div class="property-set">

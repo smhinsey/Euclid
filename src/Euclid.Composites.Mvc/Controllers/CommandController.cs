@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Euclid.Composites.Mvc.Models;
 using Euclid.Framework.Cqrs.Metadata;
 using Euclid.SDK.TestingFakes.Composites.InputModel;
 
@@ -9,13 +10,16 @@ namespace Euclid.Composites.Mvc.Controllers
 {
     public class CommandController : Controller
     {
-        public CommandController()
+        private BiDirectionalMapperCollection _mappers;
+        public CommandController(BiDirectionalMapperCollection mappers)
         {
+            _mappers = mappers;
         }
 
         public ViewResult Inspect(ICommandMetadata metadata)
         {
             // JT: find input map for metadata.Type
+           
             
             if (metadata == null)
             {
@@ -29,10 +33,10 @@ namespace Euclid.Composites.Mvc.Controllers
             return View(new FakeInputModel());
         }
 
-        public ViewResult List(IList<ICommandMetadata> commands)
+        public ViewResult List(IEnumerable<ICommandMetadata> commands, IAgentMetadata agentMetadata)
         {
-            throw new NotImplementedException();
-
+            ViewBag.Title = "Commands in agent";
+            return View(commands.Select(x=>new CommandMetadataModel { AgentMetadata = agentMetadata, CommandMetadata = x}));
         }
     }
 }

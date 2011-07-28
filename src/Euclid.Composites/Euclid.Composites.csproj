@@ -85,6 +85,9 @@
     <Compile Include="Metadata\Metadata.cs" />
     <Compile Include="Metadata\CommandMetadata.cs" />
     <Compile Include="Metadata\PropertyMetadata.cs" />
+    <Compile Include="Mvc\BiDirectionalMapCollection.cs" />
+    <Compile Include="Mvc\IBiDirectionalMapper.cs" />
+    <Compile Include="Mvc\IMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +104,7 @@
       <Name>Euclid.Framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

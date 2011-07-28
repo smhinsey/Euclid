@@ -1,7 +1,10 @@
-﻿using System.Reflection;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Agent;
 using Euclid.Composites.Mvc.Binders;
@@ -13,6 +16,8 @@ namespace Euclid.Composites.Mvc
     {
         private static readonly IWindsorContainer Container = new WindsorContainer();
 
+        private static readonly BiDirectionalMapperCollection Maps = new BiDirectionalMapperCollection();
+
         public EuclidComposite()
         {
         }
@@ -23,11 +28,22 @@ namespace Euclid.Composites.Mvc
 
             Container.Install(new ControllerContainerInstaller());
 
+            Container.Register(
+                Component
+                    .For<BiDirectionalMapperCollection>()
+                    .Instance(Maps)
+                    .LifeStyle.Singleton);
+
             RegisterModelBinders();
 
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
 
             RegisterControllers();
+        }
+
+        public static void AddMap<T, TPrime>(IBiDirectionalMapper<T, TPrime> map)
+        {
+            Maps.Add(map);
         }
 
         // called by agent package as it's installed via nuget
@@ -53,11 +69,6 @@ namespace Euclid.Composites.Mvc
         private static void RegisterControllers()
         {
             RouteTable.Routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            RouteTable.Routes.MapRoute(
-                "Agent",
-                "{controller}/{action}/{scheme}+{systemName}",
-                new { controller = "Agent", action = "Operations" });
 
             RouteTable.Routes.MapRoute(
                 "Command",

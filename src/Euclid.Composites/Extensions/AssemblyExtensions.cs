@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Euclid.Agent;
 using Euclid.Composites.Metadata;
+using Euclid.Framework.Cqrs;
 using Euclid.Framework.Cqrs.Metadata;
 
 namespace Euclid.Composites.Extensions
@@ -49,6 +50,39 @@ namespace Euclid.Composites.Extensions
             }
 
             return metadata;
+        }
+
+        /// <summary>
+        /// Fetches the agent metadata, and then the commands
+        /// </summary>
+        /// <param name="agent">the agent assembly</param>
+        /// <returns></returns>
+        public static IEnumerable<ICommandMetadata> GetCommands(this Assembly agent)
+        {
+            if (!agent.ContainsAgent())
+            {
+                throw new AssemblyNotAgentException(agent);
+            }
+
+            var metadata = agent.GetAgentMetadata();
+
+            return agent.GetCommands(metadata);
+        }
+
+        public static IEnumerable<ICommandMetadata> GetCommands(this Assembly agent, IAgentMetadata agentMetadata)
+        {
+            return agent
+                    .GetTypes()
+                    .Where(
+                        x => x.Namespace == agentMetadata.CommandNamespace 
+                            && typeof (ICommand).IsAssignableFrom(x))
+                    .Select(x => new CommandMetadata(x))
+                    .ToList();
+        }
+
+        public static ICommandMetadata GetCommand(this Assembly agent, string commandName)
+        {
+            return agent.GetCommands().Where(x => x.Name == commandName).FirstOrDefault();
         }
 
         public static T GetAttributeValue<T>(this Assembly assembly) where T : Attribute

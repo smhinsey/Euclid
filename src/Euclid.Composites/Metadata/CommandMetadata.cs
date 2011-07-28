@@ -6,13 +6,17 @@ using Euclid.Framework.Cqrs.Metadata;
 
 namespace Euclid.Composites.Metadata
 {
-    public class CommandMetadata
-        : Metadata, ICommandMetadata
+    public class CommandMetadata : ICommandMetadata
     {
         public IList<IPropertyMetadata> Properties { get; private set; }
+        public IList<IMetadata> Interfaces { get; private set; }
 
-        public CommandMetadata(Type commandType) : base(commandType)
+        public CommandMetadata(Type commandType)
         {
+            Namespace = commandType.Namespace;
+            Name = commandType.Name;
+            Type = commandType;
+
             Interfaces = new List<IMetadata>();
             foreach (var inf in Type.GetInterfaces())
             {
@@ -25,5 +29,10 @@ namespace Euclid.Composites.Metadata
                 Properties.Add(PropertyMetadata.Extract(pi));
             }
         }
+
+
+        public string Name { get; set; }
+        public Type Type { get; set; }
+        public string Namespace { get; private set; }
     }
 }
