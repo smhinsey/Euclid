@@ -7,7 +7,7 @@ namespace ForumTests.UnitTests
 		[Test]
 		public void TestCommentOnPost()
 		{
-			Assert.Inconclusive();			
+			Assert.Inconclusive();
 		}
 
 		[Test]

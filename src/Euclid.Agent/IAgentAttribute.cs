@@ -1,7 +1,7 @@
 ﻿namespace Euclid.Agent
 {
-    public interface IAgentAttribute
-    {
-        // marker 
-    }
+	public interface IAgentAttribute
+	{
+		// marker 
+	}
 }

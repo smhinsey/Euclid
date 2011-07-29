@@ -22,7 +22,7 @@ namespace ForumAgent.Processors
 			           		Body = message.Body,
 			           		Score = 0,
 			           		Title = message.Title,
-										CategoryIdentifier = message.CategoryIdentifier
+			           		CategoryIdentifier = message.CategoryIdentifier
 			           	};
 
 			_repository.Save(post);

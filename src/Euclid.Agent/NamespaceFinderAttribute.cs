@@ -4,19 +4,19 @@ namespace Euclid.Agent
 {
 	public abstract class NamespaceFinderAttribute : Attribute, IAgentAttribute
 	{
-		private Type _type;
 		private string _ns;
+		private Type _type;
 
 		public string Namespace
 		{
 			get { return _ns; }
-			set 
+			set
 			{
 				_ns = value;
 				NamespaceOfType = null;
 			}
 		}
-		
+
 		public Type NamespaceOfType
 		{
 			get { return _type; }

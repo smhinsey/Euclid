@@ -1,3 +1,5 @@
+
+D:\Projects\Euclid\platform>@git.exe %*
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,3 +68,8 @@ namespace Euclid.Composites.Mvc.Binders
         }
     }
 }
+D:\Projects\Euclid\platform>@set ErrorLevel=%ErrorLevel%
+
+D:\Projects\Euclid\platform>@rem Restore the original console codepage.
+
+D:\Projects\Euclid\platform>@chcp %cp_oem% > nul < nul
