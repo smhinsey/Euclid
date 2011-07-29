@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Euclid.Common.Pipeline;
@@ -40,12 +39,5 @@ namespace Euclid.Composites.Mvc.MappingPipeline
         }
 
         //REMARK: Guard Clause
-    }
-
-    public class NoRegistryConfiguredException : Exception
-    {
-        public NoRegistryConfiguredException() : base("This step has no registry associated with it")
-        {
-        }
     }
 }

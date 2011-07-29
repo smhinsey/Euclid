@@ -30,11 +30,4 @@ namespace Euclid.Composites.Mvc
 			return _container.Resolve(controllerType) as IController;
 		}
 	}
-
-	public class ControllerNotFoundException : Exception
-	{
-		public ControllerNotFoundException(Uri url) : base(string.Format("No controller found for the URL {0}", url))
-		{
-		}
-	}
 }

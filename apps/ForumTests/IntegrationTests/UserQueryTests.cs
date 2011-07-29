@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace ForumTests.UnitTests
+namespace ForumTests.IntegrationTests
 {
 	public class UserQueryTests
 	{

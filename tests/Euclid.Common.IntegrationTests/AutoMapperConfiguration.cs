@@ -4,7 +4,7 @@ using Euclid.Common.TestingFakes.Storage.Model;
 using FluentNHibernate;
 using FluentNHibernate.Automapping;
 
-namespace Euclid.Common.IntegrationTests.Storage
+namespace Euclid.Common.IntegrationTests
 {
 	public class AutoMapperConfiguration : DefaultAutomappingConfiguration
 	{

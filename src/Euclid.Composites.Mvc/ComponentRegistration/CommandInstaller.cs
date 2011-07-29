@@ -12,12 +12,4 @@ namespace Euclid.Composites.Mvc.ComponentRegistration
 			throw new NotImplementedException();
 		}
 	}
-
-	public class QueryInstaller : IWindsorInstaller
-	{
-		public void Install(IWindsorContainer container, IConfigurationStore store)
-		{
-			throw new NotImplementedException();
-		}
-	}
 }
