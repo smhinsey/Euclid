@@ -93,6 +93,11 @@
     <Compile Include="HostingFabric\ServiceHostNotResolvableException.cs" />
     <Compile Include="Logging\ILoggingSource.cs" />
     <Compile Include="Messaging\IPublisher.cs" />
+    <Compile Include="Pipeline\IPipelineStep.cs" />
+    <Compile Include="Pipeline\Pipeline.cs" />
+    <Compile Include="Pipeline\PipelinePriority.cs" />
+    <Compile Include="Pipeline\StepConfigurationException.cs" />
+    <Compile Include="Pipeline\StepExecutionException.cs" />
     <Compile Include="Storage\IBlob.cs" />
     <Compile Include="Storage\Binary\IBlobStorageSettings.cs" />
     <Compile Include="Storage\IModel.cs" />

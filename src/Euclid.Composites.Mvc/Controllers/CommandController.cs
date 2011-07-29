@@ -10,10 +10,8 @@ namespace Euclid.Composites.Mvc.Controllers
 {
     public class CommandController : Controller
     {
-        private BiDirectionalMapperCollection _mappers;
-        public CommandController(BiDirectionalMapperCollection mappers)
+        public CommandController()
         {
-            _mappers = mappers;
         }
 
         public ViewResult Inspect(ICommandMetadata metadata)

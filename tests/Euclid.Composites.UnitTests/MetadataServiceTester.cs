@@ -91,7 +91,7 @@ namespace Euclid.Composites.UnitTests
             var metadata = agent.GetAgentMetadata();
             Assert.AreEqual("Fake Agent", metadata.FriendlyName);
             Assert.AreEqual("Fake", metadata.SystemName);
-            Assert.AreEqual("FakeAgent.Commands", metadata.CommandNamespace);
+            Assert.AreEqual("Euclid.SDK.TestingFakes.Composites", metadata.CommandNamespace);
             Assert.AreEqual("FakeAgent.Queries", metadata.QueryNamespace);
             Assert.AreEqual("FakeAgent.Processors", metadata.CommandProcessorNamespace);
             Assert.AreEqual("Euclid.SDK.TestingFakes.Agent", metadata.Scheme);

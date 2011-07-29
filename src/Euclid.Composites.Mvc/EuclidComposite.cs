@@ -1,14 +1,13 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Web;
+﻿using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Agent;
+using Euclid.Composites.Extensions;
 using Euclid.Composites.Mvc.Binders;
 using Euclid.Composites.Mvc.ComponentRegistration;
+using Euclid.Composites.Mvc.MappingPipeline;
 
 namespace Euclid.Composites.Mvc
 {
@@ -16,10 +15,12 @@ namespace Euclid.Composites.Mvc
     {
         private static readonly IWindsorContainer Container = new WindsorContainer();
 
-        private static readonly BiDirectionalMapperCollection Maps = new BiDirectionalMapperCollection();
+        public MapperRegistry Mappers { get;private set; }
+
 
         public EuclidComposite()
         {
+            Mappers = new MapperRegistry();
         }
 
         public void Configure()
@@ -30,8 +31,8 @@ namespace Euclid.Composites.Mvc
 
             Container.Register(
                 Component
-                    .For<BiDirectionalMapperCollection>()
-                    .Instance(Maps)
+                    .For<MapperRegistry>()
+                    .Instance(Mappers)
                     .LifeStyle.Singleton);
 
             RegisterModelBinders();
@@ -41,22 +42,16 @@ namespace Euclid.Composites.Mvc
             RegisterControllers();
         }
 
-        public static void AddMap<T, TPrime>(IBiDirectionalMapper<T, TPrime> map)
-        {
-            Maps.Add(map);
-        }
-
         // called by agent package as it's installed via nuget
-        public static void InstallAgent(Assembly agent)
+        public void InstallAgent(Assembly assembly)
         {
-            //retrieve metadata defined in AgentInfo.cs
-
-            var attributes = agent.GetCustomAttributes(typeof (AgentNameAttribute), false);
-
-            if (attributes.Length > 0)
+            if (!assembly.ContainsAgent())
             {
-                var agentName = attributes[0];
+                throw new AssemblyNotAgentException(assembly);
             }
+
+            // register agent queries
+
         }
 
         private static void RegisterModelBinders()

@@ -74,6 +74,9 @@
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
@@ -96,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Configuration\OverridableObjectsTests.cs" />
     <Compile Include="HostingFabric\LocalMachineFabricTests.cs" />
+    <Compile Include="Pipeline\PipelineTests.cs" />
     <Compile Include="Publishing\PublisherTests.cs" />
     <Compile Include="Registry\InMemoryRegistryTests.cs" />
     <Compile Include="Registry\RegistryTester.cs" />
