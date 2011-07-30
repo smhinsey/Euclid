@@ -7,12 +7,12 @@ namespace Euclid.Composites.Agent
 {
 	public class AppDomainAgentResolver : AgentResolverBase
 	{
-		public override Assembly GetAgent(string scheme, string systemName)
+		public override Assembly GetAgent(string systemName)
 		{
 			return AppDomain.CurrentDomain
 				.GetAssemblies()
 				.Where(
-				       assembly => assembly.ContainsAgent() && IsAgent(assembly, scheme, systemName))
+				       assembly => assembly.ContainsAgent() && IsAgent(assembly, systemName))
 				.FirstOrDefault();
 		}
 	}

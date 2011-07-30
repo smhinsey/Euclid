@@ -42,6 +42,8 @@ namespace Euclid.Composites.UnitTests
         public void TestAssemblyMetadata()
         {
             var assembly = typeof (FakeCommand).Assembly;
+            var agentInfo = assembly.GetAgentInfo();
+
             Assert.True(assembly.ContainsAgent());
 
             TestFakeAgent(assembly);
@@ -52,7 +54,7 @@ namespace Euclid.Composites.UnitTests
         {
             var resolver = new FileSystemAgentResolver();
 
-            var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
+            var agent = resolver.GetAgent("Fake");
 
             Assert.NotNull(agent);
 
@@ -66,7 +68,7 @@ namespace Euclid.Composites.UnitTests
 
             var assembly = typeof (FakeCommand).Assembly;
 
-            var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
+            var agent = resolver.GetAgent("Fake");
 
             Assert.NotNull(agent);
 
@@ -78,9 +80,9 @@ namespace Euclid.Composites.UnitTests
         {
             var resolver = new FileSystemAgentResolver();
 
-            var agent = resolver.GetAgent("Euclid.SDK.TestingFakes.Agent", "Fake");
+            var agent = resolver.GetAgent("Fake");
 
-            var agentMetadata = agent.GetAgentMetadata();
+            var agentMetadata = agent.GetAgentInfo();
 
             var commandTypes =
                 agent.GetTypes().Where(
@@ -91,13 +93,12 @@ namespace Euclid.Composites.UnitTests
 
         private static void TestFakeAgent(Assembly agent)
         {
-            var metadata = agent.GetAgentMetadata();
+            var metadata = agent.GetAgentInfo();
             Assert.AreEqual("Fake Agent", metadata.FriendlyName);
             Assert.AreEqual("Fake", metadata.SystemName);
             Assert.AreEqual("Euclid.SDK.TestingFakes.Composites", metadata.CommandNamespace);
             Assert.AreEqual("FakeAgent.Queries", metadata.QueryNamespace);
             Assert.AreEqual("FakeAgent.Processors", metadata.CommandProcessorNamespace);
-            Assert.AreEqual("Euclid.SDK.TestingFakes.Agent", metadata.Scheme);
         }
     }
 }

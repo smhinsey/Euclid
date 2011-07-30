@@ -5,15 +5,15 @@ namespace Euclid.Composites.Agent
 {
 	public abstract class AgentResolverBase : IAgentResolutionStrategy
 	{
-		public abstract Assembly GetAgent(string scheme, string systemName);
+		public abstract Assembly GetAgent(string systemName);
 
-		protected bool IsAgent(Assembly assembly, string scheme, string systemName)
+		protected bool IsAgent(Assembly assembly, string systemName)
 		{
-			var metadata = assembly.GetAgentMetadata();
+			var metadata = assembly.GetAgentInfo();
 
 			if (metadata == null) return false;
 
-			return (scheme == metadata.Scheme && systemName == metadata.SystemName);
+			return (systemName == metadata.SystemName);
 		}
 	}
 }

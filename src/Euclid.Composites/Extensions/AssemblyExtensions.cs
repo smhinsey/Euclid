@@ -16,7 +16,6 @@ namespace Euclid.Composites.Extensions
             var agentAttributeTypes = new List<Type>
                                           {
                                               typeof (AgentNameAttribute),
-                                              typeof (AgentSchemeAttribute),
                                               typeof (AgentSystemNameAttribute),
                                               typeof (LocationOfCommandsAttribute),
                                               typeof (LocationOfQueriesAttribute),
@@ -25,67 +24,74 @@ namespace Euclid.Composites.Extensions
 
             var attributes = assembly.GetCustomAttributes(false).Where(attr=>attr.GetType().GetInterface(typeof(IAgentAttribute).Name)!= null).Select(x=>x.GetType()).ToList();
 
-            return attributes.Intersect(agentAttributeTypes).Count() == attributes.Count();
+            return attributes.Intersect(agentAttributeTypes).Count() == agentAttributeTypes.Count();
         }
 
-        public static IAgentMetadata GetAgentMetadata(this Assembly assembly)
+        public static IAgentInfo GetAgentInfo(this Assembly assembly)
         {
-            IAgentMetadata metadata = null;
-
-            try
-            {
-                metadata = new AgentMetadata
-                                {
-                                    FriendlyName = assembly.GetAttributeValue<AgentNameAttribute>().Value,
-                                    Scheme = assembly.GetAttributeValue<AgentSchemeAttribute>().Value,
-                                    SystemName = assembly.GetAttributeValue<AgentSystemNameAttribute>().Value,
-                                    CommandNamespace = assembly.GetAttributeValue<LocationOfCommandsAttribute>().Namespace,
-                                    QueryNamespace = assembly.GetAttributeValue<LocationOfQueriesAttribute>().Namespace,
-                                    CommandProcessorNamespace = assembly.GetAttributeValue<LocationOfProcessorsAttribute>().Namespace
-                                };
-            }
-            catch (AssemblyNotAgentException)
-            {
-                // REMARK eat this exception
-            }
-
-            return metadata;
+            return new AgentInfo(assembly);
         }
 
-        /// <summary>
-        /// Fetches the agent metadata, and then the commands
-        /// </summary>
-        /// <param name="agent">the agent assembly</param>
-        /// <returns></returns>
-        public static IEnumerable<ICommandMetadata> GetCommands(this Assembly agent)
+        internal static IEnumerable<Type> GetCommandTypes(this Assembly agent, string commandNamespace)
+        {
+            return agent
+                    .GetTypes()
+                    .Where(
+                        x => x.Namespace == commandNamespace
+                             && typeof (ICommand).IsAssignableFrom(x));
+        }
+
+        internal static IEnumerable<ICommandMetadata> GetCommands(this Assembly agent)
         {
             if (!agent.ContainsAgent())
             {
                 throw new AssemblyNotAgentException(agent);
             }
 
-            var metadata = agent.GetAgentMetadata();
+            var metadata = agent.GetAgentInfo();
 
-            return agent.GetCommands(metadata);
+            return agent.GetCommands(metadata.CommandNamespace);
         }
 
-        public static IEnumerable<ICommandMetadata> GetCommands(this Assembly agent, IAgentMetadata agentMetadata)
+        internal static IEnumerable<ICommandMetadata> GetCommands(this Assembly agent, string commandNamespace)
         {
             return agent
-                    .GetTypes()
-                    .Where(
-                        x => x.Namespace == agentMetadata.CommandNamespace 
-                            && typeof (ICommand).IsAssignableFrom(x))
+                    .GetCommandTypes(commandNamespace)
                     .Select(x => new CommandMetadata(x))
                     .ToList();
         }
 
-        public static ICommandMetadata GetCommand(this Assembly agent, string commandName)
+        internal static ICommandMetadata GetCommand(this Assembly agent, string commandName)
         {
             return agent.GetCommands().Where(x => x.Name == commandName).FirstOrDefault();
         }
 
-        public static T GetAttributeValue<T>(this Assembly assembly) where T : Attribute
+        internal static string GetAgentName(this Assembly agent)
+        {
+            return agent.GetAttributeValue<AgentNameAttribute>().Value;
+        }
+
+        internal static string GetAgentSystemName(this Assembly agent)
+        {
+            return agent.GetAttributeValue<AgentSystemNameAttribute>().Value;
+        }
+
+        internal static string GetCommandNamespace(this Assembly agent)
+        {
+            return agent.GetAttributeValue<LocationOfCommandsAttribute>().Namespace;
+        }
+
+        internal static string GetQueryNamespace(this Assembly agent)
+        {
+            return agent.GetAttributeValue<LocationOfQueriesAttribute>().Namespace;
+        }
+
+        internal static string GetProcessorNamespace(this Assembly agent)
+        {
+            return agent.GetAttributeValue<LocationOfProcessorsAttribute>().Namespace;
+        }
+
+        private static T GetAttributeValue<T>(this Assembly assembly) where T : Attribute
         {
             var attributes = assembly.GetCustomAttributes(typeof (T), false);
 

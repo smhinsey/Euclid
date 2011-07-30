@@ -16,7 +16,7 @@ namespace Euclid.Composites.UnitTests
         public Type Destination { get { return typeof (IInputModel); } }
 
 
-        public IInputModel Map(ICommandMetadata source)
+        public IInputModel Map(ICommandMetadata commandMetadata)
         {
             return new Mock<IInputModel>().Object;
         }

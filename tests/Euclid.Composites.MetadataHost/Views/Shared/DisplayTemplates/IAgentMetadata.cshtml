@@ -1,48 +1,44 @@
+@using Euclid.Framework.Cqrs.Metadata
+@model IAgentInfo
 
-D:\Projects\Euclid\platform>@git.exe %*
-﻿@using Euclid.Framework.Cqrs.Metadata
-@model IAgentMetadata
-
-<div class="model-header">
-    @Model.Scheme.@Model.SystemName
-</div>
+@if (@Model == null)
+{
+    <h1>No agent metadata found</h1>
+}
+else
+{
+    <fieldset>
+        <div class="model-header">
+            Model.SystemName
+        </div>
     
-<div class="property-set">
-    <div class="property-label">@Html.LabelFor(x=>x.FriendlyName)</div>
-    <div class="property-value">@Model.FriendlyName</div>
-</div>
+        <div class="property-set">
+            <div class="property-label">@Html.LabelFor(x => x.FriendlyName)</div>
+            <div class="property-value">@Model.FriendlyName</div>
+        </div>
 
-<div class="property-set">
-    <div class="property-label">@Html.LabelFor(x=>x.SystemName)</div>
-    <div class="property-value">@Model.SystemName</div>
-</div>
+        <div class="property-set">
+            <div class="property-label">@Html.LabelFor(x => x.SystemName)</div>
+            <div class="property-value">@Model.SystemName</div>
+        </div>
 
-<div class="property-set">
-    <div class="property-label">@Html.LabelFor(x=>x.Scheme)</div>
-    <div class="property-value">@Model.Scheme</div>
-</div>
-
-<div class="property-set">
-    <div class="property-label">@Html.LabelFor(x=>x.CommandNamespace)</div>
-    <div class="property-value">
-        <a href="@Url.Action("list", "command", new {scheme=Model.Scheme, systemName = Model.SystemName})">
-            @Model.CommandNamespace
-        </a>
-    </div>
-</div>
+        <div class="property-set">
+            <div class="property-label">@Html.LabelFor(x => x.CommandNamespace)</div>
+            <div class="property-value">
+                <a href="@Url.Action("list", "command", new { systemName = Model.SystemName })">
+                    @Model.CommandNamespace
+                </a>
+            </div>
+        </div>
     
-<div class="property-set">
-    <div class="property-label">@Html.LabelFor(x=>x.QueryNamespace)</div>
-    <div class="property-value">@Model.QueryNamespace</div>
-</div>
+        <div class="property-set">
+            <div class="property-label">@Html.LabelFor(x => x.QueryNamespace)</div>
+            <div class="property-value">@Model.QueryNamespace</div>
+        </div>
 
-<div class="property-set">
-    <div class="property-label">@Html.LabelFor(x=>x.CommandProcessorNamespace)</div>
-    <div class="property-value">@Model.CommandProcessorNamespace</div>
-</div>
-
-D:\Projects\Euclid\platform>@set ErrorLevel=%ErrorLevel%
-
-D:\Projects\Euclid\platform>@rem Restore the original console codepage.
-
-D:\Projects\Euclid\platform>@chcp %cp_oem% > nul < nul
+        <div class="property-set">
+            <div class="property-label">@Html.LabelFor(x => x.CommandProcessorNamespace)</div>
+            <div class="property-value">@Model.CommandProcessorNamespace</div>
+        </div> 
+    </fieldset>
+}

@@ -3,7 +3,6 @@ using ForumAgent.Queries;
 
 [assembly: AgentName(Value = "Forum Agent")]
 [assembly: AgentSystemName(Value = "Forum")]
-[assembly: AgentScheme(Value = "Euclid.Reference.Agent")]
 
 // 3 examples of using the NamespaceFinder attribute class
 // used to by the composite during agent registration

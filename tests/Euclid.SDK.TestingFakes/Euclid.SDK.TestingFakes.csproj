@@ -47,7 +47,6 @@
     <Compile Include="Composites\FakeAttribute.cs" />
     <Compile Include="Composites\FakeCommand.cs" />
     <Compile Include="Composites\IFakeMarker.cs" />
-    <Compile Include="Composites\InputModel\FakeInputModel.cs" />
     <Compile Include="Composites\InputModel\FakeInputToCommandMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,6 +58,10 @@
     <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Composites\Euclid.Composites.csproj">
+      <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
+      <Name>Euclid.Composites</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>

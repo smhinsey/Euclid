@@ -77,7 +77,7 @@
     <Compile Include="Cqrs\ICommandPublicationRecord.cs" />
     <Compile Include="Cqrs\ICommandRegistry.cs" />
     <Compile Include="Cqrs\IQuery.cs" />
-    <Compile Include="Cqrs\Metadata\IAgentMetadata.cs" />
+    <Compile Include="Cqrs\Metadata\IAgentInfo.cs" />
     <Compile Include="Cqrs\Metadata\IMetadata.cs" />
     <Compile Include="Cqrs\Metadata\ICommandMetadata.cs" />
     <Compile Include="Cqrs\Metadata\IExtractor.cs" />

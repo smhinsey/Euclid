@@ -14,7 +14,7 @@ namespace Euclid.Composites.Mvc.Binders
     public class CommandMetadataModelBinder : IEuclidModelBinder
     {
         private readonly IAgentResolutionStrategy[] _resolvers;
-
+    
         public CommandMetadataModelBinder(IAgentResolutionStrategy[] resolvers)
         {
             _resolvers = resolvers;
@@ -22,41 +22,24 @@ namespace Euclid.Composites.Mvc.Binders
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            var agent = GetAgent(controllerContext);
+            var agentSystemName = controllerContext.GetAgentSystemName();
 
-            var command = (string)controllerContext.RouteData.Values["command"];
+            var commandName = controllerContext.GetCommandName();
 
-            var action = ((string)controllerContext.RouteData.Values["action"]).ToLower();
+            var action = controllerContext.GetAction();
+
+            var agentInfo = _resolvers.GetAgentInfo(agentSystemName);
 
             if (action == "list")
             {
-                return agent.GetCommands();
+                return agentInfo.GetCommands();
             }
             else if (action == "inspect")
             {
-                return agent.GetCommand(command);
+                return agentInfo.GetCommand(commandName);
             }
 
             return null;
-        }
-
-        private Assembly GetAgent(ControllerContext controllerContext)
-        {
-            var scheme = (string) controllerContext.RouteData.Values["scheme"];
-
-            var systemName = (string) controllerContext.RouteData.Values["systemName"];
-
-            if (string.IsNullOrEmpty(scheme) || string.IsNullOrEmpty(systemName)) return null;
-
-            var agent =
-                _resolvers.Select(rslvr => rslvr.GetAgent(scheme, systemName)).FirstOrDefault(assembly => assembly != null);
-
-            if (agent == null)
-            {
-                throw new AgentNotFoundException(scheme, systemName);
-            }
-
-            return agent;
         }
 
         public bool IsMatch(Type modelType)

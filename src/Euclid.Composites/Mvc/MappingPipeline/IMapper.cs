@@ -7,7 +7,7 @@ namespace Euclid.Composites.Mvc.MappingPipeline
         Type Source { get; }
         Type Destination { get; }
 
-        TDestination Map(TSource source);
+        TDestination Map(TSource commandMetadata);
     }
 
     public interface IMapper

@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="AgentNameAttribute.cs" />
     <Compile Include="AgentNotFoundException.cs" />
+    <Compile Include="AgentSystemNameAttribute.cs" />
     <Compile Include="AssemblyNotAgentException.cs" />
     <Compile Include="IAgentAttribute.cs" />
     <Compile Include="LocationOfCommandsAttribute.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="LocationOfQueriesAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="NamespaceFinderAttribute.cs" />
+    <Compile Include="TextAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

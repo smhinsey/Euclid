@@ -1,0 +1,12 @@
+﻿@using Euclid.Framework.Cqrs.Metadata
+@model IEnumerable<IMetadata>
+
+<fieldset>
+    @foreach (var prop in @Model)
+    {
+        <div class="property-set">
+            <div class="property-label">@Html.Label(prop.Name)</div>
+            <div class="property-value">@Html.TextBox(prop.Name)</div>
+        </div>
+    }
+</fieldset>

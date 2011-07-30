@@ -1,17 +1,13 @@
+@using Euclid.Composites.InputModel
+@model IInputModel
 
-D:\Projects\Euclid\platform>@git.exe %*
-﻿@using Euclid.SDK.TestingFakes.Composites.InputModel
-@model FakeInputModel
+<div class="model-header">@Model.CommandType.FullName</div>
 
-@{
-    Layout = null;
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="AgentSystemName" value="@Model.AgentSystemName"/>
+
+    @Html.EditorFor(p => Model.Properties, "ListOfProperties")
+
+    <input type="submit" value="Publish Command" /> 
 }
-
-<div>
-    <strong>@ViewBag.CommandName</strong>
-</div>
-D:\Projects\Euclid\platform>@set ErrorLevel=%ErrorLevel%
-
-D:\Projects\Euclid\platform>@rem Restore the original console codepage.
-
-D:\Projects\Euclid\platform>@chcp %cp_oem% > nul < nul

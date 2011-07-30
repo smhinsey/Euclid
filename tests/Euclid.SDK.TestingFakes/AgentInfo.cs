@@ -3,7 +3,6 @@ using Euclid.SDK.TestingFakes.Composites;
 
 [assembly: AgentName(Value = "Fake Agent")]
 [assembly: AgentSystemName(Value = "Fake")]
-[assembly: AgentScheme(Value = "Euclid.SDK.TestingFakes.Agent")]
 
 // hardcode agent namepsace
 

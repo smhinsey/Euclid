@@ -73,6 +73,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -84,13 +86,17 @@
     <Compile Include="Agent\AppDomainAgentResolver.cs" />
     <Compile Include="Agent\FileSystemAgentResolver.cs" />
     <Compile Include="Agent\IAgentResolutionStrategy.cs" />
+    <Compile Include="Extensions\AgentResolutionStrategyExtensions.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Extensions\ControllerContextExtensions.cs" />
+    <Compile Include="Extensions\MissingRouteDataException.cs" />
     <Compile Include="InputModel\IInputModel.cs" />
     <Compile Include="IViewModel.cs" />
-    <Compile Include="Metadata\AgentMetadata.cs" />
+    <Compile Include="Metadata\AgentInfo.cs" />
     <Compile Include="Metadata\Metadata.cs" />
     <Compile Include="Metadata\CommandMetadata.cs" />
     <Compile Include="Metadata\PropertyMetadata.cs" />
+    <Compile Include="Metadata\UnsupportedCommandException.cs" />
     <Compile Include="Mvc\MappingPipeline\GetCommandStep.cs" />
     <Compile Include="Mvc\MappingPipeline\GetInputModelStep.cs" />
     <Compile Include="Mvc\MappingPipeline\GetMapStepBase.cs" />
@@ -98,6 +104,8 @@
     <Compile Include="Mvc\MappingPipeline\MapCommandPipelineData.cs" />
     <Compile Include="Mvc\MappingPipeline\MapperNotFoundException.cs" />
     <Compile Include="Mvc\MappingPipeline\MapperRegistry.cs" />
+    <Compile Include="Mvc\MappingPipeline\MappingFailedException.cs" />
+    <Compile Include="Mvc\MappingPipeline\NoRegistryConfiguredException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgentInfoTests.cs" />
     <Compile Include="FakeMap.cs" />
     <Compile Include="MetadataServiceTester.cs" />
     <Compile Include="MapperRegistryTests.cs" />
