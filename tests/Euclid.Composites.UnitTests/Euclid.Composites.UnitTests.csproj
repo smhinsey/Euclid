@@ -70,6 +70,10 @@
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
+      <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
+      <Name>Euclid.Composites.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Composites\Euclid.Composites.csproj">
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>

@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Composites.Mvc.MappingPipeline
+namespace Euclid.Composites.Mvc.Maps
 {
     public class MappingFailedException : Exception
     {

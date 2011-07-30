@@ -1,5 +1,5 @@
 ﻿using Euclid.Composites.Metadata;
-using Euclid.Composites.Mvc.MappingPipeline;
+using Euclid.Composites.Mvc.Maps;
 using Euclid.Framework.Cqrs;
 using Moq;
 using NUnit.Framework;

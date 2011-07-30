@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using Euclid.Common.Messaging;
 using Euclid.Composites.Extensions;
 using Euclid.Composites.InputModel;
-using Euclid.Composites.Mvc.MappingPipeline;
+using Euclid.Composites.Mvc.Maps;
 using Euclid.Composites.Mvc.Models;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Cqrs.Metadata;

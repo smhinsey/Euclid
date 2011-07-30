@@ -69,6 +69,9 @@
     <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Windsor.2.5.3\lib\NET40\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="RouteDebugger">
       <HintPath>..\..\packages\routedebugger.2.0.0.7\lib\net40\RouteDebugger.dll</HintPath>
     </Reference>
@@ -87,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Binders\AgentMetadataModelBinder.cs" />
     <Compile Include="Binders\CommandModelBinder.cs" />
+    <Compile Include="Binders\IEuclidModelBinder.cs" />
     <Compile Include="ComponentRegistration\CommandInstaller.cs" />
     <Compile Include="ComponentRegistration\ComponentRegistrationBase.cs" />
     <Compile Include="ComponentRegistration\ContainerInstaller.cs" />
@@ -96,10 +100,14 @@
     <Compile Include="Controllers\CommandController.cs" />
     <Compile Include="Binders\CommandMetadataModelBinder.cs" />
     <Compile Include="EuclidComposite.cs" />
-    <Compile Include="Binders\IEuclidModelBinder.cs" />
     <Compile Include="ComponentRegistration\ModelBinderIntstaller.cs" />
     <Compile Include="Maps\DefaultComponentMetadataToInputModelMap.cs" />
     <Compile Include="Maps\CannotCreateInputModelException.cs" />
+    <Compile Include="Maps\IMapper.cs" />
+    <Compile Include="Maps\MapperNotFoundException.cs" />
+    <Compile Include="Maps\MapperRegistry.cs" />
+    <Compile Include="Maps\MappingFailedException.cs" />
+    <Compile Include="Maps\NoRegistryConfiguredException.cs" />
     <Compile Include="Models\CommandMetadataModel.cs" />
     <Compile Include="Models\InputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +122,10 @@
     <ProjectReference Include="..\Euclid.Agent\Euclid.Agent.csproj">
       <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
       <Name>Euclid.Agent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Common.Logging\Euclid.Common.Logging.csproj">
+      <Project>{8D46ACE3-E0DC-4317-B321-BDFE71F843E7}</Project>
+      <Name>Euclid.Common.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
       <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>

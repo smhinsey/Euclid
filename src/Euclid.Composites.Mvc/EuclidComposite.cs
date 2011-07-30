@@ -1,10 +1,12 @@
 using System;
 using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Agent;
+using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
 using Euclid.Common.Storage.Binary;
@@ -12,26 +14,24 @@ using Euclid.Common.Storage.Record;
 using Euclid.Composites.Extensions;
 using Euclid.Composites.Mvc.Binders;
 using Euclid.Composites.Mvc.ComponentRegistration;
-using Euclid.Composites.Mvc.MappingPipeline;
 using Euclid.Composites.Mvc.Maps;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Cqrs.Metadata;
 
 namespace Euclid.Composites.Mvc
 {
-    public class EuclidComposite
+    public class EuclidComposite : ILoggingSource
     {
         private static readonly IWindsorContainer Container = new WindsorContainer();
 
         public MapperRegistry Mappers { get;private set; }
-
 
         public EuclidComposite()
         {
             Mappers = new MapperRegistry();
         }
 
-        public void Configure<TPublisher, TMessageChannel, TPublicationRegistry, TCommandPublicationRecordMapper, TBlobStorage, TMessageSerializer>() 
+        public void Configure<TPublisher, TMessageChannel, TPublicationRegistry, TCommandPublicationRecordMapper, TBlobStorage, TMessageSerializer>(HttpApplication mvcApplication) 
             where TPublisher : IPublisher
             where TMessageChannel : IMessageChannel
             where TPublicationRegistry : IPublicationRegistry<IPublicationRecord>
@@ -92,6 +92,14 @@ namespace Euclid.Composites.Mvc
             RegisterRoutes();
 
             Mappers.Add(new DefaultComponentMetadataToInputModelMap());
+
+            mvcApplication.Error += new EventHandler(LogUnhandledException);
+        }
+
+        void LogUnhandledException(object sender, EventArgs eventArgs)
+        {
+            var e = HttpContext.Current.Server.GetLastError();
+            this.WriteFatalMessage(e.Message, e);
         }
 
         // called by agent package as it's installed via nuget

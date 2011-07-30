@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Euclid.Composites.InputModel;
-using Euclid.Composites.Mvc.MappingPipeline;
 using Euclid.Framework.Cqrs.Metadata;
 
 namespace Euclid.Composites.Mvc.Maps

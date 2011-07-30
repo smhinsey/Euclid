@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Euclid.Composites.Mvc.MappingPipeline
+namespace Euclid.Composites.Mvc.Maps
 {
     public class MapperRegistry
     {
