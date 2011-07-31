@@ -8,15 +8,13 @@ using Castle.Windsor;
 using Euclid.Agent;
 using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
-using Euclid.Common.Storage;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.Record;
-using Euclid.Composites.Extensions;
 using Euclid.Composites.Mvc.Binders;
 using Euclid.Composites.Mvc.ComponentRegistration;
 using Euclid.Composites.Mvc.Maps;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Cqrs.Metadata;
+using Euclid.Framework.Metadata.Extensions;
 
 namespace Euclid.Composites.Mvc
 {
@@ -24,19 +22,21 @@ namespace Euclid.Composites.Mvc
     {
         private static readonly IWindsorContainer Container = new WindsorContainer();
 
-        public MapperRegistry Mappers { get;private set; }
-
         public EuclidComposite()
         {
             Mappers = new MapperRegistry();
         }
 
-        public void Configure<TPublisher, TMessageChannel, TPublicationRegistry, TCommandPublicationRecordMapper, TBlobStorage, TMessageSerializer>(HttpApplication mvcApplication) 
+        public MapperRegistry Mappers { get; private set; }
+
+        public void Configure
+            <TPublisher, TMessageChannel, TPublicationRegistry, TCommandPublicationRecordMapper, TBlobStorage,
+             TMessageSerializer>(HttpApplication mvcApplication)
             where TPublisher : IPublisher
             where TMessageChannel : IMessageChannel
             where TPublicationRegistry : IPublicationRegistry<IPublicationRecord>
             where TCommandPublicationRecordMapper : IRecordMapper<CommandPublicationRecord>
-            where TBlobStorage : IBlobStorage 
+            where TBlobStorage : IBlobStorage
             where TMessageSerializer : IMessageSerializer
         {
             Container.Install(new ContainerInstaller());
@@ -55,7 +55,7 @@ namespace Euclid.Composites.Mvc
 
             Container.Register(
                 Component.For<IRecordMapper<CommandPublicationRecord>>()
-                    .ImplementedBy(typeof(TCommandPublicationRecordMapper))
+                    .ImplementedBy(typeof (TCommandPublicationRecordMapper))
                     .LifeStyle.Singleton
                 );
 
@@ -93,10 +93,10 @@ namespace Euclid.Composites.Mvc
 
             Mappers.Add(new DefaultComponentMetadataToInputModelMap());
 
-            mvcApplication.Error += new EventHandler(LogUnhandledException);
+            mvcApplication.Error += LogUnhandledException;
         }
 
-        void LogUnhandledException(object sender, EventArgs eventArgs)
+        private void LogUnhandledException(object sender, EventArgs eventArgs)
         {
             var e = HttpContext.Current.Server.GetLastError();
             this.WriteFatalMessage(e.Message, e);
@@ -110,15 +110,14 @@ namespace Euclid.Composites.Mvc
                 throw new AssemblyNotAgentException(assembly);
             }
 
-            // register agent queries
-
+            throw new NotImplementedException();
         }
 
         private static void RegisterModelBinders()
         {
             Container.Install(new ModelBinderIntstaller());
 
-            ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());           
+            ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
         }
 
         private static void RegisterRoutes()
@@ -128,13 +127,13 @@ namespace Euclid.Composites.Mvc
             RouteTable.Routes.MapRoute(
                 "Command",
                 "{controller}/{action}/{agentSystemName}/{commandName}",
-                new { controller = "Command", action = "Inspect", command = UrlParameter.Optional }
-            );
+                new {controller = "Command", action = "Inspect", command = UrlParameter.Optional}
+                );
 
             RouteTable.Routes.MapRoute(
                 "InspectCommand",
                 "{agentSystemName}/{commandName}.{format}",
-                new { controller = "Command", action = "Inspect", format = UrlParameter.Optional }
+                new {controller = "Command", action = "Inspect", format = UrlParameter.Optional}
                 );
 
             // JT: add route for query controller when it exists

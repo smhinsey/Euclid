@@ -25,11 +25,9 @@ namespace Euclid.Composites.Mvc.Binders
 
             var agent = _resolvers.GetAgentInfo(agentSystemName);
 
-            var command = agent.GetCommand(commandName);
-
             // jt: fill command properties with form values
 
-            return command;
+            throw new NotImplementedException();
         }
 
         public bool IsMatch(Type modelType)

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
-using Euclid.Agent;
 using Euclid.Composites.Agent;
 using Euclid.Composites.Extensions;
-using Euclid.Framework.Cqrs.Metadata;
+using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites.Mvc.Binders
 {
@@ -26,7 +24,7 @@ namespace Euclid.Composites.Mvc.Binders
 
         public bool IsMatch(Type modelType)
         {
-            return (modelType == typeof (IAgentInfo));
+            return (modelType == typeof (IAgentMetadata));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Euclid.Composites.Agent;
 using Euclid.Composites.Extensions;
-using Euclid.Composites.Metadata;
+using Euclid.Framework.Metadata.Extensions;
 using Euclid.SDK.TestingFakes.Composites;
 using NUnit.Framework;
 
@@ -25,17 +25,23 @@ namespace Euclid.Composites.UnitTests
 
             Assert.True(agentInfo.SupportsCommand<FakeCommand>());
 
-            var command = agentInfo.GetCommand<FakeCommand>();
+            var commandMetadata = agentInfo.GetCommandMetadata<FakeCommand>();
+
+            Assert.NotNull(commandMetadata);
+
+            Assert.AreEqual(typeof(FakeCommand), commandMetadata.Type);
+
+            var command = agentInfo.GetCommand(commandMetadata.Type);
 
             Assert.NotNull(command);
 
             Assert.AreEqual(typeof(FakeCommand), command.GetType());
 
-            command = agentInfo.GetCommand("FakeCommand");
+            commandMetadata = agentInfo.GetCommandMetadata("FakeCommand");
 
-            Assert.NotNull(command);
+            Assert.NotNull(commandMetadata);
 
-            Assert.AreEqual(typeof(FakeCommand), command.GetType());
+            Assert.AreEqual(typeof(FakeCommand), commandMetadata.Type);
         }
 
         [Test]
@@ -43,11 +49,9 @@ namespace Euclid.Composites.UnitTests
         {
             var agentInfo = typeof(FakeCommand).Assembly.GetAgentInfo();
 
-            var commands = agentInfo.GetCommands();
+            Assert.NotNull(agentInfo.Commands);
 
-            Assert.NotNull(commands);
-
-            Assert.GreaterOrEqual(commands.Count(), 1);
+            Assert.GreaterOrEqual(agentInfo.Commands.Count(), 1);
         }
          
     }

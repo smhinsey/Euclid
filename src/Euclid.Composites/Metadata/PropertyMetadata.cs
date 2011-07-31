@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Reflection;
-using Euclid.Framework.Cqrs.Metadata;
+using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites.Metadata
 {
@@ -10,7 +10,7 @@ namespace Euclid.Composites.Metadata
 		{
 			Name = propertyInfo.Name;
 
-			CustomAttributes = new List<IMetadata>();
+			CustomAttributes = new List<IMetadataOriginal>();
 
 			foreach (var attr in propertyInfo.GetCustomAttributes(true))
 			{
@@ -18,7 +18,7 @@ namespace Euclid.Composites.Metadata
 			}
 		}
 
-		public IList<IMetadata> CustomAttributes { get; private set; }
+		public IList<IMetadataOriginal> CustomAttributes { get; private set; }
 		public object Value { get; set; }
 
 		internal static IPropertyMetadata Extract(PropertyInfo propertyInfo)

@@ -1,6 +1,4 @@
-﻿using Euclid.Composites.Metadata;
-using Euclid.Composites.Mvc.Maps;
-using Euclid.Framework.Cqrs;
+﻿using Euclid.Composites.Mvc.Maps;
 using Moq;
 using NUnit.Framework;
 

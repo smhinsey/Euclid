@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Composites.Metadata
+namespace Euclid.Framework.Metadata
 {
     public class UnsupportedCommandException : Exception
     {

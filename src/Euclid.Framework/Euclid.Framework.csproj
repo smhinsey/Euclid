@@ -77,12 +77,11 @@
     <Compile Include="Cqrs\ICommandPublicationRecord.cs" />
     <Compile Include="Cqrs\ICommandRegistry.cs" />
     <Compile Include="Cqrs\IQuery.cs" />
-    <Compile Include="Cqrs\Metadata\IAgentInfo.cs" />
-    <Compile Include="Cqrs\Metadata\IMetadata.cs" />
-    <Compile Include="Cqrs\Metadata\ICommandMetadata.cs" />
-    <Compile Include="Cqrs\Metadata\IExtractor.cs" />
-    <Compile Include="Cqrs\Metadata\IExtractorSettings.cs" />
-    <Compile Include="Cqrs\Metadata\IPropertyMetadata.cs" />
+    <Compile Include="Metadata\IAgentMetadata.cs" />
+    <Compile Include="Metadata\ICommandMetadata.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Metadata\IEuclidMetdata.cs" />
     <Compile Include="DefaultReadModel.cs" />
     <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
     <Compile Include="IAggregateRoot.cs" />

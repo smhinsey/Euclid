@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using Euclid.Common.Messaging;
-using Euclid.Composites.Extensions;
 using Euclid.Composites.InputModel;
 using Euclid.Composites.Mvc.Maps;
 using Euclid.Composites.Mvc.Models;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Cqrs.Metadata;
+using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites.Mvc.Controllers
 {
@@ -23,11 +20,13 @@ namespace Euclid.Composites.Mvc.Controllers
             _commandPublisher = commandPublisher;
         }
 
-        public ViewResult List(IEnumerable<ICommandMetadata> commands, IAgentInfo agentInfo)
+        public ViewResult List(IAgentMetadata agentMetadata)
         {
             ViewBag.Title = "Commands in agent";
 
-            return View(commands.Select(x=>new CommandMetadataModel { AgentInfo = agentInfo, CommandMetadata = x}));
+            // jt : CommandMetadata should be a service w/a factory method?
+
+            return View(new CommandMetadataModel { AgentMetadata = agentMetadata });
         }
 
         public ContentResult Publish(ICommand command)
@@ -55,26 +54,26 @@ namespace Euclid.Composites.Mvc.Controllers
             return Publish(command);
         }
 
-        public ViewResult Inspect(ICommandMetadata metadata, string extension)
+        public ViewResult Inspect(IEuclidMetdata metadata, string extension)
         {
             if (metadata == null)
             {
                 throw new ArgumentNullException("metadata");
             }
 
-            var mapper = _mapperRegistry.Get<ICommandMetadata, IInputModel>();
+            var mapper = _mapperRegistry.Get<IEuclidMetdata, IInputModel>();
             if (mapper == null)
             {
-                throw new MapperNotFoundException(typeof(ICommandMetadata), typeof(IInputModel));
+                throw new MapperNotFoundException(typeof(IEuclidMetdata), typeof(IInputModel));
             }
 
             var inputModel = mapper.Map(metadata);
             inputModel.SubmittedByUser = HttpContext.User.Identity.Name;
-            inputModel.AgentSystemName = metadata.CommandType.Assembly.GetAgentInfo().SystemName;
+            //inputModel.AgentSystemName = metadata.CommandType.Assembly.GetAgentInfo().SystemName;
 
             if (inputModel == null)
             {
-                throw new MappingFailedException(mapper.GetType(), typeof(ICommandMetadata), typeof(IInputModel));
+                throw new MappingFailedException(mapper.GetType(), typeof(IEuclidMetdata), typeof(IInputModel));
             }
 
             return View(inputModel);

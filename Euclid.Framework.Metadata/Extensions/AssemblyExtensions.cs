@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Euclid.Agent;
-using Euclid.Composites.Metadata;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Cqrs.Metadata;
 
-namespace Euclid.Composites.Extensions
+namespace Euclid.Framework.Metadata.Extensions
 {
     public static class AssemblyExtensions
     {
@@ -27,9 +25,9 @@ namespace Euclid.Composites.Extensions
             return attributes.Intersect(agentAttributeTypes).Count() == agentAttributeTypes.Count();
         }
 
-        public static IAgentInfo GetAgentInfo(this Assembly assembly)
+        public static IAgentMetadata GetAgentInfo(this Assembly assembly)
         {
-            return new AgentInfo(assembly);
+            return new AgentMetadataService(assembly);
         }
 
         internal static IEnumerable<Type> GetCommandTypes(this Assembly agent, string commandNamespace)
@@ -39,31 +37,6 @@ namespace Euclid.Composites.Extensions
                     .Where(
                         x => x.Namespace == commandNamespace
                              && typeof (ICommand).IsAssignableFrom(x));
-        }
-
-        internal static IEnumerable<ICommandMetadata> GetCommands(this Assembly agent)
-        {
-            if (!agent.ContainsAgent())
-            {
-                throw new AssemblyNotAgentException(agent);
-            }
-
-            var metadata = agent.GetAgentInfo();
-
-            return agent.GetCommands(metadata.CommandNamespace);
-        }
-
-        internal static IEnumerable<ICommandMetadata> GetCommands(this Assembly agent, string commandNamespace)
-        {
-            return agent
-                    .GetCommandTypes(commandNamespace)
-                    .Select(x => new CommandMetadata(x))
-                    .ToList();
-        }
-
-        internal static ICommandMetadata GetCommand(this Assembly agent, string commandName)
-        {
-            return agent.GetCommands().Where(x => x.Name == commandName).FirstOrDefault();
         }
 
         internal static string GetAgentName(this Assembly agent)
@@ -108,6 +81,14 @@ namespace Euclid.Composites.Extensions
             }
 
             return attribute;
+        }
+    }
+
+    public static class TypeExtensions
+    {
+        public static IEuclidMetdata GetMetadata(this Type type)
+        {
+            return new EuclidMetadata(type);
         }
     }
 }

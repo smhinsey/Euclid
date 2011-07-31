@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Euclid.Framework.Cqrs.Metadata;
+using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites.Metadata
 {
-	public class Metadata : IMetadata
+	public class Metadata : IMetadataOriginal
 	{
 		public Metadata(Type t)
 		{
@@ -12,7 +12,7 @@ namespace Euclid.Composites.Metadata
 			Type = t;
 		}
 
-		public IList<IMetadata> Interfaces { get; protected set; }
+		public IList<IMetadataOriginal> Interfaces { get; protected set; }
 		public string Name { get; set; }
 
 		public string Namespace
@@ -22,7 +22,7 @@ namespace Euclid.Composites.Metadata
 
 		public Type Type { get; set; }
 
-		internal static IMetadata Extract(Type t)
+		internal static IMetadataOriginal Extract(Type t)
 		{
 			return new Metadata(t);
 		}

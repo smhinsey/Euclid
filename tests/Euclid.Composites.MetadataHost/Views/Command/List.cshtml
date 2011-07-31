@@ -5,11 +5,11 @@
 
 <ul>
     <li>
-        @Model.ElementAt(0).AgentInfo.CommandNamespace
+        @Model.ElementAt(0).AgentMetadata.CommandNamespace
         <ul>
         @foreach (var m in Model)
         {
-            var agentMetadata = m.AgentInfo;
+            var agentMetadata = m.AgentMetadata;
             <li>
                 <a href="@Url.Action("Inspect", "Command", new { systemName = agentMetadata.SystemName, command = m.CommandMetadata.Name })">
                    @m.CommandMetadata.Name

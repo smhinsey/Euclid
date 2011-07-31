@@ -1,10 +1,10 @@
-﻿using Euclid.Framework.Cqrs.Metadata;
+﻿using System.Collections.Generic;
+using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites.Mvc.Models
 {
     public class CommandMetadataModel
     {
-        public IAgentInfo AgentInfo { get; set; }
-        public ICommandMetadata CommandMetadata { get; set; }
+        public IAgentMetadata AgentMetadata { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 using System.Reflection;
-using Euclid.Composites.Extensions;
+using Euclid.Framework.Metadata.Extensions;
 
 namespace Euclid.Composites.Agent
 {

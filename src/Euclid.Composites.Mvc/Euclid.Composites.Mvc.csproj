@@ -115,6 +115,10 @@
     <Compile Include="WindsorControllerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Euclid.Framework.Metadata\Euclid.Framework.Metadata.csproj">
+      <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
+      <Name>Euclid.Framework.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\tests\Euclid.SDK.TestingFakes\Euclid.SDK.TestingFakes.csproj">
       <Project>{71F8C169-9723-47C4-8FED-1ED86DFC15BC}</Project>
       <Name>Euclid.SDK.TestingFakes</Name>

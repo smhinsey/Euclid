@@ -1,22 +1,22 @@
 using System;
 using Euclid.Composites.InputModel;
 using Euclid.Composites.Mvc.Maps;
-using Euclid.Framework.Cqrs.Metadata;
+using Euclid.Framework.Metadata;
 using Moq;
 
 namespace Euclid.Composites.UnitTests
 {
-    public class FakeMap : IMapper<ICommandMetadata, IInputModel>
+    public class FakeMap : IMapper<IEuclidMetdata, IInputModel>
     {
         public Type Source
         {
-            get { return typeof (ICommandMetadata); }
+            get { return typeof(IEuclidMetdata); }
         }
 
         public Type Destination { get { return typeof (IInputModel); } }
 
 
-        public IInputModel Map(ICommandMetadata commandMetadata)
+        public IInputModel Map(IEuclidMetdata commandMetadata)
         {
             return new Mock<IInputModel>().Object;
         }

@@ -1,16 +1,15 @@
 using System;
-using System.Linq;
 using Euclid.Composites.InputModel;
-using Euclid.Framework.Cqrs.Metadata;
+using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites.Mvc.Maps
 {
-    public class DefaultComponentMetadataToInputModelMap : IMapper<ICommandMetadata, IInputModel>
+    public class DefaultComponentMetadataToInputModelMap : IMapper<IEuclidMetdata, IInputModel>
     {
-        public Type Source { get { return typeof(ICommandMetadata); } }
+        public Type Source { get { return typeof(IEuclidMetdata); } }
         public Type Destination { get { return typeof(IInputModel); } }
 
-        public IInputModel Map(ICommandMetadata commandMetadata)
+        public IInputModel Map(IEuclidMetdata commandMetadata)
         {
             var inputModel = Activator.CreateInstance(typeof(Models.InputModel)) as IInputModel;
 
@@ -19,9 +18,11 @@ namespace Euclid.Composites.Mvc.Maps
                 throw new CannotCreateInputModelException(typeof(Models.InputModel));
             }
 
-            inputModel.CommandType = commandMetadata.CommandType;
+            inputModel.CommandType = commandMetadata.Type;
             inputModel.AgentSystemName = string.Empty;
-            commandMetadata.Properties.ToList().ForEach(md => inputModel.Properties.Add(md));
+
+
+//            commandMetadata.Properties.ToList().ForEach(md => inputModel.Properties.Add(new EuclidMetadata(md.Type) { }));
 
             return inputModel;
         }
