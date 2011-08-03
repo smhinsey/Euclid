@@ -7,7 +7,7 @@ namespace Euclid.Framework.Models
     public class InputModel : IInputModel
     {
         public string SubmittedByUser { get; set; }
-        public IList<IPropertyMetadata> Properties { get; private set; }
+        public IEnumerable<IPropertyMetadata> Properties { get; private set; }
         public Type CommandType { get; set; }
         public string AgentSystemName { get; set; }
 

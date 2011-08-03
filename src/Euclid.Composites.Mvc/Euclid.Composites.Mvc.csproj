@@ -98,11 +98,8 @@
     <Compile Include="ComponentRegistration\ContainerInstaller.cs" />
     <Compile Include="ComponentRegistration\ControllerContainerInstaller.cs" />
     <Compile Include="ComponentRegistration\QueryInstaller.cs" />
-    <Compile Include="Controllers\AgentController.cs" />
-    <Compile Include="Controllers\CommandController.cs" />
     <Compile Include="ComponentRegistration\ModelBinderIntstaller.cs" />
     <Compile Include="EuclidComposite.cs" />
-    <Compile Include="Models\CommandMetadataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Binders\EuclidDefaultBinder.cs" />
     <Compile Include="WindsorControllerFactory.cs" />
@@ -115,6 +112,10 @@
     <ProjectReference Include="..\Euclid.Common.Logging\Euclid.Common.Logging.csproj">
       <Project>{8D46ACE3-E0DC-4317-B321-BDFE71F843E7}</Project>
       <Name>Euclid.Common.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+      <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
+      <Name>Euclid.Common.Messaging</Name>
     </ProjectReference>
     <ProjectReference Include="..\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
       <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>

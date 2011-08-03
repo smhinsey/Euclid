@@ -1,6 +1,6 @@
 ﻿using Euclid.Framework.Metadata;
 
-namespace Euclid.Composites.Mvc.Models
+namespace Euclid.Composites.MvcApplication.Models
 {
     public class CommandMetadataModel
     {

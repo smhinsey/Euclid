@@ -1,12 +1,11 @@
-using System;
 using System.Web.Mvc;
 using Euclid.Common.Messaging;
-using Euclid.Composites.Mvc.Models;
+using Euclid.Composites.MvcApplication.Models;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Metadata;
 using Euclid.Framework.Models;
 
-namespace Euclid.Composites.Mvc.Controllers
+namespace Euclid.Composites.MvcApplication.Controllers
 {
     public class CommandController : Controller
     {
