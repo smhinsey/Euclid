@@ -2,7 +2,7 @@
 
 namespace Euclid.Composites.AgentResolution
 {
-	public interface IAgentResolutionStrategy
+	public interface IAgentResolver
 	{
 		Assembly GetAgent(string systemName);
 	}

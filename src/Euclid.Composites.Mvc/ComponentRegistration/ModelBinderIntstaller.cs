@@ -15,11 +15,11 @@ namespace Euclid.Composites.Mvc.ComponentRegistration
 
 			container.Kernel.Resolver.AddSubResolver(new ListResolver(container.Kernel));
 
-			foreach (var t in GetTypesThatImplement<IAgentResolutionStrategy>())
+			foreach (var t in GetTypesThatImplement<IAgentResolver>())
 			{
 				container.Register(
 				                   Component
-				                   	.For<IAgentResolutionStrategy>()
+				                   	.For<IAgentResolver>()
 				                   	.ImplementedBy(t)
 				                   	.LifeStyle.Transient);
 			}

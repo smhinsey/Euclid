@@ -10,10 +10,10 @@ namespace Euclid.Composites.Mvc.Binders
 {
     public class InputModelBinder : IEuclidModelBinder
     {
-        private readonly IAgentResolutionStrategy[] _resolvers;
+        private readonly IAgentResolver[] _resolvers;
         private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry;
 
-        public InputModelBinder(IAgentResolutionStrategy[] resolvers, ICommandToIInputModelConversionRegistry commandToIInputModelConversionRegistry)
+        public InputModelBinder(IAgentResolver[] resolvers, ICommandToIInputModelConversionRegistry commandToIInputModelConversionRegistry)
         {
             _resolvers = resolvers;
             _commandToIInputModelConversionRegistry = commandToIInputModelConversionRegistry;

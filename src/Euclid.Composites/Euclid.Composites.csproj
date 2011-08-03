@@ -86,7 +86,7 @@
     <Compile Include="AgentResolution\AgentResolverBase.cs" />
     <Compile Include="AgentResolution\AppDomainAgentResolver.cs" />
     <Compile Include="AgentResolution\FileSystemAgentResolver.cs" />
-    <Compile Include="AgentResolution\IAgentResolutionStrategy.cs" />
+    <Compile Include="AgentResolution\IAgentResolver.cs" />
     <Compile Include="CompositeApplicationState.cs" />
     <Compile Include="Conversion\CannotCreateInputModelException.cs" />
     <Compile Include="Conversion\CommandNotRegisteredException.cs" />
@@ -94,7 +94,7 @@
     <Compile Include="Conversion\ITypeConversionRegistry.cs" />
     <Compile Include="Conversion\CommandAlreadyMappedException.cs" />
     <Compile Include="InvalidCompositeApplicationStateException.cs" />
-    <Compile Include="Extensions\AgentResolutionStrategyExtensions.cs" />
+    <Compile Include="Extensions\AgentResolversExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

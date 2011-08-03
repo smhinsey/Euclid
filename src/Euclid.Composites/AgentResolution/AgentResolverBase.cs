@@ -3,7 +3,7 @@ using Euclid.Agent.Extensions;
 
 namespace Euclid.Composites.AgentResolution
 {
-	public abstract class AgentResolverBase : IAgentResolutionStrategy
+	public abstract class AgentResolverBase : IAgentResolver
 	{
 		public abstract Assembly GetAgent(string systemName);
 

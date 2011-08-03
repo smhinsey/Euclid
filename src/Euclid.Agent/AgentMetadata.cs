@@ -31,6 +31,5 @@ namespace Euclid.Agent
 
         public ICommandMetadataCollection Commands { get; private set; }
         public IAgentPartMetadataCollection Queries { get{throw new NotImplementedException();} }
-        public IAgentPartMetadataCollection CommandProcessors { get{throw new NotImplementedException();} }
     }
 }

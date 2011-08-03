@@ -12,10 +12,10 @@ namespace Euclid.Composites.Mvc.Binders
 {
     public class CommandModelBinder : IEuclidModelBinder
     {
-        private readonly IAgentResolutionStrategy[] _resolvers;
+        private readonly IAgentResolver[] _resolvers;
         private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry;
 
-        public CommandModelBinder(IAgentResolutionStrategy[] resolvers, ICommandToIInputModelConversionRegistry commandToIInputModelConversionRegistry)
+        public CommandModelBinder(IAgentResolver[] resolvers, ICommandToIInputModelConversionRegistry commandToIInputModelConversionRegistry)
         {
             _resolvers = resolvers;
             _commandToIInputModelConversionRegistry = commandToIInputModelConversionRegistry;
