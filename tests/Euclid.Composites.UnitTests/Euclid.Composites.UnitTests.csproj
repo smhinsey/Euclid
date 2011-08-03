@@ -62,10 +62,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Euclid.Framework.Metadata\Euclid.Framework.Metadata.csproj">
-      <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
-      <Name>Euclid.Framework.Metadata</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Agent\Euclid.Agent.csproj">
       <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
       <Name>Euclid.Agent</Name>

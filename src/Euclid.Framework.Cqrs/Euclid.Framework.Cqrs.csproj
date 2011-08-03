@@ -93,7 +93,7 @@
     <Compile Include="Configuration\CommandHostService.cs" />
     <Compile Include="Configuration\Dispatcher.cs" />
     <Compile Include="Configuration\TimeSpanConfiguration.cs" />
-    <Compile Include="DefaultCommand.cs" />
+    <Compile Include="DefaultEuclidMetadata.cs" />
     <Compile Include="DefaultCommandProcessor.cs" />
     <Compile Include="Exceptions\InvalidMessageTypeException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

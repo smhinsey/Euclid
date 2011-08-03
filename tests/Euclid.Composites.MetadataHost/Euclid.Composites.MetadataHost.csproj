@@ -42,6 +42,12 @@
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -163,6 +169,10 @@
       <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
       <Name>Euclid.Composites.Mvc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Composites\Euclid.Composites.csproj">
+      <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
+      <Name>Euclid.Composites</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
       <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
       <Name>Euclid.Framework.Cqrs</Name>
@@ -171,9 +181,9 @@
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Euclid.SDK.TestingFakes\Euclid.SDK.TestingFakes.csproj">
-      <Project>{71F8C169-9723-47C4-8FED-1ED86DFC15BC}</Project>
-      <Name>Euclid.SDK.TestingFakes</Name>
+    <ProjectReference Include="..\Euclid.Framework.TestingFakes\Euclid.Framework.TestingFakes.csproj">
+      <Project>{793DEE69-90CB-45D7-94CC-FD2D7CE59790}</Project>
+      <Name>Euclid.Framework.TestingFakes</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

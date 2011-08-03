@@ -19,7 +19,7 @@ namespace Euclid.Composites.Mvc.Binders
         {
             var systemName = controllerContext.GetAgentSystemName();
 
-            return _resolvers.GetAgentInfo(systemName);
+            return _resolvers.GetAgentMetadata(systemName);
         }
 
         public bool IsMatch(Type modelType)

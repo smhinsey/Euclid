@@ -1,12 +1,14 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
-using Euclid.Common.Storage.Record;
 using Euclid.Composites.MetadataHost.EuclidConfiguration;
 using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
+using Euclid.Framework.TestingFakes.Cqrs;
+using Euclid.Framework.TestingFakes.InputModels;
 
 namespace Euclid.Composites.MetadataHost
 {
@@ -25,7 +27,11 @@ namespace Euclid.Composites.MetadataHost
 
             var composite = new EuclidComposite();
 
-            composite.Configure<DefaultPublisher, InMemoryMessageChannel, CommandRegistry, CompositeCommandPublicationRecordMapper, InMemoryBlobStorage, JsonMessageSerializer>(this);
+            composite.Configure<DefaultPublisher, InMemoryMessageChannel, CommandRegistry, CompositeCommandPublicationRecordMapper, InMemoryBlobStorage, JsonMessageSerializer, CommandDispatcher>(this);
+
+            composite.InstallAgent(typeof(FakeCommand4).Assembly);
+
+            composite.RegisterInputModel<InputModelFakeCommand4, FakeCommand4>();
         }
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)

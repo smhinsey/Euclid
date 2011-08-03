@@ -1,6 +1,6 @@
 using System;
-using Euclid.Composites.InputModel;
-using Euclid.Composites.Mvc.Maps;
+using Euclid.Composites.Maps;
+using Euclid.Composites.Models;
 using Euclid.Framework.Metadata;
 using Moq;
 
@@ -15,6 +15,10 @@ namespace Euclid.Composites.UnitTests
 
         public Type Destination { get { return typeof (IInputModel); } }
 
+        public object Map(object source)
+        {
+            return Map(source as IEuclidMetdata);
+        }
 
         public IInputModel Map(IEuclidMetdata commandMetadata)
         {

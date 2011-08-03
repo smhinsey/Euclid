@@ -73,15 +73,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumTests", "apps\ForumTes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7A99E385-CC40-4F2F-B301-EEF6C4664ECC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Composites.UnitTests", "tests\Euclid.Composites.UnitTests\Euclid.Composites.UnitTests.csproj", "{CD14F53F-0165-4AC4-91DC-3E65DE607958}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.SDK.TestingFakes", "tests\Euclid.SDK.TestingFakes\Euclid.SDK.TestingFakes.csproj", "{71F8C169-9723-47C4-8FED-1ED86DFC15BC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Composites.MetadataHost", "tests\Euclid.Composites.MetadataHost\Euclid.Composites.MetadataHost.csproj", "{81147952-ED2A-41AD-BC1A-3FAC2D3BF5D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.Cqrs.NHibernate", "src\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj", "{5A255BCD-5858-4CB3-BE76-177E65048D4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.Metadata", "Euclid.Framework.Metadata\Euclid.Framework.Metadata.csproj", "{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.Metadata", "src\Euclid.Framework.Metadata\Euclid.Framework.Metadata.csproj", "{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -378,22 +374,6 @@ Global
 		{4C2904F0-2691-47BD-B779-7880E4C8D129}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C2904F0-2691-47BD-B779-7880E4C8D129}.Release|x64.ActiveCfg = Release|Any CPU
 		{4C2904F0-2691-47BD-B779-7880E4C8D129}.Release|x86.ActiveCfg = Release|Any CPU
-		{CD14F53F-0165-4AC4-91DC-3E65DE607958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD14F53F-0165-4AC4-91DC-3E65DE607958}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD14F53F-0165-4AC4-91DC-3E65DE607958}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CD14F53F-0165-4AC4-91DC-3E65DE607958}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CD14F53F-0165-4AC4-91DC-3E65DE607958}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD14F53F-0165-4AC4-91DC-3E65DE607958}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CD14F53F-0165-4AC4-91DC-3E65DE607958}.Release|x64.ActiveCfg = Release|Any CPU
-		{CD14F53F-0165-4AC4-91DC-3E65DE607958}.Release|x86.ActiveCfg = Release|Any CPU
-		{71F8C169-9723-47C4-8FED-1ED86DFC15BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71F8C169-9723-47C4-8FED-1ED86DFC15BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71F8C169-9723-47C4-8FED-1ED86DFC15BC}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{71F8C169-9723-47C4-8FED-1ED86DFC15BC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{71F8C169-9723-47C4-8FED-1ED86DFC15BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71F8C169-9723-47C4-8FED-1ED86DFC15BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71F8C169-9723-47C4-8FED-1ED86DFC15BC}.Release|x64.ActiveCfg = Release|Any CPU
-		{71F8C169-9723-47C4-8FED-1ED86DFC15BC}.Release|x86.ActiveCfg = Release|Any CPU
 		{81147952-ED2A-41AD-BC1A-3FAC2D3BF5D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81147952-ED2A-41AD-BC1A-3FAC2D3BF5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81147952-ED2A-41AD-BC1A-3FAC2D3BF5D6}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -457,8 +437,6 @@ Global
 		{C85A1466-1652-44F7-A4C2-94AD4B4B74E2} = {F056C8DB-206E-4480-95A2-242AEA0C5AFC}
 		{7C5DC02C-5E2E-46A2-8343-ADE8035F141B} = {0A1A782D-44E7-44E8-812D-92FF3D352CE0}
 		{4C2904F0-2691-47BD-B779-7880E4C8D129} = {C85A1466-1652-44F7-A4C2-94AD4B4B74E2}
-		{CD14F53F-0165-4AC4-91DC-3E65DE607958} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
-		{71F8C169-9723-47C4-8FED-1ED86DFC15BC} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 		{81147952-ED2A-41AD-BC1A-3FAC2D3BF5D6} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 	EndGlobalSection
 EndGlobal

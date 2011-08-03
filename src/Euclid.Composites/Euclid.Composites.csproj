@@ -89,15 +89,15 @@
     <Compile Include="Extensions\AgentResolutionStrategyExtensions.cs" />
     <Compile Include="Extensions\ControllerContextExtensions.cs" />
     <Compile Include="Extensions\MissingRouteDataException.cs" />
-    <Compile Include="InputModel\IInputModel.cs" />
     <Compile Include="IViewModel.cs" />
+    <Compile Include="Maps\CannotCreateInputModelException.cs" />
+    <Compile Include="Maps\IMapper.cs" />
+    <Compile Include="Maps\MapperNotFoundException.cs" />
+    <Compile Include="Maps\MappingFailedException.cs" />
+    <Compile Include="Maps\NoRegistryConfiguredException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Euclid.Framework.Metadata\Euclid.Framework.Metadata.csproj">
-      <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
-      <Name>Euclid.Framework.Metadata</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Euclid.Agent\Euclid.Agent.csproj">
       <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
       <Name>Euclid.Agent</Name>
@@ -106,13 +106,14 @@
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Euclid.Framework.Metadata\Euclid.Framework.Metadata.csproj">
+      <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
+      <Name>Euclid.Framework.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Metadata\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

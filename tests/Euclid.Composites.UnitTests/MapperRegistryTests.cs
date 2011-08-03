@@ -1,4 +1,4 @@
-﻿using Euclid.Composites.Mvc.Maps;
+﻿using Euclid.Composites.Maps;
 using Moq;
 using NUnit.Framework;
 

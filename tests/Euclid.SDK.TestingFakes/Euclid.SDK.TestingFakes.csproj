@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,10 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentInfo.cs" />
+    <Compile Include="Composites\MapFakeCommandToInputModel.cs" />
     <Compile Include="Composites\FakeAttribute.cs" />
     <Compile Include="Composites\FakeCommand.cs" />
     <Compile Include="Composites\IFakeMarker.cs" />
-    <Compile Include="Composites\InputModel\FakeInputToCommandMap.cs" />
+    <Compile Include="Composites\FakeInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

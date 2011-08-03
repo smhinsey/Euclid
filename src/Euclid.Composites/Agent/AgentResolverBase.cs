@@ -9,7 +9,7 @@ namespace Euclid.Composites.Agent
 
 		protected bool IsAgent(Assembly assembly, string systemName)
 		{
-			var metadata = assembly.GetAgentInfo();
+			var metadata = assembly.GetAgentMetadata();
 
 			if (metadata == null) return false;
 

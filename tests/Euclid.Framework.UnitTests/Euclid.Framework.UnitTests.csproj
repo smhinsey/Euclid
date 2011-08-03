@@ -100,6 +100,8 @@
     <Compile Include="Cqrs\CommandDispatcherTests.cs" />
     <Compile Include="Cqrs\CommandHostTests.cs" />
     <Compile Include="Cqrs\Metadata\MetadataExtractionServiceTests.cs" />
+    <Compile Include="Metadata\AgentMetadataTests.cs" />
+    <Compile Include="Metadata\MetadataAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +127,10 @@
     <ProjectReference Include="..\..\src\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
       <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
       <Name>Euclid.Framework.Cqrs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Framework.Metadata\Euclid.Framework.Metadata.csproj">
+      <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
+      <Name>Euclid.Framework.Metadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>

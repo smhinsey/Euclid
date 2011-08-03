@@ -19,9 +19,9 @@ namespace Euclid.Composites.UnitTests
             var metadata = new EuclidMetadata(typeof (FakeCommand));
 
             Assert.AreEqual(3, metadata.Interfaces.Count);
-            Assert.True(metadata.Interfaces.Any(x => x.Name == "ICommand"));
-            Assert.True(metadata.Interfaces.Any(x => x.Name == "IMessage"));
-            Assert.True(metadata.Interfaces.Any(x => x.Name == "IFakeMarker"));
+            Assert.True(metadata.Interfaces.Any(x => x.InterfaceName == "ICommand"));
+            Assert.True(metadata.Interfaces.Any(x => x.InterfaceName == "IMessage"));
+            Assert.True(metadata.Interfaces.Any(x => x.InterfaceName == "IFakeMarker"));
 
             Assert.AreEqual(5, metadata.Properties.Count);
             var p = metadata.Properties.Where(x => x.Name == "Created").FirstOrDefault();

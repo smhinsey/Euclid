@@ -9,7 +9,7 @@ namespace Euclid.Composites.Extensions
 {
     public static class AgentResolutionStrategyExtensions
     {
-        public static IAgentMetadata GetAgentInfo(this IAgentResolutionStrategy[] resolvers, string systemName)
+        public static IAgentMetadata GetAgentMetadata(this IAgentResolutionStrategy[] resolvers, string systemName)
         {
             var agent = resolvers.Select(rslvr => rslvr.GetAgent(systemName)).FirstOrDefault(assembly => assembly != null);
 
@@ -18,7 +18,7 @@ namespace Euclid.Composites.Extensions
                 throw new AgentNotFoundException(systemName);
             }
 
-            return agent.GetAgentInfo();
+            return agent.GetAgentMetadata();
         }
 
         public static Assembly GetAgent(this IAgentResolutionStrategy[] resolvers, string systemName)

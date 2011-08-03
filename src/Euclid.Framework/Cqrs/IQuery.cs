@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Euclid.Framework.Metadata;
 
 namespace Euclid.Framework.Cqrs
 {
@@ -8,7 +9,7 @@ namespace Euclid.Framework.Cqrs
 	/// 	of IReadModel. Typically, a query will be backed by a repository, but this
 	/// 	decision is up in the hands of the query implementor.
 	/// </summary>
-	public interface IQuery<TReadModel>
+	public interface IQuery<TReadModel> : IAgentPart
 		where TReadModel : IReadModel
 	{
 		IList<TReadModel> FindByCreationDate(DateTime specificDate);
