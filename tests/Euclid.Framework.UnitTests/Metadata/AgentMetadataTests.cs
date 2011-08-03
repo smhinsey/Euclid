@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Euclid.Agent.Extensions;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Metadata;
-using Euclid.Framework.Metadata.Extensions;
+using Euclid.Framework.Models;
 using Euclid.Framework.TestingFakes.Cqrs;
 using NUnit.Framework;
 
@@ -31,7 +32,6 @@ namespace Euclid.Framework.UnitTests.Metadata
              TestAgentParts(agentMetadata.Commands, assembly, new FakeCommand());
              TestCommandMetadataCollection(agentMetadata.Commands);
 
-             Assert.Throws<NotImplementedException>(() => TestAgentParts(agentMetadata.CommandProcessors, assembly));
              Assert.Throws<NotImplementedException>(() => TestAgentParts(agentMetadata.Queries, assembly));
          }
 

@@ -1,15 +1,15 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Euclid.Agent;
-using Euclid.Composites.Agent;
+using Euclid.Agent.Extensions;
+using Euclid.Composites.AgentResolution;
 using Euclid.Framework.Metadata;
-using Euclid.Framework.Metadata.Extensions;
 
 namespace Euclid.Composites.Extensions
 {
     public static class AgentResolutionStrategyExtensions
     {
-        public static IAgentMetadata GetAgentMetadata(this IAgentResolutionStrategy[] resolvers, string systemName)
+        public static IAgentMetadata GetAgentMetadata(this IEnumerable<IAgentResolutionStrategy> resolvers, string systemName)
         {
             var agent = resolvers.Select(rslvr => rslvr.GetAgent(systemName)).FirstOrDefault(assembly => assembly != null);
 

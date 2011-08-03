@@ -1,0 +1,14 @@
+@using Euclid.Composites.Models
+@using Euclid.Framework.Models
+@model IInputModel
+
+<div class="model-header">@Model.CommandType.FullName</div>
+
+@using (Html.BeginForm())
+{
+    <input type="hidden" name="AgentSystemName" value="@Model.AgentSystemName"/>
+    
+    @Html.EditorFor(p => Model.Properties, "ListOfProperties")
+
+    <input type="submit" value="Publish Command" /> 
+}

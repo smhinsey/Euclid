@@ -1,7 +1,3 @@
-using System.Reflection;
-using Euclid.Framework.Cqrs;
-using Euclid.Framework.Models;
-
 namespace Euclid.Framework.Metadata
 {
     public interface IAgentMetadata
@@ -12,6 +8,5 @@ namespace Euclid.Framework.Metadata
 
         ICommandMetadataCollection Commands { get; }
         IAgentPartMetadataCollection Queries { get; }
-        IAgentPartMetadataCollection CommandProcessors { get; }
     }
 }

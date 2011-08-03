@@ -82,19 +82,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agent\AgentResolverBase.cs" />
-    <Compile Include="Agent\AppDomainAgentResolver.cs" />
-    <Compile Include="Agent\FileSystemAgentResolver.cs" />
-    <Compile Include="Agent\IAgentResolutionStrategy.cs" />
+    <Compile Include="AgentResolution\AgentNotFoundException.cs" />
+    <Compile Include="AgentResolution\AgentResolverBase.cs" />
+    <Compile Include="AgentResolution\AppDomainAgentResolver.cs" />
+    <Compile Include="AgentResolution\FileSystemAgentResolver.cs" />
+    <Compile Include="AgentResolution\IAgentResolutionStrategy.cs" />
+    <Compile Include="CompositeApplicationState.cs" />
+    <Compile Include="Conversion\CannotCreateInputModelException.cs" />
+    <Compile Include="Conversion\CommandNotRegisteredException.cs" />
+    <Compile Include="Conversion\CommandToIInputModelConversionRegistry.cs" />
+    <Compile Include="Conversion\ITypeConversionRegistry.cs" />
+    <Compile Include="Conversion\CommandAlreadyMappedException.cs" />
+    <Compile Include="InvalidCompositeApplicationStateException.cs" />
     <Compile Include="Extensions\AgentResolutionStrategyExtensions.cs" />
-    <Compile Include="Extensions\ControllerContextExtensions.cs" />
-    <Compile Include="Extensions\MissingRouteDataException.cs" />
-    <Compile Include="IViewModel.cs" />
-    <Compile Include="Maps\CannotCreateInputModelException.cs" />
-    <Compile Include="Maps\IMapper.cs" />
-    <Compile Include="Maps\MapperNotFoundException.cs" />
-    <Compile Include="Maps\MappingFailedException.cs" />
-    <Compile Include="Maps\NoRegistryConfiguredException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

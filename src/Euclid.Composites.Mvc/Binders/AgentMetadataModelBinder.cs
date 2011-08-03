@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
-using Euclid.Composites.Agent;
+using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Extensions;
+using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites.Mvc.Binders

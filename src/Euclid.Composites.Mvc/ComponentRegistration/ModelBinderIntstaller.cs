@@ -2,7 +2,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Euclid.Composites.Agent;
+using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Mvc.Binders;
 
 namespace Euclid.Composites.Mvc.ComponentRegistration

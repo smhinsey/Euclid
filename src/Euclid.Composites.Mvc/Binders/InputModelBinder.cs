@@ -1,7 +1,9 @@
 using System;
 using System.Web.Mvc;
-using Euclid.Composites.Agent;
+using Euclid.Composites.AgentResolution;
+using Euclid.Composites.Conversion;
 using Euclid.Composites.Extensions;
+using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Mvc.Binders
@@ -9,12 +11,12 @@ namespace Euclid.Composites.Mvc.Binders
     public class InputModelBinder : IEuclidModelBinder
     {
         private readonly IAgentResolutionStrategy[] _resolvers;
-        private readonly ICommandToInputModelConversionRegistry _commandToInputModelConversionRegistry;
+        private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry;
 
-        public InputModelBinder(IAgentResolutionStrategy[] resolvers, ICommandToInputModelConversionRegistry commandToInputModelConversionRegistry)
+        public InputModelBinder(IAgentResolutionStrategy[] resolvers, ICommandToIInputModelConversionRegistry commandToIInputModelConversionRegistry)
         {
             _resolvers = resolvers;
-            _commandToInputModelConversionRegistry = commandToInputModelConversionRegistry;
+            _commandToIInputModelConversionRegistry = commandToIInputModelConversionRegistry;
         }
         
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
@@ -27,7 +29,7 @@ namespace Euclid.Composites.Mvc.Binders
 
             var commandMetadata = agent.Commands.GetMetadata(commandName);
 
-            return _commandToInputModelConversionRegistry.Convert(commandMetadata);
+            return _commandToIInputModelConversionRegistry.Convert(commandMetadata);
         }
 
         public bool IsMatch(Type modelType)

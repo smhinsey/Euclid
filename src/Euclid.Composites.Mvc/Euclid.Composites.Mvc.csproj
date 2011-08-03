@@ -93,13 +93,13 @@
     <Compile Include="Binders\CommandModelBinder.cs" />
     <Compile Include="Binders\IEuclidModelBinder.cs" />
     <Compile Include="Binders\InputModelBinder.cs" />
-    <Compile Include="ComponentRegistration\CommandInstaller.cs" />
     <Compile Include="ComponentRegistration\ComponentRegistrationBase.cs" />
     <Compile Include="ComponentRegistration\ContainerInstaller.cs" />
     <Compile Include="ComponentRegistration\ControllerContainerInstaller.cs" />
-    <Compile Include="ComponentRegistration\QueryInstaller.cs" />
     <Compile Include="ComponentRegistration\ModelBinderIntstaller.cs" />
-    <Compile Include="EuclidComposite.cs" />
+    <Compile Include="EuclidMvcComposite.cs" />
+    <Compile Include="Extensions\ControllerContextExtensions.cs" />
+    <Compile Include="Extensions\MissingRouteDataException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Binders\EuclidDefaultBinder.cs" />
     <Compile Include="WindsorControllerFactory.cs" />

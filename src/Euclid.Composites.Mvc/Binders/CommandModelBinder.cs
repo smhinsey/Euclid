@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
-using Euclid.Composites.Agent;
+using Euclid.Agent.Commands;
+using Euclid.Composites.AgentResolution;
+using Euclid.Composites.Conversion;
 using Euclid.Composites.Extensions;
+using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Metadata;
 
@@ -10,12 +13,12 @@ namespace Euclid.Composites.Mvc.Binders
     public class CommandModelBinder : IEuclidModelBinder
     {
         private readonly IAgentResolutionStrategy[] _resolvers;
-        private readonly ICommandToInputModelConversionRegistry _commandToInputModelConversionRegistry;
+        private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry;
 
-        public CommandModelBinder(IAgentResolutionStrategy[] resolvers, ICommandToInputModelConversionRegistry commandToInputModelConversionRegistry)
+        public CommandModelBinder(IAgentResolutionStrategy[] resolvers, ICommandToIInputModelConversionRegistry commandToIInputModelConversionRegistry)
         {
             _resolvers = resolvers;
-            _commandToInputModelConversionRegistry = commandToInputModelConversionRegistry;
+            _commandToIInputModelConversionRegistry = commandToIInputModelConversionRegistry;
         }
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
@@ -28,7 +31,7 @@ namespace Euclid.Composites.Mvc.Binders
 
             var commandMetadata = agent.Commands.GetMetadata(commandName);
 
-            var inputModel = _commandToInputModelConversionRegistry.Convert(commandMetadata);
+            var inputModel = _commandToIInputModelConversionRegistry.Convert(commandMetadata);
 
             return CommandFactory.Get(commandMetadata, inputModel, controllerContext.HttpContext.Request.Form);
         }

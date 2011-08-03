@@ -1,0 +1,40 @@
+@using Euclid.Agent.Metadata
+@using Euclid.Composites.Metadata
+@using Euclid.Framework.Cqrs.Metadata
+@using Euclid.Framework.Metadata
+@model IAgentMetadata
+           
+<fieldset>
+    <div class="model-header">
+        Model.SystemName
+    </div>
+    
+    <div class="property-set">
+        <div class="property-label">@Html.LabelFor(x => x.FriendlyName)</div>
+        <div class="property-value">@Model.FriendlyName</div>
+    </div>
+
+    <div class="property-set">
+        <div class="property-label">@Html.LabelFor(x => x.SystemName)</div>
+        <div class="property-value">@Model.SystemName</div>
+    </div>
+
+    <div class="property-set">
+        <div class="property-label">@Html.LabelFor(x => x.CommandNamespace)</div>
+        <div class="property-value">
+            <a href="@Url.Action("list", "command", new { systemName = Model.SystemName })">
+                @Model.CommandNamespace
+            </a>
+        </div>
+    </div>
+    
+    <div class="property-set">
+        <div class="property-label">@Html.LabelFor(x => x.QueryNamespace)</div>
+        <div class="property-value">@Model.QueryNamespace</div>
+    </div>
+
+    <div class="property-set">
+        <div class="property-label">@Html.LabelFor(x => x.CommandProcessorNamespace)</div>
+        <div class="property-value">@Model.CommandProcessorNamespace</div>
+    </div> 
+</fieldset>

@@ -1,4 +1,4 @@
-﻿using Euclid.Framework;
+﻿using Euclid.Framework.Models;
 
 namespace ForumAgent.ReadModels
 {

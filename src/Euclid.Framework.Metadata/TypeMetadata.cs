@@ -17,7 +17,7 @@ namespace Euclid.Framework.Metadata
         {
             if (!typeof(IPropertyMetadata).IsAssignableFrom(type))
             {
-                throw new InvalidAttributeTypeException(type);
+                throw new UnexpectedTypeException(typeof(IPropertyMetadata), type);
             }
 
             return Type.GetCustomAttributes(type, true).Cast<IPropertyMetadata>().ToList();
@@ -40,16 +40,6 @@ namespace Euclid.Framework.Metadata
             {
                 Properties.Add(new PropertyMetadata(pi));
             }
-        }
-    }
-
-    public class InvalidAttributeTypeException : Exception
-    {
-        private Type _type;
-
-        public InvalidAttributeTypeException(Type type)
-        {
-            _type = type;
         }
     }
 }

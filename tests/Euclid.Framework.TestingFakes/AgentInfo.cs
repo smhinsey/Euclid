@@ -1,4 +1,5 @@
 ﻿using Euclid.Agent;
+using Euclid.Framework.Metadata.Attributes;
 using Euclid.Framework.TestingFakes.Cqrs;
 
 [assembly: AgentSystemName(Value = "Euclid.Framework.TestingFakeAgent")]

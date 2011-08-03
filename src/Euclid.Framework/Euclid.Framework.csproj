@@ -71,28 +71,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cqrs\IEuclidMetadata.cs" />
+    <Compile Include="Cqrs\ICommand.cs" />
     <Compile Include="Cqrs\ICommandDispatcher.cs" />
     <Compile Include="Cqrs\ICommandProcessor.cs" />
     <Compile Include="Cqrs\ICommandPublicationRecord.cs" />
     <Compile Include="Cqrs\ICommandRegistry.cs" />
     <Compile Include="Cqrs\IQuery.cs" />
-    <Compile Include="Metadata\IAgentMetadata.cs" />
-    <Compile Include="Metadata\IAgentPart.cs" />
-    <Compile Include="Metadata\IAgentPartMetadataCollection.cs" />
-    <Compile Include="Metadata\ICommandMetadataCollection.cs" />
-    <Compile Include="Metadata\ITypeMetadata.cs" />
-    <Compile Include="DefaultReadModel.cs" />
     <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
     <Compile Include="EventSourcing\IEvent.cs" />
     <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
-    <Compile Include="IReadModel.cs" />
+    <Compile Include="Models\IReadModel.cs" />
+    <Compile Include="Metadata\ExpectedPropertiesNotFoundException.cs" />
+    <Compile Include="Metadata\HashedPasswordSetter.cs" />
+    <Compile Include="Metadata\IAgentMetadata.cs" />
+    <Compile Include="Metadata\IAgentPart.cs" />
+    <Compile Include="Metadata\IAgentPartMetadataCollection.cs" />
+    <Compile Include="Metadata\ICommandMetadataCollection.cs" />
     <Compile Include="Metadata\IInterfaceMetadata.cs" />
     <Compile Include="Metadata\IPropertyMetadata.cs" />
+    <Compile Include="Metadata\IPropertyValueSetter.cs" />
+    <Compile Include="Metadata\ITypeMetadata.cs" />
     <Compile Include="Models\IInputModel.cs" />
-    <Compile Include="Models\InputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

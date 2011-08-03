@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Euclid.Framework.Models;
 
 namespace Euclid.Framework.EventSourcing
 {

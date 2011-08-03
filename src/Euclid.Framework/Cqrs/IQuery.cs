@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Euclid.Framework.Metadata;
+using Euclid.Framework.Models;
 
 namespace Euclid.Framework.Cqrs
 {
