@@ -60,14 +60,14 @@ namespace Euclid.Composites.Mvc
 
             mvcApplication.BeginRequest += BeginPageRequest;
 
-            ApplicationState = CompositeApplicationState.ReadyToStart;
+            ApplicationState = CompositeApplicationState.Configured;
         }
 
         private void BeginPageRequest(object sender, EventArgs eventArgs)
         {
-            if (ApplicationState != CompositeApplicationState.Running)
+            if (ApplicationState != CompositeApplicationState.Configured)
             {
-                throw new InvalidCompositeApplicationStateException(ApplicationState, CompositeApplicationState.Running);
+                throw new InvalidCompositeApplicationStateException(ApplicationState, CompositeApplicationState.Configured);
             }
         }
 
@@ -79,6 +79,11 @@ namespace Euclid.Composites.Mvc
 
         public void InstallAgent(Assembly assembly)
         {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException("assembly");
+            }
+
             if (!assembly.ContainsAgent())
             {
                 throw new AssemblyNotAgentException(assembly);
@@ -109,18 +114,6 @@ namespace Euclid.Composites.Mvc
             }
 
             _inputModelTransformers.Add(commandMetadata.Name, converter);
-        }
-
-        public void Start()
-        {
-            ApplicationState = CompositeApplicationState.Running;
-        }
-
-        public void Stop()
-        {
-            ApplicationState = CompositeApplicationState.Stopping;
-
-            ApplicationState = CompositeApplicationState.Stopped;
         }
 
         private static void RegisterModelBinders()
