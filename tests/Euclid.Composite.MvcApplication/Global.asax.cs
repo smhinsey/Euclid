@@ -29,7 +29,14 @@ namespace Euclid.Composite.MvcApplication
 
             var composite = new EuclidMvcComposite();
 
-            composite.Configure(this, new EuclidMvcConfiguration());
+            var euclidCompositeConfiguration = new EuclidMvcConfiguration();
+
+            /*
+             * jt: this is how a composite developer would override the default settings for the mvc composite
+             * euclidCompositeConfiguration.BlobStorage.ApplyOverride(typeof(SomeBlobStorageImplementation));
+             */
+
+            composite.Configure(this, euclidCompositeConfiguration);
 
             composite.InstallAgent(typeof (FakeCommand4).Assembly);
 
