@@ -99,7 +99,6 @@
   <ItemGroup>
     <Compile Include="Cqrs\CommandDispatcherTests.cs" />
     <Compile Include="Cqrs\CommandHostTests.cs" />
-    <Compile Include="Cqrs\Metadata\MetadataExtractionServiceTests.cs" />
     <Compile Include="Metadata\AgentMetadataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Agent;
-using Euclid.Agent.Commands;
 using Euclid.Agent.Extensions;
 using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
@@ -31,8 +28,9 @@ namespace Euclid.Composites.Mvc
         public readonly IList<IAgentMetadata> Agents = new List<IAgentMetadata>();
 
         //private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry = new CommandToIInputModelConversionRegistry();
-        private readonly IInputModelTransfomerRegistry _inputModelTransformers = new InputModelToCommandTransformerRegistry();
-        
+        private readonly IInputModelTransfomerRegistry _inputModelTransformers =
+            new InputModelToCommandTransformerRegistry();
+
         public EuclidMvcComposite()
         {
             ApplicationState = CompositeApplicationState.Uninitailized;
@@ -40,61 +38,12 @@ namespace Euclid.Composites.Mvc
 
         public CompositeApplicationState ApplicationState { get; private set; }
 
-        public void Configure
-            <TPublisher, TMessageChannel, TPublicationRegistry, TCommandPublicationRecordMapper, TBlobStorage,
-             TMessageSerializer, TCommandDispatcher>(HttpApplication mvcApplication)
-            where TPublisher : IPublisher
-            where TMessageChannel : IMessageChannel
-            where TPublicationRegistry : IPublicationRegistry<IPublicationRecord>
-            where TCommandPublicationRecordMapper : IRecordMapper<CommandPublicationRecord>
-            where TBlobStorage : IBlobStorage
-            where TMessageSerializer : IMessageSerializer
-            where TCommandDispatcher : ICommandDispatcher
+        public void Configure(HttpApplication mvcApplication, EuclidMvcConfiguration configuration)
         {
             Container.Install(new ContainerInstaller());
 
-            Container.Register(
-                Component.For<IPublisher>()
-                    .ImplementedBy<TPublisher>()
-                    .LifeStyle.Singleton
-                );
-
-            Container.Register(
-                Component.For<IMessageChannel>()
-                    .ImplementedBy<TMessageChannel>()
-                    .LifeStyle.Singleton
-                );
-
-            Container.Register(
-                Component.For<IRecordMapper<CommandPublicationRecord>>()
-                    .ImplementedBy(typeof (TCommandPublicationRecordMapper))
-                    .LifeStyle.Singleton
-                );
-
-            Container.Register(
-                Component.For<IBlobStorage>()
-                    .ImplementedBy<TBlobStorage>()
-                    .LifeStyle.Singleton
-                );
-
-            Container.Register(
-                Component.For<IMessageSerializer>()
-                    .ImplementedBy<TMessageSerializer>()
-                    .LifeStyle.Singleton
-                );
-
-            Container.Register(
-                Component.For<IPublicationRegistry<IPublicationRecord>>()
-                    .ImplementedBy<TPublicationRegistry>()
-                    .LifeStyle.Singleton
-                );
-
-            Container.Register(
-                Component
-                    .For<ICommandDispatcher>()
-                    .ImplementedBy<TCommandDispatcher>()
-                    .LifeStyle.Singleton);
-
+            RegisterConfiguredTypes(configuration);
+            
             Container.Register(
                 Component
                     .For<IInputModelTransfomerRegistry>()
@@ -179,6 +128,51 @@ namespace Euclid.Composites.Mvc
             Container.Install(new ModelBinderIntstaller());
 
             ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
+        }
+
+        private static void RegisterConfiguredTypes(EuclidMvcConfiguration configuration)
+        {
+            Container.Register(
+                            Component.For<IPublisher>()
+                                .ImplementedBy(configuration.Publisher.Value)
+                                .LifeStyle.Singleton
+                            );
+
+            Container.Register(
+                Component.For<IMessageChannel>()
+                    .ImplementedBy(configuration.MessageChannel.Value)
+                    .LifeStyle.Singleton
+                );
+
+            Container.Register(
+                Component.For<IRecordMapper<CommandPublicationRecord>>()
+                    .ImplementedBy(configuration.CommandPublicationRecordMapper.Value)
+                    .LifeStyle.Singleton
+                );
+
+            Container.Register(
+                Component.For<IBlobStorage>()
+                    .ImplementedBy(configuration.BlobStorage.Value)
+                    .LifeStyle.Singleton
+                );
+
+            Container.Register(
+                Component.For<IMessageSerializer>()
+                    .ImplementedBy(configuration.MessageSerializer.Value)
+                    .LifeStyle.Singleton
+                );
+
+            Container.Register(
+                Component.For<IPublicationRegistry<IPublicationRecord>>()
+                    .ImplementedBy(configuration.PublicationRegistry.Value)
+                    .LifeStyle.Singleton
+                );
+
+            Container.Register(
+                Component
+                    .For<ICommandDispatcher>()
+                    .ImplementedBy(configuration.CommandDispatcher.Value)
+                    .LifeStyle.Singleton);
         }
     }
 }

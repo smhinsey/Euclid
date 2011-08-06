@@ -6,6 +6,7 @@ using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
 using Euclid.Composite.MvcApplication.EuclidConfiguration;
 using Euclid.Composite.MvcApplication.EuclidConfiguration.TypeConverters;
+using Euclid.Composites;
 using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.TestingFakes.Cqrs;
@@ -28,9 +29,7 @@ namespace Euclid.Composite.MvcApplication
 
             var composite = new EuclidMvcComposite();
 
-            composite.Configure
-                <DefaultPublisher, InMemoryMessageChannel, CommandRegistry, CompositeCommandPublicationRecordMapper,
-                    InMemoryBlobStorage, JsonMessageSerializer, CommandDispatcher>(this);
+            composite.Configure(this, new EuclidMvcConfiguration());
 
             composite.InstallAgent(typeof (FakeCommand4).Assembly);
 

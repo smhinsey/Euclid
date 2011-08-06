@@ -78,7 +78,6 @@
   <ItemGroup>
     <Compile Include="Controllers\AgentController.cs" />
     <Compile Include="Controllers\CommandController.cs" />
-    <Compile Include="EuclidConfiguration\CompositeCommandPublicationRecordMapper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="EuclidConfiguration\TypeConverters\InputToFakeCommand4Converter.cs" />
     <Compile Include="Global.asax.cs">
