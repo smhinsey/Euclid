@@ -19,7 +19,5 @@ namespace Euclid.Composites.Mvc.Models
         }
 
         public Type CommandType { get; set; }
-
-
     }
 }
