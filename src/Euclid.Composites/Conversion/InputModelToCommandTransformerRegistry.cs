@@ -77,7 +77,7 @@ namespace Euclid.Composites.Conversion
         {
             if (!_inputModelsAndValues.ContainsKey(partName))
             {
-                throw new PartNameNotRegisteredException();
+                throw new PartNameNotRegisteredException(partName);
             }
         }
     }
