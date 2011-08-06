@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
@@ -7,17 +9,18 @@ using System.Web.Routing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Agent;
+using Euclid.Agent.Commands;
 using Euclid.Agent.Extensions;
 using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.Record;
+using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Conversion;
 using Euclid.Composites.Mvc.Binders;
 using Euclid.Composites.Mvc.ComponentRegistration;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Metadata;
-using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Mvc
 {
@@ -27,10 +30,9 @@ namespace Euclid.Composites.Mvc
 
         public readonly IList<IAgentMetadata> Agents = new List<IAgentMetadata>();
 
-        private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry = new CommandToIInputModelConversionRegistry();
-
-        private ICommandDispatcher _dispatcher;
-
+        //private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry = new CommandToIInputModelConversionRegistry();
+        private readonly IInputModelTransfomerRegistry _inputModelTransformers = new InputModelToCommandTransformerRegistry();
+        
         public EuclidMvcComposite()
         {
             ApplicationState = CompositeApplicationState.Uninitailized;
@@ -89,14 +91,14 @@ namespace Euclid.Composites.Mvc
 
             Container.Register(
                 Component
-                    .For<ICommandToIInputModelConversionRegistry>()
-                    .Instance(_commandToIInputModelConversionRegistry)
+                    .For<ICommandDispatcher>()
+                    .ImplementedBy<TCommandDispatcher>()
                     .LifeStyle.Singleton);
 
             Container.Register(
                 Component
-                    .For<ICommandDispatcher>()
-                    .ImplementedBy<TCommandDispatcher>()
+                    .For<IInputModelTransfomerRegistry>()
+                    .Instance(_inputModelTransformers)
                     .LifeStyle.Singleton);
 
             Container.Install(new ControllerContainerInstaller());
@@ -136,11 +138,28 @@ namespace Euclid.Composites.Mvc
             Agents.Add(assembly.GetAgentMetadata());
         }
 
-        public void RegisterInputModel<TInputModel, TCommand>()
-            where TInputModel : IInputModel
-            where TCommand : ICommand
+        public void RegisterInputModel(IInputToCommandConverter converter)
         {
-            _commandToIInputModelConversionRegistry.AddTypeConversion<TCommand, TInputModel>();
+            if (converter == null)
+            {
+                throw new ArgumentNullException("converter");
+            }
+
+            var commandMetadata = converter.CommandType.GetMetadata();
+
+            var agent = Agents.Where(a => a.Commands.Namespace == commandMetadata.Namespace).FirstOrDefault();
+
+            if (agent == null)
+            {
+                throw new AgentNotFoundException(commandMetadata.Namespace);
+            }
+
+            if (!agent.Commands.Where(x => x.Name == commandMetadata.Name).Any())
+            {
+                throw new CommandNotPresentInAgentException();
+            }
+
+            _inputModelTransformers.Add(commandMetadata.Name, converter);
         }
 
         public void Start()

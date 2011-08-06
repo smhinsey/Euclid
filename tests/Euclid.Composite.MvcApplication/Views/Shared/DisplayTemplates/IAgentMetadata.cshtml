@@ -1,6 +1,3 @@
-@using Euclid.Agent.Metadata
-@using Euclid.Composites.Metadata
-@using Euclid.Framework.Cqrs.Metadata
 @using Euclid.Framework.Metadata
 @model IAgentMetadata
            
@@ -10,8 +7,8 @@
     </div>
     
     <div class="property-set">
-        <div class="property-label">@Html.LabelFor(x => x.FriendlyName)</div>
-        <div class="property-value">@Model.FriendlyName</div>
+        <div class="property-label">@Html.LabelFor(x =>x.DescriptiveName)</div>
+        <div class="property-value">@Model.DescriptiveName</div>
     </div>
 
     <div class="property-set">
@@ -20,21 +17,16 @@
     </div>
 
     <div class="property-set">
-        <div class="property-label">@Html.LabelFor(x => x.CommandNamespace)</div>
+        <div class="property-label">@Html.LabelFor(x => x.Commands.Namespace)</div>
         <div class="property-value">
             <a href="@Url.Action("list", "command", new { systemName = Model.SystemName })">
-                @Model.CommandNamespace
+                @Model.Commands.Namespace
             </a>
         </div>
     </div>
     
     <div class="property-set">
-        <div class="property-label">@Html.LabelFor(x => x.QueryNamespace)</div>
-        <div class="property-value">@Model.QueryNamespace</div>
+        <div class="property-label">@Html.LabelFor(x => x.Queries.Namespace)</div>
+        <div class="property-value">@Model.Queries.Namespace</div>
     </div>
-
-    <div class="property-set">
-        <div class="property-label">@Html.LabelFor(x => x.CommandProcessorNamespace)</div>
-        <div class="property-value">@Model.CommandProcessorNamespace</div>
-    </div> 
 </fieldset>

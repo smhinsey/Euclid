@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7BBC7165-5E13-4802-B79F-00E754319F0B}</ProjectGuid>
+    <ProjectGuid>{F80DC74B-9C31-43AA-B339-9F9EDF9372A8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Framework.Models</RootNamespace>
-    <AssemblyName>Euclid.Framework.Models</AssemblyName>
+    <RootNamespace>Euclid.Composite.InputModelMapping</RootNamespace>
+    <AssemblyName>Euclid.Composite.InputModelMapping</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -41,18 +53,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultReadModel.cs" />
+    <Compile Include="InputModelMappingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Euclid.Common\Euclid.Common.csproj">
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
+      <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>
+      <Name>Euclid.Framework.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Agent\Euclid.Agent.csproj">
+      <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
+      <Name>Euclid.Agent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\Euclid.Framework\Euclid.Framework.csproj">
+    <ProjectReference Include="..\..\src\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
+      <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
+      <Name>Euclid.Composites.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Composites\Euclid.Composites.csproj">
+      <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
+      <Name>Euclid.Composites</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Euclid.Framework.TestingFakes\Euclid.Framework.TestingFakes.csproj">
+      <Project>{793DEE69-90CB-45D7-94CC-FD2D7CE59790}</Project>
+      <Name>Euclid.Framework.TestingFakes</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Euclid.Composites.MetadataHost.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Euclid.Composite.MvcApplication.AgentViewerComposite" Language="C#" %>

@@ -1,6 +1,8 @@
 using System.Web.Mvc;
 using Euclid.Common.Messaging;
 using Euclid.Composite.MvcApplication.Models;
+using Euclid.Composites.Conversion;
+using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Metadata;
 using Euclid.Framework.Models;
@@ -10,10 +12,12 @@ namespace Euclid.Composite.MvcApplication.Controllers
     public class CommandController : Controller
     {
         private readonly IPublisher _commandPublisher;
+        private readonly IInputModelTransfomerRegistry _transformer;
 
-        public CommandController(IPublisher commandPublisher)
+        public CommandController(IPublisher commandPublisher, IInputModelTransfomerRegistry transformer)
         {
             _commandPublisher = commandPublisher;
+            _transformer = transformer;
         }
 
         public ViewResult List(IAgentMetadata agentMetadata)
@@ -43,8 +47,9 @@ namespace Euclid.Composite.MvcApplication.Controllers
         }
 
         [HttpPost]
-        public ContentResult Inspect(ICommand command)
-        { 
+        public ContentResult Inspect(IInputModel inputModel)
+        {
+            var command = _transformer.GetCommand(inputModel);
             return Publish(command);
         }
 

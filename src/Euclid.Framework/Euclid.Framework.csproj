@@ -63,7 +63,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -83,15 +85,12 @@
     <Compile Include="EventSourcing\IEvent.cs" />
     <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
     <Compile Include="Models\IReadModel.cs" />
-    <Compile Include="Metadata\ExpectedPropertiesNotFoundException.cs" />
-    <Compile Include="Metadata\HashedPasswordSetter.cs" />
     <Compile Include="Metadata\IAgentMetadata.cs" />
     <Compile Include="Metadata\IAgentPart.cs" />
     <Compile Include="Metadata\IAgentPartMetadataCollection.cs" />
     <Compile Include="Metadata\ICommandMetadataCollection.cs" />
     <Compile Include="Metadata\IInterfaceMetadata.cs" />
     <Compile Include="Metadata\IPropertyMetadata.cs" />
-    <Compile Include="Metadata\IPropertyValueSetter.cs" />
     <Compile Include="Metadata\ITypeMetadata.cs" />
     <Compile Include="Models\IInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
