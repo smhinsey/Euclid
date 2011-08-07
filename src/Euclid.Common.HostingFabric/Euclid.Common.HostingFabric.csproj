@@ -77,8 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultFabric.cs" />
     <Compile Include="FabricRuntimeSettings.cs" />
-    <Compile Include="LocalMachineFabric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DefaultRuntimeStatistics.cs" />
   </ItemGroup>

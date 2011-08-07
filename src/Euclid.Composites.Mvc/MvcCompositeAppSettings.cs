@@ -7,7 +7,7 @@ using Euclid.Framework.Cqrs;
 
 namespace Euclid.Composites.Mvc
 {
-	public class EuclidMvcConfiguration : IOverridableSettings
+	public class MvcCompositeAppSettings : IOverridableSettings
 	{
 		public readonly OverridableTypeSetting<IBlobStorage> BlobStorage = new OverridableTypeSetting<IBlobStorage>("BlobStorage");
 
@@ -28,7 +28,7 @@ namespace Euclid.Composites.Mvc
 
 		public readonly OverridableTypeSetting<IPublisher> Publisher = new OverridableTypeSetting<IPublisher>("Publisher");
 
-		public EuclidMvcConfiguration()
+		public MvcCompositeAppSettings()
 		{
 			Publisher.WithDefault(typeof (DefaultPublisher));
 			MessageChannel.WithDefault(typeof (InMemoryMessageChannel));

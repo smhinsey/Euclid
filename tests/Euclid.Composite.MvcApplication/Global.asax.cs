@@ -20,9 +20,9 @@ namespace Euclid.Composite.MvcApplication
 
 			RegisterRoutes(RouteTable.Routes);
 
-			var composite = new EuclidMvcComposite();
+			var composite = new MvcCompositeApp();
 
-			var euclidCompositeConfiguration = new EuclidMvcConfiguration();
+			var euclidCompositeConfiguration = new MvcCompositeAppSettings();
 
 			/*
              * jt: this is how a composite developer would override the default settings for the mvc composite

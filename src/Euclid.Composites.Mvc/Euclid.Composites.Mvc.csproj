@@ -101,8 +101,8 @@
     <Compile Include="ComponentRegistration\ContainerInstaller.cs" />
     <Compile Include="ComponentRegistration\ControllerContainerInstaller.cs" />
     <Compile Include="ComponentRegistration\ModelBinderIntstaller.cs" />
-    <Compile Include="EuclidMvcComposite.cs" />
-    <Compile Include="EuclidMvcConfiguration.cs" />
+    <Compile Include="MvcCompositeApp.cs" />
+    <Compile Include="MvcCompositeAppSettings.cs" />
     <Compile Include="Extensions\ControllerContextExtensions.cs" />
     <Compile Include="Extensions\RequiredRouteDataMissingException.cs" />
     <Compile Include="Models\InputModelBase.cs" />
