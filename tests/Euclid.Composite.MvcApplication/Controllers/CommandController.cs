@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Euclid.Common.Messaging;
 using Euclid.Composite.MvcApplication.Models;
 using Euclid.Composites.Conversion;
+using Euclid.Composites.Mvc.Results;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Metadata;
 using Euclid.Framework.Models;
@@ -26,9 +27,24 @@ namespace Euclid.Composite.MvcApplication.Controllers
 			return Publish(command);
 		}
 
-		public ViewResult Inspect(IInputModel inputModel, string commandName, string extension)
+		public ActionResult Inspect(IInputModel inputModel, string commandName, string format)
 		{
-			return View(inputModel);
+		    ActionResult result = View(inputModel);
+
+            switch (format.ToLower())
+            {
+                case "xml":
+                    result = new XmlResult { Data = inputModel};
+                    break;
+                case "json":
+                    result = new JsonNetResult { Data = inputModel };
+                    break;  
+                case "jsonp":
+                    result = new JsonpNetResult { Data = inputModel };
+                    break;
+            }
+
+		    return result;
 		}
 
 		public ViewResult List(IAgentMetadata agentMetadata)
