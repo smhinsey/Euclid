@@ -4,57 +4,56 @@ using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Pipeline
 {
-    [TestFixture]
-    public class PipelineTests
-    {
-        [Test]
-        public void ExecutePipeline()
-        {
-            //Arrange
-            const int expected = 2;
-            var mockStep = new Mock<IPipelineStep<int>>();
+	[TestFixture]
+	public class PipelineTests
+	{
+		[Test]
+		public void ExecutePipeline()
+		{
+			//Arrange
+			const int expected = 2;
+			var mockStep = new Mock<IPipelineStep<int>>();
 
-            mockStep.Setup(x => x.Execute(0)).Returns(expected);
+			mockStep.Setup(x => x.Execute(0)).Returns(expected);
 
-            //Act
-            var pipeline = new Pipeline<int>();
-            pipeline.Configure(new[] { mockStep.Object });
-            var results = pipeline.Process(0);
+			//Act
+			var pipeline = new Pipeline<int>();
+			pipeline.Configure(new[] {mockStep.Object});
+			var results = pipeline.Process(0);
 
-            //Assert
-            Assert.AreEqual(expected, results);
-        }
+			//Assert
+			Assert.AreEqual(expected, results);
+		}
 
-        [Test]
-        public void TestStepExecutionException()
-        {
-            var mockStep = new Mock<IPipelineStep<int>>();
+		[Test]
+		[ExpectedException(typeof (StepConfigurationException))]
+		public void TestStepConfigurationExceptionWithListContainingNullElement()
+		{
+			var pipeline = new Pipeline<int>();
+			pipeline.Configure(new IPipelineStep<int>[] {null});
+		}
 
-            mockStep.Setup(x => x.Execute(0)).Throws(new StepExecutionException(0, typeof (int), null));
+		[Test]
+		[ExpectedException(typeof (StepConfigurationException))]
+		public void TestStepConfigurationExceptionWithNullList()
+		{
+			//Act
+			var pipeline = new Pipeline<int>();
+			pipeline.Configure(null);
+		}
 
-            //Act
-            var pipeline = new Pipeline<int>();
-            pipeline.Configure(new[] { mockStep.Object });
+		[Test]
+		public void TestStepExecutionException()
+		{
+			var mockStep = new Mock<IPipelineStep<int>>();
 
-            Assert.Throws<StepExecutionException>(() => pipeline.Process(0));
-        }
+			mockStep.Setup(x => x.Execute(0)).Throws(new StepExecutionException(0, typeof (int), null));
 
-        [Test]
-        [ExpectedException(typeof(StepConfigurationException))]
-        public void TestStepConfigurationExceptionWithNullList()
-        {
-            //Act
-            var pipeline = new Pipeline<int>();
-            pipeline.Configure(null);
-        }
+			//Act
+			var pipeline = new Pipeline<int>();
+			pipeline.Configure(new[] {mockStep.Object});
 
-        [Test]
-        [ExpectedException(typeof(StepConfigurationException))]
-        public void TestStepConfigurationExceptionWithListContainingNullElement()
-        {
-            var pipeline = new Pipeline<int>();
-            pipeline.Configure(new IPipelineStep<int>[]{null});
-        }
-         
-    }
+			Assert.Throws<StepExecutionException>(() => pipeline.Process(0));
+		}
+	}
 }

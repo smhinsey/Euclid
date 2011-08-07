@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Euclid.Framework.Metadata
 {
-    public interface ITypeMetadata
-    {
-        Type Type { get; set; }
-        string Name { get; set; }
-        string Namespace { get; }
+	public interface ITypeMetadata
+	{
+		IList<IInterfaceMetadata> Interfaces { get; }
+		string Name { get; set; }
+		string Namespace { get; }
 
-        IList<IPropertyMetadata> Properties { get; }
-        IList<IInterfaceMetadata> Interfaces { get; }
+		IList<IPropertyMetadata> Properties { get; }
+		Type Type { get; set; }
 
-        IList<IPropertyMetadata> GetAttributes(Type type);
-    }
+		IList<IPropertyMetadata> GetAttributes(Type type);
+	}
 }

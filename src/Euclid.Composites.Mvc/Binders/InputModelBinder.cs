@@ -7,55 +7,53 @@ using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Mvc.Binders
 {
-    public class InputModelBinder : IEuclidModelBinder
-    {
-        private readonly IAgentResolver[] _resolvers;
-        private readonly IInputModelTransfomerRegistry _transformers;
+	public class InputModelBinder : IEuclidModelBinder
+	{
+		private readonly IAgentResolver[] _resolvers;
+		private readonly IInputModelTransfomerRegistry _transformers;
 
-        public InputModelBinder(IAgentResolver[] resolvers, IInputModelTransfomerRegistry transfomers)
-        {
-            _resolvers = resolvers;
-            _transformers = transfomers;
-        }
-        
-        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
-        {
-            var commandName = controllerContext.GetCommandName();
+		public InputModelBinder(IAgentResolver[] resolvers, IInputModelTransfomerRegistry transfomers)
+		{
+			_resolvers = resolvers;
+			_transformers = transfomers;
+		}
 
-            var inputModel = _transformers.GetInputModel(commandName);
+		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		{
+			var commandName = controllerContext.GetCommandName();
 
-            var inputModelProperties = inputModel.GetType().GetProperties();
-            foreach (var property in inputModelProperties)
-            {
-                var propValue = bindingContext.ValueProvider.GetValue(property.Name);
-                try
-                {
+			var inputModel = _transformers.GetInputModel(commandName);
 
-                    var value = (property.Name == "CommandType")
-                                    ? (object)_transformers.GetCommandType(commandName)
-                                    : (propValue == null) ? null : propValue.ConvertTo(property.PropertyType);
+			var inputModelProperties = inputModel.GetType().GetProperties();
+			foreach (var property in inputModelProperties)
+			{
+				var propValue = bindingContext.ValueProvider.GetValue(property.Name);
+				try
+				{
+					var value = (property.Name == "CommandType")
+					            	? _transformers.GetCommandType(commandName)
+					            	: (propValue == null) ? null : propValue.ConvertTo(property.PropertyType);
 
-                    if (property.CanWrite)
-                    {
-                        property.SetValue(
-                        inputModel, 
-                        value,
-                        null);
-                    }
+					if (property.CanWrite)
+					{
+						property.SetValue(
+						                  inputModel,
+						                  value,
+						                  null);
+					}
+				}
+				catch (Exception e)
+				{
+					throw new CannotSetInputModelPropertyValues(inputModel.GetType().Name, property.Name, e);
+				}
+			}
 
-                }
-                catch (Exception e)
-                {
-                    throw new CannotSetInputModelPropertyValues(inputModel.GetType().Name, property.Name, e);
-                }
-            }
+			return inputModel;
+		}
 
-            return inputModel;
-        }
-
-        public bool IsMatch(Type modelType)
-        {
-            return typeof (IInputModel).IsAssignableFrom(modelType);
-        }
-    }
+		public bool IsMatch(Type modelType)
+		{
+			return typeof (IInputModel).IsAssignableFrom(modelType);
+		}
+	}
 }

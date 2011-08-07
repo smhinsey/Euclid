@@ -5,9 +5,9 @@ using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Conversion
 {
-    public interface IInputToCommandConverter : ITypeConverter<IInputModel, ICommand>
-    {
-        Type InputModelType { get; }
-        Type CommandType { get; }
-    }
+	public interface IInputToCommandConverter : ITypeConverter<IInputModel, ICommand>
+	{
+		Type CommandType { get; }
+		Type InputModelType { get; }
+	}
 }

@@ -8,97 +8,99 @@ using Euclid.Framework.Metadata;
 
 namespace Euclid.Agent
 {
-    public abstract class PartCollectionsBase : IList<ITypeMetadata>
-    {
-        private IList<ITypeMetadata> _internal;
-        private Type _partType;
-        public string Namespace { get; private set; }
-        public string AgentSystemName { get; private set; }
+	public abstract class PartCollectionsBase : IList<ITypeMetadata>
+	{
+		private IList<ITypeMetadata> _internal;
+		private Type _partType;
 
-        protected void Initialize<T>(Assembly agent, string partNamespace) where T : IAgentPart
-        {
-            _internal = agent.GetTypes()
-                .Where(type =>
-                       type.Namespace == partNamespace &&
-                       typeof (T).IsAssignableFrom(type))
-                .Select(type => new TypeMetadata(type) as ITypeMetadata)
-                .ToList();
+		public ITypeMetadata this[int index]
+		{
+			get { return _internal[index]; }
+			set { _internal[index] = value; }
+		}
 
-            _partType = typeof (T);
+		public string AgentSystemName { get; private set; }
 
-            AgentSystemName = agent.GetAgentSystemName();
-            Namespace = partNamespace;
-        }
+		public int Count
+		{
+			get { return _internal.Count; }
+		}
 
-        public IEnumerator<ITypeMetadata> GetEnumerator()
-        {
-            return _internal.GetEnumerator();
-        }
+		public bool IsReadOnly
+		{
+			get { return _internal.IsReadOnly; }
+		}
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+		public string Namespace { get; private set; }
 
-        public void Add(ITypeMetadata item)
-        {
-            if (Contains(item))
-            {
-                throw new DuplicatePartNameException(_partType.Name, item.Name);
-            }
+		public void Add(ITypeMetadata item)
+		{
+			if (Contains(item))
+			{
+				throw new DuplicatePartNameException(_partType.Name, item.Name);
+			}
 
-            _internal.Add(item);
-        }
+			_internal.Add(item);
+		}
 
-        public void Clear()
-        {
-            throw new NotImplementedException();
-        }
+		public void Clear()
+		{
+			throw new NotImplementedException();
+		}
 
-        public bool Contains(ITypeMetadata item)
-        {
-            return _internal.Where(x => x.Name == item.Name).Any();
-        }
+		public bool Contains(ITypeMetadata item)
+		{
+			return _internal.Where(x => x.Name == item.Name).Any();
+		}
 
-        public void CopyTo(ITypeMetadata[] array, int arrayIndex)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void CopyTo(ITypeMetadata[] array, int arrayIndex)
+		{
+			throw new NotImplementedException();
+		}
 
-        public bool Remove(ITypeMetadata item)
-        {
-            throw new System.NotImplementedException();
-        }
+		public IEnumerator<ITypeMetadata> GetEnumerator()
+		{
+			return _internal.GetEnumerator();
+		}
 
-        public int Count
-        {
-            get { return _internal.Count; }
-        }
+		public int IndexOf(ITypeMetadata item)
+		{
+			return _internal.IndexOf(item);
+		}
 
-        public bool IsReadOnly
-        {
-            get { return _internal.IsReadOnly; }
-        }
+		public void Insert(int index, ITypeMetadata item)
+		{
+			_internal.Insert(index, item);
+		}
 
-        public int IndexOf(ITypeMetadata item)
-        {
-            return _internal.IndexOf(item);
-        }
+		public bool Remove(ITypeMetadata item)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void Insert(int index, ITypeMetadata item)
-        {
-            _internal.Insert(index, item);
-        }
+		public void RemoveAt(int index)
+		{
+			throw new NotImplementedException();
+		}
 
-        public void RemoveAt(int index)
-        {
-            throw new System.NotImplementedException();
-        }
+		protected void Initialize<T>(Assembly agent, string partNamespace) where T : IAgentPart
+		{
+			_internal = agent.GetTypes()
+				.Where(type =>
+				       type.Namespace == partNamespace &&
+				       typeof (T).IsAssignableFrom(type))
+				.Select(type => new TypeMetadata(type) as ITypeMetadata)
+				.ToList();
 
-        public ITypeMetadata this[int index]
-        {
-            get { return _internal[index]; }
-            set { _internal[index] = value; }
-        }
-    }
+			_partType = typeof (T);
+
+			AgentSystemName = agent.GetAgentSystemName();
+			Namespace = partNamespace;
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
+	}
 }

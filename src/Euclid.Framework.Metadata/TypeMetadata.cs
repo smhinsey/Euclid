@@ -4,42 +4,43 @@ using System.Linq;
 
 namespace Euclid.Framework.Metadata
 {
-    public class TypeMetadata : ITypeMetadata
-    {
-        public string Name { get; set; }
-        public Type Type { get; set; }
-        public string Namespace { get; private set; }
+	public class TypeMetadata : ITypeMetadata
+	{
+		public TypeMetadata(Type type)
+		{
+			Namespace = type.Namespace;
+			Name = type.Name;
+			Type = type;
 
-        public IList<IPropertyMetadata> Properties { get; private set; }
-        public IList<IInterfaceMetadata> Interfaces { get; private set; }
+			Interfaces = new List<IInterfaceMetadata>();
+			foreach (var inf in Type.GetInterfaces())
+			{
+				Interfaces.Add(new InterfaceMetadata(inf));
+			}
 
-        public IList<IPropertyMetadata> GetAttributes(Type type)
-        {
-            if (!typeof(IPropertyMetadata).IsAssignableFrom(type))
-            {
-                throw new UnexpectedTypeException(typeof(IPropertyMetadata), type);
-            }
+			Properties = new List<IPropertyMetadata>();
+			foreach (var pi in Type.GetProperties())
+			{
+				Properties.Add(new PropertyMetadata(pi));
+			}
+		}
 
-            return Type.GetCustomAttributes(type, true).Cast<IPropertyMetadata>().ToList();
-        }
+		public IList<IInterfaceMetadata> Interfaces { get; private set; }
 
-        public TypeMetadata(Type type)
-        {
-            Namespace = type.Namespace;
-            Name = type.Name;
-            Type = type;
+		public string Name { get; set; }
+		public string Namespace { get; private set; }
 
-            Interfaces = new List<IInterfaceMetadata>();
-            foreach (var inf in Type.GetInterfaces())
-            {
-                Interfaces.Add(new InterfaceMetadata(inf));
-            }
+		public IList<IPropertyMetadata> Properties { get; private set; }
+		public Type Type { get; set; }
 
-            Properties = new List<IPropertyMetadata>();
-            foreach (var pi in Type.GetProperties())
-            {
-                Properties.Add(new PropertyMetadata(pi));
-            }
-        }
-    }
+		public IList<IPropertyMetadata> GetAttributes(Type type)
+		{
+			if (!typeof (IPropertyMetadata).IsAssignableFrom(type))
+			{
+				throw new UnexpectedTypeException(typeof (IPropertyMetadata), type);
+			}
+
+			return Type.GetCustomAttributes(type, true).Cast<IPropertyMetadata>().ToList();
+		}
+	}
 }

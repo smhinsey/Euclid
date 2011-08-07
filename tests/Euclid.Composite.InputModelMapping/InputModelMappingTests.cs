@@ -2,112 +2,116 @@
 using AutoMapper;
 using Euclid.Agent.Extensions;
 using Euclid.Composites.Conversion;
-using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Models;
 using Euclid.Framework.TestingFakes.Cqrs;
 using Euclid.Framework.TestingFakes.InputModels;
 using NUnit.Framework;
 
 namespace Euclid.Composite.InputModelMapping
 {
-    [TestFixture]
-    public class InputModelMappingTests
-    {
-        [Test]
-        public void TestGetInputModel()
-        {
-            IInputModelTransfomerRegistry r = new InputModelToCommandTransformerRegistry();
+	[TestFixture]
+	public class InputModelMappingTests
+	{
+		private InputModelFakeCommand4 GetInputModel()
+		{
+			return new InputModelFakeCommand4
+			       	{
+			       		AgentSystemName = typeof (FakeCommand4).Assembly.GetAgentMetadata().SystemName,
+			       		BirthDay = DateTime.Now,
+			       		CommandType = typeof (FakeCommand4),
+			       		Password = DateTime.Now.Ticks.ToString()
+			       	};
+		}
 
-            var metadata = typeof (FakeCommand4).GetMetadata();
+		public class InputToFakeCommand4Converter : IInputToCommandConverter
+		{
+			public Type CommandType
+			{
+				get { return typeof (FakeCommand4); }
+			}
 
-            r.Add(metadata.Name, new InputToFakeCommand4Converter());
+			public Type InputModelType
+			{
+				get { return typeof (InputModelFakeCommand4); }
+			}
 
-            var m = r.GetInputModel(metadata.Name);
-            Assert.NotNull(m);
+			public ICommand Convert(ResolutionContext context)
+			{
+				var source = context.SourceValue as InputModelFakeCommand4;
+				if (source == null)
+				{
+					throw new CannotCreateInputModelException(typeof (FakeCommand4).GetMetadata().Name);
+				}
 
-            Assert.AreEqual(typeof(InputModelFakeCommand4), m.GetType());
-        }
+				var command = Activator.CreateInstance<FakeCommand4>();
 
-        [Test]
-        public void TestConverterConfig()
-        {
-            Mapper.CreateMap(typeof(InputModelFakeCommand4), typeof(FakeCommand4)).ConvertUsing(typeof(InputToFakeCommand4Converter));
-            Mapper.AssertConfigurationIsValid();
+				command.YourBirthday = source.BirthDay;
 
-            var model = GetInputModel();
-            var command = Activator.CreateInstance(typeof (FakeCommand4));
-            var dest = Mapper.Map(model, command, model.GetType(), command.GetType()) as FakeCommand4;
+				command.PasswordHash = string.Format("hashed: {0}", source.Password);
 
-            Assert.NotNull(dest);
-            Assert.AreEqual(dest.GetType(), typeof(FakeCommand4));
-            Assert.AreEqual(model.BirthDay, dest.YourBirthday);
-            Assert.AreEqual("hashed: " + model.Password, dest.PasswordHash);
-            Assert.AreEqual("salted: " + model.Password, dest.PasswordSalt);
-        }
+				command.PasswordSalt = string.Format("salted: {0}", source.Password);
 
-        private InputModelFakeCommand4 GetInputModel()
-        {
-            return new InputModelFakeCommand4
-            {
-                AgentSystemName = typeof(FakeCommand4).Assembly.GetAgentMetadata().SystemName,
-                BirthDay = DateTime.Now,
-                CommandType = typeof(FakeCommand4),
-                Password = System.DateTime.Now.Ticks.ToString()
-            };
-        }
+				return command;
+			}
+		}
 
-        [Test]
-        public void TestGetCommand()
-        {
-            var started = DateTime.Now;
-            IInputModelTransfomerRegistry r = new InputModelToCommandTransformerRegistry();
+		[Test]
+		public void TestConverterConfig()
+		{
+			Mapper.CreateMap(typeof (InputModelFakeCommand4), typeof (FakeCommand4)).ConvertUsing(typeof (InputToFakeCommand4Converter));
+			Mapper.AssertConfigurationIsValid();
 
-            var metadata = typeof(FakeCommand4).GetMetadata();
+			var model = GetInputModel();
+			var command = Activator.CreateInstance(typeof (FakeCommand4));
+			var dest = Mapper.Map(model, command, model.GetType(), command.GetType()) as FakeCommand4;
 
-            r.Add(metadata.Name, new InputToFakeCommand4Converter());
+			Assert.NotNull(dest);
+			Assert.AreEqual(dest.GetType(), typeof (FakeCommand4));
+			Assert.AreEqual(model.BirthDay, dest.YourBirthday);
+			Assert.AreEqual("hashed: " + model.Password, dest.PasswordHash);
+			Assert.AreEqual("salted: " + model.Password, dest.PasswordSalt);
+		}
 
-            var m = r.GetInputModel(metadata.Name);
+		[Test]
+		public void TestGetCommand()
+		{
+			var started = DateTime.Now;
+			IInputModelTransfomerRegistry r = new InputModelToCommandTransformerRegistry();
 
-            Assert.NotNull(m);
+			var metadata = typeof (FakeCommand4).GetMetadata();
 
-            Assert.AreEqual(typeof(InputModelFakeCommand4), m.GetType());
+			r.Add(metadata.Name, new InputToFakeCommand4Converter());
 
-            var instanceOfModel = GetInputModel();
+			var m = r.GetInputModel(metadata.Name);
 
-            var instanceOfCommand = r.GetCommand(instanceOfModel) as FakeCommand4;
+			Assert.NotNull(m);
 
-            Assert.NotNull(instanceOfCommand);
+			Assert.AreEqual(typeof (InputModelFakeCommand4), m.GetType());
 
-            Assert.AreEqual("hashed: " + instanceOfModel.Password, instanceOfCommand.PasswordHash);
-            Assert.AreEqual("salted: " + instanceOfModel.Password, instanceOfCommand.PasswordSalt);
-            Assert.AreEqual(instanceOfCommand.YourBirthday, instanceOfModel.BirthDay);
+			var instanceOfModel = GetInputModel();
 
-        }
+			var instanceOfCommand = r.GetCommand(instanceOfModel) as FakeCommand4;
 
-        public class InputToFakeCommand4Converter : IInputToCommandConverter
-        {
-            public ICommand Convert(ResolutionContext context)
-            {
-                var source = context.SourceValue as InputModelFakeCommand4;
-                if (source == null)
-                {
-                    throw new CannotCreateInputModelException(typeof (FakeCommand4).GetMetadata().Name);
-                }
+			Assert.NotNull(instanceOfCommand);
 
-                var command = Activator.CreateInstance<FakeCommand4>();
+			Assert.AreEqual("hashed: " + instanceOfModel.Password, instanceOfCommand.PasswordHash);
+			Assert.AreEqual("salted: " + instanceOfModel.Password, instanceOfCommand.PasswordSalt);
+			Assert.AreEqual(instanceOfCommand.YourBirthday, instanceOfModel.BirthDay);
+		}
 
-                command.YourBirthday = source.BirthDay;
+		[Test]
+		public void TestGetInputModel()
+		{
+			IInputModelTransfomerRegistry r = new InputModelToCommandTransformerRegistry();
 
-                command.PasswordHash = string.Format("hashed: {0}", source.Password);
+			var metadata = typeof (FakeCommand4).GetMetadata();
 
-                command.PasswordSalt = string.Format("salted: {0}", source.Password);
+			r.Add(metadata.Name, new InputToFakeCommand4Converter());
 
-                return command;
-            }
+			var m = r.GetInputModel(metadata.Name);
+			Assert.NotNull(m);
 
-            public Type InputModelType { get { return typeof (InputModelFakeCommand4); } }
-            public Type CommandType { get { return typeof (FakeCommand4); } }
-        }
-    }
+			Assert.AreEqual(typeof (InputModelFakeCommand4), m.GetType());
+		}
+	}
 }

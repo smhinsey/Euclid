@@ -8,28 +8,35 @@ using Euclid.Framework.TestingFakes.Cqrs;
 
 namespace Euclid.Composite.MvcApplication.EuclidConfiguration.TypeConverters
 {
-    public class InputToFakeCommand4Converter : IInputToCommandConverter
-    {
-        public ICommand Convert(ResolutionContext context)
-        {
-            var source = context.SourceValue as InputModelFakeCommand4;
-            if (source == null)
-            {
-                throw new CannotCreateInputModelException(typeof(FakeCommand4).GetMetadata().Name);
-            }
+	public class InputToFakeCommand4Converter : IInputToCommandConverter
+	{
+		public Type CommandType
+		{
+			get { return typeof (FakeCommand4); }
+		}
 
-            var command = Activator.CreateInstance<FakeCommand4>();
+		public Type InputModelType
+		{
+			get { return typeof (InputModelFakeCommand4); }
+		}
 
-            command.YourBirthday = source.BirthDay;
+		public ICommand Convert(ResolutionContext context)
+		{
+			var source = context.SourceValue as InputModelFakeCommand4;
+			if (source == null)
+			{
+				throw new CannotCreateInputModelException(typeof (FakeCommand4).GetMetadata().Name);
+			}
 
-            command.PasswordHash = string.Format("hashed: {0}", source.Password);
+			var command = Activator.CreateInstance<FakeCommand4>();
 
-            command.PasswordSalt = string.Format("salted: {0}", source.Password);
+			command.YourBirthday = source.BirthDay;
 
-            return command;
-        }
+			command.PasswordHash = string.Format("hashed: {0}", source.Password);
 
-        public Type InputModelType { get { return typeof(InputModelFakeCommand4); } }
-        public Type CommandType { get { return typeof(FakeCommand4); } }
-    }
+			command.PasswordSalt = string.Format("salted: {0}", source.Password);
+
+			return command;
+		}
+	}
 }

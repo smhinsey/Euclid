@@ -3,7 +3,7 @@ using Euclid.Framework.Cqrs;
 
 namespace Euclid.Composites
 {
-    public class InMemoryCommandPublicationRecordMapper : InMemoryRecordMapper<CommandPublicationRecord>
-    {
-    }
+	public class InMemoryCommandPublicationRecordMapper : InMemoryRecordMapper<CommandPublicationRecord>
+	{
+	}
 }

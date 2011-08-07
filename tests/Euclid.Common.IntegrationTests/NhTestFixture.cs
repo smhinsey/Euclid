@@ -1,4 +1,3 @@
-using Euclid.Common.IntegrationTests.Storage;
 using Euclid.Common.TestingFakes.Storage.Model;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;

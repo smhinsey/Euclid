@@ -1,7 +1,7 @@
 namespace Euclid.Framework.Metadata
 {
-    public interface IAgentPart
-    { // this is a marker
-        
-    }
+	public interface IAgentPart
+	{
+		// this is a marker
+	}
 }

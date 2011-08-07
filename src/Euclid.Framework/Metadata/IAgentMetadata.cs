@@ -1,12 +1,12 @@
 namespace Euclid.Framework.Metadata
 {
-    public interface IAgentMetadata
-    {
-        string DescriptiveName { get; }
-        string SystemName { get; }
-        bool IsValid { get; }
+	public interface IAgentMetadata
+	{
+		ICommandMetadataCollection Commands { get; }
+		string DescriptiveName { get; }
+		bool IsValid { get; }
 
-        ICommandMetadataCollection Commands { get; }
-        IAgentPartMetadataCollection Queries { get; }
-    }
+		IAgentPartMetadataCollection Queries { get; }
+		string SystemName { get; }
+	}
 }

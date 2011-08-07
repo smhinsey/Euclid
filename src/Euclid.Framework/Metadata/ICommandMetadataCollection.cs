@@ -1,6 +1,6 @@
 namespace Euclid.Framework.Metadata
 {
-    public interface ICommandMetadataCollection : IAgentPartMetadataCollection
-    {
-    }
+	public interface ICommandMetadataCollection : IAgentPartMetadataCollection
+	{
+	}
 }

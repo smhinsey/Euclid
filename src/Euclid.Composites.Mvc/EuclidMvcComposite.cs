@@ -21,151 +21,150 @@ using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites.Mvc
 {
-    public class EuclidMvcComposite : ILoggingSource
-    {
-        private static readonly IWindsorContainer Container = new WindsorContainer();
+	public class EuclidMvcComposite : ILoggingSource
+	{
+		public readonly IList<IAgentMetadata> Agents = new List<IAgentMetadata>();
+		private static readonly IWindsorContainer Container = new WindsorContainer();
 
-        public readonly IList<IAgentMetadata> Agents = new List<IAgentMetadata>();
+		//private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry = new CommandToIInputModelConversionRegistry();
+		private readonly IInputModelTransfomerRegistry _inputModelTransformers =
+			new InputModelToCommandTransformerRegistry();
 
-        //private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry = new CommandToIInputModelConversionRegistry();
-        private readonly IInputModelTransfomerRegistry _inputModelTransformers =
-            new InputModelToCommandTransformerRegistry();
+		public EuclidMvcComposite()
+		{
+			ApplicationState = CompositeApplicationState.Uninitailized;
+		}
 
-        public EuclidMvcComposite()
-        {
-            ApplicationState = CompositeApplicationState.Uninitailized;
-        }
+		public CompositeApplicationState ApplicationState { get; private set; }
 
-        public CompositeApplicationState ApplicationState { get; private set; }
+		public void Configure(HttpApplication mvcApplication, EuclidMvcConfiguration configuration)
+		{
+			Container.Install(new ContainerInstaller());
 
-        public void Configure(HttpApplication mvcApplication, EuclidMvcConfiguration configuration)
-        {
-            Container.Install(new ContainerInstaller());
+			RegisterConfiguredTypes(configuration);
 
-            RegisterConfiguredTypes(configuration);
-            
-            Container.Register(
-                Component
-                    .For<IInputModelTransfomerRegistry>()
-                    .Instance(_inputModelTransformers)
-                    .LifeStyle.Singleton);
+			Container.Register(
+			                   Component
+			                   	.For<IInputModelTransfomerRegistry>()
+			                   	.Instance(_inputModelTransformers)
+			                   	.LifeStyle.Singleton);
 
-            Container.Install(new ControllerContainerInstaller());
+			Container.Install(new ControllerContainerInstaller());
 
-            RegisterModelBinders();
+			RegisterModelBinders();
 
-            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
+			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
 
-            mvcApplication.Error += LogUnhandledException;
+			mvcApplication.Error += LogUnhandledException;
 
-            mvcApplication.BeginRequest += BeginPageRequest;
+			mvcApplication.BeginRequest += BeginPageRequest;
 
-            ApplicationState = CompositeApplicationState.Configured;
-        }
+			ApplicationState = CompositeApplicationState.Configured;
+		}
 
-        private void BeginPageRequest(object sender, EventArgs eventArgs)
-        {
-            if (ApplicationState != CompositeApplicationState.Configured)
-            {
-                throw new InvalidCompositeApplicationStateException(ApplicationState, CompositeApplicationState.Configured);
-            }
-        }
+		public void InstallAgent(Assembly assembly)
+		{
+			if (assembly == null)
+			{
+				throw new ArgumentNullException("assembly");
+			}
 
-        private void LogUnhandledException(object sender, EventArgs eventArgs)
-        {
-            var e = HttpContext.Current.Server.GetLastError();
-            this.WriteFatalMessage(e.Message, e);
-        }
+			if (!assembly.ContainsAgent())
+			{
+				throw new AssemblyNotAgentException(assembly);
+			}
 
-        public void InstallAgent(Assembly assembly)
-        {
-            if (assembly == null)
-            {
-                throw new ArgumentNullException("assembly");
-            }
+			Agents.Add(assembly.GetAgentMetadata());
+		}
 
-            if (!assembly.ContainsAgent())
-            {
-                throw new AssemblyNotAgentException(assembly);
-            }
+		public void RegisterInputModel(IInputToCommandConverter converter)
+		{
+			if (converter == null)
+			{
+				throw new ArgumentNullException("converter");
+			}
 
-            Agents.Add(assembly.GetAgentMetadata());
-        }
+			var commandMetadata = converter.CommandType.GetMetadata();
 
-        public void RegisterInputModel(IInputToCommandConverter converter)
-        {
-            if (converter == null)
-            {
-                throw new ArgumentNullException("converter");
-            }
+			var agent = Agents.Where(a => a.Commands.Namespace == commandMetadata.Namespace).FirstOrDefault();
 
-            var commandMetadata = converter.CommandType.GetMetadata();
+			if (agent == null)
+			{
+				throw new AgentNotFoundException(commandMetadata.Namespace);
+			}
 
-            var agent = Agents.Where(a => a.Commands.Namespace == commandMetadata.Namespace).FirstOrDefault();
+			if (!agent.Commands.Where(x => x.Name == commandMetadata.Name).Any())
+			{
+				throw new CommandNotPresentInAgentException();
+			}
 
-            if (agent == null)
-            {
-                throw new AgentNotFoundException(commandMetadata.Namespace);
-            }
+			_inputModelTransformers.Add(commandMetadata.Name, converter);
+		}
 
-            if (!agent.Commands.Where(x => x.Name == commandMetadata.Name).Any())
-            {
-                throw new CommandNotPresentInAgentException();
-            }
+		private void BeginPageRequest(object sender, EventArgs eventArgs)
+		{
+			if (ApplicationState != CompositeApplicationState.Configured)
+			{
+				throw new InvalidCompositeApplicationStateException(ApplicationState, CompositeApplicationState.Configured);
+			}
+		}
 
-            _inputModelTransformers.Add(commandMetadata.Name, converter);
-        }
+		private void LogUnhandledException(object sender, EventArgs eventArgs)
+		{
+			var e = HttpContext.Current.Server.GetLastError();
+			this.WriteFatalMessage(e.Message, e);
+		}
 
-        private static void RegisterModelBinders()
-        {
-            Container.Install(new ModelBinderIntstaller());
+		private static void RegisterConfiguredTypes(EuclidMvcConfiguration configuration)
+		{
+			Container.Register(
+			                   Component.For<IPublisher>()
+			                   	.ImplementedBy(configuration.Publisher.Value)
+			                   	.LifeStyle.Singleton
+				);
 
-            ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
-        }
+			Container.Register(
+			                   Component.For<IMessageChannel>()
+			                   	.ImplementedBy(configuration.MessageChannel.Value)
+			                   	.LifeStyle.Singleton
+				);
 
-        private static void RegisterConfiguredTypes(EuclidMvcConfiguration configuration)
-        {
-            Container.Register(
-                            Component.For<IPublisher>()
-                                .ImplementedBy(configuration.Publisher.Value)
-                                .LifeStyle.Singleton
-                            );
+			Container.Register(
+			                   Component.For<IRecordMapper<CommandPublicationRecord>>()
+			                   	.ImplementedBy(configuration.CommandPublicationRecordMapper.Value)
+			                   	.LifeStyle.Singleton
+				);
 
-            Container.Register(
-                Component.For<IMessageChannel>()
-                    .ImplementedBy(configuration.MessageChannel.Value)
-                    .LifeStyle.Singleton
-                );
+			Container.Register(
+			                   Component.For<IBlobStorage>()
+			                   	.ImplementedBy(configuration.BlobStorage.Value)
+			                   	.LifeStyle.Singleton
+				);
 
-            Container.Register(
-                Component.For<IRecordMapper<CommandPublicationRecord>>()
-                    .ImplementedBy(configuration.CommandPublicationRecordMapper.Value)
-                    .LifeStyle.Singleton
-                );
+			Container.Register(
+			                   Component.For<IMessageSerializer>()
+			                   	.ImplementedBy(configuration.MessageSerializer.Value)
+			                   	.LifeStyle.Singleton
+				);
 
-            Container.Register(
-                Component.For<IBlobStorage>()
-                    .ImplementedBy(configuration.BlobStorage.Value)
-                    .LifeStyle.Singleton
-                );
+			Container.Register(
+			                   Component.For<IPublicationRegistry<IPublicationRecord>>()
+			                   	.ImplementedBy(configuration.PublicationRegistry.Value)
+			                   	.LifeStyle.Singleton
+				);
 
-            Container.Register(
-                Component.For<IMessageSerializer>()
-                    .ImplementedBy(configuration.MessageSerializer.Value)
-                    .LifeStyle.Singleton
-                );
+			Container.Register(
+			                   Component
+			                   	.For<ICommandDispatcher>()
+			                   	.ImplementedBy(configuration.CommandDispatcher.Value)
+			                   	.LifeStyle.Singleton);
+		}
 
-            Container.Register(
-                Component.For<IPublicationRegistry<IPublicationRecord>>()
-                    .ImplementedBy(configuration.PublicationRegistry.Value)
-                    .LifeStyle.Singleton
-                );
+		private static void RegisterModelBinders()
+		{
+			Container.Install(new ModelBinderIntstaller());
 
-            Container.Register(
-                Component
-                    .For<ICommandDispatcher>()
-                    .ImplementedBy(configuration.CommandDispatcher.Value)
-                    .LifeStyle.Singleton);
-        }
-    }
+			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
+		}
+	}
 }

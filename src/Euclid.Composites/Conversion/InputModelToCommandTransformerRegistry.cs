@@ -10,75 +10,75 @@ using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Conversion
 {
-    public class InputModelToCommandTransformerRegistry : IInputModelTransfomerRegistry, ILoggingSource
-    {
-        private readonly Dictionary<string, Tuple<Type, ITypeMetadata>> _inputModelsAndValues =
-            new Dictionary<string, Tuple<Type, ITypeMetadata>>();
+	public class InputModelToCommandTransformerRegistry : IInputModelTransfomerRegistry, ILoggingSource
+	{
+		private readonly Dictionary<string, Tuple<Type, ITypeMetadata>> _inputModelsAndValues =
+			new Dictionary<string, Tuple<Type, ITypeMetadata>>();
 
-        public void Add(string partName, IInputToCommandConverter converter)
-        {
-            if (_inputModelsAndValues.ContainsKey(partName))
-            {
-                throw new PartNameAlreadyRegisteredException(partName);
-            }
+		public void Add(string partName, IInputToCommandConverter converter)
+		{
+			if (_inputModelsAndValues.ContainsKey(partName))
+			{
+				throw new PartNameAlreadyRegisteredException(partName);
+			}
 
-            var partMetadata = converter.CommandType.GetMetadata();
+			var partMetadata = converter.CommandType.GetMetadata();
 
-            _inputModelsAndValues.Add(partName, new Tuple<Type, ITypeMetadata>(converter.InputModelType, partMetadata));
+			_inputModelsAndValues.Add(partName, new Tuple<Type, ITypeMetadata>(converter.InputModelType, partMetadata));
 
-            Mapper.CreateMap(converter.InputModelType, partMetadata.Type).ConvertUsing(converter.GetType());
-        }
+			Mapper.CreateMap(converter.InputModelType, partMetadata.Type).ConvertUsing(converter.GetType());
+		}
 
-        public IInputModel GetInputModel(string partName)
-        {
-            GuardPartNameRegistered(partName);
+		public ICommand GetCommand(IInputModel model)
+		{
+			var partName = _inputModelsAndValues
+				.Where(row => row.Value.Item1 == model.GetType())
+				.Select(row => row.Key)
+				.FirstOrDefault();
 
-            return Activator.CreateInstance(_inputModelsAndValues[partName].Item1) as IInputModel;
-        }
+			GuardPartNameRegistered(partName);
 
-        public Type GetCommandType(string partName)
-        {
-            GuardPartNameRegistered(partName);
+			var command = Activator.CreateInstance(_inputModelsAndValues[partName].Item2.Type) as ICommand;
 
-            return _inputModelsAndValues[partName].Item2.Type;
-        }
+			if (command == null)
+			{
+				throw new CannotCreateCommandException();
+			}
 
-        public ICommand GetCommand(IInputModel model)
-        {
-            var partName = _inputModelsAndValues
-                                .Where(row => row.Value.Item1 == model.GetType())
-                                .Select(row => row.Key)
-                                .FirstOrDefault();
+			command = Mapper.Map(model, command, model.GetType(), command.GetType()) as ICommand;
 
-            GuardPartNameRegistered(partName);
+			if (command == null)
+			{
+				throw new CannotMapCommandException();
+			}
 
-            var command = Activator.CreateInstance(_inputModelsAndValues[partName].Item2.Type) as ICommand;
+			command.Created = DateTime.Now;
 
-            if (command == null)
-            {
-                throw new CannotCreateCommandException();
-            }
+			command.Identifier = Guid.NewGuid();
 
-            command = Mapper.Map(model, command, model.GetType(), command.GetType()) as ICommand;
+			return command;
+		}
 
-            if (command == null)
-            {
-                throw new CannotMapCommandException();
-            }
+		public Type GetCommandType(string partName)
+		{
+			GuardPartNameRegistered(partName);
 
-            command.Created = DateTime.Now;
+			return _inputModelsAndValues[partName].Item2.Type;
+		}
 
-            command.Identifier = Guid.NewGuid();
+		public IInputModel GetInputModel(string partName)
+		{
+			GuardPartNameRegistered(partName);
 
-            return command;
-        }
+			return Activator.CreateInstance(_inputModelsAndValues[partName].Item1) as IInputModel;
+		}
 
-        private void GuardPartNameRegistered(string partName)
-        {
-            if (!_inputModelsAndValues.ContainsKey(partName))
-            {
-                throw new PartNameNotRegisteredException(partName);
-            }
-        }
-    }
+		private void GuardPartNameRegistered(string partName)
+		{
+			if (!_inputModelsAndValues.ContainsKey(partName))
+			{
+				throw new PartNameNotRegisteredException(partName);
+			}
+		}
+	}
 }

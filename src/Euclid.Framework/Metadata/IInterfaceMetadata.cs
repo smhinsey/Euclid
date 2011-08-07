@@ -2,10 +2,10 @@ using System;
 
 namespace Euclid.Framework.Metadata
 {
-    public interface IInterfaceMetadata
-    {
-        string InterfaceName { get; }
-        Type InterfaceType { get; }
-        Type ImplementationType { get; }
-    }
+	public interface IInterfaceMetadata
+	{
+		Type ImplementationType { get; }
+		string InterfaceName { get; }
+		Type InterfaceType { get; }
+	}
 }

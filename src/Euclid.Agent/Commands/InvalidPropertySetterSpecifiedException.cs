@@ -2,11 +2,10 @@ using System;
 
 namespace Euclid.Agent.Commands
 {
-    public class InvalidPropertySetterSpecifiedException : Exception
-    {
-        public InvalidPropertySetterSpecifiedException(Type propertyValueSetterType)
-        {
-
-        }
-    }
+	public class InvalidPropertySetterSpecifiedException : Exception
+	{
+		public InvalidPropertySetterSpecifiedException(Type propertyValueSetterType)
+		{
+		}
+	}
 }

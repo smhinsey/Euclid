@@ -1,5 +1,4 @@
-﻿using Euclid.Agent;
-using Euclid.Framework.Metadata.Attributes;
+﻿using Euclid.Framework.Metadata.Attributes;
 using Euclid.Framework.TestingFakes.Cqrs;
 
 [assembly: AgentSystemName(Value = "Euclid.Framework.TestingFakeAgent")]
@@ -7,7 +6,7 @@ using Euclid.Framework.TestingFakes.Cqrs;
 
 // hardcode agent namepsace
 
-[assembly: LocationOfCommands(NamespaceOfType = typeof(FakeCommand))]
+[assembly: LocationOfCommands(NamespaceOfType = typeof (FakeCommand))]
 
 // specify namespace by type
 
