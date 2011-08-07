@@ -11,6 +11,8 @@ namespace Euclid.Composites.Mvc.ComponentRegistration
 	{
 		public abstract void Install(IWindsorContainer container, IConfigurationStore store);
 
+		// SELF remove this, windsor registration includes this feature via the fluent registration api
+		// e.g. AllTypes.FromAssemblyContaining<MyType>().BasedOn<MyOtherType>();
 		protected IEnumerable<Type> GetTypesThatImplement<T>()
 		{
 			var listOfTypes = new List<Type>();

@@ -5,23 +5,23 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace Euclid.Common.HostingFabric
 {
-	public class LocalMachineFabric : IFabricRuntime
+	public class DefaultFabric : IFabricRuntime
 	{
-		private readonly IList<Type> _configuredHostedServices;
-		private readonly IServiceLocator _container;
-		private IFabricRuntimeSettings _currentSettings;
+		protected IList<Type> ConfiguredHostedServices;
+		protected IServiceLocator Container;
+		protected IFabricRuntimeSettings CurrentSettings;
 		private IServiceHost _serviceHost;
 
-		public LocalMachineFabric(IServiceLocator container)
+		public DefaultFabric(IServiceLocator container)
 		{
-			_container = container;
+			Container = container;
 			State = FabricRuntimeState.Stopped;
-			_configuredHostedServices = new List<Type>();
+			ConfiguredHostedServices = new List<Type>();
 		}
 
-		public FabricRuntimeState State { get; private set; }
+		public FabricRuntimeState State { get; protected set; }
 
-		public void Configure(IFabricRuntimeSettings settings)
+		public virtual void Configure(IFabricRuntimeSettings settings)
 		{
 			if (settings.ServiceHost.Value == null)
 			{
@@ -33,11 +33,11 @@ namespace Euclid.Common.HostingFabric
 				throw new NoHostedServicesConfiguredException("You must configure hosted services.");
 			}
 
-			_currentSettings = settings;
+			CurrentSettings = settings;
 
 			try
 			{
-				_serviceHost = (IServiceHost) _container.GetInstance(settings.ServiceHost.Value);
+				_serviceHost = (IServiceHost) Container.GetInstance(settings.ServiceHost.Value);
 			}
 			catch (ActivationException e)
 			{
@@ -51,9 +51,9 @@ namespace Euclid.Common.HostingFabric
 			{
 				try
 				{
-					hostedServices.Add((IHostedService) _container.GetInstance(hostedServiceType));
+					hostedServices.Add((IHostedService) Container.GetInstance(hostedServiceType));
 
-					_configuredHostedServices.Add(hostedServiceType);
+					ConfiguredHostedServices.Add(hostedServiceType);
 				}
 				catch (ActivationException e)
 				{
@@ -68,18 +68,18 @@ namespace Euclid.Common.HostingFabric
 			}
 		}
 
-		public IList<Exception> GetExceptionsThrownByHostedServices()
+		public virtual IList<Exception> GetExceptionsThrownByHostedServices()
 		{
 			return _serviceHost.GetExceptionsThrownByHostedServices();
 		}
 
-		public IFabricRuntimeStatistics GetStatistics()
+		public virtual IFabricRuntimeStatistics GetStatistics()
 		{
 			return new DefaultRuntimeStatistics
-				(_serviceHost.GetExceptionsThrownByHostedServices(), _configuredHostedServices, _serviceHost.GetType(), State, _currentSettings);
+				(_serviceHost.GetExceptionsThrownByHostedServices(), ConfiguredHostedServices, _serviceHost.GetType(), State, CurrentSettings);
 		}
 
-		public void Shutdown()
+		public virtual void Shutdown()
 		{
 			State = FabricRuntimeState.Stoppping;
 
@@ -88,7 +88,7 @@ namespace Euclid.Common.HostingFabric
 			State = FabricRuntimeState.Stopped;
 		}
 
-		public void Start()
+		public virtual void Start()
 		{
 			_serviceHost.StartAll();
 

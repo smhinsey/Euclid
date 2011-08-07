@@ -21,7 +21,7 @@ using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites.Mvc
 {
-	public class EuclidMvcComposite : ILoggingSource
+	public class MvcCompositeApp : ILoggingSource
 	{
 		public readonly IList<IAgentMetadata> Agents = new List<IAgentMetadata>();
 		private static readonly IWindsorContainer Container = new WindsorContainer();
@@ -30,18 +30,18 @@ namespace Euclid.Composites.Mvc
 		private readonly IInputModelTransfomerRegistry _inputModelTransformers =
 			new InputModelToCommandTransformerRegistry();
 
-		public EuclidMvcComposite()
+		public MvcCompositeApp()
 		{
 			ApplicationState = CompositeApplicationState.Uninitailized;
 		}
 
 		public CompositeApplicationState ApplicationState { get; private set; }
 
-		public void Configure(HttpApplication mvcApplication, EuclidMvcConfiguration configuration)
+		public void Configure(HttpApplication mvcApplication, MvcCompositeAppSettings compositeAppSettings)
 		{
 			Container.Install(new ContainerInstaller());
 
-			RegisterConfiguredTypes(configuration);
+			RegisterConfiguredTypes(compositeAppSettings);
 
 			Container.Register(
 			                   Component
@@ -115,48 +115,48 @@ namespace Euclid.Composites.Mvc
 			this.WriteFatalMessage(e.Message, e);
 		}
 
-		private static void RegisterConfiguredTypes(EuclidMvcConfiguration configuration)
+		private static void RegisterConfiguredTypes(MvcCompositeAppSettings compositeAppSettings)
 		{
 			Container.Register(
 			                   Component.For<IPublisher>()
-			                   	.ImplementedBy(configuration.Publisher.Value)
+			                   	.ImplementedBy(compositeAppSettings.Publisher.Value)
 			                   	.LifeStyle.Singleton
 				);
 
 			Container.Register(
 			                   Component.For<IMessageChannel>()
-			                   	.ImplementedBy(configuration.MessageChannel.Value)
+			                   	.ImplementedBy(compositeAppSettings.MessageChannel.Value)
 			                   	.LifeStyle.Singleton
 				);
 
 			Container.Register(
 			                   Component.For<IRecordMapper<CommandPublicationRecord>>()
-			                   	.ImplementedBy(configuration.CommandPublicationRecordMapper.Value)
+			                   	.ImplementedBy(compositeAppSettings.CommandPublicationRecordMapper.Value)
 			                   	.LifeStyle.Singleton
 				);
 
 			Container.Register(
 			                   Component.For<IBlobStorage>()
-			                   	.ImplementedBy(configuration.BlobStorage.Value)
+			                   	.ImplementedBy(compositeAppSettings.BlobStorage.Value)
 			                   	.LifeStyle.Singleton
 				);
 
 			Container.Register(
 			                   Component.For<IMessageSerializer>()
-			                   	.ImplementedBy(configuration.MessageSerializer.Value)
+			                   	.ImplementedBy(compositeAppSettings.MessageSerializer.Value)
 			                   	.LifeStyle.Singleton
 				);
 
 			Container.Register(
 			                   Component.For<IPublicationRegistry<IPublicationRecord>>()
-			                   	.ImplementedBy(configuration.PublicationRegistry.Value)
+			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
 			                   	.LifeStyle.Singleton
 				);
 
 			Container.Register(
 			                   Component
 			                   	.For<ICommandDispatcher>()
-			                   	.ImplementedBy(configuration.CommandDispatcher.Value)
+			                   	.ImplementedBy(compositeAppSettings.CommandDispatcher.Value)
 			                   	.LifeStyle.Singleton);
 		}
 
