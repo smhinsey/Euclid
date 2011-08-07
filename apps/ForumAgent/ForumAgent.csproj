@@ -79,10 +79,6 @@
     <Compile Include="ReadModels\UserProfile.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
-      <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>
-      <Name>Euclid.Framework.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Agent\Euclid.Agent.csproj">
       <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
       <Name>Euclid.Agent</Name>
@@ -106,6 +102,10 @@
     <ProjectReference Include="..\..\src\Euclid.Framework.Metadata\Euclid.Framework.Metadata.csproj">
       <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
       <Name>Euclid.Framework.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
+      <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>
+      <Name>Euclid.Framework.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
