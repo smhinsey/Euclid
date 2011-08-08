@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\FormatActionFilter.cs" />
     <Compile Include="Binders\AgentMetadataModelBinder.cs" />
     <Compile Include="Binders\CannotSetInputModelPropertyValues.cs" />
     <Compile Include="Binders\IEuclidModelBinder.cs" />
