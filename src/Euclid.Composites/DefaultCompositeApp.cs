@@ -20,19 +20,19 @@ namespace Euclid.Composites
 {
 	public abstract class DefaultCompositeApp : ILoggingSource
 	{
-		public readonly IList<IAgentMetadata> Agents;
-
-		protected static readonly IWindsorContainer Container = new WindsorContainer();
-		protected readonly IInputModelTransfomerRegistry InputModelTransformers;
-
 		protected DefaultCompositeApp()
 		{
 			ApplicationState = CompositeApplicationState.Uninitailized;
 			Agents = new List<IAgentMetadata>();
 			InputModelTransformers = new InputModelToCommandTransformerRegistry();
+			Container = new WindsorContainer();
 		}
 
+		public IList<IAgentMetadata> Agents { get; private set; }
+
 		protected CompositeApplicationState ApplicationState { get; set; }
+		protected IWindsorContainer Container { get; set; }
+		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
 
 		public virtual void Configure(CompositeAppSettings compositeAppSettings)
 		{

@@ -11,9 +11,9 @@ namespace Euclid.Composites.Mvc
 	{
 		public override void Configure(CompositeAppSettings compositeAppSettings)
 		{
-			wireMvcInfrastructure();
-
 			base.Configure(compositeAppSettings);
+
+			wireMvcInfrastructure();
 		}
 
 		private void wireMvcInfrastructure()
