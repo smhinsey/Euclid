@@ -5,14 +5,14 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace Euclid.Common.HostingFabric
 {
-	public class DefaultFabric : IFabricRuntime
+	public class BasicFabric : IFabricRuntime
 	{
 		protected IList<Type> ConfiguredHostedServices;
 		protected IServiceLocator Container;
 		protected IFabricRuntimeSettings CurrentSettings;
 		private IServiceHost _serviceHost;
 
-		public DefaultFabric(IServiceLocator container)
+		public BasicFabric(IServiceLocator container)
 		{
 			Container = container;
 			State = FabricRuntimeState.Stopped;

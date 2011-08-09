@@ -91,7 +91,8 @@
     <Compile Include="CommandNotPresentInAgentException.cs" />
     <Compile Include="CompositeApplicationState.cs" />
     <Compile Include="CompositeAppSettings.cs" />
-    <Compile Include="DefaultCompositeApp.cs" />
+    <Compile Include="BasicCompositeApp.cs" />
+    <Compile Include="ICompositeApp.cs" />
     <Compile Include="InMemoryCommandPublicationRecordMapper.cs" />
     <Compile Include="Conversion\AttemptingToRegisterInvalidCommandException.cs" />
     <Compile Include="Conversion\AttemptingToRegisterInvalidInputModelTypeException.cs" />

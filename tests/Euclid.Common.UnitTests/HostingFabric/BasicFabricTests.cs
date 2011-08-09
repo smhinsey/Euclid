@@ -11,7 +11,7 @@ using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.HostingFabric
 {
-	public class DefaultFabricTests
+	public class BasicFabricTests
 	{
 		[Test]
 		public void ErrorFreeWithValidConfig()
@@ -30,7 +30,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 
 			var locator = new WindsorServiceLocator(container);
 
-			var runtime = new DefaultFabric(locator);
+			var runtime = new BasicFabric(locator);
 
 			var settings = new FabricRuntimeSettings();
 
@@ -59,7 +59,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 				 	.Instance(new FakeHostedService())
 				);
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			var settings = new FabricRuntimeSettings();
 
@@ -95,7 +95,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 				 	.Instance(new FailingHostedService())
 				);
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			var settings = new FabricRuntimeSettings();
 
@@ -134,7 +134,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 				 	.Instance(new FailingHostedService())
 				);
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			var settings = new FabricRuntimeSettings();
 
@@ -170,7 +170,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 				 	.Forward<FakeHostedService>()
 				 	.Instance(new FakeHostedService()));
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			var settings = new FabricRuntimeSettings();
 
@@ -203,7 +203,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 				 	.Instance(new FakeHostedService())
 				);
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			var settings = new FabricRuntimeSettings();
 
@@ -244,7 +244,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 				 	.Instance(new FakeHostedService())
 				);
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			var settings = new FabricRuntimeSettings();
 
@@ -268,7 +268,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 		{
 			var container = new WindsorContainer();
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			runtime.Configure(new FabricRuntimeSettings());
 		}
@@ -279,7 +279,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 		{
 			var container = new WindsorContainer();
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			var settings = new FabricRuntimeSettings();
 
@@ -294,7 +294,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 		{
 			var container = new WindsorContainer();
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			var settings = new FabricRuntimeSettings();
 
@@ -316,7 +316,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 				 	.Instance(new MultitaskingServiceHost())
 				);
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			var settings = new FabricRuntimeSettings();
 
@@ -332,7 +332,7 @@ namespace Euclid.Common.UnitTests.HostingFabric
 		{
 			var container = new WindsorContainer();
 
-			var runtime = new DefaultFabric(new WindsorServiceLocator(container));
+			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
 			var settings = new FabricRuntimeSettings();
 

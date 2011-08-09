@@ -7,7 +7,7 @@ using Euclid.Composites.Mvc.ComponentRegistration;
 
 namespace Euclid.Composites.Mvc
 {
-	public class MvcCompositeApp : DefaultCompositeApp
+	public class MvcCompositeApp : BasicCompositeApp
 	{
 		public override void Configure(CompositeAppSettings compositeAppSettings)
 		{

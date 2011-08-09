@@ -7,7 +7,6 @@ using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Euclid.Agent;
 using Euclid.Agent.Extensions;
-using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.Record;
@@ -18,9 +17,9 @@ using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites
 {
-	public abstract class DefaultCompositeApp : ILoggingSource
+	public class BasicCompositeApp : ICompositeApp
 	{
-		protected DefaultCompositeApp()
+		protected BasicCompositeApp()
 		{
 			ApplicationState = CompositeApplicationState.Uninitailized;
 			Agents = new List<IAgentMetadata>();
@@ -30,7 +29,7 @@ namespace Euclid.Composites
 
 		public IList<IAgentMetadata> Agents { get; private set; }
 
-		protected CompositeApplicationState ApplicationState { get; set; }
+		public CompositeApplicationState ApplicationState { get; set; }
 		protected IWindsorContainer Container { get; set; }
 		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
 

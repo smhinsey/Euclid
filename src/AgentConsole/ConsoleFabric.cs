@@ -5,7 +5,7 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace AgentConsole
 {
-	public class ConsoleFabric : DefaultFabric
+	public class ConsoleFabric : BasicFabric
 	{
 		public ConsoleFabric(IServiceLocator container) : base(container)
 		{
