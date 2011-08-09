@@ -17,16 +17,16 @@
     </div>
 
     <div class="property-set">
-        <div class="property-label">@Html.LabelFor(x => x.Commands.Namespace)</div>
+        <div class="property-label">Html.LabelFor(x => x.Commands.Namespace)</div>
         <div class="property-value">
-            <a href="@Url.Action("list", "Command", new {systemName = Model.SystemName})">
+            <a href="@Url.Action("List", "Command", new {systemName = Model.SystemName})">
                 @Model.Commands.Namespace
             </a>
         </div>
     </div>
     
     <div class="property-set">
-        <div class="property-label">@Html.LabelFor(x => x.Queries.Namespace)</div>
-        <div class="property-value">@Model.Queries.Namespace</div>
+        <div class="property-label">Html.LabelFor(x => x.Queries.Namespace)</div>
+        <div class="property-value">Model.Queries.Namespace</div>
     </div>
 </fieldset>
