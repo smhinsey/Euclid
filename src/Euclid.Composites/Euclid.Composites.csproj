@@ -83,6 +83,7 @@
     <Compile Include="AgentResolution\FileSystemAgentResolver.cs" />
     <Compile Include="AgentResolution\IAgentResolver.cs" />
     <Compile Include="CompositeApplicationState.cs" />
+    <Compile Include="CompositeAppSettings.cs" />
     <Compile Include="DefaultCompositeApp.cs" />
     <Compile Include="InMemoryCommandPublicationRecordMapper.cs" />
     <Compile Include="Conversion\AttemptingToRegisterInvalidCommandException.cs" />
@@ -105,6 +106,10 @@
     <ProjectReference Include="..\Euclid.Agent\Euclid.Agent.csproj">
       <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
       <Name>Euclid.Agent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
+      <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
+      <Name>Euclid.Common.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
       <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>

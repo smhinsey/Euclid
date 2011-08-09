@@ -13,6 +13,7 @@ namespace Euclid.Composites.Mvc.ComponentRegistration
 
 		// SELF remove this, windsor registration includes this feature via the fluent registration api
 		// e.g. AllTypes.FromAssemblyContaining<MyType>().BasedOn<MyOtherType>();
+		// http://docs.castleproject.org/(S(kwaa14uzdj55gv55dzgf0vui))/Windsor.Registering-components-by-conventions.ashx
 		protected IEnumerable<Type> GetTypesThatImplement<T>()
 		{
 			var listOfTypes = new List<Type>();

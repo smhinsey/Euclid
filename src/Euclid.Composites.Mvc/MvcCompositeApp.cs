@@ -21,7 +21,6 @@ namespace Euclid.Composites.Mvc
 	{
 		private static readonly IWindsorContainer Container = new WindsorContainer();
 
-		//private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry = new CommandToIInputModelConversionRegistry();
 		private readonly IInputModelTransfomerRegistry _inputModelTransformers =
 			new InputModelToCommandTransformerRegistry();
 
@@ -112,7 +111,7 @@ namespace Euclid.Composites.Mvc
 
 		private void registerModelBinders()
 		{
-			Container.Install(new ModelBinderIntstaller());
+			Container.Install(new ModelBinderInstaller());
 
 			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
 		}
