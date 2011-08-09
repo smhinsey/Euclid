@@ -98,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\OverridableObjectsTests.cs" />
-    <Compile Include="HostingFabric\DefaultFabricTests.cs" />
+    <Compile Include="HostingFabric\BasicFabricTests.cs" />
     <Compile Include="Pipeline\PipelineTests.cs" />
     <Compile Include="Publishing\PublisherTests.cs" />
     <Compile Include="Registry\InMemoryRegistryTests.cs" />
