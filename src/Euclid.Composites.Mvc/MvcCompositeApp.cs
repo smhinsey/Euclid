@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using Euclid.Agent;
 using Euclid.Agent.Extensions;
 using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
@@ -17,13 +14,11 @@ using Euclid.Composites.Conversion;
 using Euclid.Composites.Mvc.Binders;
 using Euclid.Composites.Mvc.ComponentRegistration;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites.Mvc
 {
-	public class MvcCompositeApp : ILoggingSource
+	public class MvcCompositeApp : DefaultCompositeApp, ILoggingSource
 	{
-		public readonly IList<IAgentMetadata> Agents = new List<IAgentMetadata>();
 		private static readonly IWindsorContainer Container = new WindsorContainer();
 
 		//private readonly ICommandToIInputModelConversionRegistry _commandToIInputModelConversionRegistry = new CommandToIInputModelConversionRegistry();
@@ -35,46 +30,28 @@ namespace Euclid.Composites.Mvc
 			ApplicationState = CompositeApplicationState.Uninitailized;
 		}
 
-		public CompositeApplicationState ApplicationState { get; private set; }
-
 		public void Configure(HttpApplication mvcApplication, MvcCompositeAppSettings compositeAppSettings)
 		{
 			Container.Install(new ContainerInstaller());
 
-			RegisterConfiguredTypes(compositeAppSettings);
+			registerConfiguredTypes(compositeAppSettings);
 
-			Container.Register(
-			                   Component
+			Container.Register(Component
 			                   	.For<IInputModelTransfomerRegistry>()
 			                   	.Instance(_inputModelTransformers)
 			                   	.LifeStyle.Singleton);
 
 			Container.Install(new ControllerContainerInstaller());
 
-			RegisterModelBinders();
+			registerModelBinders();
 
 			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
 
-			mvcApplication.Error += LogUnhandledException;
+			mvcApplication.Error += logUnhandledException;
 
-			mvcApplication.BeginRequest += BeginPageRequest;
+			mvcApplication.BeginRequest += beginPageRequest;
 
 			ApplicationState = CompositeApplicationState.Configured;
-		}
-
-		public void InstallAgent(Assembly assembly)
-		{
-			if (assembly == null)
-			{
-				throw new ArgumentNullException("assembly");
-			}
-
-			if (!assembly.ContainsAgent())
-			{
-				throw new AssemblyNotAgentException(assembly);
-			}
-
-			Agents.Add(assembly.GetAgentMetadata());
 		}
 
 		public void RegisterInputModel(IInputToCommandConverter converter)
@@ -101,7 +78,46 @@ namespace Euclid.Composites.Mvc
 			_inputModelTransformers.Add(commandMetadata.Name, converter);
 		}
 
-		private void BeginPageRequest(object sender, EventArgs eventArgs)
+		private void registerConfiguredTypes(MvcCompositeAppSettings compositeAppSettings)
+		{
+			Container.Register(Component.For<IPublisher>()
+			                   	.ImplementedBy(compositeAppSettings.Publisher.Value)
+			                   	.LifeStyle.Singleton);
+
+			Container.Register(Component.For<IMessageChannel>()
+			                   	.ImplementedBy(compositeAppSettings.MessageChannel.Value)
+			                   	.LifeStyle.Singleton);
+
+			Container.Register(Component.For<IRecordMapper<CommandPublicationRecord>>()
+			                   	.ImplementedBy(compositeAppSettings.CommandPublicationRecordMapper.Value)
+			                   	.LifeStyle.Singleton);
+
+			Container.Register(Component.For<IBlobStorage>()
+			                   	.ImplementedBy(compositeAppSettings.BlobStorage.Value)
+			                   	.LifeStyle.Singleton);
+
+			Container.Register(Component.For<IMessageSerializer>()
+			                   	.ImplementedBy(compositeAppSettings.MessageSerializer.Value)
+			                   	.LifeStyle.Singleton);
+
+			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord>>()
+			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
+			                   	.LifeStyle.Singleton);
+
+			Container.Register(Component
+			                   	.For<ICommandDispatcher>()
+			                   	.ImplementedBy(compositeAppSettings.CommandDispatcher.Value)
+			                   	.LifeStyle.Singleton);
+		}
+
+		private void registerModelBinders()
+		{
+			Container.Install(new ModelBinderIntstaller());
+
+			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
+		}
+
+		private void beginPageRequest(object sender, EventArgs eventArgs)
 		{
 			if (ApplicationState != CompositeApplicationState.Configured)
 			{
@@ -109,62 +125,10 @@ namespace Euclid.Composites.Mvc
 			}
 		}
 
-		private void LogUnhandledException(object sender, EventArgs eventArgs)
+		private void logUnhandledException(object sender, EventArgs eventArgs)
 		{
 			var e = HttpContext.Current.Server.GetLastError();
 			this.WriteFatalMessage(e.Message, e);
-		}
-
-		private static void RegisterConfiguredTypes(MvcCompositeAppSettings compositeAppSettings)
-		{
-			Container.Register(
-			                   Component.For<IPublisher>()
-			                   	.ImplementedBy(compositeAppSettings.Publisher.Value)
-			                   	.LifeStyle.Singleton
-				);
-
-			Container.Register(
-			                   Component.For<IMessageChannel>()
-			                   	.ImplementedBy(compositeAppSettings.MessageChannel.Value)
-			                   	.LifeStyle.Singleton
-				);
-
-			Container.Register(
-			                   Component.For<IRecordMapper<CommandPublicationRecord>>()
-			                   	.ImplementedBy(compositeAppSettings.CommandPublicationRecordMapper.Value)
-			                   	.LifeStyle.Singleton
-				);
-
-			Container.Register(
-			                   Component.For<IBlobStorage>()
-			                   	.ImplementedBy(compositeAppSettings.BlobStorage.Value)
-			                   	.LifeStyle.Singleton
-				);
-
-			Container.Register(
-			                   Component.For<IMessageSerializer>()
-			                   	.ImplementedBy(compositeAppSettings.MessageSerializer.Value)
-			                   	.LifeStyle.Singleton
-				);
-
-			Container.Register(
-			                   Component.For<IPublicationRegistry<IPublicationRecord>>()
-			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
-			                   	.LifeStyle.Singleton
-				);
-
-			Container.Register(
-			                   Component
-			                   	.For<ICommandDispatcher>()
-			                   	.ImplementedBy(compositeAppSettings.CommandDispatcher.Value)
-			                   	.LifeStyle.Singleton);
-		}
-
-		private static void RegisterModelBinders()
-		{
-			Container.Install(new ModelBinderIntstaller());
-
-			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
 		}
 	}
 }

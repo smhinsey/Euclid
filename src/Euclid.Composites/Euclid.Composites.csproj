@@ -83,6 +83,7 @@
     <Compile Include="AgentResolution\FileSystemAgentResolver.cs" />
     <Compile Include="AgentResolution\IAgentResolver.cs" />
     <Compile Include="CompositeApplicationState.cs" />
+    <Compile Include="DefaultCompositeApp.cs" />
     <Compile Include="InMemoryCommandPublicationRecordMapper.cs" />
     <Compile Include="Conversion\AttemptingToRegisterInvalidCommandException.cs" />
     <Compile Include="Conversion\AttemptingToRegisterInvalidInputModelTypeException.cs" />
