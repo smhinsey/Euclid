@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Composites.Mvc
+namespace Euclid.Composites
 {
 	public class CommandNotPresentInAgentException : Exception
 	{

@@ -100,13 +100,10 @@
     <Compile Include="Binders\CannotSetInputModelPropertyValues.cs" />
     <Compile Include="Binders\IEuclidModelBinder.cs" />
     <Compile Include="Binders\InputModelBinder.cs" />
-    <Compile Include="CommandNotPresentInAgentException.cs" />
     <Compile Include="ComponentRegistration\ComponentRegistrationBase.cs" />
-    <Compile Include="ComponentRegistration\ContainerInstaller.cs" />
     <Compile Include="ComponentRegistration\ControllerContainerInstaller.cs" />
-    <Compile Include="ComponentRegistration\ModelBinderIntstaller.cs" />
+    <Compile Include="ComponentRegistration\ModelBinderInstaller.cs" />
     <Compile Include="MvcCompositeApp.cs" />
-    <Compile Include="MvcCompositeAppSettings.cs" />
     <Compile Include="Extensions\ControllerContextExtensions.cs" />
     <Compile Include="Extensions\RequiredRouteDataMissingException.cs" />
     <Compile Include="Models\InputModelBase.cs" />

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using Euclid.Composite.MvcApplication.EuclidConfiguration.TypeConverters;
+using Euclid.Composites;
 using Euclid.Composites.Mvc;
 using Euclid.Framework.TestingFakes.Cqrs;
 
@@ -22,18 +23,22 @@ namespace Euclid.Composite.MvcApplication
 
 			var composite = new MvcCompositeApp();
 
-			var euclidCompositeConfiguration = new MvcCompositeAppSettings();
+			var euclidCompositeConfiguration = new CompositeAppSettings();
 
 			/*
              * jt: this is how a composite developer would override the default settings for the mvc composite
              * euclidCompositeConfiguration.BlobStorage.ApplyOverride(typeof(SomeBlobStorageImplementation));
              */
 
-			composite.Configure(this, euclidCompositeConfiguration);
+			composite.Configure(euclidCompositeConfiguration);
 
 			composite.InstallAgent(typeof (FakeCommand4).Assembly);
 
 			composite.RegisterInputModel(new InputToFakeCommand4Converter());
+
+			Error += composite.LogUnhandledException;
+
+			BeginRequest += composite.BeginPageRequest;
 		}
 
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -45,17 +50,11 @@ namespace Euclid.Composite.MvcApplication
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-			routes.MapRoute(
-			                "Command",
-			                "{controller}/{action}/{agentSystemName}/{commandName}",
-			                new {controller = "Command", action = "Inspect", commandName = UrlParameter.Optional}
-				);
+			routes.MapRoute("Command", "{controller}/{action}/{agentSystemName}/{commandName}",
+			                new {controller = "Command", action = "Inspect", commandName = UrlParameter.Optional});
 
-			routes.MapRoute(
-			                "InspectCommand",
-			                "{agentSystemName}/{commandName}.{format}",
-			                new {controller = "Command", action = "Inspect", format = UrlParameter.Optional}
-				);
+			routes.MapRoute("InspectCommand", "{agentSystemName}/{commandName}.{format}",
+			                new {controller = "Command", action = "Inspect", format = UrlParameter.Optional});
 		}
 	}
 }

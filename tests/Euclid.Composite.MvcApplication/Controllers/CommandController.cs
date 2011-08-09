@@ -3,7 +3,6 @@ using Euclid.Common.Messaging;
 using Euclid.Composite.MvcApplication.Models;
 using Euclid.Composites.Conversion;
 using Euclid.Composites.Mvc.ActionFilters;
-using Euclid.Composites.Mvc.Results;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Metadata;
 using Euclid.Framework.Models;
@@ -28,20 +27,18 @@ namespace Euclid.Composite.MvcApplication.Controllers
 			return Publish(command);
 		}
 
-        [FormatInputModel]
+		[FormatInputModel]
 		public ActionResult Inspect(IInputModel inputModel, string commandName, string format)
 		{
-		    ActionResult result = View(inputModel);
+			ActionResult result = View(inputModel);
 
-		    return result;
+			return result;
 		}
 
 		public ViewResult List(IAgentMetadata agentMetadata)
 		{
 			ViewBag.Title = "Commands in agent";
-			return
-				View(new CommandMetadataModel
-				     	{AgentSystemName = agentMetadata.SystemName, Commands = agentMetadata.Commands});
+			return View(new CommandMetadataModel {AgentSystemName = agentMetadata.SystemName, Commands = agentMetadata.Commands});
 		}
 
 		public ContentResult Publish(ICommand command)
