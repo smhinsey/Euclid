@@ -6,7 +6,7 @@ using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.HostingFabric;
 using Euclid.Common.ServiceHost;
 
-namespace HostingFabricConsole
+namespace AgentConsole
 {
 	public class EntryPoint
 	{

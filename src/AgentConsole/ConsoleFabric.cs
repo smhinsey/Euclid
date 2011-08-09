@@ -3,7 +3,7 @@ using ConsoleBrowserObjects;
 using Euclid.Common.HostingFabric;
 using Microsoft.Practices.ServiceLocation;
 
-namespace HostingFabricConsole
+namespace AgentConsole
 {
 	public class ConsoleFabric : DefaultFabric
 	{
