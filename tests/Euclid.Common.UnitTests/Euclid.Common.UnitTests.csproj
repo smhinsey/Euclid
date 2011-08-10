@@ -98,7 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\OverridableObjectsTests.cs" />
-    <Compile Include="HostingFabric\BasicFabricTests.cs" />
     <Compile Include="Pipeline\PipelineTests.cs" />
     <Compile Include="Publishing\PublisherTests.cs" />
     <Compile Include="Registry\InMemoryRegistryTests.cs" />
@@ -123,10 +122,6 @@
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.HostingFabric\Euclid.Common.HostingFabric.csproj">
-      <Project>{6B55CE77-2663-45F0-ADB2-DFC7AB01233C}</Project>
-      <Name>Euclid.Common.HostingFabric</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>
@@ -146,6 +141,10 @@
     <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Framework.HostingFabric\Euclid.Framework.HostingFabric.csproj">
+      <Project>{6B55CE77-2663-45F0-ADB2-DFC7AB01233C}</Project>
+      <Name>Euclid.Framework.HostingFabric</Name>
     </ProjectReference>
     <ProjectReference Include="..\Euclid.Common.TestingFakes\Euclid.Common.TestingFakes.csproj">
       <Project>{B63C4D62-939A-45AB-95F2-EBFBE4B5013C}</Project>

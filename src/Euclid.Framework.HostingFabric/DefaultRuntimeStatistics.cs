@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Euclid.Common.HostingFabric;
 
-namespace Euclid.Common.HostingFabric
+namespace Euclid.Framework.HostingFabric
 {
 	public class DefaultRuntimeStatistics : IFabricRuntimeStatistics
 	{

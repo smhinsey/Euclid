@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Euclid.Common.HostingFabric;
 using Euclid.Common.ServiceHost;
 using Microsoft.Practices.ServiceLocation;
 
-namespace Euclid.Common.HostingFabric
+namespace Euclid.Framework.HostingFabric
 {
 	public class BasicFabric : IFabricRuntime
 	{

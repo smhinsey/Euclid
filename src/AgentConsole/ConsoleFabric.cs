@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
 using ConsoleBrowserObjects;
 using Euclid.Agent.Extensions;
-using Euclid.Common.HostingFabric;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.Storage;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
+using Euclid.Framework.HostingFabric;
 using Euclid.Framework.Metadata.Attributes;
 using Microsoft.Practices.ServiceLocation;
 

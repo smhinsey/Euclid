@@ -7,6 +7,7 @@ using Euclid.Common.HostingFabric;
 using Euclid.Common.ServiceHost;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
+using Euclid.Framework.HostingFabric;
 using Euclid.Sdk.FakeAgent.Commands;
 using Microsoft.Practices.ServiceLocation;
 
