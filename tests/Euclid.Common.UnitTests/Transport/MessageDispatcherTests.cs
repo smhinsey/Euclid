@@ -8,7 +8,6 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.Messaging;
-using Euclid.Common.Messaging.Exceptions;
 using Euclid.Common.Storage;
 using Euclid.Common.TestingFakes.Registry;
 using Euclid.Common.TestingFakes.Transport;

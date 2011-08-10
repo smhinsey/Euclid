@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Common.Messaging.Exceptions
+namespace Euclid.Common.Messaging
 {
 	public class NoNumberOfMessagesPerSliceConfiguredException : Exception
 	{

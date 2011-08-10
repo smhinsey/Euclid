@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Euclid.Framework.Cqrs.Exceptions
+namespace Euclid.Framework.Cqrs
 {
 	public class InvalidMessageTypeException : Exception
 	{

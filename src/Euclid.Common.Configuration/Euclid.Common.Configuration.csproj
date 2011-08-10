@@ -69,7 +69,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvalidTypeSettingException.cs" />
     <Compile Include="OverridableSetting.cs" />
     <Compile Include="OverridableSettingList.cs" />
     <Compile Include="OverridableSettings.cs" />

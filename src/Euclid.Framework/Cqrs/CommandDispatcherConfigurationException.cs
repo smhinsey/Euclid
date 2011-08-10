@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Euclid.Framework.Cqrs.Configuration
+namespace Euclid.Framework.Cqrs
 {
 	public class CommandDispatcherConfigurationException : Exception
 	{

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Euclid.Common.Logging;
-using Euclid.Common.Messaging.Exceptions;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Euclid.Common.Messaging
