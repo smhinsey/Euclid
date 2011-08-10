@@ -12,6 +12,9 @@ namespace Euclid.Common.Messaging
 			MessageProcessorTypes = new OverridableSettingList<Type>();
 			NumberOfMessagesToDispatchPerSlice = new OverridableSetting<int>();
 			DurationOfDispatchingSlice = new OverridableSetting<TimeSpan>();
+
+			NumberOfMessagesToDispatchPerSlice.WithDefault(10);
+			DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
 		}
 
 		public IOverridableSetting<TimeSpan> DurationOfDispatchingSlice { get; set; }

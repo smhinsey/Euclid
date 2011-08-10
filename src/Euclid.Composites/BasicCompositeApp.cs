@@ -19,9 +19,9 @@ namespace Euclid.Composites
 {
 	public class BasicCompositeApp : ICompositeApp
 	{
-		protected BasicCompositeApp()
+		public BasicCompositeApp()
 		{
-			ApplicationState = CompositeApplicationState.Uninitailized;
+			State = CompositeApplicationState.Uninitailized;
 			Agents = new List<IAgentMetadata>();
 			InputModelTransformers = new InputModelToCommandTransformerRegistry();
 			Container = new WindsorContainer();
@@ -29,8 +29,9 @@ namespace Euclid.Composites
 
 		public IList<IAgentMetadata> Agents { get; private set; }
 
-		public CompositeApplicationState ApplicationState { get; set; }
-		protected IWindsorContainer Container { get; set; }
+		public IWindsorContainer Container { get; set; }
+		public CompositeApplicationState State { get; set; }
+
 		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
 
 		public virtual void Configure(CompositeAppSettings compositeAppSettings)
@@ -46,7 +47,7 @@ namespace Euclid.Composites
 			                   	.Instance(InputModelTransformers)
 			                   	.LifeStyle.Singleton);
 
-			ApplicationState = CompositeApplicationState.Configured;
+			State = CompositeApplicationState.Configured;
 		}
 
 		public void InstallAgent(Assembly assembly)
@@ -111,12 +112,8 @@ namespace Euclid.Composites
 			                   	.LifeStyle.Singleton);
 
 			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord>>()
+													.Forward<ICommandRegistry>()
 			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
-			                   	.LifeStyle.Singleton);
-
-			Container.Register(Component
-			                   	.For<ICommandDispatcher>()
-			                   	.ImplementedBy(compositeAppSettings.CommandDispatcher.Value)
 			                   	.LifeStyle.Singleton);
 		}
 	}

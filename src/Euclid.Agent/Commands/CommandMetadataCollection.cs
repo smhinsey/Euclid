@@ -57,7 +57,7 @@ namespace Euclid.Agent.Commands
 
 		public bool Registered(Type agentPartImplementationType)
 		{
-			GuardAgentPart(agentPartImplementationType);
+			guardAgentPart(agentPartImplementationType);
 
 			return this.Where(x =>
 			                  x.Namespace == agentPartImplementationType.Namespace &&
@@ -65,11 +65,11 @@ namespace Euclid.Agent.Commands
 				.Any();
 		}
 
-		private void GuardAgentPart(Type agentPartImplementationType)
+		private void guardAgentPart(Type agentPartImplementationType)
 		{
 			if (!typeof (ICommand).IsAssignableFrom(agentPartImplementationType))
 			{
-				throw new InvalidAgentPartImplementation(agentPartImplementationType);
+				throw new InvalidAgentPartImplementationException(agentPartImplementationType);
 			}
 		}
 	}

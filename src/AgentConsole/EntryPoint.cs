@@ -5,6 +5,10 @@ using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.HostingFabric;
 using Euclid.Common.ServiceHost;
+using Euclid.Composites;
+using Euclid.Framework.Cqrs;
+using Euclid.Sdk.FakeAgent.Commands;
+using Microsoft.Practices.ServiceLocation;
 
 namespace AgentConsole
 {
@@ -15,20 +19,31 @@ namespace AgentConsole
 			var container = new WindsorContainer();
 
 			container.Register(Component.For<IServiceHost>()
-													.Forward<MultitaskingServiceHost>()
-													.Instance(new MultitaskingServiceHost()));
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost()));
 
 			var locator = new WindsorServiceLocator(container);
+
+			container.Register(Component.For<IServiceLocator>().Instance(locator));
 
 			var fabric = new ConsoleFabric(locator);
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type>());
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
+
+			var composite = new BasicCompositeApp {Container = container};
+
 
 			try
 			{
+				composite.InstallAgent(typeof (FakeCommand).Assembly);
+
+				composite.Configure(new CompositeAppSettings());
+
+				fabric.InstallComposite(composite);
+
 				fabric.Configure(settings);
 
 				fabric.Start();

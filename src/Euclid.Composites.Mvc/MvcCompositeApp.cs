@@ -28,9 +28,9 @@ namespace Euclid.Composites.Mvc
 
 		public void BeginPageRequest(object sender, EventArgs eventArgs)
 		{
-			if (ApplicationState != CompositeApplicationState.Configured)
+			if (State != CompositeApplicationState.Configured)
 			{
-				throw new InvalidCompositeApplicationStateException(ApplicationState, CompositeApplicationState.Configured);
+				throw new InvalidCompositeApplicationStateException(State, CompositeApplicationState.Configured);
 			}
 		}
 

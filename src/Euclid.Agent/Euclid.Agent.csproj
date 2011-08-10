@@ -76,7 +76,7 @@
     <Compile Include="AssemblyNotAgentException.cs" />
     <Compile Include="Commands\CommandMetadataCollection.cs" />
     <Compile Include="DuplicatePartNameException.cs" />
-    <Compile Include="Commands\InvalidAgentPartImplementation.cs" />
+    <Compile Include="Commands\InvalidAgentPartImplementationException.cs" />
     <Compile Include="Commands\InvalidPropertySetterSpecifiedException.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
