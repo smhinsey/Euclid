@@ -83,6 +83,10 @@
       <Project>{7C5DC02C-5E2E-46A2-8343-ADE8035F141B}</Project>
       <Name>ForumAgent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\tests\Euclid.Sdk.FakeAgent\Euclid.Sdk.FakeAgent.csproj">
+      <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
+      <Name>Euclid.Sdk.FakeAgent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Agent\Euclid.Agent.csproj">
       <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
       <Name>Euclid.Agent</Name>

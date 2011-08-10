@@ -29,8 +29,9 @@ namespace Euclid.Composites
 
 		public IList<IAgentMetadata> Agents { get; private set; }
 
-		public CompositeApplicationState State { get; set; }
 		public IWindsorContainer Container { get; set; }
+		public CompositeApplicationState State { get; set; }
+
 		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
 
 		public virtual void Configure(CompositeAppSettings compositeAppSettings)
@@ -111,12 +112,8 @@ namespace Euclid.Composites
 			                   	.LifeStyle.Singleton);
 
 			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord>>()
+													.Forward<ICommandRegistry>()
 			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
-			                   	.LifeStyle.Singleton);
-
-			Container.Register(Component
-			                   	.For<ICommandDispatcher>()
-			                   	.ImplementedBy(compositeAppSettings.CommandDispatcher.Value)
 			                   	.LifeStyle.Singleton);
 		}
 	}

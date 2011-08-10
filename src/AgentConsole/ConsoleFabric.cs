@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
 using ConsoleBrowserObjects;
 using Euclid.Agent.Extensions;
 using Euclid.Common.HostingFabric;
+using Euclid.Common.Messaging;
+using Euclid.Common.ServiceHost;
+using Euclid.Common.Storage;
 using Euclid.Composites;
+using Euclid.Framework.Cqrs;
 using Euclid.Framework.Metadata.Attributes;
 using Microsoft.Practices.ServiceLocation;
 
@@ -20,6 +25,8 @@ namespace AgentConsole
 		public override void Start()
 		{
 			var mainForm = ConsoleForm.GetFormInstance(@".\Forms\Main.xml");
+
+			mainForm.Labels["agentCount"].Text = string.Format("Agents: {0}", _composite.Agents.Count);
 
 			mainForm.Render();
 
@@ -48,7 +55,30 @@ namespace AgentConsole
 				_composite.Container.Register
 					(AllTypes.FromAssembly(agent.AgentAssembly)
 					 	.Where(Component.IsInNamespace(processorAttribute.Namespace))
-					 	.WithService.AllInterfaces());
+					 	.BasedOn(typeof (ICommandProcessor))
+					 	.WithService.AllInterfaces().WithService.Self());
+
+				var registry = new CommandRegistry(new InMemoryRecordMapper<CommandPublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
+
+				var dispatcher = new CommandDispatcher(Container, registry);
+
+				var dispatcherSettings = new MessageDispatcherSettings();
+
+				dispatcherSettings.InputChannel.WithDefault(new InMemoryMessageChannel());
+				dispatcherSettings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
+
+				var processors = _composite.Container.ResolveAll(typeof (ICommandProcessor));
+
+				foreach (var processor in processors)
+				{
+					dispatcherSettings.MessageProcessorTypes.Add(processor.GetType());
+				}
+
+				dispatcher.Configure(dispatcherSettings);
+
+				var commandHost = new CommandHost(new ICommandDispatcher[] {dispatcher});
+
+				_composite.Container.Register(Component.For<IHostedService>().Instance(commandHost).Forward<CommandHost>());
 			}
 		}
 
@@ -77,7 +107,29 @@ namespace AgentConsole
 			// SELF add a basic word-wrapping algorithm. 
 			// iterate the results prior to returning, detect lines wider than a max width constant
 			// split them, insert a suitable ASCII character (some sort of arrow)
-			return text.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+			var lineList = new List<string>(text.Split(new[] {Environment.NewLine}, StringSplitOptions.None));
+
+			var results = new List<string>();
+
+			for (var i = 0; i < lineList.Count; i++)
+			{
+				var line = lineList[i];
+
+				if (line.Length > 120)
+				{
+					var left = line.Substring(0, 99);
+					var right = line.Substring(99, line.Length - 99);
+
+					results.Add(left);
+					results.Add(string.Format("→ {0}", right));
+				}
+				else
+				{
+					results.Add(line);
+				}
+			}
+
+			return results.ToArray();
 		}
 	}
 }

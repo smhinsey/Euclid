@@ -10,7 +10,7 @@
 		<Line Orientation="Horizontal" Length="125" Colour="DarkGreen">
 			<Location X="0" Y="2" />
 		</Line>
-		<Line Orientation="Horizontal" Length="125" Colour="LightGreen">
+		<Line Orientation="Horizontal" Length="125" Colour="Green">
 			<Location X="0" Y="3" />
 		</Line>
 		<Line Orientation="Vertical" Length="50" Colour="DarkGreen">
