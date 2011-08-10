@@ -33,7 +33,7 @@ namespace AgentConsole
 			base.Start();
 		}
 
-		// SELF this should be pushed down to the base type, which should probably be moved from Common to Framework
+		// SELF this should be pushed down to the base type
 		public void InstallComposite(BasicCompositeApp composite)
 		{
 			if (_composite != null)
@@ -64,8 +64,8 @@ namespace AgentConsole
 
 				var dispatcherSettings = new MessageDispatcherSettings();
 
-				dispatcherSettings.InputChannel.WithDefault(new InMemoryMessageChannel());
-				dispatcherSettings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
+				dispatcherSettings.InputChannel.WithDefault(CurrentSettings.InputChannel.Value);
+				dispatcherSettings.InvalidChannel.WithDefault(CurrentSettings.ErrorChannel.Value);
 
 				var processors = _composite.Container.ResolveAll(typeof (ICommandProcessor));
 

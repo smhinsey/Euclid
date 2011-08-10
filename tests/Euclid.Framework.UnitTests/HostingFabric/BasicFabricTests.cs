@@ -38,7 +38,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
 			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 		}
 
 		[Test]
@@ -67,7 +67,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
 			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 
 			runtime.Start();
 
@@ -103,7 +103,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
 			settings.HostedServices.WithDefault(new List<Type> {typeof (FailingHostedService)});
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 
 			runtime.Start();
 
@@ -142,7 +142,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
 			settings.HostedServices.WithDefault(new List<Type> {typeof (FailingHostedService)});
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 
 			runtime.Start();
 
@@ -178,7 +178,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
 			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 
 			runtime.Start();
 
@@ -211,7 +211,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
 			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 
 			runtime.Start();
 
@@ -252,7 +252,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
 			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 
 			runtime.Start();
 
@@ -271,7 +271,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			var runtime = new BasicFabric(new WindsorServiceLocator(container));
 
-			runtime.Configure(new FabricRuntimeSettings());
+			runtime.Initialize(new FabricRuntimeSettings());
 		}
 
 		[Test]
@@ -286,7 +286,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			settings.ServiceHost.WithDefault(GetType());
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 		}
 
 		[Test]
@@ -301,7 +301,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			settings.HostedServices.WithDefault(new List<Type>());
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 		}
 
 		[Test]
@@ -324,7 +324,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
 			settings.HostedServices.WithDefault(new List<Type> {GetType()});
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 		}
 
 		[Test]
@@ -340,7 +340,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			settings.ServiceHost.WithDefault(GetType());
 			settings.HostedServices.WithDefault(new List<Type> {GetType()});
 
-			runtime.Configure(settings);
+			runtime.Initialize(settings);
 		}
 	}
 }

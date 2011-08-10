@@ -32,7 +32,7 @@ namespace Euclid.Composite.MvcApplication
 
 			composite.Configure(euclidCompositeConfiguration);
 
-			composite.InstallAgent(typeof (FakeCommand4).Assembly);
+			composite.AddAgent(typeof (FakeCommand4).Assembly);
 
 			composite.RegisterInputModel(new InputToFakeCommand4Converter());
 

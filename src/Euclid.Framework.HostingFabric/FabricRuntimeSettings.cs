@@ -11,6 +11,8 @@ namespace Euclid.Framework.HostingFabric
 		{
 			HostedServices = new OverridableSettingList<Type>();
 			ServiceHost = new OverridableSetting<Type>();
+			InputChannel = new OverridableSetting<IMessageChannel>();
+			ErrorChannel = new OverridableSetting<IMessageChannel>();
 		}
 
 		public IOverridableSettingList<Type> HostedServices { get; set; }

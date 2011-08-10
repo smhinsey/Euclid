@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
-using Euclid.Common.HostingFabric;
+using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
@@ -19,33 +19,35 @@ namespace AgentConsole
 		{
 			var container = new WindsorContainer();
 
-			container.Register(Component.For<IServiceHost>()
-			                   	.Forward<MultitaskingServiceHost>()
-			                   	.Instance(new MultitaskingServiceHost()));
-
 			var locator = new WindsorServiceLocator(container);
+
+			container.Register(Component.For<IServiceHost>()
+													.Forward<MultitaskingServiceHost>()
+													.Instance(new MultitaskingServiceHost()));
 
 			container.Register(Component.For<IServiceLocator>().Instance(locator));
 
 			var fabric = new ConsoleFabric(locator);
 
-			var settings = new FabricRuntimeSettings();
+			var fabricSettings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
+			fabricSettings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			fabricSettings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
+
+			fabricSettings.InputChannel.WithDefault(new InMemoryMessageChannel());
+			fabricSettings.ErrorChannel.WithDefault(new InMemoryMessageChannel());
 
 			var composite = new BasicCompositeApp {Container = container};
 
-
 			try
 			{
-				composite.InstallAgent(typeof (FakeCommand).Assembly);
+				composite.AddAgent(typeof (FakeCommand).Assembly);
 
 				composite.Configure(new CompositeAppSettings());
 
-				fabric.InstallComposite(composite);
+				fabric.Initialize(fabricSettings);
 
-				fabric.Configure(settings);
+				fabric.InstallComposite(composite);
 
 				fabric.Start();
 			}

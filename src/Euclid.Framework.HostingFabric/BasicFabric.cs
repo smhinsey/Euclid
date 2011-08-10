@@ -22,7 +22,7 @@ namespace Euclid.Framework.HostingFabric
 
 		public FabricRuntimeState State { get; protected set; }
 
-		public virtual void Configure(IFabricRuntimeSettings settings)
+		public virtual void Initialize(IFabricRuntimeSettings settings)
 		{
 			if (settings.ServiceHost.Value == null)
 			{
@@ -46,27 +46,7 @@ namespace Euclid.Framework.HostingFabric
 					(string.Format("Unable to resolve service host of type {0} from container.", settings.ServiceHost.Value), e);
 			}
 
-			var hostedServices = new List<IHostedService>();
-
-			foreach (var hostedServiceType in settings.HostedServices.Value)
-			{
-				try
-				{
-					hostedServices.Add((IHostedService) Container.GetInstance(hostedServiceType));
-
-					ConfiguredHostedServices.Add(hostedServiceType);
-				}
-				catch (ActivationException e)
-				{
-					throw new HostedServiceNotResolvableException
-						(string.Format("Unable to resolve hosted service of type {0} from container.", settings.ServiceHost.Value), e);
-				}
-			}
-
-			foreach (var hostedService in hostedServices)
-			{
-				_serviceHost.Install(hostedService);
-			}
+			CurrentSettings = settings;
 		}
 
 		public virtual IList<Exception> GetExceptionsThrownByHostedServices()
@@ -91,6 +71,28 @@ namespace Euclid.Framework.HostingFabric
 
 		public virtual void Start()
 		{
+			var hostedServices = new List<IHostedService>();
+
+			foreach (var hostedServiceType in CurrentSettings.HostedServices.Value)
+			{
+				try
+				{
+					hostedServices.Add((IHostedService)Container.GetInstance(hostedServiceType));
+
+					ConfiguredHostedServices.Add(hostedServiceType);
+				}
+				catch (ActivationException e)
+				{
+					throw new HostedServiceNotResolvableException
+						(string.Format("Unable to resolve hosted service of type {0} from container.", CurrentSettings.ServiceHost.Value), e);
+				}
+			}
+
+			foreach (var hostedService in hostedServices)
+			{
+				_serviceHost.Install(hostedService);
+			}
+
 			_serviceHost.StartAll();
 
 			State = FabricRuntimeState.Started;

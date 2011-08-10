@@ -50,7 +50,7 @@ namespace Euclid.Composites
 			State = CompositeApplicationState.Configured;
 		}
 
-		public void InstallAgent(Assembly assembly)
+		public void AddAgent(Assembly assembly)
 		{
 			if (assembly == null)
 			{

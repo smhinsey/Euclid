@@ -16,7 +16,7 @@ namespace Euclid.Common.HostingFabric
 	/// </summary>
 	public interface IFabricRuntime
 	{
-		void Configure(IFabricRuntimeSettings settings);
+		void Initialize(IFabricRuntimeSettings settings);
 		IList<Exception> GetExceptionsThrownByHostedServices();
 		IFabricRuntimeStatistics GetStatistics();
 		void Shutdown();

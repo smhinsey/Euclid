@@ -1,5 +1,6 @@
 using System;
 using Euclid.Common.Configuration;
+using Euclid.Common.Messaging;
 
 namespace Euclid.Common.HostingFabric
 {
@@ -7,5 +8,7 @@ namespace Euclid.Common.HostingFabric
 	{
 		IOverridableSettingList<Type> HostedServices { get; set; }
 		IOverridableSetting<Type> ServiceHost { get; set; }
+		IOverridableSetting<IMessageChannel> InputChannel { get; set; }
+		IOverridableSetting<IMessageChannel> ErrorChannel { get; set; }
 	}
 }
