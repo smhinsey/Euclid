@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Castle.MicroKernel.Registration;
 using ConsoleBrowserObjects;
 using Euclid.Agent.Extensions;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
-using Euclid.Common.Storage;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
@@ -58,7 +58,7 @@ namespace AgentConsole
 					 	.BasedOn(typeof (ICommandProcessor))
 					 	.WithService.AllInterfaces().WithService.Self());
 
-				var registry = new CommandRegistry(new InMemoryRecordMapper<CommandPublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
+				var registry = Container.GetInstance<ICommandRegistry>();
 
 				var dispatcher = new CommandDispatcher(Container, registry);
 

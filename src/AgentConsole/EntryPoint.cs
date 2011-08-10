@@ -5,11 +5,13 @@ using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
+using Euclid.Common.Storage.Azure;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using Euclid.Sdk.FakeAgent.Commands;
 using Microsoft.Practices.ServiceLocation;
+using Microsoft.WindowsAzure;
 
 namespace AgentConsole
 {
@@ -22,10 +24,17 @@ namespace AgentConsole
 			var locator = new WindsorServiceLocator(container);
 
 			container.Register(Component.For<IServiceHost>()
-													.Forward<MultitaskingServiceHost>()
-													.Instance(new MultitaskingServiceHost()));
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost()));
 
 			container.Register(Component.For<IServiceLocator>().Instance(locator));
+
+			var storageAccount = new CloudStorageAccount(CloudStorageAccount.DevelopmentStorageAccount.Credentials,
+			                                             CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
+			                                             CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
+			                                             CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
+
+			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
 
 			var fabric = new ConsoleFabric(locator);
 
@@ -39,17 +48,25 @@ namespace AgentConsole
 
 			var composite = new BasicCompositeApp {Container = container};
 
+			var compositeAppSettings = new CompositeAppSettings();
+
+			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
+
 			try
 			{
 				composite.AddAgent(typeof (FakeCommand).Assembly);
 
-				composite.Configure(new CompositeAppSettings());
+				composite.Configure(compositeAppSettings);
 
 				fabric.Initialize(fabricSettings);
 
 				fabric.InstallComposite(composite);
 
 				fabric.Start();
+
+				var publisher = container.Resolve<IPublisher>();
+
+				publisher.PublishMessage(new FakeCommand());
 			}
 			catch (Exception e)
 			{
