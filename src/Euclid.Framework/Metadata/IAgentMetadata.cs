@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace Euclid.Framework.Metadata
 {
 	public interface IAgentMetadata
@@ -8,5 +10,6 @@ namespace Euclid.Framework.Metadata
 
 		IAgentPartMetadataCollection Queries { get; }
 		string SystemName { get; }
+		Assembly AgentAssembly { get; }
 	}
 }

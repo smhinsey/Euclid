@@ -14,7 +14,6 @@ namespace Euclid.Agent
 		{
 			_agent = agent;
 
-			_agent = agent;
 			IsValid = _agent.ContainsAgent();
 
 			if (IsValid)
@@ -23,6 +22,11 @@ namespace Euclid.Agent
 				SystemName = _agent.GetAgentSystemName();
 				Commands = new CommandMetadataCollection(_agent);
 			}
+		}
+
+		public Assembly AgentAssembly
+		{
+			get { return _agent; }
 		}
 
 		public ICommandMetadataCollection Commands { get; private set; }

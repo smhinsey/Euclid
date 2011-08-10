@@ -5,6 +5,8 @@ using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.HostingFabric;
 using Euclid.Common.ServiceHost;
+using Euclid.Composites;
+using ForumAgent.Commands;
 
 namespace AgentConsole
 {
@@ -27,8 +29,16 @@ namespace AgentConsole
 			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
 			settings.HostedServices.WithDefault(new List<Type>());
 
+			var composite = new BasicCompositeApp();
+
 			try
 			{
+				composite.InstallAgent(typeof(CommentOnPost).Assembly);
+
+				composite.Configure(new CompositeAppSettings());
+
+				fabric.InstallComposite(composite);
+
 				fabric.Configure(settings);
 
 				fabric.Start();

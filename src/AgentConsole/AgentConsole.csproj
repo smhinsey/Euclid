@@ -79,6 +79,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\apps\ForumAgent\ForumAgent.csproj">
+      <Project>{7C5DC02C-5E2E-46A2-8343-ADE8035F141B}</Project>
+      <Name>ForumAgent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Agent\Euclid.Agent.csproj">
+      <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
+      <Name>Euclid.Agent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
@@ -106,6 +114,22 @@
     <ProjectReference Include="..\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Composites\Euclid.Composites.csproj">
+      <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
+      <Name>Euclid.Composites</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
+      <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
+      <Name>Euclid.Framework.Cqrs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Framework.Metadata\Euclid.Framework.Metadata.csproj">
+      <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
+      <Name>Euclid.Framework.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Framework\Euclid.Framework.csproj">
+      <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
+      <Name>Euclid.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

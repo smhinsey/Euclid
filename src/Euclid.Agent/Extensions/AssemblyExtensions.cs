@@ -65,7 +65,7 @@ namespace Euclid.Agent.Extensions
 			return agent.GetAttributeValue<LocationOfQueriesAttribute>().Namespace;
 		}
 
-		private static T GetAttributeValue<T>(this Assembly assembly) where T : Attribute
+		public static T GetAttributeValue<T>(this Assembly assembly) where T : Attribute
 		{
 			var attributes = assembly.GetCustomAttributes(typeof (T), false);
 

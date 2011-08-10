@@ -9,7 +9,7 @@ namespace Euclid.Composites
 	public interface ICompositeApp : ILoggingSource
 	{
 		IList<IAgentMetadata> Agents { get; }
-		CompositeApplicationState ApplicationState { get; set; }
+		CompositeApplicationState State { get; set; }
 		void Configure(CompositeAppSettings compositeAppSettings);
 		void InstallAgent(Assembly assembly);
 		void RegisterInputModel(IInputToCommandConverter converter);
