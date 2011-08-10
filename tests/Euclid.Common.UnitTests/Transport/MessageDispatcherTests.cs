@@ -212,14 +212,6 @@ namespace Euclid.Common.UnitTests.Transport
 
 			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 
-			Assert.Throws(typeof (NoDispatchingSliceDurationConfiguredException), () => _dispatcher.Configure(settings));
-
-			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.MaxValue);
-
-			Assert.Throws(typeof (NoNumberOfMessagesPerSliceConfiguredException), () => _dispatcher.Configure(settings));
-
-			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(2);
-
 			_dispatcher.Configure(settings);
 		}
 
@@ -300,35 +292,6 @@ namespace Euclid.Common.UnitTests.Transport
 
 			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
 			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
-
-			_dispatcher.Configure(settings);
-		}
-
-		[Test]
-		[ExpectedException(typeof (NoNumberOfMessagesPerSliceConfiguredException))]
-		public void ThrowsWithMissingMessagesPerSliceSetting()
-		{
-			var container = new WindsorContainer();
-			var settings = new MessageDispatcherSettings();
-
-			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
-			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
-			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
-
-			_dispatcher.Configure(settings);
-		}
-
-		[Test]
-		[ExpectedException(typeof (NoDispatchingSliceDurationConfiguredException))]
-		public void ThrowsWithMissingSliceDuration()
-		{
-			var container = new WindsorContainer();
-			var settings = new MessageDispatcherSettings();
-
-			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
-			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
 
 			_dispatcher.Configure(settings);
 		}

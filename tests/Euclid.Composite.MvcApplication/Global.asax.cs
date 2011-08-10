@@ -4,7 +4,6 @@ using System.Web.Routing;
 using Euclid.Composite.MvcApplication.EuclidConfiguration.TypeConverters;
 using Euclid.Composites;
 using Euclid.Composites.Mvc;
-using Euclid.Composites.Mvc.Binders;
 using Euclid.Framework.TestingFakes.Cqrs;
 
 namespace Euclid.Composite.MvcApplication

@@ -6,7 +6,7 @@ using Euclid.Sdk.FakeAgent.Commands;
 
 // hardcode agent namepsace
 
-[assembly: LocationOfCommands(NamespaceOfType = typeof(FakeCommand))]
+[assembly: LocationOfCommands(NamespaceOfType = typeof (FakeCommand))]
 
 // specify namespace by type
 

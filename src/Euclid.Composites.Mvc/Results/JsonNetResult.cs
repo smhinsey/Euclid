@@ -34,8 +34,8 @@ namespace Euclid.Composites.Mvc.Results
 			var response = context.HttpContext.Response;
 
 			response.ContentType = !string.IsNullOrEmpty(ContentType)
-				? ContentType
-				: "application/json";
+			                       	? ContentType
+			                       	: "application/json";
 
 			if (ContentEncoding != null)
 				response.ContentEncoding = ContentEncoding;

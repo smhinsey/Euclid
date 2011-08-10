@@ -13,6 +13,5 @@ namespace Euclid.Framework.Cqrs
 
 	public interface ICommandProcessor
 	{
-		
 	}
 }

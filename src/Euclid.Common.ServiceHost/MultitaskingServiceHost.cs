@@ -8,7 +8,7 @@ using Euclid.Common.Logging;
 namespace Euclid.Common.ServiceHost
 {
 	/// <summary>
-	/// A basic concurrent service host using the Task Parallel Library.
+	/// 	A basic concurrent service host using the Task Parallel Library.
 	/// </summary>
 	public class MultitaskingServiceHost : IServiceHost, ILoggingSource
 	{

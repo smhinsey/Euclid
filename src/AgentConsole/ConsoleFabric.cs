@@ -90,7 +90,7 @@ namespace AgentConsole
 
 			var errorLineNo = 7;
 
-			var linesFromText = extractLinesFromText(e.ToString());
+			var linesFromText = extractLinesAndWordWrap(e.ToString());
 
 			foreach (var errorLine in linesFromText)
 			{
@@ -102,11 +102,8 @@ namespace AgentConsole
 			errorForm.Render();
 		}
 
-		private string[] extractLinesFromText(string text)
+		private string[] extractLinesAndWordWrap(string text)
 		{
-			// SELF add a basic word-wrapping algorithm. 
-			// iterate the results prior to returning, detect lines wider than a max width constant
-			// split them, insert a suitable ASCII character (some sort of arrow)
 			var lineList = new List<string>(text.Split(new[] {Environment.NewLine}, StringSplitOptions.None));
 
 			var results = new List<string>();

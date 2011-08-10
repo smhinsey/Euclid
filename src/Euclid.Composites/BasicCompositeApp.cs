@@ -112,7 +112,7 @@ namespace Euclid.Composites
 			                   	.LifeStyle.Singleton);
 
 			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord>>()
-													.Forward<ICommandRegistry>()
+			                   	.Forward<ICommandRegistry>()
 			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
 			                   	.LifeStyle.Singleton);
 		}
