@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Castle.MicroKernel.Registration;
 using Euclid.Common.HostingFabric;
 using Euclid.Common.ServiceHost;
 using Microsoft.Practices.ServiceLocation;
@@ -22,6 +21,17 @@ namespace Euclid.Framework.HostingFabric
 		}
 
 		public FabricRuntimeState State { get; protected set; }
+
+		public virtual IList<Exception> GetExceptionsThrownByHostedServices()
+		{
+			return _serviceHost.GetExceptionsThrownByHostedServices();
+		}
+
+		public virtual IFabricRuntimeStatistics GetStatistics()
+		{
+			return new DefaultRuntimeStatistics
+				(_serviceHost.GetExceptionsThrownByHostedServices(), ConfiguredHostedServices, _serviceHost.GetType(), State, CurrentSettings);
+		}
 
 		public virtual void Initialize(IFabricRuntimeSettings settings)
 		{
@@ -50,17 +60,6 @@ namespace Euclid.Framework.HostingFabric
 			CurrentSettings = settings;
 		}
 
-		public virtual IList<Exception> GetExceptionsThrownByHostedServices()
-		{
-			return _serviceHost.GetExceptionsThrownByHostedServices();
-		}
-
-		public virtual IFabricRuntimeStatistics GetStatistics()
-		{
-			return new DefaultRuntimeStatistics
-				(_serviceHost.GetExceptionsThrownByHostedServices(), ConfiguredHostedServices, _serviceHost.GetType(), State, CurrentSettings);
-		}
-
 		public virtual void Shutdown()
 		{
 			State = FabricRuntimeState.Stoppping;
@@ -78,7 +77,7 @@ namespace Euclid.Framework.HostingFabric
 			{
 				try
 				{
-					hostedServices.Add((IHostedService)Container.GetInstance(hostedServiceType));
+					hostedServices.Add((IHostedService) Container.GetInstance(hostedServiceType));
 
 					ConfiguredHostedServices.Add(hostedServiceType);
 				}
