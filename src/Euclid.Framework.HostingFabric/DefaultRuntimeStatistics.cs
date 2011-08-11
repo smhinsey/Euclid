@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Euclid.Common.HostingFabric;
 
 namespace Euclid.Framework.HostingFabric
 {

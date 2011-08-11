@@ -2,7 +2,7 @@ using System;
 using Euclid.Common.Configuration;
 using Euclid.Common.Messaging;
 
-namespace Euclid.Common.HostingFabric
+namespace Euclid.Framework.HostingFabric
 {
 	public interface IFabricRuntimeSettings : IOverridableSettings
 	{

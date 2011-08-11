@@ -84,14 +84,6 @@
     <Compile Include="Extensions\MimeTypes.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
-    <Compile Include="HostingFabric\HostedServiceNotResolvableException.cs" />
-    <Compile Include="HostingFabric\FabricRuntimeState.cs" />
-    <Compile Include="HostingFabric\IFabricRuntime.cs" />
-    <Compile Include="HostingFabric\IFabricRuntimeSettings.cs" />
-    <Compile Include="HostingFabric\IFabricRuntimeStatistics.cs" />
-    <Compile Include="HostingFabric\NoHostedServicesConfiguredException.cs" />
-    <Compile Include="HostingFabric\NoServiceHostConfiguredException.cs" />
-    <Compile Include="HostingFabric\ServiceHostNotResolvableException.cs" />
     <Compile Include="Configuration\InvalidTypeSettingException.cs" />
     <Compile Include="Logging\ILoggingSource.cs" />
     <Compile Include="Messaging\IPublisher.cs" />

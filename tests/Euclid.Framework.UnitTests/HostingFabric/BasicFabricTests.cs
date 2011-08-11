@@ -4,7 +4,6 @@ using System.Threading;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
-using Euclid.Common.HostingFabric;
 using Euclid.Common.ServiceHost;
 using Euclid.Framework.HostingFabric;
 using Euclid.Framework.TestingFakes.HostingFabric;
@@ -323,6 +322,8 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			settings.HostedServices.WithDefault(new List<Type> {GetType()});
 
 			runtime.Initialize(settings);
+
+			runtime.Start();
 		}
 
 		[Test]

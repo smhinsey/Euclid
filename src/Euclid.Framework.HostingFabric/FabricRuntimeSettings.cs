@@ -1,6 +1,5 @@
 ﻿using System;
 using Euclid.Common.Configuration;
-using Euclid.Common.HostingFabric;
 using Euclid.Common.Messaging;
 
 namespace Euclid.Framework.HostingFabric

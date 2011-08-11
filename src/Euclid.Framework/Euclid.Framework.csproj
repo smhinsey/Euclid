@@ -81,6 +81,14 @@
     <Compile Include="Cqrs\InvalidMessageTypeException.cs" />
     <Compile Include="Cqrs\IQuery.cs" />
     <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
+    <Compile Include="HostingFabric\FabricRuntimeState.cs" />
+    <Compile Include="HostingFabric\HostedServiceNotResolvableException.cs" />
+    <Compile Include="HostingFabric\IFabricRuntime.cs" />
+    <Compile Include="HostingFabric\IFabricRuntimeSettings.cs" />
+    <Compile Include="HostingFabric\IFabricRuntimeStatistics.cs" />
+    <Compile Include="HostingFabric\NoHostedServicesConfiguredException.cs" />
+    <Compile Include="HostingFabric\NoServiceHostConfiguredException.cs" />
+    <Compile Include="HostingFabric\ServiceHostNotResolvableException.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
     <Compile Include="EventSourcing\IEvent.cs" />

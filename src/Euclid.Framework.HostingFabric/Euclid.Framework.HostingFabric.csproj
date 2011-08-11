@@ -81,6 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicFabric.cs" />
+    <Compile Include="CompositeAlreadyInstalledException.cs" />
+    <Compile Include="CompositeNotConfiguredException.cs" />
     <Compile Include="FabricRuntimeSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DefaultRuntimeStatistics.cs" />

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using Euclid.Agent.Extensions;
-using Euclid.Common.HostingFabric;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Composites;
@@ -16,11 +16,11 @@ namespace Euclid.Framework.HostingFabric
 {
 	public class BasicFabric : IFabricRuntime
 	{
+		protected ICompositeApp Composite;
 		protected IList<Type> ConfiguredHostedServices;
 		protected IWindsorContainer Container;
 		protected IFabricRuntimeSettings CurrentSettings;
 		private IServiceHost _serviceHost;
-		protected ICompositeApp Composite;
 
 		public BasicFabric(IWindsorContainer container)
 		{
@@ -60,7 +60,7 @@ namespace Euclid.Framework.HostingFabric
 			{
 				_serviceHost = (IServiceHost) Container.Resolve(settings.ServiceHost.Value);
 			}
-			catch (ActivationException e)
+			catch (ComponentNotFoundException e)
 			{
 				throw new ServiceHostNotResolvableException
 					(string.Format("Unable to resolve service host of type {0} from container.", settings.ServiceHost.Value), e);
@@ -86,11 +86,11 @@ namespace Euclid.Framework.HostingFabric
 			{
 				try
 				{
-					hostedServices.Add((IHostedService)Container.Resolve(hostedServiceType));
+					hostedServices.Add((IHostedService) Container.Resolve(hostedServiceType));
 
 					ConfiguredHostedServices.Add(hostedServiceType);
 				}
-				catch (ActivationException e)
+				catch (ComponentNotFoundException e)
 				{
 					throw new HostedServiceNotResolvableException
 						(string.Format("Unable to resolve hosted service of type {0} from container.", CurrentSettings.ServiceHost.Value), e);
@@ -111,16 +111,21 @@ namespace Euclid.Framework.HostingFabric
 		{
 			if (Composite != null)
 			{
-				throw new Exception("A composite has already been installed");
+				throw new CompositeAlreadyInstalledException();
 			}
 
 			if (composite.State != CompositeApplicationState.Configured)
 			{
-				throw new Exception("Only configured composites can be installed in the fabric.");
+				throw new CompositeNotConfiguredException();
 			}
 
 			Composite = composite;
 
+			extractProcessorsFromAgent();
+		}
+
+		private void extractProcessorsFromAgent()
+		{
 			foreach (var agent in Composite.Agents)
 			{
 				var processorAttribute = agent.AgentAssembly.GetAttributeValue<LocationOfProcessorsAttribute>();
@@ -140,7 +145,7 @@ namespace Euclid.Framework.HostingFabric
 				dispatcherSettings.InputChannel.WithDefault(CurrentSettings.InputChannel.Value);
 				dispatcherSettings.InvalidChannel.WithDefault(CurrentSettings.ErrorChannel.Value);
 
-				var processors = Container.ResolveAll(typeof(ICommandProcessor));
+				var processors = Container.ResolveAll(typeof (ICommandProcessor));
 
 				foreach (var processor in processors)
 				{

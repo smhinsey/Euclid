@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Euclid.Common.HostingFabric
+namespace Euclid.Framework.HostingFabric
 {
 	public interface IFabricRuntimeStatistics
 	{

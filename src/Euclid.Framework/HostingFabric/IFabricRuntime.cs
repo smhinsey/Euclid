@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Euclid.Common.HostingFabric
+namespace Euclid.Framework.HostingFabric
 {
 	/// <summary>
 	/// 	An instance of IFabricRuntime encapsulates all that is necessary to host a fully-functional set of IHostedService

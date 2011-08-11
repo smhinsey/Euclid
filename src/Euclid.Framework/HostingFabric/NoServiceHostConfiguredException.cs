@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Common.HostingFabric
+namespace Euclid.Framework.HostingFabric
 {
 	public class NoServiceHostConfiguredException : Exception
 	{

@@ -4,7 +4,6 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using ConsoleBrowserObjects;
-using Euclid.Common.HostingFabric;
 using Euclid.Common.ServiceHost;
 using Euclid.Framework.HostingFabric;
 using Microsoft.Practices.ServiceLocation;
@@ -46,11 +45,10 @@ namespace AgentConsole
 
 			var errorLineNo = 7;
 
-			var linesFromText = extractLinesAndWordWrap(e.ToString());
-
-			foreach (var errorLine in linesFromText)
+			foreach (var errorLine in extractLinesAndWordWrap(e.ToString()))
 			{
 				var lineLabel = new Label(string.Format("error{0}", errorLineNo), new Point(3, errorLineNo), 122, errorLine);
+
 				errorForm.Labels.Add(lineLabel);
 				errorLineNo++;
 			}
@@ -61,16 +59,14 @@ namespace AgentConsole
 		private string[] extractLinesAndWordWrap(string text)
 		{
 			const int maxLineLength = 120;
-			const int wrappedLineLength = 99;
+			const int wrappedLineLength = 110;
 
 			var lineList = new List<string>(text.Split(new[] {Environment.NewLine}, StringSplitOptions.None));
 
 			var results = new List<string>();
 
-			for (var i = 0; i < lineList.Count; i++)
+			foreach (var line in lineList)
 			{
-				var line = lineList[i];
-
 				if (line.Length > maxLineLength)
 				{
 					var left = line.Substring(0, wrappedLineLength);

@@ -1,4 +1,4 @@
-﻿namespace Euclid.Common.HostingFabric
+﻿namespace Euclid.Framework.HostingFabric
 {
 	public enum FabricRuntimeState
 	{
