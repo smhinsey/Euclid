@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Castle.MicroKernel.Registration;
 using Euclid.Common.HostingFabric;
 using Euclid.Common.ServiceHost;
 using Microsoft.Practices.ServiceLocation;

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.Storage.Azure;
@@ -10,7 +9,6 @@ using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using Euclid.Sdk.FakeAgent.Commands;
-using Microsoft.Practices.ServiceLocation;
 using Microsoft.WindowsAzure;
 
 namespace AgentConsole
@@ -21,44 +19,19 @@ namespace AgentConsole
 		{
 			var container = new WindsorContainer();
 
-			var locator = new WindsorServiceLocator(container);
+			setAzureCredentials(container);
 
-			container.Register(Component.For<IServiceHost>()
-			                   	.Forward<MultitaskingServiceHost>()
-			                   	.Instance(new MultitaskingServiceHost()));
-
-			container.Register(Component.For<IServiceLocator>().Instance(locator));
-
-			var storageAccount = new CloudStorageAccount(CloudStorageAccount.DevelopmentStorageAccount.Credentials,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
-
-			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
-
-			var fabric = new ConsoleFabric(locator);
-
-			var fabricSettings = new FabricRuntimeSettings();
-
-			fabricSettings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
-			fabricSettings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
-
-			fabricSettings.InputChannel.WithDefault(new InMemoryMessageChannel());
-			fabricSettings.ErrorChannel.WithDefault(new InMemoryMessageChannel());
+			var fabric = new ConsoleFabric(container);
 
 			var composite = new BasicCompositeApp {Container = container};
-
-			var compositeAppSettings = new CompositeAppSettings();
-
-			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
 
 			try
 			{
 				composite.AddAgent(typeof (FakeCommand).Assembly);
 
-				composite.Configure(compositeAppSettings);
+				composite.Configure(configureComposite());
 
-				fabric.Initialize(fabricSettings);
+				fabric.Initialize(configureFabric());
 
 				fabric.InstallComposite(composite);
 
@@ -72,6 +45,38 @@ namespace AgentConsole
 			{
 				fabric.ShowError(e);
 			}
+		}
+
+		private static CompositeAppSettings configureComposite()
+		{
+			var compositeAppSettings = new CompositeAppSettings();
+
+			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
+
+			return compositeAppSettings;
+		}
+
+		private static FabricRuntimeSettings configureFabric()
+		{
+			var fabricSettings = new FabricRuntimeSettings();
+
+			fabricSettings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			fabricSettings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
+
+			fabricSettings.InputChannel.WithDefault(new InMemoryMessageChannel());
+			fabricSettings.ErrorChannel.WithDefault(new InMemoryMessageChannel());
+
+			return fabricSettings;
+		}
+
+		private static void setAzureCredentials(IWindsorContainer container)
+		{
+			var storageAccount = new CloudStorageAccount(CloudStorageAccount.DevelopmentStorageAccount.Credentials,
+			                                             CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
+			                                             CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
+			                                             CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
+
+			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
 		}
 	}
 }

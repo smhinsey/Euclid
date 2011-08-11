@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using CommonServiceLocator.WindsorAdapter;
 using ConsoleBrowserObjects;
 using Euclid.Agent.Extensions;
+using Euclid.Common.HostingFabric;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Composites;
@@ -16,10 +18,24 @@ namespace AgentConsole
 {
 	public class ConsoleFabric : BasicFabric
 	{
+		private readonly IWindsorContainer _container;
 		private BasicCompositeApp _composite;
 
-		public ConsoleFabric(IServiceLocator container) : base(container)
+		public ConsoleFabric(IWindsorContainer container)
+			: base(new WindsorServiceLocator(container))
 		{
+			container.Register(Component.For<IServiceLocator>().Instance(Container));
+
+			_container = container;
+		}
+
+		public override void Initialize(IFabricRuntimeSettings settings)
+		{
+			_container.Register(Component.For<IServiceHost>()
+			                    	.Forward<MultitaskingServiceHost>()
+			                    	.Instance(new MultitaskingServiceHost()));
+
+			base.Initialize(settings);
 		}
 
 		public override void Start()
