@@ -23,15 +23,15 @@ namespace AgentConsole
 
 			var fabric = new ConsoleFabric(container);
 
-			var composite = new BasicCompositeApp {Container = container};
+			var composite = new BasicCompositeApp(container);
 
 			try
 			{
 				composite.AddAgent(typeof (FakeCommand).Assembly);
 
-				composite.Configure(configureComposite());
+				composite.Configure(getCompositeSettings());
 
-				fabric.Initialize(configureFabric());
+				fabric.Initialize(getFabricSettings());
 
 				fabric.InstallComposite(composite);
 
@@ -47,7 +47,7 @@ namespace AgentConsole
 			}
 		}
 
-		private static CompositeAppSettings configureComposite()
+		private static CompositeAppSettings getCompositeSettings()
 		{
 			var compositeAppSettings = new CompositeAppSettings();
 
@@ -56,7 +56,7 @@ namespace AgentConsole
 			return compositeAppSettings;
 		}
 
-		private static FabricRuntimeSettings configureFabric()
+		private static FabricRuntimeSettings getFabricSettings()
 		{
 			var fabricSettings = new FabricRuntimeSettings();
 

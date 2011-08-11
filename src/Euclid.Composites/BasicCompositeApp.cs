@@ -27,10 +27,16 @@ namespace Euclid.Composites
 			Container = new WindsorContainer();
 		}
 
+		public BasicCompositeApp(IWindsorContainer container) : this()
+		{
+			Container = container;
+		}
+
 		public IList<IAgentMetadata> Agents { get; private set; }
 
-		public IWindsorContainer Container { get; set; }
 		public CompositeApplicationState State { get; set; }
+
+		protected IWindsorContainer Container { get; set; }
 
 		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
 

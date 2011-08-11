@@ -68,7 +68,7 @@ namespace AgentConsole
 			{
 				var processorAttribute = agent.AgentAssembly.GetAttributeValue<LocationOfProcessorsAttribute>();
 
-				_composite.Container.Register
+				_container.Register
 					(AllTypes.FromAssembly(agent.AgentAssembly)
 					 	.Where(Component.IsInNamespace(processorAttribute.Namespace))
 					 	.BasedOn(typeof (ICommandProcessor))
@@ -83,7 +83,7 @@ namespace AgentConsole
 				dispatcherSettings.InputChannel.WithDefault(CurrentSettings.InputChannel.Value);
 				dispatcherSettings.InvalidChannel.WithDefault(CurrentSettings.ErrorChannel.Value);
 
-				var processors = _composite.Container.ResolveAll(typeof (ICommandProcessor));
+				var processors = _container.ResolveAll(typeof(ICommandProcessor));
 
 				foreach (var processor in processors)
 				{
@@ -94,7 +94,7 @@ namespace AgentConsole
 
 				var commandHost = new CommandHost(new ICommandDispatcher[] {dispatcher});
 
-				_composite.Container.Register(Component.For<IHostedService>().Instance(commandHost).Forward<CommandHost>());
+				_container.Register(Component.For<IHostedService>().Instance(commandHost).Forward<CommandHost>());
 			}
 		}
 
