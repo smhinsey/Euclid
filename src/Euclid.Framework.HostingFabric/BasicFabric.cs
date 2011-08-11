@@ -1,7 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using CommonServiceLocator.WindsorAdapter;
+using Euclid.Agent.Extensions;
 using Euclid.Common.HostingFabric;
+using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
+using Euclid.Composites;
+using Euclid.Framework.Cqrs;
+using Euclid.Framework.Metadata.Attributes;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Euclid.Framework.HostingFabric
@@ -9,11 +17,12 @@ namespace Euclid.Framework.HostingFabric
 	public class BasicFabric : IFabricRuntime
 	{
 		protected IList<Type> ConfiguredHostedServices;
-		protected IServiceLocator Container;
+		protected IWindsorContainer Container;
 		protected IFabricRuntimeSettings CurrentSettings;
 		private IServiceHost _serviceHost;
+		protected ICompositeApp Composite;
 
-		public BasicFabric(IServiceLocator container)
+		public BasicFabric(IWindsorContainer container)
 		{
 			Container = container;
 			State = FabricRuntimeState.Stopped;
@@ -49,7 +58,7 @@ namespace Euclid.Framework.HostingFabric
 
 			try
 			{
-				_serviceHost = (IServiceHost) Container.GetInstance(settings.ServiceHost.Value);
+				_serviceHost = (IServiceHost) Container.Resolve(settings.ServiceHost.Value);
 			}
 			catch (ActivationException e)
 			{
@@ -77,7 +86,7 @@ namespace Euclid.Framework.HostingFabric
 			{
 				try
 				{
-					hostedServices.Add((IHostedService) Container.GetInstance(hostedServiceType));
+					hostedServices.Add((IHostedService)Container.Resolve(hostedServiceType));
 
 					ConfiguredHostedServices.Add(hostedServiceType);
 				}
@@ -96,6 +105,54 @@ namespace Euclid.Framework.HostingFabric
 			_serviceHost.StartAll();
 
 			State = FabricRuntimeState.Started;
+		}
+
+		public void InstallComposite(ICompositeApp composite)
+		{
+			if (Composite != null)
+			{
+				throw new Exception("A composite has already been installed");
+			}
+
+			if (composite.State != CompositeApplicationState.Configured)
+			{
+				throw new Exception("Only configured composites can be installed in the fabric.");
+			}
+
+			Composite = composite;
+
+			foreach (var agent in Composite.Agents)
+			{
+				var processorAttribute = agent.AgentAssembly.GetAttributeValue<LocationOfProcessorsAttribute>();
+
+				Container.Register
+					(AllTypes.FromAssembly(agent.AgentAssembly)
+					 	.Where(Component.IsInNamespace(processorAttribute.Namespace))
+					 	.BasedOn(typeof (ICommandProcessor))
+					 	.WithService.AllInterfaces().WithService.Self());
+
+				var registry = Container.Resolve<ICommandRegistry>();
+
+				var dispatcher = new CommandDispatcher(new WindsorServiceLocator(Container), registry);
+
+				var dispatcherSettings = new MessageDispatcherSettings();
+
+				dispatcherSettings.InputChannel.WithDefault(CurrentSettings.InputChannel.Value);
+				dispatcherSettings.InvalidChannel.WithDefault(CurrentSettings.ErrorChannel.Value);
+
+				var processors = Container.ResolveAll(typeof(ICommandProcessor));
+
+				foreach (var processor in processors)
+				{
+					dispatcherSettings.MessageProcessorTypes.Add(processor.GetType());
+				}
+
+				dispatcher.Configure(dispatcherSettings);
+
+				var commandHost = new CommandHost(new ICommandDispatcher[] {dispatcher});
+
+				Container.Register(Component.For<IHostedService>().Instance(commandHost).Forward<CommandHost>());
+			}
 		}
 	}
 }
