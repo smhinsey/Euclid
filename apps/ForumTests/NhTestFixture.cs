@@ -1,3 +1,4 @@
+using Euclid.Framework.Cqrs.NHibernate;
 using Euclid.Framework.Models;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;

@@ -1,13 +1,9 @@
-﻿using Castle.MicroKernel.Registration;
-using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
-using Euclid.Common.Messaging;
-using Euclid.Common.Storage;
-using Euclid.Common.Storage.Binary;
-using Euclid.Common.Storage.Record;
+﻿using Castle.Windsor;
 using Euclid.Composites;
-using Euclid.Framework.Cqrs;
-using Microsoft.Practices.ServiceLocation;
+using Euclid.Sdk.FakeAgent.Commands;
+using Euclid.Sdk.FakeAgent.Queries;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
 using NUnit.Framework;
 
 namespace Euclid.Composite.InputModelMapping
@@ -15,37 +11,23 @@ namespace Euclid.Composite.InputModelMapping
     [TestFixture]
     public class CompositeTests
     {
-         [Test]
-        public void TestDispatcherResolution()
-         {
-             var s = new CompositeAppSettings();
-             var c = new WindsorContainer();
 
-             c.Register(
-                 Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>());
+			[Test]
+			public void TestResolveQuery()
+			{
+				var container = new WindsorContainer();
 
-             c.Register(
-                 Component.For<ICommandRegistry>().ImplementedBy<CommandRegistry>());
+				var composite = new BasicCompositeApp(container);
 
-             c.Register(
-                 Component.For<IServiceLocator>().ImplementedBy<WindsorServiceLocator>());
+				composite.AddAgent(typeof(FakeCommand).Assembly);
 
-             c.Register(
-                 Component.For<IWindsorContainer>().Instance(c));
+				composite.RegisterNh(SQLiteConfiguration.Standard.UsingFile("CompositeTestsDb"), true, false);
 
-             c.Register(
-                 Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy
-                     <InMemoryCommandPublicationRecordMapper>());
+				composite.Configure(new CompositeAppSettings());
 
-             c.Register(
-                 Component.For<IBlobStorage>().ImplementedBy<InMemoryBlobStorage>());
+				var query = container.Resolve<FakeQuery>();
 
-             c.Register(
-                 Component.For<IMessageSerializer>().ImplementedBy<JsonMessageSerializer>());
-
-             var d = c.Resolve<ICommandDispatcher>();
-             Assert.NotNull(d);
-
-         }
+				Assert.NotNull(query);
+			}
     }
 }

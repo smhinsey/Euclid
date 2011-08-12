@@ -19,7 +19,8 @@ namespace Euclid.Agent.Extensions
 			                          		typeof (AgentSystemNameAttribute),
 			                          		typeof (LocationOfCommandsAttribute),
 			                          		typeof (LocationOfQueriesAttribute),
-			                          		typeof (LocationOfProcessorsAttribute)
+			                          		typeof (LocationOfProcessorsAttribute),
+																		typeof (LocationOfReadModelsAttribute)
 			                          	};
 
 			var attributes = assembly.GetCustomAttributes(false).Where(attr => attr.GetType().GetInterface(typeof (IAgentAttribute).Name) != null).Select(x => x.GetType()).ToList();
@@ -83,6 +84,11 @@ namespace Euclid.Agent.Extensions
 		internal static string GetQueryNamespace(this Assembly agent)
 		{
 			return agent.GetAttributeValue<LocationOfQueriesAttribute>().Namespace;
+		}
+
+		internal static string GetReadModelNamespace(this Assembly agent)
+		{
+			return agent.GetAttributeValue<LocationOfReadModelsAttribute>().Namespace;
 		}
 	}
 }

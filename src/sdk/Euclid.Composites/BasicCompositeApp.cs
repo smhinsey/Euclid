@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
@@ -14,6 +15,13 @@ using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Conversion;
 using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Cqrs;
+using Euclid.Framework.Cqrs.NHibernate;
+using Euclid.Framework.Models;
+using FluentNHibernate.Automapping;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate;
+using NHibernate.Tool.hbm2ddl;
 
 namespace Euclid.Composites
 {
@@ -68,7 +76,16 @@ namespace Euclid.Composites
 				throw new AssemblyNotAgentException(assembly);
 			}
 
-			Agents.Add(assembly.GetAgentMetadata());
+			// enumerate queries, commands & read models
+			var agent = assembly.GetAgentMetadata();
+
+			Agents.Add(agent);
+
+			Container.Register
+					(AllTypes.FromAssembly(agent.AgentAssembly)
+						.Where(Component.IsInNamespace(agent.Queries.Namespace))
+						.BasedOn(typeof(Framework.Cqrs.IQuery))
+						.WithService.AllInterfaces().WithService.Self());
 		}
 
 		public void RegisterInputModel(IInputToCommandConverter converter)
@@ -121,6 +138,55 @@ namespace Euclid.Composites
 			                   	.Forward<ICommandRegistry>()
 			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
 			                   	.LifeStyle.Singleton);
+		}
+
+		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
+		{
+			var lifestyleType = (isWeb) ? LifestyleType.PerWebRequest : LifestyleType.Transient;
+
+			Container.Register(
+				Component.For<ISessionFactory>()
+					.UsingFactoryMethod(() =>
+						Fluently
+							.Configure()
+								.Database(databaseConfiguration)
+								.Mappings(map => MapAllAssemblies(map))
+							.ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, buildSchema))
+							.BuildSessionFactory()
+						).LifeStyle.Is(lifestyleType));
+
+			// jt: open session should be read-only
+			Container.Register(
+				Component.For<ISession>()
+					.UsingFactoryMethod(
+						() => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(lifestyleType)
+				);
+		}
+
+		private MappingConfiguration MapAllAssemblies(MappingConfiguration mcfg)
+		{
+			var readModelNhMapping = new AutoMapperConfiguration();
+
+			var assembliesToMap = new Dictionary<Assembly, Assembly>();
+
+			foreach (var agent in Agents)
+			{
+				foreach (var rm in agent.ReadModels)
+				{
+					var assembly = rm.Type.Assembly;
+					if (!assembliesToMap.ContainsKey(assembly))
+					{
+						assembliesToMap.Add(assembly, assembly);
+					}
+				}
+			}
+
+			foreach(var agent in assembliesToMap.Keys)
+			{
+				mcfg.AutoMappings.Add(AutoMap.Assembly(agent, readModelNhMapping).IgnoreBase<DefaultReadModel>());
+			}
+
+			return mcfg;
 		}
 	}
 }

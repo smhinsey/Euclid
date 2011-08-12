@@ -1,17 +1,11 @@
 ﻿using Euclid.Agent.Attributes;
 using Euclid.Sdk.FakeAgent.Commands;
+using Euclid.Sdk.FakeAgent.Processors;
+using Euclid.Sdk.FakeAgent.Queries;
 
 [assembly: AgentSystemName(Value = "FakeAgent")]
 [assembly: AgentName(Value = "Fake Agent")]
-
-// hardcode agent namepsace
-
 [assembly: LocationOfCommands(NamespaceOfType = typeof (FakeCommand))]
-
-// specify namespace by type
-
-[assembly: LocationOfQueries(Namespace = "FakeAgent.Queries")]
-
-// explicitly set namespace
-
-[assembly: LocationOfProcessors(Namespace = "FakeAgent.Processors")]
+[assembly: LocationOfQueries(NamespaceOfType = typeof(FakeQuery))]
+[assembly: LocationOfProcessors(NamespaceOfType = typeof(FakeCommandProcessor))]
+[assembly: LocationOfReadModels(NamespaceOfType = typeof(FakeReadModel))]

@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Euclid.Agent.Commands;
 using Euclid.Agent.Extensions;
 using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.Cqrs;
 
 namespace Euclid.Agent
 {
-	public abstract class PartCollectionsBase : IList<ITypeMetadata>
+	public abstract class PartCollectionsBase<TAgentPart> : IList<ITypeMetadata>
+		where TAgentPart : IAgentPart
 	{
 		private IList<ITypeMetadata> _internal;
 		private Type _partType;
@@ -83,16 +86,16 @@ namespace Euclid.Agent
 			throw new NotImplementedException();
 		}
 
-		protected void Initialize<T>(Assembly agent, string partNamespace) where T : IAgentPart
+		protected void Initialize(Assembly agent, string partNamespace)
 		{
 			_internal = agent.GetTypes()
 				.Where(type =>
 				       type.Namespace == partNamespace &&
-				       typeof (T).IsAssignableFrom(type))
+				       typeof (TAgentPart).IsAssignableFrom(type))
 				.Select(type => new TypeMetadata(type) as ITypeMetadata)
 				.ToList();
 
-			_partType = typeof (T);
+			_partType = typeof (TAgentPart);
 
 			AgentSystemName = agent.GetAgentSystemName();
 			Namespace = partNamespace;
@@ -101,6 +104,70 @@ namespace Euclid.Agent
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();
+		}
+
+		public ITypeMetadata GetMetadata<TImplementationType>() where TImplementationType : IAgentPart
+		{
+			return GetMetadata(typeof(TImplementationType));
+		}
+
+		public ITypeMetadata GetMetadata(Type agentPartImplementationType)
+		{
+			var metadata = this.Where(x =>
+																x.Namespace == agentPartImplementationType.Namespace &&
+																x.Name == agentPartImplementationType.Name).FirstOrDefault();
+
+			if (metadata == null)
+			{
+				throw new PartNotRegisteredException(agentPartImplementationType);
+			}
+
+			return metadata;
+		}
+
+		public ITypeMetadata GetMetadata(string agentPartImplementationName)
+		{
+			var partImplementationType = this.Where(m => m.Name == agentPartImplementationName).Select(m => m.Type).FirstOrDefault();
+
+			if (partImplementationType == null)
+			{
+				throw new PartNotRegisteredException(agentPartImplementationName, Namespace);
+			}
+
+			return GetMetadata(partImplementationType);
+		}
+
+		public bool Registered(string agentPartImplementationName)
+		{
+			return this.Where(p => p.Name == agentPartImplementationName).Any();
+		}
+
+		public bool Registered<TImplementationType>()
+		{
+			return Registered(typeof(TImplementationType));
+		}
+
+		public bool Registered(Type agentPartImplementationType)
+		{
+			guardAgentPart(agentPartImplementationType);
+
+			return this.Where(x =>
+												x.Namespace == agentPartImplementationType.Namespace &&
+												x.Name == agentPartImplementationType.Name)
+				.Any();
+		}
+
+		private void guardAgentPart(Type agentPartImplementationType)
+		{
+			if (agentPartImplementationType == null)
+			{
+				throw new ArgumentNullException("agentPartImplementationType");
+			}
+
+			if (!typeof(TAgentPart).IsAssignableFrom(agentPartImplementationType))
+			{
+				throw new InvalidAgentPartImplementationException(agentPartImplementationType);
+			}
 		}
 	}
 }

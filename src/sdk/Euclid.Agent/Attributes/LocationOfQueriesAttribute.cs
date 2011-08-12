@@ -7,4 +7,10 @@ namespace Euclid.Agent.Attributes
 	public class LocationOfQueriesAttribute : NamespaceFinderAttribute
 	{
 	}
+
+	[AttributeUsage(AttributeTargets.Assembly)]
+	public class LocationOfReadModelsAttribute: NamespaceFinderAttribute
+	{
+		
+	}
 }

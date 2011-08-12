@@ -20,7 +20,10 @@ namespace Euclid.Agent
 			{
 				DescriptiveName = _agent.GetAgentName();
 				SystemName = _agent.GetAgentSystemName();
+
 				Commands = new CommandMetadataCollection(_agent);
+				Queries = new QueryMetadataCollection(_agent);
+				ReadModels = new ReadModelMetadataCollection(_agent);
 			}
 		}
 
@@ -30,14 +33,11 @@ namespace Euclid.Agent
 		}
 
 		public ICommandMetadataCollection Commands { get; private set; }
+		public IQueryMetadataCollection Queries { get; private set; }
+		public IReadModelMetadataCollection ReadModels { get; private set; }
 
 		public string DescriptiveName { get; private set; }
 		public bool IsValid { get; private set; }
-
-		public IAgentPartMetadataCollection Queries
-		{
-			get { throw new NotImplementedException(); }
-		}
 
 		public string SystemName { get; private set; }
 	}

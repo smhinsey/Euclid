@@ -10,7 +10,7 @@ namespace Euclid.Framework.Cqrs
 	/// 	of IReadModel. Typically, a query will be backed by a repository, but this
 	/// 	decision is up in the hands of the query implementor.
 	/// </summary>
-	public interface IQuery<TReadModel> : IAgentPart
+	public interface IQuery<TReadModel> : IQuery
 		where TReadModel : IReadModel
 	{
 		IList<TReadModel> FindByCreationDate(DateTime specificDate);
@@ -18,5 +18,10 @@ namespace Euclid.Framework.Cqrs
 		TReadModel FindById(Guid id);
 		IList<TReadModel> FindByModificationDate(DateTime specificDate);
 		IList<TReadModel> FindByModificationDate(DateTime begin, DateTime end);
+	}
+
+	public interface IQuery : IAgentPart
+	{
+		
 	}
 }
