@@ -58,6 +58,7 @@
     <Compile Include="AutoMapperConfiguration.cs" />
     <Compile Include="NhQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">

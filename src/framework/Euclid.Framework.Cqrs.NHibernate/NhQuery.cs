@@ -14,41 +14,41 @@ namespace Euclid.Framework.Cqrs.NHibernate
 	public class NhQuery<TReadModel> : IQuery<TReadModel>
 		where TReadModel : class, IReadModel
 	{
-		private readonly NhSimpleRepository<TReadModel> _repository;
+		internal readonly NhSimpleRepository<TReadModel> Repository;
 
 		public NhQuery(ISession session)
 		{
-			_repository = new NhSimpleRepository<TReadModel>(session);
+			Repository = new NhSimpleRepository<TReadModel>(session);
 		}
 
 		public IList<TReadModel> FindByCreationDate(DateTime specificDate)
 		{
-			return _repository.FindByCreationDate(specificDate);
+			return Repository.FindByCreationDate(specificDate);
 		}
 
 		public IList<TReadModel> FindByCreationDate(DateTime begin, DateTime end)
 		{
-			return _repository.FindByCreationDate(begin, end);
+			return Repository.FindByCreationDate(begin, end);
 		}
 
 		public TReadModel FindById(Guid id)
 		{
-			return _repository.FindById(id);
+			return Repository.FindById(id);
 		}
 
 		public IList<TReadModel> FindByModificationDate(DateTime specificDate)
 		{
-			return _repository.FindByModificationDate(specificDate);
+			return Repository.FindByModificationDate(specificDate);
 		}
 
 		public IList<TReadModel> FindByModificationDate(DateTime begin, DateTime end)
 		{
-			return _repository.FindByModificationDate(begin, end);
+			return Repository.FindByModificationDate(begin, end);
 		}
 
 		protected ISession GetCurrentSession()
 		{
-			return _repository.GetCurrentSession();
+			return Repository.GetCurrentSession();
 		}
 	}
 }
