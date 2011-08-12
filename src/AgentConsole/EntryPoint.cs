@@ -10,6 +10,7 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using Euclid.Sdk.FakeAgent.Commands;
 using Microsoft.WindowsAzure;
+using log4net.Config;
 
 namespace AgentConsole
 {
@@ -17,6 +18,8 @@ namespace AgentConsole
 	{
 		public static void Main(string[] args)
 		{
+			BasicConfigurator.Configure();
+
 			var container = new WindsorContainer();
 
 			setAzureCredentials(container);
