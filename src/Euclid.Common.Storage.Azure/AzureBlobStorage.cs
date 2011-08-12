@@ -4,6 +4,7 @@ using System.Linq;
 using Euclid.Common.Extensions;
 using Euclid.Common.Logging;
 using Euclid.Common.Storage.Binary;
+using Euclid.Common.Storage.Configuration;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.StorageClient;
 
@@ -12,22 +13,25 @@ namespace Euclid.Common.Storage.Azure
 	public class AzureBlobStorage : IBlobStorage
 	{
 		private readonly CloudStorageAccount _storageAccount;
-		private string _containerName;
 		private bool _init;
+
+		private IBlobStorageSettings _settings;
 
 		public AzureBlobStorage(CloudStorageAccount storageAccount)
 		{
 			_storageAccount = storageAccount;
+
+			_settings = new BlobStorageSettings();
 		}
 
 		public void Configure(IBlobStorageSettings settings)
 		{
-			_containerName = settings.ContainerName.Value.ToLower();
+			_settings = settings;
 		}
 
 		public void Delete(Uri uri)
 		{
-			var container = GetContainer();
+			var container = getContainer();
 
 			var target = container.GetBlobReference(uri.ToString());
 
@@ -38,7 +42,7 @@ namespace Euclid.Common.Storage.Azure
 		{
 			var exists = true;
 
-			var container = GetContainer();
+			var container = getContainer();
 
 			var target = container.GetBlobReference(uri.ToString());
 
@@ -63,7 +67,7 @@ namespace Euclid.Common.Storage.Azure
 			              		BlobListingDetails = BlobListingDetails.Metadata
 			              	};
 
-			var container = GetContainer();
+			var container = getContainer();
 			var target = container.GetBlobReference(uri.ToString());
 
 			try
@@ -91,7 +95,7 @@ namespace Euclid.Common.Storage.Azure
 
 		public Uri Put(IBlob blob, string name)
 		{
-			var container = GetContainer();
+			var container = getContainer();
 			var uri = container.Uri;
 			try
 			{
@@ -121,10 +125,10 @@ namespace Euclid.Common.Storage.Azure
 			return uri;
 		}
 
-		private CloudBlobContainer GetContainer()
+		private CloudBlobContainer getContainer()
 		{
 			var blobStorage = _storageAccount.CreateCloudBlobClient();
-			var container = blobStorage.GetContainerReference(_containerName);
+			var container = blobStorage.GetContainerReference(_settings.ContainerName.Value);
 
 			if (!_init)
 			{

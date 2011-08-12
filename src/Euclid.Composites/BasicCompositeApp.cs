@@ -27,10 +27,16 @@ namespace Euclid.Composites
 			Container = new WindsorContainer();
 		}
 
+		public BasicCompositeApp(IWindsorContainer container) : this()
+		{
+			Container = container;
+		}
+
 		public IList<IAgentMetadata> Agents { get; private set; }
 
-		public IWindsorContainer Container { get; set; }
 		public CompositeApplicationState State { get; set; }
+
+		protected IWindsorContainer Container { get; set; }
 
 		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
 
@@ -50,7 +56,7 @@ namespace Euclid.Composites
 			State = CompositeApplicationState.Configured;
 		}
 
-		public void InstallAgent(Assembly assembly)
+		public void AddAgent(Assembly assembly)
 		{
 			if (assembly == null)
 			{
@@ -112,7 +118,7 @@ namespace Euclid.Composites
 			                   	.LifeStyle.Singleton);
 
 			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord>>()
-													.Forward<ICommandRegistry>()
+			                   	.Forward<ICommandRegistry>()
 			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
 			                   	.LifeStyle.Singleton);
 		}

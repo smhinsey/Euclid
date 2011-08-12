@@ -1,85 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using CommonServiceLocator.WindsorAdapter;
 using ConsoleBrowserObjects;
-using Euclid.Agent.Extensions;
-using Euclid.Common.HostingFabric;
-using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
-using Euclid.Common.Storage;
-using Euclid.Composites;
-using Euclid.Framework.Cqrs;
-using Euclid.Framework.Metadata.Attributes;
+using Euclid.Framework.HostingFabric;
 using Microsoft.Practices.ServiceLocation;
 
 namespace AgentConsole
 {
 	public class ConsoleFabric : BasicFabric
 	{
-		private BasicCompositeApp _composite;
-
-		public ConsoleFabric(IServiceLocator container) : base(container)
+		public ConsoleFabric(IWindsorContainer container) : base(container)
 		{
+			container.Register(Component.For<IServiceLocator>().Instance(new WindsorServiceLocator(Container)));
+		}
+
+		public override void Initialize(IFabricRuntimeSettings settings)
+		{
+			Container.Register(Component.For<IServiceHost>()
+			                   	.Forward<MultitaskingServiceHost>()
+			                   	.Instance(new MultitaskingServiceHost()));
+
+			base.Initialize(settings);
 		}
 
 		public override void Start()
 		{
 			var mainForm = ConsoleForm.GetFormInstance(@".\Forms\Main.xml");
 
-			mainForm.Labels["agentCount"].Text = string.Format("Agents: {0}", _composite.Agents.Count);
+			mainForm.Labels["agentCount"].Text = string.Format("Agents: {0}", Composite.Agents.Count);
 
 			mainForm.Render();
 
 			base.Start();
-		}
-
-		// SELF this should be pushed down to the base type, which should probably be moved from Common to Framework
-		public void InstallComposite(BasicCompositeApp composite)
-		{
-			if (_composite != null)
-			{
-				throw new Exception("A composite has already been installed");
-			}
-
-			if (composite.State != CompositeApplicationState.Configured)
-			{
-				throw new Exception("Only configured composites can be installed in the fabric.");
-			}
-
-			_composite = composite;
-
-			foreach (var agent in _composite.Agents)
-			{
-				var processorAttribute = agent.AgentAssembly.GetAttributeValue<LocationOfProcessorsAttribute>();
-
-				_composite.Container.Register
-					(AllTypes.FromAssembly(agent.AgentAssembly)
-					 	.Where(Component.IsInNamespace(processorAttribute.Namespace))
-					 	.BasedOn(typeof (ICommandProcessor))
-					 	.WithService.AllInterfaces().WithService.Self());
-
-				var registry = new CommandRegistry(new InMemoryRecordMapper<CommandPublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
-
-				var dispatcher = new CommandDispatcher(Container, registry);
-
-				var dispatcherSettings = new MessageDispatcherSettings();
-
-				dispatcherSettings.InputChannel.WithDefault(new InMemoryMessageChannel());
-				dispatcherSettings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
-
-				var processors = _composite.Container.ResolveAll(typeof (ICommandProcessor));
-
-				foreach (var processor in processors)
-				{
-					dispatcherSettings.MessageProcessorTypes.Add(processor.GetType());
-				}
-
-				dispatcher.Configure(dispatcherSettings);
-
-				var commandHost = new CommandHost(new ICommandDispatcher[] {dispatcher});
-
-				_composite.Container.Register(Component.For<IHostedService>().Instance(commandHost).Forward<CommandHost>());
-			}
 		}
 
 		public void ShowError(Exception e)
@@ -90,11 +45,10 @@ namespace AgentConsole
 
 			var errorLineNo = 7;
 
-			var linesFromText = extractLinesFromText(e.ToString());
-
-			foreach (var errorLine in linesFromText)
+			foreach (var errorLine in extractLinesAndWordWrap(e.ToString()))
 			{
 				var lineLabel = new Label(string.Format("error{0}", errorLineNo), new Point(3, errorLineNo), 122, errorLine);
+
 				errorForm.Labels.Add(lineLabel);
 				errorLineNo++;
 			}
@@ -102,23 +56,21 @@ namespace AgentConsole
 			errorForm.Render();
 		}
 
-		private string[] extractLinesFromText(string text)
+		private string[] extractLinesAndWordWrap(string text)
 		{
-			// SELF add a basic word-wrapping algorithm. 
-			// iterate the results prior to returning, detect lines wider than a max width constant
-			// split them, insert a suitable ASCII character (some sort of arrow)
+			const int maxLineLength = 120;
+			const int wrappedLineLength = 110;
+
 			var lineList = new List<string>(text.Split(new[] {Environment.NewLine}, StringSplitOptions.None));
 
 			var results = new List<string>();
 
-			for (var i = 0; i < lineList.Count; i++)
+			foreach (var line in lineList)
 			{
-				var line = lineList[i];
-
-				if (line.Length > 120)
+				if (line.Length > maxLineLength)
 				{
-					var left = line.Substring(0, 99);
-					var right = line.Substring(99, line.Length - 99);
+					var left = line.Substring(0, wrappedLineLength);
+					var right = line.Substring(wrappedLineLength, line.Length - wrappedLineLength);
 
 					results.Add(left);
 					results.Add(string.Format("→ {0}", right));

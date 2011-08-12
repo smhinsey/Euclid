@@ -50,9 +50,13 @@
     <Reference Include="ConsoleBrowserObjects">
       <HintPath>..\..\packages\_external\ConsoleBrowserObjects.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -95,10 +99,6 @@
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Euclid.Common.HostingFabric\Euclid.Common.HostingFabric.csproj">
-      <Project>{6B55CE77-2663-45F0-ADB2-DFC7AB01233C}</Project>
-      <Name>Euclid.Common.HostingFabric</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>
@@ -126,6 +126,10 @@
     <ProjectReference Include="..\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
       <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
       <Name>Euclid.Framework.Cqrs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Framework.HostingFabric\Euclid.Framework.HostingFabric.csproj">
+      <Project>{6B55CE77-2663-45F0-ADB2-DFC7AB01233C}</Project>
+      <Name>Euclid.Framework.HostingFabric</Name>
     </ProjectReference>
     <ProjectReference Include="..\Euclid.Framework.Metadata\Euclid.Framework.Metadata.csproj">
       <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>

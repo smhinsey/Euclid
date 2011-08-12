@@ -41,6 +41,25 @@ namespace Euclid.Agent.Extensions
 			return agent.GetAttributeValue<AgentSystemNameAttribute>().Value;
 		}
 
+		public static T GetAttributeValue<T>(this Assembly assembly) where T : Attribute
+		{
+			var attributes = assembly.GetCustomAttributes(typeof (T), false);
+
+			if (attributes.Count() == 0)
+			{
+				throw new AssemblyNotAgentException(assembly, typeof (T));
+			}
+
+			var attribute = attributes[0] as T;
+
+			if (attribute == null)
+			{
+				throw new AssemblyNotAgentException(assembly, typeof (T));
+			}
+
+			return attribute;
+		}
+
 		internal static string GetCommandNamespace(this Assembly agent)
 		{
 			return agent.GetAttributeValue<LocationOfCommandsAttribute>().Namespace;
@@ -63,25 +82,6 @@ namespace Euclid.Agent.Extensions
 		internal static string GetQueryNamespace(this Assembly agent)
 		{
 			return agent.GetAttributeValue<LocationOfQueriesAttribute>().Namespace;
-		}
-
-		public static T GetAttributeValue<T>(this Assembly assembly) where T : Attribute
-		{
-			var attributes = assembly.GetCustomAttributes(typeof (T), false);
-
-			if (attributes.Count() == 0)
-			{
-				throw new AssemblyNotAgentException(assembly, typeof (T));
-			}
-
-			var attribute = attributes[0] as T;
-
-			if (attribute == null)
-			{
-				throw new AssemblyNotAgentException(assembly, typeof (T));
-			}
-
-			return attribute;
 		}
 	}
 }

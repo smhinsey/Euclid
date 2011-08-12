@@ -4,7 +4,6 @@ using System.Web.Routing;
 using Euclid.Composite.MvcApplication.EuclidConfiguration.TypeConverters;
 using Euclid.Composites;
 using Euclid.Composites.Mvc;
-using Euclid.Composites.Mvc.Binders;
 using Euclid.Framework.TestingFakes.Cqrs;
 
 namespace Euclid.Composite.MvcApplication
@@ -33,7 +32,7 @@ namespace Euclid.Composite.MvcApplication
 
 			composite.Configure(euclidCompositeConfiguration);
 
-			composite.InstallAgent(typeof (FakeCommand4).Assembly);
+			composite.AddAgent(typeof (FakeCommand4).Assembly);
 
 			composite.RegisterInputModel(new InputToFakeCommand4Converter());
 

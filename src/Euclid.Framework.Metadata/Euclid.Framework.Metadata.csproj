@@ -49,7 +49,6 @@
     <Compile Include="Attributes\NamespaceFinderAttribute.cs" />
     <Compile Include="Attributes\TextAttribute.cs" />
     <Compile Include="InterfaceMetadata.cs" />
-    <Compile Include="UnexpectedTypeException.cs" />
     <Compile Include="TypeMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyMetadata.cs" />

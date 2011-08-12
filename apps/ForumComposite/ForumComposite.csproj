@@ -69,6 +69,12 @@
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.Core">
+      <HintPath>..\..\packages\Glimpse.0.84\lib\net40\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc3">
+      <HintPath>..\..\packages\Glimpse.Mvc3.0.84\lib\net40\Glimpse.Mvc3.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -101,6 +107,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
+    <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="Content\site.js">
       <DependentUpon>site.chirp.coffee</DependentUpon>
     </Content>

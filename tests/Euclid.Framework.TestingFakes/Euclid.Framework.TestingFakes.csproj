@@ -81,6 +81,7 @@
     <Compile Include="Cqrs\FakeCommandProcessor.cs" />
     <Compile Include="InputModels\InputModelFakeCommand4.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HostingFabric\FakeHostedService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Euclid.Agent\Euclid.Agent.csproj">
@@ -90,6 +91,10 @@
     <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
+      <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>
+      <Name>Euclid.Common.ServiceHost</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>

@@ -27,13 +27,13 @@ namespace Euclid.Composites
 			PublicationRegistry = new OverridableTypeSetting<IPublicationRegistry<IPublicationRecord>>("PublicationRegistry");
 			Publisher = new OverridableTypeSetting<IPublisher>("Publisher");
 
-			Publisher.WithDefault(typeof(DefaultPublisher));
-			MessageChannel.WithDefault(typeof(InMemoryMessageChannel));
-			PublicationRegistry.WithDefault(typeof(CommandRegistry));
-			BlobStorage.WithDefault(typeof(InMemoryBlobStorage));
-			MessageSerializer.WithDefault(typeof(JsonMessageSerializer));
-			CommandDispatcher.WithDefault(typeof(CommandDispatcher));
-			CommandPublicationRecordMapper.WithDefault(typeof(InMemoryCommandPublicationRecordMapper));
+			Publisher.WithDefault(typeof (DefaultPublisher));
+			MessageChannel.WithDefault(typeof (InMemoryMessageChannel));
+			PublicationRegistry.WithDefault(typeof (CommandRegistry));
+			BlobStorage.WithDefault(typeof (InMemoryBlobStorage));
+			MessageSerializer.WithDefault(typeof (JsonMessageSerializer));
+			CommandDispatcher.WithDefault(typeof (CommandDispatcher));
+			CommandPublicationRecordMapper.WithDefault(typeof (InMemoryCommandPublicationRecordMapper));
 		}
 	}
 }

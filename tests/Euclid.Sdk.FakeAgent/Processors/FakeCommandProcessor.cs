@@ -1,4 +1,5 @@
-﻿using Euclid.Framework.Cqrs;
+﻿using System;
+using Euclid.Framework.Cqrs;
 using Euclid.Sdk.FakeAgent.Commands;
 
 namespace Euclid.Sdk.FakeAgent.Processors
@@ -7,7 +8,7 @@ namespace Euclid.Sdk.FakeAgent.Processors
 	{
 		public override void Process(FakeCommand message)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 	}
 }

@@ -16,16 +16,6 @@ namespace Euclid.Composites.Mvc
 			wireMvcInfrastructure();
 		}
 
-		private void wireMvcInfrastructure()
-		{
-			Container.Install(new ModelBinderInstaller());
-			Container.Install(new ControllerContainerInstaller());
-
-			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
-
-			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
-		}
-
 		public void BeginPageRequest(object sender, EventArgs eventArgs)
 		{
 			if (State != CompositeApplicationState.Configured)
@@ -38,6 +28,16 @@ namespace Euclid.Composites.Mvc
 		{
 			var e = HttpContext.Current.Server.GetLastError();
 			this.WriteFatalMessage(e.Message, e);
+		}
+
+		private void wireMvcInfrastructure()
+		{
+			Container.Install(new ModelBinderInstaller());
+			Container.Install(new ControllerContainerInstaller());
+
+			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
+
+			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
 		}
 	}
 }

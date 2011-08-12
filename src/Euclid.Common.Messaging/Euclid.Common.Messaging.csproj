@@ -74,7 +74,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DispatcherNotConfiguredException.cs" />
     <Compile Include="MessageProcessorBase.cs" />
     <Compile Include="PublicationRecord.cs" />
     <Compile Include="PublicationRegistry.cs" />
@@ -86,10 +85,6 @@
     <Compile Include="MessageDispatcherSettings.cs" />
     <Compile Include="MessageChannelBase.cs" />
     <Compile Include="MultitaskingMessageDispatcher.cs" />
-    <Compile Include="Exceptions\NoDispatchingSliceDurationConfiguredException.cs" />
-    <Compile Include="Exceptions\NoInputChannelConfiguredException.cs" />
-    <Compile Include="Exceptions\NoMessageProcessorsConfiguredException.cs" />
-    <Compile Include="Exceptions\NoNumberOfMessagesPerSliceConfiguredException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
