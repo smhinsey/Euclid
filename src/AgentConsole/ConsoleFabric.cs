@@ -32,7 +32,7 @@ namespace AgentConsole
 
 			mainForm.Labels["agentCount"].Text = string.Format("Agents: {0}", Composite.Agents.Count);
 
-			mainForm.Render();
+			// mainForm.Render();
 
 			base.Start();
 		}

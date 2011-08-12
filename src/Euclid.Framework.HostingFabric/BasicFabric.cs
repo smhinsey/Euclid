@@ -4,12 +4,12 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
+using Euclid.Agent.Attributes;
 using Euclid.Agent.Extensions;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Metadata.Attributes;
 using Microsoft.Practices.ServiceLocation;
 
 namespace Euclid.Framework.HostingFabric

@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Reflection;
 using Euclid.Agent.Extensions;
+using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Metadata;
 using Euclid.Framework.Models;
 using Euclid.Framework.TestingFakes.Cqrs;
 using NUnit.Framework;

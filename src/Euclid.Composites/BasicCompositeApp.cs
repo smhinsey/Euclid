@@ -12,8 +12,8 @@ using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.Record;
 using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Conversion;
+using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Metadata;
 
 namespace Euclid.Composites
 {

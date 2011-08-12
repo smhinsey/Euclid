@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Euclid.Agent.Extensions;
-using Euclid.Framework.Metadata;
+using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Agent
 {

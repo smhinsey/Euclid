@@ -3,8 +3,8 @@ using Euclid.Common.Messaging;
 using Euclid.Composite.MvcApplication.Models;
 using Euclid.Composites.Conversion;
 using Euclid.Composites.Mvc.ActionFilters;
+using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Metadata;
 using Euclid.Framework.Models;
 
 namespace Euclid.Composite.MvcApplication.Controllers

@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agent\Attributes\IAgentAttribute.cs" />
     <Compile Include="Cqrs\CommandDispatcherConfigurationException.cs" />
     <Compile Include="Cqrs\ICommand.cs" />
     <Compile Include="Cqrs\ICommandDispatcher.cs" />
@@ -93,15 +94,15 @@
     <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
     <Compile Include="EventSourcing\IEvent.cs" />
     <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
-    <Compile Include="Metadata\UnexpectedTypeException.cs" />
+    <Compile Include="Agent\Metadata\UnexpectedTypeException.cs" />
     <Compile Include="Models\IReadModel.cs" />
-    <Compile Include="Metadata\IAgentMetadata.cs" />
-    <Compile Include="Metadata\IAgentPart.cs" />
-    <Compile Include="Metadata\IAgentPartMetadataCollection.cs" />
-    <Compile Include="Metadata\ICommandMetadataCollection.cs" />
-    <Compile Include="Metadata\IInterfaceMetadata.cs" />
-    <Compile Include="Metadata\IPropertyMetadata.cs" />
-    <Compile Include="Metadata\ITypeMetadata.cs" />
+    <Compile Include="Agent\Metadata\IAgentMetadata.cs" />
+    <Compile Include="Agent\Metadata\IAgentPart.cs" />
+    <Compile Include="Agent\Metadata\IAgentPartMetadataCollection.cs" />
+    <Compile Include="Agent\Metadata\ICommandMetadataCollection.cs" />
+    <Compile Include="Agent\Metadata\IInterfaceMetadata.cs" />
+    <Compile Include="Agent\Metadata\IPropertyMetadata.cs" />
+    <Compile Include="Agent\Metadata\ITypeMetadata.cs" />
     <Compile Include="Models\IInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

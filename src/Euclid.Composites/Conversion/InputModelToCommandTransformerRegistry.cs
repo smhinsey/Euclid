@@ -4,8 +4,8 @@ using System.Linq;
 using AutoMapper;
 using Euclid.Agent.Extensions;
 using Euclid.Common.Logging;
+using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Metadata;
 using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Conversion

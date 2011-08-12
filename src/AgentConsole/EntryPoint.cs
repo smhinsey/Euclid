@@ -43,6 +43,8 @@ namespace AgentConsole
 				var publisher = container.Resolve<IPublisher>();
 
 				publisher.PublishMessage(new FakeCommand());
+
+				Console.ReadLine();
 			}
 			catch (Exception e)
 			{

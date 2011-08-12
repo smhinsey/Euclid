@@ -1,5 +1,5 @@
 using System;
-using Euclid.Framework.Metadata;
+using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Agent.Extensions
 {

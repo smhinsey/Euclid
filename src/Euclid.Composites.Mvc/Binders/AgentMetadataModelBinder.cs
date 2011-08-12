@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Extensions;
 using Euclid.Composites.Mvc.Extensions;
-using Euclid.Framework.Metadata;
+using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Composites.Mvc.Binders
 {

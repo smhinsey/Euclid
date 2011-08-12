@@ -1,4 +1,4 @@
-﻿using Euclid.Framework.Metadata.Attributes;
+﻿using Euclid.Agent.Attributes;
 using Euclid.Sdk.FakeAgent.Commands;
 
 [assembly: AgentSystemName(Value = "FakeAgent")]

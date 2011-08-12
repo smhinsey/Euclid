@@ -1,4 +1,4 @@
-﻿using Euclid.Framework.Metadata.Attributes;
+﻿using Euclid.Agent.Attributes;
 using ForumAgent.Queries;
 
 [assembly: AgentName(Value = "Forum Agent")]

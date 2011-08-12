@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Euclid.Agent.Attributes;
+using Euclid.Framework.Agent.Attributes;
+using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Metadata;
-using Euclid.Framework.Metadata.Attributes;
 
 namespace Euclid.Agent.Extensions
 {
