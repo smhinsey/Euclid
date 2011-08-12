@@ -45,6 +45,12 @@
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.Core">
+      <HintPath>..\..\packages\Glimpse.0.84\lib\net40\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc3">
+      <HintPath>..\..\packages\Glimpse.Mvc3.0.84\lib\net40\Glimpse.Mvc3.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
@@ -88,6 +94,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
+    <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="Content\euclid-default-styles.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -158,35 +166,35 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Euclid.Agent\Euclid.Agent.csproj">
+    <ProjectReference Include="..\..\src\sdk\Euclid.Agent\Euclid.Agent.csproj">
       <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
       <Name>Euclid.Agent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
       <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>
       <Name>Euclid.Common.Storage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
+    <ProjectReference Include="..\..\src\sdk\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
       <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
       <Name>Euclid.Composites.Mvc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Composites\Euclid.Composites.csproj">
+    <ProjectReference Include="..\..\src\sdk\Euclid.Composites\Euclid.Composites.csproj">
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
       <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
       <Name>Euclid.Framework.Cqrs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Framework\Euclid.Framework.csproj">
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>

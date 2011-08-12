@@ -84,27 +84,27 @@
     <Compile Include="HostingFabric\FakeHostedService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Euclid.Agent\Euclid.Agent.csproj">
+    <ProjectReference Include="..\..\src\sdk\Euclid.Agent\Euclid.Agent.csproj">
       <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
       <Name>Euclid.Agent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
       <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>
       <Name>Euclid.Common.ServiceHost</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj">
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj">
       <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
       <Name>Euclid.Framework.Agent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Framework\Euclid.Framework.csproj">
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>

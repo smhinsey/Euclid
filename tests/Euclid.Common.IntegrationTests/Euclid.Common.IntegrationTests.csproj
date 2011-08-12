@@ -108,27 +108,27 @@
     <Compile Include="Transport\AzureTransportTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj">
       <Project>{BB6CE799-54E1-4019-B918-992DCD78480A}</Project>
       <Name>Euclid.Common.Messaging.Azure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj">
       <Project>{9190A42E-76B2-4315-9374-DF188D78881B}</Project>
       <Name>Euclid.Common.Storage.Azure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
       <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
       <Name>Euclid.Common.Storage.NHibernate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
       <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>
       <Name>Euclid.Common.Storage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>

@@ -92,19 +92,19 @@
     <Compile Include="Transport\FakeMessageProcessor2.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
       <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>
       <Name>Euclid.Common.ServiceHost</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Euclid.Common\Euclid.Common.csproj">
+    <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
