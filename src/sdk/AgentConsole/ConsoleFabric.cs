@@ -53,7 +53,7 @@ namespace AgentConsole
 				errorLineNo++;
 			}
 
-			errorForm.Render();
+			//errorForm.Render();
 		}
 
 		private string[] extractLinesAndWordWrap(string text)

@@ -85,6 +85,7 @@ namespace Euclid.Composites
 					(AllTypes.FromAssembly(agent.AgentAssembly)
 						.Where(Component.IsInNamespace(agent.Queries.Namespace))
 						.BasedOn(typeof(Framework.Cqrs.IQuery))
+						.Configure(component => component.LifeStyle.Transient)
 						.WithService.AllInterfaces().WithService.Self());
 		}
 

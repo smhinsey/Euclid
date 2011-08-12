@@ -1,20 +1,13 @@
 ﻿using Euclid.Agent.Attributes;
+using ForumAgent.Commands;
+using ForumAgent.Processors;
 using ForumAgent.Queries;
+using ForumAgent.ReadModels;
 
 [assembly: AgentName(Value = "Forum Agent")]
-[assembly: AgentSystemName(Value = "Forum")]
+[assembly: AgentSystemName(Value = "SocialRally.Forum")]
 
-// 3 examples of using the NamespaceFinder attribute class
-// used to by the composite during agent registration
-
-// hardcode agent namepsace
-
-[assembly: LocationOfCommands(Namespace = "ForumAgent.Commands")]
-
-// specify namespace by type
-
+[assembly: LocationOfCommands(NamespaceOfType = typeof(CommentOnPost))]
 [assembly: LocationOfQueries(NamespaceOfType = typeof (PostQueries))]
-
-// explicitly set namespace
-
-[assembly: LocationOfProcessors(Namespace = "ForumAgent.Processors")]
+[assembly: LocationOfProcessors(NamespaceOfType = typeof(PublishPostProcessor))]
+[assembly: LocationOfReadModels(NamespaceOfType = typeof(Category))]

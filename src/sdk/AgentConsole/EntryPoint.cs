@@ -8,7 +8,8 @@ using Euclid.Common.Storage.Azure;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
-using Euclid.Sdk.FakeAgent.Commands;
+using FluentNHibernate.Cfg.Db;
+using ForumAgent.Commands;
 using Microsoft.WindowsAzure;
 using log4net.Config;
 
@@ -30,7 +31,9 @@ namespace AgentConsole
 
 			try
 			{
-				composite.AddAgent(typeof (FakeCommand).Assembly);
+				composite.RegisterNh(SQLiteConfiguration.Standard.UsingFile("AgentConsoleDb"), true, false);
+
+				composite.AddAgent(typeof (CommentOnPost).Assembly);
 
 				composite.Configure(getCompositeSettings());
 
@@ -42,13 +45,14 @@ namespace AgentConsole
 
 				var publisher = container.Resolve<IPublisher>();
 
-				publisher.PublishMessage(new FakeCommand());
+				publisher.PublishMessage(new CommentOnPost());
 
 				Console.ReadLine();
 			}
 			catch (Exception e)
 			{
 				fabric.ShowError(e);
+				Console.ReadLine();
 			}
 		}
 
