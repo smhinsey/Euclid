@@ -23,9 +23,9 @@ namespace Euclid.Sdk.FakeAgent.Processors
 		{
 			this.WriteInfoMessage("Command no. {0} was processed by FakeCommandProcessor", message.Number);
 
-			var model = new FakeReadModel()
+			var model = new FakeReadModel
 			            	{
-											Identifier = new Guid(),
+			            		Identifier = new Guid(),
 			            		Number = message.Number
 			            	};
 
