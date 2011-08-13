@@ -7,6 +7,7 @@ using Castle.Windsor;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.Storage.Azure;
+using Euclid.Common.Storage.NHibernate;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
@@ -28,18 +29,31 @@ namespace Euclid.Sdk.IntegrationTests
 		{
 			var publisher = _container.Resolve<IPublisher>();
 
-			for (var i = 0; i < 1000; i++)
+			var publicationIds = new List<Guid>();
+
+			for (var i = 0; i < 10; i++)
 			{
-				publisher.PublishMessage(new FakeCommand() { Number = i});
+				var publicationId = publisher.PublishMessage(new FakeCommand {Number = i});
+
+				publicationIds.Add(publicationId);
 			}
 
-			Thread.Sleep(10000);
+			var registry = _container.Resolve<ICommandRegistry>();
+
+			Thread.Sleep(15000);
+
+			foreach (var publicationId in publicationIds)
+			{
+				var record = registry.GetRecord(publicationId);
+
+				Assert.IsTrue(record.Completed, "Publication record was marked complete.");
+			}
 		}
 
 		[SetUp]
 		public void SetUp()
 		{
-			BasicConfigurator.Configure();
+			XmlConfigurator.Configure();
 
 			_container = new WindsorContainer();
 
@@ -67,6 +81,7 @@ namespace Euclid.Sdk.IntegrationTests
 			var compositeAppSettings = new CompositeAppSettings();
 
 			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
 
 			return compositeAppSettings;
 		}

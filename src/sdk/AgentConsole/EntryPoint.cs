@@ -19,7 +19,7 @@ namespace AgentConsole
 	{
 		public static void Main(string[] args)
 		{
-			BasicConfigurator.Configure();
+			XmlConfigurator.Configure();
 
 			var container = new WindsorContainer();
 

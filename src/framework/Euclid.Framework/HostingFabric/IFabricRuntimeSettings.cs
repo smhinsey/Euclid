@@ -6,9 +6,9 @@ namespace Euclid.Framework.HostingFabric
 {
 	public interface IFabricRuntimeSettings : IOverridableSettings
 	{
-		IOverridableSettingList<Type> HostedServices { get; set; }
-		IOverridableSetting<Type> ServiceHost { get; set; }
-		IOverridableSetting<IMessageChannel> InputChannel { get; set; }
 		IOverridableSetting<IMessageChannel> ErrorChannel { get; set; }
+		IOverridableSettingList<Type> HostedServices { get; set; }
+		IOverridableSetting<IMessageChannel> InputChannel { get; set; }
+		IOverridableSetting<Type> ServiceHost { get; set; }
 	}
 }

@@ -162,10 +162,12 @@ namespace Euclid.Common.Messaging
 
 						 			//message handled, mark it in the publicationRegistry
 						 			_publicationRegistry.MarkAsComplete(record.Identifier);
+
+						 			this.WriteInfoMessage("Dispatched message {0} with id {1}.", message.GetType().Name, message.Identifier);
 						 		}
 						 		catch (Exception e)
 						 		{
-						 			this.WriteErrorMessage("An error occurred processing the message", e);
+						 			this.WriteErrorMessage("An error occurred processing message {0} with id {1}.", e, message.GetType().Name, message.Identifier);
 						 			_publicationRegistry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
 						 		}
 						 	});

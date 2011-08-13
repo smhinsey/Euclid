@@ -38,9 +38,9 @@ namespace Euclid.Framework.UnitTests.Metadata
 			Assert.NotNull(agentMetadata);
 			Assert.True(agentMetadata.IsValid);
 
-			TestAgentParts(agentMetadata.Commands, assembly, typeof(FakeCommand));
-			TestAgentParts(agentMetadata.Queries, assembly, typeof(FakeQuery));
-			TestAgentParts(agentMetadata.ReadModels, assembly, typeof(FakeReadModel));
+			TestAgentParts(agentMetadata.Commands, assembly, typeof (FakeCommand));
+			TestAgentParts(agentMetadata.Queries, assembly, typeof (FakeQuery));
+			TestAgentParts(agentMetadata.ReadModels, assembly, typeof (FakeReadModel));
 		}
 
 		[Test]

@@ -10,8 +10,8 @@ namespace Euclid.Composites
 	{
 		IList<IAgentMetadata> Agents { get; }
 		CompositeApplicationState State { get; set; }
-		void Configure(CompositeAppSettings compositeAppSettings);
 		void AddAgent(Assembly assembly);
+		void Configure(CompositeAppSettings compositeAppSettings);
 		void RegisterInputModel(IInputToCommandConverter converter);
 	}
 }

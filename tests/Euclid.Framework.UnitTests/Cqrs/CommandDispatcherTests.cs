@@ -39,29 +39,28 @@ namespace Euclid.Framework.UnitTests.Cqrs
 			var c = new WindsorContainer();
 
 			c.Register(
-					Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>());
+			           Component.For<ICommandDispatcher>().ImplementedBy<CommandDispatcher>());
 
 			c.Register(
-					Component.For<ICommandRegistry>().ImplementedBy<CommandRegistry>());
+			           Component.For<ICommandRegistry>().ImplementedBy<CommandRegistry>());
 
 			c.Register(
-					Component.For<IServiceLocator>().ImplementedBy<WindsorServiceLocator>());
+			           Component.For<IServiceLocator>().ImplementedBy<WindsorServiceLocator>());
 
 			c.Register(
-					Component.For<IWindsorContainer>().Instance(c));
+			           Component.For<IWindsorContainer>().Instance(c));
 
 			c.Register(
-					Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy<InMemoryCommandPublicationRecordMapper>());
+			           Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy<InMemoryCommandPublicationRecordMapper>());
 
 			c.Register(
-					Component.For<IBlobStorage>().ImplementedBy<InMemoryBlobStorage>());
+			           Component.For<IBlobStorage>().ImplementedBy<InMemoryBlobStorage>());
 
 			c.Register(
-					Component.For<IMessageSerializer>().ImplementedBy<JsonMessageSerializer>());
+			           Component.For<IMessageSerializer>().ImplementedBy<JsonMessageSerializer>());
 
 			var d = c.Resolve<ICommandDispatcher>();
 			Assert.NotNull(d);
-
 		}
 	}
 }

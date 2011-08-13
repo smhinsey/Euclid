@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Euclid.Framework.Cqrs;
 using Euclid.Framework.Cqrs.NHibernate;
 using Euclid.Framework.Models;
 using NHibernate;

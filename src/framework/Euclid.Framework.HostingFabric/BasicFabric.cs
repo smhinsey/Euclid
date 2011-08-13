@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
@@ -13,8 +12,6 @@ using Euclid.Common.Storage.Model;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Cqrs.NHibernate;
-using Microsoft.Practices.ServiceLocation;
 
 namespace Euclid.Framework.HostingFabric
 {
@@ -125,10 +122,9 @@ namespace Euclid.Framework.HostingFabric
 
 			Composite = composite;
 
-			Container.Register(Component.For(typeof(ISimpleRepository<>)).ImplementedBy(typeof(NhSimpleRepository<>)));
+			Container.Register(Component.For(typeof (ISimpleRepository<>)).ImplementedBy(typeof (NhSimpleRepository<>)));
 
 			extractProcessorsFromAgents();
-
 		}
 
 		private void extractProcessorsFromAgents()

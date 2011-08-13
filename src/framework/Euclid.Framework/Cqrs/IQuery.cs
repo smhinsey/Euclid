@@ -22,6 +22,5 @@ namespace Euclid.Framework.Cqrs
 
 	public interface IQuery : IAgentPart
 	{
-		
 	}
 }

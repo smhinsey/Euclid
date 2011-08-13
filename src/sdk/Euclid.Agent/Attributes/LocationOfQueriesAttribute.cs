@@ -9,8 +9,7 @@ namespace Euclid.Agent.Attributes
 	}
 
 	[AttributeUsage(AttributeTargets.Assembly)]
-	public class LocationOfReadModelsAttribute: NamespaceFinderAttribute
+	public class LocationOfReadModelsAttribute : NamespaceFinderAttribute
 	{
-		
 	}
 }

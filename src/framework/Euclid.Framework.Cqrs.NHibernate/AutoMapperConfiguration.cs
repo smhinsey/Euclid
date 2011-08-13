@@ -1,4 +1,5 @@
 using System;
+using Euclid.Common.Messaging;
 using Euclid.Framework.Models;
 using FluentNHibernate;
 using FluentNHibernate.Automapping;
@@ -14,7 +15,7 @@ namespace Euclid.Framework.Cqrs.NHibernate
 
 		public override bool ShouldMap(Type type)
 		{
-			return typeof(IReadModel).IsAssignableFrom(type);
+			return typeof (IReadModel).IsAssignableFrom(type) || typeof (IPublicationRecord).IsAssignableFrom(type);
 		}
 	}
 }

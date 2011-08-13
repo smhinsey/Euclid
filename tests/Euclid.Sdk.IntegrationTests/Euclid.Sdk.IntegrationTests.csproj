@@ -68,6 +68,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>..\..\packages\System.Data.SQLite.1.0.66.1\lib\System.Data.SQLite.DLL</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,6 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +101,10 @@
     <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj">
       <Project>{9190A42E-76B2-4315-9374-DF188D78881B}</Project>
       <Name>Euclid.Common.Storage.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
+      <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
+      <Name>Euclid.Common.Storage.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
