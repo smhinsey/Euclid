@@ -14,7 +14,7 @@ namespace Euclid.Common.Messaging
 			DurationOfDispatchingSlice = new OverridableSetting<TimeSpan>();
 
 			NumberOfMessagesToDispatchPerSlice.WithDefault(100);
-			DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:10"));
+			DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:01"));
 		}
 
 		public IOverridableSetting<TimeSpan> DurationOfDispatchingSlice { get; set; }

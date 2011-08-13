@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HostingFabricFixture.cs" />
     <Compile Include="HostingFabricTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
