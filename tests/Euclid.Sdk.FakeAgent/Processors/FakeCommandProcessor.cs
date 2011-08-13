@@ -1,4 +1,5 @@
-﻿using Euclid.Common.Logging;
+﻿using System;
+using Euclid.Common.Logging;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using Euclid.Sdk.FakeAgent.Commands;
@@ -24,6 +25,7 @@ namespace Euclid.Sdk.FakeAgent.Processors
 
 			var model = new FakeReadModel()
 			            	{
+											Identifier = new Guid(),
 			            		Number = message.Number
 			            	};
 
