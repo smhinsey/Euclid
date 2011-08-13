@@ -89,7 +89,7 @@ namespace Euclid.Common.Messaging
 
 		public void Disable()
 		{
-			DispatcherIsConfigured();
+			dispatcherIsConfigured();
 
 			// stop the input
 			_cancellationToken.Cancel();
@@ -107,7 +107,7 @@ namespace Euclid.Common.Messaging
 
 		public void Enable()
 		{
-			DispatcherIsConfigured();
+			dispatcherIsConfigured();
 
 			_inputChannel.Open();
 
@@ -117,10 +117,10 @@ namespace Euclid.Common.Messaging
 
 			this.WriteInfoMessage("Dispatcher enabled.");
 
-			_listenerTask = Task.Factory.StartNew(taskMethod => PollChannelForRecords(), _cancellationToken);
+			_listenerTask = Task.Factory.StartNew(taskMethod => pollChannelForRecords(), _cancellationToken);
 		}
 
-		private void DispatchMessage()
+		private void dispatchMessage()
 		{
 			var messages = _inputChannel
 				.ReceiveMany(CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value, CurrentSettings.DurationOfDispatchingSlice.Value);
@@ -173,7 +173,7 @@ namespace Euclid.Common.Messaging
 			}
 		}
 
-		private void DispatcherIsConfigured()
+		private void dispatcherIsConfigured()
 		{
 			if (!_configured)
 			{
@@ -181,11 +181,11 @@ namespace Euclid.Common.Messaging
 			}
 		}
 
-		private void PollChannelForRecords()
+		private void pollChannelForRecords()
 		{
 			while (!_cancellationToken.IsCancellationRequested)
 			{
-				Task.Factory.StartNew(dispatchTask => DispatchMessage(), _cancellationToken);
+				Task.Factory.StartNew(dispatchTask => dispatchMessage(), _cancellationToken);
 
 				Thread.Sleep((int) CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
 			}

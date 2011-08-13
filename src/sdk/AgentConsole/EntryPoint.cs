@@ -51,7 +51,6 @@ namespace AgentConsole
 			}
 			catch (Exception e)
 			{
-				fabric.ShowError(e);
 				Console.ReadLine();
 			}
 		}
