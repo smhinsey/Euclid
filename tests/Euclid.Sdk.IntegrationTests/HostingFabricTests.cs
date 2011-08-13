@@ -12,6 +12,7 @@ using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using Euclid.Sdk.FakeAgent.Commands;
+using Euclid.Sdk.FakeAgent.Queries;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.WindowsAzure;
 using NUnit.Framework;
@@ -25,7 +26,7 @@ namespace Euclid.Sdk.IntegrationTests
 		private ConsoleFabric _fabric;
 
 		[Test]
-		public void PublishManyCommands()
+		public void PublishProcessAndCompleteManyCommands()
 		{
 			var publisher = _container.Resolve<IPublisher>();
 
@@ -48,6 +49,24 @@ namespace Euclid.Sdk.IntegrationTests
 
 				Assert.IsTrue(record.Completed, "Publication record was marked complete.");
 			}
+		}
+
+		[Test]
+		public void PublishProcessAndVerifyCommandByQuery()
+		{
+			const int messageNumber = 134;
+
+			var publisher = _container.Resolve<IPublisher>();
+			var query = _container.Resolve<FakeQuery>();
+
+			publisher.PublishMessage(new FakeCommand {Number = messageNumber});
+
+			Thread.Sleep(15000);
+
+			var models = query.FindByNumber(messageNumber);
+
+			Assert.AreEqual(1, models.Count);
+			Assert.AreEqual(messageNumber, models[0].Number);
 		}
 
 		[SetUp]
