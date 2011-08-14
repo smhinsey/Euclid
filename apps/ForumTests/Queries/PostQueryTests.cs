@@ -3,7 +3,7 @@ using ForumAgent.ReadModels;
 using NHibernate;
 using NUnit.Framework;
 
-namespace ForumTests.IntegrationTests
+namespace ForumTests.Queries
 {
 	public class PostQueryTests : NhTestFixture
 	{

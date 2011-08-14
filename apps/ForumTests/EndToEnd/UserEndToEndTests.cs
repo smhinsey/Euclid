@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace ForumTests.UnitTests
+namespace ForumTests.EndToEnd
 {
 	public class UserCommandTests
 	{

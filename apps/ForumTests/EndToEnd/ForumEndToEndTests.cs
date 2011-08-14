@@ -4,7 +4,7 @@ using ForumAgent.Commands;
 using ForumAgent.Queries;
 using NUnit.Framework;
 
-namespace ForumTests.UnitTests
+namespace ForumTests.EndToEnd
 {
 	public class ForumCommandTests : HostingFabricFixture
 	{
@@ -26,7 +26,7 @@ namespace ForumTests.UnitTests
 
 			var post = query.FindByTitle(postTitle);
 
-			publisher.PublishMessage(new CommentOnPost() { PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody});
+			publisher.PublishMessage(new CommentOnPost { PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody});
 
 			Thread.Sleep(5000);
 
@@ -75,7 +75,7 @@ namespace ForumTests.UnitTests
 
 			var post = query.FindByTitle(postTitle);
 
-			publisher.PublishMessage(new CommentOnPost() { PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody });
+			publisher.PublishMessage(new CommentOnPost { PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody });
 
 			Thread.Sleep(5000);
 
@@ -83,7 +83,7 @@ namespace ForumTests.UnitTests
 
 			var comments = anotherQuery.FindCommentsBelongingToPost(post.Identifier);
 
-			publisher.PublishMessage(new VoteOnComment() { CommentIdentifier = comments[0].Identifier, VoteUp = true});
+			publisher.PublishMessage(new VoteOnComment { CommentIdentifier = comments[0].Identifier, VoteUp = true});
 
 			Thread.Sleep(5000);
 
@@ -111,7 +111,7 @@ namespace ForumTests.UnitTests
 
 			Assert.AreEqual(0, post.Score);
 
-			publisher.PublishMessage(new VoteOnPost() { PostIdentifier = post.Identifier, VoteUp = true });
+			publisher.PublishMessage(new VoteOnPost { PostIdentifier = post.Identifier, VoteUp = true });
 
 			Thread.Sleep(5000);
 

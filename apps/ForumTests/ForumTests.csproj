@@ -83,10 +83,10 @@
     <Compile Include="HostingFabricFixture.cs" />
     <Compile Include="NhTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTests\ForumCommandTests.cs" />
-    <Compile Include="IntegrationTests\PostQueryTests.cs" />
-    <Compile Include="UnitTests\UserCommandTests.cs" />
-    <Compile Include="IntegrationTests\UserQueryTests.cs" />
+    <Compile Include="EndToEnd\ForumEndToEndTests.cs" />
+    <Compile Include="Queries\PostQueryTests.cs" />
+    <Compile Include="EndToEnd\UserEndToEndTests.cs" />
+    <Compile Include="Queries\UserQueryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
