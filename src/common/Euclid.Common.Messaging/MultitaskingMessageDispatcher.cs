@@ -71,7 +71,7 @@ namespace Euclid.Common.Messaging
 
 			_messageProcessors = new List<IMessageProcessor>();
 
-			foreach (var type in settings.MessageProcessorTypes.Value)
+			foreach (var type in CurrentSettings.MessageProcessorTypes.Value)
 			{
 				var processor = _container.GetInstance(type) as IMessageProcessor;
 
@@ -136,6 +136,7 @@ namespace Euclid.Common.Messaging
 				}
 
 				var message = _publicationRegistry.GetMessage(record.MessageLocation, record.MessageType);
+
 				var processors = _messageProcessors.Where(x => x.CanProcessMessage(message));
 
 				if (processors.Count() == 0)
@@ -149,7 +150,8 @@ namespace Euclid.Common.Messaging
 
 				foreach (var messageProcessor in processors)
 				{
-					var processor = messageProcessor;
+					var processor = _container.GetInstance(messageProcessor.GetType());
+
 					Task.Factory.StartNew
 						(() =>
 						 	{

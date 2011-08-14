@@ -13,7 +13,7 @@ namespace Euclid.Common.Messaging
 			NumberOfMessagesToDispatchPerSlice = new OverridableSetting<int>();
 			DurationOfDispatchingSlice = new OverridableSetting<TimeSpan>();
 
-			NumberOfMessagesToDispatchPerSlice.WithDefault(100);
+			NumberOfMessagesToDispatchPerSlice.WithDefault(32);
 			DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:01"));
 		}
 

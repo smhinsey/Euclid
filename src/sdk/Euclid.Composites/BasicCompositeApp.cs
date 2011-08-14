@@ -86,12 +86,14 @@ namespace Euclid.Composites
 
 			Agents.Add(agent);
 
+			// SELF the Where call below changes the meaning of the rest of the registration so it had to be removed
+
 			Container.Register
 				(AllTypes.FromAssembly(agent.AgentAssembly)
-				 	.Where(Component.IsInNamespace(agent.Queries.Namespace))
+					//.Where(Component.IsInNamespace(agent.Queries.Namespace))
 				 	.BasedOn(typeof (IQuery))
-				 	.Configure(component => component.LifeStyle.Transient)
-				 	.WithService.AllInterfaces().WithService.Self());
+					.WithService.Self()
+				 	.Configure(component => component.LifeStyle.Transient));
 		}
 
 		public void RegisterInputModel(IInputToCommandConverter converter)
@@ -131,7 +133,7 @@ namespace Euclid.Composites
 			                   	                    	.Mappings(map => mapAllAssemblies(map))
 			                   	                    	.ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, buildSchema))
 			                   	                    	.BuildSessionFactory()
-			                   	).LifeStyle.Is(lifestyleType));
+			                   	).LifeStyle.Singleton);
 
 			// jt: open session should be read-only
 			Container.Register(
@@ -145,28 +147,28 @@ namespace Euclid.Composites
 		{
 			Container.Register(Component.For<IPublisher>()
 			                   	.ImplementedBy(compositeAppSettings.Publisher.Value)
-			                   	.LifeStyle.Singleton);
+													.LifeStyle.Transient);
 
 			Container.Register(Component.For<IMessageChannel>()
 			                   	.ImplementedBy(compositeAppSettings.MessageChannel.Value)
-			                   	.LifeStyle.Singleton);
+													.LifeStyle.Transient);
 
 			Container.Register(Component.For<IRecordMapper<CommandPublicationRecord>>()
 			                   	.ImplementedBy(compositeAppSettings.CommandPublicationRecordMapper.Value)
-			                   	.LifeStyle.Singleton);
+			                   	.LifeStyle.Transient);
 
 			Container.Register(Component.For<IBlobStorage>()
 			                   	.ImplementedBy(compositeAppSettings.BlobStorage.Value)
-			                   	.LifeStyle.Singleton);
+													.LifeStyle.Transient);
 
 			Container.Register(Component.For<IMessageSerializer>()
 			                   	.ImplementedBy(compositeAppSettings.MessageSerializer.Value)
-			                   	.LifeStyle.Singleton);
+													.LifeStyle.Transient);
 
 			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord>>()
 			                   	.Forward<ICommandRegistry>()
 			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
-			                   	.LifeStyle.Singleton);
+													.LifeStyle.Transient);
 		}
 
 		private MappingConfiguration mapAllAssemblies(MappingConfiguration mcfg)

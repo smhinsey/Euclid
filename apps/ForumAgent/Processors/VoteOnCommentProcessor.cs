@@ -5,7 +5,7 @@ using ForumAgent.ReadModels;
 
 namespace ForumAgent.Processors
 {
-	public class VoteOnCommentProcessor : DefaultCommandProcessor<VoteOnPost>
+	public class VoteOnCommentProcessor : DefaultCommandProcessor<VoteOnComment>
 	{
 		private readonly ISimpleRepository<Comment> _repository;
 
@@ -14,7 +14,7 @@ namespace ForumAgent.Processors
 			_repository = repository;
 		}
 
-		public override void Process(VoteOnPost message)
+		public override void Process(VoteOnComment message)
 		{
 			var comment = _repository.FindById(message.PostIdentifier);
 

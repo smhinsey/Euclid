@@ -43,7 +43,28 @@ namespace ForumTests.UnitTests
 		[Test]
 		public void TestVoteOnPost()
 		{
-			Assert.Inconclusive();
+			const string postTitle = "Post Title";
+			const string postBody = "Lorem ipsum dolor sit amet consecutator.";
+
+			var publisher = Container.Resolve<IPublisher>();
+			var query = Container.Resolve<PostQueries>();
+
+			publisher.PublishMessage(new PublishPost { Title = postTitle, Body = postBody });
+
+			Thread.Sleep(5000);
+
+			var post = query.FindByTitle(postTitle);
+
+			Assert.AreEqual(0, post.Score);
+
+			publisher.PublishMessage(new VoteOnPost() { PostIdentifier = post.Identifier, VoteUp = true });
+
+			Thread.Sleep(5000);
+			var anotherQuery = Container.Resolve<PostQueries>();
+
+			var postCopy = anotherQuery.FindByTitle(postTitle);
+
+			Assert.AreEqual(1, postCopy.Score);
 		}
 	}
 }
