@@ -4,6 +4,7 @@ using AgentConsole;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging;
+using Euclid.Common.Messaging.Azure;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.Storage.Azure;
 using Euclid.Common.Storage.NHibernate;
@@ -36,7 +37,7 @@ namespace Euclid.Sdk.IntegrationTests
 
 			var composite = new BasicCompositeApp(Container);
 
-			composite.RegisterNh(SQLiteConfiguration.Standard.UsingFile("AgentConsoleDb"), true, false);
+			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
 			composite.AddAgent(typeof (FakeCommand).Assembly);
 
@@ -53,6 +54,7 @@ namespace Euclid.Sdk.IntegrationTests
 		{
 			var compositeAppSettings = new CompositeAppSettings();
 
+			compositeAppSettings.MessageChannel.WithDefault(typeof(AzureMessageChannel));
 			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
 			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
 
@@ -66,8 +68,10 @@ namespace Euclid.Sdk.IntegrationTests
 			fabricSettings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
 			fabricSettings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
 
-			fabricSettings.InputChannel.WithDefault(new InMemoryMessageChannel());
-			fabricSettings.ErrorChannel.WithDefault(new InMemoryMessageChannel());
+			var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
+
+			fabricSettings.InputChannel.WithDefault(messageChannel);
+			fabricSettings.ErrorChannel.WithDefault(messageChannel);
 
 			return fabricSettings;
 		}

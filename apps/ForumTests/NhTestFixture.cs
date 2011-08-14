@@ -11,6 +11,7 @@ using NUnit.Framework;
 
 namespace ForumTests
 {
+	// SELF this needs to be put somewhere else, but i'm not sure it really goes in Common, which is the "logical" place
 	public class NhTestFixture
 	{
 		protected ISessionFactory SessionFactory;

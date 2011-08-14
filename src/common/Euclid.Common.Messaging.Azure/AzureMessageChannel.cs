@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 using Euclid.Common.Extensions;
 using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.StorageClient;
 
 namespace Euclid.Common.Messaging.Azure
@@ -47,8 +49,10 @@ namespace Euclid.Common.Messaging.Azure
 				if (_queue == null)
 				{
 					CreateQueue(ChannelName);
-					State = ChannelState.Open;
 				}
+
+				State = ChannelState.Open;
+
 			}
 
 			return State;
@@ -116,6 +120,18 @@ namespace Euclid.Common.Messaging.Azure
 
 		private static void CreateQueue(string channelName)
 		{
+			CloudStorageAccount.SetConfigurationSettingPublisher
+		((configurationKey, publishConfigurationValue) =>
+		{
+			var connectionString =
+				RoleEnvironment.IsAvailable
+					? RoleEnvironment.GetConfigurationSettingValue
+							(configurationKey)
+					: ConfigurationManager.AppSettings[configurationKey];
+
+			publishConfigurationValue(connectionString);
+		});
+
 			var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
 			var queueClient = storageAccount.CreateCloudQueueClient();
 

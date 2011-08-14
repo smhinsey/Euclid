@@ -143,7 +143,7 @@ namespace Euclid.Common.Storage.NHibernate
 				try
 				{
 					session.Update(model);
-
+			
 					transaction.Commit();
 				}
 				catch (Exception)

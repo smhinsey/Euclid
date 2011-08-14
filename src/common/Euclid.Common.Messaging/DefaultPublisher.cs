@@ -21,6 +21,7 @@ namespace Euclid.Common.Messaging
 			}
 
 			var record = _publicationRegistry.CreateRecord(message);
+
 			_channel.Send(record);
 
 			return record.Identifier;

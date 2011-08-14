@@ -17,7 +17,7 @@ namespace ForumAgent.Queries
 			var session = GetCurrentSession();
 
 			var categories = session.QueryOver<Category>()
-				.Where(x => x.ParentCategoryIdentifier == Guid.Empty);
+				.Where(category => category.ParentCategoryIdentifier == Guid.Empty);
 
 			return categories.List();
 		}

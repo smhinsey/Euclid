@@ -1,4 +1,5 @@
-﻿using Euclid.Common.Storage.Model;
+﻿using System;
+using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
 using ForumAgent.ReadModels;
@@ -21,7 +22,9 @@ namespace ForumAgent.Processors
 			              		AuthorIdentifier = message.AuthorIdentifier,
 			              		Body = message.Body,
 			              		PostIdentifier = message.PostIdentifier,
-			              		Score = 0
+			              		Score = 0,
+												Created = DateTime.Now,
+												Modified = DateTime.Now
 			              	};
 
 			_repository.Save(comment);

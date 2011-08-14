@@ -18,9 +18,21 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public TRecord Create(TRecord record)
 		{
-			_session.Save(record);
+			using (var transaction = _session.BeginTransaction())
+			{
+				try
+				{
+					_session.Save(record);
+				}
+				catch (Exception e)
+				{
+					transaction.Rollback();
 
-			_session.Flush();
+					throw;
+				}
+
+				transaction.Commit();
+			}
 
 			return record;
 		}
@@ -29,12 +41,27 @@ namespace Euclid.Common.Storage.NHibernate
 		{
 			var record = Retrieve(id);
 
-			if (record == null)
+			using (var transaction = _session.BeginTransaction())
 			{
-				throw new KeyNotFoundException();
-			}
+				try
+				{
 
-			_session.Delete(record);
+					if (record == null)
+					{
+						throw new KeyNotFoundException();
+					}
+
+					_session.Delete(record);
+				}
+				catch (Exception e)
+				{
+					transaction.Rollback();
+
+					throw;
+				}
+
+				transaction.Commit();
+			}
 
 			return record;
 		}
@@ -46,7 +73,21 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public TRecord Update(TRecord record)
 		{
-			_session.Update(record, record.Identifier);
+			using (var transaction = _session.BeginTransaction())
+			{
+				try
+				{
+					_session.Update(record, record.Identifier);
+				}
+				catch (Exception e)
+				{
+					transaction.Rollback();
+
+					throw;
+				}
+
+				transaction.Commit();
+			}
 
 			return Retrieve(record.Identifier);
 		}
