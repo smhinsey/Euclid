@@ -1,4 +1,6 @@
-﻿using Euclid.Framework.Cqrs.NHibernate;
+﻿using System;
+using System.Collections.Generic;
+using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.ReadModels;
 using NHibernate;
 
@@ -10,14 +12,14 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public Comment FindByTitle(string title)
+		public IList<Comment> FindCommentsBelongingToPost(Guid postId)
 		{
 			var session = GetCurrentSession();
 
-			var posts = session.QueryOver<Comment>()
-				.Where(post => post.Title == title);
+			var categories = session.QueryOver<Comment>()
+				.Where(comment => comment.PostIdentifier == postId);
 
-			return posts.SingleOrDefault();
+			return categories.List();
 		}
 	}
 }

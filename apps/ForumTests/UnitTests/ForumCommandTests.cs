@@ -11,7 +11,30 @@ namespace ForumTests.UnitTests
 		[Test]
 		public void TestCommentOnPost()
 		{
-			Assert.Inconclusive();
+			const string postTitle = "Post Title";
+			const string postBody = "Lorem ipsum dolor sit amet consecutator.";
+
+			const string commentTitle = "Comment Title";
+			const string commentBody = "Lorem ipsum dolor sit amet consecutator.";
+
+			var publisher = Container.Resolve<IPublisher>();
+			var query = Container.Resolve<PostQueries>();
+
+			publisher.PublishMessage(new PublishPost { Title = postTitle, Body = postBody });
+
+			Thread.Sleep(5000);
+
+			var post = query.FindByTitle(postTitle);
+
+			publisher.PublishMessage(new CommentOnPost() { PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody});
+
+			Thread.Sleep(5000);
+
+			var anotherQuery = Container.Resolve<CommentQueries>();
+
+			var comments = anotherQuery.FindCommentsBelongingToPost(post.Identifier);
+
+			Assert.AreEqual(1, comments.Count);
 		}
 
 		[Test]
@@ -37,7 +60,38 @@ namespace ForumTests.UnitTests
 		[Test]
 		public void TestVoteOnComment()
 		{
-			Assert.Inconclusive();
+			const string postTitle = "Post Title";
+			const string postBody = "Lorem ipsum dolor sit amet consecutator.";
+
+			const string commentTitle = "Comment Title";
+			const string commentBody = "Lorem ipsum dolor sit amet consecutator.";
+
+			var publisher = Container.Resolve<IPublisher>();
+			var query = Container.Resolve<PostQueries>();
+
+			publisher.PublishMessage(new PublishPost { Title = postTitle, Body = postBody });
+
+			Thread.Sleep(5000);
+
+			var post = query.FindByTitle(postTitle);
+
+			publisher.PublishMessage(new CommentOnPost() { PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody });
+
+			Thread.Sleep(5000);
+
+			var anotherQuery = Container.Resolve<CommentQueries>();
+
+			var comments = anotherQuery.FindCommentsBelongingToPost(post.Identifier);
+
+			publisher.PublishMessage(new VoteOnComment() { CommentIdentifier = comments[0].Identifier, VoteUp = true});
+
+			Thread.Sleep(5000);
+
+			var yetAnotherQuery = Container.Resolve<CommentQueries>();
+
+			var comment = yetAnotherQuery.FindById(comments[0].Identifier);
+
+			Assert.AreEqual(1, comment.Score);
 		}
 
 		[Test]
@@ -60,6 +114,7 @@ namespace ForumTests.UnitTests
 			publisher.PublishMessage(new VoteOnPost() { PostIdentifier = post.Identifier, VoteUp = true });
 
 			Thread.Sleep(5000);
+
 			var anotherQuery = Container.Resolve<PostQueries>();
 
 			var postCopy = anotherQuery.FindByTitle(postTitle);

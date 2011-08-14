@@ -16,7 +16,7 @@ namespace ForumAgent.Processors
 
 		public override void Process(VoteOnComment message)
 		{
-			var comment = _repository.FindById(message.PostIdentifier);
+			var comment = _repository.FindById(message.CommentIdentifier);
 
 			if (message.VoteUp)
 			{

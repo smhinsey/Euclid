@@ -17,9 +17,9 @@ namespace ForumAgent.Queries
 			var session = GetCurrentSession();
 
 			var category = session.QueryOver<User>()
-				.Where(x => x.PasswordHash == password)
-				.Where(x => x.PasswordSalt == password)
-				.Where(x => x.Username == username);
+				.Where(user => user.PasswordHash == password)
+				.Where(user => user.PasswordSalt == password)
+				.Where(user => user.Username == username);
 
 			return category != null;
 		}
