@@ -79,6 +79,8 @@ namespace ForumTests
 
 		private void setAzureCredentials(IWindsorContainer container)
 		{
+			// as soon as we can stop using the azure storage emulator we should
+
 			var storageAccount = new CloudStorageAccount(CloudStorageAccount.DevelopmentStorageAccount.Credentials,
 			                                             CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
 			                                             CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
