@@ -11,15 +11,25 @@ namespace ForumAgent.Queries
 		{
 		}
 
+		public Post FindByTitle(string title)
+		{
+			var session = GetCurrentSession();
+
+			var posts = session.QueryOver<Post>()
+				.Where(post => post.Title == title);
+
+			return posts.SingleOrDefault();
+		}
+
 		public IList<Post> FindPostsByCategory(string name)
 		{
 			var session = GetCurrentSession();
 
 			var category = session.QueryOver<Category>()
-				.Where(x => x.Name == name).SingleOrDefault();
+				.Where(cat => cat.Name == name).SingleOrDefault();
 
 			var posts = session.QueryOver<Post>()
-				.Where(x => x.CategoryIdentifier == category.Identifier);
+				.Where(post => post.CategoryIdentifier == category.Identifier);
 
 			return posts.List();
 		}

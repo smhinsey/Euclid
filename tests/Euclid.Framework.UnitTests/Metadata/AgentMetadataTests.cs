@@ -7,6 +7,7 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 using Euclid.Sdk.FakeAgent.Commands;
 using Euclid.Sdk.FakeAgent.Queries;
+using Euclid.Sdk.FakeAgent.ReadModels;
 using NUnit.Framework;
 
 namespace Euclid.Framework.UnitTests.Metadata
@@ -14,7 +15,7 @@ namespace Euclid.Framework.UnitTests.Metadata
 	[TestFixture]
 	public class AgentMetadataTests
 	{
-		private void TestAgentParts(IAgentPartMetadataCollection partMetadataCollection, Assembly agent, Type testType)
+		private void testAgentParts(IAgentPartMetadataCollection partMetadataCollection, Assembly agent, Type testType)
 		{
 			Assert.NotNull(partMetadataCollection);
 			Assert.GreaterOrEqual(partMetadataCollection.Count(), 1);
@@ -38,9 +39,9 @@ namespace Euclid.Framework.UnitTests.Metadata
 			Assert.NotNull(agentMetadata);
 			Assert.True(agentMetadata.IsValid);
 
-			TestAgentParts(agentMetadata.Commands, assembly, typeof(FakeCommand));
-			TestAgentParts(agentMetadata.Queries, assembly, typeof(FakeQuery));
-			TestAgentParts(agentMetadata.ReadModels, assembly, typeof(FakeReadModel));
+			testAgentParts(agentMetadata.Commands, assembly, typeof (FakeCommand));
+			testAgentParts(agentMetadata.Queries, assembly, typeof (FakeQuery));
+			testAgentParts(agentMetadata.ReadModels, assembly, typeof (FakeReadModel));
 		}
 
 		[Test]

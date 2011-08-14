@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Euclid.Common.Logging;
 using Euclid.Common.Storage.Model;
 using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate
 {
-	public class NhSimpleRepository<TModel> : NhSessionConsumer, ISimpleRepository<TModel>
+	public class NhSimpleRepository<TModel> : NhSessionConsumer, ISimpleRepository<TModel>, ILoggingSource
 		where TModel : class, IModel
 	{
 		public NhSimpleRepository(ISession session) : base(session)
@@ -117,10 +118,14 @@ namespace Euclid.Common.Storage.NHibernate
 					session.Save(model);
 
 					transaction.Commit();
+
+					this.WriteDebugMessage(string.Format("Saved model id {0}", model.Identifier));
 				}
 				catch (Exception)
 				{
 					transaction.Rollback();
+
+					this.WriteWarnMessage(string.Format("Failed to save model id {0}", model.Identifier));
 
 					throw;
 				}

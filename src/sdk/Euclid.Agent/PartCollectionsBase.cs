@@ -6,7 +6,6 @@ using System.Reflection;
 using Euclid.Agent.Commands;
 using Euclid.Agent.Extensions;
 using Euclid.Framework.Agent.Metadata;
-using Euclid.Framework.Cqrs;
 
 namespace Euclid.Agent
 {
@@ -66,6 +65,37 @@ namespace Euclid.Agent
 			return _internal.GetEnumerator();
 		}
 
+		public ITypeMetadata GetMetadata<TImplementationType>() where TImplementationType : IAgentPart
+		{
+			return GetMetadata(typeof (TImplementationType));
+		}
+
+		public ITypeMetadata GetMetadata(Type agentPartImplementationType)
+		{
+			var metadata = this.Where(x =>
+			                          x.Namespace == agentPartImplementationType.Namespace &&
+			                          x.Name == agentPartImplementationType.Name).FirstOrDefault();
+
+			if (metadata == null)
+			{
+				throw new PartNotRegisteredException(agentPartImplementationType);
+			}
+
+			return metadata;
+		}
+
+		public ITypeMetadata GetMetadata(string agentPartImplementationName)
+		{
+			var partImplementationType = this.Where(m => m.Name == agentPartImplementationName).Select(m => m.Type).FirstOrDefault();
+
+			if (partImplementationType == null)
+			{
+				throw new PartNotRegisteredException(agentPartImplementationName, Namespace);
+			}
+
+			return GetMetadata(partImplementationType);
+		}
+
 		public int IndexOf(ITypeMetadata item)
 		{
 			return _internal.IndexOf(item);
@@ -74,6 +104,26 @@ namespace Euclid.Agent
 		public void Insert(int index, ITypeMetadata item)
 		{
 			_internal.Insert(index, item);
+		}
+
+		public bool Registered(string agentPartImplementationName)
+		{
+			return this.Where(p => p.Name == agentPartImplementationName).Any();
+		}
+
+		public bool Registered<TImplementationType>()
+		{
+			return Registered(typeof (TImplementationType));
+		}
+
+		public bool Registered(Type agentPartImplementationType)
+		{
+			guardAgentPart(agentPartImplementationType);
+
+			return this.Where(x =>
+			                  x.Namespace == agentPartImplementationType.Namespace &&
+			                  x.Name == agentPartImplementationType.Name)
+				.Any();
 		}
 
 		public bool Remove(ITypeMetadata item)
@@ -106,57 +156,6 @@ namespace Euclid.Agent
 			return GetEnumerator();
 		}
 
-		public ITypeMetadata GetMetadata<TImplementationType>() where TImplementationType : IAgentPart
-		{
-			return GetMetadata(typeof(TImplementationType));
-		}
-
-		public ITypeMetadata GetMetadata(Type agentPartImplementationType)
-		{
-			var metadata = this.Where(x =>
-																x.Namespace == agentPartImplementationType.Namespace &&
-																x.Name == agentPartImplementationType.Name).FirstOrDefault();
-
-			if (metadata == null)
-			{
-				throw new PartNotRegisteredException(agentPartImplementationType);
-			}
-
-			return metadata;
-		}
-
-		public ITypeMetadata GetMetadata(string agentPartImplementationName)
-		{
-			var partImplementationType = this.Where(m => m.Name == agentPartImplementationName).Select(m => m.Type).FirstOrDefault();
-
-			if (partImplementationType == null)
-			{
-				throw new PartNotRegisteredException(agentPartImplementationName, Namespace);
-			}
-
-			return GetMetadata(partImplementationType);
-		}
-
-		public bool Registered(string agentPartImplementationName)
-		{
-			return this.Where(p => p.Name == agentPartImplementationName).Any();
-		}
-
-		public bool Registered<TImplementationType>()
-		{
-			return Registered(typeof(TImplementationType));
-		}
-
-		public bool Registered(Type agentPartImplementationType)
-		{
-			guardAgentPart(agentPartImplementationType);
-
-			return this.Where(x =>
-												x.Namespace == agentPartImplementationType.Namespace &&
-												x.Name == agentPartImplementationType.Name)
-				.Any();
-		}
-
 		private void guardAgentPart(Type agentPartImplementationType)
 		{
 			if (agentPartImplementationType == null)
@@ -164,7 +163,7 @@ namespace Euclid.Agent
 				throw new ArgumentNullException("agentPartImplementationType");
 			}
 
-			if (!typeof(TAgentPart).IsAssignableFrom(agentPartImplementationType))
+			if (!typeof (TAgentPart).IsAssignableFrom(agentPartImplementationType))
 			{
 				throw new InvalidAgentPartImplementationException(agentPartImplementationType);
 			}

@@ -20,7 +20,7 @@ namespace Euclid.Agent.Extensions
 			                          		typeof (LocationOfCommandsAttribute),
 			                          		typeof (LocationOfQueriesAttribute),
 			                          		typeof (LocationOfProcessorsAttribute),
-																		typeof (LocationOfReadModelsAttribute)
+			                          		typeof (LocationOfReadModelsAttribute)
 			                          	};
 
 			var attributes = assembly.GetCustomAttributes(false).Where(attr => attr.GetType().GetInterface(typeof (IAgentAttribute).Name) != null).Select(x => x.GetType()).ToList();

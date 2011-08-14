@@ -10,6 +10,7 @@ using Euclid.Agent;
 using Euclid.Agent.Extensions;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Binary;
+using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.Storage.Record;
 using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Conversion;
@@ -22,6 +23,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
+using IQuery = Euclid.Framework.Cqrs.IQuery;
 
 namespace Euclid.Composites
 {
@@ -48,6 +50,8 @@ namespace Euclid.Composites
 
 		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
 
+		protected CompositeAppSettings Settings { get; set; }
+
 		public virtual void Configure(CompositeAppSettings compositeAppSettings)
 		{
 			Container.Kernel.Resolver.AddSubResolver(new ArrayResolver(Container.Kernel));
@@ -61,6 +65,7 @@ namespace Euclid.Composites
 			                   	.Instance(InputModelTransformers)
 			                   	.LifeStyle.Singleton);
 
+			Settings = compositeAppSettings;
 			State = CompositeApplicationState.Configured;
 		}
 
@@ -82,11 +87,11 @@ namespace Euclid.Composites
 			Agents.Add(agent);
 
 			Container.Register
-					(AllTypes.FromAssembly(agent.AgentAssembly)
-						.Where(Component.IsInNamespace(agent.Queries.Namespace))
-						.BasedOn(typeof(Framework.Cqrs.IQuery))
-						.Configure(component => component.LifeStyle.Transient)
-						.WithService.AllInterfaces().WithService.Self());
+				(AllTypes.FromAssembly(agent.AgentAssembly)
+				 	.Where(Component.IsInNamespace(agent.Queries.Namespace))
+				 	.BasedOn(typeof (IQuery))
+				 	.Configure(component => component.LifeStyle.Transient)
+				 	.WithService.AllInterfaces().WithService.Self());
 		}
 
 		public void RegisterInputModel(IInputToCommandConverter converter)
@@ -111,6 +116,29 @@ namespace Euclid.Composites
 			}
 
 			InputModelTransformers.Add(commandMetadata.Name, converter);
+		}
+
+		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
+		{
+			var lifestyleType = (isWeb) ? LifestyleType.PerWebRequest : LifestyleType.Transient;
+
+			Container.Register(
+			                   Component.For<ISessionFactory>()
+			                   	.UsingFactoryMethod(() =>
+			                   	                    Fluently
+			                   	                    	.Configure()
+			                   	                    	.Database(databaseConfiguration)
+			                   	                    	.Mappings(map => mapAllAssemblies(map))
+			                   	                    	.ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, buildSchema))
+			                   	                    	.BuildSessionFactory()
+			                   	).LifeStyle.Is(lifestyleType));
+
+			// jt: open session should be read-only
+			Container.Register(
+			                   Component.For<ISession>()
+			                   	.UsingFactoryMethod(
+			                   	                    () => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(lifestyleType)
+				);
 		}
 
 		protected void RegisterConfiguredTypes(CompositeAppSettings compositeAppSettings)
@@ -141,34 +169,16 @@ namespace Euclid.Composites
 			                   	.LifeStyle.Singleton);
 		}
 
-		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
+		private MappingConfiguration mapAllAssemblies(MappingConfiguration mcfg)
 		{
-			var lifestyleType = (isWeb) ? LifestyleType.PerWebRequest : LifestyleType.Transient;
-
-			Container.Register(
-				Component.For<ISessionFactory>()
-					.UsingFactoryMethod(() =>
-						Fluently
-							.Configure()
-								.Database(databaseConfiguration)
-								.Mappings(map => MapAllAssemblies(map))
-							.ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, buildSchema))
-							.BuildSessionFactory()
-						).LifeStyle.Is(lifestyleType));
-
-			// jt: open session should be read-only
-			Container.Register(
-				Component.For<ISession>()
-					.UsingFactoryMethod(
-						() => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(lifestyleType)
-				);
-		}
-
-		private MappingConfiguration MapAllAssemblies(MappingConfiguration mcfg)
-		{
-			var readModelNhMapping = new AutoMapperConfiguration();
+			var autoMapperConfiguration = new AutoMapperConfiguration();
 
 			var assembliesToMap = new Dictionary<Assembly, Assembly>();
+
+			if (Settings.CommandPublicationRecordMapper.Value == typeof (NhRecordMapper<CommandPublicationRecord>))
+			{
+				mcfg.AutoMappings.Add(AutoMap.AssemblyOf<CommandPublicationRecord>(autoMapperConfiguration));
+			}
 
 			foreach (var agent in Agents)
 			{
@@ -182,9 +192,9 @@ namespace Euclid.Composites
 				}
 			}
 
-			foreach(var agent in assembliesToMap.Keys)
+			foreach (var agent in assembliesToMap.Keys)
 			{
-				mcfg.AutoMappings.Add(AutoMap.Assembly(agent, readModelNhMapping).IgnoreBase<DefaultReadModel>());
+				mcfg.AutoMappings.Add(AutoMap.Assembly(agent, autoMapperConfiguration).IgnoreBase<DefaultReadModel>());
 			}
 
 			return mcfg;

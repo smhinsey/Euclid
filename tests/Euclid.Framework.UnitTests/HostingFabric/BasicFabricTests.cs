@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.ServiceHost;
 using Euclid.Framework.HostingFabric;
 using Euclid.Framework.TestingFakes.HostingFabric;
