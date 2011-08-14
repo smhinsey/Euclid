@@ -8,6 +8,8 @@ namespace ForumTests.EndToEnd
 {
 	public class ForumCommandTests : HostingFabricFixture
 	{
+		private const int SleepForCommand = 1000;
+
 		[Test]
 		public void TestCommentOnPost()
 		{
@@ -18,17 +20,18 @@ namespace ForumTests.EndToEnd
 			const string commentBody = "Lorem ipsum dolor sit amet consecutator.";
 
 			var publisher = Container.Resolve<IPublisher>();
-			var query = Container.Resolve<PostQueries>();
 
 			publisher.PublishMessage(new PublishPost { Title = postTitle, Body = postBody });
 
-			Thread.Sleep(5000);
+			Thread.Sleep(SleepForCommand);
+
+			var query = Container.Resolve<PostQueries>();
 
 			var post = query.FindByTitle(postTitle);
 
 			publisher.PublishMessage(new CommentOnPost { PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody});
 
-			Thread.Sleep(5000);
+			Thread.Sleep(SleepForCommand);
 
 			var anotherQuery = Container.Resolve<CommentQueries>();
 
@@ -44,11 +47,12 @@ namespace ForumTests.EndToEnd
 			const string postBody = "Lorem ipsum dolor sit amet consecutator.";
 
 			var publisher = Container.Resolve<IPublisher>();
-			var query = Container.Resolve<PostQueries>();
 
 			publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody});
 
-			Thread.Sleep(5000);
+			Thread.Sleep(SleepForCommand);
+
+			var query = Container.Resolve<PostQueries>();
 
 			var post = query.FindByTitle(postTitle);
 
@@ -67,17 +71,18 @@ namespace ForumTests.EndToEnd
 			const string commentBody = "Lorem ipsum dolor sit amet consecutator.";
 
 			var publisher = Container.Resolve<IPublisher>();
-			var query = Container.Resolve<PostQueries>();
 
 			publisher.PublishMessage(new PublishPost { Title = postTitle, Body = postBody });
 
-			Thread.Sleep(5000);
+			Thread.Sleep(SleepForCommand);
+
+			var query = Container.Resolve<PostQueries>();
 
 			var post = query.FindByTitle(postTitle);
 
 			publisher.PublishMessage(new CommentOnPost { PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody });
 
-			Thread.Sleep(5000);
+			Thread.Sleep(SleepForCommand);
 
 			var anotherQuery = Container.Resolve<CommentQueries>();
 
@@ -85,7 +90,7 @@ namespace ForumTests.EndToEnd
 
 			publisher.PublishMessage(new VoteOnComment { CommentIdentifier = comments[0].Identifier, VoteUp = true});
 
-			Thread.Sleep(5000);
+			Thread.Sleep(SleepForCommand);
 
 			var yetAnotherQuery = Container.Resolve<CommentQueries>();
 
@@ -105,7 +110,7 @@ namespace ForumTests.EndToEnd
 
 			publisher.PublishMessage(new PublishPost { Title = postTitle, Body = postBody });
 
-			Thread.Sleep(5000);
+			Thread.Sleep(SleepForCommand);
 
 			var post = query.FindByTitle(postTitle);
 
@@ -113,7 +118,7 @@ namespace ForumTests.EndToEnd
 
 			publisher.PublishMessage(new VoteOnPost { PostIdentifier = post.Identifier, VoteUp = true });
 
-			Thread.Sleep(5000);
+			Thread.Sleep(SleepForCommand);
 
 			var anotherQuery = Container.Resolve<PostQueries>();
 
