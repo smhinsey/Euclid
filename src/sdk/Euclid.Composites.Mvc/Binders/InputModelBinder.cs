@@ -20,7 +20,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
-			var commandName = controllerContext.GetCommandName();
+			var commandName = controllerContext.GetPartName();
 
 			var inputModel = _transformers.GetInputModel(commandName);
 

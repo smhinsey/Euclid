@@ -5,13 +5,15 @@ namespace Euclid.Framework.Agent.Metadata
 {
 	public interface ITypeMetadata
 	{
-		IList<IInterfaceMetadata> Interfaces { get; }
+		IEnumerable<IInterfaceMetadata> Interfaces { get; }
 		string Name { get; set; }
 		string Namespace { get; }
 
-		IList<IPropertyMetadata> Properties { get; }
+        IEnumerable<IPropertyMetadata> Properties { get; }
 		Type Type { get; set; }
 
-		IList<IPropertyMetadata> GetAttributes(Type type);
+        IEnumerable<IPropertyMetadata> GetAttributes(Type type);
+
+	    IEnumerable<IMethodMetadata> Methods { get; }
 	}
 }

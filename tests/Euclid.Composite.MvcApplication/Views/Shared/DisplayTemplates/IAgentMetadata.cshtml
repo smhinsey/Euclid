@@ -2,47 +2,7 @@
 @model IAgentMetadata
 
 <fieldset>
-	<div class="model-header">
-		Model.SystemName
-	</div>
+    <legend>@Model.SystemName Metadata</legend>
     
-	<div class="property-set">
-		<div class="property-label">@Html.LabelFor(x => x.DescriptiveName)</div>
-		<div class="property-value">@Model.DescriptiveName</div>
-	</div>
 
-	<div class="property-set">
-		<div class="property-label">@Html.LabelFor(x => x.SystemName)</div>
-		<div class="property-value">@Model.SystemName</div>
-	</div>
-
-	<div class="property-set">
-        
-		@* 
-        jt: not really sure why theo following doesn't work
-        Html.LabelFor(x => x.Commands.Namespace)
-        *@
-		<div class="property-label">Command Namespace</div>
-		<div class="property-value">
-			<a href="@Url.Action("List", "Command", new {AgentSystemName = Model.SystemName})">
-				@Model.Commands.Namespace
-			</a>
-		</div>
-	</div>
-    
-	<div class="property-set">
-		@*
-        // Html.LabelFor(x => x.Queries.Namespace)
-        *@
-		<div class="property-label">Query Namespace</div>
-		<div class="property-value">
-			@try
-			{
-				@Model.Queries.Namespace
-			}
-			catch
-			{
-				<span>not implemented</span>
-			}</div>
-	</div>
 </fieldset>

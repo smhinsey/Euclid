@@ -79,14 +79,16 @@
     <Compile Include="Attributes\LocationOfCommandsAttribute.cs" />
     <Compile Include="Attributes\LocationOfProcessorsAttribute.cs" />
     <Compile Include="Attributes\LocationOfQueriesAttribute.cs" />
-    <Compile Include="Commands\CommandMetadataCollection.cs" />
+    <Compile Include="Parts\CommandMetadataCollection.cs" />
+    <Compile Include="Parts\QueryMetadataCollection.cs" />
+    <Compile Include="Parts\ReadModelMetadataCollection.cs" />
     <Compile Include="DuplicatePartNameException.cs" />
-    <Compile Include="Commands\InvalidAgentPartImplementationException.cs" />
-    <Compile Include="Commands\InvalidPropertySetterSpecifiedException.cs" />
+    <Compile Include="Parts\InvalidAgentPartImplementationException.cs" />
+    <Compile Include="Parts\InvalidPropertySetterSpecifiedException.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="PartCollectionsBase.cs" />
-    <Compile Include="Commands\PartNotRegisteredException.cs" />
+    <Compile Include="Parts\PartNotRegisteredException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

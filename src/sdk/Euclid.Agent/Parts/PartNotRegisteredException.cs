@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Agent.Commands
+namespace Euclid.Agent.Parts
 {
 	internal class PartNotRegisteredException : Exception
 	{

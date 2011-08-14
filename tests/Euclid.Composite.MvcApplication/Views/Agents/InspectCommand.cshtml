@@ -1,0 +1,18 @@
+@using Euclid.Framework.Models
+@model IInputModel
+
+<h1>@ViewBag.Title</h1>
+
+@using (Html.BeginForm())
+{
+	@Html.ValidationSummary(true)
+
+	<fieldset>
+		@Html.EditorFor(p => Model)
+	</fieldset>
+
+
+	<input type="submit" value="Publish Command" />
+}
+
+<a href="@Url.Action("Parts", "Agents", new { agentSystemName = Model.AgentSystemName, partType = "Commands" })">Commands in @Model.AgentSystemName</a>

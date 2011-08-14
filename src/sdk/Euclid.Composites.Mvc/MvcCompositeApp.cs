@@ -1,6 +1,7 @@
 using System;
 using System.Web;
 using System.Web.Mvc;
+using Castle.Windsor;
 using Euclid.Common.Logging;
 using Euclid.Composites.Mvc.Binders;
 using Euclid.Composites.Mvc.ComponentRegistration;
@@ -9,7 +10,12 @@ namespace Euclid.Composites.Mvc
 {
 	public class MvcCompositeApp : BasicCompositeApp
 	{
-		public override void Configure(CompositeAppSettings compositeAppSettings)
+        public MvcCompositeApp(IWindsorContainer container) : base(container)
+        {
+            
+        }
+
+        public override void Configure(CompositeAppSettings compositeAppSettings)
 		{
 			base.Configure(compositeAppSettings);
 

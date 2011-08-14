@@ -77,8 +77,16 @@ namespace Euclid.Composites.Conversion
 		{
 			if (!_inputModelsAndValues.ContainsKey(partName))
 			{
-				throw new PartNameNotRegisteredException(partName);
+			    throw new InputModelForPartNotRegisteredException(partName);
 			}
 		}
 	}
+
+    internal class InputModelForPartNotRegisteredException : Exception
+    {
+        public InputModelForPartNotRegisteredException(string partName)  :
+            base(string.Format("There are no input models associated with the command '{0}'", partName))
+        {
+        }
+    }
 }

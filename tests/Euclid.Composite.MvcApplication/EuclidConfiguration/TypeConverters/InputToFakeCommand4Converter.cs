@@ -4,7 +4,7 @@ using Euclid.Agent.Extensions;
 using Euclid.Composite.MvcApplication.Models;
 using Euclid.Composites.Conversion;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.TestingFakes.Cqrs;
+using Euclid.Sdk.FakeAgent.Commands;
 
 namespace Euclid.Composite.MvcApplication.EuclidConfiguration.TypeConverters
 {
@@ -12,7 +12,7 @@ namespace Euclid.Composite.MvcApplication.EuclidConfiguration.TypeConverters
 	{
 		public Type CommandType
 		{
-			get { return typeof (FakeCommand4); }
+			get { return typeof (FakeCommand); }
 		}
 
 		public Type InputModelType
@@ -25,16 +25,10 @@ namespace Euclid.Composite.MvcApplication.EuclidConfiguration.TypeConverters
 			var source = context.SourceValue as InputModelFakeCommand4;
 			if (source == null)
 			{
-				throw new CannotCreateInputModelException(typeof (FakeCommand4).GetMetadata().Name);
+                throw new CannotCreateInputModelException(typeof(FakeCommand).GetMetadata().Name);
 			}
 
-			var command = Activator.CreateInstance<FakeCommand4>();
-
-			command.YourBirthday = source.BirthDay;
-
-			command.PasswordHash = string.Format("hashed: {0}", source.Password);
-
-			command.PasswordSalt = string.Format("salted: {0}", source.Password);
+            var command = Activator.CreateInstance<FakeCommand>();
 
 			return command;
 		}

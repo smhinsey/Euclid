@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Euclid.Agent.Commands;
 using Euclid.Agent.Extensions;
+using Euclid.Agent.Parts;
 using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Agent

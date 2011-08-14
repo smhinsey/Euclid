@@ -15,9 +15,9 @@ namespace Euclid.Composites.Mvc.Extensions
 			return controllerContext.GetRouteValue<string>("AgentSystemName");
 		}
 
-		public static string GetCommandName(this ControllerContext controllerContext)
+		public static string GetPartName(this ControllerContext controllerContext)
 		{
-			return controllerContext.GetRouteValue<string>("CommandName");
+			return controllerContext.GetRouteValue<string>("PartName");
 		}
 
 		public static T GetRouteValue<T>(this ControllerContext controllerContext, string key)

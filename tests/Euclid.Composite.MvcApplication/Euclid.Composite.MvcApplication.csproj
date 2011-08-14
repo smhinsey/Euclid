@@ -83,15 +83,16 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AgentController.cs" />
-    <Compile Include="Controllers\CommandController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AgentsController.cs" />
+    <Compile Include="Models\AgentListModel.cs" />
     <Compile Include="EuclidConfiguration\TypeConverters\InputToFakeCommand4Converter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CommandMetadataModel.cs" />
     <Compile Include="Models\InputModelFakeCommand4.cs" />
+    <Compile Include="Models\PartCollectionMetadataModel.cs" />
+    <Compile Include="Models\ReadOnlyPartMetadataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +168,9 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
+    <Content Include="Views\Agents\InspectCommand.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -191,12 +195,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="Views\Agents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\sdk\Euclid.Agent\Euclid.Agent.csproj">
@@ -231,22 +234,16 @@
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Euclid.Framework.TestingFakes\Euclid.Framework.TestingFakes.csproj">
-      <Project>{793DEE69-90CB-45D7-94CC-FD2D7CE59790}</Project>
-      <Name>Euclid.Framework.TestingFakes</Name>
+    <ProjectReference Include="..\Euclid.Sdk.FakeAgent\Euclid.Sdk.FakeAgent.csproj">
+      <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
+      <Name>Euclid.Sdk.FakeAgent</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Command\Inspect.cshtml" />
+    <Content Include="Views\Agents\Parts.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Agent\Operations.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\DisplayTemplates\IAgentMetadata.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Command\List.cshtml" />
+    <Content Include="Views\Agents\Inspect.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

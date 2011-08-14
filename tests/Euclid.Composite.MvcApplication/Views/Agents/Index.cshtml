@@ -1,0 +1,31 @@
+﻿@using Euclid.Composite.MvcApplication.Models
+@model AgentListModel
+
+<h1>@ViewBag.Title</h1>
+
+<ul>
+@foreach (var agent in Model.Agents)
+{
+    <li>
+        <div>
+            @agent.DescriptiveName - @agent.SystemName
+            <ul>
+                @if (agent.Commands.Count > 0)
+                {
+                    <li><a href="@Url.Action("Parts", "Agents", new {agentSystemName = @agent.SystemName, partType="Commands"})">Commands</a></li>
+                }
+                
+                @if (agent.Queries.Count > 0)
+                {
+                    <li><a href="@Url.Action("Parts", "Agents", new { agentSystemName = @agent.SystemName, partType = "Queries" })">Queries</a></li>
+                }
+                
+                @if (agent.ReadModels.Count > 0)
+                {
+                    <li><a href="@Url.Action("Parts", "Agents", new { agentSystemName = @agent.SystemName, partType = "ReadModels" })">Read Models</a></li>
+                }
+            </ul>
+        </div>
+    </li>
+}
+</ul>

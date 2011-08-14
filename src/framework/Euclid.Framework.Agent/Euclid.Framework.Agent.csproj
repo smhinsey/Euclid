@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="Attributes\NamespaceFinderAttribute.cs" />
     <Compile Include="Attributes\TextAttribute.cs" />
+    <Compile Include="Metadata\ArgumentMetadata.cs" />
     <Compile Include="Metadata\InterfaceMetadata.cs" />
+    <Compile Include="Metadata\MethodMetadata.cs" />
     <Compile Include="Metadata\TypeMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Metadata\PropertyMetadata.cs" />
