@@ -15,7 +15,7 @@ namespace Euclid.Composite.MvcApplication
 
 	public class AgentViewerComposite : HttpApplication
 	{
-        protected void Application_Start()
+		protected void Application_Start()
 		{
 			AreaRegistration.RegisterAllAreas();
 
@@ -23,10 +23,10 @@ namespace Euclid.Composite.MvcApplication
 
 			RegisterRoutes(RouteTable.Routes);
 
-            var container = new WindsorContainer();
+			var container = new WindsorContainer();
 
 
-            var composite = new MvcCompositeApp(container);
+			var composite = new MvcCompositeApp(container);
 
 			var euclidCompositeConfiguration = new CompositeAppSettings();
 
@@ -41,7 +41,7 @@ namespace Euclid.Composite.MvcApplication
 
 			composite.RegisterInputModel(new InputToFakeCommand4Converter());
 
-            container.Register(Component.For<ICompositeApp>().Instance(composite));
+			container.Register(Component.For<ICompositeApp>().Instance(composite));
 
 			Error += composite.LogUnhandledException;
 
@@ -57,23 +57,23 @@ namespace Euclid.Composite.MvcApplication
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("DefaultWithFormat", "agents/index.{format}",
-                            new { controller = "Agents", action = "Index" });
+			routes.MapRoute("DefaultWithFormat", "agents/index.{format}",
+			                new {controller = "Agents", action = "Index"});
 
-            routes.MapRoute("Default", "agents",
-                new { controller = "Agents", action = "Index"});
+			routes.MapRoute("Default", "agents",
+			                new {controller = "Agents", action = "Index"});
 
-            routes.MapRoute("AgentPartsWithFormat", "agents/{agentSystemName}/{partType}.{format}",
-                    new { controller = "Agents", action = "Parts" });
-            
-            routes.MapRoute("AgentParts", "agents/{agentSystemName}/{partType}",
-		                    new {controller = "Agents", action = "Parts" });
+			routes.MapRoute("AgentPartsWithFormat", "agents/{agentSystemName}/{partType}.{format}",
+			                new {controller = "Agents", action = "Parts"});
 
-            routes.MapRoute("InspectAgentPartWithFormat", "agents/{agentSystemName}/{action}/{partType}/{partName}.{format}",
-                            new { controller = "Agents", action = "Inspect", partType=UrlParameter.Optional });
+			routes.MapRoute("AgentParts", "agents/{agentSystemName}/{partType}",
+			                new {controller = "Agents", action = "Parts"});
 
-            routes.MapRoute("InspectAgentPart", "agents/{agentSystemName}/{action}/{partType}/{partName}",
-                    new { controller = "Agents", action = "Inspect", partType = UrlParameter.Optional });
-        }
+			routes.MapRoute("InspectAgentPartWithFormat", "agents/{agentSystemName}/{action}/{partType}/{partName}.{format}",
+			                new {controller = "Agents", action = "Inspect", partType = UrlParameter.Optional});
+
+			routes.MapRoute("InspectAgentPart", "agents/{agentSystemName}/{action}/{partType}/{partName}",
+			                new {controller = "Agents", action = "Inspect", partType = UrlParameter.Optional});
+		}
 	}
 }

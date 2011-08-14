@@ -10,12 +10,11 @@ namespace Euclid.Composites.Mvc
 {
 	public class MvcCompositeApp : BasicCompositeApp
 	{
-        public MvcCompositeApp(IWindsorContainer container) : base(container)
-        {
-            
-        }
+		public MvcCompositeApp(IWindsorContainer container) : base(container)
+		{
+		}
 
-        public override void Configure(CompositeAppSettings compositeAppSettings)
+		public override void Configure(CompositeAppSettings compositeAppSettings)
 		{
 			base.Configure(compositeAppSettings);
 

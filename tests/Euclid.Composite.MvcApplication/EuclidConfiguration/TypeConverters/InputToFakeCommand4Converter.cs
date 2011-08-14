@@ -25,10 +25,10 @@ namespace Euclid.Composite.MvcApplication.EuclidConfiguration.TypeConverters
 			var source = context.SourceValue as InputModelFakeCommand4;
 			if (source == null)
 			{
-                throw new CannotCreateInputModelException(typeof(FakeCommand).GetMetadata().Name);
+				throw new CannotCreateInputModelException(typeof (FakeCommand).GetMetadata().Name);
 			}
 
-            var command = Activator.CreateInstance<FakeCommand>();
+			var command = Activator.CreateInstance<FakeCommand>();
 
 			return command;
 		}

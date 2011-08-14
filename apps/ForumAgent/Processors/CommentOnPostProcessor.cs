@@ -23,8 +23,8 @@ namespace ForumAgent.Processors
 			              		Body = message.Body,
 			              		PostIdentifier = message.PostIdentifier,
 			              		Score = 0,
-												Created = DateTime.Now,
-												Modified = DateTime.Now
+			              		Created = DateTime.Now,
+			              		Modified = DateTime.Now
 			              	};
 
 			_repository.Save(comment);

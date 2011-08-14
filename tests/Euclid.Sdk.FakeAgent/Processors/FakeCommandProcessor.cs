@@ -27,8 +27,8 @@ namespace Euclid.Sdk.FakeAgent.Processors
 			            	{
 			            		Identifier = Guid.NewGuid(),
 			            		Number = message.Number,
-											Created = DateTime.Now,
-											Modified = DateTime.Now
+			            		Created = DateTime.Now,
+			            		Modified = DateTime.Now
 			            	};
 
 			_repository.Save(model);

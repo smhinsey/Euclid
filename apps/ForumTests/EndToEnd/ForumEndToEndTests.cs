@@ -21,7 +21,7 @@ namespace ForumTests.EndToEnd
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			publisher.PublishMessage(new PublishPost { Title = postTitle, Body = postBody });
+			publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody});
 
 			Thread.Sleep(SleepForCommand);
 
@@ -29,7 +29,7 @@ namespace ForumTests.EndToEnd
 
 			var post = query.FindByTitle(postTitle);
 
-			publisher.PublishMessage(new CommentOnPost { PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody});
+			publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody});
 
 			Thread.Sleep(SleepForCommand);
 
@@ -72,7 +72,7 @@ namespace ForumTests.EndToEnd
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			publisher.PublishMessage(new PublishPost { Title = postTitle, Body = postBody });
+			publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody});
 
 			Thread.Sleep(SleepForCommand);
 
@@ -80,7 +80,7 @@ namespace ForumTests.EndToEnd
 
 			var post = query.FindByTitle(postTitle);
 
-			publisher.PublishMessage(new CommentOnPost { PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody });
+			publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody});
 
 			Thread.Sleep(SleepForCommand);
 
@@ -88,7 +88,7 @@ namespace ForumTests.EndToEnd
 
 			var comments = anotherQuery.FindCommentsBelongingToPost(post.Identifier);
 
-			publisher.PublishMessage(new VoteOnComment { CommentIdentifier = comments[0].Identifier, VoteUp = true});
+			publisher.PublishMessage(new VoteOnComment {CommentIdentifier = comments[0].Identifier, VoteUp = true});
 
 			Thread.Sleep(SleepForCommand);
 
@@ -108,7 +108,7 @@ namespace ForumTests.EndToEnd
 			var publisher = Container.Resolve<IPublisher>();
 			var query = Container.Resolve<PostQueries>();
 
-			publisher.PublishMessage(new PublishPost { Title = postTitle, Body = postBody });
+			publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody});
 
 			Thread.Sleep(SleepForCommand);
 
@@ -116,7 +116,7 @@ namespace ForumTests.EndToEnd
 
 			Assert.AreEqual(0, post.Score);
 
-			publisher.PublishMessage(new VoteOnPost { PostIdentifier = post.Identifier, VoteUp = true });
+			publisher.PublishMessage(new VoteOnPost {PostIdentifier = post.Identifier, VoteUp = true});
 
 			Thread.Sleep(SleepForCommand);
 

@@ -45,7 +45,6 @@ namespace Euclid.Common.Storage.NHibernate
 			{
 				try
 				{
-
 					if (record == null)
 					{
 						throw new KeyNotFoundException();

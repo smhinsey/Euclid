@@ -45,7 +45,7 @@ namespace AgentConsole
 
 				var publisher = container.Resolve<IPublisher>();
 
-				for (int i = 0; i < 100; i++)
+				for (var i = 0; i < 100; i++)
 				{
 					publisher.PublishMessage(new CommentOnPost());
 				}

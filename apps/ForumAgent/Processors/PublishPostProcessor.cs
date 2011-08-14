@@ -25,8 +25,8 @@ namespace ForumAgent.Processors
 			           		Title = message.Title,
 			           		CategoryIdentifier = message.CategoryIdentifier,
 			           		Identifier = message.Identifier,
-										Created = DateTime.Now,
-										Modified = DateTime.Now
+			           		Created = DateTime.Now,
+			           		Modified = DateTime.Now
 			           	};
 
 			_repository.Save(post);

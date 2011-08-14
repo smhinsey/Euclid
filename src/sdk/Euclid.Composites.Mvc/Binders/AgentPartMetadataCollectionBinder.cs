@@ -7,51 +7,51 @@ using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Composites.Mvc.Binders
 {
-    public class AgentPartMetadataCollectionBinder : IEuclidModelBinder
-    {
-        private readonly IAgentResolver[] _resolvers;
+	public class AgentPartMetadataCollectionBinder : IEuclidModelBinder
+	{
+		private readonly IAgentResolver[] _resolvers;
 
-        public AgentPartMetadataCollectionBinder(IAgentResolver[] resolvers)
-        {
-            _resolvers = resolvers;
-        }
+		public AgentPartMetadataCollectionBinder(IAgentResolver[] resolvers)
+		{
+			_resolvers = resolvers;
+		}
 
-        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
-        {
-            var systemName = controllerContext.GetAgentSystemName();
+		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		{
+			var systemName = controllerContext.GetAgentSystemName();
 
-            var partType = controllerContext.GetRouteValue<string>("partType");
+			var partType = controllerContext.GetRouteValue<string>("partType");
 
-            if (string.IsNullOrEmpty(partType))
-            {
-                throw new AgentPartTypeNotSpecifiedException();
-            }
+			if (string.IsNullOrEmpty(partType))
+			{
+				throw new AgentPartTypeNotSpecifiedException();
+			}
 
-            var metadata = _resolvers.GetAgentMetadata(systemName);
+			var metadata = _resolvers.GetAgentMetadata(systemName);
 
-            IAgentPartMetadataCollection partMetadata;
+			IAgentPartMetadataCollection partMetadata;
 
-            switch(partType.ToLower())
-            {
-                case "commands":
-                    partMetadata = metadata.Commands;
-                    break;
-                case "readmodels":
-                    partMetadata = metadata.ReadModels;
-                    break;
-                case "queries":
-                    partMetadata = metadata.Queries;
-                    break;
-                default:
-                    throw new InvalidPartCollectionException(partType);
-            }
+			switch (partType.ToLower())
+			{
+				case "commands":
+					partMetadata = metadata.Commands;
+					break;
+				case "readmodels":
+					partMetadata = metadata.ReadModels;
+					break;
+				case "queries":
+					partMetadata = metadata.Queries;
+					break;
+				default:
+					throw new InvalidPartCollectionException(partType);
+			}
 
-            return partMetadata;
-        }
+			return partMetadata;
+		}
 
-        public bool IsMatch(Type modelType)
-        {
-            return typeof (IAgentPartMetadataCollection).IsAssignableFrom(modelType);
-        }
-    }
+		public bool IsMatch(Type modelType)
+		{
+			return typeof (IAgentPartMetadataCollection).IsAssignableFrom(modelType);
+		}
+	}
 }

@@ -90,9 +90,9 @@ namespace Euclid.Composites
 
 			Container.Register
 				(AllTypes.FromAssembly(agent.AgentAssembly)
-					//.Where(Component.IsInNamespace(agent.Queries.Namespace))
+				 	//.Where(Component.IsInNamespace(agent.Queries.Namespace))
 				 	.BasedOn(typeof (IQuery))
-					.WithService.Self()
+				 	.WithService.Self()
 				 	.Configure(component => component.LifeStyle.Transient));
 		}
 
@@ -147,11 +147,11 @@ namespace Euclid.Composites
 		{
 			Container.Register(Component.For<IPublisher>()
 			                   	.ImplementedBy(compositeAppSettings.Publisher.Value)
-													.LifeStyle.Transient);
+			                   	.LifeStyle.Transient);
 
 			Container.Register(Component.For<IMessageChannel>()
 			                   	.ImplementedBy(compositeAppSettings.MessageChannel.Value)
-													.LifeStyle.Transient);
+			                   	.LifeStyle.Transient);
 
 			Container.Register(Component.For<IRecordMapper<CommandPublicationRecord>>()
 			                   	.ImplementedBy(compositeAppSettings.CommandPublicationRecordMapper.Value)
@@ -159,16 +159,16 @@ namespace Euclid.Composites
 
 			Container.Register(Component.For<IBlobStorage>()
 			                   	.ImplementedBy(compositeAppSettings.BlobStorage.Value)
-													.LifeStyle.Transient);
+			                   	.LifeStyle.Transient);
 
 			Container.Register(Component.For<IMessageSerializer>()
 			                   	.ImplementedBy(compositeAppSettings.MessageSerializer.Value)
-													.LifeStyle.Transient);
+			                   	.LifeStyle.Transient);
 
 			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord>>()
 			                   	.Forward<ICommandRegistry>()
 			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
-													.LifeStyle.Transient);
+			                   	.LifeStyle.Transient);
 		}
 
 		private MappingConfiguration mapAllAssemblies(MappingConfiguration mcfg)

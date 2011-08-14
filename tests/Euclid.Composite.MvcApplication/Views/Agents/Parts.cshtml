@@ -6,8 +6,8 @@
 <ul>
 	@foreach (var m in Model.Parts)
 	{
-        <li>
-			<a href="@Url.Action(Model.NextActionName, "Agents", new {agentSystemName = Model.AgentSystemName, partType=Model.PartTypeName, partName = m.Name})">
+		<li>
+			<a href="@Url.Action(Model.NextActionName, "Agents", new {agentSystemName = Model.AgentSystemName, partType = Model.PartTypeName, partName = m.Name})">
 				@Model.Parts.Namespace.@m.Name
 			</a>
 		</li>

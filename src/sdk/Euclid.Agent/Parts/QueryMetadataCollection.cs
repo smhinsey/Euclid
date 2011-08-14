@@ -5,11 +5,11 @@ using Euclid.Framework.Cqrs;
 
 namespace Euclid.Agent.Parts
 {
-    public class QueryMetadataCollection : PartCollectionsBase<IQuery>, IQueryMetadataCollection
-    {
-        public QueryMetadataCollection(Assembly agent)
-        {
-            Initialize(agent, agent.GetQueryNamespace());
-        }
-    }
+	public class QueryMetadataCollection : PartCollectionsBase<IQuery>, IQueryMetadataCollection
+	{
+		public QueryMetadataCollection(Assembly agent)
+		{
+			Initialize(agent, agent.GetQueryNamespace());
+		}
+	}
 }

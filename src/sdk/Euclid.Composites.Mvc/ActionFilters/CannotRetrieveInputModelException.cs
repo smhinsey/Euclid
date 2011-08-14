@@ -2,7 +2,7 @@ using System;
 
 namespace Euclid.Composites.Mvc.ActionFilters
 {
-    public class CannotRetrieveInputModelException : Exception
-    {
-    }
+	public class CannotRetrieveInputModelException : Exception
+	{
+	}
 }

@@ -52,7 +52,6 @@ namespace Euclid.Common.Messaging.Azure
 				}
 
 				State = ChannelState.Open;
-
 			}
 
 			return State;
@@ -121,16 +120,16 @@ namespace Euclid.Common.Messaging.Azure
 		private static void CreateQueue(string channelName)
 		{
 			CloudStorageAccount.SetConfigurationSettingPublisher
-		((configurationKey, publishConfigurationValue) =>
-		{
-			var connectionString =
-				RoleEnvironment.IsAvailable
-					? RoleEnvironment.GetConfigurationSettingValue
-							(configurationKey)
-					: ConfigurationManager.AppSettings[configurationKey];
+				((configurationKey, publishConfigurationValue) =>
+				 	{
+				 		var connectionString =
+				 			RoleEnvironment.IsAvailable
+				 				? RoleEnvironment.GetConfigurationSettingValue
+				 				  	(configurationKey)
+				 				: ConfigurationManager.AppSettings[configurationKey];
 
-			publishConfigurationValue(connectionString);
-		});
+				 		publishConfigurationValue(connectionString);
+				 	});
 
 			var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
 			var queueClient = storageAccount.CreateCloudQueueClient();

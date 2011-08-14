@@ -131,16 +131,15 @@ namespace Euclid.Framework.HostingFabric
 		{
 			foreach (var agent in Composite.Agents)
 			{
-
 				var processorAttribute = agent.AgentAssembly.GetAttributeValue<LocationOfProcessorsAttribute>();
 
 				// SELF the Where call below changes the meaning of the rest of the registration so it had to be removed
 
 				Container.Register
 					(AllTypes.FromAssembly(agent.AgentAssembly)
-						//.Where(Component.IsInNamespace(processorAttribute.Namespace))
+					 	//.Where(Component.IsInNamespace(processorAttribute.Namespace))
 					 	.BasedOn(typeof (ICommandProcessor))
-						.Configure(c => c.LifeStyle.Transient)
+					 	.Configure(c => c.LifeStyle.Transient)
 					 	.WithService.AllInterfaces().WithService.Self());
 
 				var registry = Container.Resolve<ICommandRegistry>();
