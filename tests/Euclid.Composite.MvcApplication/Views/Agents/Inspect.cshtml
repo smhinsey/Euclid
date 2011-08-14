@@ -39,7 +39,7 @@
          }
 
         <li>
-            @m.ReturnType.Name 
+            @m.ReturnType
             @m.Name (@Html.Raw(sb.ToString()))
         </li>
     }
@@ -47,3 +47,5 @@
 }
 
 <a href="@Url.Action("Parts", "Agents", new { AgentSystemName = Model.AgentSystemName, PartTypeName = Model.PartType })">@Model.PartType in @Model.AgentSystemName</a>
+<br/>
+<a href="@Url.Action("Index")">Agents in composite</a>
