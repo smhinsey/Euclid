@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-	public interface ITypeMetadata
+    public interface ITypeMetadata
 	{
 		IEnumerable<IInterfaceMetadata> Interfaces { get; }
 		IEnumerable<IMethodMetadata> Methods { get; }

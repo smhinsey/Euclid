@@ -97,7 +97,7 @@
   <ItemGroup>
     <Compile Include="ActionFilters\CannotRetrieveInputModelException.cs" />
     <Compile Include="ActionFilters\CannotRetrieveMetadataException.cs" />
-    <Compile Include="ActionFilters\FormatAgentMetadataAttribute.cs" />
+    <Compile Include="ActionFilters\FormatListAgentMetadataAttribute.cs" />
     <Compile Include="ActionFilters\ResultsFormatter.cs" />
     <Compile Include="ActionFilters\FormatInputModelAttribute.cs" />
     <Compile Include="ActionFilters\FormatNotSpecifiedException.cs" />

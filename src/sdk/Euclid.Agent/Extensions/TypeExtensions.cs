@@ -7,7 +7,7 @@ namespace Euclid.Agent.Extensions
 	{
 		public static ITypeMetadata GetMetadata(this Type type)
 		{
-			return new TypeMetadata(type);
+			return new TypeMetadataProvider(type);
 		}
 	}
 }

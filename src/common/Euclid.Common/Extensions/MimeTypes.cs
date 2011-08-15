@@ -202,7 +202,9 @@ namespace Euclid.Common.Extensions
 					{"xpm", "image/x-xpixmap"},
 					{"xwd", "image/x-xwindowdump"},
 					{"z", "application/x-compress"},
-					{"zip", "application/zip"}
+					{"zip", "application/zip"},
+                    {"json", "application/json"},
+                    {"jsonp", "application/json"}
 				};
 
 		public static string GetByExtension(string extension)

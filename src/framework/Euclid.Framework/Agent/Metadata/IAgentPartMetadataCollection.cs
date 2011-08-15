@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-	public interface IAgentPartMetadataCollection : IList<ITypeMetadata>
+    public interface IAgentPartMetadataCollection : IList<ITypeMetadata>, IFormattedMetadataProvider
 	{
 		string AgentSystemName { get; }
 		string Namespace { get; }

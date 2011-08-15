@@ -1,5 +1,13 @@
-﻿using Castle.Windsor;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Xml.Serialization;
+using Castle.Windsor;
+using Euclid.Agent.Extensions;
 using Euclid.Composites;
+using Euclid.Composites.AgentResolution;
+using Euclid.Framework.Agent.Metadata;
 using Euclid.Sdk.FakeAgent.Commands;
 using Euclid.Sdk.FakeAgent.Queries;
 using FluentNHibernate.Cfg.Db;

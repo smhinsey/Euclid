@@ -74,9 +74,11 @@
   <ItemGroup>
     <Compile Include="Agent\Attributes\IAgentAttribute.cs" />
     <Compile Include="Agent\Metadata\IArgumentMetadata.cs" />
+    <Compile Include="Agent\Metadata\IFormattedMetadataProvider.cs" />
     <Compile Include="Agent\Metadata\IMethodMetadata.cs" />
     <Compile Include="Agent\Metadata\IQueryMetadataCollection.cs" />
     <Compile Include="Agent\Metadata\IReadModelMetadataCollection.cs" />
+    <Compile Include="Agent\Metadata\MetadataFormatNotSupportedException.cs" />
     <Compile Include="Cqrs\CommandDispatcherConfigurationException.cs" />
     <Compile Include="Cqrs\ICommand.cs" />
     <Compile Include="Cqrs\ICommandDispatcher.cs" />

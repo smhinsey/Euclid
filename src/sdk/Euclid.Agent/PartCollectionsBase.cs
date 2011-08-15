@@ -9,7 +9,7 @@ using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Agent
 {
-	public abstract class PartCollectionsBase<TAgentPart> : IList<ITypeMetadata>
+    public abstract class PartCollectionsBase<TAgentPart> : MetadataFormatter, IList<ITypeMetadata>
 		where TAgentPart : IAgentPart
 	{
 		private IList<ITypeMetadata> _internal;
@@ -142,7 +142,7 @@ namespace Euclid.Agent
 				.Where(type =>
 				       type.Namespace == partNamespace &&
 				       typeof (TAgentPart).IsAssignableFrom(type))
-				.Select(type => new TypeMetadata(type) as ITypeMetadata)
+				.Select(type => new TypeMetadataProvider(type) as ITypeMetadata)
 				.ToList();
 
 			_partType = typeof (TAgentPart);

@@ -89,6 +89,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.Agent", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.IntegrationTests", "tests\Euclid.Sdk.IntegrationTests\Euclid.Sdk.IntegrationTests.csproj", "{02AAAF17-7C44-43EB-9AA8-48E03A7C67AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.MetadataTests", "tests\Euclid.Sdk.Metadata\Euclid.Sdk.MetadataTests.csproj", "{AC366DF0-1269-4C2C-9599-B02FCB8402FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -590,6 +592,18 @@ Global
 		{02AAAF17-7C44-43EB-9AA8-48E03A7C67AE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{02AAAF17-7C44-43EB-9AA8-48E03A7C67AE}.Release|x64.ActiveCfg = Release|Any CPU
 		{02AAAF17-7C44-43EB-9AA8-48E03A7C67AE}.Release|x86.ActiveCfg = Release|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Release|x64.ActiveCfg = Release|Any CPU
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -635,5 +649,6 @@ Global
 		{F80DC74B-9C31-43AA-B339-9F9EDF9372A8} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 		{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 		{02AAAF17-7C44-43EB-9AA8-48E03A7C67AE} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
+		{AC366DF0-1269-4C2C-9599-B02FCB8402FE} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 	EndGlobalSection
 EndGlobal

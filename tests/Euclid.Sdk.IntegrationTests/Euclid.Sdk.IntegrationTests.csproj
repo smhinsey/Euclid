@@ -47,8 +47,20 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.SHDocVw">
+      <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\Interop.SHDocVw.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <Private>True</Private>
+      <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\Microsoft.mshtml.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http">
+      <HintPath>..\..\packages\HttpClient.0.3.0\lib\40\Microsoft.Net.Http.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -76,6 +88,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\..\packages\SpecFlow.1.7.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="WatiN.Core">
+      <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\WatiN.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HostingFabricFixture.cs" />
@@ -115,6 +133,10 @@
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj">
+      <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
+      <Name>Euclid.Framework.Agent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
       <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
       <Name>Euclid.Framework.Cqrs.NHibernate</Name>
@@ -139,6 +161,10 @@
       <Project>{A32FFA94-BEEA-46AD-9A99-F09D6F44D58B}</Project>
       <Name>AgentConsole</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\Euclid.Agent\Euclid.Agent.csproj">
+      <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
+      <Name>Euclid.Agent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\sdk\Euclid.Composites\Euclid.Composites.csproj">
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
@@ -147,6 +173,9 @@
       <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
       <Name>Euclid.Sdk.FakeAgent</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Specflow\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

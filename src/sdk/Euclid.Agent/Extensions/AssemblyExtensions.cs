@@ -30,7 +30,7 @@ namespace Euclid.Agent.Extensions
 
 		public static IAgentMetadata GetAgentMetadata(this Assembly assembly)
 		{
-			return new AgentMetadata(assembly);
+			return new Agent(assembly);
 		}
 
 		public static string GetAgentName(this Assembly agent)
