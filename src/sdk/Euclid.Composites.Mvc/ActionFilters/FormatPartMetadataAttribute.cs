@@ -22,6 +22,19 @@ namespace Euclid.Composites.Mvc.ActionFilters
                 throw new AgentPartTypeNotSpecifiedException();
             }
 
+            switch(partType.ToLower())
+            {
+                case "commands":
+                    partType = "command";
+                    break;
+                case "queries":
+                    partType = "query";
+                    break;
+                case "readmodels":
+                    partType = "readmodel";
+                    break;
+            }
+
             return partMetadata.GetMetadataFormatter(partType);
         }
     }

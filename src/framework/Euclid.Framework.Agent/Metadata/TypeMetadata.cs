@@ -21,11 +21,11 @@ namespace Euclid.Framework.Agent.Metadata
         {
             switch (partType.ToLower())
             {
-                case "commands":
+                case "command":
                     return new InputModelFormatter(this);
-                case "readmodels":
+                case "readmodel":
                     return new ReadModelFormatter(this);
-                case "queries":
+                case "query":
                     return new QueryFormatter(this);
             }
 

@@ -41,10 +41,22 @@ namespace Euclid.Sdk.Metadata
             AssertValidProviders(contentType, _agent);
 
             AssertValidProviders(contentType, _agent.Commands);
+            foreach(var c in _agent.Commands)
+            {
+                AssertValidProviders(contentType, c.GetMetadataFormatter("command"));
+            }
 
             AssertValidProviders(contentType, _agent.ReadModels);
+            foreach(var m in _agent.ReadModels)
+            {
+                AssertValidProviders(contentType, m.GetMetadataFormatter("readmodel"));
+            }
 
             AssertValidProviders(contentType, _agent.Queries);
+            foreach (var q in _agent.Queries)
+            {
+                AssertValidProviders(contentType, q.GetMetadataFormatter("query"));
+            }
        }
 
          [Then(@"has been independently validated")]
@@ -55,10 +67,22 @@ namespace Euclid.Sdk.Metadata
              ValidateProviderOutput(_agent.GetBasicMetadata(_format));
 
              ValidateProviderOutput(_agent.Commands.GetRepresentation(_format));
+             foreach (var c in _agent.Commands)
+             {
+                 ValidateProviderOutput(c.GetMetadataFormatter("command").GetRepresentation(_format));
+             }
 
              ValidateProviderOutput(_agent.ReadModels.GetRepresentation(_format));
+             foreach (var m in _agent.ReadModels)
+             {
+                 ValidateProviderOutput(m.GetMetadataFormatter("readmodel").GetRepresentation(_format));
+             }
 
              ValidateProviderOutput(_agent.Queries.GetRepresentation(_format));
+             foreach (var q in _agent.Queries)
+             {
+                 ValidateProviderOutput(q.GetMetadataFormatter("query").GetRepresentation(_format));
+             }
          }
 
         private void AssertValidProviders(string contentType, IFormattedMetadataProvider provider)
