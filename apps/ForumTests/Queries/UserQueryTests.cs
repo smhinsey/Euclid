@@ -1,13 +1,40 @@
-﻿using NUnit.Framework;
+﻿using ForumAgent.Queries;
+using ForumAgent.ReadModels;
+using NHibernate;
+using NUnit.Framework;
+
 
 namespace ForumTests.Queries
 {
-	public class UserQueryTests
+	public class UserQueryTests : NhTestFixture
 	{
 		[Test]
 		public void TestAuthenticationQuery()
 		{
-			Assert.Inconclusive();
+			var session = SessionFactory.OpenSession();
+
+			const string username = "johndoe";
+			const string password = "password!";
+
+			createFakeUser(session, username, password);
+
+			var userQueries = new UserQueries(session);
+
+			Assert.IsTrue(userQueries.Authenticate(username, password));
+		}
+
+		private static void createFakeUser(ISession session, string username, string password)
+		{
+			var user = new User
+			           	{
+			           		Username = username,
+										PasswordHash = password,
+										PasswordSalt = password
+			           	};
+
+			session.Save(user);
+
+			session.Flush();
 		}
 	}
 }

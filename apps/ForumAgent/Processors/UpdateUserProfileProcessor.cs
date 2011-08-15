@@ -25,8 +25,12 @@ namespace ForumAgent.Processors
 				          	{
 				          		AvatarUrl = message.AvatarUrl,
 				          		Email = message.Email,
-				          		UserIdentifier = message.UserIdentifier
+											UserIdentifier = message.UserIdentifier,
+											Created = DateTime.Now,
+											Modified = DateTime.Now
 				          	};
+
+				_repository.Save(profile);
 			}
 			else
 			{
@@ -34,9 +38,10 @@ namespace ForumAgent.Processors
 
 				profile.AvatarUrl = message.AvatarUrl;
 				profile.Email = message.Email;
+
+				_repository.Update(profile);
 			}
 
-			_repository.Update(profile);
 		}
 	}
 }
