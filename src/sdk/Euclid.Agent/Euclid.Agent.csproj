@@ -82,6 +82,7 @@
     <Compile Include="Attributes\LocationOfCommandsAttribute.cs" />
     <Compile Include="Attributes\LocationOfProcessorsAttribute.cs" />
     <Compile Include="Attributes\LocationOfQueriesAttribute.cs" />
+    <Compile Include="Extensions\AgentMetadataCollectionExtensions.cs" />
     <Compile Include="Parts\CommandMetadataCollection.cs" />
     <Compile Include="Parts\QueryMetadataCollection.cs" />
     <Compile Include="Parts\ReadModelMetadataCollection.cs" />

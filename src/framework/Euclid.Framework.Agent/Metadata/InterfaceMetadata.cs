@@ -2,9 +2,9 @@ using System;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-	public class InterfaceMetadataProvider : IInterfaceMetadata
+	public class InterfaceMetadata : IInterfaceMetadata
 	{
-		public InterfaceMetadataProvider(Type t)
+		public InterfaceMetadata(Type t)
 		{
 			if (t.IsInterface)
 			{

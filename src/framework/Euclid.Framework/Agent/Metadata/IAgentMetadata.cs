@@ -13,5 +13,7 @@ namespace Euclid.Framework.Agent.Metadata
 		ICommandMetadataCollection Commands { get; }
 		IQueryMetadataCollection Queries { get; }
 		IReadModelMetadataCollection ReadModels { get; }
+
+        string GetBasicMetadata(string format);
     }
 }

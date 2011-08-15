@@ -1,0 +1,12 @@
+﻿@using Euclid.Composite.MvcApplication.Models
+@model AgentModel
+
+<ul>
+    <li>@Model.SystemName</li>
+    <li>@Model.DescriptiveName</li>
+    <li>@Html.DisplayFor(x=>x.Commands, "IAgentPart", @Model.Commands)</li>
+    <li>@Html.DisplayFor(x=>x.Queries, "IAgentPart", @Model.Queries)</li>
+    <li>@Html.DisplayFor(x=>x.ReadModels, "IAgentPart", @Model.ReadModels)</li>
+</ul>
+
+<a href="@Url.Action("Index")">Agents in composite</a>

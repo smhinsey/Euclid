@@ -26,12 +26,6 @@ namespace Euclid.Agent.Parts
 	                                                         {
 	                                                             x.Namespace,
 	                                                             x.Name,
-	                                                             Properties = x.Properties.Select(
-	                                                                 c => new
-	                                                                          {
-	                                                                              c.Name,
-	                                                                              Type = c.PropertyType.Name
-	                                                                          })
 	                                                         })
 	                   };
 	    }

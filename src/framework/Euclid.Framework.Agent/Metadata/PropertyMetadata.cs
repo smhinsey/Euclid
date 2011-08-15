@@ -3,13 +3,13 @@ using System.Reflection;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-    public class PropertyMetadataProvider : IPropertyMetadata
+    public class PropertyMetadata : IPropertyMetadata
 	{
-		public PropertyMetadataProvider()
+		public PropertyMetadata()
 		{
 		}
 
-		public PropertyMetadataProvider(PropertyInfo pi)
+		public PropertyMetadata(PropertyInfo pi)
 		{
 			Name = pi.Name;
 			PropertyType = pi.PropertyType;

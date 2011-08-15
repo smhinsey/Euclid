@@ -50,13 +50,15 @@ namespace Euclid.Sdk.Metadata
          [Then(@"has been independently validated")]
          public void IndependentlyValidate()
          {
-             ValidateProviderOutput(_agent);
+             ValidateProviderOutput(_agent.GetRepresentation(_format));
 
-             ValidateProviderOutput(_agent.Commands);
+             ValidateProviderOutput(_agent.GetBasicMetadata(_format));
 
-             ValidateProviderOutput(_agent.ReadModels);
+             ValidateProviderOutput(_agent.Commands.GetRepresentation(_format));
 
-             ValidateProviderOutput(_agent.Queries);
+             ValidateProviderOutput(_agent.ReadModels.GetRepresentation(_format));
+
+             ValidateProviderOutput(_agent.Queries.GetRepresentation(_format));
          }
 
         private void AssertValidProviders(string contentType, IFormattedMetadataProvider provider)
@@ -66,13 +68,11 @@ namespace Euclid.Sdk.Metadata
             Assert.True(provider.GetFormats(contentType).Contains(_format));
         }
 
-        private void ValidateProviderOutput(IFormattedMetadataProvider provider)
+        private void ValidateProviderOutput(string representation)
         {
-            var metadataRepresentation = provider.GetRepresentation(_format);
+            Assert.False(string.IsNullOrEmpty(representation));
 
-            Assert.False(string.IsNullOrEmpty(metadataRepresentation));
-
-            Console.WriteLine(metadataRepresentation);
+            Console.WriteLine(representation);
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,11 +11,11 @@ namespace Euclid.Framework.Agent.Metadata
     public abstract class MetadataFormatter : IFormattedMetadataProvider
     {
         private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string>
-                                                                                      {
+                                                                                  {
 
-                                                                                          { "xml", MimeTypes.GetByExtension("xml") },
-                                                                                          { "json", MimeTypes.GetByExtension( "json")}
-                                                                                      };
+                                                                                      { "xml", MimeTypes.GetByExtension("xml") },
+                                                                                      { "json", MimeTypes.GetByExtension( "json")}
+                                                                                  };
 
         public string SetupJsonSerialization()
         {
@@ -63,13 +62,10 @@ namespace Euclid.Framework.Agent.Metadata
 
             throw new MetadataFormatNotSupportedException(format);
         }
-    }
 
-    public class CannotSerializeMetadataException : Exception
-    {
-        public CannotSerializeMetadataException(string format)
-            : base(format)
+        public Encoding GetEncoding(string format)
         {
+            return Encoding.UTF8;
         }
     }
 }

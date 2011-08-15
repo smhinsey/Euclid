@@ -13,9 +13,9 @@ namespace Euclid.Composite.MvcApplication
 	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
 	// visit http://go.microsoft.com/?LinkId=9394801
 
-	public class AgentViewerComposite : HttpApplication
+    public class AgentViewerComposite : AgentPartResolver
 	{
-		protected void Application_Start()
+	    protected void Application_Start()
 		{
 			AreaRegistration.RegisterAllAreas();
 
@@ -23,10 +23,9 @@ namespace Euclid.Composite.MvcApplication
 
 			RegisterRoutes(RouteTable.Routes);
 
-			var container = new WindsorContainer();
+			Container = new WindsorContainer();
 
-
-			var composite = new MvcCompositeApp(container);
+			var composite = new MvcCompositeApp(Container);
 
 			var euclidCompositeConfiguration = new CompositeAppSettings();
 
@@ -35,17 +34,17 @@ namespace Euclid.Composite.MvcApplication
              * euclidCompositeConfiguration.BlobStorage.ApplyOverride(typeof(SomeBlobStorageImplementation));
              */
 
-			composite.Configure(euclidCompositeConfiguration);
+            composite.Configure(euclidCompositeConfiguration);
 
-			composite.AddAgent(typeof (FakeCommand).Assembly);
+            composite.AddAgent(typeof(FakeCommand).Assembly);
 
-			composite.RegisterInputModel(new InputToFakeCommand4Converter());
+            composite.RegisterInputModel(new InputToFakeCommand4Converter());
 
-			container.Register(Component.For<ICompositeApp>().Instance(composite));
+            Container.Register(Component.For<ICompositeApp>().Instance(composite));
 
-			Error += composite.LogUnhandledException;
+            Error += composite.LogUnhandledException;
 
-			BeginRequest += composite.BeginPageRequest;
+            BeginRequest += composite.BeginPageRequest;
 		}
 
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -57,11 +56,17 @@ namespace Euclid.Composite.MvcApplication
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-			routes.MapRoute("DefaultWithFormat", "agents/index.{format}",
+			routes.MapRoute("AllAgentsWithFormat", "agents/index.{format}",
 			                new {controller = "Agents", action = "Index"});
 
-			routes.MapRoute("Default", "agents",
+			routes.MapRoute("AllAgents", "agents",
 			                new {controller = "Agents", action = "Index"});
+
+            routes.MapRoute("Agent", "agents/{agentSystemName}",
+                new { controller = "Agents", action = "ViewAgent" });
+
+            routes.MapRoute("AgentWithFormat", "agents/{agentSystemName}.{format}",
+                new { controller = "Agents", action = "ViewAgent" });
 
 			routes.MapRoute("AgentPartsWithFormat", "agents/{agentSystemName}/{partType}.{format}",
 			                new {controller = "Agents", action = "Parts"});
@@ -69,10 +74,10 @@ namespace Euclid.Composite.MvcApplication
 			routes.MapRoute("AgentParts", "agents/{agentSystemName}/{partType}",
 			                new {controller = "Agents", action = "Parts"});
 
-			routes.MapRoute("InspectAgentPartWithFormat", "agents/{agentSystemName}/{action}/{partType}/{partName}.{format}",
+			routes.MapRoute("AgentPartWithFormat", "agents/{agentSystemName}/{action}/{partType}/{partName}.{format}",
 			                new {controller = "Agents", action = "Inspect", partType = UrlParameter.Optional});
 
-			routes.MapRoute("InspectAgentPart", "agents/{agentSystemName}/{action}/{partType}/{partName}",
+			routes.MapRoute("AgentPart", "agents/{agentSystemName}/{action}/{partType}/{partName}",
 			                new {controller = "Agents", action = "Inspect", partType = UrlParameter.Optional});
 		}
 	}

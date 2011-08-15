@@ -5,18 +5,18 @@ using System.Reflection;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-    public class MethodMetadataProvider : IMethodMetadata
+    public class MethodMetadata : IMethodMetadata
 	{
-		public MethodMetadataProvider()
+		public MethodMetadata()
 		{
 		}
 
-		public MethodMetadataProvider(MethodInfo mi)
+		public MethodMetadata(MethodInfo mi)
 		{
 			Name = mi.Name;
 			ContainingType = mi.DeclaringType;
 			ReturnType = mi.ReturnType;
-			Arguments = mi.GetParameters().Select(param => new ArgumentMetadataProvider
+			Arguments = mi.GetParameters().Select(param => new ArgumentMetadata
 			                                               	{
 			                                               		DefaultValue = param.RawDefaultValue == DBNull.Value ? null : param.RawDefaultValue,
 			                                               		Name = param.Name,

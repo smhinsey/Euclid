@@ -89,6 +89,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AgentPartModel.cs" />
     <Compile Include="Models\CommandMetadataModel.cs" />
     <Compile Include="Models\InputModelFakeCommand4.cs" />
     <Compile Include="Models\PartCollectionMetadataModel.cs" />
@@ -244,6 +245,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Agents\Inspect.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Agents\ViewAgent.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Shared\DisplayTemplates\IAgentPart.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

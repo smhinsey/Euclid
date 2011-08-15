@@ -14,7 +14,7 @@ namespace Euclid.Agent
 	{
 		private IList<ITypeMetadata> _internal;
 		private Type _partType;
-
+        
 		public ITypeMetadata this[int index]
 		{
 			get { return _internal[index]; }
@@ -142,11 +142,10 @@ namespace Euclid.Agent
 				.Where(type =>
 				       type.Namespace == partNamespace &&
 				       typeof (TAgentPart).IsAssignableFrom(type))
-				.Select(type => new TypeMetadataProvider(type) as ITypeMetadata)
+				.Select(type => new TypeMetadata(type) as ITypeMetadata)
 				.ToList();
 
 			_partType = typeof (TAgentPart);
-
 			AgentSystemName = agent.GetAgentSystemName();
 			Namespace = partNamespace;
 		}

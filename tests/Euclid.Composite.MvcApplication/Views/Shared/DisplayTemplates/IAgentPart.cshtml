@@ -1,0 +1,20 @@
+﻿@using Euclid.Composite.MvcApplication.Models
+@model AgentPartModel
+
+
+@Model.PartType
+        (<a href="@Url.Action("Parts", "Agents", new { agentSystemName = @Model.AgentSystemName, partType = @Model.PartType })">html</a> |
+        <a href="@Url.Action("Parts", "Agents", new { agentSystemName = @Model.AgentSystemName, partType = @Model.PartType, format = "xml" })">xml</a> |
+        <a href="@Url.Action("Parts", "Agents", new { agentSystemName = @Model.AgentSystemName, partType = @Model.PartType, format = "json" })">json</a>)
+<ul>
+@foreach(var p in @Model.PartMetadata)
+{
+	<li id="@Model.AgentSystemName-@Model.PartType.ToLower()">
+        @p.Namespace.@p.Name
+        (<a href="@Url.Action(@Model.NextAction, "Agents", new { agentSystemName = @Model.AgentSystemName, partType = @Model.PartType, partName = p.Name })">html</a> |
+        <a href="@Url.Action(@Model.NextAction, "Agents", new { agentSystemName = @Model.AgentSystemName, partType = @Model.PartType, partName = p.Name, format = "xml" })">xml</a> |
+        <a href="@Url.Action(@Model.NextAction, "Agents", new { agentSystemName = @Model.AgentSystemName, partType = @Model.PartType, partName = p.Name, format = "json" })">json</a>)
+
+    </li>
+}
+</ul>

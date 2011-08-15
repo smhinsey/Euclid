@@ -7,25 +7,10 @@
 	@foreach (var agent in Model.Agents)
 	{
 		<li>
-			<div>
-				@agent.DescriptiveName - @agent.SystemName
-				<ul>
-					@if (agent.Commands.Count > 0)
-					{
-						<li id="@agent.SystemName-commands"><a href="@Url.Action("Parts", "Agents", new {agentSystemName = @agent.SystemName, partType = "Commands"})">Commands</a></li>
-					}
-                
-					@if (agent.Queries.Count > 0)
-					{
-						<li id="@agent.SystemName-queries"><a href="@Url.Action("Parts", "Agents", new {agentSystemName = @agent.SystemName, partType = "Queries"})">Queries</a></li>
-					}
-                
-					@if (agent.ReadModels.Count > 0)
-					{
-						<li id="@agent.SystemName-readmodels"><a href="@Url.Action("Parts", "Agents", new {agentSystemName = @agent.SystemName, partType = "ReadModels"})">Read Models</a></li>
-					}
-				</ul>
-			</div>
-		</li>
-	}
+            @agent.DescriptiveName - @agent.SystemName 
+            (<a href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName})">html</a> |
+            <a href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName, Format="xml"})">xml</a> |
+            <a href="@Url.Action("ViewAgent", "Agents", new { AgentSystemName = agent.SystemName, Format = "json" })">json</a>)
+        </li>
+    }
 </ul>

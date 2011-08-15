@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using Euclid.Agent.Extensions;
 using Euclid.Agent.Parts;
 using Euclid.Framework.Agent.Metadata;
+using Newtonsoft.Json;
 
 namespace Euclid.Agent
 {
@@ -43,7 +44,13 @@ namespace Euclid.Agent
         public bool IsValid { get; private set; }
 	    
 	    public IQueryMetadataCollection Queries { get; private set; }
-		public IReadModelMetadataCollection ReadModels { get; private set; }
+		
+        public IReadModelMetadataCollection ReadModels { get; private set; }
+
+        public string GetBasicMetadata(string format)
+        {
+            return new BasicMetadata(this).GetRepresentation(format);
+        }
 
         public override object  GetJsonObject(Newtonsoft.Json.JsonSerializer serializer)
         {
@@ -104,6 +111,33 @@ namespace Euclid.Agent
             xml.Add(queries);
 
             return xml.ToString();
+        }
+
+        private class BasicMetadata : MetadataFormatter
+        {
+            private readonly IAgentMetadata _agentMetadata;
+
+            internal BasicMetadata(IAgentMetadata agentMetadata)
+            {
+                _agentMetadata = agentMetadata;
+            }
+
+            public override object GetJsonObject(JsonSerializer serializer)
+            {
+                return new
+                {
+                    _agentMetadata.DescriptiveName,
+                    _agentMetadata.SystemName
+                };
+            }
+
+            public override string GetAsXml()
+            {
+                return new XElement("Agent",
+                                   new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
+                                   new XElement("SystemName", _agentMetadata.SystemName)).ToString();
+
+            }
         }
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Euclid.Framework.Models;
 
@@ -16,7 +17,7 @@ namespace Euclid.Composites.Mvc.ActionFilters
 				throw new CannotRetrieveInputModelException();
 			}
 
-			filterContext.Result = ResultsFormatter.FormatActionResult(inputModel, format);
+		    throw new NotImplementedException();
 
 			base.OnActionExecuting(filterContext);
 		}

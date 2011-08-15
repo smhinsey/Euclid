@@ -45,13 +45,17 @@
   <ItemGroup>
     <Compile Include="Attributes\NamespaceFinderAttribute.cs" />
     <Compile Include="Attributes\TextAttribute.cs" />
-    <Compile Include="Metadata\ArgumentMetadataProvider.cs" />
-    <Compile Include="Metadata\EuclidMetadataProvider.cs" />
-    <Compile Include="Metadata\InterfaceMetadataProvider.cs" />
-    <Compile Include="Metadata\MethodMetadataProvider.cs" />
-    <Compile Include="Metadata\TypeMetadataProvider.cs" />
+    <Compile Include="Metadata\ArgumentMetadata.cs" />
+    <Compile Include="Metadata\InputModelFormatter.cs" />
+    <Compile Include="Metadata\InterfaceMetadata.cs" />
+    <Compile Include="Metadata\InvalidAgentPartTypeSpecifiedException.cs" />
+    <Compile Include="Metadata\MetadataFormatter.cs" />
+    <Compile Include="Metadata\MethodMetadata.cs" />
+    <Compile Include="Metadata\TypeMetadata.cs" />
+    <Compile Include="Metadata\QueryFormatter.cs" />
+    <Compile Include="Metadata\ReadModelFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Metadata\PropertyMetadataProvider.cs" />
+    <Compile Include="Metadata\PropertyMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common\Euclid.Common.csproj">

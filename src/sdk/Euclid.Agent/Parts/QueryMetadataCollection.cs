@@ -19,25 +19,13 @@ namespace Euclid.Agent.Parts
 	    {
 	        return new
 	                   {
-	                       Queries = this.Select(x => new
-	                                            {
-                                                    x.Namespace,
-                                                    x.Name,
-	                                                Query = x.Methods.Select(
-	                                                    q => new
-	                                                             {
-	                                                                 Name = q.Name,
-	                                                                 Arguments = q.Arguments
-                                                                                    .OrderBy(arg=>arg.Order)
-                                                                                    .Select(a => new
-	                                                                                        {
-	                                                                                            ParameterName = a.Name,
-	                                                                                            ParameterType = a.PropertyType.Name
-	                                                                                        }),
-                                                                    //jt: the provider excpects queries to return an ICollection<IAgentPart>
-                                                                    Returns = GetFormattedReturnType(q)
-	                                                             })
-	                                            })
+	                       Queries = this.Select(
+                                        x => new
+                                                 {
+                                                     x.Namespace,
+                                                     x.Name
+                                                 }
+                                )
 	                   };
 	    }
 
@@ -54,28 +42,9 @@ namespace Euclid.Agent.Parts
 
             foreach(var item in this)
             {
-                var queryPart = new XElement("QueryPart",
-                                new XElement("Namespace", item.Namespace),
-                                new XElement("Name", item.Name));
-
-                foreach (var method in item.Methods)
-                {
-                    var query = new XElement("Query",
-                                                new XElement("Returns", new XCData(GetFormattedReturnType(method))),
-                                                new XElement("Name", method.Name));
-
-                        
-                    foreach (var argument in method.Arguments.OrderBy(a=>a.Order))
-                    {
-                        query.Add(
-                            new XElement("ParameterName", argument.Name),
-                            new XElement("ParameterType", argument.PropertyType.Name));
-                    }
-
-                    queryPart.Add(query);
-                }
-
-                xml.Add(queryPart);
+                xml.Add(new XElement("Query",
+                                     new XElement("Namespace", item.Namespace),
+                                     new XElement("Name", item.Name)));
             }
 
 	        return xml.ToString();

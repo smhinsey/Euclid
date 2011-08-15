@@ -95,12 +95,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\AgentMetadataNotFoundException.cs" />
+    <Compile Include="ActionFilters\AgentPartMetdataNotFoundException.cs" />
+    <Compile Include="ActionFilters\ApplicationNotPartResolverException.cs" />
     <Compile Include="ActionFilters\CannotRetrieveInputModelException.cs" />
     <Compile Include="ActionFilters\CannotRetrieveMetadataException.cs" />
-    <Compile Include="ActionFilters\FormatListAgentMetadataAttribute.cs" />
-    <Compile Include="ActionFilters\ResultsFormatter.cs" />
+    <Compile Include="ActionFilters\FormatAgentMetadata.cs" />
+    <Compile Include="ActionFilters\FormatListOfBasicAgentMetadata.cs" />
     <Compile Include="ActionFilters\FormatInputModelAttribute.cs" />
     <Compile Include="ActionFilters\FormatNotSpecifiedException.cs" />
+    <Compile Include="ActionFilters\FormatPartCollectionMetadataAttribute.cs" />
+    <Compile Include="ActionFilters\FormatPartMetadataAttribute.cs" />
+    <Compile Include="ActionFilters\MetadataFormatterAttributeBase.cs" />
     <Compile Include="Binders\AgentMetadataModelBinder.cs" />
     <Compile Include="Binders\AgentPartMetadataCollectionBinder.cs" />
     <Compile Include="Binders\AgentPartTypeNotSpecifiedException.cs" />
