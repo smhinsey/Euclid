@@ -1,4 +1,5 @@
-﻿using ForumAgent.Queries;
+﻿using Euclid.TestingSupport;
+using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 using NHibernate;
 using NUnit.Framework;
@@ -6,8 +7,13 @@ using NUnit.Framework;
 
 namespace ForumTests.Queries
 {
-	public class UserQueryTests : NhTestFixture
+	public class UserQueryTests : NhTestFixture<User>
 	{
+		public UserQueryTests() : 
+			base(new AutoMapperConfiguration(typeof(User)))
+		{
+		}
+
 		[Test]
 		public void TestAuthenticationQuery()
 		{

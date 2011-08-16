@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Euclid.Common.Messaging;
+using Euclid.TestingSupport;
 using ForumAgent.Commands;
 using ForumAgent.Queries;
 using NUnit.Framework;
@@ -9,6 +10,11 @@ namespace ForumTests.EndToEnd
 	public class ForumEndToEndTests : HostingFabricFixture
 	{
 		private const int SleepForCommand = 1500;
+
+		public ForumEndToEndTests() :
+			base(typeof(PublishPost).Assembly)
+		{
+		}
 
 		[Test]
 		public void TestCommentOnPost()

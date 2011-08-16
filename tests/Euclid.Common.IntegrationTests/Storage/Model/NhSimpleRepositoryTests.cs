@@ -1,12 +1,18 @@
 ﻿using System;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.TestingFakes.Storage.Model;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Common.IntegrationTests.Storage.Model
 {
-	public class NhSimpleRepositoryTests : NhTestFixture
+	public class NhSimpleRepositoryTests : NhTestFixture<FakeModel>
 	{
+		public NhSimpleRepositoryTests() :
+			base(new AutoMapperConfiguration(typeof(FakeModel)))
+		{
+		}
+
 		[Test]
 		public void Delete()
 		{

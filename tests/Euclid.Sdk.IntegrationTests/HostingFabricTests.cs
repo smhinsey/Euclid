@@ -5,12 +5,18 @@ using Euclid.Common.Messaging;
 using Euclid.Framework.Cqrs;
 using Euclid.Sdk.FakeAgent.Commands;
 using Euclid.Sdk.FakeAgent.Queries;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Sdk.IntegrationTests
 {
 	public class HostingFabricTests : HostingFabricFixture
 	{
+		public HostingFabricTests()
+			: base(typeof (FakeCommand).Assembly)
+		{
+		}
+
 		[Test]
 		public void PublishProcessAndCompleteManyCommands()
 		{

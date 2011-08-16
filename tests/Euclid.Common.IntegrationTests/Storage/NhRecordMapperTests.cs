@@ -5,6 +5,7 @@ using Euclid.Common.Storage;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.TestingFakes.Storage;
 using Euclid.Common.UnitTests.Storage;
+using Euclid.TestingSupport;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -22,7 +23,8 @@ namespace Euclid.Common.IntegrationTests.Storage
 
 		public void ConfigureDatabase()
 		{
-			var cfg = new AutoMapperConfiguration();
+			var cfg = new AutoMapperConfiguration(typeof(FakeMessage));
+
 			_session = Fluently
 				.Configure()
 				.Database(SQLiteConfiguration.Standard.UsingFile("NhRecordMapperTests"))

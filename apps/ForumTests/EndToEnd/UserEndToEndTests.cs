@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Euclid.Common.Messaging;
+using Euclid.TestingSupport;
 using ForumAgent.Commands;
 using ForumAgent.Queries;
 using NUnit.Framework;
@@ -8,7 +9,12 @@ namespace ForumTests.EndToEnd
 {
 	public class UserEndToEndTests : HostingFabricFixture
 	{
-		private const int SleepForCommand = 1000;
+		private const int SleepForCommand = 1500;
+
+		public UserEndToEndTests() :
+			base(typeof(RegisterUser).Assembly)
+		{
+		}
 
 		[Test]
 		public void TestRegisterUser()
@@ -19,7 +25,7 @@ namespace ForumTests.EndToEnd
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			publisher.PublishMessage(new RegisterUser() { Username  = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt});
+			publisher.PublishMessage(new RegisterUser {Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt});
 
 			Thread.Sleep(SleepForCommand);
 
@@ -42,7 +48,7 @@ namespace ForumTests.EndToEnd
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			publisher.PublishMessage(new RegisterUser() { Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt });
+			publisher.PublishMessage(new RegisterUser {Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt});
 
 			Thread.Sleep(SleepForCommand);
 
@@ -50,7 +56,7 @@ namespace ForumTests.EndToEnd
 
 			var user = query.FindByUsername(username);
 
-			publisher.PublishMessage(new UpdateUserProfile() { Email = email, UserIdentifier = user.Identifier});
+			publisher.PublishMessage(new UpdateUserProfile {Email = email, UserIdentifier = user.Identifier});
 
 			Thread.Sleep(SleepForCommand);
 
