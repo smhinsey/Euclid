@@ -14,15 +14,15 @@ namespace Euclid.Framework.EventSourcing
 		/// <summary>
 		/// Called when a new instance of the supplied aggreate is created or when an existing instance is updated.
 		/// </summary>
-		/// <param name="aggregate"></param>
-		/// <returns>Save returns the read models reflecting the saved aggregate.</returns>
+		/// <param name="aggregate">Aggregate to be saved.</param>
+		/// <returns>A list of read models reflecting the saved aggregate.</returns>
 		IList<IReadModel> Save(TAggregate aggregate);
 
 		/// <summary>
-		/// 
+		/// Called when an aggregate is deleted.
 		/// </summary>
-		/// <param name="aggregate"></param>
-		/// <returns></returns>
+		/// <param name="aggregate">Aggregate to be deleted.</param>
+		/// <returns>A list of read models which should be deleted.</returns>
 		IList<IReadModel> Delete(TAggregate aggregate);
 	}
 }

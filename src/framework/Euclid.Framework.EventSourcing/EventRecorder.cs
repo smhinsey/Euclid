@@ -4,6 +4,9 @@ using EventStore;
 
 namespace Euclid.Framework.EventSourcing
 {
+	/// <summary>
+	/// The EventRecorder is responsible for persisting IEvents within an EventStore stream.
+	/// </summary>
 	public class EventRecorder : DefaultCommandProcessor<IEvent>
 	{
 		private readonly IStoreEvents _eventStore;
