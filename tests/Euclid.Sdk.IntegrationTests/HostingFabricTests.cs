@@ -20,7 +20,7 @@ namespace Euclid.Sdk.IntegrationTests
 		public void PublishProcessAndCompleteManyCommands()
 		{
 			var publicationIds = new List<Guid>();
-			const int numberOfCommands = 10;
+			const int numberOfCommands = 100;
 
 			var publisher = Container.Resolve<IPublisher>();
 
