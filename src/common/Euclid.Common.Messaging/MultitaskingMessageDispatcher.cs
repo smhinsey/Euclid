@@ -155,7 +155,8 @@ namespace Euclid.Common.Messaging
 					var processor = _container.GetInstance(messageProcessor.GetType());
 
 					// SELF if we create these as Tasks that return a value, we can register the results after execution completes
-					// freeing us of the need to resolve the registry inside the task
+					// freeing us of the need to resolve the registry inside the task. The task should look something like:
+					// var task = new Task<MessageDispatchResult>({ try{...} catch(Exception e) { return new MessageDispatchResult { Failed = true, Error = e} ; }})
 
 					Task.Factory.StartNew
 						(() =>
