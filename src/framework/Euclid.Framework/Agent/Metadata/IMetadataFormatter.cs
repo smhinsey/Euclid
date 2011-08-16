@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-    public interface IFormattedMetadataProvider
+    public interface IMetadataFormatter
     {
         string GetContentType(string format);
         IEnumerable<string> GetFormats(string contentType);

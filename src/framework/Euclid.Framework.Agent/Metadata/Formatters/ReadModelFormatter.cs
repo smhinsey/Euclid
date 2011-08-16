@@ -2,13 +2,13 @@ using System.Linq;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 
-namespace Euclid.Framework.Agent.Metadata
+namespace Euclid.Framework.Agent.Metadata.Formatters
 {
-    internal class ReadModelFormatter : MetadataFormatter
+    internal class ReadModelFormatter : MetadataFormatterFormatter
     {
-        private readonly TypeMetadata _partMetadata;
+        private readonly ITypeMetadata _partMetadata;
 
-        public ReadModelFormatter(TypeMetadata partMetadata)
+        public ReadModelFormatter(ITypeMetadata partMetadata)
         {
             _partMetadata = partMetadata;
         }

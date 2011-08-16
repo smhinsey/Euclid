@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-using Euclid.Agent.Extensions;
 using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Cqrs;
 using Newtonsoft.Json;

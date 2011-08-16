@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Euclid.Agent.Extensions;
+using Euclid.Framework.Agent.Extensions;
 using Euclid.Framework.Agent.Metadata;
 using Euclid.Sdk.FakeAgent.Commands;
 using NUnit.Framework;
@@ -14,7 +14,7 @@ namespace Euclid.Sdk.Metadata
     public class EuclidMetadataProviderTestSteps
     {
         private string _format;
-        private IAgentMetadata _agent;
+        private IAgentMetadataFormatter _agent;
 
         [Given("an agent")]
         public void ValidAgentMetadata()
@@ -43,19 +43,19 @@ namespace Euclid.Sdk.Metadata
             AssertValidProviders(contentType, _agent.Commands);
             foreach(var c in _agent.Commands)
             {
-                AssertValidProviders(contentType, c.GetMetadataFormatter("command"));
+                AssertValidProviders(contentType, c.GetFormatter());
             }
 
             AssertValidProviders(contentType, _agent.ReadModels);
             foreach(var m in _agent.ReadModels)
             {
-                AssertValidProviders(contentType, m.GetMetadataFormatter("readmodel"));
+                AssertValidProviders(contentType, m.GetFormatter());
             }
 
             AssertValidProviders(contentType, _agent.Queries);
             foreach (var q in _agent.Queries)
             {
-                AssertValidProviders(contentType, q.GetMetadataFormatter("query"));
+                AssertValidProviders(contentType, q.GetFormatter());
             }
        }
 
@@ -69,23 +69,23 @@ namespace Euclid.Sdk.Metadata
              ValidateProviderOutput(_agent.Commands.GetRepresentation(_format));
              foreach (var c in _agent.Commands)
              {
-                 ValidateProviderOutput(c.GetMetadataFormatter("command").GetRepresentation(_format));
+                 ValidateProviderOutput(c.GetFormatter().GetRepresentation(_format));
              }
 
              ValidateProviderOutput(_agent.ReadModels.GetRepresentation(_format));
              foreach (var m in _agent.ReadModels)
              {
-                 ValidateProviderOutput(m.GetMetadataFormatter("readmodel").GetRepresentation(_format));
+                 ValidateProviderOutput(m.GetFormatter().GetRepresentation(_format));
              }
 
              ValidateProviderOutput(_agent.Queries.GetRepresentation(_format));
              foreach (var q in _agent.Queries)
              {
-                 ValidateProviderOutput(q.GetMetadataFormatter("query").GetRepresentation(_format));
+                 ValidateProviderOutput(q.GetFormatter().GetRepresentation(_format));
              }
          }
 
-        private void AssertValidProviders(string contentType, IFormattedMetadataProvider provider)
+        private void AssertValidProviders(string contentType, IMetadataFormatter provider)
         {
             Assert.AreEqual(contentType, provider.GetContentType(_format));
 

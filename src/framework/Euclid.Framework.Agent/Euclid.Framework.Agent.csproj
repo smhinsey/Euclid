@@ -43,17 +43,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\AgentNameAttribute.cs" />
+    <Compile Include="Attributes\AgentSystemNameAttribute.cs" />
+    <Compile Include="Attributes\LocationOfCommandsAttribute.cs" />
+    <Compile Include="Attributes\LocationOfProcessorsAttribute.cs" />
+    <Compile Include="Attributes\LocationOfQueriesAttribute.cs" />
     <Compile Include="Attributes\NamespaceFinderAttribute.cs" />
     <Compile Include="Attributes\TextAttribute.cs" />
+    <Compile Include="Extensions\AgentMetadataCollectionExtensions.cs" />
+    <Compile Include="Extensions\AssemblyExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Metadata\AgentMetadataFormatter.cs" />
+    <Compile Include="Metadata\AgentPartFormatterNotFoundException.cs" />
     <Compile Include="Metadata\ArgumentMetadata.cs" />
-    <Compile Include="Metadata\InputModelFormatter.cs" />
+    <Compile Include="Metadata\FormattableMetadata.cs" />
+    <Compile Include="Metadata\Formatters\CommandFormatter.cs" />
+    <Compile Include="Metadata\Formatters\MetadataFormatterFormatter.cs" />
+    <Compile Include="Metadata\Formatters\QueryFormatter.cs" />
+    <Compile Include="Metadata\Formatters\ReadModelFormatter.cs" />
     <Compile Include="Metadata\InterfaceMetadata.cs" />
-    <Compile Include="Metadata\InvalidAgentPartTypeSpecifiedException.cs" />
-    <Compile Include="Metadata\MetadataFormatter.cs" />
     <Compile Include="Metadata\MethodMetadata.cs" />
     <Compile Include="Metadata\TypeMetadata.cs" />
-    <Compile Include="Metadata\QueryFormatter.cs" />
-    <Compile Include="Metadata\ReadModelFormatter.cs" />
+    <Compile Include="PartCollectionsBase.cs" />
+    <Compile Include="Parts\CommandMetadataFormatterCollection.cs" />
+    <Compile Include="Parts\InvalidAgentPartImplementationException.cs" />
+    <Compile Include="Parts\InvalidPropertySetterSpecifiedException.cs" />
+    <Compile Include="Parts\PartNotRegisteredException.cs" />
+    <Compile Include="Parts\QueryMetadataFormatterCollection.cs" />
+    <Compile Include="Parts\ReadModelMetadataFormatterCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Metadata\PropertyMetadata.cs" />
   </ItemGroup>

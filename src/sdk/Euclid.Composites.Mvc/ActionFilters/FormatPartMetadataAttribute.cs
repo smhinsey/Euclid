@@ -6,7 +6,7 @@ namespace Euclid.Composites.Mvc.ActionFilters
 {
     public class FormatPartMetadataAttribute : MetadataFormatterAttributeBase
     {
-        public override IFormattedMetadataProvider GetFormatter(ActionExecutingContext filterContext)
+        public override IMetadataFormatter GetFormatter(ActionExecutingContext filterContext)
         {
             var partMetadata = filterContext.ActionParameters["typeMetadata"] as ITypeMetadata;
 
@@ -22,20 +22,7 @@ namespace Euclid.Composites.Mvc.ActionFilters
                 throw new AgentPartTypeNotSpecifiedException();
             }
 
-            switch(partType.ToLower())
-            {
-                case "commands":
-                    partType = "command";
-                    break;
-                case "queries":
-                    partType = "query";
-                    break;
-                case "readmodels":
-                    partType = "readmodel";
-                    break;
-            }
-
-            return partMetadata.GetMetadataFormatter(partType);
+            return partMetadata.GetFormatter();
         }
     }
 }

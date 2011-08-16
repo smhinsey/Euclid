@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using Euclid.Agent.Extensions;
+using Euclid.Framework.Agent.Extensions;
 
 namespace Euclid.Composites.AgentResolution
 {

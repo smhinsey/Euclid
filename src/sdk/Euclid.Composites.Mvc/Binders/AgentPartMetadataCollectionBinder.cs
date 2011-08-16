@@ -29,29 +29,29 @@ namespace Euclid.Composites.Mvc.Binders
 
 			var metadata = _resolvers.GetAgentMetadata(systemName);
 
-			IAgentPartMetadataCollection partMetadata;
+			IAgentPartMetadataFormatterCollection partMetadataFormatter;
 
 			switch (partType.ToLower())
 			{
 				case "commands":
-					partMetadata = metadata.Commands;
+					partMetadataFormatter = metadata.Commands;
 					break;
 				case "readmodels":
-					partMetadata = metadata.ReadModels;
+					partMetadataFormatter = metadata.ReadModels;
 					break;
 				case "queries":
-					partMetadata = metadata.Queries;
+					partMetadataFormatter = metadata.Queries;
 					break;
 				default:
 					throw new InvalidPartCollectionException(partType);
 			}
 
-			return partMetadata;
+			return partMetadataFormatter;
 		}
 
 		public bool IsMatch(Type modelType)
 		{
-			return typeof (IAgentPartMetadataCollection).IsAssignableFrom(modelType);
+			return typeof (IAgentPartMetadataFormatterCollection).IsAssignableFrom(modelType);
 		}
 	}
 }

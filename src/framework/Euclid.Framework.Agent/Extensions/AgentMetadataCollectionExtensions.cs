@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.Agent.Metadata.Formatters;
 using Newtonsoft.Json;
 
-namespace Euclid.Agent.Extensions
+namespace Euclid.Framework.Agent.Extensions
 {
     public static class AgentMetadataCollectionExtensions
     {
-        private class BasicAgentMetadataAggregator : MetadataFormatter
+        private class BasicAgentMetadataFormatterAggregator : MetadataFormatterFormatter
         {
-            private readonly IEnumerable<IAgentMetadata> _metadataList;
+            private readonly IEnumerable<IAgentMetadataFormatter> _metadataList;
 
-            public BasicAgentMetadataAggregator(IEnumerable<IAgentMetadata> metadataList)
+            public BasicAgentMetadataFormatterAggregator(IEnumerable<IAgentMetadataFormatter> metadataList)
             {
                 _metadataList = metadataList;
             }
@@ -40,11 +40,11 @@ namespace Euclid.Agent.Extensions
             }
         }
 
-        private class FullAgentMetadataAggregator : MetadataFormatter
+        private class FullAgentMetadataFormatterAggregator : MetadataFormatterFormatter
         {
-            private readonly IEnumerable<IAgentMetadata> _metadataList;
+            private readonly IEnumerable<IAgentMetadataFormatter> _metadataList;
 
-            public FullAgentMetadataAggregator(IEnumerable<IAgentMetadata> metadataList)
+            public FullAgentMetadataFormatterAggregator(IEnumerable<IAgentMetadataFormatter> metadataList)
             {
                 _metadataList = metadataList;
             }
@@ -83,14 +83,14 @@ namespace Euclid.Agent.Extensions
             }
         }
 
-        public static IFormattedMetadataProvider GetBasicMetadataFormatter(this IEnumerable<IAgentMetadata> metadataList)
+        public static IMetadataFormatter GetBasicMetadataFormatter(this IEnumerable<IAgentMetadataFormatter> metadataList)
         {
-            return new BasicAgentMetadataAggregator(metadataList);
+            return new BasicAgentMetadataFormatterAggregator(metadataList);
         }
 
-        public static IFormattedMetadataProvider GetFullMetadataFormatter(this IEnumerable<IAgentMetadata> metadataList)
+        public static IMetadataFormatter GetFullMetadataFormatter(this IEnumerable<IAgentMetadataFormatter> metadataList)
         {
-            return new FullAgentMetadataAggregator(metadataList);
+            return new FullAgentMetadataFormatterAggregator(metadataList);
         }
     }
 }

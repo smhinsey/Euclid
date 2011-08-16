@@ -7,9 +7,9 @@ namespace Euclid.Composites.Mvc.ActionFilters
 {
     public class FormatAgentMetadata : MetadataFormatterAttributeBase
     {
-        public override IFormattedMetadataProvider GetFormatter(ActionExecutingContext filterContext)
+        public override IMetadataFormatter GetFormatter(ActionExecutingContext filterContext)
         {
-            return filterContext.ActionParameters["agentMetadata"] as IFormattedMetadataProvider;
+            return filterContext.ActionParameters["agentMetadata"] as IMetadataFormatter;
         }
     }
 }

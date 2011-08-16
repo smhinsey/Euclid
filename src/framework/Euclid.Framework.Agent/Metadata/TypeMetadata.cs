@@ -6,7 +6,12 @@ namespace Euclid.Framework.Agent.Metadata
 {
     public class TypeMetadata : ITypeMetadata
 	{
-		public TypeMetadata(Type type)
+        protected TypeMetadata()
+        {
+            
+        }
+
+        public TypeMetadata(Type type)
 		{
 			Namespace = type.Namespace;
 			Name = type.Name;
@@ -17,28 +22,13 @@ namespace Euclid.Framework.Agent.Metadata
 			Methods = Type.GetMethods().Where(mi => !mi.IsSpecialName && mi.DeclaringType != typeof(object)).Select(mi => new MethodMetadata(mi));
 		}
 
-        public IFormattedMetadataProvider GetMetadataFormatter(string partType)
-        {
-            switch (partType.ToLower())
-            {
-                case "command":
-                    return new InputModelFormatter(this);
-                case "readmodel":
-                    return new ReadModelFormatter(this);
-                case "query":
-                    return new QueryFormatter(this);
-            }
-
-            throw new InvalidAgentPartTypeSpecifiedException(partType);
-        }
-
-        public IEnumerable<IInterfaceMetadata> Interfaces { get; private set; }
-		public IEnumerable<IMethodMetadata> Methods { get; private set; }
+        public IEnumerable<IInterfaceMetadata> Interfaces { get; protected set; }
+        public IEnumerable<IMethodMetadata> Methods { get; protected set; }
 
 		public string Name { get; set; }
-		public string Namespace { get; private set; }
+        public string Namespace { get; protected set; }
 
-        public IEnumerable<IPropertyMetadata> Properties { get; private set; }
+        public IEnumerable<IPropertyMetadata> Properties { get; protected set; }
 
 		public Type Type { get; set; }
 
@@ -51,5 +41,10 @@ namespace Euclid.Framework.Agent.Metadata
 
 			return Type.GetCustomAttributes(type, true).Cast<IPropertyMetadata>().ToList();
 		}
+
+        public IMetadataFormatter GetFormatter()
+        {
+            return FormattableMetadataFactory.GetFormatter(this);
+        }
 	}
 }

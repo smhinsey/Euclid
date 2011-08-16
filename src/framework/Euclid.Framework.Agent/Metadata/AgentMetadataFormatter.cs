@@ -1,19 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
-using Euclid.Agent.Extensions;
-using Euclid.Agent.Parts;
-using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.Agent.Extensions;
+using Euclid.Framework.Agent.Metadata.Formatters;
+using Euclid.Framework.Agent.Parts;
 using Newtonsoft.Json;
 
-namespace Euclid.Agent
+namespace Euclid.Framework.Agent.Metadata
 {
-    public class Agent : MetadataFormatter, IAgentMetadata
+    public class AgentMetadataFormatter : MetadataFormatterFormatter, IAgentMetadataFormatter
 	{
 		private readonly Assembly _agent;
 
-		public Agent(Assembly agent)
+		public AgentMetadataFormatter(Assembly agent)
 		{
 			_agent = agent;
 
@@ -24,9 +23,9 @@ namespace Euclid.Agent
 				DescriptiveName = _agent.GetAgentName();
 				SystemName = _agent.GetAgentSystemName();
 
-				Commands = new CommandMetadataCollection(_agent);
-				Queries = new QueryMetadataCollection(_agent);
-				ReadModels = new ReadModelMetadataCollection(_agent);
+				Commands = new CommandMetadataFormatterCollection(_agent);
+				Queries = new QueryMetadataFormatterCollection(_agent);
+				ReadModels = new ReadModelMetadataFormatterCollection(_agent);
 			}
 		}
 
@@ -35,7 +34,7 @@ namespace Euclid.Agent
 			get { return _agent; }
 		}
 
-		public ICommandMetadataCollection Commands { get; private set; }
+		public ICommandMetadataFormatterCollection Commands { get; private set; }
 
 		public string DescriptiveName { get; private set; }
 
@@ -43,16 +42,16 @@ namespace Euclid.Agent
 
         public bool IsValid { get; private set; }
 	    
-	    public IQueryMetadataCollection Queries { get; private set; }
+	    public IQueryMetadataFormatterCollection Queries { get; private set; }
 		
-        public IReadModelMetadataCollection ReadModels { get; private set; }
+        public IReadModelMetadataFormatterCollection ReadModels { get; private set; }
 
         public string GetBasicMetadata(string format)
         {
-            return new BasicMetadata(this).GetRepresentation(format);
+            return new BasicMetadataFormatter(this).GetRepresentation(format);
         }
 
-        public override object  GetJsonObject(Newtonsoft.Json.JsonSerializer serializer)
+        public override object  GetJsonObject(JsonSerializer serializer)
         {
             return new {
                            DescriptiveName,
@@ -113,29 +112,29 @@ namespace Euclid.Agent
             return xml.ToString();
         }
 
-        private class BasicMetadata : MetadataFormatter
+        private class BasicMetadataFormatter : MetadataFormatterFormatter
         {
-            private readonly IAgentMetadata _agentMetadata;
+            private readonly IAgentMetadataFormatter _agentMetadataFormatter;
 
-            internal BasicMetadata(IAgentMetadata agentMetadata)
+            internal BasicMetadataFormatter(IAgentMetadataFormatter agentMetadataFormatter)
             {
-                _agentMetadata = agentMetadata;
+                _agentMetadataFormatter = agentMetadataFormatter;
             }
 
             public override object GetJsonObject(JsonSerializer serializer)
             {
                 return new
                 {
-                    _agentMetadata.DescriptiveName,
-                    _agentMetadata.SystemName
+                    _agentMetadataFormatter.DescriptiveName,
+                    _agentMetadataFormatter.SystemName
                 };
             }
 
             public override string GetAsXml()
             {
                 return new XElement("Agent",
-                                   new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
-                                   new XElement("SystemName", _agentMetadata.SystemName)).ToString();
+                                   new XElement("DescriptiveName", _agentMetadataFormatter.DescriptiveName),
+                                   new XElement("SystemName", _agentMetadataFormatter.SystemName)).ToString();
 
             }
         }

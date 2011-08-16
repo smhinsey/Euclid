@@ -6,7 +6,7 @@ namespace Euclid.Composite.MvcApplication.Models
 	{
 		public string AgentSystemName { get; set; }
 		public string PartTypeName { get; set; }
-		public IAgentPartMetadataCollection Parts { get; set; }
+		public IAgentPartMetadataFormatterCollection Parts { get; set; }
         public string NextActionName { get; set; }
 
 	}

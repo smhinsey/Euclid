@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
-using Euclid.Agent.Extensions;
 using Euclid.Composites.Conversion;
+using Euclid.Framework.Agent.Extensions;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.TestingFakes.Cqrs;
 using Euclid.Framework.TestingFakes.InputModels;

@@ -33,32 +33,32 @@ namespace Euclid.Composite.MvcApplication.Controllers
 		}
 
         [FormatAgentMetadata]
-        public ViewResult ViewAgent(IAgentMetadata agentMetadata, string format)
+        public ViewResult ViewAgent(IAgentMetadataFormatter agentMetadataFormatter, string format)
         {
-            ViewBag.Title = agentMetadata.SystemName;
+            ViewBag.Title = agentMetadataFormatter.SystemName;
 
             return View(new AgentModel
                             {
-                                DescriptiveName = agentMetadata.DescriptiveName,
-                                SystemName = agentMetadata.SystemName,
+                                DescriptiveName = agentMetadataFormatter.DescriptiveName,
+                                SystemName = agentMetadataFormatter.SystemName,
                                 Commands = new AgentPartModel
                                                {
-                                                   AgentSystemName = agentMetadata.SystemName,
-                                                   PartMetadata = agentMetadata.Commands,
+                                                   AgentSystemName = agentMetadataFormatter.SystemName,
+                                                   PartMetadataFormatter = agentMetadataFormatter.Commands,
                                                    PartType = "Commands",
                                                    NextAction = "InspectCommand"
                                                },
                                 Queries = new AgentPartModel
                                               {
-                                                  AgentSystemName = agentMetadata.SystemName,
-                                                  PartMetadata = agentMetadata.Queries,
+                                                  AgentSystemName = agentMetadataFormatter.SystemName,
+                                                  PartMetadataFormatter = agentMetadataFormatter.Queries,
                                                   PartType = "Queries",
                                                   NextAction = "Inspect"
                                               },
                                 ReadModels = new AgentPartModel
                                                 {
-                                                    AgentSystemName = agentMetadata.SystemName,
-                                                    PartMetadata = agentMetadata.ReadModels,
+                                                    AgentSystemName = agentMetadataFormatter.SystemName,
+                                                    PartMetadataFormatter = agentMetadataFormatter.ReadModels,
                                                     PartType = "ReadModels",
                                                     NextAction = "Inspect"
                                                 }
@@ -66,7 +66,7 @@ namespace Euclid.Composite.MvcApplication.Controllers
         }
 
         [FormatPartCollectionMetadata]
-        public ViewResult Parts(IAgentPartMetadataCollection partCollection, string partType, string format)
+        public ViewResult Parts(IAgentPartMetadataFormatterCollection partCollection, string partType, string format)
         {
             ViewBag.Title = string.Format("{0} in agent {1}", partType, partCollection.AgentSystemName);
 

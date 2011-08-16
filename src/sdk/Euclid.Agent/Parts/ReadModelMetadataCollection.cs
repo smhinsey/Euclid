@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
-using Euclid.Agent.Extensions;
 using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Models;
 using Newtonsoft.Json;

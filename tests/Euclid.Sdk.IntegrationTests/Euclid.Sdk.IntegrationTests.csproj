@@ -161,10 +161,6 @@
       <Project>{A32FFA94-BEEA-46AD-9A99-F09D6F44D58B}</Project>
       <Name>AgentConsole</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\sdk\Euclid.Agent\Euclid.Agent.csproj">
-      <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
-      <Name>Euclid.Agent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\sdk\Euclid.Composites\Euclid.Composites.csproj">
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>

@@ -5,7 +5,7 @@ namespace Euclid.Composites.Mvc.ActionFilters
 {
     public abstract class MetadataFormatterAttributeBase : ActionFilterAttribute
     {
-        public abstract IFormattedMetadataProvider GetFormatter(ActionExecutingContext filterContext);
+        public abstract IMetadataFormatter GetFormatter(ActionExecutingContext filterContext);
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {

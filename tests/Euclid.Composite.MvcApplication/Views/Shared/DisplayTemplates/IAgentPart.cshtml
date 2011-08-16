@@ -7,7 +7,7 @@
         <a href="@Url.Action("Parts", "Agents", new { agentSystemName = @Model.AgentSystemName, partType = @Model.PartType, format = "xml" })">xml</a> |
         <a href="@Url.Action("Parts", "Agents", new { agentSystemName = @Model.AgentSystemName, partType = @Model.PartType, format = "json" })">json</a>)
 <ul>
-@foreach(var p in @Model.PartMetadata)
+@foreach(var p in @Model.PartMetadataFormatter)
 {
 	<li id="@Model.AgentSystemName-@Model.PartType.ToLower()">
         @p.Namespace.@p.Name

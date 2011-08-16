@@ -3,16 +3,16 @@ using System.Reflection;
 namespace Euclid.Framework.Agent.Metadata
 {
 
-    public interface IAgentMetadata : IFormattedMetadataProvider
+    public interface IAgentMetadataFormatter : IMetadataFormatter
     {
         string DescriptiveName { get; }
         string SystemName { get; }
         bool IsValid { get; }
         
         Assembly AgentAssembly { get; }
-		ICommandMetadataCollection Commands { get; }
-		IQueryMetadataCollection Queries { get; }
-		IReadModelMetadataCollection ReadModels { get; }
+		ICommandMetadataFormatterCollection Commands { get; }
+		IQueryMetadataFormatterCollection Queries { get; }
+		IReadModelMetadataFormatterCollection ReadModels { get; }
 
         string GetBasicMetadata(string format);
     }

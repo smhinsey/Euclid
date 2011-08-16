@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Euclid.Agent;
 using Euclid.Agent.Attributes;
 using Euclid.Framework.Agent.Attributes;
 using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Cqrs;
 
-namespace Euclid.Agent.Extensions
+namespace Euclid.Framework.Agent.Extensions
 {
 	public static class AssemblyExtensions
 	{
@@ -28,9 +29,9 @@ namespace Euclid.Agent.Extensions
 			return attributes.Intersect(agentAttributeTypes).Count() == agentAttributeTypes.Count();
 		}
 
-		public static IAgentMetadata GetAgentMetadata(this Assembly assembly)
+		public static IAgentMetadataFormatter GetAgentMetadata(this Assembly assembly)
 		{
-			return new Agent(assembly);
+			return new AgentMetadataFormatter(assembly);
 		}
 
 		public static string GetAgentName(this Assembly agent)

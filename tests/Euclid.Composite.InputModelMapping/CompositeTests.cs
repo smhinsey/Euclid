@@ -4,7 +4,6 @@ using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 using Castle.Windsor;
-using Euclid.Agent.Extensions;
 using Euclid.Composites;
 using Euclid.Composites.AgentResolution;
 using Euclid.Framework.Agent.Metadata;

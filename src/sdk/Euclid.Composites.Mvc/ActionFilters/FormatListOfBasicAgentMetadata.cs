@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Euclid.Agent.Extensions;
+using Euclid.Framework.Agent.Extensions;
 
 namespace Euclid.Composites.Mvc.ActionFilters
 {

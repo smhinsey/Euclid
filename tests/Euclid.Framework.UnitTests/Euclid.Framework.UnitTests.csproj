@@ -120,10 +120,6 @@
       <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>
       <Name>Euclid.Framework.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\sdk\Euclid.Agent\Euclid.Agent.csproj">
-      <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
-      <Name>Euclid.Agent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>

@@ -10,11 +10,11 @@ namespace Euclid.Framework.Agent.Metadata
         
         Type Type { get; set; }
 
-        IFormattedMetadataProvider GetMetadataFormatter(string partType);
-
         IEnumerable<IInterfaceMetadata> Interfaces { get; }
 		IEnumerable<IMethodMetadata> Methods { get; }
         IEnumerable<IPropertyMetadata> Properties { get; }
         IEnumerable<IPropertyMetadata> GetAttributes(Type type);
+
+        IMetadataFormatter GetFormatter();
 	}
 }

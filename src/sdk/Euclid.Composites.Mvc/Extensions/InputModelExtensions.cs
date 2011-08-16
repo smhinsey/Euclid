@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Xml.Linq;
 using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.Agent.Metadata.Formatters;
 using Euclid.Framework.Models;
 using Newtonsoft.Json;
 
@@ -8,11 +9,11 @@ namespace Euclid.Composites.Mvc.Extensions
 {
     public static class InputModelExtensions
     {
-        private class InputModelMetadataFormatter : MetadataFormatter
+        private class InputModelMetadataFormatterFormatter : MetadataFormatterFormatter
         {
             private readonly IInputModel _inputModel;
 
-            public InputModelMetadataFormatter(IInputModel inputModel)
+            public InputModelMetadataFormatterFormatter(IInputModel inputModel)
             {
                 _inputModel = inputModel;
             }
@@ -41,9 +42,9 @@ namespace Euclid.Composites.Mvc.Extensions
             }
         }
 
-        public static IFormattedMetadataProvider GetMetadataFormatter(this IInputModel inputModel)
+        public static IMetadataFormatter GetMetadataFormatter(this IInputModel inputModel)
         {
-            return new InputModelMetadataFormatter(inputModel);
+            return new InputModelMetadataFormatterFormatter(inputModel);
         }
     }
 }

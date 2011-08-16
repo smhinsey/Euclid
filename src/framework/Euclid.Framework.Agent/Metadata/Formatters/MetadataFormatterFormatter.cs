@@ -6,9 +6,9 @@ using Euclid.Common.Extensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Euclid.Framework.Agent.Metadata
+namespace Euclid.Framework.Agent.Metadata.Formatters
 {
-    public abstract class MetadataFormatter : IFormattedMetadataProvider
+    public abstract class MetadataFormatterFormatter : IMetadataFormatter
     {
         private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string>
                                                                                   {
