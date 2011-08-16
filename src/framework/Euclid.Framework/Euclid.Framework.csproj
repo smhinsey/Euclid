@@ -95,7 +95,6 @@
     <Compile Include="HostingFabric\NoServiceHostConfiguredException.cs" />
     <Compile Include="HostingFabric\ServiceHostNotResolvableException.cs" />
     <Compile Include="IAggregateRoot.cs" />
-    <Compile Include="EventSourcing\ICommandToEventMapper.cs" />
     <Compile Include="EventSourcing\IEvent.cs" />
     <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
     <Compile Include="Agent\Metadata\UnexpectedTypeException.cs" />

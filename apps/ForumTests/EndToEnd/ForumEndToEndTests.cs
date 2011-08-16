@@ -6,9 +6,9 @@ using NUnit.Framework;
 
 namespace ForumTests.EndToEnd
 {
-	public class ForumCommandTests : HostingFabricFixture
+	public class ForumEndToEndTests : HostingFabricFixture
 	{
-		private const int SleepForCommand = 1000;
+		private const int SleepForCommand = 1500;
 
 		[Test]
 		public void TestCommentOnPost()
