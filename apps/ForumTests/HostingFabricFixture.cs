@@ -38,7 +38,7 @@ namespace ForumTests
 
 			var composite = new BasicCompositeApp(Container);
 
-			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+			composite.RegisterNh(SQLiteConfiguration.Standard.UsingFile("HostingFabricFixtureDb"), true, false);
 
 			composite.AddAgent(typeof (PublishPost).Assembly);
 

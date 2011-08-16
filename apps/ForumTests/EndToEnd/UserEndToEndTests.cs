@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace ForumTests.EndToEnd
 {
-	public class UserCommandTests : HostingFabricFixture
+	public class UserEndToEndTests : HostingFabricFixture
 	{
 		private const int SleepForCommand = 1000;
 
