@@ -6,7 +6,6 @@ using ForumAgent.ReadModels;
 
 namespace ForumAgent.Processors
 {
-	// SELF this pattern is obviously repetitious, we need to figure out a more streamlined approach for basic CRUD commands
 	public class RegisterUserProcessor : DefaultCommandProcessor<RegisterUser>
 	{
 		private readonly ISimpleRepository<User> _repository;
