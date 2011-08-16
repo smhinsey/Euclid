@@ -23,7 +23,7 @@ namespace Euclid.Common.IntegrationTests.Storage
 
 		public void ConfigureDatabase()
 		{
-			var cfg = new AutoMapperConfiguration(typeof(FakeMessage));
+			var cfg = new AutoMapperConfiguration(typeof (FakeMessage), typeof(FakePublicationRecord));
 
 			_session = Fluently
 				.Configure()

@@ -8,64 +8,62 @@ using Newtonsoft.Json.Converters;
 
 namespace Euclid.Framework.Agent.Metadata.Formatters
 {
-    public abstract class MetadataFormatterFormatter : IMetadataFormatter
-    {
-        private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string>
-                                                                                  {
+	public abstract class MetadataFormatterFormatter : IMetadataFormatter
+	{
+		private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string>
+		                                                                      	{
+		                                                                      		{"xml", MimeTypes.GetByExtension("xml")},
+		                                                                      		{"json", MimeTypes.GetByExtension("json")}
+		                                                                      	};
 
-                                                                                      { "xml", MimeTypes.GetByExtension("xml") },
-                                                                                      { "json", MimeTypes.GetByExtension( "json")}
-                                                                                  };
+		public abstract string GetAsXml();
+		public abstract object GetJsonObject(JsonSerializer serializer);
 
-        public string SetupJsonSerialization()
-        {
-            var serializerSettings = new JsonSerializerSettings();
+		public string GetContentType(string format)
+		{
+			return !_supportedContentTypes.ContainsKey(format) ? null : _supportedContentTypes[format];
+		}
 
-            serializerSettings.Converters.Add(new IsoDateTimeConverter());
+		public Encoding GetEncoding(string format)
+		{
+			return Encoding.UTF8;
+		}
 
-            var json = new StringBuilder();
+		public IEnumerable<string> GetFormats(string contentType)
+		{
+			return _supportedContentTypes.Where(item => item.Value == contentType).Select(item => item.Key);
+		}
 
-            var writer = new JsonTextWriter(new StringWriter(json)) { Formatting = Formatting.Indented };
+		public string GetRepresentation(string format)
+		{
+			switch (format.ToLower())
+			{
+				case "xml":
+					return GetAsXml();
+				case "json":
+					return SetupJsonSerialization();
+			}
 
-            var serializer = JsonSerializer.Create(serializerSettings);
+			throw new MetadataFormatNotSupportedException(format);
+		}
 
-            var data = GetJsonObject(serializer);
+		public string SetupJsonSerialization()
+		{
+			var serializerSettings = new JsonSerializerSettings();
 
-            serializer.Serialize(writer, data);
+			serializerSettings.Converters.Add(new IsoDateTimeConverter());
 
-            return json.ToString();
-        }
+			var json = new StringBuilder();
 
-        public abstract object GetJsonObject(JsonSerializer serializer);
+			var writer = new JsonTextWriter(new StringWriter(json)) {Formatting = Formatting.Indented};
 
-        public abstract string GetAsXml();
+			var serializer = JsonSerializer.Create(serializerSettings);
 
-        public string GetContentType(string format)
-        {
-            return !_supportedContentTypes.ContainsKey(format) ? null : _supportedContentTypes[format];
-        }
+			var data = GetJsonObject(serializer);
 
-        public IEnumerable<string> GetFormats(string contentType)
-        {
-            return _supportedContentTypes.Where(item => item.Value == contentType).Select(item => item.Key);
-        }
+			serializer.Serialize(writer, data);
 
-        public string GetRepresentation(string format)
-        {
-            switch (format.ToLower())
-            {
-                case "xml":
-                    return GetAsXml();
-                case "json":
-                    return SetupJsonSerialization();
-            }
-
-            throw new MetadataFormatNotSupportedException(format);
-        }
-
-        public Encoding GetEncoding(string format)
-        {
-            return Encoding.UTF8;
-        }
-    }
+			return json.ToString();
+		}
+	}
 }

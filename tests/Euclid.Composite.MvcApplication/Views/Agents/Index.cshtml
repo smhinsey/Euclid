@@ -7,12 +7,12 @@
 	@foreach (var agent in Model.Agents)
 	{
 		<li>
-            @agent.DescriptiveName - @agent.SystemName 
-            (<a href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName})">html</a> |
-            <a href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName, Format="xml"})">xml</a> |
-            <a href="@Url.Action("ViewAgent", "Agents", new { AgentSystemName = agent.SystemName, Format = "json" })">json</a>)
-        </li>
-    }
+			@agent.DescriptiveName - @agent.SystemName 
+			(<a href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName})">html</a> |
+			<a href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName, Format = "xml"})">xml</a> |
+			<a href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName, Format = "json"})">json</a>)
+		</li>
+	}
 </ul>
 
-@{ Html.RenderPartial("MetadataLinks", new MetadataLinkModel { AgentSytemName = null, PartType = null }); }
+@{ Html.RenderPartial("MetadataLinks", new MetadataLinkModel {AgentSytemName = null, PartType = null}); }

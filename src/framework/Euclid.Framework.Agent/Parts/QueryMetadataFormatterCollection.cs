@@ -15,39 +15,39 @@ namespace Euclid.Framework.Agent.Parts
 			Initialize(agent, agent.GetQueryNamespace());
 		}
 
-	    public override object GetJsonObject(JsonSerializer serializer)
-	    {
-	        return new
-	                   {
-	                       Queries = this.Select(
-                                        x => new
-                                                 {
-                                                     x.Namespace,
-                                                     x.Name
-                                                 }
-                                )
-	                   };
-	    }
+		public override string GetAsXml()
+		{
+			var xml = new XElement("Queries");
 
-	    private static string GetFormattedReturnType(IMethodMetadata methodMetadata)
-	    {
-	        return (methodMetadata.ReturnType.Namespace != null && !methodMetadata.ReturnType.Namespace.Contains("Collection"))
-	                   ? methodMetadata.ReturnType.Name
-	                   : string.Format("List<{0}>", methodMetadata.ReturnType.GetGenericArguments()[0].Name);
-	    }
+			foreach (var item in this)
+			{
+				xml.Add(new XElement("Query",
+				                     new XElement("Namespace", item.Namespace),
+				                     new XElement("Name", item.Name)));
+			}
 
-	    public override string GetAsXml()
-	    {
-	        var xml = new XElement("Queries");
+			return xml.ToString();
+		}
 
-            foreach(var item in this)
-            {
-                xml.Add(new XElement("Query",
-                                     new XElement("Namespace", item.Namespace),
-                                     new XElement("Name", item.Name)));
-            }
+		public override object GetJsonObject(JsonSerializer serializer)
+		{
+			return new
+			       	{
+			       		Queries = this.Select(
+			       		                      x => new
+			       		                           	{
+			       		                           		x.Namespace,
+			       		                           		x.Name
+			       		                           	}
+			       			)
+			       	};
+		}
 
-	        return xml.ToString();
-	    }
+		private static string GetFormattedReturnType(IMethodMetadata methodMetadata)
+		{
+			return (methodMetadata.ReturnType.Namespace != null && !methodMetadata.ReturnType.Namespace.Contains("Collection"))
+			       	? methodMetadata.ReturnType.Name
+			       	: string.Format("List<{0}>", methodMetadata.ReturnType.GetGenericArguments()[0].Name);
+		}
 	}
 }

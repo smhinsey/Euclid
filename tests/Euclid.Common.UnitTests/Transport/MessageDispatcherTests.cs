@@ -9,6 +9,8 @@ using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
+using Euclid.Common.Storage.Binary;
+using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Registry;
 using Euclid.Common.TestingFakes.Transport;
 using NUnit.Framework;
@@ -18,7 +20,7 @@ namespace Euclid.Common.UnitTests.Transport
 {
 	public class MessageDispatcherTests
 	{
-		private FakeDispatcher _dispatcher;
+		private MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord>> _dispatcher;
 		private FakeRegistry _registry;
 		private InMemoryMessageChannel _transport;
 
@@ -261,13 +263,18 @@ namespace Euclid.Common.UnitTests.Transport
 				 	.Instance(processor)
 				);
 
+			container.Register(Component.For<IPublicationRegistry<IPublicationRecord>>().ImplementedBy<FakeRegistry>());
+			container.Register(Component.For<IRecordMapper<FakePublicationRecord>>().ImplementedBy<InMemoryRecordMapper<FakePublicationRecord>>());
+			container.Register(Component.For<IBlobStorage>().ImplementedBy<InMemoryBlobStorage>());
+			container.Register(Component.For<IMessageSerializer>().ImplementedBy<JsonMessageSerializer>());
+
 			container.Register(Component.For<FakeMessageProcessor2>().Instance(new FakeMessageProcessor2()));
 
 			_registry = new FakeRegistry(new InMemoryRecordMapper<FakePublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
 
 			var locator = new WindsorServiceLocator(container);
 
-			_dispatcher = new FakeDispatcher(locator, _registry);
+			_dispatcher = new MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord>>(locator, _registry);
 
 			_transport = new InMemoryMessageChannel();
 		}

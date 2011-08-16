@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-    public class AgentMetadataFormatter : MetadataFormatterFormatter, IAgentMetadataFormatter
+	public class AgentMetadataFormatter : MetadataFormatterFormatter, IAgentMetadataFormatter
 	{
 		private readonly Assembly _agent;
 
@@ -38,105 +38,106 @@ namespace Euclid.Framework.Agent.Metadata
 
 		public string DescriptiveName { get; private set; }
 
-        public string SystemName { get; private set; }
+		public bool IsValid { get; private set; }
 
-        public bool IsValid { get; private set; }
-	    
-	    public IQueryMetadataFormatterCollection Queries { get; private set; }
-		
-        public IReadModelMetadataFormatterCollection ReadModels { get; private set; }
+		public IQueryMetadataFormatterCollection Queries { get; private set; }
 
-        public string GetBasicMetadata(string format)
-        {
-            return new BasicMetadataFormatter(this).GetRepresentation(format);
-        }
+		public IReadModelMetadataFormatterCollection ReadModels { get; private set; }
+		public string SystemName { get; private set; }
 
-        public override object  GetJsonObject(JsonSerializer serializer)
-        {
-            return new {
-                           DescriptiveName,
-                           SystemName,
-                           Commands = Commands.Select(x=>new
-                                                  {
-                                                      x.Namespace,
-                                                      x.Name
-                                                  }),
-                           ReadModels = ReadModels.Select(x=>new {
-                                                                 x.Namespace,
-                                                                 x.Name
-                                                                 }),
-                           Queries = Queries.Select(x=>new {
-                                                           x.Namespace,
-                                                           x.Name
-                                                           })
-                       };
-        }
-    
-        public override string GetAsXml()
-        {
-            var xml = new XElement("Agent",
-                               new XElement("DescriptiveName", DescriptiveName),
-                               new XElement("SystemName", SystemName));
+		public override string GetAsXml()
+		{
+			var xml = new XElement("Agent",
+			                       new XElement("DescriptiveName", DescriptiveName),
+			                       new XElement("SystemName", SystemName));
 
-            var commands = new XElement("Commands");
-            foreach(var c in Commands)
-            {
-                commands.Add(
-                    new XElement("Command",
-                                 new XAttribute("Namespace", c.Namespace),
-                                 new XAttribute("Name", c.Name)));
-            }
-            xml.Add(commands);
+			var commands = new XElement("Commands");
+			foreach (var c in Commands)
+			{
+				commands.Add(
+				             new XElement("Command",
+				                          new XAttribute("Namespace", c.Namespace),
+				                          new XAttribute("Name", c.Name)));
+			}
+			xml.Add(commands);
 
 
-            var readModels = new XElement("ReadModels");
-            foreach (var r in ReadModels)
-            {
-                readModels.Add(
-                    new XElement("ReadModel",
-                                 new XAttribute("Namespace", r.Namespace),
-                                 new XAttribute("Name", r.Name)));
-            }
-            xml.Add(readModels);
+			var readModels = new XElement("ReadModels");
+			foreach (var r in ReadModels)
+			{
+				readModels.Add(
+				               new XElement("ReadModel",
+				                            new XAttribute("Namespace", r.Namespace),
+				                            new XAttribute("Name", r.Name)));
+			}
+			xml.Add(readModels);
 
-            var queries = new XElement("Queries");
-            foreach (var q in Queries)
-            {
-                queries.Add(
-                    new XElement("Query",
-                                 new XAttribute("Namespace", q.Namespace),
-                                 new XAttribute("Name", q.Name)));
-            }
-            xml.Add(queries);
+			var queries = new XElement("Queries");
+			foreach (var q in Queries)
+			{
+				queries.Add(
+				            new XElement("Query",
+				                         new XAttribute("Namespace", q.Namespace),
+				                         new XAttribute("Name", q.Name)));
+			}
+			xml.Add(queries);
 
-            return xml.ToString();
-        }
+			return xml.ToString();
+		}
 
-        private class BasicMetadataFormatter : MetadataFormatterFormatter
-        {
-            private readonly IAgentMetadataFormatter _agentMetadataFormatter;
+		public override object GetJsonObject(JsonSerializer serializer)
+		{
+			return new
+			       	{
+			       		DescriptiveName,
+			       		SystemName,
+			       		Commands = Commands.Select(x => new
+			       		                                	{
+			       		                                		x.Namespace,
+			       		                                		x.Name
+			       		                                	}),
+			       		ReadModels = ReadModels.Select(x => new
+			       		                                    	{
+			       		                                    		x.Namespace,
+			       		                                    		x.Name
+			       		                                    	}),
+			       		Queries = Queries.Select(x => new
+			       		                              	{
+			       		                              		x.Namespace,
+			       		                              		x.Name
+			       		                              	})
+			       	};
+		}
 
-            internal BasicMetadataFormatter(IAgentMetadataFormatter agentMetadataFormatter)
-            {
-                _agentMetadataFormatter = agentMetadataFormatter;
-            }
+		public string GetBasicMetadata(string format)
+		{
+			return new BasicMetadataFormatter(this).GetRepresentation(format);
+		}
 
-            public override object GetJsonObject(JsonSerializer serializer)
-            {
-                return new
-                {
-                    _agentMetadataFormatter.DescriptiveName,
-                    _agentMetadataFormatter.SystemName
-                };
-            }
+		private class BasicMetadataFormatter : MetadataFormatterFormatter
+		{
+			private readonly IAgentMetadataFormatter _agentMetadataFormatter;
 
-            public override string GetAsXml()
-            {
-                return new XElement("Agent",
-                                   new XElement("DescriptiveName", _agentMetadataFormatter.DescriptiveName),
-                                   new XElement("SystemName", _agentMetadataFormatter.SystemName)).ToString();
+			internal BasicMetadataFormatter(IAgentMetadataFormatter agentMetadataFormatter)
+			{
+				_agentMetadataFormatter = agentMetadataFormatter;
+			}
 
-            }
-        }
+			public override string GetAsXml()
+			{
+				return new XElement("Agent",
+				                    new XElement("DescriptiveName", _agentMetadataFormatter.DescriptiveName),
+				                    new XElement("SystemName", _agentMetadataFormatter.SystemName)).ToString();
+			}
+
+			public override object GetJsonObject(JsonSerializer serializer)
+			{
+				return new
+				       	{
+				       		_agentMetadataFormatter.DescriptiveName,
+				       		_agentMetadataFormatter.SystemName
+				       	};
+			}
+		}
 	}
 }

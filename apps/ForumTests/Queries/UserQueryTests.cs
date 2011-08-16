@@ -4,13 +4,12 @@ using ForumAgent.ReadModels;
 using NHibernate;
 using NUnit.Framework;
 
-
 namespace ForumTests.Queries
 {
 	public class UserQueryTests : NhTestFixture<User>
 	{
-		public UserQueryTests() : 
-			base(new AutoMapperConfiguration(typeof(User)))
+		public UserQueryTests() :
+			base(new AutoMapperConfiguration(typeof (User)))
 		{
 		}
 
@@ -34,8 +33,8 @@ namespace ForumTests.Queries
 			var user = new User
 			           	{
 			           		Username = username,
-										PasswordHash = password,
-										PasswordSalt = password
+			           		PasswordHash = password,
+			           		PasswordSalt = password
 			           	};
 
 			session.Save(user);

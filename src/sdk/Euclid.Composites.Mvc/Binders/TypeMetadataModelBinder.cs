@@ -33,15 +33,15 @@ namespace Euclid.Composites.Mvc.Binders
 				partMetadata = metadata.Queries.Where(x => x.Name == partName).FirstOrDefault();
 			}
 
-            if (partMetadata == null)
-            {
-                partMetadata = metadata.Commands.Where(x => x.Name == partName).FirstOrDefault();
-            }
+			if (partMetadata == null)
+			{
+				partMetadata = metadata.Commands.Where(x => x.Name == partName).FirstOrDefault();
+			}
 
-            if (partMetadata == null)
-            {
-                throw new AgentPartMetdataNotFoundException();
-            }
+			if (partMetadata == null)
+			{
+				throw new AgentPartMetdataNotFoundException();
+			}
 
 			return partMetadata;
 		}

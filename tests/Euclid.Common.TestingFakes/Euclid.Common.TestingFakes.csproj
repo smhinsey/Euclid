@@ -86,7 +86,6 @@
     <Compile Include="Storage\FakePublicationRecord.cs" />
     <Compile Include="Storage\Model\FakeModel.cs" />
     <Compile Include="Transport\DifferentFakeMessage.cs" />
-    <Compile Include="Transport\FakeDispatcher.cs" />
     <Compile Include="Transport\FakeMessage.cs" />
     <Compile Include="Transport\FakeMessageProcessor.cs" />
     <Compile Include="Transport\FakeMessageProcessor2.cs" />

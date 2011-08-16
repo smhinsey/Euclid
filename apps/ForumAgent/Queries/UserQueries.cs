@@ -25,24 +25,22 @@ namespace ForumAgent.Queries
 			return matchedAccount != null;
 		}
 
-		public User FindByUsername(string username)
-		{
-			
-			var session = GetCurrentSession();
-
-			var matchedUser = session.QueryOver<User>()
-				.Where(user => user.Username == username);
-
-			return matchedUser.SingleOrDefault();
-		}
-
 		public UserProfile FindByUserIdentifier(Guid identifier)
 		{
-
 			var session = GetCurrentSession();
 
 			var matchedUser = session.QueryOver<UserProfile>()
 				.Where(user => user.UserIdentifier == identifier);
+
+			return matchedUser.SingleOrDefault();
+		}
+
+		public User FindByUsername(string username)
+		{
+			var session = GetCurrentSession();
+
+			var matchedUser = session.QueryOver<User>()
+				.Where(user => user.Username == username);
 
 			return matchedUser.SingleOrDefault();
 		}

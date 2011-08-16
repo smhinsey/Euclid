@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Euclid.Framework.Agent.Extensions;
 using Euclid.Framework.Agent.Metadata;
 using Euclid.Sdk.FakeAgent.Commands;
@@ -10,93 +8,93 @@ using TechTalk.SpecFlow;
 
 namespace Euclid.Sdk.Metadata
 {
-    [Binding]
-    public class EuclidMetadataProviderTestSteps
-    {
-        private string _format;
-        private IAgentMetadataFormatter _agent;
+	[Binding]
+	public class EuclidMetadataProviderTestSteps
+	{
+		private IAgentMetadataFormatter _agent;
+		private string _format;
 
-        [Given("an agent")]
-        public void ValidAgentMetadata()
-        {
-            _agent = typeof(FakeCommand).Assembly.GetAgentMetadata();
-        }
+		[Then(@"has been independently validated")]
+		public void IndependentlyValidate()
+		{
+			ValidateProviderOutput(_agent.GetRepresentation(_format));
 
-        [When(@"metadata is requested as (.*)")]
-        public void MetadataIsRequested(string format)
-        {
-            if (string.IsNullOrEmpty(format))
-            {
-                Assert.Fail("format not specified");
-            }
+			ValidateProviderOutput(_agent.GetBasicMetadata(_format));
 
-            _format = format;
+			ValidateProviderOutput(_agent.Commands.GetRepresentation(_format));
+			foreach (var c in _agent.Commands)
+			{
+				ValidateProviderOutput(c.GetFormatter().GetRepresentation(_format));
+			}
 
-            Console.WriteLine("Testing if '{0}' supports format '{1}'", _agent.GetType().Name, _format);
-        }
+			ValidateProviderOutput(_agent.ReadModels.GetRepresentation(_format));
+			foreach (var m in _agent.ReadModels)
+			{
+				ValidateProviderOutput(m.GetFormatter().GetRepresentation(_format));
+			}
 
-        [Then(@"can be represented as (.*)")]
-        public void ItCanBeRepresentedAs(string contentType)
-        {
-            AssertValidProviders(contentType, _agent);
+			ValidateProviderOutput(_agent.Queries.GetRepresentation(_format));
+			foreach (var q in _agent.Queries)
+			{
+				ValidateProviderOutput(q.GetFormatter().GetRepresentation(_format));
+			}
+		}
 
-            AssertValidProviders(contentType, _agent.Commands);
-            foreach(var c in _agent.Commands)
-            {
-                AssertValidProviders(contentType, c.GetFormatter());
-            }
+		[Then(@"can be represented as (.*)")]
+		public void ItCanBeRepresentedAs(string contentType)
+		{
+			AssertValidProviders(contentType, _agent);
 
-            AssertValidProviders(contentType, _agent.ReadModels);
-            foreach(var m in _agent.ReadModels)
-            {
-                AssertValidProviders(contentType, m.GetFormatter());
-            }
+			AssertValidProviders(contentType, _agent.Commands);
+			foreach (var c in _agent.Commands)
+			{
+				AssertValidProviders(contentType, c.GetFormatter());
+			}
 
-            AssertValidProviders(contentType, _agent.Queries);
-            foreach (var q in _agent.Queries)
-            {
-                AssertValidProviders(contentType, q.GetFormatter());
-            }
-       }
+			AssertValidProviders(contentType, _agent.ReadModels);
+			foreach (var m in _agent.ReadModels)
+			{
+				AssertValidProviders(contentType, m.GetFormatter());
+			}
 
-         [Then(@"has been independently validated")]
-         public void IndependentlyValidate()
-         {
-             ValidateProviderOutput(_agent.GetRepresentation(_format));
+			AssertValidProviders(contentType, _agent.Queries);
+			foreach (var q in _agent.Queries)
+			{
+				AssertValidProviders(contentType, q.GetFormatter());
+			}
+		}
 
-             ValidateProviderOutput(_agent.GetBasicMetadata(_format));
+		[When(@"metadata is requested as (.*)")]
+		public void MetadataIsRequested(string format)
+		{
+			if (string.IsNullOrEmpty(format))
+			{
+				Assert.Fail("format not specified");
+			}
 
-             ValidateProviderOutput(_agent.Commands.GetRepresentation(_format));
-             foreach (var c in _agent.Commands)
-             {
-                 ValidateProviderOutput(c.GetFormatter().GetRepresentation(_format));
-             }
+			_format = format;
 
-             ValidateProviderOutput(_agent.ReadModels.GetRepresentation(_format));
-             foreach (var m in _agent.ReadModels)
-             {
-                 ValidateProviderOutput(m.GetFormatter().GetRepresentation(_format));
-             }
+			Console.WriteLine("Testing if '{0}' supports format '{1}'", _agent.GetType().Name, _format);
+		}
 
-             ValidateProviderOutput(_agent.Queries.GetRepresentation(_format));
-             foreach (var q in _agent.Queries)
-             {
-                 ValidateProviderOutput(q.GetFormatter().GetRepresentation(_format));
-             }
-         }
+		[Given("an agent")]
+		public void ValidAgentMetadata()
+		{
+			_agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
+		}
 
-        private void AssertValidProviders(string contentType, IMetadataFormatter formatter)
-        {
-            Assert.AreEqual(contentType, formatter.GetContentType(_format));
+		private void AssertValidProviders(string contentType, IMetadataFormatter formatter)
+		{
+			Assert.AreEqual(contentType, formatter.GetContentType(_format));
 
-            Assert.True(formatter.GetFormats(contentType).Contains(_format));
-        }
+			Assert.True(formatter.GetFormats(contentType).Contains(_format));
+		}
 
-        private void ValidateProviderOutput(string representation)
-        {
-            Assert.False(string.IsNullOrEmpty(representation));
+		private void ValidateProviderOutput(string representation)
+		{
+			Assert.False(string.IsNullOrEmpty(representation));
 
-            Console.WriteLine(representation);
-        }
-    }
+			Console.WriteLine(representation);
+		}
+	}
 }

@@ -10,13 +10,13 @@ using Euclid.Framework.Agent.Parts;
 
 namespace Euclid.Framework.Agent
 {
-    public abstract class PartCollectionsBase<TAgentPart> : MetadataFormatterFormatter, IList<ITypeMetadata>
+	public abstract class PartCollectionsBase<TAgentPart> : MetadataFormatterFormatter, IList<ITypeMetadata>
 		where TAgentPart : IAgentPart
 	{
-        private List<ITypeMetadata> _internal;
+		private List<ITypeMetadata> _internal;
 		private Type _partType;
 
-        public ITypeMetadata this[int index]
+		public ITypeMetadata this[int index]
 		{
 			get { return _internal[index]; }
 			set { _internal[index] = value; }
@@ -36,7 +36,7 @@ namespace Euclid.Framework.Agent
 
 		public string Namespace { get; private set; }
 
-        public void Add(ITypeMetadata item)
+		public void Add(ITypeMetadata item)
 		{
 			if (Contains(item))
 			{
@@ -51,27 +51,27 @@ namespace Euclid.Framework.Agent
 			throw new NotImplementedException();
 		}
 
-        public bool Contains(ITypeMetadata item)
+		public bool Contains(ITypeMetadata item)
 		{
 			return _internal.Where(x => x.Name == item.Name).Any();
 		}
 
-        public void CopyTo(ITypeMetadata[] array, int arrayIndex)
+		public void CopyTo(ITypeMetadata[] array, int arrayIndex)
 		{
 			throw new NotImplementedException();
 		}
 
-        public IEnumerator<ITypeMetadata> GetEnumerator()
+		public IEnumerator<ITypeMetadata> GetEnumerator()
 		{
 			return _internal.GetEnumerator();
 		}
 
-        public ITypeMetadata GetMetadata<TImplementationType>() where TImplementationType : IAgentPart
+		public ITypeMetadata GetMetadata<TImplementationType>() where TImplementationType : IAgentPart
 		{
 			return GetMetadata(typeof (TImplementationType));
 		}
 
-        public ITypeMetadata GetMetadata(Type agentPartImplementationType)
+		public ITypeMetadata GetMetadata(Type agentPartImplementationType)
 		{
 			var metadata = this.Where(x =>
 			                          x.Namespace == agentPartImplementationType.Namespace &&
@@ -85,7 +85,7 @@ namespace Euclid.Framework.Agent
 			return metadata;
 		}
 
-        public ITypeMetadata GetMetadata(string agentPartImplementationName)
+		public ITypeMetadata GetMetadata(string agentPartImplementationName)
 		{
 			var partImplementationType = this.Where(m => m.Name == agentPartImplementationName).Select(m => m.Type).FirstOrDefault();
 
@@ -97,12 +97,12 @@ namespace Euclid.Framework.Agent
 			return GetMetadata(partImplementationType);
 		}
 
-        public int IndexOf(ITypeMetadata item)
+		public int IndexOf(ITypeMetadata item)
 		{
 			return _internal.IndexOf(item);
 		}
 
-        public void Insert(int index, ITypeMetadata item)
+		public void Insert(int index, ITypeMetadata item)
 		{
 			_internal.Insert(index, item);
 		}
@@ -127,7 +127,7 @@ namespace Euclid.Framework.Agent
 				.Any();
 		}
 
-        public bool Remove(ITypeMetadata item)
+		public bool Remove(ITypeMetadata item)
 		{
 			throw new NotImplementedException();
 		}
@@ -139,13 +139,13 @@ namespace Euclid.Framework.Agent
 
 		protected void Initialize(Assembly agent, string partNamespace)
 		{
-		    _internal = agent.GetTypes()
-				                .Where(type =>
-				                       type.Namespace == partNamespace &&
-				                       typeof (TAgentPart).IsAssignableFrom(type))
-				                .Select(type => new TypeMetadata(type))
-				                .Cast<ITypeMetadata>()
-                                .ToList();
+			_internal = agent.GetTypes()
+				.Where(type =>
+				       type.Namespace == partNamespace &&
+				       typeof (TAgentPart).IsAssignableFrom(type))
+				.Select(type => new TypeMetadata(type))
+				.Cast<ITypeMetadata>()
+				.ToList();
 
 			_partType = typeof (TAgentPart);
 			AgentSystemName = agent.GetAgentSystemName();

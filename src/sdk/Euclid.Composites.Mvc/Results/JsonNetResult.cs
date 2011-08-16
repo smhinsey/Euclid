@@ -34,7 +34,7 @@ namespace Euclid.Composites.Mvc.Results
 
 			var response = context.HttpContext.Response;
 
-		    response.ContentType = MimeTypes.GetByExtension("json");
+			response.ContentType = MimeTypes.GetByExtension("json");
 
 			if (ContentEncoding != null)
 				response.ContentEncoding = ContentEncoding;

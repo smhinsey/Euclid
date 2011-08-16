@@ -15,32 +15,31 @@ namespace Euclid.Framework.Agent.Parts
 			Initialize(agent, agent.GetCommandNamespace());
 		}
 
-        public override object GetJsonObject(JsonSerializer serializer)
-        {
-            return new
-                       {
-                           Commands = this.Select(x => new
-                                                           {
-                                                               x.Namespace,
-                                                               x.Name,
-                                                           })
-                       };
-        }
+		public override string GetAsXml()
+		{
+			var root = new XElement("Commands");
 
-        public override string GetAsXml()
-        {
-            var root = new XElement("Commands");
+			foreach (var item in this)
+			{
+				root.Add(
+				         new XElement("Command",
+				                      new XAttribute("Namespace", item.Namespace),
+				                      new XAttribute("Name", item.Name)));
+			}
 
-            foreach (var item in this)
-            {
-                root.Add(
-                    new XElement("Command",
-                        new XAttribute("Namespace", item.Namespace),
-                        new XAttribute("Name", item.Name)));
-            }
+			return root.ToString();
+		}
 
-            return root.ToString();
-        }
-
+		public override object GetJsonObject(JsonSerializer serializer)
+		{
+			return new
+			       	{
+			       		Commands = this.Select(x => new
+			       		                            	{
+			       		                            		x.Namespace,
+			       		                            		x.Name,
+			       		                            	})
+			       	};
+		}
 	}
 }

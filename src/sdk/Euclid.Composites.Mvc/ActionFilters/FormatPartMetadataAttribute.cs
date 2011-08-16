@@ -4,25 +4,25 @@ using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Composites.Mvc.ActionFilters
 {
-    public class FormatPartMetadataAttribute : MetadataFormatterAttributeBase
-    {
-        public override IMetadataFormatter GetFormatter(ActionExecutingContext filterContext)
-        {
-            var partMetadata = filterContext.ActionParameters["typeMetadata"] as ITypeMetadata;
+	public class FormatPartMetadataAttribute : MetadataFormatterAttributeBase
+	{
+		public override IMetadataFormatter GetFormatter(ActionExecutingContext filterContext)
+		{
+			var partMetadata = filterContext.ActionParameters["typeMetadata"] as ITypeMetadata;
 
-            if (partMetadata == null)
-            {
-                throw new AgentPartMetdataNotFoundException();
-            }
+			if (partMetadata == null)
+			{
+				throw new AgentPartMetdataNotFoundException();
+			}
 
-            var partType = filterContext.ActionParameters["partType"] as string;
+			var partType = filterContext.ActionParameters["partType"] as string;
 
-            if (string.IsNullOrEmpty(partType))
-            {
-                throw new AgentPartTypeNotSpecifiedException();
-            }
+			if (string.IsNullOrEmpty(partType))
+			{
+				throw new AgentPartTypeNotSpecifiedException();
+			}
 
-            return partMetadata.GetFormatter();
-        }
-    }
+			return partMetadata.GetFormatter();
+		}
+	}
 }

@@ -203,8 +203,8 @@ namespace Euclid.Common.Extensions
 					{"xwd", "image/x-xwindowdump"},
 					{"z", "application/x-compress"},
 					{"zip", "application/zip"},
-                    {"json", "application/json"},
-                    {"jsonp", "application/json"}
+					{"json", "application/json"},
+					{"jsonp", "application/json"}
 				};
 
 		public static string GetByExtension(string extension)

@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using Euclid.Common.Messaging;
 using Euclid.Composite.MvcApplication.Models;
@@ -24,7 +23,7 @@ namespace Euclid.Composite.MvcApplication.Controllers
 			_transformer = transformer;
 		}
 
-        [FormatListOfBasicAgentMetadata]
+		[FormatListOfBasicAgentMetadata]
 		public ViewResult Index(string format)
 		{
 			ViewBag.Title = "Agents in composite";
@@ -32,54 +31,7 @@ namespace Euclid.Composite.MvcApplication.Controllers
 			return View(new AgentListModel(_composite.Agents));
 		}
 
-        [FormatAgentMetadata]
-        public ViewResult ViewAgent(IAgentMetadataFormatter agentMetadataFormatter, string format)
-        {
-            ViewBag.Title = agentMetadataFormatter.SystemName;
-
-            return View(new AgentModel
-                            {
-                                DescriptiveName = agentMetadataFormatter.DescriptiveName,
-                                SystemName = agentMetadataFormatter.SystemName,
-                                Commands = new AgentPartModel
-                                               {
-                                                   AgentSystemName = agentMetadataFormatter.SystemName,
-                                                   PartMetadataFormatter = agentMetadataFormatter.Commands,
-                                                   PartType = "Commands",
-                                                   NextAction = "InspectCommand"
-                                               },
-                                Queries = new AgentPartModel
-                                              {
-                                                  AgentSystemName = agentMetadataFormatter.SystemName,
-                                                  PartMetadataFormatter = agentMetadataFormatter.Queries,
-                                                  PartType = "Queries",
-                                                  NextAction = "Inspect"
-                                              },
-                                ReadModels = new AgentPartModel
-                                                {
-                                                    AgentSystemName = agentMetadataFormatter.SystemName,
-                                                    PartMetadataFormatter = agentMetadataFormatter.ReadModels,
-                                                    PartType = "ReadModels",
-                                                    NextAction = "Inspect"
-                                                }
-                            });
-        }
-
-        [FormatPartCollectionMetadata]
-        public ViewResult Parts(IAgentPartMetadataFormatterCollection partCollection, string partType, string format)
-        {
-            ViewBag.Title = string.Format("{0} in agent {1}", partType, partCollection.AgentSystemName);
-
-            return View(new PartCollectionMetadataModel
-            {
-                AgentSystemName = partCollection.AgentSystemName,
-                Parts = partCollection,
-                PartTypeName = partType,
-                NextActionName = (partType.ToLower() == "commands") ? "InspectCommand" : "Inspect"
-            });
-        }
-
-        [FormatPartMetadataAttribute]
+		[FormatPartMetadataAttribute]
 		public ActionResult Inspect(ITypeMetadata typeMetadata, string agentSystemName, string partType, string partName, string format)
 		{
 			ViewBag.Title = typeMetadata.Name;
@@ -90,27 +42,74 @@ namespace Euclid.Composite.MvcApplication.Controllers
 			            		TypeMetadata = typeMetadata,
 			            		Name = partName,
 			            		PartType = partType,
-                                NextActionName = (partType.ToLower() == "commands") ? "InspectCommand" : "Inspect"
+			            		NextActionName = (partType.ToLower() == "commands") ? "InspectCommand" : "Inspect"
 			            	});
 		}
 
-        [FormatInputModel]
-        public ActionResult InspectCommand(IInputModel inputModel, ITypeMetadata typeMetadata, string partName, string format)
-        {
-            ActionResult result = View("InspectCommand", inputModel);
+		[HttpPost]
+		public ContentResult Inspect(IInputModel inputModel)
+		{
+			var command = _transformer.GetCommand(inputModel);
 
-            ViewBag.Title = partName;
+			return Publish(command);
+		}
 
-            return result;
-        }
+		[FormatInputModel]
+		public ActionResult InspectCommand(IInputModel inputModel, ITypeMetadata typeMetadata, string partName, string format)
+		{
+			ActionResult result = View("InspectCommand", inputModel);
 
-        [HttpPost]
-        public ContentResult Inspect(IInputModel inputModel)
-        {
-            var command = _transformer.GetCommand(inputModel);
+			ViewBag.Title = partName;
 
-            return Publish(command);
-        }
+			return result;
+		}
+
+		[FormatPartCollectionMetadata]
+		public ViewResult Parts(IAgentPartMetadataFormatterCollection partCollection, string partType, string format)
+		{
+			ViewBag.Title = string.Format("{0} in agent {1}", partType, partCollection.AgentSystemName);
+
+			return View(new PartCollectionMetadataModel
+			            	{
+			            		AgentSystemName = partCollection.AgentSystemName,
+			            		Parts = partCollection,
+			            		PartTypeName = partType,
+			            		NextActionName = (partType.ToLower() == "commands") ? "InspectCommand" : "Inspect"
+			            	});
+		}
+
+		[FormatAgentMetadata]
+		public ViewResult ViewAgent(IAgentMetadataFormatter agentMetadataFormatter, string format)
+		{
+			ViewBag.Title = agentMetadataFormatter.SystemName;
+
+			return View(new AgentModel
+			            	{
+			            		DescriptiveName = agentMetadataFormatter.DescriptiveName,
+			            		SystemName = agentMetadataFormatter.SystemName,
+			            		Commands = new AgentPartModel
+			            		           	{
+			            		           		AgentSystemName = agentMetadataFormatter.SystemName,
+			            		           		PartMetadataFormatter = agentMetadataFormatter.Commands,
+			            		           		PartType = "Commands",
+			            		           		NextAction = "InspectCommand"
+			            		           	},
+			            		Queries = new AgentPartModel
+			            		          	{
+			            		          		AgentSystemName = agentMetadataFormatter.SystemName,
+			            		          		PartMetadataFormatter = agentMetadataFormatter.Queries,
+			            		          		PartType = "Queries",
+			            		          		NextAction = "Inspect"
+			            		          	},
+			            		ReadModels = new AgentPartModel
+			            		             	{
+			            		             		AgentSystemName = agentMetadataFormatter.SystemName,
+			            		             		PartMetadataFormatter = agentMetadataFormatter.ReadModels,
+			            		             		PartType = "ReadModels",
+			            		             		NextAction = "Inspect"
+			            		             	}
+			            	});
+		}
 
 		private ContentResult Publish(ICommand command)
 		{

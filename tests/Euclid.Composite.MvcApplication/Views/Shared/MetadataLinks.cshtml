@@ -2,17 +2,17 @@
 @model MetadataLinkModel
 
 <div class="metadata-links-container" id="link-container">
-    <ul class="metadata-links-list">
-        @if (!string.IsNullOrEmpty(Model.AgentSytemName) && !string.IsNullOrEmpty(Model.PartType))
-        {
-            <li class="metadata-link-item"><a class="metadata-link" href="@Url.Action("Parts", "Agents", new { AgentSystemName = Model.AgentSytemName, PartType = Model.PartType })">@Model.PartType in @Model.AgentSytemName</a></li>
-        }
+	<ul class="metadata-links-list">
+		@if (!string.IsNullOrEmpty(Model.AgentSytemName) && !string.IsNullOrEmpty(Model.PartType))
+		{
+			<li class="metadata-link-item"><a class="metadata-link" href="@Url.Action("Parts", "Agents", new {AgentSystemName = Model.AgentSytemName, Model.PartType})">@Model.PartType in @Model.AgentSytemName</a></li>
+		}
 
-        @if (!string.IsNullOrEmpty(Model.AgentSytemName))
-        {
-            <li class="metadata-link-item"><a class="metadata-link" href="@Url.Action("ViewAgent", "Agents", new { AgentSystemName = Model.AgentSytemName, })">Parts in @Model.AgentSytemName</a></li>
-        }
+		@if (!string.IsNullOrEmpty(Model.AgentSytemName))
+		{
+			<li class="metadata-link-item"><a class="metadata-link" href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = Model.AgentSytemName,})">Parts in @Model.AgentSytemName</a></li>
+		}
 
-        <li class="metadata-link-item"><a class="metadata-link" href="@Url.Action("Index", "Agents")">Agents in composite</a></li>
-    </ul>
+		<li class="metadata-link-item"><a class="metadata-link" href="@Url.Action("Index", "Agents")">Agents in composite</a></li>
+	</ul>
 </div>

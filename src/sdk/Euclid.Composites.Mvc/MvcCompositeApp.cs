@@ -46,18 +46,18 @@ namespace Euclid.Composites.Mvc
 		}
 	}
 
-    public class AgentPartResolver : HttpApplication, IAgentPartResolver
-    {
-        protected IWindsorContainer Container { get; set; }
+	public class AgentPartResolver : HttpApplication, IAgentPartResolver
+	{
+		protected IWindsorContainer Container { get; set; }
 
-        public T Resolve<T>(Type partType)
-        {
-            return Container.Resolve<T>(partType);
-        }
-    }
+		public T Resolve<T>(Type partType)
+		{
+			return Container.Resolve<T>(partType);
+		}
+	}
 
-    public interface IAgentPartResolver
-    {
-        T Resolve<T>(Type partType);
-    }
+	public interface IAgentPartResolver
+	{
+		T Resolve<T>(Type partType);
+	}
 }

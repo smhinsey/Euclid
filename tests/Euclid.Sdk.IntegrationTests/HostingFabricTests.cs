@@ -20,26 +20,21 @@ namespace Euclid.Sdk.IntegrationTests
 		[Test]
 		public void PublishProcessAndCompleteManyCommands()
 		{
+			var publicationIds = new List<Guid>();
+			const int numberOfCommands = 10;
+
 			var publisher = Container.Resolve<IPublisher>();
 
-			var publicationIds = new List<Guid>();
-
-			for (var i = 0; i < 10; i++)
+			for (var i = 0; i < numberOfCommands; i++)
 			{
 				var publicationId = publisher.PublishMessage(new FakeCommand {Number = i});
 
 				publicationIds.Add(publicationId);
 			}
 
-			Thread.Sleep(15000);
-
-			var registry = Container.Resolve<ICommandRegistry>();
-
 			foreach (var publicationId in publicationIds)
 			{
-				var record = registry.GetRecord(publicationId);
-
-				Assert.IsTrue(record.Completed, "Publication record was marked complete.");
+				WaitUntilComplete(publicationId);
 			}
 		}
 
@@ -50,10 +45,9 @@ namespace Euclid.Sdk.IntegrationTests
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			publisher.PublishMessage(new FakeCommand {Number = messageNumber});
-
-			Thread.Sleep(15000);
-
+			WaitUntilComplete(
+			                  publisher.PublishMessage(new FakeCommand {Number = messageNumber}));
+			
 			var query = Container.Resolve<FakeQuery>();
 
 			var models = query.FindByNumber(messageNumber);

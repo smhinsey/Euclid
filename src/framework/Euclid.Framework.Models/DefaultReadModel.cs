@@ -1,5 +1,4 @@
 ﻿using System;
-using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Framework.Models
 {

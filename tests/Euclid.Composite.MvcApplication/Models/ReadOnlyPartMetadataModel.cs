@@ -6,8 +6,8 @@ namespace Euclid.Composite.MvcApplication.Models
 	{
 		public string AgentSystemName { get; set; }
 		public string Name { get; set; }
+		public string NextActionName { get; set; }
 		public string PartType { get; set; }
 		public ITypeMetadata TypeMetadata { get; set; }
-        public string NextActionName { get; set; }
 	}
 }

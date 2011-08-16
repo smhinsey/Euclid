@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using Euclid.Common.Messaging;
+﻿using Euclid.Common.Messaging;
 using Euclid.TestingSupport;
 using ForumAgent.Commands;
 using ForumAgent.Queries;
@@ -9,10 +8,8 @@ namespace ForumTests.EndToEnd
 {
 	public class UserEndToEndTests : HostingFabricFixture
 	{
-		private const int SleepForCommand = 1500;
-
 		public UserEndToEndTests() :
-			base(typeof(RegisterUser).Assembly)
+			base(typeof (RegisterUser).Assembly)
 		{
 		}
 
@@ -25,9 +22,8 @@ namespace ForumTests.EndToEnd
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			publisher.PublishMessage(new RegisterUser {Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new RegisterUser {Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt}));
 
 			var query = Container.Resolve<UserQueries>();
 
@@ -48,17 +44,15 @@ namespace ForumTests.EndToEnd
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			publisher.PublishMessage(new RegisterUser {Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new RegisterUser {Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt}));
 
 			var query = Container.Resolve<UserQueries>();
 
 			var user = query.FindByUsername(username);
 
-			publisher.PublishMessage(new UpdateUserProfile {Email = email, UserIdentifier = user.Identifier});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new UpdateUserProfile {Email = email, UserIdentifier = user.Identifier}));
 
 			var anotherQuery = Container.Resolve<UserQueries>();
 

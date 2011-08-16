@@ -9,7 +9,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 	public class NhSimpleRepositoryTests : NhTestFixture<FakeModel>
 	{
 		public NhSimpleRepositoryTests() :
-			base(new AutoMapperConfiguration(typeof(FakeModel)))
+			base(new AutoMapperConfiguration(typeof (FakeModel)))
 		{
 		}
 

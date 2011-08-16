@@ -8,8 +8,8 @@ namespace ForumTests.Queries
 {
 	public class PostQueryTests : NhTestFixture<Category>
 	{
-		public PostQueryTests() : 
-			base(new AutoMapperConfiguration(typeof(Category), typeof(Post)))
+		public PostQueryTests() :
+			base(new AutoMapperConfiguration(typeof (Category), typeof (Post)))
 		{
 		}
 
