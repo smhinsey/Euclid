@@ -7,11 +7,11 @@
 	@foreach (var m in Model.Parts)
 	{
 		<li>
-			<a href="@Url.Action(Model.NextActionName, "Agents", new {agentSystemName = Model.AgentSystemName, partType = Model.PartTypeName, partName = m.Name})">
+			<a href="@Url.Action(@Model.NextActionName, "Agents", new {agentSystemName = Model.AgentSystemName, partType = Model.PartTypeName, partName = m.Name})">
 				@Model.Parts.Namespace.@m.Name
 			</a>
 		</li>
 	}
 </ul>
 
-<a href="@Url.Action("Index", "Agents")">Agents in composite</a>
+@{ Html.RenderPartial("MetadataLinks", new MetadataLinkModel { AgentSytemName = Model.AgentSystemName, PartType = Model.PartTypeName }); }

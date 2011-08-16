@@ -5,11 +5,11 @@ namespace Euclid.Composite.MvcApplication.Models
 {
 	public class AgentListModel
 	{
-		public AgentListModel(IList<IAgentMetadata> agents)
+		public AgentListModel(IList<IAgentMetadataFormatter> agents)
 		{
 			Agents = agents;
 		}
 
-		public IList<IAgentMetadata> Agents { get; private set; }
+		public IList<IAgentMetadataFormatter> Agents { get; private set; }
 	}
 }

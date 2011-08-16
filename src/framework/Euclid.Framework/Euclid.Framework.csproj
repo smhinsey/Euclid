@@ -73,10 +73,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent\Attributes\IAgentAttribute.cs" />
+    <Compile Include="Agent\DuplicatePartNameException.cs" />
+    <Compile Include="Agent\Metadata\AssemblyNotAgentException.cs" />
+    <Compile Include="Agent\Metadata\ExpectedConstructorMissingException.cs" />
     <Compile Include="Agent\Metadata\IArgumentMetadata.cs" />
+    <Compile Include="Agent\Metadata\IFormattableMetadata.cs" />
+    <Compile Include="Agent\Metadata\IMetadataFormatter.cs" />
     <Compile Include="Agent\Metadata\IMethodMetadata.cs" />
-    <Compile Include="Agent\Metadata\IQueryMetadataCollection.cs" />
-    <Compile Include="Agent\Metadata\IReadModelMetadataCollection.cs" />
+    <Compile Include="Agent\Metadata\InvalidAgentPartTypeSpecifiedException.cs" />
+    <Compile Include="Agent\Metadata\IQueryMetadataFormatterCollection.cs" />
+    <Compile Include="Agent\Metadata\IReadModelMetadataFormatterCollection.cs" />
+    <Compile Include="Agent\Metadata\MetadataFormatNotSupportedException.cs" />
     <Compile Include="Cqrs\CommandDispatcherConfigurationException.cs" />
     <Compile Include="Cqrs\ICommand.cs" />
     <Compile Include="Cqrs\ICommandDispatcher.cs" />
@@ -99,10 +106,10 @@
     <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
     <Compile Include="Agent\Metadata\UnexpectedTypeException.cs" />
     <Compile Include="Models\IReadModel.cs" />
-    <Compile Include="Agent\Metadata\IAgentMetadata.cs" />
+    <Compile Include="Agent\Metadata\IAgentMetadataFormatter.cs" />
     <Compile Include="Agent\Metadata\IAgentPart.cs" />
-    <Compile Include="Agent\Metadata\IAgentPartMetadataCollection.cs" />
-    <Compile Include="Agent\Metadata\ICommandMetadataCollection.cs" />
+    <Compile Include="Agent\Metadata\IAgentPartMetadataFormatterCollection.cs" />
+    <Compile Include="Agent\Metadata\ICommandMetadataFormatterCollection.cs" />
     <Compile Include="Agent\Metadata\IInterfaceMetadata.cs" />
     <Compile Include="Agent\Metadata\IPropertyMetadata.cs" />
     <Compile Include="Agent\Metadata\ITypeMetadata.cs" />

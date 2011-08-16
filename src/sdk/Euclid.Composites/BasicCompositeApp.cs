@@ -7,13 +7,13 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Euclid.Agent;
-using Euclid.Agent.Extensions;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.Storage.Record;
 using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Conversion;
+using Euclid.Framework.Agent.Extensions;
 using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Cqrs.NHibernate;
@@ -32,7 +32,7 @@ namespace Euclid.Composites
 		public BasicCompositeApp()
 		{
 			State = CompositeApplicationState.Uninitailized;
-			Agents = new List<IAgentMetadata>();
+			Agents = new List<IAgentMetadataFormatter>();
 			InputModelTransformers = new InputModelToCommandTransformerRegistry();
 			Container = new WindsorContainer();
 		}
@@ -42,7 +42,7 @@ namespace Euclid.Composites
 			Container = container;
 		}
 
-		public IList<IAgentMetadata> Agents { get; private set; }
+		public IList<IAgentMetadataFormatter> Agents { get; private set; }
 
 		public CompositeApplicationState State { get; set; }
 

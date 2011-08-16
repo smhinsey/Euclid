@@ -25,7 +25,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public bool IsMatch(Type modelType)
 		{
-			return (modelType == typeof (IAgentMetadata));
+			return (modelType == typeof (IAgentMetadataFormatter));
 		}
 	}
 }

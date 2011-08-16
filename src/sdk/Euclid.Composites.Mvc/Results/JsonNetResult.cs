@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Web.Mvc;
+using Euclid.Common.Extensions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -33,9 +34,7 @@ namespace Euclid.Composites.Mvc.Results
 
 			var response = context.HttpContext.Response;
 
-			response.ContentType = !string.IsNullOrEmpty(ContentType)
-			                       	? ContentType
-			                       	: "application/json";
+		    response.ContentType = MimeTypes.GetByExtension("json");
 
 			if (ContentEncoding != null)
 				response.ContentEncoding = ContentEncoding;

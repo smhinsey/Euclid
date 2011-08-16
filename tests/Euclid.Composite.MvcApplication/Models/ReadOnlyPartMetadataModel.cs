@@ -8,5 +8,6 @@ namespace Euclid.Composite.MvcApplication.Models
 		public string Name { get; set; }
 		public string PartType { get; set; }
 		public ITypeMetadata TypeMetadata { get; set; }
+        public string NextActionName { get; set; }
 	}
 }

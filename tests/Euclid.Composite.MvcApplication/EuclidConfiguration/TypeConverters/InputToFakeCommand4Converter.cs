@@ -1,8 +1,8 @@
 ﻿using System;
 using AutoMapper;
-using Euclid.Agent.Extensions;
 using Euclid.Composite.MvcApplication.Models;
 using Euclid.Composites.Conversion;
+using Euclid.Framework.Agent.Extensions;
 using Euclid.Framework.Cqrs;
 using Euclid.Sdk.FakeAgent.Commands;
 

@@ -2,7 +2,6 @@
 @using Euclid.Composite.MvcApplication.Models
 @model ReadOnlyPartMetadataModel
 
-
 <h1>@ViewBag.Title</h1>
 
 @if (Model.TypeMetadata.Properties.Count() > 0)
@@ -46,6 +45,5 @@
 	</ul>
 }
 
-<a href="@Url.Action("Parts", "Agents", new {Model.AgentSystemName, PartTypeName = Model.PartType})">@Model.PartType in @Model.AgentSystemName</a>
-<br/>
-<a href="@Url.Action("Index")">Agents in composite</a>
+@{ Html.RenderPartial("MetadataLinks", new MetadataLinkModel {AgentSytemName = Model.AgentSystemName, PartType = Model.PartType}); }
+

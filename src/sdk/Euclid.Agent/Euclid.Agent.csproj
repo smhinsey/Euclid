@@ -63,6 +63,12 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -73,20 +79,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentMetadata.cs" />
-    <Compile Include="AssemblyNotAgentException.cs" />
-    <Compile Include="Attributes\AgentNameAttribute.cs" />
-    <Compile Include="Attributes\AgentSystemNameAttribute.cs" />
-    <Compile Include="Attributes\LocationOfCommandsAttribute.cs" />
-    <Compile Include="Attributes\LocationOfProcessorsAttribute.cs" />
-    <Compile Include="Attributes\LocationOfQueriesAttribute.cs" />
     <Compile Include="Parts\CommandMetadataCollection.cs" />
     <Compile Include="Parts\QueryMetadataCollection.cs" />
     <Compile Include="Parts\ReadModelMetadataCollection.cs" />
     <Compile Include="DuplicatePartNameException.cs" />
     <Compile Include="Parts\InvalidAgentPartImplementationException.cs" />
     <Compile Include="Parts\InvalidPropertySetterSpecifiedException.cs" />
-    <Compile Include="Extensions\AssemblyExtensions.cs" />
-    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="PartCollectionsBase.cs" />
     <Compile Include="Parts\PartNotRegisteredException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -106,7 +104,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Queries\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

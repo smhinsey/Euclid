@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Extensions;
+using Euclid.Composites.Mvc.ActionFilters;
 using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.Agent.Metadata;
 
@@ -31,6 +32,16 @@ namespace Euclid.Composites.Mvc.Binders
 			{
 				partMetadata = metadata.Queries.Where(x => x.Name == partName).FirstOrDefault();
 			}
+
+            if (partMetadata == null)
+            {
+                partMetadata = metadata.Commands.Where(x => x.Name == partName).FirstOrDefault();
+            }
+
+            if (partMetadata == null)
+            {
+                throw new AgentPartMetdataNotFoundException();
+            }
 
 			return partMetadata;
 		}

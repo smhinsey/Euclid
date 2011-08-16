@@ -95,12 +95,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\AgentMetadataNotFoundException.cs" />
+    <Compile Include="ActionFilters\AgentPartMetdataNotFoundException.cs" />
+    <Compile Include="ActionFilters\ApplicationNotPartResolverException.cs" />
     <Compile Include="ActionFilters\CannotRetrieveInputModelException.cs" />
     <Compile Include="ActionFilters\CannotRetrieveMetadataException.cs" />
-    <Compile Include="ActionFilters\FormatAgentMetadataAttribute.cs" />
-    <Compile Include="ActionFilters\ResultsFormatter.cs" />
+    <Compile Include="ActionFilters\FormatAgentMetadata.cs" />
+    <Compile Include="ActionFilters\FormatListOfBasicAgentMetadata.cs" />
     <Compile Include="ActionFilters\FormatInputModelAttribute.cs" />
     <Compile Include="ActionFilters\FormatNotSpecifiedException.cs" />
+    <Compile Include="ActionFilters\FormatPartCollectionMetadataAttribute.cs" />
+    <Compile Include="ActionFilters\FormatPartMetadataAttribute.cs" />
+    <Compile Include="ActionFilters\MetadataFormatterAttributeBase.cs" />
     <Compile Include="Binders\AgentMetadataModelBinder.cs" />
     <Compile Include="Binders\AgentPartMetadataCollectionBinder.cs" />
     <Compile Include="Binders\AgentPartTypeNotSpecifiedException.cs" />
@@ -112,6 +118,7 @@
     <Compile Include="ComponentRegistration\ComponentRegistrationBase.cs" />
     <Compile Include="ComponentRegistration\ControllerContainerInstaller.cs" />
     <Compile Include="ComponentRegistration\ModelBinderInstaller.cs" />
+    <Compile Include="Extensions\InputModelExtensions.cs" />
     <Compile Include="MvcCompositeApp.cs" />
     <Compile Include="Extensions\ControllerContextExtensions.cs" />
     <Compile Include="Extensions\RequiredRouteDataMissingException.cs" />
@@ -124,9 +131,9 @@
     <Compile Include="WindsorControllerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Euclid.Agent\Euclid.Agent.csproj">
-      <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
-      <Name>Euclid.Agent</Name>
+    <ProjectReference Include="..\..\framework\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj">
+      <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
+      <Name>Euclid.Framework.Agent</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>

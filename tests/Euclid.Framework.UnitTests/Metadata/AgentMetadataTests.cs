@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Euclid.Agent.Extensions;
+using Euclid.Framework.Agent.Extensions;
 using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
@@ -15,18 +15,18 @@ namespace Euclid.Framework.UnitTests.Metadata
 	[TestFixture]
 	public class AgentMetadataTests
 	{
-		private void testAgentParts(IAgentPartMetadataCollection partMetadataCollection, Assembly agent, Type testType)
+		private void testAgentParts(IAgentPartMetadataFormatterCollection partMetadataFormatterCollection, Assembly agent, Type testType)
 		{
-			Assert.NotNull(partMetadataCollection);
-			Assert.GreaterOrEqual(partMetadataCollection.Count(), 1);
+			Assert.NotNull(partMetadataFormatterCollection);
+			Assert.GreaterOrEqual(partMetadataFormatterCollection.Count(), 1);
 
-			Assert.True(!string.IsNullOrEmpty(partMetadataCollection.Namespace));
-			Assert.NotNull(agent.GetTypes().Where(x => x.Namespace == partMetadataCollection.Namespace).FirstOrDefault());
+			Assert.True(!string.IsNullOrEmpty(partMetadataFormatterCollection.Namespace));
+			Assert.NotNull(agent.GetTypes().Where(x => x.Namespace == partMetadataFormatterCollection.Namespace).FirstOrDefault());
 
-			var partMetadata = partMetadataCollection.Where(x => x.Name == testType.Name && x.Namespace == partMetadataCollection.Namespace).FirstOrDefault();
+			var partMetadata = partMetadataFormatterCollection.Where(x => x.Name == testType.Name && x.Namespace == partMetadataFormatterCollection.Namespace).FirstOrDefault();
 			Assert.NotNull(partMetadata);
 
-			var typeMetadata = partMetadataCollection.GetMetadata(testType);
+			var typeMetadata = partMetadataFormatterCollection.GetMetadata(testType);
 			Assert.NotNull(typeMetadata);
 			Assert.AreEqual(typeMetadata.Type, partMetadata.Type);
 		}

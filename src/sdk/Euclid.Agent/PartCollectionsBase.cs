@@ -3,22 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Euclid.Agent.Extensions;
 using Euclid.Agent.Parts;
+using Euclid.Framework.Agent.Extensions;
 using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.Agent.Metadata.Formatters;
+using Euclid.Framework.Cqrs;
+using Euclid.Framework.Models;
 
 namespace Euclid.Agent
 {
-	public abstract class PartCollectionsBase<TAgentPart> : IList<ITypeMetadata>
+    public abstract class PartCollectionsBase<TAgentPart> : MetadataFormatter, IList<IFormattableMetadata>
 		where TAgentPart : IAgentPart
 	{
-		private IList<ITypeMetadata> _internal;
+		private List<IFormattableMetadata> _internal;
 		private Type _partType;
 
-		public ITypeMetadata this[int index]
+        public IFormattableMetadata this[int index]
 		{
 			get { return _internal[index]; }
-			set { _internal[index] = value; }
+			set { _internal[index] = FormattableMetadata.Factory(value.Type); }
 		}
 
 		public string AgentSystemName { get; private set; }
@@ -30,19 +33,19 @@ namespace Euclid.Agent
 
 		public bool IsReadOnly
 		{
-			get { return _internal.IsReadOnly; }
+			get { return false; }
 		}
 
 		public string Namespace { get; private set; }
 
-		public void Add(ITypeMetadata item)
+        public void Add(IFormattableMetadata item)
 		{
 			if (Contains(item))
 			{
 				throw new DuplicatePartNameException(_partType.Name, item.Name);
 			}
 
-			_internal.Add(item);
+			_internal.Add(new FormattableMetadata(item));
 		}
 
 		public void Clear()
@@ -50,27 +53,27 @@ namespace Euclid.Agent
 			throw new NotImplementedException();
 		}
 
-		public bool Contains(ITypeMetadata item)
+        public bool Contains(IFormattableMetadata item)
 		{
 			return _internal.Where(x => x.Name == item.Name).Any();
 		}
 
-		public void CopyTo(ITypeMetadata[] array, int arrayIndex)
+        public void CopyTo(IFormattableMetadata[] array, int arrayIndex)
 		{
 			throw new NotImplementedException();
 		}
 
-		public IEnumerator<ITypeMetadata> GetEnumerator()
+        public IEnumerator<IFormattableMetadata> GetEnumerator()
 		{
 			return _internal.GetEnumerator();
 		}
 
-		public ITypeMetadata GetMetadata<TImplementationType>() where TImplementationType : IAgentPart
+        public IFormattableMetadata GetMetadata<TImplementationType>() where TImplementationType : IAgentPart
 		{
 			return GetMetadata(typeof (TImplementationType));
 		}
 
-		public ITypeMetadata GetMetadata(Type agentPartImplementationType)
+        public IFormattableMetadata GetMetadata(Type agentPartImplementationType)
 		{
 			var metadata = this.Where(x =>
 			                          x.Namespace == agentPartImplementationType.Namespace &&
@@ -84,7 +87,7 @@ namespace Euclid.Agent
 			return metadata;
 		}
 
-		public ITypeMetadata GetMetadata(string agentPartImplementationName)
+        public IFormattableMetadata GetMetadata(string agentPartImplementationName)
 		{
 			var partImplementationType = this.Where(m => m.Name == agentPartImplementationName).Select(m => m.Type).FirstOrDefault();
 
@@ -96,12 +99,12 @@ namespace Euclid.Agent
 			return GetMetadata(partImplementationType);
 		}
 
-		public int IndexOf(ITypeMetadata item)
+        public int IndexOf(IFormattableMetadata item)
 		{
 			return _internal.IndexOf(item);
 		}
 
-		public void Insert(int index, ITypeMetadata item)
+        public void Insert(int index, IFormattableMetadata item)
 		{
 			_internal.Insert(index, item);
 		}
@@ -126,7 +129,7 @@ namespace Euclid.Agent
 				.Any();
 		}
 
-		public bool Remove(ITypeMetadata item)
+        public bool Remove(IFormattableMetadata item)
 		{
 			throw new NotImplementedException();
 		}
@@ -138,15 +141,18 @@ namespace Euclid.Agent
 
 		protected void Initialize(Assembly agent, string partNamespace)
 		{
-			_internal = agent.GetTypes()
-				.Where(type =>
-				       type.Namespace == partNamespace &&
-				       typeof (TAgentPart).IsAssignableFrom(type))
-				.Select(type => new TypeMetadata(type) as ITypeMetadata)
-				.ToList();
+		    var partTypes = agent.GetTypes()
+				                .Where(type =>
+				                       type.Namespace == partNamespace &&
+				                       typeof (TAgentPart).IsAssignableFrom(type))
+				                .Select(type => type)
+				                .ToList();
+
+		    _internal = partTypes
+                            .Select(FormattableMetadata.Factory)
+		                    .ToList();
 
 			_partType = typeof (TAgentPart);
-
 			AgentSystemName = agent.GetAgentSystemName();
 			Namespace = partNamespace;
 		}

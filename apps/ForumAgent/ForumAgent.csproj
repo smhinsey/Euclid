@@ -76,10 +76,6 @@
     <Compile Include="ReadModels\UserProfile.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\sdk\Euclid.Agent\Euclid.Agent.csproj">
-      <Project>{4C4F2541-140C-47D6-B018-D2024F8CF4F0}</Project>
-      <Name>Euclid.Agent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
       <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
       <Name>Euclid.Common.Storage.NHibernate</Name>
