@@ -1,12 +1,14 @@
 ﻿using Euclid.Common.Storage.Azure;
 using Euclid.Common.Storage.Configuration;
 using Euclid.Common.UnitTests.Storage;
+using Euclid.TestingSupport;
 using Microsoft.WindowsAzure;
 using NUnit.Framework;
 
 namespace Euclid.Common.IntegrationTests.Storage
 {
 	[TestFixture]
+	[Category(TestCategories.Integration)]
 	public class AzureBlobStorageTests
 	{
 		#region Setup/Teardown

@@ -16,6 +16,8 @@ using NUnit.Framework;
 
 namespace Euclid.Common.IntegrationTests.Storage
 {
+	[TestFixture]
+	[Category(TestCategories.Integration)]
 	public class NhRecordMapperTests
 	{
 		private RecordMapperTester<NhRecordMapper<FakePublicationRecord>> _repoTester;

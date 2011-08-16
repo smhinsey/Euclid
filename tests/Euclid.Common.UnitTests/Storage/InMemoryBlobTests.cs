@@ -1,13 +1,14 @@
 ﻿using Euclid.Common.Storage;
 using Euclid.Common.Storage.Configuration;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Storage
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class InMemoryBlobTests
 	{
-		#region Setup/Teardown
 
 		[SetUp]
 		public void Setup()
@@ -18,9 +19,7 @@ namespace Euclid.Common.UnitTests.Storage
 
 			_blobTester = new BlobTester(blobStorage);
 		}
-
-		#endregion
-
+		
 		private BlobTester _blobTester;
 
 		[Test]

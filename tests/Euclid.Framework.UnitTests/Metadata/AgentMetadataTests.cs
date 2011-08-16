@@ -8,11 +8,13 @@ using Euclid.Framework.Models;
 using Euclid.Sdk.FakeAgent.Commands;
 using Euclid.Sdk.FakeAgent.Queries;
 using Euclid.Sdk.FakeAgent.ReadModels;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Framework.UnitTests.Metadata
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class AgentMetadataTests
 	{
 		private void testAgentParts(IAgentPartMetadataFormatterCollection partMetadataFormatterCollection, Assembly agent, Type testType)

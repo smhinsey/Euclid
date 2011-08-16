@@ -12,16 +12,16 @@ using Euclid.Common.Storage.Record;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Cqrs.Configuration;
 using Euclid.Framework.TestingFakes.Cqrs;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 using log4net.Config;
 
 namespace Euclid.Framework.UnitTests.Cqrs
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class CommandHostTests
 	{
-		#region Setup/Teardown
-
 		[SetUp]
 		public void Setup()
 		{
@@ -39,8 +39,6 @@ namespace Euclid.Framework.UnitTests.Cqrs
 
 			_locator = new WindsorServiceLocator(_container);
 		}
-
-		#endregion
 
 		private IMessageDispatcherSettings _dispatcherSettings;
 		private IWindsorContainer _container;

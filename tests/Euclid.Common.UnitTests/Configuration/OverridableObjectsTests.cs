@@ -4,10 +4,13 @@ using System.IO;
 using System.Reflection;
 using Euclid.Common.Configuration;
 using Euclid.Common.TestingFakes.Configuration;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Configuration
 {
+	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class OverridableObjectsTests
 	{
 		[Test]

@@ -5,11 +5,13 @@ using Euclid.Framework.Agent.Extensions;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.TestingFakes.Cqrs;
 using Euclid.Framework.TestingFakes.InputModels;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Composite.InputModelMapping
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class InputModelMappingTests
 	{
 		private InputModelFakeCommand4 GetInputModel()

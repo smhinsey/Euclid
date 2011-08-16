@@ -6,6 +6,8 @@ using NUnit.Framework;
 
 namespace ForumTests.EndToEnd
 {
+	[TestFixture]
+	[Category(TestCategories.Integration)]
 	public class ForumEndToEndTests : HostingFabricFixture
 	{
 		public ForumEndToEndTests() :

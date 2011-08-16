@@ -9,12 +9,14 @@ using Euclid.Common.Storage.Record;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.TestingFakes.Cqrs;
+using Euclid.TestingSupport;
 using Microsoft.Practices.ServiceLocation;
 using NUnit.Framework;
 
 namespace Euclid.Framework.UnitTests.Cqrs
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class CommandDispatcherTests
 	{
 		[Test]

@@ -2,11 +2,13 @@
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
 using Euclid.Common.TestingFakes.Storage;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Publishing
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	internal class PublisherTests
 	{
 		[Test]

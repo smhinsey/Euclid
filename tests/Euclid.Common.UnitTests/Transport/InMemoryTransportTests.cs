@@ -1,10 +1,12 @@
 ﻿using System;
 using Euclid.Common.Messaging;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Transport
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class InMemoryTransportTests
 	{
 		private const int LargeNumber = 1000000;

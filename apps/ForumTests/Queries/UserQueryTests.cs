@@ -6,6 +6,8 @@ using NUnit.Framework;
 
 namespace ForumTests.Queries
 {
+	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class UserQueryTests : NhTestFixture<User>
 	{
 		public UserQueryTests() :

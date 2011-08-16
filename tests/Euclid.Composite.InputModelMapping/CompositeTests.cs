@@ -2,12 +2,14 @@
 using Euclid.Composites;
 using Euclid.Sdk.FakeAgent.Commands;
 using Euclid.Sdk.FakeAgent.Queries;
+using Euclid.TestingSupport;
 using FluentNHibernate.Cfg.Db;
 using NUnit.Framework;
 
 namespace Euclid.Composite.InputModelMapping
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class CompositeTests
 	{
 		[Test]

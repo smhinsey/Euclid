@@ -2,6 +2,7 @@
 using Euclid.Common.Messaging;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.UnitTests.Transport;
+using Euclid.TestingSupport;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using NUnit.Framework;
@@ -9,6 +10,7 @@ using NUnit.Framework;
 namespace Euclid.Common.IntegrationTests.Transport
 {
 	[TestFixture]
+	[Category(TestCategories.Integration)]
 	public class AzureTransportTest
 	{
 		private IMessageSerializer _serializer;

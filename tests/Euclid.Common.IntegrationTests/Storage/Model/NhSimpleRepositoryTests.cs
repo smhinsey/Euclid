@@ -6,6 +6,8 @@ using NUnit.Framework;
 
 namespace Euclid.Common.IntegrationTests.Storage.Model
 {
+	[TestFixture]
+	[Category(TestCategories.Integration)]
 	public class NhSimpleRepositoryTests : NhTestFixture<FakeModel>
 	{
 		public NhSimpleRepositoryTests() :

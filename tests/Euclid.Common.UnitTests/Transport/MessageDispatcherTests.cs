@@ -13,11 +13,14 @@ using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Registry;
 using Euclid.Common.TestingFakes.Transport;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 using FakeMessage = Euclid.Common.TestingFakes.Transport.FakeMessage;
 
 namespace Euclid.Common.UnitTests.Transport
 {
+	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class MessageDispatcherTests
 	{
 		private MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord>> _dispatcher;
