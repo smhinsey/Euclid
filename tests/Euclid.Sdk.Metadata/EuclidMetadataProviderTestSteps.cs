@@ -85,11 +85,11 @@ namespace Euclid.Sdk.Metadata
              }
          }
 
-        private void AssertValidProviders(string contentType, IMetadataFormatter provider)
+        private void AssertValidProviders(string contentType, IMetadataFormatter formatter)
         {
-            Assert.AreEqual(contentType, provider.GetContentType(_format));
+            Assert.AreEqual(contentType, formatter.GetContentType(_format));
 
-            Assert.True(provider.GetFormats(contentType).Contains(_format));
+            Assert.True(formatter.GetFormats(contentType).Contains(_format));
         }
 
         private void ValidateProviderOutput(string representation)
