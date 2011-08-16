@@ -1,5 +1,7 @@
 using System;
 using System.Web.Mvc;
+using Euclid.Composites.Mvc.Extensions;
+using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Mvc.ActionFilters
@@ -10,6 +12,8 @@ namespace Euclid.Composites.Mvc.ActionFilters
 		{
 			var format = filterContext.ActionParameters["format"] as string ?? string.Empty;
 
+            if (string.IsNullOrEmpty(format)) return;
+
 			var inputModel = filterContext.ActionParameters["inputModel"] as IInputModel;
 
 			if (inputModel == null)
@@ -17,7 +21,14 @@ namespace Euclid.Composites.Mvc.ActionFilters
 				throw new CannotRetrieveInputModelException();
 			}
 
-		    throw new NotImplementedException();
+		    var formatter = inputModel.GetMetadataFormatter();
+
+            filterContext.Result = new ContentResult
+                                       {
+                                           Content = formatter.GetRepresentation(format),
+                                           ContentEncoding = formatter.GetEncoding(format),
+                                           ContentType = formatter.GetContentType(format)
+                                       };
 
 			base.OnActionExecuting(filterContext);
 		}

@@ -75,6 +75,7 @@ namespace Euclid.Composite.MvcApplication.Controllers
                 AgentSystemName = partCollection.AgentSystemName,
                 Parts = partCollection,
                 PartTypeName = partType,
+                NextActionName = (partType.ToLower() == "commands") ? "InspectCommand" : "Inspect"
             });
         }
 
@@ -94,7 +95,7 @@ namespace Euclid.Composite.MvcApplication.Controllers
 		}
 
         [FormatInputModel]
-        public ActionResult InspectCommand(IInputModel inputModel, string partName, string format)
+        public ActionResult InspectCommand(IInputModel inputModel, ITypeMetadata typeMetadata, string partName, string format)
         {
             ActionResult result = View("InspectCommand", inputModel);
 

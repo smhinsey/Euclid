@@ -1,6 +1,7 @@
 ﻿@using Euclid.Composite.MvcApplication.Models
 @model AgentModel
 
+<h1>@ViewBag.Title</h1>
 <ul>
     <li>@Model.SystemName</li>
     <li>@Model.DescriptiveName</li>
@@ -9,4 +10,4 @@
     <li>@Html.DisplayFor(x=>x.ReadModels, "IAgentPart", @Model.ReadModels)</li>
 </ul>
 
-<a href="@Url.Action("Index")">Agents in composite</a>
+@{ Html.RenderPartial("MetadataLinks", new MetadataLinkModel {AgentSytemName = Model.SystemName, PartType = null}); }

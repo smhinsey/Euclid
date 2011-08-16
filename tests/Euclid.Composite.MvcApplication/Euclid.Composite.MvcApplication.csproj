@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Models\AgentPartModel.cs" />
     <Compile Include="Models\CommandMetadataModel.cs" />
+    <Compile Include="Models\MetadataLinks.cs" />
     <Compile Include="Models\InputModelFakeCommand4.cs" />
     <Compile Include="Models\PartCollectionMetadataModel.cs" />
     <Compile Include="Models\ReadOnlyPartMetadataModel.cs" />
@@ -249,7 +250,9 @@
   <ItemGroup>
     <Content Include="Views\Agents\ViewAgent.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Shared\MetadataLinks.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\DisplayTemplates\IAgentPart.cshtml" />
   </ItemGroup>
