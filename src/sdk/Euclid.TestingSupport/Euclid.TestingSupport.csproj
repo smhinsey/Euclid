@@ -84,55 +84,55 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
+    <ProjectReference Include="..\..\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj">
+    <ProjectReference Include="..\..\common\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj">
       <Project>{BB6CE799-54E1-4019-B918-992DCD78480A}</Project>
       <Name>Euclid.Common.Messaging.Azure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+    <ProjectReference Include="..\..\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\common\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
+    <ProjectReference Include="..\..\common\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
       <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>
       <Name>Euclid.Common.ServiceHost</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj">
+    <ProjectReference Include="..\..\common\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj">
       <Project>{9190A42E-76B2-4315-9374-DF188D78881B}</Project>
       <Name>Euclid.Common.Storage.Azure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
+    <ProjectReference Include="..\..\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
       <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
       <Name>Euclid.Common.Storage.NHibernate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
+    <ProjectReference Include="..\..\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
+    <ProjectReference Include="..\..\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
       <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
       <Name>Euclid.Framework.Cqrs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\framework\Euclid.Framework.HostingFabric\Euclid.Framework.HostingFabric.csproj">
+    <ProjectReference Include="..\..\framework\Euclid.Framework.HostingFabric\Euclid.Framework.HostingFabric.csproj">
       <Project>{6B55CE77-2663-45F0-ADB2-DFC7AB01233C}</Project>
       <Name>Euclid.Framework.HostingFabric</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
+    <ProjectReference Include="..\..\framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
       <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>
       <Name>Euclid.Framework.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\framework\Euclid.Framework\Euclid.Framework.csproj">
+    <ProjectReference Include="..\..\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\sdk\AgentConsole\AgentConsole.csproj">
+    <ProjectReference Include="..\AgentConsole\AgentConsole.csproj">
       <Project>{A32FFA94-BEEA-46AD-9A99-F09D6F44D58B}</Project>
       <Name>AgentConsole</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\sdk\Euclid.Composites\Euclid.Composites.csproj">
+    <ProjectReference Include="..\Euclid.Composites\Euclid.Composites.csproj">
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
     </ProjectReference>

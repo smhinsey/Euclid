@@ -1,0 +1,49 @@
+﻿.model-header {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 16pt;
+}
+
+.property-set {
+    margin-bottom: 8px;
+}
+
+.property-label 
+{
+    font-weight: bold;
+}
+
+.property-value 
+{
+}
+
+.agent-name
+{
+}
+
+.metadata-links-list
+{
+    list-style: none;
+}
+
+#link-container ul li:before
+{
+    content: "\00BB \0020";
+}
+
+.metadata-links-container
+{
+    
+}
+
+.metadata-link-item
+{
+    
+}
+
+.metadata-link
+{
+    
+}

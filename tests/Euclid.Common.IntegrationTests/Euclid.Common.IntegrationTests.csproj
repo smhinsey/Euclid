@@ -102,10 +102,6 @@
     <Compile Include="Transport\AzureTransportTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj">
-      <Project>{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}</Project>
-      <Name>Euclid.TestingSupport</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj">
       <Project>{BB6CE799-54E1-4019-B918-992DCD78480A}</Project>
       <Name>Euclid.Common.Messaging.Azure</Name>

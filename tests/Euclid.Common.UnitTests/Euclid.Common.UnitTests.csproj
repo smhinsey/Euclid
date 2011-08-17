@@ -118,10 +118,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj">
-      <Project>{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}</Project>
-      <Name>Euclid.TestingSupport</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
