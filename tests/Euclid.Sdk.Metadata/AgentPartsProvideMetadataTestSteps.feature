@@ -1,6 +1,4 @@
-
-d:\Projects\Euclid\platform>@git.exe %*
-﻿Feature: Euclid agents provide metadata about their parts
+Feature: Euclid agents provide metadata about their parts
 	In order to satisfy requests for metadata
 	As an agent
 	I need to provide metadata in arbitrary formats
@@ -21,10 +19,3 @@ Examples:
 
 # todo: future content types
 #    | xhtml       | text/html        |
-
-    
-d:\Projects\Euclid\platform>@set ErrorLevel=%ErrorLevel%
-
-d:\Projects\Euclid\platform>@rem Restore the original console codepage.
-
-d:\Projects\Euclid\platform>@chcp %cp_oem% > nul < nul

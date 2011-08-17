@@ -1,5 +1,3 @@
-
-d:\Projects\Euclid\platform>@git.exe %*
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -71,8 +69,3 @@ namespace Euclid.Framework.Agent.Metadata.Formatters
         }
     }
 }
-d:\Projects\Euclid\platform>@set ErrorLevel=%ErrorLevel%
-
-d:\Projects\Euclid\platform>@rem Restore the original console codepage.
-
-d:\Projects\Euclid\platform>@chcp %cp_oem% > nul < nul
