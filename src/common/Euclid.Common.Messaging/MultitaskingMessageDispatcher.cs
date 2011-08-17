@@ -9,11 +9,11 @@ using Microsoft.Practices.ServiceLocation;
 namespace Euclid.Common.Messaging
 {
 	public class MultitaskingMessageDispatcher<TRegistry> : IMessageDispatcher, ILoggingSource
-		where TRegistry : IPublicationRegistry<IPublicationRecord>
+		where TRegistry : IPublicationRegistry<IPublicationRecord, IPublicationRecord>
 	{
 		private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
 		private readonly IServiceLocator _container;
-		private readonly IPublicationRegistry<IPublicationRecord> _publicationRegistry;
+		private readonly IPublicationRegistry<IPublicationRecord, IPublicationRecord> _publicationRegistry;
 		private bool _configured;
 		private IMessageChannel _inputChannel;
 		private IMessageChannel _invalidChannel;
@@ -167,7 +167,7 @@ namespace Euclid.Common.Messaging
 
 						 			handler.Invoke(processor, new[] {message});
 
-						 			var registry = (IPublicationRegistry<IPublicationRecord>) _container.GetInstance(typeof (IPublicationRegistry<IPublicationRecord>));
+									var registry = (IPublicationRegistry<IPublicationRecord, IPublicationRecord>)_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
 
 						 			registry.MarkAsComplete(record.Identifier);
 
@@ -177,7 +177,7 @@ namespace Euclid.Common.Messaging
 						 		{
 						 			this.WriteErrorMessage("An error occurred processing message {0} with id {1}.", e, message.GetType().Name, message.Identifier);
 
-						 			var registry = (IPublicationRegistry<IPublicationRecord>) _container.GetInstance(typeof (IPublicationRegistry<IPublicationRecord>));
+									var registry = (IPublicationRegistry<IPublicationRecord, IPublicationRecord>)_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
 
 						 			registry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
 						 		}

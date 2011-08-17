@@ -2,15 +2,16 @@
 
 namespace Euclid.Common.Messaging
 {
-	public interface IPublicationRegistry<out TRecord>
+	public interface IPublicationRegistry<out TRecord, out TRecordContract>
 		where TRecord : class, IPublicationRecord
+		where TRecordContract : IPublicationRecord
 	{
-		TRecord CreateRecord(IMessage message);
+		TRecordContract CreateRecord(IMessage message);
 		IMessage GetMessage(Uri messageLocation, Type messageType);
-		TRecord GetRecord(Guid identifier);
+		TRecordContract GetRecord(Guid identifier);
 
-		TRecord MarkAsComplete(Guid id);
-		TRecord MarkAsFailed(Guid id, string message = null, string callStack = null);
-		TRecord MarkAsUnableToDispatch(Guid id, bool isError = false, string message = null);
+		TRecordContract MarkAsComplete(Guid id);
+		TRecordContract MarkAsFailed(Guid id, string message = null, string callStack = null);
+		TRecordContract MarkAsUnableToDispatch(Guid id, bool isError = false, string message = null);
 	}
 }

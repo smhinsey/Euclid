@@ -18,7 +18,7 @@ namespace Euclid.Common.UnitTests.Publishing
 			var blobStorage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
 			var transport = new InMemoryMessageChannel();
-			var registry = new PublicationRegistry<FakePublicationRecord>(repository, blobStorage, serializer);
+			var registry = new PublicationRegistry<FakePublicationRecord, FakePublicationRecord>(repository, blobStorage, serializer);
 
 			var publisher = new DefaultPublisher(registry, transport);
 

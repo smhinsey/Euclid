@@ -14,7 +14,7 @@ namespace Euclid.Composites
 		public readonly OverridableTypeSetting<IRecordMapper<CommandPublicationRecord>> CommandPublicationRecordMapper;
 		public readonly OverridableTypeSetting<IMessageChannel> MessageChannel;
 		public readonly OverridableTypeSetting<IMessageSerializer> MessageSerializer;
-		public readonly OverridableTypeSetting<IPublicationRegistry<IPublicationRecord>> PublicationRegistry;
+		public readonly OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>> PublicationRegistry;
 		public readonly OverridableTypeSetting<IPublisher> Publisher = new OverridableTypeSetting<IPublisher>("Publisher");
 
 		public CompositeAppSettings()
@@ -24,7 +24,7 @@ namespace Euclid.Composites
 			CommandPublicationRecordMapper = new OverridableTypeSetting<IRecordMapper<CommandPublicationRecord>>("CommandPublicationRecordMapper");
 			MessageChannel = new OverridableTypeSetting<IMessageChannel>("MessageChannel");
 			MessageSerializer = new OverridableTypeSetting<IMessageSerializer>("MessageSerializer");
-			PublicationRegistry = new OverridableTypeSetting<IPublicationRegistry<IPublicationRecord>>("PublicationRegistry");
+			PublicationRegistry = new OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>("PublicationRegistry");
 			Publisher = new OverridableTypeSetting<IPublisher>("Publisher");
 
 			Publisher.WithDefault(typeof (DefaultPublisher));

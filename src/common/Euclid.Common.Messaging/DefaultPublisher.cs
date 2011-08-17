@@ -5,9 +5,9 @@ namespace Euclid.Common.Messaging
 	public class DefaultPublisher : IPublisher
 	{
 		private readonly IMessageChannel _channel;
-		private readonly IPublicationRegistry<IPublicationRecord> _publicationRegistry;
+		private readonly IPublicationRegistry<IPublicationRecord, IPublicationRecord> _publicationRegistry;
 
-		public DefaultPublisher(IPublicationRegistry<IPublicationRecord> publicationRegistry, IMessageChannel channel)
+		public DefaultPublisher(IPublicationRegistry<IPublicationRecord, IPublicationRecord> publicationRegistry, IMessageChannel channel)
 		{
 			_publicationRegistry = publicationRegistry;
 			_channel = channel;

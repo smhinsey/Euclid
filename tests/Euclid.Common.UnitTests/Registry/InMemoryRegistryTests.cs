@@ -11,7 +11,7 @@ namespace Euclid.Common.UnitTests.Registry
 	[Category(TestCategories.Unit)]
 	public class InMemoryRegistryTests
 	{
-		private RegistryTester<PublicationRegistry<FakePublicationRecord>> _registryTester;
+		private RegistryTester<PublicationRegistry<FakePublicationRecord, FakePublicationRecord>> _registryTester;
 
 		[TestFixtureSetUp]
 		public void SetupTest()
@@ -20,7 +20,8 @@ namespace Euclid.Common.UnitTests.Registry
 			var serializer = new JsonMessageSerializer();
 			var repository = new InMemoryRecordMapper<FakePublicationRecord>();
 			_registryTester =
-				new RegistryTester<PublicationRegistry<FakePublicationRecord>>(new PublicationRegistry<FakePublicationRecord>(repository, storage, serializer));
+				new RegistryTester<PublicationRegistry<FakePublicationRecord, FakePublicationRecord>>
+					(new PublicationRegistry<FakePublicationRecord, FakePublicationRecord>(repository, storage, serializer));
 		}
 
 		private const int LargeNumber = 10000;

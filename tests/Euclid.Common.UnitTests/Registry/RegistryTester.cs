@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Euclid.Common.UnitTests.Registry
 {
 	public class RegistryTester<TRegistry>
-		where TRegistry : IPublicationRegistry<FakePublicationRecord>
+		where TRegistry : IPublicationRegistry<FakePublicationRecord, FakePublicationRecord>
 	{
 		private readonly TRegistry _registry;
 

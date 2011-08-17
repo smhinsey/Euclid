@@ -164,7 +164,7 @@ namespace Euclid.Composites
 			                   	.ImplementedBy(compositeAppSettings.MessageSerializer.Value)
 			                   	.LifeStyle.Transient);
 
-			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord>>()
+			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>()
 			                   	.Forward<ICommandRegistry>()
 			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
 			                   	.LifeStyle.Transient);

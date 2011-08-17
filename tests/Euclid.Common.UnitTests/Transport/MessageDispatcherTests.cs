@@ -33,7 +33,7 @@ namespace Euclid.Common.UnitTests.Transport
 				 	.Instance(processor)
 				);
 
-			container.Register(Component.For<IPublicationRegistry<IPublicationRecord>>().ImplementedBy<FakeRegistry>());
+			container.Register(Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().ImplementedBy<FakeRegistry>());
 			container.Register(Component.For<IRecordMapper<FakePublicationRecord>>().ImplementedBy<InMemoryRecordMapper<FakePublicationRecord>>());
 			container.Register(Component.For<IBlobStorage>().ImplementedBy<InMemoryBlobStorage>());
 			container.Register(Component.For<IMessageSerializer>().ImplementedBy<JsonMessageSerializer>());
@@ -44,12 +44,12 @@ namespace Euclid.Common.UnitTests.Transport
 
 			var locator = new WindsorServiceLocator(container);
 
-			_dispatcher = new MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord>>(locator, _registry);
+			_dispatcher = new MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>(locator, _registry);
 
 			_transport = new InMemoryMessageChannel();
 		}
 
-		private MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord>> _dispatcher;
+		private MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord, IPublicationRecord>> _dispatcher;
 		private FakeRegistry _registry;
 		private InMemoryMessageChannel _transport;
 

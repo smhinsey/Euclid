@@ -13,7 +13,7 @@ namespace Euclid.Common.IntegrationTests
 	[Category(TestCategories.Integration)]
 	public class PublicationTests
 	{
-		private readonly IPublicationRegistry<FakePublicationRecord> _publicationRegistry;
+		private readonly IPublicationRegistry<FakePublicationRecord, FakePublicationRecord> _publicationRegistry;
 		private readonly IMessageChannel _channel;
 		private readonly IRecordMapper<FakePublicationRecord> _mapper;
 		private readonly IBlobStorage _blobStorage;

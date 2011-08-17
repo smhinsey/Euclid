@@ -5,8 +5,9 @@ using Euclid.Common.Storage.Record;
 
 namespace Euclid.Common.Messaging
 {
-	public class PublicationRegistry<TRecord> : IPublicationRegistry<TRecord>
-		where TRecord : class, IPublicationRecord, new()
+	public class PublicationRegistry<TRecord, TRecordContract> : IPublicationRegistry<TRecord, TRecordContract>
+		where TRecord : class, TRecordContract, IPublicationRecord, new()
+		where TRecordContract : IPublicationRecord
 	{
 		protected readonly IBlobStorage BlobStorage;
 		protected readonly IRecordMapper<TRecord> Mapper;
@@ -20,7 +21,7 @@ namespace Euclid.Common.Messaging
 			Serializer = serializer;
 		}
 
-		public virtual TRecord CreateRecord(IMessage message)
+		public virtual TRecordContract CreateRecord(IMessage message)
 		{
 			var msgBlob = new Blob
 			              	{
@@ -38,7 +39,7 @@ namespace Euclid.Common.Messaging
 			             		MessageType = message.GetType()
 			             	};
 
-			return Mapper.Create(record);
+			return (TRecordContract)Mapper.Create(record);
 		}
 
 		public virtual IMessage GetMessage(Uri messageLocation, Type recordType)
@@ -48,7 +49,7 @@ namespace Euclid.Common.Messaging
 			return Convert.ChangeType(Serializer.Deserialize(messageBlob.Bytes), recordType) as IMessage;
 		}
 
-		public virtual TRecord MarkAsComplete(Guid id)
+		public virtual TRecordContract MarkAsComplete(Guid id)
 		{
 			return updateRecord
 				(id, r =>
@@ -59,7 +60,7 @@ namespace Euclid.Common.Messaging
 				     	});
 		}
 
-		public virtual TRecord MarkAsFailed(Guid id, string message, string callStack)
+		public virtual TRecordContract MarkAsFailed(Guid id, string message, string callStack)
 		{
 			return updateRecord
 				(id, r =>
@@ -72,7 +73,7 @@ namespace Euclid.Common.Messaging
 				     	});
 		}
 
-		public virtual TRecord MarkAsUnableToDispatch(Guid recordId, bool isError = false, string message = null)
+		public virtual TRecordContract MarkAsUnableToDispatch(Guid recordId, bool isError = false, string message = null)
 		{
 			return updateRecord
 				(recordId, r =>
@@ -84,18 +85,18 @@ namespace Euclid.Common.Messaging
 				           	});
 		}
 
-		public TRecord GetRecord(Guid identifier)
+		public TRecordContract GetRecord(Guid identifier)
 		{
 			return Mapper.Retrieve(identifier);
 		}
 
-		private TRecord updateRecord(Guid id, Action<TRecord> actOnRecord)
+		private TRecordContract updateRecord(Guid id, Action<TRecordContract> actOnRecord)
 		{
 			var record = GetRecord(id);
 
 			actOnRecord(record);
 
-			return Mapper.Update(record);
+			return Mapper.Update((TRecord)record);
 		}
 	}
 }
