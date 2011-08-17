@@ -1,5 +1,4 @@
 ﻿using Euclid.Common.Storage;
-using Euclid.Common.Storage.Configuration;
 using Euclid.TestingSupport;
 using NUnit.Framework;
 

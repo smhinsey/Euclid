@@ -70,7 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blob.cs" />
-    <Compile Include="Configuration\BlobStorageSettings.cs" />
+    <Compile Include="BlobStorageSettings.cs" />
     <Compile Include="InMemoryBlobStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InMemoryRecordMapper.cs" />
