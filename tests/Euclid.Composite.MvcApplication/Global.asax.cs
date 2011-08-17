@@ -68,17 +68,17 @@ namespace Euclid.Composite.MvcApplication
             routes.MapRoute("AgentWithFormat", "agents/{agentSystemName}.{format}",
                 new { controller = "Agents", action = "ViewAgent" });
 
-			routes.MapRoute("AgentPartsWithFormat", "agents/{agentSystemName}/{partType}.{format}",
-			                new {controller = "Agents", action = "Parts"});
+			routes.MapRoute("AgentPartsWithFormat", "agents/{agentSystemName}/{descriptiveName}.{format}",
+			                new {controller = "Agents", action = "ViewPartCollection"});
 
-			routes.MapRoute("AgentParts", "agents/{agentSystemName}/{partType}",
-			                new {controller = "Agents", action = "Parts"});
+            routes.MapRoute("AgentParts", "agents/{agentSystemName}/{descriptiveName}",
+                            new { controller = "Agents", action = "ViewPartCollection" });
 
-			routes.MapRoute("AgentPartWithFormat", "agents/{agentSystemName}/{action}/{partType}/{partName}.{format}",
-			                new {controller = "Agents", action = "Inspect", partType = UrlParameter.Optional});
+			routes.MapRoute("AgentPartWithFormat", "agents/{agentSystemName}/{action}/{partName}.{format}",
+			                new {controller = "Agents", action = "ViewPart"});
 
-			routes.MapRoute("AgentPart", "agents/{agentSystemName}/{action}/{partType}/{partName}",
-			                new {controller = "Agents", action = "Inspect", partType = UrlParameter.Optional});
+			routes.MapRoute("AgentPart", "agents/{agentSystemName}/{action}/{partName}",
+			                new {controller = "Agents", action = "ViewPart"});
 		}
 	}
 }

@@ -10,9 +10,11 @@
 	<fieldset>
 		@Html.EditorFor(p => Model)
 	</fieldset>
-
-
+    
 	<input type="submit" value="Publish Command" />
 }
 
-@{ Html.RenderPartial("MetadataLinks", new MetadataLinkModel {AgentSytemName = Model.AgentSystemName, PartType = "Commands"}); }
+@{
+    var footer = (FooterLinkModel) ViewBag.Navigation;
+    Html.RenderPartial("MetadataLinks", footer);
+}

@@ -1,4 +1,4 @@
-﻿using Euclid.Agent.Attributes;
+﻿using Euclid.Framework.Agent.Attributes;
 using ForumAgent.Commands;
 using ForumAgent.Processors;
 using ForumAgent.Queries;

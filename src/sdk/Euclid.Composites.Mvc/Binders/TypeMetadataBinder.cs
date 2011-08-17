@@ -9,11 +9,11 @@ using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Composites.Mvc.Binders
 {
-	public class TypeMetadataModelBinder : IEuclidModelBinder
+	public class TypeMetadataBinder : IEuclidModelBinder
 	{
 		private readonly IAgentResolver[] _resolvers;
 
-		public TypeMetadataModelBinder(IAgentResolver[] resolvers)
+		public TypeMetadataBinder(IAgentResolver[] resolvers)
 		{
 			_resolvers = resolvers;
 		}
@@ -26,24 +26,14 @@ namespace Euclid.Composites.Mvc.Binders
 
 			var metadata = _resolvers.GetAgentMetadata(systemName);
 
-			var partMetadata = metadata.ReadModels.Where(x => x.Name == partName).FirstOrDefault();
+		    var typeMetadata = metadata.GetPartByTypeName(partName);
 
-			if (partMetadata == null)
-			{
-				partMetadata = metadata.Queries.Where(x => x.Name == partName).FirstOrDefault();
-			}
-
-            if (partMetadata == null)
+            if (typeMetadata == null)
             {
-                partMetadata = metadata.Commands.Where(x => x.Name == partName).FirstOrDefault();
+                throw new TypeMetadataNotFoundException();
             }
 
-            if (partMetadata == null)
-            {
-                throw new AgentPartMetdataNotFoundException();
-            }
-
-			return partMetadata;
+		    return typeMetadata;
 		}
 
 		public bool IsMatch(Type modelType)

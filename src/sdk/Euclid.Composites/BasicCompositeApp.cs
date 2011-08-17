@@ -6,7 +6,6 @@ using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
-using Euclid.Agent;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.NHibernate;
@@ -32,7 +31,7 @@ namespace Euclid.Composites
 		public BasicCompositeApp()
 		{
 			State = CompositeApplicationState.Uninitailized;
-			Agents = new List<IAgentMetadataFormatter>();
+			Agents = new List<IAgentMetadata>();
 			InputModelTransformers = new InputModelToCommandTransformerRegistry();
 			Container = new WindsorContainer();
 		}
@@ -42,7 +41,7 @@ namespace Euclid.Composites
 			Container = container;
 		}
 
-		public IList<IAgentMetadataFormatter> Agents { get; private set; }
+		public IList<IAgentMetadata> Agents { get; private set; }
 
 		public CompositeApplicationState State { get; set; }
 
@@ -112,7 +111,7 @@ namespace Euclid.Composites
 				throw new AgentNotFoundException(commandMetadata.Namespace);
 			}
 
-			if (!agent.Commands.Where(x => x.Name == commandMetadata.Name).Any())
+			if (!agent.Commands.Collection.Where(x => x.Name == commandMetadata.Name).Any())
 			{
 				throw new CommandNotPresentInAgentException();
 			}
@@ -184,7 +183,7 @@ namespace Euclid.Composites
 
 			foreach (var agent in Agents)
 			{
-				foreach (var rm in agent.ReadModels)
+				foreach (var rm in agent.ReadModels.Collection)
 				{
 					var assembly = rm.Type.Assembly;
 					if (!assembliesToMap.ContainsKey(assembly))

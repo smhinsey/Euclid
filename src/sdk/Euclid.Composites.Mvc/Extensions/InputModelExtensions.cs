@@ -9,16 +9,16 @@ namespace Euclid.Composites.Mvc.Extensions
 {
     public static class InputModelExtensions
     {
-        private class InputModelMetadataFormatterFormatter : MetadataFormatterFormatter
+        private class InputModelMetadataFormatter : MetadataFormatter
         {
             private readonly IInputModel _inputModel;
 
-            public InputModelMetadataFormatterFormatter(IInputModel inputModel)
+            public InputModelMetadataFormatter(IInputModel inputModel)
             {
                 _inputModel = inputModel;
             }
 
-            public override object GetJsonObject(JsonSerializer serializer)
+            protected override object GetJsonObject(JsonSerializer serializer)
             {
                 return _inputModel.GetType().GetProperties().Select(pi => new
                                                                               {
@@ -27,7 +27,7 @@ namespace Euclid.Composites.Mvc.Extensions
                                                                               });
             }
 
-            public override string GetAsXml()
+            protected override string GetAsXml()
             {
                 var root = new XElement("InputModel");
 
@@ -44,7 +44,7 @@ namespace Euclid.Composites.Mvc.Extensions
 
         public static IMetadataFormatter GetMetadataFormatter(this IInputModel inputModel)
         {
-            return new InputModelMetadataFormatterFormatter(inputModel);
+            return new InputModelMetadataFormatter(inputModel);
         }
     }
 }

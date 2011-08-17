@@ -15,13 +15,6 @@ namespace Euclid.Composites.Mvc.ActionFilters
                 throw new AgentPartMetdataNotFoundException();
             }
 
-            var partType = filterContext.ActionParameters["partType"] as string;
-
-            if (string.IsNullOrEmpty(partType))
-            {
-                throw new AgentPartTypeNotSpecifiedException();
-            }
-
             return partMetadata.GetFormatter();
         }
     }

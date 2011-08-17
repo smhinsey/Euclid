@@ -1,19 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-    public interface IAgentPartMetadataFormatterCollection : IList<ITypeMetadata>, IMetadataFormatter
-	{
-		string AgentSystemName { get; }
-		string Namespace { get; }
+    public interface IAgentPartMetadataCollection : IList<ITypeMetadata>
+    {
+        
+    }
 
-		ITypeMetadata GetMetadata<TImplementationType>() where TImplementationType : IAgentPart;
+    public interface IAgentPartMetadataFormatterCollection : IMetadataFormatter, IAgentPartMetadataCollection
+    {
+
 		ITypeMetadata GetMetadata(Type agentPartImplementationType);
-		ITypeMetadata GetMetadata(string agentPartImplementationName);
-
-		bool Registered<TImplementationType>();
 		bool Registered(Type agentPartImplementationType);
-		bool Registered(string agentPartImplementationName);
 	}
 }

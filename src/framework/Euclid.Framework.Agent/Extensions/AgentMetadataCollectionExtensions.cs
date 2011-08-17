@@ -9,16 +9,16 @@ namespace Euclid.Framework.Agent.Extensions
 {
     public static class AgentMetadataCollectionExtensions
     {
-        private class BasicAgentMetadataFormatterAggregator : MetadataFormatterFormatter
+        private class BasicAgentMetadataFormatterAggregator : MetadataFormatter
         {
-            private readonly IEnumerable<IAgentMetadataFormatter> _metadataList;
+            private readonly IEnumerable<IAgentMetadata> _metadataList;
 
-            public BasicAgentMetadataFormatterAggregator(IEnumerable<IAgentMetadataFormatter> metadataList)
+            public BasicAgentMetadataFormatterAggregator(IEnumerable<IAgentMetadata> metadataList)
             {
                 _metadataList = metadataList;
             }
 
-            public override object GetJsonObject(JsonSerializer serializer)
+            protected override object GetJsonObject(JsonSerializer serializer)
             {
                 return _metadataList.Select(m => new
                                                      {
@@ -27,50 +27,52 @@ namespace Euclid.Framework.Agent.Extensions
                                                      });
             }
 
-            public override string GetAsXml()
+            protected override string GetAsXml()
             {
                 var root = new XElement("Agents");
 
                 foreach(var agent in _metadataList)
                 {
-                    root.Add(XElement.Parse(agent.GetBasicMetadata("xml")));
+                    root.Add(XElement.Parse(agent.GetBasicRepresentation("xml")));
                 }
 
                 return root.ToString();
             }
         }
 
-        private class FullAgentMetadataFormatterAggregator : MetadataFormatterFormatter
+        private class FullAgentMetadataFormatterAggregator : MetadataFormatter
         {
-            private readonly IEnumerable<IAgentMetadataFormatter> _metadataList;
+            private readonly IEnumerable<IAgentMetadata> _metadataList;
 
-            public FullAgentMetadataFormatterAggregator(IEnumerable<IAgentMetadataFormatter> metadataList)
+            public FullAgentMetadataFormatterAggregator(IEnumerable<IAgentMetadata> metadataList)
             {
                 _metadataList = metadataList;
             }
 
-            public override object GetJsonObject(JsonSerializer serializer)
+            protected override object GetJsonObject(JsonSerializer serializer)
             {
                 return _metadataList.Select(m=> new {
                                                         m.DescriptiveName,
                                                         m.SystemName,
-                                                        Commands = m.Commands.Select(x=>new
+                                                        Commands = m.Commands.Collection.Select(x=>new
                                                                                             {
                                                                                                 x.Namespace,
                                                                                                 x.Name
                                                                                             }),
-                                                        ReadModels = m.ReadModels.Select(x=>new {
+                                                        ReadModels = m.ReadModels.Collection.Select(x => new
+                                                        {
                                                                                                     x.Namespace,
                                                                                                     x.Name
                                                                                                 }),
-                                                        Queries = m.Queries.Select(x=>new {
+                                                        Queries = m.Queries.Collection.Select(x => new
+                                                        {
                                                                                               x.Namespace,
                                                                                               x.Name
                                                                                           })
                                                     });
             }
 
-            public override string GetAsXml()
+            protected override string GetAsXml()
             {
                 var root = new XElement("Agents");
 
@@ -83,12 +85,12 @@ namespace Euclid.Framework.Agent.Extensions
             }
         }
 
-        public static IMetadataFormatter GetBasicMetadataFormatter(this IEnumerable<IAgentMetadataFormatter> metadataList)
+        public static IMetadataFormatter GetBasicMetadataFormatter(this IEnumerable<IAgentMetadata> metadataList)
         {
             return new BasicAgentMetadataFormatterAggregator(metadataList);
         }
 
-        public static IMetadataFormatter GetFullMetadataFormatter(this IEnumerable<IAgentMetadataFormatter> metadataList)
+        public static IMetadataFormatter GetFullMetadataFormatter(this IEnumerable<IAgentMetadata> metadataList)
         {
             return new FullAgentMetadataFormatterAggregator(metadataList);
         }

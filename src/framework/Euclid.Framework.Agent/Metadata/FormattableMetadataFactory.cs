@@ -31,5 +31,23 @@ namespace Euclid.Framework.Agent.Metadata
 
             throw new AgentPartFormatterNotFoundException(metadata.Type.Name);
         }
+
+        public static IMetadataFormatter GetFormatter(IPartCollection metadata)
+        {
+            if (typeof(ICommand).IsAssignableFrom(metadata.CollectionType))
+            {
+                return new CommandCollectionFormatter(metadata);
+            }
+            else if (typeof(IReadModel).IsAssignableFrom(metadata.CollectionType))
+            {
+                return new ReadModelCollectionFormatter(metadata);
+            }
+            else if (typeof(IQuery).IsAssignableFrom(metadata.CollectionType))
+            {
+                return new QueryCollectionFormatter(metadata);
+            }
+
+            throw new AgentPartFormatterNotFoundException(metadata.CollectionType.Name);
+        }
     }
 }

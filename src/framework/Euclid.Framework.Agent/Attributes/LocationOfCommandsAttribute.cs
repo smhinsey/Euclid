@@ -1,7 +1,6 @@
 ﻿using System;
-using Euclid.Framework.Agent.Attributes;
 
-namespace Euclid.Agent.Attributes
+namespace Euclid.Framework.Agent.Attributes
 {
 	[AttributeUsage(AttributeTargets.Assembly)]
 	public class LocationOfCommandsAttribute : NamespaceFinderAttribute

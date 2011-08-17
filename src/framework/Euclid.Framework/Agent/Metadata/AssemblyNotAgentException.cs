@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Euclid.Agent
+namespace Euclid.Framework.Agent.Metadata
 {
 	public class AssemblyNotAgentException : Exception
 	{

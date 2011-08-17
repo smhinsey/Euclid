@@ -16,5 +16,6 @@ namespace Euclid.Framework.Agent.Metadata
         IEnumerable<IPropertyMetadata> GetAttributes(Type type);
 
         IMetadataFormatter GetFormatter();
+        IPartCollection GetContainingPartCollection();
 	}
 }

@@ -8,7 +8,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Euclid.Framework.Agent.Metadata.Formatters
 {
-    public abstract class MetadataFormatterFormatter : IMetadataFormatter
+    public abstract class MetadataFormatter : IMetadataFormatter
     {
         private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string>
                                                                                   {
@@ -36,9 +36,9 @@ namespace Euclid.Framework.Agent.Metadata.Formatters
             return json.ToString();
         }
 
-        public abstract object GetJsonObject(JsonSerializer serializer);
+        protected abstract object GetJsonObject(JsonSerializer serializer);
 
-        public abstract string GetAsXml();
+        protected abstract string GetAsXml();
 
         public string GetContentType(string format)
         {

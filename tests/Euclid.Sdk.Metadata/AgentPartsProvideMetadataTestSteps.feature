@@ -3,6 +3,8 @@
 	As an agent
 	I need to provide metadata in arbitrary formats
 
+# Scenario Outline: Agent parts are metadata providers
+
 # @metadata-service @EuclidMetadata @IEuclidMetadata @framework
 Scenario Outline: Supported Agent metadata formats
 	Given an agent

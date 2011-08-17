@@ -20,14 +20,14 @@ namespace Euclid.Composites.Mvc.Extensions
 			return controllerContext.GetRouteValue<string>("PartName");
 		}
 
+        public static string GetPartDescriptiveName(this ControllerContext controllerContext)
+        {
+            return controllerContext.GetRouteValue<string>("DescriptiveName");
+        }
+
 		public static T GetRouteValue<T>(this ControllerContext controllerContext, string key)
 		{
 			var value = controllerContext.RouteData.Values[key];
-
-			if (value == null)
-			{
-				throw new RequiredRouteDataMissingException(key);
-			}
 
 			return (T) value;
 		}

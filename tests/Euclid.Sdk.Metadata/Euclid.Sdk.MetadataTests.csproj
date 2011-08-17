@@ -55,19 +55,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EuclidMetadataProviderTestSteps.cs" />
-    <Compile Include="EuclidMetadataProviderTestSteps.feature.cs">
+    <Compile Include="AgentPartsProvideMetadataTestSteps.cs" />
+    <Compile Include="AgentPartsProvideMetadataTestSteps.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EuclidMetadataProviderTestSteps.feature</DependentUpon>
+      <DependentUpon>AgentPartsProvideMetadataTestSteps.feature</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="EuclidMetadataProviderTestSteps.feature">
+    <None Include="AgentPartsProvideMetadataTestSteps.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>EuclidMetadataProviderTestSteps.feature.cs</LastGenOutput>
+      <LastGenOutput>AgentPartsProvideMetadataTestSteps.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

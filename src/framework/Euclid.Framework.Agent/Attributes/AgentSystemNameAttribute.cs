@@ -1,6 +1,4 @@
-using Euclid.Framework.Agent.Attributes;
-
-namespace Euclid.Agent.Attributes
+namespace Euclid.Framework.Agent.Attributes
 {
 	public class AgentSystemNameAttribute : TextAttribute
 	{

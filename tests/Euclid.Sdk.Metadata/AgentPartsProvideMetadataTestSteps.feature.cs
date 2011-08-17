@@ -25,7 +25,7 @@ namespace Euclid.Sdk.Metadata
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "EuclidMetadataProviderTestSteps.feature"
+#line 1 "AgentPartsProvideMetadataTestSteps.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
@@ -72,15 +72,15 @@ namespace Euclid.Sdk.Metadata
         public virtual void SupportedAgentMetadataFormats(string format_Name, string content_Type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Supported Agent metadata formats", exampleTags);
-#line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("an agent");
 #line 9
- testRunner.When(string.Format("metadata is requested as {0}", format_Name));
+this.ScenarioSetup(scenarioInfo);
 #line 10
-    testRunner.Then(string.Format("can be represented as {0}", content_Type));
+ testRunner.Given("an agent");
 #line 11
+ testRunner.When(string.Format("metadata is requested as {0}", format_Name));
+#line 12
+    testRunner.Then(string.Format("can be represented as {0}", content_Type));
+#line 13
     testRunner.And("has been independently validated");
 #line hidden
             this.ScenarioCleanup();

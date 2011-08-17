@@ -5,21 +5,21 @@ using Newtonsoft.Json;
 
 namespace Euclid.Framework.Agent.Metadata.Formatters
 {
-    internal class QueryFormatter : MetadataFormatterFormatter
+    internal class QueryFormatter : MetadataFormatter
     {
         private readonly ITypeMetadata _partMetadata;
-        private readonly IAgentMetadataFormatter _agentMetadataFormatter;
+        private readonly IAgentMetadata _agentMetadata;
 
         public QueryFormatter(ITypeMetadata partMetadata)
         {
             _partMetadata = partMetadata;
-            _agentMetadataFormatter = partMetadata.Type.Assembly.GetAgentMetadata();
+            _agentMetadata = partMetadata.Type.Assembly.GetAgentMetadata();
         }
 
-        public override object GetJsonObject(JsonSerializer serializer)
+        protected override object GetJsonObject(JsonSerializer serializer)
         {
             return new {
-                            AgentSystemName = _agentMetadataFormatter.SystemName,
+                            AgentSystemName = _agentMetadata.SystemName,
                             _partMetadata.Namespace,
                             _partMetadata.Name,
                            Methods = _partMetadata.Methods.Select(method =>
@@ -39,10 +39,10 @@ namespace Euclid.Framework.Agent.Metadata.Formatters
                        };
         }
 
-        public override string GetAsXml()
+        protected override string GetAsXml()
         {
             var root = new XElement("Query",
-                                   new XElement("AgentSystemName", _agentMetadataFormatter.SystemName), 
+                                   new XElement("AgentSystemName", _agentMetadata.SystemName), 
                                    new XElement("Namespace", _partMetadata.Namespace),
                                    new XElement("Name", _partMetadata.Name));
 

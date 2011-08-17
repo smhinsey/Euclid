@@ -3,13 +3,13 @@ using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Composite.MvcApplication.Models
 {
-	public class AgentListModel
+	public class AgentListModel : FooterLinkModel
 	{
-		public AgentListModel(IList<IAgentMetadataFormatter> agents)
+		public AgentListModel(IList<IAgentMetadata> agents)
 		{
 			Agents = agents;
 		}
 
-		public IList<IAgentMetadataFormatter> Agents { get; private set; }
+		public IList<IAgentMetadata> Agents { get; private set; }
 	}
 }

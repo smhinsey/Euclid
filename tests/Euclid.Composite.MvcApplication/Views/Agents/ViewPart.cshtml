@@ -1,6 +1,6 @@
 ﻿@using System.Text
 @using Euclid.Composite.MvcApplication.Models
-@model ReadOnlyPartMetadataModel
+@model PartModel
 
 <h1>@ViewBag.Title</h1>
 
@@ -45,5 +45,5 @@
 	</ul>
 }
 
-@{ Html.RenderPartial("MetadataLinks", new MetadataLinkModel {AgentSytemName = Model.AgentSystemName, PartType = Model.PartType}); }
+@{ Html.RenderPartial("MetadataLinks", Model); }
 

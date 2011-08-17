@@ -7,11 +7,11 @@ using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Composites.Mvc.Binders
 {
-	public class AgentMetadataModelBinder : IEuclidModelBinder
+	public class AgentMetadataBinder : IEuclidModelBinder
 	{
 		private readonly IAgentResolver[] _resolvers;
 
-		public AgentMetadataModelBinder(IAgentResolver[] resolvers)
+		public AgentMetadataBinder(IAgentResolver[] resolvers)
 		{
 			_resolvers = resolvers;
 		}
@@ -25,7 +25,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public bool IsMatch(Type modelType)
 		{
-			return (modelType == typeof (IAgentMetadataFormatter));
+			return (modelType == typeof (IAgentMetadata));
 		}
 	}
 }

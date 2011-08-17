@@ -89,12 +89,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\AgentPartModel.cs" />
-    <Compile Include="Models\CommandMetadataModel.cs" />
-    <Compile Include="Models\MetadataLinks.cs" />
+    <Compile Include="Models\FooterLinkModel.cs" />
     <Compile Include="Models\InputModelFakeCommand4.cs" />
-    <Compile Include="Models\PartCollectionMetadataModel.cs" />
-    <Compile Include="Models\ReadOnlyPartMetadataModel.cs" />
+    <Compile Include="Models\PartCollectionModel.cs" />
+    <Compile Include="Models\PartModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +172,7 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
-    <Content Include="Views\Agents\InspectCommand.cshtml">
+    <Content Include="Views\Agents\ViewCommand.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Web.config">
@@ -242,10 +244,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Agents\Parts.cshtml" />
+    <Content Include="Views\Agents\ViewPartCollection.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Agents\Inspect.cshtml" />
+    <Content Include="Views\Agents\ViewPart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Agents\ViewAgent.cshtml" />

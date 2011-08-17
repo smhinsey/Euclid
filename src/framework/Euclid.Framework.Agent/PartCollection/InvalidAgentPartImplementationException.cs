@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Framework.Agent.Parts
+namespace Euclid.Framework.Agent.PartCollection
 {
 	public class InvalidAgentPartImplementationException : Exception
 	{

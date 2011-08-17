@@ -4,12 +4,12 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
-using Euclid.Agent.Attributes;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.Storage.Model;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Composites;
+using Euclid.Framework.Agent.Attributes;
 using Euclid.Framework.Agent.Extensions;
 using Euclid.Framework.Cqrs;
 

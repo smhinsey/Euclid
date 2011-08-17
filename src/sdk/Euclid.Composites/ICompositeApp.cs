@@ -8,7 +8,7 @@ namespace Euclid.Composites
 {
 	public interface ICompositeApp : ILoggingSource
 	{
-		IList<IAgentMetadataFormatter> Agents { get; }
+		IList<IAgentMetadata> Agents { get; }
 		CompositeApplicationState State { get; set; }
 		void AddAgent(Assembly assembly);
 		void Configure(CompositeAppSettings compositeAppSettings);

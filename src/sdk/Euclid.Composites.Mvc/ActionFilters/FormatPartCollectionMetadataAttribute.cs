@@ -7,7 +7,13 @@ namespace Euclid.Composites.Mvc.ActionFilters
     {
         public override IMetadataFormatter GetFormatter(ActionExecutingContext filterContext)
         {
-            return filterContext.ActionParameters["partCollection"] as IMetadataFormatter;
+            var metadataCollection = filterContext.ActionParameters["partCollection"] as IPartCollection;
+            if (metadataCollection == null)
+            {
+                throw new AgentPartMetdataNotFoundException();
+            }
+                
+            return metadataCollection.GetFormatter();
         }
     }
 }

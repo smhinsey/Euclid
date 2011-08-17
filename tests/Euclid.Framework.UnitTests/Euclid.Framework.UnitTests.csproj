@@ -101,7 +101,6 @@
     <Compile Include="Cqrs\CommandHostTests.cs" />
     <Compile Include="HostingFabric\BasicFabricTests.cs" />
     <Compile Include="HostingFabric\FailingHostedService.cs" />
-    <Compile Include="Metadata\AgentMetadataTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

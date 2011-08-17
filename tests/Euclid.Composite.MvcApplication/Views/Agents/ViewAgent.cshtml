@@ -10,4 +10,5 @@
     <li>@Html.DisplayFor(x=>x.ReadModels, "IAgentPart", @Model.ReadModels)</li>
 </ul>
 
-@{ Html.RenderPartial("MetadataLinks", new MetadataLinkModel {AgentSytemName = Model.SystemName, PartType = null}); }
+@{ Html.RenderPartial("MetadataLinks", Model); }
+

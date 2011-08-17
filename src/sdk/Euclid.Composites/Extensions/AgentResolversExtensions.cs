@@ -21,7 +21,7 @@ namespace Euclid.Composites.Extensions
 			return agent;
 		}
 
-		public static IAgentMetadataFormatter GetAgentMetadata(this IEnumerable<IAgentResolver> resolvers, string systemName)
+		public static IAgentMetadata GetAgentMetadata(this IEnumerable<IAgentResolver> resolvers, string systemName)
 		{
 			var agent = resolvers.Select(rslvr => rslvr.GetAgent(systemName)).FirstOrDefault(assembly => assembly != null);
 
