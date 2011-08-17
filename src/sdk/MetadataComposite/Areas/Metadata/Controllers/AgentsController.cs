@@ -98,6 +98,17 @@ namespace MetadataComposite.Areas.Metadata.Controllers
         {
             var partCollection = typeMetadata.GetContainingPartCollection();
 
+            if (inputModel == null)
+            {
+                return RedirectToAction("ViewPart",
+                                 new
+                                     {
+                                         AgentSystemName = partCollection.AgentSystemName,
+                                         PartName = typeMetadata.Name,
+                                         Format = format
+                                     });
+            }
+
             ViewBag.Title = typeMetadata.Type.Name;
 
             ViewBag.Navigation = new FooterLinkModel
