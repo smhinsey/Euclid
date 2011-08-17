@@ -6,6 +6,6 @@
     <ExcludeFilters />
   </CoverageFilters>
   <SnapshotDialog>
-    <InitialDirectory>D:\Users\smhinsey\git\Euclid</InitialDirectory>
+    <InitialDirectory>D:\Users\smhinsey\Desktop</InitialDirectory>
   </SnapshotDialog>
 </Configuration>
