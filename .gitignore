@@ -8,3 +8,5 @@
 *.docstates
 _ReSharper.Euclid/*
 _ReSharper.*
+nuget/temp
+nuget/Euclid.*.nupkg

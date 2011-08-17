@@ -22,7 +22,15 @@ namespace Euclid.Composites.Mvc.Binders
 		{
 			var commandName = controllerContext.GetPartName();
 
-			var inputModel = _transformers.GetInputModel(commandName);
+		    IInputModel inputModel;
+            try
+            {
+                inputModel = _transformers.GetInputModel(commandName);
+            }
+            catch(InputModelForPartNotRegisteredException e)
+            {
+                return null;
+            }
 
 			var inputModelProperties = inputModel.GetType().GetProperties();
 			foreach (var property in inputModelProperties)

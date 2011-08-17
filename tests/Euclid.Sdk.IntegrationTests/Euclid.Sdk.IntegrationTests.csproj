@@ -166,6 +166,10 @@
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj">
+      <Project>{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}</Project>
+      <Name>Euclid.TestingSupport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Sdk.FakeAgent\Euclid.Sdk.FakeAgent.csproj">
       <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
       <Name>Euclid.Sdk.FakeAgent</Name>

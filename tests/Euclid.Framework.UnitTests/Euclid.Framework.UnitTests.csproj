@@ -151,6 +151,10 @@
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj">
+      <Project>{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}</Project>
+      <Name>Euclid.TestingSupport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Framework.TestingFakes\Euclid.Framework.TestingFakes.csproj">
       <Project>{793DEE69-90CB-45D7-94CC-FD2D7CE59790}</Project>
       <Name>Euclid.Framework.TestingFakes</Name>

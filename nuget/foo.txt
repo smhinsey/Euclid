@@ -1,0 +1,601 @@
+Microsoft (R) Build Engine Version 4.0.30319.1
+[Microsoft .NET Framework, Version 4.0.30319.225]
+Copyright (C) Microsoft Corporation 2007. All rights reserved.
+
+Build started 8/17/2011 1:27:52 AM.
+Project "d:\Projects\Euclid\platform\nuget\package.msbuild" on node 1 (default targets).
+delete-temp:
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\Index.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\Operations.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\ViewAgent.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\ViewCommand.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\ViewPart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\ViewPartCollection.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Command\Inspect.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Command\List.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Home\Index.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\DisplayTemplates\IAgentMetadata.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\DisplayTemplates\IAgentPart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\Error.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\MetadataLinks.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\_Layout.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Web.config".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\_ViewStart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\MetadataAreaRegistration.cs".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\Index.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\Operations.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\ViewAgent.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\ViewCommand.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\ViewPart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\ViewPartCollection.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Command\Inspect.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Command\List.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Home\Index.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\DisplayTemplates\IAgentMetadata.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\DisplayTemplates\IAgentPart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\Error.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\MetadataLinks.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\_Layout.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Web.config".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\_ViewStart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\Index.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\Operations.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\ViewAgent.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\ViewCommand.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\ViewPart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\ViewPartCollection.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Command\Inspect.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Command\List.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Home\Index.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\DisplayTemplates\IAgentMetadata.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\DisplayTemplates\IAgentPart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\Error.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\MetadataLinks.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\_Layout.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Web.config".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\_ViewStart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\Index.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\Operations.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\ViewAgent.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\ViewCommand.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\ViewPart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\ViewPartCollection.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Command\Inspect.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Command\List.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Home\Index.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\Error.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\MetadataLinks.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\_Layout.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Web.config".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\_ViewStart.cshtml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Euclid.Global.cs".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\AutoMapper.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Castle.Core.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Castle.Core.xml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Castle.Windsor.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Castle.Windsor.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Castle.Windsor.xml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\CommonServiceLocator.WindsorAdapter.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\CommonServiceLocator.WindsorAdapter.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\EntityFramework.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\EntityFramework.xml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Configuration.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Configuration.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Logging.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Logging.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Messaging.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Messaging.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.ServiceHost.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.ServiceHost.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Storage.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Storage.NHibernate.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Storage.NHibernate.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Storage.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Composites.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Composites.Mvc.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Composites.Mvc.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Composites.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Agent.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Agent.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Cqrs.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Cqrs.NHibernate.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Cqrs.NHibernate.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Cqrs.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Models.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Models.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\FluentNHibernate.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\FluentNHibernate.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Iesi.Collections.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Iesi.Collections.xml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\log4net.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\log4net.xml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\MetadataComposite.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\MetadataComposite.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Microsoft.Practices.ServiceLocation.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Microsoft.Practices.ServiceLocation.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Microsoft.Practices.ServiceLocation.xml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Microsoft.WindowsAzure.StorageClient.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Newtonsoft.Json.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Newtonsoft.Json.pdb".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Newtonsoft.Json.xml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\NHibernate.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\NHibernate.xml".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\RouteDebugger.dll".
+  Deleting file "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\MetadataComposite.nuspec".
+  Removing directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp".
+Project "d:\Projects\Euclid\platform\nuget\package.msbuild" (1) is building "d:\Projects\Euclid\platform\Euclid.sln" (2) on node 1 (default targets).
+ValidateSolutionConfiguration:
+  Building solution configuration "Debug|Mixed Platforms".
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\src\framework\Euclid.Framework\Euclid.Framework.csproj" (3) on node 1 (default targets).
+Project "d:\Projects\Euclid\platform\src\framework\Euclid.Framework\Euclid.Framework.csproj" (3) is building "d:\Projects\Euclid\platform\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj" (4) on node 1 (default targets).
+Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj" (4) is building "d:\Projects\Euclid\platform\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj" (5) on node 1 (default targets).
+Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj" (5) is building "d:\Projects\Euclid\platform\src\common\Euclid.Common\Euclid.Common.csproj" (6) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common -> d:\Projects\Euclid\platform\src\common\Euclid.Common\bin\Debug\Euclid.Common.dll
+Done Building Project "d:\Projects\Euclid\platform\src\common\Euclid.Common\Euclid.Common.csproj" (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.Configuration -> d:\Projects\Euclid\platform\src\common\Euclid.Common.Configuration\bin\Debug\Euclid.Common.Configuration.dll
+Done Building Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj" (4) is building "d:\Projects\Euclid\platform\src\common\Euclid.Common.Logging\Euclid.Common.Logging.csproj" (7) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.Logging -> d:\Projects\Euclid\platform\src\common\Euclid.Common.Logging\bin\Debug\Euclid.Common.Logging.dll
+Done Building Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Logging\Euclid.Common.Logging.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj" (4) is building "d:\Projects\Euclid\platform\src\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj" (8) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.Storage -> d:\Projects\Euclid\platform\src\common\Euclid.Common.Storage\bin\Debug\Euclid.Common.Storage.dll
+Done Building Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj" (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.Messaging -> d:\Projects\Euclid\platform\src\common\Euclid.Common.Messaging\bin\Debug\Euclid.Common.Messaging.dll
+Done Building Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj" (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Framework -> d:\Projects\Euclid\platform\src\framework\Euclid.Framework\bin\Debug\Euclid.Framework.dll
+Done Building Project "d:\Projects\Euclid\platform\src\framework\Euclid.Framework\Euclid.Framework.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\src\sdk\Euclid.Composites\Euclid.Composites.csproj" (9) on node 1 (default targets).
+Project "d:\Projects\Euclid\platform\src\sdk\Euclid.Composites\Euclid.Composites.csproj" (9) is building "d:\Projects\Euclid\platform\src\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj" (10) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.Storage.NHibernate -> d:\Projects\Euclid\platform\src\common\Euclid.Common.Storage.NHibernate\bin\Debug\Euclid.Common.Storage.NHibernate.dll
+Done Building Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\src\sdk\Euclid.Composites\Euclid.Composites.csproj" (9) is building "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj" (11) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Framework.Agent -> d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Agent\bin\Debug\Euclid.Framework.Agent.dll
+Done Building Project "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\src\sdk\Euclid.Composites\Euclid.Composites.csproj" (9) is building "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj" (12) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Framework.Cqrs.NHibernate -> d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Cqrs.NHibernate\bin\Debug\Euclid.Framework.Cqrs.NHibernate.dll
+Done Building Project "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\src\sdk\Euclid.Composites\Euclid.Composites.csproj" (9) is building "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj" (13) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Framework.Models -> d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Models\bin\Debug\Euclid.Framework.Models.dll
+Done Building Project "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\src\sdk\Euclid.Composites\Euclid.Composites.csproj" (9) is building "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj" (14) on node 1 (default targets).
+Project "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj" (14) is building "d:\Projects\Euclid\platform\src\common\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj" (15) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.ServiceHost -> d:\Projects\Euclid\platform\src\common\Euclid.Common.ServiceHost\bin\Debug\Euclid.Common.ServiceHost.dll
+Done Building Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj" (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Framework.Cqrs -> d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Cqrs\bin\Debug\Euclid.Framework.Cqrs.dll
+Done Building Project "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj" (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Composites -> d:\Projects\Euclid\platform\src\sdk\Euclid.Composites\bin\Debug\Euclid.Composites.dll
+Done Building Project "d:\Projects\Euclid\platform\src\sdk\Euclid.Composites\Euclid.Composites.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\src\sdk\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj" (16) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Composites.Mvc -> d:\Projects\Euclid\platform\src\sdk\Euclid.Composites.Mvc\bin\Debug\Euclid.Composites.Mvc.dll
+Done Building Project "d:\Projects\Euclid\platform\src\sdk\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.EventSourcing\Euclid.Framework.EventSourcing.csproj" (17) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Framework.EventSourcing -> d:\Projects\Euclid\platform\src\framework\Euclid.Framework.EventSourcing\bin\Debug\Euclid.Framework.EventSourcing.dll
+Done Building Project "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.EventSourcing\Euclid.Framework.EventSourcing.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\tests\Euclid.Framework.UnitTests\Euclid.Framework.UnitTests.csproj" (18) on node 1 (default targets).
+Project "d:\Projects\Euclid\platform\tests\Euclid.Framework.UnitTests\Euclid.Framework.UnitTests.csproj" (18) is building "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.HostingFabric\Euclid.Framework.HostingFabric.csproj" (19) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Framework.HostingFabric -> d:\Projects\Euclid\platform\src\framework\Euclid.Framework.HostingFabric\bin\Debug\Euclid.Framework.HostingFabric.dll
+Done Building Project "d:\Projects\Euclid\platform\src\framework\Euclid.Framework.HostingFabric\Euclid.Framework.HostingFabric.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\tests\Euclid.Framework.UnitTests\Euclid.Framework.UnitTests.csproj" (18) is building "d:\Projects\Euclid\platform\src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj" (20) on node 1 (default targets).
+Project "d:\Projects\Euclid\platform\src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj" (20) is building "d:\Projects\Euclid\platform\src\common\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj" (21) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.Messaging.Azure -> d:\Projects\Euclid\platform\src\common\Euclid.Common.Messaging.Azure\bin\Debug\Euclid.Common.Messaging.Azure.dll
+Done Building Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj" (20) is building "d:\Projects\Euclid\platform\src\common\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj" (22) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.Storage.Azure -> d:\Projects\Euclid\platform\src\common\Euclid.Common.Storage.Azure\bin\Debug\Euclid.Common.Storage.Azure.dll
+Done Building Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj" (20) is building "d:\Projects\Euclid\platform\src\sdk\AgentConsole\AgentConsole.csproj" (23) on node 1 (default targets).
+Project "d:\Projects\Euclid\platform\src\sdk\AgentConsole\AgentConsole.csproj" (23) is building "d:\Projects\Euclid\platform\apps\ForumAgent\ForumAgent.csproj" (24) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  ForumAgent -> d:\Projects\Euclid\platform\apps\ForumAgent\bin\Debug\ForumAgent.dll
+Done Building Project "d:\Projects\Euclid\platform\apps\ForumAgent\ForumAgent.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\src\sdk\AgentConsole\AgentConsole.csproj" (23) is building "d:\Projects\Euclid\platform\tests\Euclid.Sdk.FakeAgent\Euclid.Sdk.FakeAgent.csproj" (25) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Sdk.FakeAgent -> d:\Projects\Euclid\platform\tests\Euclid.Sdk.FakeAgent\bin\Debug\Euclid.Sdk.FakeAgent.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Sdk.FakeAgent\Euclid.Sdk.FakeAgent.csproj" (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+_CopyAppConfigFile:
+Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  AgentConsole -> d:\Projects\Euclid\platform\src\sdk\AgentConsole\bin\Debug\AgentConsole.exe
+Done Building Project "d:\Projects\Euclid\platform\src\sdk\AgentConsole\AgentConsole.csproj" (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.TestingSupport -> d:\Projects\Euclid\platform\src\sdk\Euclid.TestingSupport\bin\Debug\Euclid.TestingSupport.dll
+Done Building Project "d:\Projects\Euclid\platform\src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\tests\Euclid.Framework.UnitTests\Euclid.Framework.UnitTests.csproj" (18) is building "d:\Projects\Euclid\platform\tests\Euclid.Framework.TestingFakes\Euclid.Framework.TestingFakes.csproj" (26) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Framework.TestingFakes -> d:\Projects\Euclid\platform\tests\Euclid.Framework.TestingFakes\bin\Debug\Euclid.Framework.TestingFakes.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Framework.TestingFakes\Euclid.Framework.TestingFakes.csproj" (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Framework.UnitTests -> d:\Projects\Euclid\platform\tests\Euclid.Framework.UnitTests\bin\Debug\Euclid.Framework.UnitTests.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Framework.UnitTests\Euclid.Framework.UnitTests.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\tests\Euclid.Framework.IntegrationTests\Euclid.Framework.IntegrationTests.csproj" (27) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+_CopyAppConfigFile:
+Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Framework.IntegrationTests -> d:\Projects\Euclid\platform\tests\Euclid.Framework.IntegrationTests\bin\Debug\Euclid.Framework.IntegrationTests.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Framework.IntegrationTests\Euclid.Framework.IntegrationTests.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\src\common\Euclid.Common.Packaging\Euclid.Common.Packaging.csproj" (28) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.Packaging -> d:\Projects\Euclid\platform\src\common\Euclid.Common.Packaging\bin\Debug\Euclid.Common.Packaging.dll
+Done Building Project "d:\Projects\Euclid\platform\src\common\Euclid.Common.Packaging\Euclid.Common.Packaging.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\tests\Euclid.Common.TestingFakes\Euclid.Common.TestingFakes.csproj" (29) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.TestingFakes -> d:\Projects\Euclid\platform\tests\Euclid.Common.TestingFakes\bin\Debug\Euclid.Common.TestingFakes.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Common.TestingFakes\Euclid.Common.TestingFakes.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\tests\Euclid.Common.UnitTests\Euclid.Common.UnitTests.csproj" (30) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+_CopyAppConfigFile:
+Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.UnitTests -> d:\Projects\Euclid\platform\tests\Euclid.Common.UnitTests\bin\Debug\Euclid.Common.UnitTests.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Common.UnitTests\Euclid.Common.UnitTests.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\tests\Euclid.Common.IntegrationTests\Euclid.Common.IntegrationTests.csproj" (31) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+_CopyAppConfigFile:
+Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Common.IntegrationTests -> d:\Projects\Euclid\platform\tests\Euclid.Common.IntegrationTests\bin\Debug\Euclid.Common.IntegrationTests.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Common.IntegrationTests\Euclid.Common.IntegrationTests.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\apps\AdminComposite\AdminComposite.csproj" (32) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  AdminComposite -> d:\Projects\Euclid\platform\apps\AdminComposite\bin\AdminComposite.dll
+Done Building Project "d:\Projects\Euclid\platform\apps\AdminComposite\AdminComposite.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\apps\ForumComposite\ForumComposite.csproj" (33) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  ForumComposite -> d:\Projects\Euclid\platform\apps\ForumComposite\bin\ForumComposite.dll
+Done Building Project "d:\Projects\Euclid\platform\apps\ForumComposite\ForumComposite.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\apps\ForumTests\ForumTests.csproj" (34) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+_CopyAppConfigFile:
+Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  ForumTests -> d:\Projects\Euclid\platform\apps\ForumTests\bin\Debug\ForumTests.dll
+Done Building Project "d:\Projects\Euclid\platform\apps\ForumTests\ForumTests.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\tests\Euclid.Composite.MvcApplication\Euclid.Composite.MvcApplication.csproj" (35) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Composite.MvcApplication -> d:\Projects\Euclid\platform\tests\Euclid.Composite.MvcApplication\bin\Euclid.Composite.MvcApplication.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Composite.MvcApplication\Euclid.Composite.MvcApplication.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\tests\Euclid.Composite.InputModelMapping\Euclid.Composite.InputModelMapping.csproj" (36) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+_CopyAppConfigFile:
+Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Composite.InputModelMapping -> d:\Projects\Euclid\platform\tests\Euclid.Composite.InputModelMapping\bin\Debug\Euclid.Composite.InputModelMapping.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Composite.InputModelMapping\Euclid.Composite.InputModelMapping.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\tests\Euclid.Sdk.IntegrationTests\Euclid.Sdk.IntegrationTests.csproj" (37) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+_CopyAppConfigFile:
+Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Sdk.IntegrationTests -> d:\Projects\Euclid\platform\tests\Euclid.Sdk.IntegrationTests\bin\Debug\Euclid.Sdk.IntegrationTests.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Sdk.IntegrationTests\Euclid.Sdk.IntegrationTests.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\tests\Euclid.Sdk.Metadata\Euclid.Sdk.MetadataTests.csproj" (38) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+_CopyAppConfigFile:
+Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  Euclid.Sdk.MetadataTests -> d:\Projects\Euclid\platform\tests\Euclid.Sdk.Metadata\bin\Debug\Euclid.Sdk.Metadata.dll
+Done Building Project "d:\Projects\Euclid\platform\tests\Euclid.Sdk.Metadata\Euclid.Sdk.MetadataTests.csproj" (default targets).
+Project "d:\Projects\Euclid\platform\Euclid.sln" (2) is building "d:\Projects\Euclid\platform\src\SDK\MetadataComposite\MetadataComposite.csproj" (39) on node 1 (default targets).
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  MetadataComposite -> d:\Projects\Euclid\platform\src\SDK\MetadataComposite\bin\MetadataComposite.dll
+Done Building Project "d:\Projects\Euclid\platform\src\SDK\MetadataComposite\MetadataComposite.csproj" (default targets).
+Done Building Project "d:\Projects\Euclid\platform\Euclid.sln" (default targets).
+Package:
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\Nuget\MetadataComposite.nuspec" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\MetadataComposite.nuspec".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Euclid.Global.cs" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Euclid.Global.cs".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\MetadataAreaRegistration.cs" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\MetadataAreaRegistration.cs".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\Index.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\Index.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\Operations.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\Operations.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewAgent.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\ViewAgent.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewCommand.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\ViewCommand.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewPart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\ViewPart.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewPartCollection.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Agents\ViewPartCollection.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Command".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Command\Inspect.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Command\Inspect.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Command\List.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Command\List.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Home".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Home\Index.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Home\Index.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\DisplayTemplates".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\Error.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\Error.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\MetadataLinks.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\MetadataLinks.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\_Layout.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Shared\_Layout.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Web.config" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\Web.config".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\_ViewStart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Views\_ViewStart.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\Index.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\Index.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\Operations.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\Operations.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewAgent.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\ViewAgent.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewCommand.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\ViewCommand.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewPart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\ViewPart.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewPartCollection.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Agents\ViewPartCollection.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Command".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Command\Inspect.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Command\Inspect.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Command\List.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Command\List.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Home".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Home\Index.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Home\Index.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\DisplayTemplates".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\DisplayTemplates\IAgentMetadata.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\DisplayTemplates\IAgentPart.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\Error.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\Error.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\MetadataLinks.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\MetadataLinks.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\_Layout.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Shared\_Layout.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Web.config" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\Web.config".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\_ViewStart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Content\_ViewStart.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\Index.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\Index.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\Operations.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\Operations.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewAgent.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\ViewAgent.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewCommand.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\ViewCommand.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewPart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\ViewPart.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewPartCollection.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Agents\ViewPartCollection.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Command".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Command\Inspect.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Command\Inspect.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Command\List.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Command\List.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Home".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Home\Index.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Home\Index.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\DisplayTemplates".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\DisplayTemplates\IAgentMetadata.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\DisplayTemplates\IAgentPart.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\Error.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\Error.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\MetadataLinks.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\MetadataLinks.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\_Layout.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Shared\_Layout.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Web.config" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\Web.config".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\_ViewStart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Models\_ViewStart.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\Index.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\Index.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\Operations.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\Operations.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewAgent.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\ViewAgent.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewCommand.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\ViewCommand.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewPart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\ViewPart.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Agents\ViewPartCollection.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Agents\ViewPartCollection.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Command".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Command\Inspect.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Command\Inspect.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Command\List.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Command\List.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Home".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Home\Index.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Home\Index.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\DisplayTemplates".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\DisplayTemplates\IAgentMetadata.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\DisplayTemplates\IAgentPart.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\Error.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\Error.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\MetadataLinks.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\MetadataLinks.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Shared\_Layout.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Shared\_Layout.cshtml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\Web.config" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\Web.config".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\Areas\Metadata\Views\_ViewStart.cshtml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\content\Areas\Metadata\Scripts\_ViewStart.cshtml".
+  Creating directory "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\AutoMapper.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\AutoMapper.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Castle.Core.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Castle.Core.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Castle.Core.xml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Castle.Core.xml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Castle.Windsor.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Castle.Windsor.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Castle.Windsor.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Castle.Windsor.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Castle.Windsor.xml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Castle.Windsor.xml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\CommonServiceLocator.WindsorAdapter.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\CommonServiceLocator.WindsorAdapter.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\CommonServiceLocator.WindsorAdapter.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\CommonServiceLocator.WindsorAdapter.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\EntityFramework.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\EntityFramework.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\EntityFramework.xml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\EntityFramework.xml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.Configuration.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Configuration.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.Configuration.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Configuration.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.Logging.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Logging.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.Logging.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Logging.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.Messaging.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Messaging.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.Messaging.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Messaging.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.ServiceHost.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.ServiceHost.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.ServiceHost.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.ServiceHost.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.Storage.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Storage.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.Storage.NHibernate.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Storage.NHibernate.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.Storage.NHibernate.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Storage.NHibernate.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Common.Storage.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Common.Storage.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Composites.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Composites.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Composites.Mvc.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Composites.Mvc.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Composites.Mvc.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Composites.Mvc.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Composites.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Composites.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Framework.Agent.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Agent.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Framework.Agent.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Agent.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Framework.Cqrs.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Cqrs.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Framework.Cqrs.NHibernate.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Cqrs.NHibernate.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Framework.Cqrs.NHibernate.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Cqrs.NHibernate.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Framework.Cqrs.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Cqrs.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Framework.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Framework.Models.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Models.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Framework.Models.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.Models.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Euclid.Framework.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Euclid.Framework.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\FluentNHibernate.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\FluentNHibernate.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\FluentNHibernate.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\FluentNHibernate.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Iesi.Collections.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Iesi.Collections.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Iesi.Collections.xml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Iesi.Collections.xml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\log4net.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\log4net.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\log4net.xml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\log4net.xml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\MetadataComposite.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\MetadataComposite.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\MetadataComposite.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\MetadataComposite.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Microsoft.Practices.ServiceLocation.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Microsoft.Practices.ServiceLocation.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Microsoft.Practices.ServiceLocation.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Microsoft.Practices.ServiceLocation.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Microsoft.Practices.ServiceLocation.xml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Microsoft.Practices.ServiceLocation.xml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Microsoft.WindowsAzure.StorageClient.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Microsoft.WindowsAzure.StorageClient.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Newtonsoft.Json.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Newtonsoft.Json.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Newtonsoft.Json.pdb" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Newtonsoft.Json.pdb".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\Newtonsoft.Json.xml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\Newtonsoft.Json.xml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\NHibernate.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\NHibernate.dll".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\NHibernate.xml" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\NHibernate.xml".
+  Copying file from "d:\Projects\Euclid\platform\nuget\..\src\sdk\MetadataComposite\bin\RouteDebugger.dll" to "d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\lib\NET40\RouteDebugger.dll".
+  nuget.exe pack d:\Projects\Euclid\platform\nuget\..\Nuget\temp\MetadataComposite\MetadataComposite.nuspec
+  Attempting to build package from 'MetadataComposite.nuspec'.
+  Successfully created package 'd:\Projects\Euclid\platform\Nuget\Euclid.1.0.0.3.nupkg'.
+Done Building Project "d:\Projects\Euclid\platform\nuget\package.msbuild" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:05.38

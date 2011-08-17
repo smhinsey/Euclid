@@ -1,3 +1,4 @@
+@using Euclid.Composite.MvcApplication.Models
 @using Euclid.Framework.Models
 @using MetadataComposite.Areas.Metadata.Models
 @model IInputModel
@@ -6,13 +7,13 @@
 
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
+	@Html.ValidationSummary(true)
 
-    <fieldset>
-        @Html.EditorFor(p => Model)
-    </fieldset>
-
-    <input type="submit" value="Publish Command" />
+	<fieldset>
+		@Html.EditorFor(p => Model)
+	</fieldset>
+    
+	<input type="submit" value="Publish Command" />
 }
 
 @{

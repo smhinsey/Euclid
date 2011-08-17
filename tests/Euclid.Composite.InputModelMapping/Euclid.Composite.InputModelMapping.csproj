@@ -85,6 +85,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
+      <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
+      <Name>Euclid.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\framework\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj">
       <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
       <Name>Euclid.Framework.Agent</Name>
@@ -105,10 +109,6 @@
       <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>
       <Name>Euclid.Common.Storage</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
-      <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
-      <Name>Euclid.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\sdk\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
       <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
       <Name>Euclid.Composites.Mvc</Name>
@@ -124,6 +124,14 @@
     <ProjectReference Include="..\..\src\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj">
+      <Project>{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}</Project>
+      <Name>Euclid.TestingSupport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Common.IntegrationTests\Euclid.Common.IntegrationTests.csproj">
+      <Project>{9D90C0A5-BD70-4DBB-A3EF-3B9D035BF41F}</Project>
+      <Name>Euclid.Common.IntegrationTests</Name>
     </ProjectReference>
     <ProjectReference Include="..\Euclid.Framework.TestingFakes\Euclid.Framework.TestingFakes.csproj">
       <Project>{793DEE69-90CB-45D7-94CC-FD2D7CE59790}</Project>

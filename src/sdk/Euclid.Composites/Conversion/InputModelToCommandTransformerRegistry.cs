@@ -82,7 +82,7 @@ namespace Euclid.Composites.Conversion
 		}
 	}
 
-	internal class InputModelForPartNotRegisteredException : Exception
+    public class InputModelForPartNotRegisteredException : Exception
 	{
 		public InputModelForPartNotRegisteredException(string partName) :
 			base(string.Format("There are no input models associated with the command '{0}'", partName))

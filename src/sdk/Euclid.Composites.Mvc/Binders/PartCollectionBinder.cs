@@ -24,7 +24,18 @@ namespace Euclid.Composites.Mvc.Binders
 
             var partName = controllerContext.GetPartName();
 
-            var partCollection = metadata.GetPartCollectionContainingPartName(partName);
+            var descriptiveName = controllerContext.GetRouteValue<string>("descriptiveName");
+
+            IPartCollection partCollection;
+            if (string.IsNullOrEmpty(partName))
+            {
+                partCollection = metadata.GetPartCollectionByDescriptiveName(descriptiveName);                
+            }
+            else
+            {
+                partCollection = metadata.GetPartCollectionContainingPartName(partName);
+            }
+            
 
             if (partCollection == null)
             {

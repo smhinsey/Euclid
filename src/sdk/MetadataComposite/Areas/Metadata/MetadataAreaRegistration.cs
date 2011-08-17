@@ -14,28 +14,29 @@ namespace MetadataComposite.Areas.Metadata
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
-            context.MapRoute("AllAgentsWithFormat", "agents/index.{format}",
+            context.Routes.Clear();
+            context.MapRoute("AllAgentsWithFormat", "metadata/agents/index.{format}",
                             new { controller = "Agents", action = "Index" });
 
-            context.MapRoute("AllAgents", "agents",
+            context.MapRoute("AllAgents", "metadata/agents",
                             new { controller = "Agents", action = "Index" });
 
-            context.MapRoute("Agent", "agents/{agentSystemName}",
+            context.MapRoute("Agent", "metadata/agents/{agentSystemName}",
                             new { controller = "Agents", action = "ViewAgent" });
 
-            context.MapRoute("AgentWithFormat", "agents/{agentSystemName}.{format}",
+            context.MapRoute("AgentWithFormat", "metadata/agents/{agentSystemName}.{format}",
                             new { controller = "Agents", action = "ViewAgent" });
 
-            context.MapRoute("AgentPartsWithFormat", "agents/{agentSystemName}/{descriptiveName}.{format}",
+            context.MapRoute("AgentPartsWithFormat", "metadata/agents/{agentSystemName}/{descriptiveName}.{format}",
                             new { controller = "Agents", action = "ViewPartCollection" });
 
-            context.MapRoute("AgentParts", "agents/{agentSystemName}/{descriptiveName}",
+            context.MapRoute("AgentParts", "metadata/agents/{agentSystemName}/{descriptiveName}",
                             new { controller = "Agents", action = "ViewPartCollection" });
 
-            context.MapRoute("AgentPartWithFormat", "agents/{agentSystemName}/{action}/{partName}.{format}",
+            context.MapRoute("AgentPartWithFormat", "metadata/agents/{agentSystemName}/{action}/{partName}.{format}",
                             new { controller = "Agents", action = "ViewPart" });
 
-            context.MapRoute("AgentPart", "agents/{agentSystemName}/{action}/{partName}",
+            context.MapRoute("AgentPart", "metadata/agents/{agentSystemName}/{action}/{partName}",
                             new { controller = "Agents", action = "ViewPart" });
         }
     }

@@ -146,6 +146,10 @@
       <Project>{6B55CE77-2663-45F0-ADB2-DFC7AB01233C}</Project>
       <Name>Euclid.Framework.HostingFabric</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj">
+      <Project>{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}</Project>
+      <Name>Euclid.TestingSupport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Common.TestingFakes\Euclid.Common.TestingFakes.csproj">
       <Project>{B63C4D62-939A-45AB-95F2-EBFBE4B5013C}</Project>
       <Name>Euclid.Common.TestingFakes</Name>

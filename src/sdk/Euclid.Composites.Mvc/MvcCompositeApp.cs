@@ -45,19 +45,4 @@ namespace Euclid.Composites.Mvc
 			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
 		}
 	}
-
-	public class AgentPartResolver : HttpApplication, IAgentPartResolver
-	{
-		protected IWindsorContainer Container { get; set; }
-
-		public T Resolve<T>(Type partType)
-		{
-			return Container.Resolve<T>(partType);
-		}
-	}
-
-	public interface IAgentPartResolver
-	{
-		T Resolve<T>(Type partType);
-	}
 }
