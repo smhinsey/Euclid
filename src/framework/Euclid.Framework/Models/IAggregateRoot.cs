@@ -1,6 +1,6 @@
 using System;
 
-namespace Euclid.Framework
+namespace Euclid.Framework.Models
 {
 	/// <summary>
 	/// 	An aggregate root contains references to and can perform operations on a series of

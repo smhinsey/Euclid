@@ -1,3 +1,5 @@
+using Euclid.Framework.Models;
+
 namespace Euclid.Framework.EventSourcing
 {
 	/// <summary>
