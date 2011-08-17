@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-    public class PropertyMetadata : IPropertyMetadata
+	public class PropertyMetadata : IPropertyMetadata
 	{
 		public PropertyMetadata()
 		{

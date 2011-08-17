@@ -4,11 +4,13 @@ using Euclid.Common.Storage;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.Record;
 using Euclid.Common.TestingFakes.Registry;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Common.IntegrationTests
 {
 	[TestFixture]
+	[Category(TestCategories.Integration)]
 	public class PublicationTests
 	{
 		private readonly IPublicationRegistry<FakePublicationRecord> _publicationRegistry;

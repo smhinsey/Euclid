@@ -1,10 +1,12 @@
 ﻿using Euclid.Common.Pipeline;
+using Euclid.TestingSupport;
 using Moq;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Pipeline
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class PipelineTests
 	{
 		[Test]

@@ -2,12 +2,15 @@ using System;
 using System.Threading;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.TestingFakes.ServiceHost;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 using log4net.Config;
 
 namespace Euclid.Common.UnitTests.ServiceHost
 {
-	public class MultitaskingServiceHostTester
+	[TestFixture]
+	[Category(TestCategories.Unit)]
+	public class MultitaskingServiceHostTests
 	{
 		[Test]
 		[ExpectedException(typeof (HostedServiceNotFoundException))]

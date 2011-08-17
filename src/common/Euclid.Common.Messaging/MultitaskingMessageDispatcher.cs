@@ -18,7 +18,7 @@ namespace Euclid.Common.Messaging
 		private IMessageChannel _inputChannel;
 		private IMessageChannel _invalidChannel;
 		private Task _listenerTask;
-		private IEnumerable<IMessageProcessor> _messageProcessors;
+		private IList<IMessageProcessor> _messageProcessors;
 
 		public MultitaskingMessageDispatcher(IServiceLocator container, TRegistry publicationRegistry)
 		{
@@ -144,7 +144,9 @@ namespace Euclid.Common.Messaging
 					var msg = string.Format("The dispatcher {0} has no processors configured to handle a message of type {1}", GetType().FullName, message.GetType().FullName);
 
 					this.WriteErrorMessage(msg, null);
+
 					_publicationRegistry.MarkAsUnableToDispatch(record.Identifier, true, msg);
+
 					continue;
 				}
 
@@ -152,25 +154,32 @@ namespace Euclid.Common.Messaging
 				{
 					var processor = _container.GetInstance(messageProcessor.GetType());
 
+					// SELF if we create these as Tasks that return a value, we can register the results after execution completes
+					// freeing us of the need to resolve the registry inside the task. The task should look something like:
+					// var task = new Task<MessageDispatchResult>({ try{...} catch(Exception e) { return new MessageDispatchResult { Failed = true, Error = e} ; }})
+
 					Task.Factory.StartNew
 						(() =>
 						 	{
 						 		try
 						 		{
-						 			//call IMessageProcessor<T>.Process for the given message
 						 			var handler = processor.GetType().GetMethod("Process", new[] {message.GetType()});
 
 						 			handler.Invoke(processor, new[] {message});
 
-						 			//message handled, mark it in the publicationRegistry
-						 			_publicationRegistry.MarkAsComplete(record.Identifier);
+									var registry = (IPublicationRegistry<IPublicationRecord>)_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord>));
+
+									registry.MarkAsComplete(record.Identifier);
 
 						 			this.WriteInfoMessage("Dispatched message {0} with id {1}.", message.GetType().Name, message.Identifier);
 						 		}
 						 		catch (Exception e)
 						 		{
-						 			this.WriteErrorMessage("An error occurred processing message {0} with id {1}.", e, message.GetType().Name, message.Identifier);
-						 			_publicationRegistry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
+									this.WriteErrorMessage("An error occurred processing message {0} with id {1}.", e, message.GetType().Name, message.Identifier);
+
+									var registry = (IPublicationRegistry<IPublicationRecord>)_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord>));
+
+									registry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
 						 		}
 						 	});
 				}

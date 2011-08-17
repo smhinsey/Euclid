@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-    public class MethodMetadata : IMethodMetadata
+	public class MethodMetadata : IMethodMetadata
 	{
 		public MethodMetadata()
 		{

@@ -1,14 +1,19 @@
-﻿using System.Threading;
-using Euclid.Common.Messaging;
+﻿using Euclid.Common.Messaging;
+using Euclid.TestingSupport;
 using ForumAgent.Commands;
 using ForumAgent.Queries;
 using NUnit.Framework;
 
 namespace ForumTests.EndToEnd
 {
+	[TestFixture]
+	[Category(TestCategories.Integration)]
 	public class ForumEndToEndTests : HostingFabricFixture
 	{
-		private const int SleepForCommand = 1500;
+		public ForumEndToEndTests() :
+			base(typeof (PublishPost).Assembly)
+		{
+		}
 
 		[Test]
 		public void TestCommentOnPost()
@@ -21,17 +26,15 @@ namespace ForumTests.EndToEnd
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
 
 			var query = Container.Resolve<PostQueries>();
 
 			var post = query.FindByTitle(postTitle);
 
-			publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody}));
 
 			var anotherQuery = Container.Resolve<CommentQueries>();
 
@@ -48,9 +51,8 @@ namespace ForumTests.EndToEnd
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
 
 			var query = Container.Resolve<PostQueries>();
 
@@ -72,25 +74,22 @@ namespace ForumTests.EndToEnd
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
 
 			var query = Container.Resolve<PostQueries>();
 
 			var post = query.FindByTitle(postTitle);
 
-			publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody}));
 
 			var anotherQuery = Container.Resolve<CommentQueries>();
 
 			var comments = anotherQuery.FindCommentsBelongingToPost(post.Identifier);
 
-			publisher.PublishMessage(new VoteOnComment {CommentIdentifier = comments[0].Identifier, VoteUp = true});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new VoteOnComment {CommentIdentifier = comments[0].Identifier, VoteUp = true}));
 
 			var yetAnotherQuery = Container.Resolve<CommentQueries>();
 
@@ -108,17 +107,15 @@ namespace ForumTests.EndToEnd
 			var publisher = Container.Resolve<IPublisher>();
 			var query = Container.Resolve<PostQueries>();
 
-			publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
 
 			var post = query.FindByTitle(postTitle);
 
 			Assert.AreEqual(0, post.Score);
 
-			publisher.PublishMessage(new VoteOnPost {PostIdentifier = post.Identifier, VoteUp = true});
-
-			Thread.Sleep(SleepForCommand);
+			WaitUntilComplete(
+			               publisher.PublishMessage(new VoteOnPost {PostIdentifier = post.Identifier, VoteUp = true}));
 
 			var anotherQuery = Container.Resolve<PostQueries>();
 

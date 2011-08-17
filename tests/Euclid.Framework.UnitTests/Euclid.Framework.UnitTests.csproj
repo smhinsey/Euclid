@@ -107,6 +107,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj">
+      <Project>{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}</Project>
+      <Name>Euclid.TestingSupport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\framework\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj">
       <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
       <Name>Euclid.Framework.Agent</Name>

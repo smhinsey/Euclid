@@ -25,9 +25,9 @@ namespace ForumAgent.Processors
 				          	{
 				          		AvatarUrl = message.AvatarUrl,
 				          		Email = message.Email,
-											UserIdentifier = message.UserIdentifier,
-											Created = DateTime.Now,
-											Modified = DateTime.Now
+				          		UserIdentifier = message.UserIdentifier,
+				          		Created = DateTime.Now,
+				          		Modified = DateTime.Now
 				          	};
 
 				_repository.Save(profile);
@@ -41,7 +41,6 @@ namespace ForumAgent.Processors
 
 				_repository.Update(profile);
 			}
-
 		}
 	}
 }

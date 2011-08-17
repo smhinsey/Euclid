@@ -1,4 +1,5 @@
-﻿using Euclid.Common.ServiceHost;
+﻿using System;
+using Euclid.Common.ServiceHost;
 
 namespace Euclid.Framework.EventSourcing
 {
@@ -8,14 +9,14 @@ namespace Euclid.Framework.EventSourcing
 		{
 			// set up EventStore and wire it into the container
 
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 
 		protected override void OnStop()
 		{
 			// take a snapshot and shut down
 
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
 	}
 }

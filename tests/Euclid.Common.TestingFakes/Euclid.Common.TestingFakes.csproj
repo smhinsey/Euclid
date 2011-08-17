@@ -86,7 +86,6 @@
     <Compile Include="Storage\FakePublicationRecord.cs" />
     <Compile Include="Storage\Model\FakeModel.cs" />
     <Compile Include="Transport\DifferentFakeMessage.cs" />
-    <Compile Include="Transport\FakeDispatcher.cs" />
     <Compile Include="Transport\FakeMessage.cs" />
     <Compile Include="Transport\FakeMessageProcessor.cs" />
     <Compile Include="Transport\FakeMessageProcessor2.cs" />
@@ -109,9 +108,7 @@
       <Name>Euclid.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pipeline\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using Euclid.Common.Messaging;
 using Euclid.Common.TestingFakes.Serialization;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 using Newtonsoft.Json;
 
 namespace Euclid.Common.UnitTests.Serialization
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class TestJsonSerialization
 	{
 		[Test]

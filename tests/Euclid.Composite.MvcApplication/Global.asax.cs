@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
@@ -13,9 +12,9 @@ namespace Euclid.Composite.MvcApplication
 	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
 	// visit http://go.microsoft.com/?LinkId=9394801
 
-    public class AgentViewerComposite : AgentPartResolver
+	public class AgentViewerComposite : AgentPartResolver
 	{
-	    protected void Application_Start()
+		protected void Application_Start()
 		{
 			AreaRegistration.RegisterAllAreas();
 
@@ -34,17 +33,17 @@ namespace Euclid.Composite.MvcApplication
              * euclidCompositeConfiguration.BlobStorage.ApplyOverride(typeof(SomeBlobStorageImplementation));
              */
 
-            composite.Configure(euclidCompositeConfiguration);
+			composite.Configure(euclidCompositeConfiguration);
 
-            composite.AddAgent(typeof(FakeCommand).Assembly);
+			composite.AddAgent(typeof (FakeCommand).Assembly);
 
-            composite.RegisterInputModel(new InputToFakeCommand4Converter());
+			composite.RegisterInputModel(new InputToFakeCommand4Converter());
 
-            Container.Register(Component.For<ICompositeApp>().Instance(composite));
+			Container.Register(Component.For<ICompositeApp>().Instance(composite));
 
-            Error += composite.LogUnhandledException;
+			Error += composite.LogUnhandledException;
 
-            BeginRequest += composite.BeginPageRequest;
+			BeginRequest += composite.BeginPageRequest;
 		}
 
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -62,11 +61,11 @@ namespace Euclid.Composite.MvcApplication
 			routes.MapRoute("AllAgents", "agents",
 			                new {controller = "Agents", action = "Index"});
 
-            routes.MapRoute("Agent", "agents/{agentSystemName}",
-                new { controller = "Agents", action = "ViewAgent" });
+			routes.MapRoute("Agent", "agents/{agentSystemName}",
+			                new {controller = "Agents", action = "ViewAgent"});
 
-            routes.MapRoute("AgentWithFormat", "agents/{agentSystemName}.{format}",
-                new { controller = "Agents", action = "ViewAgent" });
+			routes.MapRoute("AgentWithFormat", "agents/{agentSystemName}.{format}",
+			                new {controller = "Agents", action = "ViewAgent"});
 
 			routes.MapRoute("AgentPartsWithFormat", "agents/{agentSystemName}/{descriptiveName}.{format}",
 			                new {controller = "Agents", action = "ViewPartCollection"});

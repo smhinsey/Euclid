@@ -1,6 +1,6 @@
 namespace Euclid.Framework.Agent.Metadata
 {
-    public interface IAgentPart
-    {
-    }
+	public interface IAgentPart
+	{
+	}
 }

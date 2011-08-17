@@ -1,15 +1,15 @@
 ﻿using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
 using Euclid.Common.TestingFakes.Storage;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Storage
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class InMemoryRecordMapperTest
 	{
-		#region Setup/Teardown
-
 		[SetUp]
 		public void Setup()
 		{
@@ -19,8 +19,6 @@ namespace Euclid.Common.UnitTests.Storage
 
 			_repoTester = new RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>>(repo);
 		}
-
-		#endregion
 
 		private RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>> _repoTester;
 

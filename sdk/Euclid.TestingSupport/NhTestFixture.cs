@@ -1,30 +1,31 @@
-using Euclid.Framework.Cqrs.NHibernate;
 using Euclid.Framework.Models;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using ForumAgent.ReadModels;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 
-namespace ForumTests
+namespace Euclid.TestingSupport
 {
-	// SELF this needs to be put somewhere else, but i'm not sure it really goes in Common, which is the "logical" place
-	public class NhTestFixture
+	public class NhTestFixture<TEntity>
 	{
+		private readonly AutoMapperConfiguration _config;
 		protected ISessionFactory SessionFactory;
+
+		public NhTestFixture(AutoMapperConfiguration config)
+		{
+			_config = config;
+		}
 
 		[SetUp]
 		public void SetUp()
 		{
-			var cfg = new AutoMapperConfiguration();
-
 			SessionFactory = Fluently
 				.Configure()
 				.Database(SQLiteConfiguration.Standard.UsingFile("NhTestFixtureDb"))
-				.Mappings(map => map.AutoMappings.Add(AutoMap.AssemblyOf<Category>(cfg).IgnoreBase<DefaultReadModel>))
+				.Mappings(map => map.AutoMappings.Add(AutoMap.AssemblyOf<TEntity>(_config).IgnoreBase<DefaultReadModel>))
 				.ExposeConfiguration(buildSchema)
 				.BuildSessionFactory();
 		}

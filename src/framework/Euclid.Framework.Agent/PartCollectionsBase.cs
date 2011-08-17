@@ -1,3 +1,5 @@
+
+d:\Projects\Euclid\platform>@git.exe %*
 //using System;
 //using System.Collections;
 //using System.Collections.Generic;
@@ -173,3 +175,8 @@
 //        }
 //    }
 //}
+d:\Projects\Euclid\platform>@set ErrorLevel=%ErrorLevel%
+
+d:\Projects\Euclid\platform>@rem Restore the original console codepage.
+
+d:\Projects\Euclid\platform>@chcp %cp_oem% > nul < nul

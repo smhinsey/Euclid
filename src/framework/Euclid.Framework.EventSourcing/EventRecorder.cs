@@ -5,7 +5,7 @@ using EventStore;
 namespace Euclid.Framework.EventSourcing
 {
 	/// <summary>
-	/// The EventRecorder is responsible for persisting IEvents within an EventStore stream.
+	/// 	The EventRecorder is responsible for persisting IEvents within an EventStore stream.
 	/// </summary>
 	public class EventRecorder : DefaultCommandProcessor<IEvent>
 	{
@@ -20,7 +20,7 @@ namespace Euclid.Framework.EventSourcing
 
 		public override void Process(IEvent message)
 		{
-			using(var stream = _eventStore.CreateStream(_streamId))
+			using (var stream = _eventStore.CreateStream(_streamId))
 			{
 				stream.Add(new EventMessage {Body = message});
 			}

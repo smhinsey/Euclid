@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Euclid.Common.Storage.NHibernate;
-using Euclid.Framework.Agent.Metadata;
 using Euclid.Framework.Models;
 using NHibernate;
 

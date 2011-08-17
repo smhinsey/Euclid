@@ -2,11 +2,13 @@
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
 using Euclid.Common.TestingFakes.Registry;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Common.UnitTests.Registry
 {
 	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class InMemoryRegistryTests
 	{
 		private RegistryTester<PublicationRegistry<FakePublicationRecord>> _registryTester;

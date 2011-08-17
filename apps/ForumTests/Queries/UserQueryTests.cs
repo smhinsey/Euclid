@@ -1,13 +1,20 @@
-﻿using ForumAgent.Queries;
+﻿using Euclid.TestingSupport;
+using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 using NHibernate;
 using NUnit.Framework;
 
-
 namespace ForumTests.Queries
 {
-	public class UserQueryTests : NhTestFixture
+	[TestFixture]
+	[Category(TestCategories.Unit)]
+	public class UserQueryTests : NhTestFixture<User>
 	{
+		public UserQueryTests() :
+			base(new AutoMapperConfiguration(typeof (User)))
+		{
+		}
+
 		[Test]
 		public void TestAuthenticationQuery()
 		{
@@ -28,8 +35,8 @@ namespace ForumTests.Queries
 			var user = new User
 			           	{
 			           		Username = username,
-										PasswordHash = password,
-										PasswordSalt = password
+			           		PasswordHash = password,
+			           		PasswordSalt = password
 			           	};
 
 			session.Save(user);

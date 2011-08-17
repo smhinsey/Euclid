@@ -6,10 +6,13 @@ using Castle.Windsor;
 using Euclid.Common.ServiceHost;
 using Euclid.Framework.HostingFabric;
 using Euclid.Framework.TestingFakes.HostingFabric;
+using Euclid.TestingSupport;
 using NUnit.Framework;
 
 namespace Euclid.Framework.UnitTests.HostingFabric
 {
+	[TestFixture]
+	[Category(TestCategories.Unit)]
 	public class BasicFabricTests
 	{
 		[Test]

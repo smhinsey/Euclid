@@ -1,12 +1,20 @@
-﻿using ForumAgent.Queries;
+﻿using Euclid.TestingSupport;
+using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 using NHibernate;
 using NUnit.Framework;
 
 namespace ForumTests.Queries
 {
-	public class PostQueryTests : NhTestFixture
+	[TestFixture]
+	[Category(TestCategories.Unit)]
+	public class PostQueryTests : NhTestFixture<Category>
 	{
+		public PostQueryTests() :
+			base(new AutoMapperConfiguration(typeof (Category), typeof (Post)))
+		{
+		}
+
 		[Test]
 		public void TestListPostsByCategoryName()
 		{

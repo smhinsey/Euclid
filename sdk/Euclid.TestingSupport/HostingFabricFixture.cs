@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Threading;
 using AgentConsole;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
@@ -12,18 +14,39 @@ using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using FluentNHibernate.Cfg.Db;
-using ForumAgent.Commands;
 using Microsoft.WindowsAzure;
 using NUnit.Framework;
 using log4net.Config;
 
-namespace ForumTests
+namespace Euclid.TestingSupport
 {
-	// SELF this needs to be put somewhere else, but i'm not sure it really goes in Common, which is the "logical" place
 	public class HostingFabricFixture
 	{
+		private readonly Assembly[] _agentAssemblies;
 		protected WindsorContainer Container;
 		protected ConsoleFabric Fabric;
+
+		public HostingFabricFixture(params Assembly[] agentAssemblies)
+		{
+			_agentAssemblies = agentAssemblies;
+		}
+
+		protected void WaitUntilComplete(Guid publicationId)
+		{
+			while (true)
+			{
+				var registry = Container.Resolve<ICommandRegistry>();
+
+				var record = registry.GetRecord(publicationId);
+
+				if(record.Completed || record.Error)
+				{
+					break;
+				}
+
+				Thread.Sleep(250);
+			}
+		}
 
 		[SetUp]
 		public void SetUp()
@@ -38,9 +61,12 @@ namespace ForumTests
 
 			var composite = new BasicCompositeApp(Container);
 
-			composite.RegisterNh(SQLiteConfiguration.Standard.UsingFile("HostingFabricFixtureDb"), true, false);
+			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
-			composite.AddAgent(typeof (PublishPost).Assembly);
+			foreach (var agentAssembly in _agentAssemblies)
+			{
+				composite.AddAgent(agentAssembly);
+			}
 
 			composite.Configure(getCompositeSettings());
 
