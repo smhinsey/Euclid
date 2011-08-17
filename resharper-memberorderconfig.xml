@@ -33,7 +33,6 @@
           </Or>
         </And>
       </Match>
-      <Group Region="Setup/Teardown"/>
     </Entry>
 
     <!--All other members-->
@@ -314,7 +313,7 @@
         <Override/>
         <Name/>
       </Sort>
-   	</Entry>
+     </Entry>
 
     <!--nested types-->
     <Entry>
