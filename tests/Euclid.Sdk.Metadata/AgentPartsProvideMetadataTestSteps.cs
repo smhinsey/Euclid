@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Euclid.Framework.Agent.Extensions;
-using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.AgentMetadata;
+using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Sdk.FakeAgent.Commands;
 using NUnit.Framework;
 using TechTalk.SpecFlow;

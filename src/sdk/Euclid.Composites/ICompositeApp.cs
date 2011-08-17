@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Euclid.Common.Logging;
 using Euclid.Composites.Conversion;
-using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.AgentMetadata;
 
 namespace Euclid.Composites
 {

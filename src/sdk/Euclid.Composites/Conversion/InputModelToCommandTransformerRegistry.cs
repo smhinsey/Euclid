@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Euclid.Common.Logging;
-using Euclid.Framework.Agent.Extensions;
-using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.AgentMetadata;
+using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 

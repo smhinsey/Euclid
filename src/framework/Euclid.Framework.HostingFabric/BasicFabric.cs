@@ -9,8 +9,8 @@ using Euclid.Common.ServiceHost;
 using Euclid.Common.Storage.Model;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Composites;
-using Euclid.Framework.Agent.Attributes;
-using Euclid.Framework.Agent.Extensions;
+using Euclid.Framework.Agent;
+using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Cqrs;
 
 namespace Euclid.Framework.HostingFabric

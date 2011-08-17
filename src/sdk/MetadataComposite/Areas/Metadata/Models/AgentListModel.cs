@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.AgentMetadata;
 
 namespace MetadataComposite.Areas.Metadata.Models
 {

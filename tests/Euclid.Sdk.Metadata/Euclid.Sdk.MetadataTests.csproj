@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -75,6 +75,10 @@
     <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.AgentMetadata\Euclid.Framework.AgentMetadata.csproj">
+      <Project>{276664F8-43A3-43E6-AA9A-B9A275B14013}</Project>
+      <Name>Euclid.Framework.AgentMetadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\framework\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj">
       <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>

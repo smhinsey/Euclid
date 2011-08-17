@@ -110,6 +110,10 @@
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Euclid.Framework.AgentMetadata\Euclid.Framework.AgentMetadata.csproj">
+      <Project>{276664F8-43A3-43E6-AA9A-B9A275B14013}</Project>
+      <Name>Euclid.Framework.AgentMetadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj">
       <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
       <Name>Euclid.Framework.Agent</Name>

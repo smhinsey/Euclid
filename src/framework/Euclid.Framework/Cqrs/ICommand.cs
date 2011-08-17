@@ -1,5 +1,5 @@
 using Euclid.Common.Messaging;
-using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.AgentMetadata;
 
 namespace Euclid.Framework.Cqrs
 {

@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Xml.Linq;
-using Euclid.Framework.Agent.Metadata;
-using Euclid.Framework.Agent.Metadata.Formatters;
+using Euclid.Framework.AgentMetadata;
+using Euclid.Framework.AgentMetadata.Formatters;
 using Euclid.Framework.Models;
 using Newtonsoft.Json;
 

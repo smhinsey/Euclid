@@ -72,16 +72,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agent\Attributes\IAgentAttribute.cs" />
-    <Compile Include="Agent\DuplicatePartNameException.cs" />
-    <Compile Include="Agent\Metadata\AssemblyNotAgentException.cs" />
-    <Compile Include="Agent\Metadata\ExpectedConstructorMissingException.cs" />
-    <Compile Include="Agent\Metadata\IArgumentMetadata.cs" />
-    <Compile Include="Agent\Metadata\IPartCollection.cs" />
-    <Compile Include="Agent\Metadata\IMetadataFormatter.cs" />
-    <Compile Include="Agent\Metadata\IMethodMetadata.cs" />
-    <Compile Include="Agent\Metadata\PartCollectionNotFound.cs" />
-    <Compile Include="Agent\Metadata\MetadataFormatNotSupportedException.cs" />
+    <Compile Include="Agent\IAgentAttribute.cs" />
+    <Compile Include="AgentMetadata\DuplicatePartNameException.cs" />
+    <Compile Include="AgentMetadata\AssemblyNotAgentException.cs" />
+    <Compile Include="AgentMetadata\ExpectedConstructorMissingException.cs" />
+    <Compile Include="AgentMetadata\IArgumentMetadata.cs" />
+    <Compile Include="AgentMetadata\IPartCollection.cs" />
+    <Compile Include="AgentMetadata\IMetadataFormatter.cs" />
+    <Compile Include="AgentMetadata\IMethodMetadata.cs" />
+    <Compile Include="AgentMetadata\PartCollectionNotFound.cs" />
+    <Compile Include="AgentMetadata\MetadataFormatNotSupportedException.cs" />
     <Compile Include="Cqrs\Settings\CommandDispatcherSettingsException.cs" />
     <Compile Include="Cqrs\ICommand.cs" />
     <Compile Include="Cqrs\ICommandDispatcher.cs" />
@@ -104,13 +104,13 @@
     <Compile Include="Models\IAggregateRoot.cs" />
     <Compile Include="EventSourcing\IEvent.cs" />
     <Compile Include="EventSourcing\IEventSourcedAggregate.cs" />
-    <Compile Include="Agent\Metadata\UnexpectedTypeException.cs" />
+    <Compile Include="AgentMetadata\UnexpectedTypeException.cs" />
     <Compile Include="Models\IReadModel.cs" />
-    <Compile Include="Agent\Metadata\IAgentMetadata.cs" />
-    <Compile Include="Agent\Metadata\IAgentPart.cs" />
-    <Compile Include="Agent\Metadata\IInterfaceMetadata.cs" />
-    <Compile Include="Agent\Metadata\IPropertyMetadata.cs" />
-    <Compile Include="Agent\Metadata\ITypeMetadata.cs" />
+    <Compile Include="AgentMetadata\IAgentMetadata.cs" />
+    <Compile Include="AgentMetadata\IAgentPart.cs" />
+    <Compile Include="AgentMetadata\IInterfaceMetadata.cs" />
+    <Compile Include="AgentMetadata\IPropertyMetadata.cs" />
+    <Compile Include="AgentMetadata\ITypeMetadata.cs" />
     <Compile Include="Models\IInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

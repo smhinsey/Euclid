@@ -1,4 +1,4 @@
-using Euclid.Framework.Agent.Attributes;
+using Euclid.Framework.Agent;
 using Euclid.Sdk.FakeAgent.Commands;
 using Euclid.Sdk.FakeAgent.Processors;
 using Euclid.Sdk.FakeAgent.Queries;

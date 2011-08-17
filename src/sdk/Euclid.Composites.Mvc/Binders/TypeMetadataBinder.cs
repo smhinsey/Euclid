@@ -4,7 +4,7 @@ using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Extensions;
 using Euclid.Composites.Mvc.ActionFilters;
 using Euclid.Composites.Mvc.Extensions;
-using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.AgentMetadata;
 
 namespace Euclid.Composites.Mvc.Binders
 {

@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.AgentMetadata;
 
 namespace Euclid.Composites.Mvc.ActionFilters
 {

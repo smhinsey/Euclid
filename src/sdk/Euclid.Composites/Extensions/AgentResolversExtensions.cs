@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Euclid.Composites.AgentResolution;
-using Euclid.Framework.Agent.Extensions;
-using Euclid.Framework.Agent.Metadata;
+using Euclid.Framework.AgentMetadata;
+using Euclid.Framework.AgentMetadata.Extensions;
 
 namespace Euclid.Composites.Extensions
 {
