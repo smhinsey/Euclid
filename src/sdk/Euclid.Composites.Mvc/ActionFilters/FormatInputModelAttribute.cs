@@ -14,10 +14,7 @@ namespace Euclid.Composites.Mvc.ActionFilters
 
 			var inputModel = filterContext.ActionParameters["inputModel"] as IInputModel;
 
-			if (inputModel == null)
-			{
-				throw new CannotRetrieveInputModelException();
-			}
+            if (inputModel == null) return;
 
 			var formatter = inputModel.GetMetadataFormatter();
 
