@@ -39,7 +39,7 @@ namespace Euclid.Common.Messaging
 			             		MessageType = message.GetType()
 			             	};
 
-			return (TRecordContract)Mapper.Create(record);
+			return Mapper.Create(record);
 		}
 
 		public virtual IMessage GetMessage(Uri messageLocation, Type recordType)
@@ -96,7 +96,7 @@ namespace Euclid.Common.Messaging
 
 			actOnRecord(record);
 
-			return Mapper.Update((TRecord)record);
+			return Mapper.Update((TRecord) record);
 		}
 	}
 }

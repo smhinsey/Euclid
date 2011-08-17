@@ -167,7 +167,8 @@ namespace Euclid.Common.Messaging
 
 						 			handler.Invoke(processor, new[] {message});
 
-									var registry = (IPublicationRegistry<IPublicationRecord, IPublicationRecord>)_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
+						 			var registry =
+						 				(IPublicationRegistry<IPublicationRecord, IPublicationRecord>) _container.GetInstance(typeof (IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
 
 						 			registry.MarkAsComplete(record.Identifier);
 
@@ -177,7 +178,8 @@ namespace Euclid.Common.Messaging
 						 		{
 						 			this.WriteErrorMessage("An error occurred processing message {0} with id {1}.", e, message.GetType().Name, message.Identifier);
 
-									var registry = (IPublicationRegistry<IPublicationRecord, IPublicationRecord>)_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
+						 			var registry =
+						 				(IPublicationRegistry<IPublicationRecord, IPublicationRecord>) _container.GetInstance(typeof (IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
 
 						 			registry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
 						 		}
