@@ -1,0 +1,20 @@
+﻿@using Euclid.Composite.MvcApplication.Models
+@model CommandMetadataModel
+
+<div class="model-header">@ViewBag.Title</div>
+
+<ul>
+	<li>
+		@Model.Commands.Namespace
+		<ul>
+			@foreach (var m in Model.Commands)
+			{
+				<li>
+					<a href="@Url.Action("Inspect", "Command", new {agentSystemName = Model.AgentSystemName, commandName = m.Name})">
+						@m.Name
+					</a>
+				</li>
+			}
+		</ul>
+	</li>
+</ul>

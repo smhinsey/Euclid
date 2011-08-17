@@ -1,0 +1,32 @@
+@using Euclid.Framework.Agent.Metadata
+@model IAgentMetadata
+
+<h1>@ViewBag.Title</h1>
+
+    <div class="property-set">
+        
+		@* 
+        jt: not really sure why theo following doesn't work
+        Html.LabelFor(x => x.Commands.Namespace)
+        *@
+		<div class="property-label">Command Namespace</div>
+		<div class="property-value">
+			<a href="@Url.Action("ListParts", "Agents", new { agentSystemName = Model.SystemName, partType = "Commands" })">
+				@Model.Commands.Namespace
+			</a>
+		</div>
+	</div>
+    
+	<div class="property-set">
+		@*
+        Html.LabelFor(x => x.Queries.Namespace)
+        *@
+		<div class="property-label">Query Namespace</div>
+		<div class="property-value">
+			<a href="@Url.Action("ListParts", "Agents", new { agentSystemName = Model.SystemName, partType = "Queries" })">
+				@Model.Queries.Namespace
+            </a>
+        </div>
+	</div>
+
+<a href="@Url.Action("Index")">Agents in Composite</a>
