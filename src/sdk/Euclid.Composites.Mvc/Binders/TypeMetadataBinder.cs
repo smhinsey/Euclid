@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Web.Mvc;
 using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Extensions;
@@ -26,14 +25,14 @@ namespace Euclid.Composites.Mvc.Binders
 
 			var metadata = _resolvers.GetAgentMetadata(systemName);
 
-		    var typeMetadata = metadata.GetPartByTypeName(partName);
+			var typeMetadata = metadata.GetPartByTypeName(partName);
 
-            if (typeMetadata == null)
-            {
-                throw new TypeMetadataNotFoundException();
-            }
+			if (typeMetadata == null)
+			{
+				throw new TypeMetadataNotFoundException();
+			}
 
-		    return typeMetadata;
+			return typeMetadata;
 		}
 
 		public bool IsMatch(Type modelType)

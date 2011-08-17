@@ -27,14 +27,14 @@ namespace ForumTests.EndToEnd
 			var publisher = Container.Resolve<IPublisher>();
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
+			                  publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
 
 			var query = Container.Resolve<PostQueries>();
 
 			var post = query.FindByTitle(postTitle);
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody}));
+			                  publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody}));
 
 			var anotherQuery = Container.Resolve<CommentQueries>();
 
@@ -52,7 +52,7 @@ namespace ForumTests.EndToEnd
 			var publisher = Container.Resolve<IPublisher>();
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
+			                  publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
 
 			var query = Container.Resolve<PostQueries>();
 
@@ -75,21 +75,21 @@ namespace ForumTests.EndToEnd
 			var publisher = Container.Resolve<IPublisher>();
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
+			                  publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
 
 			var query = Container.Resolve<PostQueries>();
 
 			var post = query.FindByTitle(postTitle);
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody}));
+			                  publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = commentTitle, Body = commentBody}));
 
 			var anotherQuery = Container.Resolve<CommentQueries>();
 
 			var comments = anotherQuery.FindCommentsBelongingToPost(post.Identifier);
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new VoteOnComment {CommentIdentifier = comments[0].Identifier, VoteUp = true}));
+			                  publisher.PublishMessage(new VoteOnComment {CommentIdentifier = comments[0].Identifier, VoteUp = true}));
 
 			var yetAnotherQuery = Container.Resolve<CommentQueries>();
 
@@ -108,14 +108,14 @@ namespace ForumTests.EndToEnd
 			var query = Container.Resolve<PostQueries>();
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
+			                  publisher.PublishMessage(new PublishPost {Title = postTitle, Body = postBody}));
 
 			var post = query.FindByTitle(postTitle);
 
 			Assert.AreEqual(0, post.Score);
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new VoteOnPost {PostIdentifier = post.Identifier, VoteUp = true}));
+			                  publisher.PublishMessage(new VoteOnPost {PostIdentifier = post.Identifier, VoteUp = true}));
 
 			var anotherQuery = Container.Resolve<PostQueries>();
 

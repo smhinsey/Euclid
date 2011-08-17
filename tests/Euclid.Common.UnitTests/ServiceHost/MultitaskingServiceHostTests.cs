@@ -12,6 +12,12 @@ namespace Euclid.Common.UnitTests.ServiceHost
 	[Category(TestCategories.Unit)]
 	public class MultitaskingServiceHostTests
 	{
+		[SetUp]
+		public void SetUp()
+		{
+			BasicConfigurator.Configure();
+		}
+
 		[Test]
 		[ExpectedException(typeof (HostedServiceNotFoundException))]
 		public void CancelFailsForMissingService()
@@ -69,12 +75,6 @@ namespace Euclid.Common.UnitTests.ServiceHost
 
 			Assert.AreEqual(ServiceHostState.Stopped, host.State);
 			Assert.AreEqual(HostedServiceState.Stopped, host.GetState(serviceId));
-		}
-
-		[SetUp]
-		public void SetUp()
-		{
-			BasicConfigurator.Configure();
 		}
 
 		[Test]

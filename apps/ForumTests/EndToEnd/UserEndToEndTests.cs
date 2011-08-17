@@ -25,7 +25,7 @@ namespace ForumTests.EndToEnd
 			var publisher = Container.Resolve<IPublisher>();
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new RegisterUser {Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt}));
+			                  publisher.PublishMessage(new RegisterUser {Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt}));
 
 			var query = Container.Resolve<UserQueries>();
 
@@ -47,14 +47,14 @@ namespace ForumTests.EndToEnd
 			var publisher = Container.Resolve<IPublisher>();
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new RegisterUser {Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt}));
+			                  publisher.PublishMessage(new RegisterUser {Username = username, PasswordHash = passwordHash, PasswordSalt = passwordSalt}));
 
 			var query = Container.Resolve<UserQueries>();
 
 			var user = query.FindByUsername(username);
 
 			WaitUntilComplete(
-			               publisher.PublishMessage(new UpdateUserProfile {Email = email, UserIdentifier = user.Identifier}));
+			                  publisher.PublishMessage(new UpdateUserProfile {Email = email, UserIdentifier = user.Identifier}));
 
 			var anotherQuery = Container.Resolve<UserQueries>();
 

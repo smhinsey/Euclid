@@ -8,64 +8,62 @@ using Newtonsoft.Json.Converters;
 
 namespace Euclid.Framework.Agent.Metadata.Formatters
 {
-    public abstract class MetadataFormatter : IMetadataFormatter
-    {
-        private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string>
-                                                                                  {
+	public abstract class MetadataFormatter : IMetadataFormatter
+	{
+		private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string>
+		                                                                      	{
+		                                                                      		{"xml", MimeTypes.GetByExtension("xml")},
+		                                                                      		{"json", MimeTypes.GetByExtension("json")}
+		                                                                      	};
 
-                                                                                      { "xml", MimeTypes.GetByExtension("xml") },
-                                                                                      { "json", MimeTypes.GetByExtension( "json")}
-                                                                                  };
+		public string GetContentType(string format)
+		{
+			return !_supportedContentTypes.ContainsKey(format) ? null : _supportedContentTypes[format];
+		}
 
-        public string SetupJsonSerialization()
-        {
-            var serializerSettings = new JsonSerializerSettings();
+		public Encoding GetEncoding(string format)
+		{
+			return Encoding.UTF8;
+		}
 
-            serializerSettings.Converters.Add(new IsoDateTimeConverter());
+		public IEnumerable<string> GetFormats(string contentType)
+		{
+			return _supportedContentTypes.Where(item => item.Value == contentType).Select(item => item.Key);
+		}
 
-            var json = new StringBuilder();
+		public string GetRepresentation(string format)
+		{
+			switch (format.ToLower())
+			{
+				case "xml":
+					return GetAsXml();
+				case "json":
+					return SetupJsonSerialization();
+			}
 
-            var writer = new JsonTextWriter(new StringWriter(json)) { Formatting = Formatting.Indented };
+			throw new MetadataFormatNotSupportedException(format);
+		}
 
-            var serializer = JsonSerializer.Create(serializerSettings);
+		public string SetupJsonSerialization()
+		{
+			var serializerSettings = new JsonSerializerSettings();
 
-            var data = GetJsonObject(serializer);
+			serializerSettings.Converters.Add(new IsoDateTimeConverter());
 
-            serializer.Serialize(writer, data);
+			var json = new StringBuilder();
 
-            return json.ToString();
-        }
+			var writer = new JsonTextWriter(new StringWriter(json)) {Formatting = Formatting.Indented};
 
-        protected abstract object GetJsonObject(JsonSerializer serializer);
+			var serializer = JsonSerializer.Create(serializerSettings);
 
-        protected abstract string GetAsXml();
+			var data = GetJsonObject(serializer);
 
-        public string GetContentType(string format)
-        {
-            return !_supportedContentTypes.ContainsKey(format) ? null : _supportedContentTypes[format];
-        }
+			serializer.Serialize(writer, data);
 
-        public IEnumerable<string> GetFormats(string contentType)
-        {
-            return _supportedContentTypes.Where(item => item.Value == contentType).Select(item => item.Key);
-        }
+			return json.ToString();
+		}
 
-        public string GetRepresentation(string format)
-        {
-            switch (format.ToLower())
-            {
-                case "xml":
-                    return GetAsXml();
-                case "json":
-                    return SetupJsonSerialization();
-            }
-
-            throw new MetadataFormatNotSupportedException(format);
-        }
-
-        public Encoding GetEncoding(string format)
-        {
-            return Encoding.UTF8;
-        }
-    }
+		protected abstract string GetAsXml();
+		protected abstract object GetJsonObject(JsonSerializer serializer);
+	}
 }

@@ -9,8 +9,8 @@ namespace Euclid.Composites.Mvc.Binders
 		{
 		}
 
-	    public PartCollectionNotFoundException()
-	    {
-	    }
+		public PartCollectionNotFoundException()
+		{
+		}
 	}
 }

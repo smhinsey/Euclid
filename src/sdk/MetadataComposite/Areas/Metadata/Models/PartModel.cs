@@ -2,9 +2,9 @@
 
 namespace MetadataComposite.Areas.Metadata.Models
 {
-    public class PartModel : FooterLinkModel
-    {
-        public ITypeMetadata TypeMetadata { get; set; }
-        public string NextActionName { get; set; }
-    }
+	public class PartModel : FooterLinkModel
+	{
+		public string NextActionName { get; set; }
+		public ITypeMetadata TypeMetadata { get; set; }
+	}
 }

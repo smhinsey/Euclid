@@ -7,86 +7,87 @@ using Euclid.Framework.Agent.Metadata;
 
 namespace Euclid.Framework.Agent.PartCollection
 {
-    public abstract class PartCollectionBase<T> : IPartCollection
-        where T : IAgentPart
-    {
-        private readonly Assembly _agent;
-        private readonly string _partNamespace;
+	public abstract class PartCollectionBase<T> : IPartCollection
+		where T : IAgentPart
+	{
+		private readonly Assembly _agent;
+		private readonly string _partNamespace;
 
-        protected PartCollectionBase(Assembly agent, string partNamespace)
-        {
-            _agent = agent;
-            _partNamespace = partNamespace;
-        }
+		private string _agentSystemName;
+		private IEnumerable<ITypeMetadata> _collection;
+		private Type _collectionType;
+		private bool _init;
 
-        private bool _init = false;
-        protected void Initialize()
-        {
-            _collection = _agent.GetTypes()
-                .Where(type =>
-                       type.Namespace == _partNamespace &&
-                       typeof (T).IsAssignableFrom(type))
-                .Select(type => new TypeMetadata(type))
-                .Cast<ITypeMetadata>()
-                .ToList();
+		private string _ns;
 
-            _collectionType = typeof(T);
-            _agentSystemName = _agent.GetAgentSystemName();
-            _ns = _partNamespace;
+		protected PartCollectionBase(Assembly agent, string partNamespace)
+		{
+			_agent = agent;
+			_partNamespace = partNamespace;
+		}
 
-            _init = true;
-        }
+		public abstract string DescriptiveName { get; }
 
-        private string _agentSystemName;
-        public string AgentSystemName
-        {
-            get
-            {
-                if (!_init) Initialize();
+		public string AgentSystemName
+		{
+			get
+			{
+				if (!_init) Initialize();
 
-                return _agentSystemName;
-            }
+				return _agentSystemName;
+			}
+		}
 
-        }
+		public IEnumerable<ITypeMetadata> Collection
+		{
+			get
+			{
+				if (!_init) Initialize();
 
-        private string _ns;
-        public string Namespace
-        {
-            get
-            {
-                if (!_init) Initialize();
+				return _collection;
+			}
+		}
 
-                return _ns;
-            }
-        }
+		public Type CollectionType
+		{
+			get
+			{
+				if (!_init) Initialize();
 
-        public abstract string DescriptiveName { get; }
+				return _collectionType;
+			}
+		}
 
-        private Type _collectionType;
-        public Type CollectionType
-        {
-            get
-            {
-                if (!_init) Initialize();
+		public string Namespace
+		{
+			get
+			{
+				if (!_init) Initialize();
 
-                return _collectionType;
-            }
-        }
+				return _ns;
+			}
+		}
 
-        private IEnumerable<ITypeMetadata> _collection;
-        public IEnumerable<ITypeMetadata> Collection
-        {
-            get
-            {
-                if (!_init) Initialize();
+		public IMetadataFormatter GetFormatter()
+		{
+			return FormattableMetadataFactory.GetFormatter(this);
+		}
 
-                return _collection;
-            }
-        }
+		protected void Initialize()
+		{
+			_collection = _agent.GetTypes()
+				.Where(type =>
+				       type.Namespace == _partNamespace &&
+				       typeof (T).IsAssignableFrom(type))
+				.Select(type => new TypeMetadata(type))
+				.Cast<ITypeMetadata>()
+				.ToList();
 
-        public IMetadataFormatter GetFormatter()
-        {
-            return FormattableMetadataFactory.GetFormatter(this);
-        }
-    }
+			_collectionType = typeof (T);
+			_agentSystemName = _agent.GetAgentSystemName();
+			_ns = _partNamespace;
+
+			_init = true;
+		}
+	}
 }

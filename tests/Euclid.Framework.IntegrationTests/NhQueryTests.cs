@@ -13,8 +13,27 @@ namespace Euclid.Framework.IntegrationTests
 	{
 		private const string ModelMessage = "Lorem ipsum";
 
-		public NhQueryTests() : base(new AutoMapperConfiguration(typeof(FakeReadModel)))
+		public NhQueryTests() : base(new AutoMapperConfiguration(typeof (FakeReadModel)))
 		{
+		}
+
+		private Guid createFakeData()
+		{
+			var model = new FakeReadModel
+			            	{
+			            		Created = DateTime.Today,
+			            		Modified = DateTime.Today,
+			            		Message = ModelMessage
+			            	};
+
+			using (var session = SessionFactory.OpenSession())
+			{
+				session.Save(model);
+
+				session.Flush();
+			}
+
+			return model.Identifier;
 		}
 
 		[Test]
@@ -25,20 +44,6 @@ namespace Euclid.Framework.IntegrationTests
 			var query = new NhQuery<FakeReadModel>(SessionFactory.OpenSession());
 
 			var result = query.FindByCreationDate(DateTime.Today);
-
-			Assert.IsNotNull(result);
-			Assert.AreEqual(1, result.Count);
-			Assert.AreEqual(ModelMessage, result[0].Message);
-		}
-
-		[Test]
-		public void FindByModified()
-		{
-			createFakeData();
-
-			var query = new NhQuery<FakeReadModel>(SessionFactory.OpenSession());
-
-			var result = query.FindByModificationDate(DateTime.Today);
 
 			Assert.IsNotNull(result);
 			Assert.AreEqual(1, result.Count);
@@ -58,23 +63,18 @@ namespace Euclid.Framework.IntegrationTests
 			Assert.AreEqual(ModelMessage, result.Message);
 		}
 
-		private Guid createFakeData()
+		[Test]
+		public void FindByModified()
 		{
-			var model = new FakeReadModel()
-			            	{
-											Created = DateTime.Today,
-			            		Modified = DateTime.Today,
-			            		Message = ModelMessage
-			            	};
+			createFakeData();
 
-			using (var session = SessionFactory.OpenSession())
-			{
-				session.Save(model);
+			var query = new NhQuery<FakeReadModel>(SessionFactory.OpenSession());
 
-				session.Flush();
-			}
+			var result = query.FindByModificationDate(DateTime.Today);
 
-			return model.Identifier;
+			Assert.IsNotNull(result);
+			Assert.AreEqual(1, result.Count);
+			Assert.AreEqual(ModelMessage, result[0].Message);
 		}
 	}
 }

@@ -15,6 +15,20 @@ namespace ForumTests.Queries
 		{
 		}
 
+		private static void createFakeUser(ISession session, string username, string password)
+		{
+			var user = new User
+			           	{
+			           		Username = username,
+			           		PasswordHash = password,
+			           		PasswordSalt = password
+			           	};
+
+			session.Save(user);
+
+			session.Flush();
+		}
+
 		[Test]
 		public void TestAuthenticationQuery()
 		{
@@ -28,20 +42,6 @@ namespace ForumTests.Queries
 			var userQueries = new UserQueries(session);
 
 			Assert.IsTrue(userQueries.Authenticate(username, password));
-		}
-
-		private static void createFakeUser(ISession session, string username, string password)
-		{
-			var user = new User
-			           	{
-			           		Username = username,
-			           		PasswordHash = password,
-			           		PasswordSalt = password
-			           	};
-
-			session.Save(user);
-
-			session.Flush();
 		}
 	}
 }

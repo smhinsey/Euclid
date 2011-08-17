@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-    public interface IPartCollection 
-    {
-        string AgentSystemName { get; }
-        string Namespace { get; }
-        string DescriptiveName { get; }
-        Type CollectionType { get; }
+	public interface IPartCollection
+	{
+		string AgentSystemName { get; }
 
-        IEnumerable<ITypeMetadata> Collection { get; }
-        IMetadataFormatter GetFormatter();
-    }
+		IEnumerable<ITypeMetadata> Collection { get; }
+		Type CollectionType { get; }
+		string DescriptiveName { get; }
+		string Namespace { get; }
+		IMetadataFormatter GetFormatter();
+	}
 }

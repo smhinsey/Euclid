@@ -22,8 +22,6 @@ namespace Euclid.Common.UnitTests.Transport
 	[Category(TestCategories.Unit)]
 	public class MessageDispatcherTests
 	{
-		#region Setup/Teardown
-
 		[SetUp]
 		public void Setup()
 		{
@@ -50,8 +48,6 @@ namespace Euclid.Common.UnitTests.Transport
 
 			_transport = new InMemoryMessageChannel();
 		}
-
-		#endregion
 
 		private MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord>> _dispatcher;
 		private FakeRegistry _registry;

@@ -15,20 +15,6 @@ namespace ForumTests.Queries
 		{
 		}
 
-		[Test]
-		public void TestListPostsByCategoryName()
-		{
-			var session = SessionFactory.OpenSession();
-
-			addFakeData(session);
-
-			var query = new PostQueries(session);
-
-			var results = query.FindPostsByCategory("all");
-
-			Assert.IsNotNull(results);
-		}
-
 		private static void addFakeData(ISession session)
 		{
 			var category = new Category
@@ -50,6 +36,20 @@ namespace ForumTests.Queries
 			session.Save(post);
 
 			session.Flush();
+		}
+
+		[Test]
+		public void TestListPostsByCategoryName()
+		{
+			var session = SessionFactory.OpenSession();
+
+			addFakeData(session);
+
+			var query = new PostQueries(session);
+
+			var results = query.FindPostsByCategory("all");
+
+			Assert.IsNotNull(results);
 		}
 	}
 }

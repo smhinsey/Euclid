@@ -15,15 +15,15 @@ namespace Euclid.Composites.Mvc.Extensions
 			return controllerContext.GetRouteValue<string>("AgentSystemName");
 		}
 
+		public static string GetPartDescriptiveName(this ControllerContext controllerContext)
+		{
+			return controllerContext.GetRouteValue<string>("DescriptiveName");
+		}
+
 		public static string GetPartName(this ControllerContext controllerContext)
 		{
 			return controllerContext.GetRouteValue<string>("PartName");
 		}
-
-        public static string GetPartDescriptiveName(this ControllerContext controllerContext)
-        {
-            return controllerContext.GetRouteValue<string>("DescriptiveName");
-        }
 
 		public static T GetRouteValue<T>(this ControllerContext controllerContext, string key)
 		{

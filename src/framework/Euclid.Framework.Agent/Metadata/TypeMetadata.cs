@@ -5,43 +5,42 @@ using Euclid.Framework.Agent.Extensions;
 
 namespace Euclid.Framework.Agent.Metadata
 {
-    public class TypeMetadata : ITypeMetadata
+	public class TypeMetadata : ITypeMetadata
 	{
-        protected TypeMetadata()
-        {
-            
-        }
-
-        public TypeMetadata(Type type)
+		public TypeMetadata(Type type)
 		{
 			Namespace = type.Namespace;
 			Name = type.Name;
 			Type = type;
 
 			Properties = Type.GetProperties().Select(pi => new PropertyMetadata(pi));
-			Methods = Type.GetMethods().Where(mi => !mi.IsSpecialName && mi.DeclaringType != typeof(object)).Select(mi => new MethodMetadata(mi));
+			Methods = Type.GetMethods().Where(mi => !mi.IsSpecialName && mi.DeclaringType != typeof (object)).Select(mi => new MethodMetadata(mi));
 		}
 
-        public IEnumerable<IMethodMetadata> Methods { get; protected set; }
+		protected TypeMetadata()
+		{
+		}
+
+		public IEnumerable<IMethodMetadata> Methods { get; protected set; }
 
 		public string Name { get; set; }
 
-        public string Namespace { get; protected set; }
+		public string Namespace { get; protected set; }
 
-        public IEnumerable<IPropertyMetadata> Properties { get; protected set; }
+		public IEnumerable<IPropertyMetadata> Properties { get; protected set; }
 
 		public Type Type { get; set; }
 
-        public IMetadataFormatter GetFormatter()
-        {
-            return FormattableMetadataFactory.GetFormatter(this);
-        }
+		public IPartCollection GetContainingPartCollection()
+		{
+			var agent = Type.Assembly.GetAgentMetadata();
 
-        public IPartCollection GetContainingPartCollection()
-        {
-            var agent = Type.Assembly.GetAgentMetadata();
+			return agent.GetPartCollectionContainingType(Type);
+		}
 
-            return agent.GetPartCollectionContainingType(Type);
-        }
+		public IMetadataFormatter GetFormatter()
+		{
+			return FormattableMetadataFactory.GetFormatter(this);
+		}
 	}
 }

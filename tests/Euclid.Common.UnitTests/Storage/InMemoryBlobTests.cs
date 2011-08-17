@@ -9,7 +9,6 @@ namespace Euclid.Common.UnitTests.Storage
 	[Category(TestCategories.Unit)]
 	public class InMemoryBlobTests
 	{
-
 		[SetUp]
 		public void Setup()
 		{
@@ -19,7 +18,7 @@ namespace Euclid.Common.UnitTests.Storage
 
 			_blobTester = new BlobTester(blobStorage);
 		}
-		
+
 		private BlobTester _blobTester;
 
 		[Test]

@@ -31,23 +31,6 @@ namespace Euclid.TestingSupport
 			_agentAssemblies = agentAssemblies;
 		}
 
-		protected void WaitUntilComplete(Guid publicationId)
-		{
-			while (true)
-			{
-				var registry = Container.Resolve<ICommandRegistry>();
-
-				var record = registry.GetRecord(publicationId);
-
-				if(record.Completed || record.Error)
-				{
-					break;
-				}
-
-				Thread.Sleep(250);
-			}
-		}
-
 		[SetUp]
 		public void SetUp()
 		{
@@ -75,6 +58,23 @@ namespace Euclid.TestingSupport
 			Fabric.InstallComposite(composite);
 
 			Fabric.Start();
+		}
+
+		protected void WaitUntilComplete(Guid publicationId)
+		{
+			while (true)
+			{
+				var registry = Container.Resolve<ICommandRegistry>();
+
+				var record = registry.GetRecord(publicationId);
+
+				if (record.Completed || record.Error)
+				{
+					break;
+				}
+
+				Thread.Sleep(250);
+			}
 		}
 
 		private CompositeAppSettings getCompositeSettings()
