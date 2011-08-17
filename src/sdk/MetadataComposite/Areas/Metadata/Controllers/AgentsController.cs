@@ -43,7 +43,7 @@ namespace MetadataComposite.Areas.Metadata.Controllers
                                 Commands = new AgentPartModel
                                                {
                                                    AgentSystemName = agentMetadata.SystemName,
-                                                   NextAction = "ViewCommand",
+                                                   NextAction = "ViewInputModelForCommand",
                                                    Part = agentMetadata.Commands
                                                },
                                 Queries = new AgentPartModel
@@ -72,7 +72,7 @@ namespace MetadataComposite.Areas.Metadata.Controllers
                 new PartCollectionModel
                     {
                         Parts = partCollection,
-                        NextActionName = (partCollection.DescriptiveName == "Commands") ? "ViewCommand" : "ViewPart",
+                        NextActionName = (partCollection.DescriptiveName == "Commands") ? "ViewInputModelForCommand" : "ViewPart",
                         AgentSytemName = partCollection.AgentSystemName,
                         PartDescriptiveName = partCollection.DescriptiveName
                     });
@@ -86,7 +86,7 @@ namespace MetadataComposite.Areas.Metadata.Controllers
             return View(new PartModel
 			            	{
 			            		TypeMetadata = typeMetadata,
-			            		NextActionName = (containingCollection.DescriptiveName == "Commands") ? "ViewCommand" : "ViewPart",
+			            		NextActionName = (containingCollection.DescriptiveName == "Commands") ? "ViewInputModelForCommand" : "ViewPart",
                                 AgentSytemName = containingCollection.AgentSystemName,
                                 PartDescriptiveName = containingCollection.DescriptiveName,
                                 PartType = typeMetadata.Type.Name
@@ -94,7 +94,7 @@ namespace MetadataComposite.Areas.Metadata.Controllers
 		}
 
         [FormatInputModel]
-        public ActionResult ViewCommand(IInputModel inputModel, ITypeMetadata typeMetadata, string format)
+        public ActionResult ViewInputModelForCommand(IInputModel inputModel, ITypeMetadata typeMetadata, string format)
         {
             var partCollection = typeMetadata.GetContainingPartCollection();
 
@@ -118,7 +118,7 @@ namespace MetadataComposite.Areas.Metadata.Controllers
                                          PartType = typeMetadata.Type.Name
                                      };
 
-            ActionResult result = View("ViewCommand", inputModel);
+            ActionResult result = View("ViewInputModelForCommand", inputModel);
 
             return result;
         }
