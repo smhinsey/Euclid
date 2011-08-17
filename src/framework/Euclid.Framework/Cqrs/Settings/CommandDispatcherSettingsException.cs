@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace Euclid.Framework.Cqrs
+namespace Euclid.Framework.Cqrs.Settings
 {
-	public class CommandDispatcherConfigurationException : Exception
+	public class CommandDispatcherSettingsException : Exception
 	{
-		public CommandDispatcherConfigurationException(IList<string> errors)
+		public CommandDispatcherSettingsException(IList<string> errors)
 		{
 			ConfigurationErrors = errors;
 		}

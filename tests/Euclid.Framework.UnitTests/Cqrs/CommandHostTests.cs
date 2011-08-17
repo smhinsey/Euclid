@@ -10,7 +10,7 @@ using Euclid.Common.Storage;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.Record;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Cqrs.Configuration;
+using Euclid.Framework.Cqrs.Settings;
 using Euclid.Framework.TestingFakes.Cqrs;
 using Euclid.TestingSupport;
 using NUnit.Framework;

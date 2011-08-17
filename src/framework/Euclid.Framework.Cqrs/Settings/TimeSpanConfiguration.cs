@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Euclid.Framework.Cqrs.Configuration
+namespace Euclid.Framework.Cqrs.Settings
 {
 	public class TimeSpanConfiguration<T>
 	{

@@ -7,7 +7,7 @@ using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.Record;
 
-namespace Euclid.Framework.Cqrs.Configuration
+namespace Euclid.Framework.Cqrs.Settings
 {
 	public class Dispatcher
 	{
@@ -188,7 +188,7 @@ namespace Euclid.Framework.Cqrs.Configuration
 
 			if (configErrors.Count > 0)
 			{
-				throw new CommandDispatcherConfigurationException(configErrors);
+				throw new CommandDispatcherSettingsException(configErrors);
 			}
 		}
 	}
