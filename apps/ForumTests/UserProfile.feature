@@ -5,7 +5,7 @@ Feature: User Profiles
 	I want to create and maintain a Profile
 
 Scenario: Register a Profile
-	Given a runtime fabric for agent ForumAgent
+	Given the agent ForumAgent
 
 	And I publish the command RegisterUser
 	When the command is complete
@@ -14,7 +14,7 @@ Scenario: Register a Profile
 
 
 Scenario: Update a Profile
-	Given a runtime fabric for agent ForumAgent
+	Given the agent ForumAgent
 
 	And I publish the command RegisterUser
 	When the command is complete
@@ -25,7 +25,7 @@ Scenario: Update a Profile
 	Then the query UserQueries returns the updated Profile
 
 Scenario: Authenticate as User
-	Given a runtime fabric for agent ForumAgent
+	Given the agent ForumAgent
 
 	And I publish the command RegisterUser
 	When the command is complete

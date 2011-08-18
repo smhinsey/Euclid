@@ -5,7 +5,7 @@ Feature: Forum Commenting
 	I want to create Posts in that Forum
 
 Scenario: Comment on Post
-	Given a runtime fabric for agent ForumAgent
+	Given the agent ForumAgent
 
 	And I publish the command PublishPost
 	When the command is complete

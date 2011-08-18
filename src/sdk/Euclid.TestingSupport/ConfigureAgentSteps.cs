@@ -26,8 +26,8 @@ namespace Euclid.TestingSupport
 		private bool _configured;
 		private ConsoleFabric _fabric;
 
-		[Given(@"a runtime fabric for agent (.*)")]
-		public void GivenARuntimeFabricForAgent(string assemblyName)
+		[Given(@"the agent (.*)")]
+		public void GivenTheAgent(string assemblyName)
 		{
 			if (!_configured)
 			{

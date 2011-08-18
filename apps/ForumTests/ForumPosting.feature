@@ -5,7 +5,7 @@ Feature: Forum Posting
 	I want to create Posts in that Forum
 
 Scenario: Publish Post
-	Given a runtime fabric for agent ForumAgent
+	Given the agent ForumAgent
 	
 	And I publish the command PublishPost
 	When the command is complete
@@ -13,7 +13,7 @@ Scenario: Publish Post
 	Then the query ForumQueries returns the Post
 
 Scenario: Publish Post in a Category
-	Given a runtime fabric for agent ForumAgent
+	Given the agent ForumAgent
 	
 	And I publish the command PublishPost
 	When the command is complete
