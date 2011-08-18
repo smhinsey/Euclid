@@ -12,11 +12,15 @@ namespace Euclid.Common.UnitTests.ServiceHost
 	[Category(TestCategories.Unit)]
 	public class MultitaskingServiceHostTests
 	{
+		#region Setup/Teardown
+
 		[SetUp]
 		public void SetUp()
 		{
 			BasicConfigurator.Configure();
 		}
+
+		#endregion
 
 		[Test]
 		[ExpectedException(typeof (HostedServiceNotFoundException))]

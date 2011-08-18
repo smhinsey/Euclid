@@ -11,15 +11,25 @@ namespace ForumTests.Steps
 	public class UserSteps : DefaultSpecSteps
 	{
 		private const string Email = "johndoe@email.service";
-		private const string Username = "johndoe";
 		private const string Password = "password";
+		private const string Username = "johndoe";
 
 		[Given(@"I publish the command RegisterUser")]
 		public void GivenIPublishTheCommandRegisterUser()
 		{
 			var publisher = GetContainer().Resolve<IPublisher>();
 
-			PubIdOfLastMessage = publisher.PublishMessage(new RegisterUser { Username = Username, PasswordHash = Password, PasswordSalt = Password });
+			PubIdOfLastMessage = publisher.PublishMessage(new RegisterUser {Username = Username, PasswordHash = Password, PasswordSalt = Password});
+		}
+
+		[Then(@"the query UserQueries can authenticate")]
+		public void ThenTheQueryUserQueriesCanAuthenticate()
+		{
+			var query = GetContainer().Resolve<UserQueries>();
+
+			var authenticationResult = query.Authenticate(Username, Password);
+
+			Assert.IsTrue(authenticationResult);
 		}
 
 		[Then(@"the query UserQueries returns the Profile")]
@@ -32,16 +42,6 @@ namespace ForumTests.Steps
 			Assert.IsNotNull(user);
 			Assert.AreEqual(Password, user.PasswordHash);
 			Assert.AreEqual(Password, user.PasswordSalt);
-		}
-
-		[Then(@"the query UserQueries can authenticate")]
-		public void ThenTheQueryUserQueriesCanAuthenticate()
-		{
-			var query = GetContainer().Resolve<UserQueries>();
-
-			var authenticationResult = query.Authenticate(Username, Password);
-
-			Assert.IsTrue(authenticationResult);
 		}
 
 		[Then(@"the query UserQueries returns the updated Profile")]
@@ -64,7 +64,7 @@ namespace ForumTests.Steps
 
 			var user = query.FindByUsername(Username);
 
-			PubIdOfLastMessage = publisher.PublishMessage(new UpdateUserProfile { Email = Email, UserIdentifier = user.Identifier });
+			PubIdOfLastMessage = publisher.PublishMessage(new UpdateUserProfile {Email = Email, UserIdentifier = user.Identifier});
 		}
 	}
 }

@@ -20,6 +20,8 @@ namespace Euclid.Common.IntegrationTests.Storage
 	[Category(TestCategories.Integration)]
 	public class NhRecordMapperTests
 	{
+		#region Setup/Teardown
+
 		[SetUp]
 		public void Setup()
 		{
@@ -34,6 +36,8 @@ namespace Euclid.Common.IntegrationTests.Storage
 
 			_repoTester = new RecordMapperTester<NhRecordMapper<FakePublicationRecord>>(repo);
 		}
+
+		#endregion
 
 		private RecordMapperTester<NhRecordMapper<FakePublicationRecord>> _repoTester;
 		private ISession _session;

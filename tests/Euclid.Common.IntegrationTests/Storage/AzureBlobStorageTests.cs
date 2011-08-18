@@ -11,6 +11,8 @@ namespace Euclid.Common.IntegrationTests.Storage
 	[Category(TestCategories.Integration)]
 	public class AzureBlobStorageTests
 	{
+		#region Setup/Teardown
+
 		[SetUp]
 		public void Setup()
 		{
@@ -27,6 +29,8 @@ namespace Euclid.Common.IntegrationTests.Storage
 
 			_blobTester = new BlobTester(blobStorage);
 		}
+
+		#endregion
 
 		private BlobTester _blobTester;
 

@@ -1,7 +1,5 @@
 using System;
-using System.Threading;
 using Castle.Windsor;
-using Euclid.Framework.Cqrs;
 using TechTalk.SpecFlow;
 
 namespace Euclid.TestingSupport

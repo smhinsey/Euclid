@@ -22,6 +22,8 @@ namespace Euclid.Framework.UnitTests.Cqrs
 	[Category(TestCategories.Unit)]
 	public class CommandHostTests
 	{
+		#region Setup/Teardown
+
 		[SetUp]
 		public void Setup()
 		{
@@ -39,6 +41,8 @@ namespace Euclid.Framework.UnitTests.Cqrs
 
 			_locator = new WindsorServiceLocator(_container);
 		}
+
+		#endregion
 
 		private IMessageDispatcherSettings _dispatcherSettings;
 		private IWindsorContainer _container;
