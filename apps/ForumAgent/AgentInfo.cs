@@ -5,7 +5,7 @@ using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
 [assembly: AgentName(Value = "Forum Agent")]
-[assembly: AgentSystemName(Value = "SocialRally.Forum")]
+[assembly: AgentSystemName(Value = "ForumAgent")]
 [assembly: LocationOfCommands(NamespaceOfType = typeof (CommentOnPost))]
 [assembly: LocationOfQueries(NamespaceOfType = typeof (PostQueries))]
 [assembly: LocationOfProcessors(NamespaceOfType = typeof (PublishPostProcessor))]

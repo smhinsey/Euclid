@@ -78,8 +78,27 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\..\packages\SpecFlow.1.7.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\AgentEndToEndFeatureSteps.cs" />
+    <Compile Include="Features\ForumCommenting.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForumCommenting.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\ForumPosting1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForumPosting.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\ForumVoting.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForumVoting.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EndToEnd\ForumEndToEndTests.cs" />
     <Compile Include="Queries\PostQueryTests.cs" />
@@ -88,6 +107,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Features\ForumCommenting.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ForumCommenting.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\ForumPosting.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ForumPosting1.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\ForumVoting.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ForumVoting.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

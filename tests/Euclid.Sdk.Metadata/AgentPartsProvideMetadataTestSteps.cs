@@ -17,22 +17,22 @@ namespace Euclid.Sdk.Metadata
 		[Then(@"has been independently validated")]
 		public void IndependentlyValidate()
 		{
-			TestRepresentation(_agent.GetRepresentation(_format));
-			TestRepresentation(_agent.GetBasicRepresentation(_format));
+			testRepresentation(_agent.GetRepresentation(_format));
+			testRepresentation(_agent.GetBasicRepresentation(_format));
 
-			ValidateFormattersInCollectionOutput(_agent.Commands);
-			ValidateFormattersInCollectionOutput(_agent.ReadModels);
-			ValidateFormattersInCollectionOutput(_agent.Queries);
+			validateFormattersInCollectionOutput(_agent.Commands);
+			validateFormattersInCollectionOutput(_agent.ReadModels);
+			validateFormattersInCollectionOutput(_agent.Queries);
 		}
 
 		[Then(@"can be represented as (.*)")]
 		public void ItCanBeRepresentedAs(string contentType)
 		{
-			TestThatFormatterSupportsContentType(contentType, _agent);
+			testThatFormatterSupportsContentType(contentType, _agent);
 
-			ValidateFormattersInCollectionSupportContentType(contentType, _agent.Commands);
-			ValidateFormattersInCollectionSupportContentType(contentType, _agent.Queries);
-			ValidateFormattersInCollectionSupportContentType(contentType, _agent.ReadModels);
+			validateFormattersInCollectionSupportContentType(contentType, _agent.Commands);
+			validateFormattersInCollectionSupportContentType(contentType, _agent.Queries);
+			validateFormattersInCollectionSupportContentType(contentType, _agent.ReadModels);
 		}
 
 		[When(@"metadata is requested as (.*)")]
@@ -54,35 +54,37 @@ namespace Euclid.Sdk.Metadata
 			_agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
 		}
 
-		private void TestRepresentation(string representation)
+		private void testRepresentation(string representation)
 		{
 			Assert.False(string.IsNullOrEmpty(representation));
 
 			Console.WriteLine(representation);
 		}
 
-		private void TestThatFormatterSupportsContentType(string contentType, IMetadataFormatter formatter)
+		private void testThatFormatterSupportsContentType(string contentType, IMetadataFormatter formatter)
 		{
 			Assert.AreEqual(contentType, formatter.GetContentType(_format));
 
 			Assert.True(formatter.GetFormats(contentType).Contains(_format));
 		}
 
-		private void ValidateFormattersInCollectionOutput(IPartCollection part)
+		private void validateFormattersInCollectionOutput(IPartCollection part)
 		{
-			TestRepresentation(part.GetFormatter().GetRepresentation(_format));
+			testRepresentation(part.GetFormatter().GetRepresentation(_format));
+
 			foreach (var typeMetadata in part.Collection)
 			{
-				TestRepresentation(typeMetadata.GetFormatter().GetRepresentation(_format));
+				testRepresentation(typeMetadata.GetFormatter().GetRepresentation(_format));
 			}
 		}
 
-		private void ValidateFormattersInCollectionSupportContentType(string contentType, IPartCollection part)
+		private void validateFormattersInCollectionSupportContentType(string contentType, IPartCollection part)
 		{
-			TestThatFormatterSupportsContentType(contentType, part.GetFormatter());
+			testThatFormatterSupportsContentType(contentType, part.GetFormatter());
+
 			foreach (var typeMetadata in part.Collection)
 			{
-				TestThatFormatterSupportsContentType(contentType, typeMetadata.GetFormatter());
+				testThatFormatterSupportsContentType(contentType, typeMetadata.GetFormatter());
 			}
 		}
 	}
