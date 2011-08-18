@@ -10,7 +10,7 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-namespace ForumTests.Features
+namespace ForumTests
 {
     using TechTalk.SpecFlow;
     
@@ -20,22 +20,22 @@ namespace ForumTests.Features
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" +
         "t Forum")]
-    [NUnit.Framework.CategoryAttribute("AgentFeature")]
-    public partial class ForumPostingFeature
+    [NUnit.Framework.CategoryAttribute("ForumAgentSpecs")]
+    public partial class ForumCommentingFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "ForumPosting.feature"
+#line 1 "ForumCommenting.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Forum Posting", "In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Forum Commenting", "In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" +
                     "t Forum", ProgrammingLanguage.CSharp, new string[] {
-                        "AgentFeature"});
+                        "ForumAgentSpecs"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,10 +68,10 @@ namespace ForumTests.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publish Post")]
-        public virtual void PublishPost()
+        [NUnit.Framework.DescriptionAttribute("Comment on Post")]
+        public virtual void CommentOnPost()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish Post", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Comment on Post", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -81,26 +81,11 @@ this.ScenarioSetup(scenarioInfo);
 #line 11
  testRunner.When("the command is complete");
 #line 13
- testRunner.Then("the query ForumQueries returns the Post");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publish Post in a Category")]
-        public virtual void PublishPostInACategory()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish Post in a Category", ((string[])(null)));
-#line 15
-this.ScenarioSetup(scenarioInfo);
-#line 16
- testRunner.Given("a runtime fabric for agent ForumAgent");
-#line 18
- testRunner.And("I publish the command PublishPost");
-#line 19
+ testRunner.And("I publish the command CommentOnPost");
+#line 14
  testRunner.When("the command is complete");
-#line 21
- testRunner.Then("the query CategoryQueries returns Post");
+#line 16
+ testRunner.Then("the query CommentQueries returns the Comment");
 #line hidden
             this.ScenarioCleanup();
         }

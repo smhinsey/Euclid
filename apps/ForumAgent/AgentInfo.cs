@@ -9,4 +9,4 @@ using ForumAgent.ReadModels;
 [assembly: LocationOfCommands(NamespaceOfType = typeof (CommentOnPost))]
 [assembly: LocationOfQueries(NamespaceOfType = typeof (PostQueries))]
 [assembly: LocationOfProcessors(NamespaceOfType = typeof (PublishPostProcessor))]
-[assembly: LocationOfReadModels(NamespaceOfType = typeof (Category))]
+[assembly: LocationOfReadModels(NamespaceOfType = typeof (Post))]

@@ -17,30 +17,16 @@ namespace ForumAgent.Processors
 
 		public override void Process(UpdateUserProfile message)
 		{
-			UserProfile profile;
+			var profile = new UserProfile
+			                      	{
+			                      		AvatarUrl = message.AvatarUrl,
+			                      		Email = message.Email,
+			                      		UserIdentifier = message.UserIdentifier,
+			                      		Created = DateTime.Now,
+			                      		Modified = DateTime.Now
+			                      	};
 
-			if (message.Identifier == Guid.Empty)
-			{
-				profile = new UserProfile
-				          	{
-				          		AvatarUrl = message.AvatarUrl,
-				          		Email = message.Email,
-				          		UserIdentifier = message.UserIdentifier,
-				          		Created = DateTime.Now,
-				          		Modified = DateTime.Now
-				          	};
-
-				_repository.Save(profile);
-			}
-			else
-			{
-				profile = _repository.FindById(message.Identifier);
-
-				profile.AvatarUrl = message.AvatarUrl;
-				profile.Email = message.Email;
-
-				_repository.Update(profile);
-			}
+			_repository.Save(profile);
 		}
 	}
 }

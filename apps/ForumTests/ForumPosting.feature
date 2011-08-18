@@ -1,4 +1,4 @@
-﻿@AgentFeature
+﻿@ForumAgentSpecs
 Feature: Forum Posting
 	In order to interact with a Forum
 	As a Forum User

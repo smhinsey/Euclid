@@ -1,4 +1,4 @@
-﻿@AgentFeature
+﻿@ForumAgentSpecs
 Feature: Forum Commenting
 	In order to interact with a Forum
 	As a Forum User
@@ -14,4 +14,3 @@ Scenario: Comment on Post
 	When the command is complete
 
 	Then the query CommentQueries returns the Comment
-
