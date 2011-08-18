@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.ReadModels;
 using NHibernate;
@@ -21,15 +22,12 @@ namespace ForumAgent.Queries
 			return posts.SingleOrDefault();
 		}
 
-		public IList<Post> FindPostsByCategory(string name)
+		public IList<Post> FindPostsByCategory(Guid categoryIdentifier)
 		{
 			var session = GetCurrentSession();
 
-			var category = session.QueryOver<Category>()
-				.Where(cat => cat.Name == name).SingleOrDefault();
-
 			var posts = session.QueryOver<Post>()
-				.Where(post => post.CategoryIdentifier == category.Identifier);
+				.Where(post => post.CategoryIdentifier == categoryIdentifier);
 
 			return posts.List();
 		}

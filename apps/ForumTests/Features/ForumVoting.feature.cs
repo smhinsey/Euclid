@@ -18,8 +18,8 @@ namespace ForumTests.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Vote on Post" +
-        "s and Comments in that Forum")]
+    [NUnit.Framework.DescriptionAttribute("In order to interact with a Forum\r\nAs a Forum User\r\nI want to vote on Posts and C" +
+        "omments in that Forum")]
     [NUnit.Framework.CategoryAttribute("AgentFeature")]
     public partial class ForumVotingFeature
     {
@@ -33,8 +33,8 @@ namespace ForumTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Forum Voting", "In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Vote on Post" +
-                    "s and Comments in that Forum", ProgrammingLanguage.CSharp, new string[] {
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Forum Voting", "In order to interact with a Forum\r\nAs a Forum User\r\nI want to vote on Posts and C" +
+                    "omments in that Forum", ProgrammingLanguage.CSharp, new string[] {
                         "AgentFeature"});
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -76,15 +76,15 @@ namespace ForumTests.Features
 this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("a runtime fabric for agent ForumAgent");
-#line 9
- testRunner.And("I publish the comand PublishPost");
 #line 10
- testRunner.When("the command is complete");
+ testRunner.And("I publish the comand PublishPost");
 #line 11
- testRunner.And("I publish the comand VoteOnPost");
-#line 12
  testRunner.When("the command is complete");
 #line 13
+ testRunner.And("I publish the comand VoteOnPost");
+#line 14
+ testRunner.When("the command is complete");
+#line 16
  testRunner.Then("the query ForumQueries returns the Score");
 #line hidden
             this.ScenarioCleanup();
@@ -95,23 +95,23 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void VoteOnComment()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Vote on Comment", ((string[])(null)));
-#line 16
-this.ScenarioSetup(scenarioInfo);
-#line 17
- testRunner.Given("a runtime fabric for agent ForumAgent");
-#line 18
- testRunner.And("I publish the comand PublishPost");
 #line 19
- testRunner.When("the command is complete");
+this.ScenarioSetup(scenarioInfo);
 #line 20
- testRunner.And("I publish the comand CommentOnPost");
-#line 21
- testRunner.When("the command is complete");
+ testRunner.Given("a runtime fabric for agent ForumAgent");
 #line 22
- testRunner.And("I publish the comand VoteOnComment");
+ testRunner.And("I publish the comand PublishPost");
 #line 23
  testRunner.When("the command is complete");
-#line 24
+#line 25
+ testRunner.And("I publish the comand CommentOnPost");
+#line 26
+ testRunner.When("the command is complete");
+#line 28
+ testRunner.And("I publish the comand VoteOnComment");
+#line 29
+ testRunner.When("the command is complete");
+#line 31
  testRunner.Then("the query CommentQueries returns the Score");
 #line hidden
             this.ScenarioCleanup();
