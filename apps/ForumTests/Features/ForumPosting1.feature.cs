@@ -76,11 +76,11 @@ namespace ForumTests.Features
 this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("a runtime fabric for agent ForumAgent");
-#line 9
- testRunner.And("I publish the comand PublishPost");
 #line 10
- testRunner.When("the command is complete");
+ testRunner.And("I publish the command PublishPost");
 #line 11
+ testRunner.When("the command is complete");
+#line 13
  testRunner.Then("the query ForumQueries returns the Post");
 #line hidden
             this.ScenarioCleanup();
@@ -91,15 +91,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void PublishPostInACategory()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish Post in a Category", ((string[])(null)));
-#line 13
- this.ScenarioSetup(scenarioInfo);
-#line 14
- testRunner.Given("a runtime fabric for agent ForumAgent");
 #line 15
- testRunner.And("I publish the comand PublishPost");
+this.ScenarioSetup(scenarioInfo);
 #line 16
+ testRunner.Given("a runtime fabric for agent ForumAgent");
+#line 18
+ testRunner.And("I publish the command PublishPost");
+#line 19
  testRunner.When("the command is complete");
-#line 17
+#line 21
  testRunner.Then("the query CategoryQueries returns Post");
 #line hidden
             this.ScenarioCleanup();

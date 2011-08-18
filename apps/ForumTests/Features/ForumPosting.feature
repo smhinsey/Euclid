@@ -6,12 +6,16 @@ Feature: Forum Posting
 
 Scenario: Publish Post
 	Given a runtime fabric for agent ForumAgent
-	And I publish the comand PublishPost
+	
+	And I publish the command PublishPost
 	When the command is complete
+	
 	Then the query ForumQueries returns the Post
 
-	Scenario: Publish Post in a Category
+Scenario: Publish Post in a Category
 	Given a runtime fabric for agent ForumAgent
-	And I publish the comand PublishPost
+	
+	And I publish the command PublishPost
 	When the command is complete
+	
 	Then the query CategoryQueries returns Post

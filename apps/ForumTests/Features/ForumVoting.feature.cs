@@ -77,11 +77,11 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("a runtime fabric for agent ForumAgent");
 #line 10
- testRunner.And("I publish the comand PublishPost");
+ testRunner.And("I publish the command PublishPost");
 #line 11
  testRunner.When("the command is complete");
 #line 13
- testRunner.And("I publish the comand VoteOnPost");
+ testRunner.And("I publish the command VoteOnPost");
 #line 14
  testRunner.When("the command is complete");
 #line 16
@@ -100,15 +100,15 @@ this.ScenarioSetup(scenarioInfo);
 #line 20
  testRunner.Given("a runtime fabric for agent ForumAgent");
 #line 22
- testRunner.And("I publish the comand PublishPost");
+ testRunner.And("I publish the command PublishPost");
 #line 23
  testRunner.When("the command is complete");
 #line 25
- testRunner.And("I publish the comand CommentOnPost");
+ testRunner.And("I publish the command CommentOnPost");
 #line 26
  testRunner.When("the command is complete");
 #line 28
- testRunner.And("I publish the comand VoteOnComment");
+ testRunner.And("I publish the command VoteOnComment");
 #line 29
  testRunner.When("the command is complete");
 #line 31

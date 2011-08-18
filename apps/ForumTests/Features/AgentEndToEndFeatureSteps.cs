@@ -47,8 +47,8 @@ namespace ForumTests.Features
 			}
 		}
 
-		[Given(@"I publish the comand PublishPost")]
-		public void GivenIPublishTheComandPublishPost()
+		[Given(@"I publish the command PublishPost")]
+		public void GivenIPublishThecommandPublishPost()
 		{
 			var publisher = _container.Resolve<IPublisher>();
 
@@ -120,8 +120,8 @@ namespace ForumTests.Features
 			Assert.AreEqual(1, comment.Score);
 		}
 
-		[When(@"I publish the comand CommentOnPost")]
-		public void WhenIPublishTheComandCommentOnPost()
+		[When(@"I publish the command CommentOnPost")]
+		public void WhenIPublishThecommandCommentOnPost()
 		{
 			var publisher = _container.Resolve<IPublisher>();
 
@@ -132,8 +132,8 @@ namespace ForumTests.Features
 			_pubIdOfLastMessage = publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = CommentTitle, Body = CommentBody});
 		}
 
-		[When(@"I publish the comand VoteOnComment")]
-		public void WhenIPublishTheComandVoteOnComment()
+		[When(@"I publish the command VoteOnComment")]
+		public void WhenIPublishThecommandVoteOnComment()
 		{
 			var publisher = _container.Resolve<IPublisher>();
 
@@ -147,8 +147,8 @@ namespace ForumTests.Features
 			_pubIdOfLastMessage = publisher.PublishMessage(new VoteOnComment {CommentIdentifier = comments[0].Identifier, VoteUp = true});
 		}
 
-		[When(@"I publish the comand VoteOnPost")]
-		public void WhenIPublishTheComandVoteOnPost()
+		[When(@"I publish the command VoteOnPost")]
+		public void WhenIPublishThecommandVoteOnPost()
 		{
 			var publisher = _container.Resolve<IPublisher>();
 

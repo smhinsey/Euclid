@@ -76,15 +76,15 @@ namespace ForumTests.Features
 this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("a runtime fabric for agent ForumAgent");
-#line 9
- testRunner.And("I publish the comand PublishPost");
 #line 10
- testRunner.When("the command is complete");
+ testRunner.And("I publish the command PublishPost");
 #line 11
- testRunner.And("I publish the comand CommentOnPost");
-#line 12
  testRunner.When("the command is complete");
 #line 13
+ testRunner.And("I publish the command CommentOnPost");
+#line 14
+ testRunner.When("the command is complete");
+#line 16
  testRunner.Then("the query CommentQueries returns the Comment");
 #line hidden
             this.ScenarioCleanup();

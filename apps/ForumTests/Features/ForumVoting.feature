@@ -7,10 +7,10 @@ Feature: Forum Voting
 Scenario: Vote on Post
 	Given a runtime fabric for agent ForumAgent
 
-	And I publish the comand PublishPost
+	And I publish the command PublishPost
 	When the command is complete
 
-	And I publish the comand VoteOnPost
+	And I publish the command VoteOnPost
 	When the command is complete
 
 	Then the query ForumQueries returns the Score
@@ -19,13 +19,13 @@ Scenario: Vote on Post
 Scenario: Vote on Comment
 	Given a runtime fabric for agent ForumAgent
 	
-	And I publish the comand PublishPost
+	And I publish the command PublishPost
 	When the command is complete
 
-	And I publish the comand CommentOnPost
+	And I publish the command CommentOnPost
 	When the command is complete
 	
-	And I publish the comand VoteOnComment
+	And I publish the command VoteOnComment
 	When the command is complete
 
 	Then the query CommentQueries returns the Score

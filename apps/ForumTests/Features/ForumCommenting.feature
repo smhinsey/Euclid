@@ -6,9 +6,12 @@ Feature: Forum Commenting
 
 Scenario: Comment on Post
 	Given a runtime fabric for agent ForumAgent
-	And I publish the comand PublishPost
+
+	And I publish the command PublishPost
 	When the command is complete
-	And I publish the comand CommentOnPost
+
+	And I publish the command CommentOnPost
 	When the command is complete
+
 	Then the query CommentQueries returns the Comment
 
