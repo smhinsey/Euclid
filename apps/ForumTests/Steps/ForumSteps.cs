@@ -18,14 +18,6 @@ namespace ForumTests.Steps
 
 		private readonly Guid _categoryId = Guid.NewGuid();
 
-		[Given(@"I publish the command PublishPost")]
-		public void GivenIPublishThecommandPublishPost()
-		{
-			var publisher = GetContainer().Resolve<IPublisher>();
-
-			PubIdOfLastMessage = publisher.PublishMessage(new PublishPost {Title = PostTitle, Body = PostBody, CategoryIdentifier = _categoryId});
-		}
-
 		[Then(@"the query CategoryQueries returns Post")]
 		public void ThenTheQueryCategoryQueriesReturnsPost()
 		{
@@ -90,8 +82,16 @@ namespace ForumTests.Steps
 			Assert.AreEqual(score, post.Score);
 		}
 
+		[When(@"I publish the command PublishPost")]
+		public void WhenIPublishTheCommandPublishPost()
+		{
+			var publisher = GetContainer().Resolve<IPublisher>();
+
+			PubIdOfLastMessage = publisher.PublishMessage(new PublishPost {Title = PostTitle, Body = PostBody, CategoryIdentifier = _categoryId});
+		}
+
 		[When(@"I publish the command CommentOnPost")]
-		public void WhenIPublishThecommandCommentOnPost()
+		public void WhenIPublishTheCommandCommentOnPost()
 		{
 			var publisher = GetContainer().Resolve<IPublisher>();
 			var query = GetContainer().Resolve<PostQueries>();
@@ -102,7 +102,7 @@ namespace ForumTests.Steps
 		}
 
 		[When(@"I publish the command VoteOnComment VoteUp=(.*)")]
-		public void WhenIPublishThecommandVoteOnComment(bool direction)
+		public void WhenIPublishTheCommandVoteOnComment(bool direction)
 		{
 			var publisher = GetContainer().Resolve<IPublisher>();
 			var postQueries = GetContainer().Resolve<PostQueries>();
@@ -116,7 +116,7 @@ namespace ForumTests.Steps
 		}
 
 		[When(@"I publish the command VoteOnPost VoteUp=(.*)")]
-		public void WhenIPublishThecommandVoteOnPost(bool direction)
+		public void WhenIPublishTheCommandVoteOnPost(bool direction)
 		{
 			var publisher = GetContainer().Resolve<IPublisher>();
 			var query = GetContainer().Resolve<PostQueries>();

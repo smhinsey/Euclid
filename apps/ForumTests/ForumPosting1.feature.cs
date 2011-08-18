@@ -77,9 +77,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("the agent ForumAgent");
 #line 10
- testRunner.And("I publish the command PublishPost");
+ testRunner.When("I publish the command PublishPost");
 #line 11
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 13
  testRunner.Then("the query ForumQueries returns the Post");
 #line hidden
@@ -96,9 +96,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 16
  testRunner.Given("the agent ForumAgent");
 #line 18
- testRunner.And("I publish the command PublishPost");
+ testRunner.When("I publish the command PublishPost");
 #line 19
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 21
  testRunner.Then("the query CategoryQueries returns Post");
 #line hidden

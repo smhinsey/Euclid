@@ -77,9 +77,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("the agent ForumAgent");
 #line 10
- testRunner.And("I publish the command RegisterUser");
+ testRunner.When("I publish the command RegisterUser");
 #line 11
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 13
  testRunner.Then("the query UserQueries returns the Profile");
 #line hidden
@@ -96,13 +96,13 @@ this.ScenarioSetup(scenarioInfo);
 #line 17
  testRunner.Given("the agent ForumAgent");
 #line 19
- testRunner.And("I publish the command RegisterUser");
+ testRunner.When("I publish the command RegisterUser");
 #line 20
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 22
- testRunner.And("I publish the command UpdateUserProfile");
+ testRunner.When("I publish the command UpdateUserProfile");
 #line 23
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 25
  testRunner.Then("the query UserQueries returns the updated Profile");
 #line hidden
@@ -119,9 +119,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 28
  testRunner.Given("the agent ForumAgent");
 #line 30
- testRunner.And("I publish the command RegisterUser");
+ testRunner.When("I publish the command RegisterUser");
 #line 31
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 33
  testRunner.Then("the query UserQueries can authenticate");
 #line hidden

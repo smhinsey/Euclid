@@ -7,49 +7,49 @@ Feature: Forum Voting
 Scenario: Vote Post Up
 	Given the agent ForumAgent
 
-	And I publish the command PublishPost
-	When the command is complete
+	When I publish the command PublishPost
+	And the command is complete
 
-	And I publish the command VoteOnPost VoteUp=true
-	When the command is complete
+	When I publish the command VoteOnPost VoteUp=true
+	And the command is complete
 
 	Then the query ForumQueries returns the post with a score of 1
 
 Scenario: Vote Post Down
 	Given the agent ForumAgent
 
-	And I publish the command PublishPost
-	When the command is complete
+	When I publish the command PublishPost
+	And the command is complete
 
-	And I publish the command VoteOnPost VoteUp=false
-	When the command is complete
+	When I publish the command VoteOnPost VoteUp=false
+	And the command is complete
 
 	Then the query ForumQueries returns the post with a score of -1
 
 Scenario: Vote Comment Up
 	Given the agent ForumAgent
 	
-	And I publish the command PublishPost
-	When the command is complete
+	When I publish the command PublishPost
+	And the command is complete
 
-	And I publish the command CommentOnPost
-	When the command is complete
+	When I publish the command CommentOnPost
+	And the command is complete
 	
-	And I publish the command VoteOnComment VoteUp=true
-	When the command is complete
+	When I publish the command VoteOnComment VoteUp=true
+	And the command is complete
 
 	Then the query CommentQueries returns the post with a score of 1
 
 Scenario: Vote Comment Down
 	Given the agent ForumAgent
 	
-	And I publish the command PublishPost
-	When the command is complete
+	When I publish the command PublishPost
+	And the command is complete
 
-	And I publish the command CommentOnPost
-	When the command is complete
+	When I publish the command CommentOnPost
+	And the command is complete
 	
-	And I publish the command VoteOnComment VoteUp=false
-	When the command is complete
+	When I publish the command VoteOnComment VoteUp=false
+	And the command is complete
 
 	Then the query CommentQueries returns the post with a score of -1

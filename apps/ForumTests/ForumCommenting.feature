@@ -7,10 +7,10 @@ Feature: Forum Commenting
 Scenario: Comment on Post
 	Given the agent ForumAgent
 
-	And I publish the command PublishPost
-	When the command is complete
+	When I publish the command PublishPost
+	And the command is complete
 
-	And I publish the command CommentOnPost
-	When the command is complete
+	When I publish the command CommentOnPost
+	And the command is complete
 
 	Then the query CommentQueries returns the Comment

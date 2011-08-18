@@ -77,13 +77,13 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("the agent ForumAgent");
 #line 10
- testRunner.And("I publish the command PublishPost");
+ testRunner.When("I publish the command PublishPost");
 #line 11
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 13
- testRunner.And("I publish the command VoteOnPost VoteUp=true");
+ testRunner.When("I publish the command VoteOnPost VoteUp=true");
 #line 14
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 16
  testRunner.Then("the query ForumQueries returns the post with a score of 1");
 #line hidden
@@ -100,13 +100,13 @@ this.ScenarioSetup(scenarioInfo);
 #line 19
  testRunner.Given("the agent ForumAgent");
 #line 21
- testRunner.And("I publish the command PublishPost");
+ testRunner.When("I publish the command PublishPost");
 #line 22
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 24
- testRunner.And("I publish the command VoteOnPost VoteUp=false");
+ testRunner.When("I publish the command VoteOnPost VoteUp=false");
 #line 25
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 27
  testRunner.Then("the query ForumQueries returns the post with a score of -1");
 #line hidden
@@ -123,17 +123,17 @@ this.ScenarioSetup(scenarioInfo);
 #line 30
  testRunner.Given("the agent ForumAgent");
 #line 32
- testRunner.And("I publish the command PublishPost");
+ testRunner.When("I publish the command PublishPost");
 #line 33
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 35
- testRunner.And("I publish the command CommentOnPost");
+ testRunner.When("I publish the command CommentOnPost");
 #line 36
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 38
- testRunner.And("I publish the command VoteOnComment VoteUp=true");
+ testRunner.When("I publish the command VoteOnComment VoteUp=true");
 #line 39
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 41
  testRunner.Then("the query CommentQueries returns the post with a score of 1");
 #line hidden
@@ -150,17 +150,17 @@ this.ScenarioSetup(scenarioInfo);
 #line 44
  testRunner.Given("the agent ForumAgent");
 #line 46
- testRunner.And("I publish the command PublishPost");
+ testRunner.When("I publish the command PublishPost");
 #line 47
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 49
- testRunner.And("I publish the command CommentOnPost");
+ testRunner.When("I publish the command CommentOnPost");
 #line 50
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 52
- testRunner.And("I publish the command VoteOnComment VoteUp=false");
+ testRunner.When("I publish the command VoteOnComment VoteUp=false");
 #line 53
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 55
  testRunner.Then("the query CommentQueries returns the post with a score of -1");
 #line hidden

@@ -7,15 +7,15 @@ Feature: Forum Posting
 Scenario: Publish Post
 	Given the agent ForumAgent
 	
-	And I publish the command PublishPost
-	When the command is complete
+	When I publish the command PublishPost
+	And the command is complete
 	
 	Then the query ForumQueries returns the Post
 
 Scenario: Publish Post in a Category
 	Given the agent ForumAgent
 	
-	And I publish the command PublishPost
-	When the command is complete
+	When I publish the command PublishPost
+	And the command is complete
 	
 	Then the query CategoryQueries returns Post

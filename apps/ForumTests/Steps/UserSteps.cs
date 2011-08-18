@@ -14,14 +14,6 @@ namespace ForumTests.Steps
 		private const string Password = "password";
 		private const string Username = "johndoe";
 
-		[Given(@"I publish the command RegisterUser")]
-		public void GivenIPublishTheCommandRegisterUser()
-		{
-			var publisher = GetContainer().Resolve<IPublisher>();
-
-			PubIdOfLastMessage = publisher.PublishMessage(new RegisterUser {Username = Username, PasswordHash = Password, PasswordSalt = Password});
-		}
-
 		[Then(@"the query UserQueries can authenticate")]
 		public void ThenTheQueryUserQueriesCanAuthenticate()
 		{
@@ -54,6 +46,14 @@ namespace ForumTests.Steps
 
 			Assert.IsNotNull(profile);
 			Assert.AreEqual(Email, profile.Email);
+		}
+
+		[When(@"I publish the command RegisterUser")]
+		public void WhenIPublishTheCommandRegisterUser()
+		{
+			var publisher = GetContainer().Resolve<IPublisher>();
+
+			PubIdOfLastMessage = publisher.PublishMessage(new RegisterUser {Username = Username, PasswordHash = Password, PasswordSalt = Password});
 		}
 
 		[When(@"I publish the command UpdateUserProfile")]

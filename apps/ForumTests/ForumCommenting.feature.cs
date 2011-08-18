@@ -77,13 +77,13 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("the agent ForumAgent");
 #line 10
- testRunner.And("I publish the command PublishPost");
+ testRunner.When("I publish the command PublishPost");
 #line 11
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 13
- testRunner.And("I publish the command CommentOnPost");
+ testRunner.When("I publish the command CommentOnPost");
 #line 14
- testRunner.When("the command is complete");
+ testRunner.And("the command is complete");
 #line 16
  testRunner.Then("the query CommentQueries returns the Comment");
 #line hidden

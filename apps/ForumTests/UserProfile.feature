@@ -7,8 +7,8 @@ Feature: User Profiles
 Scenario: Register a Profile
 	Given the agent ForumAgent
 
-	And I publish the command RegisterUser
-	When the command is complete
+	When I publish the command RegisterUser
+	And the command is complete
 
 	Then the query UserQueries returns the Profile
 
@@ -16,18 +16,18 @@ Scenario: Register a Profile
 Scenario: Update a Profile
 	Given the agent ForumAgent
 
-	And I publish the command RegisterUser
-	When the command is complete
+	When I publish the command RegisterUser
+	And the command is complete
 
-	And I publish the command UpdateUserProfile
-	When the command is complete
+	When I publish the command UpdateUserProfile
+	And the command is complete
 
 	Then the query UserQueries returns the updated Profile
 
 Scenario: Authenticate as User
 	Given the agent ForumAgent
 
-	And I publish the command RegisterUser
-	When the command is complete
+	When I publish the command RegisterUser
+	And the command is complete
 
 	Then the query UserQueries can authenticate
