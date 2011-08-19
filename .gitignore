@@ -10,5 +10,4 @@ _ReSharper.Euclid/*
 _ReSharper.*
 nuget/temp
 nuget/Euclid.*.nupkg
-packages/Euclid.*
 *.dotCover

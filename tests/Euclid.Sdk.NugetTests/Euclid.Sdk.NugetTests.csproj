@@ -106,6 +106,9 @@
     <Reference Include="Euclid.Framework.Agent">
       <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.Agent.dll</HintPath>
     </Reference>
+    <Reference Include="Euclid.Framework.AgentMetadata">
+      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.AgentMetadata.dll</HintPath>
+    </Reference>
     <Reference Include="Euclid.Framework.Cqrs">
       <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.Cqrs.dll</HintPath>
     </Reference>
@@ -159,6 +162,10 @@
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.SHDocVw">
+      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Interop.SHDocVw.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\log4net.dll</HintPath>
@@ -302,9 +309,6 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Metadata\Views\Web.config" />
@@ -497,6 +501,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Metadata\Content\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

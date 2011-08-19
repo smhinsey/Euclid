@@ -1,4 +1,4 @@
-@SdkSpecs
+@SdkSpecs @MetadataService
 Feature: Euclid agents provide metadata
 	In order to satisfy requests for metadata
 	As an agent
@@ -35,7 +35,6 @@ Examples:
 
 # todo: future content types
 #    | xhtml       | text/html        |
-
 
 Scenario Outline: Agent part collections provide formatted metadata
 	Given a part collection <descriptive-name>

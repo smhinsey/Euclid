@@ -21,6 +21,7 @@ namespace Euclid.Sdk.Metadata
     [NUnit.Framework.DescriptionAttribute("In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" +
         "a in arbitrary formats")]
     [NUnit.Framework.CategoryAttribute("SdkSpecs")]
+    [NUnit.Framework.CategoryAttribute("MetadataService")]
     public partial class EuclidAgentsProvideMetadataFeature
     {
         
@@ -35,7 +36,8 @@ namespace Euclid.Sdk.Metadata
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Euclid agents provide metadata", "In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" +
                     "a in arbitrary formats", ProgrammingLanguage.CSharp, new string[] {
-                        "SdkSpecs"});
+                        "SdkSpecs",
+                        "MetadataService"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -128,15 +130,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void AgentPartCollectionsProvideFormattedMetadata(string descriptive_Name, string format_Name, string content_Type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Agent part collections provide formatted metadata", exampleTags);
-#line 40
+#line 39
 this.ScenarioSetup(scenarioInfo);
-#line 41
+#line 40
  testRunner.Given(string.Format("a part collection {0}", descriptive_Name));
-#line 42
+#line 41
  testRunner.When(string.Format("metadata is requested as {0}", format_Name));
-#line 43
+#line 42
     testRunner.Then(string.Format("it can be represented as {0}", content_Type));
-#line 44
+#line 43
     testRunner.And("has been independently validated");
 #line hidden
             this.ScenarioCleanup();
@@ -151,17 +153,17 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CollectionsOfAgentMetadataProvide2TypesOfFormattedMetadata(string representation_Type, string format_Name, string content_Type, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Collections of agent metadata provide 2 types of formatted metadata", exampleTags);
-#line 55
+#line 54
 this.ScenarioSetup(scenarioInfo);
-#line 56
+#line 55
     testRunner.Given("an agent collection");
-#line 57
+#line 56
     testRunner.When(string.Format("the {0} is requested from the collection", representation_Type));
-#line 58
+#line 57
     testRunner.When(string.Format("metadata is requested as {0}", format_Name));
-#line 59
+#line 58
     testRunner.Then(string.Format("it can be represented as {0}", content_Type));
-#line 60
+#line 59
     testRunner.And("has been independently validated");
 #line hidden
             this.ScenarioCleanup();
