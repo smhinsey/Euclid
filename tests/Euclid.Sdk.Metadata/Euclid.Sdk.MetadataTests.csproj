@@ -55,12 +55,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AgentPartsProvideMetadataTestSteps.cs" />
+    <Compile Include="AgentPartCollectionProvidesMetadata.cs" />
+    <Compile Include="AgentPartProvidesMetadata.cs" />
     <Compile Include="AgentPartsProvideMetadataTestSteps.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AgentPartsProvideMetadataTestSteps.feature</DependentUpon>
     </Compile>
+    <Compile Include="AgentProvidesMetadata.cs" />
+    <Compile Include="CommonWhenThenAndSteps.cs" />
+    <Compile Include="PropertiesUsedInTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,9 +88,17 @@
       <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
       <Name>Euclid.Framework.Agent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
+      <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
+      <Name>Euclid.Framework.Cqrs.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
       <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
       <Name>Euclid.Framework.Cqrs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
+      <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>
+      <Name>Euclid.Framework.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>

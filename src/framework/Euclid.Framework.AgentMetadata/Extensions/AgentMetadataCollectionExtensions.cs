@@ -33,7 +33,7 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 
 				foreach (var agent in _metadataList)
 				{
-					root.Add(XElement.Parse(agent.GetBasicRepresentation("xml")));
+					root.Add(XElement.Parse(agent.GetBasicMetadataFormatter().GetRepresentation("xml")));
 				}
 
 				return root.ToString();
@@ -64,7 +64,7 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 
 				foreach (var agent in _metadataList)
 				{
-					root.Add(XElement.Parse(agent.GetRepresentation("xml")));
+					root.Add(XElement.Parse(agent.GetMetadataFormatter().GetRepresentation("xml")));
 				}
 
 				return root.ToString();

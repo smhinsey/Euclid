@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AgentMetadataFormatter.cs" />
+    <Compile Include="AgentMetadata.cs" />
     <Compile Include="AgentPartFormatterNotFoundException.cs" />
     <Compile Include="ArgumentMetadata.cs" />
     <Compile Include="Extensions\AgentMetadataCollectionExtensions.cs" />

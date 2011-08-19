@@ -28,7 +28,7 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 
 		public static IAgentMetadata GetAgentMetadata(this Assembly assembly)
 		{
-			return new AgentMetadataFormatter(assembly);
+			return new AgentMetadata(assembly);
 		}
 
 		public static string GetAgentName(this Assembly agent)

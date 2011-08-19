@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Euclid.Framework.AgentMetadata
 {
-	public interface IAgentMetadata : IMetadataFormatter
+	public interface IAgentMetadata
 	{
 		Assembly AgentAssembly { get; }
 		IPartCollection Commands { get; }
@@ -13,7 +13,8 @@ namespace Euclid.Framework.AgentMetadata
 		IPartCollection ReadModels { get; }
 		string SystemName { get; }
 
-		string GetBasicRepresentation(string format);
+	    IMetadataFormatter GetBasicMetadataFormatter();
+	    IMetadataFormatter GetMetadataFormatter();
 
 		ITypeMetadata GetPartByTypeName(string partName);
 		IPartCollection GetPartCollectionByDescriptiveName(string descriptiveName);
