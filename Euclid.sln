@@ -87,11 +87,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.IntegrationTests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.MetadataTests", "tests\Euclid.Sdk.Metadata\Euclid.Sdk.MetadataTests.csproj", "{AC366DF0-1269-4C2C-9599-B02FCB8402FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataComposite", "src\SDK\MetadataComposite\MetadataComposite.csproj", "{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetadataComposite", "src\sdk\MetadataComposite\MetadataComposite.csproj", "{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.TestingSupport", "src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj", "{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.AgentMetadata", "src\framework\Euclid.Framework.AgentMetadata\Euclid.Framework.AgentMetadata.csproj", "{276664F8-43A3-43E6-AA9A-B9A275B14013}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.NugetTests", "tests\Euclid.Sdk.NugetTests\Euclid.Sdk.NugetTests.csproj", "{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -601,6 +603,18 @@ Global
 		{276664F8-43A3-43E6-AA9A-B9A275B14013}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{276664F8-43A3-43E6-AA9A-B9A275B14013}.Release|x64.ActiveCfg = Release|Any CPU
 		{276664F8-43A3-43E6-AA9A-B9A275B14013}.Release|x86.ActiveCfg = Release|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -648,5 +662,6 @@ Global
 		{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 		{02AAAF17-7C44-43EB-9AA8-48E03A7C67AE} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 		{AC366DF0-1269-4C2C-9599-B02FCB8402FE} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
+		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 	EndGlobalSection
 EndGlobal
