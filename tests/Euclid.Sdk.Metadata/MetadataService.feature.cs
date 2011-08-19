@@ -26,7 +26,7 @@ namespace Euclid.Sdk.Metadata
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "AgentPartsProvideMetadataTestSteps.feature"
+#line 1 "MetadataService.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]

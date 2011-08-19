@@ -57,10 +57,10 @@
   <ItemGroup>
     <Compile Include="AgentPartCollectionProvidesMetadata.cs" />
     <Compile Include="AgentPartProvidesMetadata.cs" />
-    <Compile Include="AgentPartsProvideMetadataTestSteps.feature.cs">
+    <Compile Include="MetadataService.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AgentPartsProvideMetadataTestSteps.feature</DependentUpon>
+      <DependentUpon>MetadataService.feature</DependentUpon>
     </Compile>
     <Compile Include="AgentProvidesMetadata.cs" />
     <Compile Include="CollectionOfAgentsProvideMetadata.cs" />
@@ -70,9 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="AgentPartsProvideMetadataTestSteps.feature">
+    <None Include="MetadataService.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AgentPartsProvideMetadataTestSteps.feature.cs</LastGenOutput>
+      <LastGenOutput>MetadataService.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
