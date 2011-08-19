@@ -1,5 +1,5 @@
 @SdkSpecs
-Feature: Euclid agents provide metadata about their parts
+Feature: Euclid agents provide metadata
 	In order to satisfy requests for metadata
 	As an agent
 	I need to provide metadata in arbitrary formats

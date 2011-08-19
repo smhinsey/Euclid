@@ -21,7 +21,7 @@ namespace Euclid.Sdk.Metadata
     [NUnit.Framework.DescriptionAttribute("In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" +
         "a in arbitrary formats")]
     [NUnit.Framework.CategoryAttribute("SdkSpecs")]
-    public partial class EuclidAgentsProvideMetadataAboutTheirPartsFeature
+    public partial class EuclidAgentsProvideMetadataFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -33,7 +33,7 @@ namespace Euclid.Sdk.Metadata
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Euclid agents provide metadata about their parts", "In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Euclid agents provide metadata", "In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" +
                     "a in arbitrary formats", ProgrammingLanguage.CSharp, new string[] {
                         "SdkSpecs"});
             testRunner.OnFeatureStart(featureInfo);

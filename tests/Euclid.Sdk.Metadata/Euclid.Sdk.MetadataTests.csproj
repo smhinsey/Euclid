@@ -63,6 +63,7 @@
       <DependentUpon>AgentPartsProvideMetadataTestSteps.feature</DependentUpon>
     </Compile>
     <Compile Include="AgentProvidesMetadata.cs" />
+    <Compile Include="CollectionOfAgentsProvideMetadata.cs" />
     <Compile Include="CommonWhenThenAndSteps.cs" />
     <Compile Include="PropertiesUsedInTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
