@@ -4,6 +4,7 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
+using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.Storage.Model;
@@ -15,7 +16,7 @@ using Euclid.Framework.Cqrs;
 
 namespace Euclid.Framework.HostingFabric
 {
-	public class BasicFabric : IFabricRuntime
+	public class BasicFabric : IFabricRuntime, ILoggingSource
 	{
 		protected ICompositeApp Composite;
 		protected IList<Type> ConfiguredHostedServices;
@@ -45,6 +46,8 @@ namespace Euclid.Framework.HostingFabric
 
 		public virtual void Initialize(IFabricRuntimeSettings settings)
 		{
+			this.WriteDebugMessage(string.Format("Initializing {0}", GetType().Name));
+
 			if (settings.ServiceHost.Value == null)
 			{
 				throw new NoServiceHostConfiguredException("You must configure a service host.");
@@ -68,19 +71,27 @@ namespace Euclid.Framework.HostingFabric
 			}
 
 			CurrentSettings = settings;
+
+			this.WriteInfoMessage(string.Format("Initialized {0}.", GetType().Name));
 		}
 
 		public virtual void Shutdown()
 		{
+			this.WriteDebugMessage(string.Format("Shutting down {0}.", GetType().Name));
+
 			State = FabricRuntimeState.Stoppping;
 
 			_serviceHost.CancelAll();
 
 			State = FabricRuntimeState.Stopped;
+
+			this.WriteInfoMessage(string.Format("Shut down {0}.", GetType().Name));
 		}
 
 		public virtual void Start()
 		{
+			this.WriteDebugMessage(string.Format("Starting {0}.", GetType().Name));
+
 			var hostedServices = new List<IHostedService>();
 
 			foreach (var hostedServiceType in CurrentSettings.HostedServices.Value)
@@ -106,10 +117,14 @@ namespace Euclid.Framework.HostingFabric
 			_serviceHost.StartAll();
 
 			State = FabricRuntimeState.Started;
+
+			this.WriteInfoMessage(string.Format("Started {0}.", GetType().Name));
 		}
 
 		public void InstallComposite(ICompositeApp composite)
 		{
+			this.WriteDebugMessage(string.Format("Installing composite {0}.", composite.GetType().FullName));
+
 			if (Composite != null)
 			{
 				throw new CompositeAlreadyInstalledException();
@@ -125,6 +140,8 @@ namespace Euclid.Framework.HostingFabric
 			Container.Register(Component.For(typeof (ISimpleRepository<>)).ImplementedBy(typeof (NhSimpleRepository<>)).LifeStyle.Transient);
 
 			extractProcessorsFromAgents();
+
+			this.WriteInfoMessage(string.Format("Installed composite {0}.", composite.GetType().Name));
 		}
 
 		private void extractProcessorsFromAgents()

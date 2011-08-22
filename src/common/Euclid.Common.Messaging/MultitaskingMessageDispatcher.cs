@@ -80,9 +80,8 @@ namespace Euclid.Common.Messaging
 				(_messageProcessors as List<IMessageProcessor>).Add(processor);
 			}
 
-			this.WriteInfoMessage
-				(string.Format
-				 	("Dispatcher configured with input channel type {0} and {1} message processors.", _inputChannel.GetType(), _messageProcessors.Count()));
+			this.WriteInfoMessage(string.Format("Dispatcher configured with input channel {0}({1}) and {2} message processors.", 
+				_inputChannel.GetType().Name, _inputChannel.ChannelName , _messageProcessors.Count()));
 
 			_configured = true;
 		}
@@ -107,6 +106,8 @@ namespace Euclid.Common.Messaging
 
 		public void Enable()
 		{
+			this.WriteDebugMessage("Begining to enable dispatcher.");
+
 			dispatcherIsConfigured();
 
 			_inputChannel.Open();
@@ -115,9 +116,9 @@ namespace Euclid.Common.Messaging
 
 			State = MessageDispatcherState.Enabled;
 
-			this.WriteInfoMessage("Dispatcher enabled.");
-
 			_listenerTask = Task.Factory.StartNew(taskMethod => pollChannelForRecords(), _cancellationToken);
+
+			this.WriteInfoMessage("Dispatcher enabled.");
 		}
 
 		private void dispatchMessage()

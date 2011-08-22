@@ -96,6 +96,8 @@ namespace Euclid.Common.ServiceHost
 
 		public Guid Install(IHostedService service)
 		{
+			this.WriteDebugMessage(string.Format("Installing hosted service {0}({1}).", service.GetType().Name, service.Name));
+
 			var serviceId = Guid.NewGuid();
 
 			var cancellationTokenSource = new CancellationTokenSource();
@@ -109,6 +111,8 @@ namespace Euclid.Common.ServiceHost
 
 			Services.Add(serviceId, service);
 
+			this.WriteInfoMessage(string.Format("Installed hosted service {0}.", service.Name));
+
 			return serviceId;
 		}
 
@@ -116,20 +120,20 @@ namespace Euclid.Common.ServiceHost
 		{
 			checkForHostedService(id);
 
-			this.WriteInfoMessage(string.Format("Starting hosted service {0}, identifier {1}.", Services[id].Name, id));
-
 			State = ServiceHostState.Starting;
 
 			_taskMap[id].Start();
 
 			State = ServiceHostState.Started;
+
+			this.WriteInfoMessage(string.Format("Started hosted service {0}, identifier {1}.", Services[id].Name, id));
 		}
 
 		public void StartAll()
 		{
 			State = ServiceHostState.Starting;
 
-			this.WriteInfoMessage(string.Format("Starting service host with {0} hosted services.", Services.Count));
+			this.WriteDebugMessage(string.Format("Starting service host with {0} hosted services.", Services.Count));
 
 			foreach (var task in _taskMap.Select(taskMapEntry => taskMapEntry.Value))
 			{
@@ -140,6 +144,8 @@ namespace Euclid.Common.ServiceHost
 			}
 
 			State = ServiceHostState.Started;
+
+			this.WriteInfoMessage(string.Format("Started service host with {0} hosted services.", Services.Count));
 		}
 
 		private void checkForHostedService(Guid id)

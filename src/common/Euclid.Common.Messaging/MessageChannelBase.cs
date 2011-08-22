@@ -5,6 +5,7 @@ namespace Euclid.Common.Messaging
 {
 	public abstract class MessageChannelBase : IMessageChannel
 	{
+		// SELF why does ChannelName need to be a new guid in order for AzureMessageChannel to work?
 		protected MessageChannelBase()
 		{
 			State = ChannelState.Invalid;
