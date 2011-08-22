@@ -15,7 +15,12 @@ namespace Euclid.Common.Messaging
 
 		public Guid PublishMessage(IMessage message)
 		{
-			if (_channel.State != ChannelState.Open)
+            if (_channel == null)
+            {
+                throw new NullReferenceException("the publishing channel is null");
+            }
+
+            if (_channel.State != ChannelState.Open)
 			{
 				_channel.Open();
 			}

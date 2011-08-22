@@ -1,11 +1,10 @@
 using System;
+using System.Text;
 
 namespace Euclid.Common.Configuration
 {
 	public class OverridableTypeSetting<TImplements> : IOverridableSetting<Type>
 	{
-		private Type _value;
-
 		public OverridableTypeSetting(string name)
 		{
 			Name = name;
@@ -15,18 +14,7 @@ namespace Euclid.Common.Configuration
 
 		public string Name { get; private set; }
 
-		public Type Value
-		{
-			get { return _value; }
-			private set
-			{
-				if (!typeof (TImplements).IsAssignableFrom(value))
-				{
-					throw new InvalidTypeSettingException(Name, typeof (TImplements), value);
-				}
-				_value = value;
-			}
-		}
+        public Type Value { get; private set; }
 
 		public bool WasOverridden { get; private set; }
 
@@ -34,12 +22,56 @@ namespace Euclid.Common.Configuration
 		{
 			Value = newValue;
 			WasOverridden = true;
+
+		    Validate();
 		}
 
 		public void WithDefault(Type value)
 		{
 			Value = value;
 			DefaultValue = Value;
+
+		    Validate();
 		}
+
+        public virtual void Validate()
+        {
+            if (Value == null)
+            {
+                throw new NullSettingException(Name);
+            }
+
+            if (!typeof(TImplements).IsAssignableFrom(Value))
+            {
+                throw new InvalidTypeSettingException(Name, typeof(TImplements), Value);
+            }
+        }
+
+        public virtual bool IsValid()
+        {
+            return (Value != null && typeof (TImplements).IsAssignableFrom(Value));
+        }
+
+        public virtual string GetInvalidReason()
+        {
+            if (!IsValid())
+            {
+                var message = new StringBuilder("The setting ");
+                message.AppendFormat("'{0}'", Name);
+
+                if (Value == null)
+                {
+                    message.AppendFormat(" is null");
+                }
+                else if (!typeof(TImplements).IsAssignableFrom(Value))
+                {
+                    message.AppendFormat(" does not implement {0}", typeof (TImplements).Name);
+                }
+
+                return message.ToString();
+            }
+
+            return string.Empty;
+        }
 	}
 }

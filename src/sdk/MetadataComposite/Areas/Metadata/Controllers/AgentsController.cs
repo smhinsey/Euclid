@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using AgentPanel.Areas.Metadata.Models;
 using Euclid.Common.Messaging;
 using Euclid.Composites;
 using Euclid.Composites.Conversion;
@@ -6,9 +7,8 @@ using Euclid.Composites.Mvc.ActionFilters;
 using Euclid.Framework.AgentMetadata;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
-using MetadataComposite.Areas.Metadata.Models;
 
-namespace MetadataComposite.Areas.Metadata.Controllers
+namespace AgentPanel.Areas.Metadata.Controllers
 {
 	public class AgentsController : Controller
 	{

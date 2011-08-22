@@ -2,14 +2,22 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace MetadataComposite
+namespace AgentPanel
 {
 	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
 	// visit http://go.microsoft.com/?LinkId=9394801
 
-	public partial class MvcApplication : HttpApplication
+	public class MvcApplication : HttpApplication
 	{
-		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        protected void Application_Start()
+        {
+            AreaRegistration.RegisterAllAreas();
+
+            RegisterGlobalFilters(GlobalFilters.Filters);
+            RegisterRoutes(RouteTable.Routes);
+        }
+        
+        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
 			filters.Add(new HandleErrorAttribute());
 		}

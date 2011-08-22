@@ -119,6 +119,7 @@
     <Compile Include="Conversion\PartNameNotRegisteredException.cs" />
     <Compile Include="InvalidCompositeApplicationStateException.cs" />
     <Compile Include="Extensions\AgentResolversExtensions.cs" />
+    <Compile Include="InvalidConfigurationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

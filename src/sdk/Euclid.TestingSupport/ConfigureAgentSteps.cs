@@ -86,7 +86,7 @@ namespace Euclid.TestingSupport
 		{
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.MessageChannel.WithDefault(typeof (AzureMessageChannel));
+			compositeAppSettings.OutputChannel.WithDefault(typeof (AzureMessageChannel));
 			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
 			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
 

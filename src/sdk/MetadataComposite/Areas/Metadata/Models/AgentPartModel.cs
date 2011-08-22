@@ -1,6 +1,6 @@
 using Euclid.Framework.AgentMetadata;
 
-namespace MetadataComposite.Areas.Metadata.Models
+namespace AgentPanel.Areas.Metadata.Models
 {
 	public class AgentPartModel : FooterLinkModel
 	{

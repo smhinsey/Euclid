@@ -12,8 +12,8 @@ namespace Euclid.Composites.Conversion
 {
 	public class InputModelToCommandTransformerRegistry : IInputModelTransfomerRegistry, ILoggingSource
 	{
-		private readonly Dictionary<string, Tuple<Type, ITypeMetadata>> _inputModelsAndValues =
-			new Dictionary<string, Tuple<Type, ITypeMetadata>>();
+        private readonly Dictionary<string, IInputToCommandConverter> _inputModelsAndValues =
+            new Dictionary<string, IInputToCommandConverter>();
 
 		public void Add(string partName, IInputToCommandConverter converter)
 		{
@@ -24,7 +24,7 @@ namespace Euclid.Composites.Conversion
 
 			var partMetadata = converter.CommandType.GetMetadata();
 
-			_inputModelsAndValues.Add(partName, new Tuple<Type, ITypeMetadata>(converter.InputModelType, partMetadata));
+			_inputModelsAndValues.Add(partName, converter);
 
 			Mapper.CreateMap(converter.InputModelType, partMetadata.Type).ConvertUsing(converter.GetType());
 		}
@@ -32,13 +32,13 @@ namespace Euclid.Composites.Conversion
 		public ICommand GetCommand(IInputModel model)
 		{
 			var partName = _inputModelsAndValues
-				.Where(row => row.Value.Item1 == model.GetType())
+				.Where(row => row.Value.InputModelType == model.GetType())
 				.Select(row => row.Key)
 				.FirstOrDefault();
 
 			GuardPartNameRegistered(partName);
 
-			var command = Activator.CreateInstance(_inputModelsAndValues[partName].Item2.Type) as ICommand;
+			var command = Activator.CreateInstance(_inputModelsAndValues[partName].CommandType) as ICommand;
 
 			if (command == null)
 			{
@@ -63,14 +63,14 @@ namespace Euclid.Composites.Conversion
 		{
 			GuardPartNameRegistered(partName);
 
-			return _inputModelsAndValues[partName].Item2.Type;
+			return _inputModelsAndValues[partName].CommandType;
 		}
 
 		public IInputModel GetInputModel(string partName)
 		{
 			GuardPartNameRegistered(partName);
 
-			return Activator.CreateInstance(_inputModelsAndValues[partName].Item1) as IInputModel;
+			return Activator.CreateInstance(_inputModelsAndValues[partName].InputModelType) as IInputModel;
 		}
 
 		private void GuardPartNameRegistered(string partName)
@@ -80,6 +80,12 @@ namespace Euclid.Composites.Conversion
 				throw new InputModelForPartNotRegisteredException(partName);
 			}
 		}
+
+        public IEnumerable<ITypeMetadata> GetInputModels()
+        {
+            return _inputModelsAndValues.Values.Select(c => c.InputModelType.GetMetadata());
+        }
+
 	}
 
 	public class InputModelForPartNotRegisteredException : Exception

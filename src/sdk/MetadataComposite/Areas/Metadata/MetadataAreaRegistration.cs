@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace MetadataComposite.Areas.Metadata
+namespace AgentPanel.Areas.Metadata
 {
 	public class MetadataAreaRegistration : AreaRegistration
 	{

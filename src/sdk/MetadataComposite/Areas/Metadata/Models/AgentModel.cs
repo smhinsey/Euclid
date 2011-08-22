@@ -1,4 +1,4 @@
-namespace MetadataComposite.Areas.Metadata.Models
+namespace AgentPanel.Areas.Metadata.Models
 {
 	public class AgentModel : FooterLinkModel
 	{

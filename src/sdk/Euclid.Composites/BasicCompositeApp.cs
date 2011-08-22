@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Castle.Core;
@@ -22,16 +23,23 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
+using Component = Castle.MicroKernel.Registration.Component;
 using IQuery = Euclid.Framework.Cqrs.IQuery;
 
 namespace Euclid.Composites
 {
 	public class BasicCompositeApp : ICompositeApp
 	{
+	    private readonly IList<IAgentMetadata> _agents;
+
+        private readonly IList<ITypeMetadata> _inputModels;
+
 		public BasicCompositeApp()
 		{
-			State = CompositeApplicationState.Uninitailized;
-			Agents = new List<IAgentMetadata>();
+            _agents = new List<IAgentMetadata>();
+            _inputModels = new List<ITypeMetadata>();
+            
+            State = CompositeApplicationState.Uninitailized;
 			InputModelTransformers = new InputModelToCommandTransformerRegistry();
 			Container = new WindsorContainer();
 		}
@@ -41,9 +49,11 @@ namespace Euclid.Composites
 			Container = container;
 		}
 
-		public IList<IAgentMetadata> Agents { get; private set; }
+        public IEnumerable<IAgentMetadata> Agents { get { return _agents; } }
 
-		public CompositeApplicationState State { get; set; }
+        public IEnumerable<ITypeMetadata> InputModels { get { return _inputModels; } }
+
+        public CompositeApplicationState State { get; set; }
 
 		protected IWindsorContainer Container { get; set; }
 
@@ -53,7 +63,9 @@ namespace Euclid.Composites
 
 		public virtual void Configure(CompositeAppSettings compositeAppSettings)
 		{
-			Container.Kernel.Resolver.AddSubResolver(new ArrayResolver(Container.Kernel));
+		    compositeAppSettings.Validate();
+
+            Container.Kernel.Resolver.AddSubResolver(new ArrayResolver(Container.Kernel));
 
 			Container.Kernel.Resolver.AddSubResolver(new ListResolver(Container.Kernel));
 
@@ -83,7 +95,7 @@ namespace Euclid.Composites
 			// enumerate queries, commands & read models
 			var agent = assembly.GetAgentMetadata();
 
-			Agents.Add(agent);
+            _agents.Add(agent);
 
 			// SELF the Where call below changes the meaning of the rest of the registration so it had to be removed
 
@@ -117,9 +129,29 @@ namespace Euclid.Composites
 			}
 
 			InputModelTransformers.Add(commandMetadata.Name, converter);
+
+            if (!_inputModels.Where(x=>x.Type == converter.InputModelType).Any())
+            {
+                _inputModels.Add(converter.InputModelType.GetMetadata());
+            }
 		}
 
-		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
+	    public IMetadataFormatter GetFormatter(CompositeMetadata forMetadata)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public bool HasConfigurationErrors()
+	    {
+	        return GetConfigurationErrors().Count() == 0;
+	    }
+
+        public IEnumerable<string> GetConfigurationErrors()
+        {
+            return Settings.GetInvalidSettingReasons();
+        }
+
+	    public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
 		{
 			var lifestyleType = (isWeb) ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
@@ -149,7 +181,7 @@ namespace Euclid.Composites
 			                   	.LifeStyle.Transient);
 
 			Container.Register(Component.For<IMessageChannel>()
-			                   	.ImplementedBy(compositeAppSettings.MessageChannel.Value)
+			                   	.ImplementedBy(compositeAppSettings.OutputChannel.Value)
 			                   	.LifeStyle.Transient);
 
 			Container.Register(Component.For<IRecordMapper<CommandPublicationRecord>>()
