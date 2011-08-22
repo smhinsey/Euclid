@@ -10,20 +10,26 @@ namespace Euclid.Composites.Mvc.ActionFilters
 		{
 			var format = filterContext.ActionParameters["format"] as string ?? string.Empty;
 
-			if (string.IsNullOrEmpty(format)) return;
+			if (string.IsNullOrEmpty(format))
+			{
+				return;
+			}
 
 			var inputModel = filterContext.ActionParameters["inputModel"] as IInputModel;
 
-			if (inputModel == null) return;
+			if (inputModel == null)
+			{
+				return;
+			}
 
 			var formatter = inputModel.GetMetadataFormatter();
 
 			filterContext.Result = new ContentResult
-			                       	{
-			                       		Content = formatter.GetRepresentation(format),
-			                       		ContentEncoding = formatter.GetEncoding(format),
-			                       		ContentType = formatter.GetContentType(format)
-			                       	};
+				{
+					Content = formatter.GetRepresentation(format), 
+					ContentEncoding = formatter.GetEncoding(format), 
+					ContentType = formatter.GetContentType(format)
+				};
 
 			base.OnActionExecuting(filterContext);
 		}

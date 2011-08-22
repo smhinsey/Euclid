@@ -19,7 +19,7 @@ namespace Euclid.Composite.InputModelMapping
 
 			var composite = new BasicCompositeApp(container);
 
-			composite.AddAgent(typeof (FakeCommand).Assembly);
+			composite.AddAgent(typeof(FakeCommand).Assembly);
 
 			composite.RegisterNh(SQLiteConfiguration.Standard.UsingFile("CompositeTestsDb"), true, false);
 

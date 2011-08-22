@@ -8,14 +8,12 @@ namespace Euclid.Framework.EventSourcing
 		protected override void OnStart()
 		{
 			// set up EventStore and wire it into the container
-
 			throw new NotImplementedException();
 		}
 
 		protected override void OnStop()
 		{
 			// take a snapshot and shut down
-
 			throw new NotImplementedException();
 		}
 	}

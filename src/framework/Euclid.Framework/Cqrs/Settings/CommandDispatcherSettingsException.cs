@@ -7,7 +7,7 @@ namespace Euclid.Framework.Cqrs.Settings
 	{
 		public CommandDispatcherSettingsException(IList<string> errors)
 		{
-			ConfigurationErrors = errors;
+			this.ConfigurationErrors = errors;
 		}
 
 		public IEnumerable<string> ConfigurationErrors { get; private set; }

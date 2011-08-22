@@ -13,85 +13,89 @@ namespace Euclid.Common.ServiceHost
 	public class MultitaskingServiceHost : IServiceHost, ILoggingSource
 	{
 		private readonly IList<Exception> _serviceExceptions;
+
 		private readonly TimeSpan _shutdownTimeout;
+
 		private readonly IDictionary<Guid, Task> _taskMap;
+
 		private readonly IDictionary<Guid, CancellationTokenSource> _taskTokenSources;
 
 		public MultitaskingServiceHost()
 		{
-			_taskMap = new Dictionary<Guid, Task>();
-			_taskTokenSources = new Dictionary<Guid, CancellationTokenSource>();
-			_shutdownTimeout = TimeSpan.Parse("00:00:10");
-			_serviceExceptions = new List<Exception>();
+			this._taskMap = new Dictionary<Guid, Task>();
+			this._taskTokenSources = new Dictionary<Guid, CancellationTokenSource>();
+			this._shutdownTimeout = TimeSpan.Parse("00:00:10");
+			this._serviceExceptions = new List<Exception>();
 
-			Services = new Dictionary<Guid, IHostedService>();
+			this.Services = new Dictionary<Guid, IHostedService>();
 		}
 
 		public IDictionary<Guid, IHostedService> Services { get; private set; }
+
 		public ServiceHostState State { get; private set; }
 
 		public void Cancel(Guid id)
 		{
-			checkForHostedService(id);
+			this.checkForHostedService(id);
 
-			this.WriteInfoMessage(string.Format("Cancelling hosted service {0}, identifier {1}.", Services[id].Name, id));
+			this.WriteInfoMessage(string.Format("Cancelling hosted service {0}, identifier {1}.", this.Services[id].Name, id));
 
-			State = ServiceHostState.Stopping;
+			this.State = ServiceHostState.Stopping;
 
-			_taskTokenSources[id].Cancel();
+			this._taskTokenSources[id].Cancel();
 
-			_taskMap[id].Wait();
+			this._taskMap[id].Wait();
 
-			State = ServiceHostState.Stopped;
+			this.State = ServiceHostState.Stopped;
 		}
 
 		public void CancelAll()
 		{
-			State = ServiceHostState.Stopping;
+			this.State = ServiceHostState.Stopping;
 
-			this.WriteInfoMessage(string.Format("Cancelling {0} hosted services.", Services.Count));
+			this.WriteInfoMessage(string.Format("Cancelling {0} hosted services.", this.Services.Count));
 
-			foreach (var tokenSource in _taskTokenSources.Values)
+			foreach (var tokenSource in this._taskTokenSources.Values)
 			{
 				tokenSource.Cancel();
 			}
 
 			try
 			{
-				Task.WaitAll(_taskMap.Values.ToArray(), _shutdownTimeout);
+				Task.WaitAll(this._taskMap.Values.ToArray(), this._shutdownTimeout);
 			}
 			catch (AggregateException e)
 			{
 				foreach (var innerException in e.InnerExceptions)
 				{
-					_serviceExceptions.Add(innerException);
+					this._serviceExceptions.Add(innerException);
 				}
 			}
 
-			State = ServiceHostState.Stopped;
+			this.State = ServiceHostState.Stopped;
 		}
 
 		public IList<Exception> GetExceptionsThrownByHostedServices()
 		{
-			foreach (var task in _taskMap)
+			foreach (var task in this._taskMap)
 			{
 				if (task.Value.Exception != null)
 				{
 					foreach (var innerException in task.Value.Exception.InnerExceptions)
 					{
-						_serviceExceptions.Add(innerException);
+						this._serviceExceptions.Add(innerException);
 					}
 				}
 			}
 
-			return _serviceExceptions;
+			return this._serviceExceptions;
 		}
 
 		public HostedServiceState GetState(Guid id)
 		{
-			checkForHostedService(id);
+			this.checkForHostedService(id);
 
-			return Services[id].State;
+			return this.Services[id].State;
 		}
 
 		public Guid Install(IHostedService service)
@@ -103,13 +107,13 @@ namespace Euclid.Common.ServiceHost
 			var cancellationTokenSource = new CancellationTokenSource();
 			var cancellationToken = cancellationTokenSource.Token;
 
-			var task = createTask(service, cancellationToken);
+			var task = this.createTask(service, cancellationToken);
 
-			_taskMap.Add(serviceId, task);
+			this._taskMap.Add(serviceId, task);
 
-			_taskTokenSources.Add(serviceId, cancellationTokenSource);
+			this._taskTokenSources.Add(serviceId, cancellationTokenSource);
 
-			Services.Add(serviceId, service);
+			this.Services.Add(serviceId, service);
 
 			this.WriteInfoMessage(string.Format("Installed hosted service {0}.", service.Name));
 
@@ -118,24 +122,24 @@ namespace Euclid.Common.ServiceHost
 
 		public void Start(Guid id)
 		{
-			checkForHostedService(id);
+			this.checkForHostedService(id);
 
-			State = ServiceHostState.Starting;
+			this.State = ServiceHostState.Starting;
 
-			_taskMap[id].Start();
+			this._taskMap[id].Start();
 
-			State = ServiceHostState.Started;
+			this.State = ServiceHostState.Started;
 
-			this.WriteInfoMessage(string.Format("Started hosted service {0}, identifier {1}.", Services[id].Name, id));
+			this.WriteInfoMessage(string.Format("Started hosted service {0}, identifier {1}.", this.Services[id].Name, id));
 		}
 
 		public void StartAll()
 		{
-			State = ServiceHostState.Starting;
+			this.State = ServiceHostState.Starting;
 
-			this.WriteDebugMessage(string.Format("Starting service host with {0} hosted services.", Services.Count));
+			this.WriteDebugMessage(string.Format("Starting service host with {0} hosted services.", this.Services.Count));
 
-			foreach (var task in _taskMap.Select(taskMapEntry => taskMapEntry.Value))
+			foreach (var task in this._taskMap.Select(taskMapEntry => taskMapEntry.Value))
 			{
 				if (task.Status == TaskStatus.WaitingToRun || task.Status == TaskStatus.Created)
 				{
@@ -143,14 +147,14 @@ namespace Euclid.Common.ServiceHost
 				}
 			}
 
-			State = ServiceHostState.Started;
+			this.State = ServiceHostState.Started;
 
-			this.WriteInfoMessage(string.Format("Started service host with {0} hosted services.", Services.Count));
+			this.WriteInfoMessage(string.Format("Started service host with {0} hosted services.", this.Services.Count));
 		}
 
 		private void checkForHostedService(Guid id)
 		{
-			if (!_taskMap.ContainsKey(id))
+			if (!this._taskMap.ContainsKey(id))
 			{
 				throw new HostedServiceNotFoundException(id);
 			}

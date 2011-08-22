@@ -8,24 +8,24 @@ namespace Euclid.Framework.Cqrs.Settings
 
 		private CommandHostService()
 		{
-			_dispatchers = new List<ICommandDispatcher>();
+			this._dispatchers = new List<ICommandDispatcher>();
+		}
+
+		public static CommandHostService Configure()
+		{
+			return new CommandHostService();
 		}
 
 		public CommandHostService AddDispatcher(Dispatcher dispatcher)
 		{
-			_dispatchers.Add(Dispatcher.GetConfiguredCommandDispatcher(dispatcher));
+			this._dispatchers.Add(Dispatcher.GetConfiguredCommandDispatcher(dispatcher));
 
 			return this;
 		}
 
 		public CommandHost GetCommandHost()
 		{
-			return new CommandHost(_dispatchers);
-		}
-
-		public static CommandHostService Configure()
-		{
-			return new CommandHostService();
+			return new CommandHost(this._dispatchers);
 		}
 	}
 }

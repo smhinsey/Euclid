@@ -11,12 +11,13 @@ namespace Euclid.Sdk.FakeAgent.Processors
 	public class FakeCommandProcessor : DefaultCommandProcessor<FakeCommand>, ILoggingSource
 	{
 		private readonly FakeQuery _query;
+
 		private readonly ISimpleRepository<FakeReadModel> _repository;
 
 		public FakeCommandProcessor(FakeQuery query, ISimpleRepository<FakeReadModel> repository)
 		{
-			_query = query;
-			_repository = repository;
+			this._query = query;
+			this._repository = repository;
 		}
 
 		public override void Process(FakeCommand message)
@@ -24,14 +25,11 @@ namespace Euclid.Sdk.FakeAgent.Processors
 			this.WriteInfoMessage("Command no. {0} was processed by FakeCommandProcessor", message.Number);
 
 			var model = new FakeReadModel
-			            	{
-			            		Identifier = Guid.NewGuid(),
-			            		Number = message.Number,
-			            		Created = DateTime.Now,
-			            		Modified = DateTime.Now
-			            	};
+				{
+       Identifier = Guid.NewGuid(), Number = message.Number, Created = DateTime.Now, Modified = DateTime.Now 
+    };
 
-			_repository.Save(model);
+			this._repository.Save(model);
 		}
 	}
 }

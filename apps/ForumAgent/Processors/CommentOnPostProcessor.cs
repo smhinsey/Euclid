@@ -12,22 +12,22 @@ namespace ForumAgent.Processors
 
 		public CommentOnPostProcessor(ISimpleRepository<Comment> repository)
 		{
-			_repository = repository;
+			this._repository = repository;
 		}
 
 		public override void Process(CommentOnPost message)
 		{
 			var comment = new Comment
-			              	{
-			              		AuthorIdentifier = message.AuthorIdentifier,
-			              		Body = message.Body,
-			              		PostIdentifier = message.PostIdentifier,
-			              		Score = 0,
-			              		Created = DateTime.Now,
-			              		Modified = DateTime.Now
-			              	};
+				{
+					AuthorIdentifier = message.AuthorIdentifier, 
+					Body = message.Body, 
+					PostIdentifier = message.PostIdentifier, 
+					Score = 0, 
+					Created = DateTime.Now, 
+					Modified = DateTime.Now
+				};
 
-			_repository.Save(comment);
+			this._repository.Save(comment);
 		}
 	}
 }

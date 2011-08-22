@@ -6,6 +6,7 @@ namespace MetadataComposite.Areas.Metadata.Models
 	public class InputModelFakeCommand4 : InputModelBase
 	{
 		public DateTime BirthDay { get; set; }
+
 		public string Password { get; set; }
 	}
 }

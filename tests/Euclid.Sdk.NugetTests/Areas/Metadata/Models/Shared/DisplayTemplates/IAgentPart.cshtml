@@ -2,18 +2,18 @@
 @model AgentPartModel
 
 
-@Model.Part.DescriptiveName
-(<a href="@Url.Action("ViewPartCollection", "Agents", new {agentSystemName = @Model.AgentSystemName, descriptiveName = @Model.Part.DescriptiveName})">html</a> |
-<a href="@Url.Action("ViewPartCollection", "Agents", new {agentSystemName = @Model.AgentSystemName, descriptiveName = @Model.Part.DescriptiveName, format = "xml"})">xml</a> |
-<a href="@Url.Action("ViewPartCollection", "Agents", new {agentSystemName = @Model.AgentSystemName, descriptiveName = @Model.Part.DescriptiveName, format = "json"})">json</a>)
+@this.Model.Part.DescriptiveName
+(<a href="@this.Url.Action("ViewPartCollection", "Agents", new { agentSystemName = this.Model.AgentSystemName, descriptiveName = this.Model.Part.DescriptiveName })">html</a> |
+<a href="@this.Url.Action("ViewPartCollection", "Agents", new { agentSystemName = this.Model.AgentSystemName, descriptiveName = this.Model.Part.DescriptiveName, format = "xml" })">xml</a> |
+<a href="@this.Url.Action("ViewPartCollection", "Agents", new { agentSystemName = this.Model.AgentSystemName, descriptiveName = this.Model.Part.DescriptiveName, format = "json" })">json</a>)
 <ul>
-	@foreach (var p in @Model.Part.Collection)
+	@foreach (var p in this.Model.Part.Collection)
 	{
-		<li id="@Model.AgentSystemName-@Model.Part.CollectionType.Name.ToLower()">
+		<li id="@this.Model.AgentSystemName-@this.Model.Part.CollectionType.Name.ToLower()">
 			@p.Namespace.@p.Name
-			(<a href="@Url.Action(@Model.NextAction, "Agents", new {agentSystemName = @Model.AgentSystemName, partName = p.Name})">html</a> |
-			<a href="@Url.Action(@Model.NextAction, "Agents", new {agentSystemName = @Model.AgentSystemName, partName = p.Name, format = "xml"})">xml</a> |
-			<a href="@Url.Action(@Model.NextAction, "Agents", new {agentSystemName = @Model.AgentSystemName, partName = p.Name, format = "json"})">json</a>)
+			(<a href="@this.Url.Action(this.Model.NextAction, "Agents", new { agentSystemName = this.Model.AgentSystemName, partName = p.Name })">html</a> |
+			<a href="@this.Url.Action(this.Model.NextAction, "Agents", new { agentSystemName = this.Model.AgentSystemName, partName = p.Name, format = "xml" })">xml</a> |
+			<a href="@this.Url.Action(this.Model.NextAction, "Agents", new { agentSystemName = this.Model.AgentSystemName, partName = p.Name, format = "json" })">json</a>)
 
 		</li>
 	}

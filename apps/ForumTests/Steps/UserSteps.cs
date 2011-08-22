@@ -11,13 +11,15 @@ namespace ForumTests.Steps
 	public class UserSteps : DefaultSpecSteps
 	{
 		private const string Email = "johndoe@email.service";
+
 		private const string Password = "password";
+
 		private const string Username = "johndoe";
 
 		[Then(@"the query UserQueries can authenticate")]
 		public void ThenTheQueryUserQueriesCanAuthenticate()
 		{
-			var query = GetContainer().Resolve<UserQueries>();
+			var query = this.GetContainer().Resolve<UserQueries>();
 
 			var authenticationResult = query.Authenticate(Username, Password);
 
@@ -27,7 +29,7 @@ namespace ForumTests.Steps
 		[Then(@"the query UserQueries returns the Profile")]
 		public void ThenTheQueryUserQueriesReturnsTheProfile()
 		{
-			var query = GetContainer().Resolve<UserQueries>();
+			var query = this.GetContainer().Resolve<UserQueries>();
 
 			var user = query.FindByUsername(Username);
 
@@ -39,7 +41,7 @@ namespace ForumTests.Steps
 		[Then(@"the query UserQueries returns the updated Profile")]
 		public void ThenTheQueryUserQueriesReturnsTheUpdatedProfile()
 		{
-			var userQueries = GetContainer().Resolve<UserQueries>();
+			var userQueries = this.GetContainer().Resolve<UserQueries>();
 
 			var user = userQueries.FindByUsername(Username);
 			var profile = userQueries.FindByUserIdentifier(user.Identifier);
@@ -51,20 +53,22 @@ namespace ForumTests.Steps
 		[When(@"I publish the command RegisterUser")]
 		public void WhenIPublishTheCommandRegisterUser()
 		{
-			var publisher = GetContainer().Resolve<IPublisher>();
+			var publisher = this.GetContainer().Resolve<IPublisher>();
 
-			PubIdOfLastMessage = publisher.PublishMessage(new RegisterUser {Username = Username, PasswordHash = Password, PasswordSalt = Password});
+			PubIdOfLastMessage =
+				publisher.PublishMessage(new RegisterUser { Username = Username, PasswordHash = Password, PasswordSalt = Password });
 		}
 
 		[When(@"I publish the command UpdateUserProfile")]
 		public void WhenIPublishTheCommandUpdateUserProfile()
 		{
-			var publisher = GetContainer().Resolve<IPublisher>();
-			var query = GetContainer().Resolve<UserQueries>();
+			var publisher = this.GetContainer().Resolve<IPublisher>();
+			var query = this.GetContainer().Resolve<UserQueries>();
 
 			var user = query.FindByUsername(Username);
 
-			PubIdOfLastMessage = publisher.PublishMessage(new UpdateUserProfile {Email = Email, UserIdentifier = user.Identifier});
+			PubIdOfLastMessage =
+				publisher.PublishMessage(new UpdateUserProfile { Email = Email, UserIdentifier = user.Identifier });
 		}
 	}
 }

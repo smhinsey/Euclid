@@ -12,24 +12,24 @@ namespace ForumAgent.Processors
 
 		public PublishPostProcessor(ISimpleRepository<Post> repository)
 		{
-			_repository = repository;
+			this._repository = repository;
 		}
 
 		public override void Process(PublishPost message)
 		{
 			var post = new Post
-			           	{
-			           		AuthorIdentifier = message.AuthorIdentifier,
-			           		Body = message.Body,
-			           		Score = 0,
-			           		Title = message.Title,
-			           		CategoryIdentifier = message.CategoryIdentifier,
-			           		Identifier = message.Identifier,
-			           		Created = DateTime.Now,
-			           		Modified = DateTime.Now
-			           	};
+				{
+					AuthorIdentifier = message.AuthorIdentifier, 
+					Body = message.Body, 
+					Score = 0, 
+					Title = message.Title, 
+					CategoryIdentifier = message.CategoryIdentifier, 
+					Identifier = message.Identifier, 
+					Created = DateTime.Now, 
+					Modified = DateTime.Now
+				};
 
-			_repository.Save(post);
+			this._repository.Save(post);
 		}
 	}
 }

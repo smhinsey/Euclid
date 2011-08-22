@@ -1,15 +1,15 @@
 ﻿@model CommandMetadataModel
 
-<div class="model-header">@ViewBag.Title</div>
+<div class="model-header">@this.ViewBag.Title</div>
 
 <ul>
 	<li>
-		@Model.Commands.Namespace
+		@this.Model.Commands.Namespace
 		<ul>
-			@foreach (var m in Model.Commands)
+			@foreach (var m in this.Model.Commands)
 			{
 				<li>
-					<a href="@Url.Action("Inspect", "Command", new {agentSystemName = Model.AgentSystemName, commandName = m.Name})">
+					<a href="@this.Url.Action("Inspect", "Command", new { agentSystemName = this.Model.AgentSystemName, commandName = m.Name })">
 						@m.Name
 					</a>
 				</li>

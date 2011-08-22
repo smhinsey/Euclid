@@ -17,24 +17,27 @@ namespace Euclid.Framework.AgentMetadata
 
 		public AgentMetadata(Assembly agent)
 		{
-			_agent = agent;
+			this._agent = agent;
 
-			IsValid = _agent.ContainsAgent();
+			this.IsValid = this._agent.ContainsAgent();
 
-			if (IsValid)
+			if (this.IsValid)
 			{
-				DescriptiveName = _agent.GetAgentName();
-				SystemName = _agent.GetAgentSystemName();
+				this.DescriptiveName = this._agent.GetAgentName();
+				this.SystemName = this._agent.GetAgentSystemName();
 
-				Commands = new CommandPartCollection(_agent, _agent.GetCommandNamespace());
-				Queries = new QueryPartCollection(_agent, _agent.GetQueryNamespace());
-				ReadModels = new ReadModelPartCollection(_agent, _agent.GetReadModelNamespace());
+				this.Commands = new CommandPartCollection(this._agent, this._agent.GetCommandNamespace());
+				this.Queries = new QueryPartCollection(this._agent, this._agent.GetQueryNamespace());
+				this.ReadModels = new ReadModelPartCollection(this._agent, this._agent.GetReadModelNamespace());
 			}
 		}
 
 		public Assembly AgentAssembly
 		{
-			get { return _agent; }
+			get
+			{
+				return this._agent;
+			}
 		}
 
 		public IPartCollection Commands { get; private set; }
@@ -61,7 +64,7 @@ namespace Euclid.Framework.AgentMetadata
 
 		public ITypeMetadata GetPartByTypeName(string partName)
 		{
-			var partCollection = GetPartCollectionContainingPartName(partName);
+			var partCollection = this.GetPartCollectionContainingPartName(partName);
 
 			return partCollection.Collection.Where(m => m.Name == partName).FirstOrDefault();
 		}
@@ -70,17 +73,17 @@ namespace Euclid.Framework.AgentMetadata
 		{
 			if (descriptiveName.ToLower() == "commands")
 			{
-				return Commands;
+				return this.Commands;
 			}
 
 			if (descriptiveName.ToLower() == "queries")
 			{
-				return Queries;
+				return this.Queries;
 			}
 
 			if (descriptiveName.ToLower() == "readmodels")
 			{
-				return ReadModels;
+				return this.ReadModels;
 			}
 
 			throw new PartCollectionNotFound(descriptiveName);
@@ -88,7 +91,7 @@ namespace Euclid.Framework.AgentMetadata
 
 		public IPartCollection GetPartCollectionContainingPartName(string partName)
 		{
-			var allParts = Commands.Collection.Union(ReadModels.Collection).Union(Queries.Collection);
+			var allParts = this.Commands.Collection.Union(this.ReadModels.Collection).Union(this.Queries.Collection);
 
 			var part = allParts.Where(x => x.Name == partName).FirstOrDefault();
 
@@ -97,22 +100,22 @@ namespace Euclid.Framework.AgentMetadata
 				throw new PartCollectionNotFound(partName);
 			}
 
-			return GetPartCollectionContainingType(part.Type);
+			return this.GetPartCollectionContainingType(part.Type);
 		}
 
 		public IPartCollection GetPartCollectionContainingType(Type partType)
 		{
-			if (typeof (ICommand).IsAssignableFrom(partType))
+			if (typeof(ICommand).IsAssignableFrom(partType))
 			{
-				return Commands;
+				return this.Commands;
 			}
-			else if (typeof (IQuery).IsAssignableFrom(partType))
+			else if (typeof(IQuery).IsAssignableFrom(partType))
 			{
-				return Queries;
+				return this.Queries;
 			}
-			else if (typeof (IReadModel).IsAssignableFrom(partType))
+			else if (typeof(IReadModel).IsAssignableFrom(partType))
 			{
-				return ReadModels;
+				return this.ReadModels;
 			}
 
 			throw new PartCollectionNotFound(partType.Name);
@@ -124,44 +127,38 @@ namespace Euclid.Framework.AgentMetadata
 
 			public AgentMetadataFormatter(IAgentMetadata agentMetadata)
 			{
-				_agentMetadata = agentMetadata;
+				this._agentMetadata = agentMetadata;
 			}
 
 			protected override string GetAsXml()
 			{
-				var xml = new XElement("Agent",
-				                       new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
-				                       new XElement("SystemName", _agentMetadata.SystemName));
+				var xml = new XElement(
+					"Agent", 
+					new XElement("DescriptiveName", this._agentMetadata.DescriptiveName), 
+					new XElement("SystemName", this._agentMetadata.SystemName));
 
 				var commands = new XElement("Commands");
-				foreach (var c in _agentMetadata.Commands.Collection)
+				foreach (var c in this._agentMetadata.Commands.Collection)
 				{
-					commands.Add(
-					             new XElement("Command",
-					                          new XAttribute("Namespace", c.Namespace),
-					                          new XAttribute("Name", c.Name)));
+					commands.Add(new XElement("Command", new XAttribute("Namespace", c.Namespace), new XAttribute("Name", c.Name)));
 				}
+
 				xml.Add(commands);
 
-
 				var readModels = new XElement("ReadModels");
-				foreach (var r in _agentMetadata.ReadModels.Collection)
+				foreach (var r in this._agentMetadata.ReadModels.Collection)
 				{
-					readModels.Add(
-					               new XElement("ReadModel",
-					                            new XAttribute("Namespace", r.Namespace),
-					                            new XAttribute("Name", r.Name)));
+					readModels.Add(new XElement("ReadModel", new XAttribute("Namespace", r.Namespace), new XAttribute("Name", r.Name)));
 				}
+
 				xml.Add(readModels);
 
 				var queries = new XElement("Queries");
-				foreach (var q in _agentMetadata.Queries.Collection)
+				foreach (var q in this._agentMetadata.Queries.Collection)
 				{
-					queries.Add(
-					            new XElement("Query",
-					                         new XAttribute("Namespace", q.Namespace),
-					                         new XAttribute("Name", q.Name)));
+					queries.Add(new XElement("Query", new XAttribute("Namespace", q.Namespace), new XAttribute("Name", q.Name)));
 				}
+
 				xml.Add(queries);
 
 				return xml.ToString();
@@ -169,26 +166,15 @@ namespace Euclid.Framework.AgentMetadata
 
 			protected override object GetJsonObject(JsonSerializer serializer)
 			{
-				return new
-				       	{
-				       		_agentMetadata.DescriptiveName,
-				       		_agentMetadata.SystemName,
-				       		Commands = _agentMetadata.Commands.Collection.Select(x => new
-				       		                                                          	{
-				       		                                                          		x.Namespace,
-				       		                                                          		x.Name
-				       		                                                          	}),
-				       		ReadModels = _agentMetadata.ReadModels.Collection.Select(x => new
-				       		                                                              	{
-				       		                                                              		x.Namespace,
-				       		                                                              		x.Name
-				       		                                                              	}),
-				       		Queries = _agentMetadata.Queries.Collection.Select(x => new
-				       		                                                        	{
-				       		                                                        		x.Namespace,
-				       		                                                        		x.Name
-				       		                                                        	})
-				       	};
+				return
+					new
+						{
+							this._agentMetadata.DescriptiveName, 
+							this._agentMetadata.SystemName, 
+							Commands = this._agentMetadata.Commands.Collection.Select(x => new { x.Namespace, x.Name }), 
+							ReadModels = this._agentMetadata.ReadModels.Collection.Select(x => new { x.Namespace, x.Name }), 
+							Queries = this._agentMetadata.Queries.Collection.Select(x => new { x.Namespace, x.Name })
+						};
 			}
 		}
 
@@ -198,23 +184,21 @@ namespace Euclid.Framework.AgentMetadata
 
 			public BasicAgentMetadataFormatter(IAgentMetadata agentMetadata)
 			{
-				_agentMetadata = agentMetadata;
+				this._agentMetadata = agentMetadata;
 			}
 
 			protected override string GetAsXml()
 			{
-				return new XElement("Agent",
-				                    new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
-				                    new XElement("SystemName", _agentMetadata.SystemName)).ToString();
+				return
+					new XElement(
+						"Agent", 
+						new XElement("DescriptiveName", this._agentMetadata.DescriptiveName), 
+						new XElement("SystemName", this._agentMetadata.SystemName)).ToString();
 			}
 
 			protected override object GetJsonObject(JsonSerializer serializer)
 			{
-				return new
-				       	{
-				       		_agentMetadata.DescriptiveName,
-				       		_agentMetadata.SystemName
-				       	};
+				return new { this._agentMetadata.DescriptiveName, this._agentMetadata.SystemName };
 			}
 		}
 	}

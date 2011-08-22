@@ -12,7 +12,10 @@ namespace Euclid.Composites.Mvc.Models
 		[HiddenInput(DisplayValue = false)]
 		public string CommandName
 		{
-			get { return CommandType != null ? CommandType.Name : string.Empty; }
+			get
+			{
+				return this.CommandType != null ? this.CommandType.Name : string.Empty;
+			}
 		}
 
 		public Type CommandType { get; set; }

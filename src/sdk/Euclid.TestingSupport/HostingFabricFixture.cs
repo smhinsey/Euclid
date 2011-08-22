@@ -14,21 +14,23 @@ using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using FluentNHibernate.Cfg.Db;
+using log4net.Config;
 using Microsoft.WindowsAzure;
 using NUnit.Framework;
-using log4net.Config;
 
 namespace Euclid.TestingSupport
 {
 	public class HostingFabricFixture
 	{
-		private readonly Assembly[] _agentAssemblies;
 		protected WindsorContainer Container;
+
 		protected ConsoleFabric Fabric;
+
+		private readonly Assembly[] _agentAssemblies;
 
 		public HostingFabricFixture(params Assembly[] agentAssemblies)
 		{
-			_agentAssemblies = agentAssemblies;
+			this._agentAssemblies = agentAssemblies;
 		}
 
 		[SetUp]
@@ -36,35 +38,36 @@ namespace Euclid.TestingSupport
 		{
 			XmlConfigurator.Configure();
 
-			Container = new WindsorContainer();
+			this.Container = new WindsorContainer();
 
-			setAzureCredentials(Container);
+			this.setAzureCredentials(this.Container);
 
-			Fabric = new ConsoleFabric(Container);
+			this.Fabric = new ConsoleFabric(this.Container);
 
-			var composite = new BasicCompositeApp(Container);
+			var composite = new BasicCompositeApp(this.Container);
 
-			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+			composite.RegisterNh(
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
-			foreach (var agentAssembly in _agentAssemblies)
+			foreach (var agentAssembly in this._agentAssemblies)
 			{
 				composite.AddAgent(agentAssembly);
 			}
 
-			composite.Configure(getCompositeSettings());
+			composite.Configure(this.getCompositeSettings());
 
-			Fabric.Initialize(getFabricSettings());
+			this.Fabric.Initialize(this.getFabricSettings());
 
-			Fabric.InstallComposite(composite);
+			this.Fabric.InstallComposite(composite);
 
-			Fabric.Start();
+			this.Fabric.Start();
 		}
 
 		protected void WaitUntilComplete(Guid publicationId)
 		{
 			while (true)
 			{
-				var registry = Container.Resolve<ICommandRegistry>();
+				var registry = this.Container.Resolve<ICommandRegistry>();
 
 				var record = registry.GetPublicationRecord(publicationId);
 
@@ -81,9 +84,9 @@ namespace Euclid.TestingSupport
 		{
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.MessageChannel.WithDefault(typeof (AzureMessageChannel));
-			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
-			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.MessageChannel.WithDefault(typeof(AzureMessageChannel));
+			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
 
 			return compositeAppSettings;
 		}
@@ -92,8 +95,8 @@ namespace Euclid.TestingSupport
 		{
 			var fabricSettings = new FabricRuntimeSettings();
 
-			fabricSettings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
-			fabricSettings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
+			fabricSettings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
+			fabricSettings.HostedServices.WithDefault(new List<Type> { typeof(CommandHost) });
 
 			var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
 
@@ -106,11 +109,11 @@ namespace Euclid.TestingSupport
 		private void setAzureCredentials(IWindsorContainer container)
 		{
 			// as soon as we can stop using the azure storage emulator we should
-
-			var storageAccount = new CloudStorageAccount(CloudStorageAccount.DevelopmentStorageAccount.Credentials,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
+			var storageAccount = new CloudStorageAccount(
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
 		}

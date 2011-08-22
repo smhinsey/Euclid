@@ -12,21 +12,21 @@ namespace ForumAgent.Processors
 
 		public UpdateUserProfileProcessor(ISimpleRepository<UserProfile> repository)
 		{
-			_repository = repository;
+			this._repository = repository;
 		}
 
 		public override void Process(UpdateUserProfile message)
 		{
 			var profile = new UserProfile
-			              	{
-			              		AvatarUrl = message.AvatarUrl,
-			              		Email = message.Email,
-			              		UserIdentifier = message.UserIdentifier,
-			              		Created = DateTime.Now,
-			              		Modified = DateTime.Now
-			              	};
+				{
+					AvatarUrl = message.AvatarUrl, 
+					Email = message.Email, 
+					UserIdentifier = message.UserIdentifier, 
+					Created = DateTime.Now, 
+					Modified = DateTime.Now
+				};
 
-			_repository.Save(profile);
+			this._repository.Save(profile);
 		}
 	}
 }

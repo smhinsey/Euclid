@@ -13,62 +13,66 @@ namespace MetadataComposite.Areas.Metadata.Controllers
 	public class AgentsController : Controller
 	{
 		private readonly IPublisher _commandPublisher;
+
 		private readonly ICompositeApp _composite;
+
 		private readonly IInputModelTransfomerRegistry _transformer;
 
-		public AgentsController(ICompositeApp composite, IPublisher commandPublisher, IInputModelTransfomerRegistry transformer)
+		public AgentsController(
+			ICompositeApp composite, IPublisher commandPublisher, IInputModelTransfomerRegistry transformer)
 		{
-			_composite = composite;
-			_commandPublisher = commandPublisher;
-			_transformer = transformer;
+			this._composite = composite;
+			this._commandPublisher = commandPublisher;
+			this._transformer = transformer;
 		}
 
 		[FormatListOfBasicAgentMetadata]
 		public ViewResult Index(string format)
 		{
-			ViewBag.Title = "Agents in composite";
+			this.ViewBag.Title = "Agents in composite";
 
-			return View(new AgentListModel(_composite.Agents));
+			return this.View(new AgentListModel(this._composite.Agents));
 		}
 
 		[HttpPost]
 		public ContentResult Inspect(IInputModel inputModel)
 		{
-			var command = _transformer.GetCommand(inputModel);
+			var command = this._transformer.GetCommand(inputModel);
 
 			// smh: it's pretty surprising that Inspect calls Publish. i think this should be really explicit.
-			return Publish(command);
+			return this.Publish(command);
 		}
 
 		[FormatAgentMetadata]
 		public ViewResult ViewAgent(IAgentMetadata agentMetadata, string format)
 		{
-			ViewBag.Title = agentMetadata.SystemName;
+			this.ViewBag.Title = agentMetadata.SystemName;
 
-			return View(new AgentModel
-			            	{
-			            		DescriptiveName = agentMetadata.DescriptiveName,
-			            		SystemName = agentMetadata.SystemName,
-			            		Commands = new AgentPartModel
-			            		           	{
-			            		           		AgentSystemName = agentMetadata.SystemName,
-			            		           		NextAction = "ViewInputModelForCommand",
-			            		           		Part = agentMetadata.Commands
-			            		           	},
-			            		Queries = new AgentPartModel
-			            		          	{
-			            		          		AgentSystemName = agentMetadata.SystemName,
-			            		          		NextAction = "ViewPart",
-			            		          		Part = agentMetadata.Queries
-			            		          	},
-			            		ReadModels = new AgentPartModel
-			            		             	{
-			            		             		AgentSystemName = agentMetadata.SystemName,
-			            		             		NextAction = "ViewPart",
-			            		             		Part = agentMetadata.ReadModels
-			            		             	},
-			            		AgentSytemName = agentMetadata.SystemName
-			            	});
+			return
+				this.View(
+					new AgentModel
+						{
+							DescriptiveName = agentMetadata.DescriptiveName, 
+							SystemName = agentMetadata.SystemName, 
+							Commands =
+								new AgentPartModel
+									{
+										AgentSystemName = agentMetadata.SystemName, 
+										NextAction = "ViewInputModelForCommand", 
+										Part = agentMetadata.Commands
+									}, 
+							Queries =
+								new AgentPartModel
+									{
+            AgentSystemName = agentMetadata.SystemName, NextAction = "ViewPart", Part = agentMetadata.Queries 
+         }, 
+							ReadModels =
+								new AgentPartModel
+									{
+            AgentSystemName = agentMetadata.SystemName, NextAction = "ViewPart", Part = agentMetadata.ReadModels 
+         }, 
+							AgentSytemName = agentMetadata.SystemName
+						});
 		}
 
 		[FormatInputModel]
@@ -78,23 +82,18 @@ namespace MetadataComposite.Areas.Metadata.Controllers
 
 			if (inputModel == null)
 			{
-				return RedirectToAction("ViewPart",
-				                        new
-				                        	{
-				                        		partCollection.AgentSystemName,
-				                        		PartName = typeMetadata.Name,
-				                        		Format = format
-				                        	});
+				return this.RedirectToAction(
+					"ViewPart", new { partCollection.AgentSystemName, PartName = typeMetadata.Name, Format = format });
 			}
 
-			ViewBag.Title = typeMetadata.Type.Name;
+			this.ViewBag.Title = typeMetadata.Type.Name;
 
-			ViewBag.Navigation = new FooterLinkModel
-			                     	{
-			                     		AgentSytemName = partCollection.AgentSystemName,
-			                     		PartDescriptiveName = partCollection.DescriptiveName,
-			                     		PartType = typeMetadata.Type.Name
-			                     	};
+			this.ViewBag.Navigation = new FooterLinkModel
+				{
+					AgentSytemName = partCollection.AgentSystemName, 
+					PartDescriptiveName = partCollection.DescriptiveName, 
+					PartType = typeMetadata.Type.Name
+				};
 
 			ActionResult result = View("ViewInputModelForCommand", inputModel);
 
@@ -104,49 +103,46 @@ namespace MetadataComposite.Areas.Metadata.Controllers
 		[FormatPartMetadataAttribute]
 		public ActionResult ViewPart(ITypeMetadata typeMetadata, IPartCollection containingCollection, string format)
 		{
-			ViewBag.Title = typeMetadata.Name;
+			this.ViewBag.Title = typeMetadata.Name;
 
-			return View(new PartModel
-			            	{
-			            		TypeMetadata = typeMetadata,
-			            		NextActionName = (containingCollection.DescriptiveName == "Commands") ? "ViewInputModelForCommand" : "ViewPart",
-			            		AgentSytemName = containingCollection.AgentSystemName,
-			            		PartDescriptiveName = containingCollection.DescriptiveName,
-			            		PartType = typeMetadata.Type.Name
-			            	});
+			return
+				this.View(
+					new PartModel
+						{
+							TypeMetadata = typeMetadata, 
+							NextActionName = (containingCollection.DescriptiveName == "Commands") ? "ViewInputModelForCommand" : "ViewPart", 
+							AgentSytemName = containingCollection.AgentSystemName, 
+							PartDescriptiveName = containingCollection.DescriptiveName, 
+							PartType = typeMetadata.Type.Name
+						});
 		}
 
 		[FormatPartCollectionMetadata]
 		public ViewResult ViewPartCollection(IPartCollection partCollection, string format)
 		{
-			ViewBag.Title = string.Format("Agent {0}", partCollection.DescriptiveName);
+			this.ViewBag.Title = string.Format("Agent {0}", partCollection.DescriptiveName);
 
-			return View(
-			            new PartCollectionModel
-			            	{
-			            		Parts = partCollection,
-			            		NextActionName = (partCollection.DescriptiveName == "Commands") ? "ViewInputModelForCommand" : "ViewPart",
-			            		AgentSytemName = partCollection.AgentSystemName,
-			            		PartDescriptiveName = partCollection.DescriptiveName
-			            	});
+			return
+				this.View(
+					new PartCollectionModel
+						{
+							Parts = partCollection, 
+							NextActionName = (partCollection.DescriptiveName == "Commands") ? "ViewInputModelForCommand" : "ViewPart", 
+							AgentSytemName = partCollection.AgentSystemName, 
+							PartDescriptiveName = partCollection.DescriptiveName
+						});
 		}
 
 		private ContentResult Publish(ICommand command)
 		{
 			if (command == null)
 			{
-				return new ContentResult
-				       	{
-				       		Content = "No command to publish"
-				       	};
+				return new ContentResult { Content = "No command to publish" };
 			}
 
-			var commandId = _commandPublisher.PublishMessage(command);
+			var commandId = this._commandPublisher.PublishMessage(command);
 
-			return new ContentResult
-			       	{
-			       		Content = commandId.ToString()
-			       	};
+			return new ContentResult { Content = commandId.ToString() };
 		}
 	}
 }

@@ -8,10 +8,10 @@ namespace Euclid.Framework.HostingFabric
 	{
 		public FabricRuntimeSettings()
 		{
-			HostedServices = new OverridableSettingList<Type>();
-			ServiceHost = new OverridableSetting<Type>();
-			InputChannel = new OverridableSetting<IMessageChannel>();
-			ErrorChannel = new OverridableSetting<IMessageChannel>();
+			this.HostedServices = new OverridableSettingList<Type>();
+			this.ServiceHost = new OverridableSetting<Type>();
+			this.InputChannel = new OverridableSetting<IMessageChannel>();
+			this.ErrorChannel = new OverridableSetting<IMessageChannel>();
 		}
 
 		public IOverridableSetting<IMessageChannel> ErrorChannel { get; set; }
@@ -19,6 +19,7 @@ namespace Euclid.Framework.HostingFabric
 		public IOverridableSettingList<Type> HostedServices { get; set; }
 
 		public IOverridableSetting<IMessageChannel> InputChannel { get; set; }
+
 		public IOverridableSetting<Type> ServiceHost { get; set; }
 	}
 }

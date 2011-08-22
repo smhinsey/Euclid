@@ -8,8 +8,11 @@ namespace Euclid.Common.Storage.Binary
 		void Configure(IBlobStorageSettings settings);
 
 		void Delete(Uri uri);
+
 		bool Exists(Uri uri);
+
 		IBlob Get(Uri uri);
+
 		Uri Put(IBlob blob, string name);
 	}
 }

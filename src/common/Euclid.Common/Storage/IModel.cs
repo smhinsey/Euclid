@@ -9,7 +9,9 @@ namespace Euclid.Common.Storage
 	public interface IModel
 	{
 		DateTime Created { get; set; }
+
 		Guid Identifier { get; set; }
+
 		DateTime Modified { get; set; }
 	}
 }

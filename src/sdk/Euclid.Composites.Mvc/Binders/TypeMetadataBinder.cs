@@ -14,7 +14,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public TypeMetadataBinder(IAgentResolver[] resolvers)
 		{
-			_resolvers = resolvers;
+			this._resolvers = resolvers;
 		}
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
@@ -23,7 +23,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 			var partName = controllerContext.GetPartName();
 
-			var metadata = _resolvers.GetAgentMetadata(systemName);
+			var metadata = this._resolvers.GetAgentMetadata(systemName);
 
 			var typeMetadata = metadata.GetPartByTypeName(partName);
 
@@ -37,7 +37,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public bool IsMatch(Type modelType)
 		{
-			return typeof (ITypeMetadata).IsAssignableFrom(modelType);
+			return typeof(ITypeMetadata).IsAssignableFrom(modelType);
 		}
 	}
 }

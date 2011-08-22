@@ -12,36 +12,38 @@ namespace Euclid.Common.Storage.Azure
 	public class AzureBlobStorage : IBlobStorage
 	{
 		private readonly CloudStorageAccount _storageAccount;
+
 		private bool _init;
 
 		private IBlobStorageSettings _settings;
 
 		public AzureBlobStorage(CloudStorageAccount storageAccount)
 		{
-			_storageAccount = storageAccount;
+			this._storageAccount = storageAccount;
 
-			_settings = new BlobStorageSettings();
+			this._settings = new BlobStorageSettings();
 		}
 
 		public void Configure(IBlobStorageSettings settings)
 		{
-			_settings = settings;
+			this._settings = settings;
 		}
 
 		public void Delete(Uri uri)
 		{
-			var container = getContainer();
+			var container = this.getContainer();
 
 			var target = container.GetBlobReference(uri.ToString());
 
-			target.Delete(new BlobRequestOptions {DeleteSnapshotsOption = DeleteSnapshotsOption.IncludeSnapshots, UseFlatBlobListing = true});
+			target.Delete(
+				new BlobRequestOptions { DeleteSnapshotsOption = DeleteSnapshotsOption.IncludeSnapshots, UseFlatBlobListing = true });
 		}
 
 		public bool Exists(Uri uri)
 		{
 			var exists = true;
 
-			var container = getContainer();
+			var container = this.getContainer();
 
 			var target = container.GetBlobReference(uri.ToString());
 
@@ -61,22 +63,18 @@ namespace Euclid.Common.Storage.Azure
 		{
 			IBlob blob = null;
 
-			var options = new BlobRequestOptions
-			              	{
-			              		BlobListingDetails = BlobListingDetails.Metadata
-			              	};
+			var options = new BlobRequestOptions { BlobListingDetails = BlobListingDetails.Metadata };
 
-			var container = getContainer();
+			var container = this.getContainer();
 			var target = container.GetBlobReference(uri.ToString());
 
 			try
 			{
 				target.FetchAttributes();
 				blob = new Blob(target.Properties.ContentMD5, target.Properties.ETag)
-				       	{
-				       		Bytes = target.DownloadByteArray(),
-				       		ContentType = target.Properties.ContentType,
-				       	};
+					{
+        Bytes = target.DownloadByteArray(), ContentType = target.Properties.ContentType, 
+     };
 
 				foreach (var key in target.Metadata.AllKeys)
 				{
@@ -94,11 +92,12 @@ namespace Euclid.Common.Storage.Azure
 
 		public Uri Put(IBlob blob, string name)
 		{
-			var container = getContainer();
+			var container = this.getContainer();
 			var uri = container.Uri;
 			try
 			{
-				var blobName = string.Format("{2}.{0}.{1}", name, MimeTypes.GetExtensionFromContentType(blob.ContentType), Guid.NewGuid());
+				var blobName = string.Format(
+					"{2}.{0}.{1}", name, MimeTypes.GetExtensionFromContentType(blob.ContentType), Guid.NewGuid());
 
 				var azureBlob = container.GetBlobReference(blobName);
 
@@ -126,14 +125,14 @@ namespace Euclid.Common.Storage.Azure
 
 		private CloudBlobContainer getContainer()
 		{
-			var blobStorage = _storageAccount.CreateCloudBlobClient();
-			var container = blobStorage.GetContainerReference(_settings.ContainerName.Value);
+			var blobStorage = this._storageAccount.CreateCloudBlobClient();
+			var container = blobStorage.GetContainerReference(this._settings.ContainerName.Value);
 
-			if (!_init)
+			if (!this._init)
 			{
 				container.CreateIfNotExist();
-				container.SetPermissions(new BlobContainerPermissions {PublicAccess = BlobContainerPublicAccessType.Container});
-				_init = true;
+				container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
+				this._init = true;
 			}
 
 			return container;

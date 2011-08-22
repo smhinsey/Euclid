@@ -13,29 +13,73 @@ namespace Euclid.Common.IntegrationTests.Transport
 	[Category(TestCategories.Integration)]
 	public class AzureTransportTest
 	{
+		private const int AzureMaxReceiveAmount = 32;
+
+		private const int LargeNumber = 125;
+
+		private const int NumberOfThreads = 10;
+
 		private IMessageSerializer _serializer;
 
 		[TestFixtureSetUp]
 		public void Setup()
 		{
-			CloudStorageAccount.SetConfigurationSettingPublisher
-				((configurationKey, publishConfigurationValue) =>
-				 	{
-				 		var connectionString =
-				 			RoleEnvironment.IsAvailable
-				 				? RoleEnvironment.GetConfigurationSettingValue
-				 				  	(configurationKey)
-				 				: ConfigurationManager.AppSettings[configurationKey];
+			CloudStorageAccount.SetConfigurationSettingPublisher(
+				(configurationKey, publishConfigurationValue) =>
+					{
+						var connectionString = RoleEnvironment.IsAvailable
+						                       	? RoleEnvironment.GetConfigurationSettingValue(configurationKey)
+						                       	: ConfigurationManager.AppSettings[configurationKey];
 
-				 		publishConfigurationValue(connectionString);
-				 	});
+						publishConfigurationValue(connectionString);
+					});
 
-			_serializer = new JsonMessageSerializer();
+			this._serializer = new JsonMessageSerializer();
 		}
 
-		private const int LargeNumber = 125;
-		private const int AzureMaxReceiveAmount = 32;
-		private const int NumberOfThreads = 10;
+		[Test]
+		public void TestClear()
+		{
+			TestTransport.Clear(new AzureMessageChannel(this._serializer));
+		}
+
+		[Test]
+		public void TestScaleAsynchronously()
+		{
+			TestTransport.TestThroughputAsynchronously(
+				new AzureMessageChannel(this._serializer), LargeNumber, NumberOfThreads, AzureMaxReceiveAmount);
+		}
+
+		[Test]
+		public void TestScaleSynchronously()
+		{
+			TestTransport.TestThroughputSynchronously(
+				new AzureMessageChannel(this._serializer), LargeNumber, AzureMaxReceiveAmount);
+		}
+
+		[Test]
+		public void TestSendReceive()
+		{
+			TestTransport.SendAndReceiveSingleMessage(new AzureMessageChannel(this._serializer));
+		}
+
+		[Test]
+		public void TestSendingMessageOnClosedTransport()
+		{
+			TestTransport.TestSendingMessageOnClosedTransport(new AzureMessageChannel(this._serializer));
+		}
+
+		[Test]
+		public void TestStateTransitions()
+		{
+			TestTransport.StateTransitions(new AzureMessageChannel(this._serializer));
+		}
+
+		[Test]
+		public void TestTimeout()
+		{
+			TestTransport.ReceiveTimeout(new AzureMessageChannel(this._serializer));
+		}
 
 		private static void SendMessages(IMessageChannel channel, int numberOfMessagesToCreate)
 		{
@@ -44,50 +88,6 @@ namespace Euclid.Common.IntegrationTests.Transport
 				var msg = TestTransport.GetNewMessage();
 				channel.Send(msg);
 			}
-		}
-
-		[Test]
-		public void TestClear()
-		{
-			TestTransport.Clear(new AzureMessageChannel(_serializer));
-		}
-
-		[Test]
-		public void TestScaleAsynchronously()
-		{
-			TestTransport.TestThroughputAsynchronously
-				(new AzureMessageChannel(_serializer), LargeNumber, NumberOfThreads,
-				 AzureMaxReceiveAmount);
-		}
-
-		[Test]
-		public void TestScaleSynchronously()
-		{
-			TestTransport.TestThroughputSynchronously(new AzureMessageChannel(_serializer), LargeNumber, AzureMaxReceiveAmount);
-		}
-
-		[Test]
-		public void TestSendReceive()
-		{
-			TestTransport.SendAndReceiveSingleMessage(new AzureMessageChannel(_serializer));
-		}
-
-		[Test]
-		public void TestSendingMessageOnClosedTransport()
-		{
-			TestTransport.TestSendingMessageOnClosedTransport(new AzureMessageChannel(_serializer));
-		}
-
-		[Test]
-		public void TestStateTransitions()
-		{
-			TestTransport.StateTransitions(new AzureMessageChannel(_serializer));
-		}
-
-		[Test]
-		public void TestTimeout()
-		{
-			TestTransport.ReceiveTimeout(new AzureMessageChannel(_serializer));
 		}
 	}
 }

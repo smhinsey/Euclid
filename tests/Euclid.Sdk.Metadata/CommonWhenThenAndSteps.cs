@@ -11,11 +11,11 @@ namespace Euclid.Sdk.Metadata
 		[Then(@"has been independently validated")]
 		public void IndependentlyValidate()
 		{
-			Assert.NotNull(Formatter);
+			Assert.NotNull(this.Formatter);
 
-			Assert.False(string.IsNullOrEmpty(Format));
+			Assert.False(string.IsNullOrEmpty(this.Format));
 
-			var representation = Formatter.GetRepresentation(Format);
+			var representation = this.Formatter.GetRepresentation(this.Format);
 
 			Assert.False(string.IsNullOrEmpty(representation));
 
@@ -25,15 +25,15 @@ namespace Euclid.Sdk.Metadata
 		[Then(@"it can be represented as (.*)")]
 		public void ItCanBeRepresentedAs(string contentType)
 		{
-			Assert.NotNull(Formatter);
+			Assert.NotNull(this.Formatter);
 
-			Assert.False(string.IsNullOrEmpty(Format));
+			Assert.False(string.IsNullOrEmpty(this.Format));
 
 			Assert.False(string.IsNullOrEmpty(contentType));
 
-			Assert.AreEqual(contentType, Formatter.GetContentType(Format));
+			Assert.AreEqual(contentType, this.Formatter.GetContentType(this.Format));
 
-			Assert.True(Formatter.GetFormats(contentType).Contains(Format));
+			Assert.True(this.Formatter.GetFormats(contentType).Contains(this.Format));
 		}
 
 		[When(@"metadata is requested as (.*)")]
@@ -41,7 +41,7 @@ namespace Euclid.Sdk.Metadata
 		{
 			Assert.False(string.IsNullOrEmpty(format));
 
-			Format = format;
+			this.Format = format;
 		}
 	}
 }

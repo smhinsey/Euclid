@@ -11,13 +11,13 @@ namespace Euclid.Sdk.Metadata
 		[Given("a part collection (.*)")]
 		public void ThePartCollection(string descriptiveName)
 		{
-			Agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
+			this.Agent = typeof(FakeCommand).Assembly.GetAgentMetadata();
 
-			var partCollection = Agent.GetPartCollectionByDescriptiveName(descriptiveName);
+			var partCollection = this.Agent.GetPartCollectionByDescriptiveName(descriptiveName);
 
 			Assert.NotNull(partCollection);
 
-			Formatter = partCollection.GetFormatter();
+			this.Formatter = partCollection.GetFormatter();
 		}
 	}
 }

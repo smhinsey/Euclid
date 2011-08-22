@@ -37,10 +37,7 @@ namespace Euclid.Common.Messaging
 		{
 			var envelope = new Envelope(source);
 
-			var settings = new JsonSerializerSettings
-			               	{
-			               		ContractResolver = new CamelCasePropertyNamesContractResolver()
-			               	};
+			var settings = new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() };
 
 			var s = JsonConvert.SerializeObject(envelope, Formatting.None, settings);
 

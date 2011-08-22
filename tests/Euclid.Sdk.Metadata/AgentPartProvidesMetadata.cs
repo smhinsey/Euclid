@@ -12,18 +12,18 @@ namespace Euclid.Sdk.Metadata
 		[Given("the part (.*)")]
 		public void ValidAgentMetadata(string partName)
 		{
-			Agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
+			this.Agent = typeof(FakeCommand).Assembly.GetAgentMetadata();
 
 			switch (partName.ToLower())
 			{
 				case "command":
-					Formatter = typeof (FakeCommand).GetMetadata().GetFormatter();
+					this.Formatter = typeof(FakeCommand).GetMetadata().GetFormatter();
 					break;
 				case "query":
-					Formatter = typeof (FakeQuery).GetMetadata().GetFormatter();
+					this.Formatter = typeof(FakeQuery).GetMetadata().GetFormatter();
 					break;
 				case "readmodel":
-					Formatter = typeof (FakeReadModel).GetMetadata().GetFormatter();
+					this.Formatter = typeof(FakeReadModel).GetMetadata().GetFormatter();
 					break;
 			}
 		}

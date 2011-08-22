@@ -9,12 +9,12 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public EuclidDefaultBinder(IEuclidModelBinder[] euclidModelBinders)
 		{
-			_euclidModelBinders = euclidModelBinders;
+			this._euclidModelBinders = euclidModelBinders;
 		}
 
 		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
-			foreach (var binder in _euclidModelBinders)
+			foreach (var binder in this._euclidModelBinders)
 			{
 				if (binder.IsMatch(bindingContext.ModelType))
 				{
@@ -22,7 +22,7 @@ namespace Euclid.Composites.Mvc.Binders
 				}
 			}
 
-			return (bindingContext.ModelType.IsInterface) ? null : base.BindModel(controllerContext, bindingContext);
+			return bindingContext.ModelType.IsInterface ? null : base.BindModel(controllerContext, bindingContext);
 		}
 	}
 }

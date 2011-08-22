@@ -11,9 +11,12 @@ namespace Euclid.Composites.AgentResolution
 		{
 			var metadata = assembly.GetAgentMetadata();
 
-			if (metadata == null) return false;
+			if (metadata == null)
+			{
+				return false;
+			}
 
-			return (systemName == metadata.SystemName);
+			return systemName == metadata.SystemName;
 		}
 	}
 }

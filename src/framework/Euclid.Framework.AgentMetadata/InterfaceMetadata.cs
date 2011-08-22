@@ -8,15 +8,16 @@ namespace Euclid.Framework.AgentMetadata
 		{
 			if (t.IsInterface)
 			{
-				InterfaceName = t.Name;
-				InterfaceType = t;
-				ImplementationType = t.UnderlyingSystemType;
+				this.InterfaceName = t.Name;
+				this.InterfaceType = t;
+				this.ImplementationType = t.UnderlyingSystemType;
 			}
 		}
 
 		public Type ImplementationType { get; private set; }
 
 		public string InterfaceName { get; private set; }
+
 		public Type InterfaceType { get; private set; }
 	}
 }

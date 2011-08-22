@@ -2,8 +2,10 @@
 {
 	public enum ChannelState
 	{
-		Invalid,
-		Open,
-		Closed,
+		Invalid, 
+
+		Open, 
+
+		Closed, 
 	}
 }

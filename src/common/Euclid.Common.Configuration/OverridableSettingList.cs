@@ -6,29 +6,31 @@ namespace Euclid.Common.Configuration
 	{
 		public OverridableSettingList()
 		{
-			DefaultValue = new List<TSettingType>();
-			Value = new List<TSettingType>();
+			this.DefaultValue = new List<TSettingType>();
+			this.Value = new List<TSettingType>();
 		}
 
 		public IList<TSettingType> DefaultValue { get; private set; }
+
 		public IList<TSettingType> Value { get; private set; }
+
 		public bool WasOverridden { get; private set; }
 
 		public void Add(TSettingType newListItem)
 		{
-			Value.Add(newListItem);
+			this.Value.Add(newListItem);
 		}
 
 		public void ApplyOverride(IList<TSettingType> newValue)
 		{
-			Value = newValue;
-			WasOverridden = true;
+			this.Value = newValue;
+			this.WasOverridden = true;
 		}
 
 		public void WithDefault(IList<TSettingType> value)
 		{
-			DefaultValue = value;
-			Value = value;
+			this.DefaultValue = value;
+			this.Value = value;
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace Euclid.Common.UnitTests.Storage
 	[Category(TestCategories.Unit)]
 	public class InMemoryRecordMapperTest
 	{
-		#region Setup/Teardown
+		private RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>> _repoTester;
 
 		[SetUp]
 		public void Setup()
@@ -19,35 +19,31 @@ namespace Euclid.Common.UnitTests.Storage
 			var serializer = new JsonMessageSerializer();
 			var repo = new InMemoryRecordMapper<FakePublicationRecord>();
 
-			_repoTester = new RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>>(repo);
+			this._repoTester = new RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>>(repo);
 		}
-
-		#endregion
-
-		private RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>> _repoTester;
 
 		[Test]
 		public void TestCreate()
 		{
-			_repoTester.TestCreate();
+			this._repoTester.TestCreate();
 		}
 
 		[Test]
 		public void TestDelete()
 		{
-			_repoTester.TestDelete();
+			this._repoTester.TestDelete();
 		}
 
 		[Test]
 		public void TestRetrieve()
 		{
-			_repoTester.TestRetrieve();
+			this._repoTester.TestRetrieve();
 		}
 
 		[Test]
 		public void TestUpdate()
 		{
-			_repoTester.TestUpdate();
+			this._repoTester.TestUpdate();
 		}
 	}
 }

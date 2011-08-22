@@ -12,12 +12,12 @@ namespace Euclid.Composites.Mvc
 
 		public WindsorControllerFactory(IWindsorContainer container)
 		{
-			_container = container;
+			this._container = container;
 		}
 
 		public override void ReleaseController(IController controller)
 		{
-			_container.Release(controller);
+			this._container.Release(controller);
 		}
 
 		protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
@@ -27,7 +27,7 @@ namespace Euclid.Composites.Mvc
 				throw new HttpException(404, "Invalid controller");
 			}
 
-			return _container.Resolve(controllerType) as IController;
+			return this._container.Resolve(controllerType) as IController;
 		}
 	}
 }

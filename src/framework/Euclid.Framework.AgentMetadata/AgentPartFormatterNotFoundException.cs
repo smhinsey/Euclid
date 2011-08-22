@@ -4,7 +4,8 @@ namespace Euclid.Framework.AgentMetadata
 {
 	public class AgentPartFormatterNotFoundException : Exception
 	{
-		public AgentPartFormatterNotFoundException(string agentPartTypeName) : base(agentPartTypeName)
+		public AgentPartFormatterNotFoundException(string agentPartTypeName)
+			: base(agentPartTypeName)
 		{
 		}
 	}

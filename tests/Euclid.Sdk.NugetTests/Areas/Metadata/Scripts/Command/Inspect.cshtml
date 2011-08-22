@@ -1,16 +1,15 @@
 @using Euclid.Framework.Models
 @model IInputModel
 
-<div class="model-header">input form for @Model.CommandType.Name</div>
+<div class="model-header">input form for @this.Model.CommandType.Name</div>
 
-@using (Html.BeginForm())
+@using (this.Html.BeginForm())
 {
-	@Html.ValidationSummary(true)
+	@this.Html.ValidationSummary(true)
 
 	<fieldset>
-		@Html.EditorFor(p => Model)
+		@this.Html.EditorFor(p => this.Model)
 	</fieldset>
-
 
 	<input type="submit" value="Publish Command" />
 }

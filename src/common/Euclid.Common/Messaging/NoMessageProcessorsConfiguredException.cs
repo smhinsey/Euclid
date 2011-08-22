@@ -4,7 +4,8 @@ namespace Euclid.Common.Messaging
 {
 	public class NoMessageProcessorsConfiguredException : Exception
 	{
-		public NoMessageProcessorsConfiguredException(string message) : base(message)
+		public NoMessageProcessorsConfiguredException(string message)
+			: base(message)
 		{
 		}
 	}

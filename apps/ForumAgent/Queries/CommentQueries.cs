@@ -8,16 +8,16 @@ namespace ForumAgent.Queries
 {
 	public class CommentQueries : NhQuery<Comment>
 	{
-		public CommentQueries(ISession session) : base(session)
+		public CommentQueries(ISession session)
+			: base(session)
 		{
 		}
 
 		public IList<Comment> FindCommentsBelongingToPost(Guid postId)
 		{
-			var session = GetCurrentSession();
+			var session = this.GetCurrentSession();
 
-			var categories = session.QueryOver<Comment>()
-				.Where(comment => comment.PostIdentifier == postId);
+			var categories = session.QueryOver<Comment>().Where(comment => comment.PostIdentifier == postId);
 
 			return categories.List();
 		}

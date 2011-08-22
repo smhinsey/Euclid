@@ -10,13 +10,21 @@ namespace Euclid.Common.ServiceHost
 	public interface IServiceHost
 	{
 		IDictionary<Guid, IHostedService> Services { get; }
+
 		ServiceHostState State { get; }
+
 		void Cancel(Guid id);
+
 		void CancelAll();
+
 		IList<Exception> GetExceptionsThrownByHostedServices();
+
 		HostedServiceState GetState(Guid id);
+
 		Guid Install(IHostedService service);
+
 		void Start(Guid id);
+
 		void StartAll();
 	}
 }

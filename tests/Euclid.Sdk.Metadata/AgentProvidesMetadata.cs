@@ -10,7 +10,7 @@ namespace Euclid.Sdk.Metadata
 		[Given("an agent")]
 		public void AnAgent()
 		{
-			Agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
+			this.Agent = typeof(FakeCommand).Assembly.GetAgentMetadata();
 		}
 
 		[When("the (.*) is requested")]
@@ -19,10 +19,10 @@ namespace Euclid.Sdk.Metadata
 			switch (representationType.ToLower())
 			{
 				case "basic":
-					Formatter = Agent.GetBasicMetadataFormatter();
+					this.Formatter = this.Agent.GetBasicMetadataFormatter();
 					break;
 				case "full":
-					Formatter = Agent.GetMetadataFormatter();
+					this.Formatter = this.Agent.GetMetadataFormatter();
 					break;
 			}
 		}

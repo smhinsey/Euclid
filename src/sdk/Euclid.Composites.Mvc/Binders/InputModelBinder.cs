@@ -10,12 +10,13 @@ namespace Euclid.Composites.Mvc.Binders
 	public class InputModelBinder : IEuclidModelBinder
 	{
 		private readonly IAgentResolver[] _resolvers;
+
 		private readonly IInputModelTransfomerRegistry _transformers;
 
 		public InputModelBinder(IAgentResolver[] resolvers, IInputModelTransfomerRegistry transfomers)
 		{
-			_resolvers = resolvers;
-			_transformers = transfomers;
+			this._resolvers = resolvers;
+			this._transformers = transfomers;
 		}
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
@@ -25,7 +26,7 @@ namespace Euclid.Composites.Mvc.Binders
 			IInputModel inputModel;
 			try
 			{
-				inputModel = _transformers.GetInputModel(commandName);
+				inputModel = this._transformers.GetInputModel(commandName);
 			}
 			catch (InputModelForPartNotRegisteredException e)
 			{
@@ -39,15 +40,12 @@ namespace Euclid.Composites.Mvc.Binders
 				try
 				{
 					var value = (property.Name == "CommandType")
-					            	? _transformers.GetCommandType(commandName)
+					            	? this._transformers.GetCommandType(commandName)
 					            	: (propValue == null) ? null : propValue.ConvertTo(property.PropertyType);
 
 					if (property.CanWrite)
 					{
-						property.SetValue(
-						                  inputModel,
-						                  value,
-						                  null);
+						property.SetValue(inputModel, value, null);
 					}
 				}
 				catch (Exception e)
@@ -61,7 +59,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public bool IsMatch(Type modelType)
 		{
-			return typeof (IInputModel).IsAssignableFrom(modelType);
+			return typeof(IInputModel).IsAssignableFrom(modelType);
 		}
 	}
 }

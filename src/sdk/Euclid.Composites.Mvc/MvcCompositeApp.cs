@@ -10,23 +10,24 @@ namespace Euclid.Composites.Mvc
 {
 	public class MvcCompositeApp : BasicCompositeApp
 	{
-		public MvcCompositeApp(IWindsorContainer container) : base(container)
+		public MvcCompositeApp(IWindsorContainer container)
+			: base(container)
 		{
+		}
+
+		public void BeginPageRequest(object sender, EventArgs eventArgs)
+		{
+			if (this.State != CompositeApplicationState.Configured)
+			{
+				throw new InvalidCompositeApplicationStateException(this.State, CompositeApplicationState.Configured);
+			}
 		}
 
 		public override void Configure(CompositeAppSettings compositeAppSettings)
 		{
 			base.Configure(compositeAppSettings);
 
-			wireMvcInfrastructure();
-		}
-
-		public void BeginPageRequest(object sender, EventArgs eventArgs)
-		{
-			if (State != CompositeApplicationState.Configured)
-			{
-				throw new InvalidCompositeApplicationStateException(State, CompositeApplicationState.Configured);
-			}
+			this.wireMvcInfrastructure();
 		}
 
 		public void LogUnhandledException(object sender, EventArgs eventArgs)
@@ -37,12 +38,12 @@ namespace Euclid.Composites.Mvc
 
 		private void wireMvcInfrastructure()
 		{
-			Container.Install(new ModelBinderInstaller());
-			Container.Install(new ControllerContainerInstaller());
+			this.Container.Install(new ModelBinderInstaller());
+			this.Container.Install(new ControllerContainerInstaller());
 
-			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
+			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(this.Container.ResolveAll<IEuclidModelBinder>());
 
-			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
+			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(this.Container));
 		}
 	}
 }

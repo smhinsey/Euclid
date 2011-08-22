@@ -14,12 +14,12 @@ namespace Euclid.Common.UnitTests.Registry
 
 		public RegistryTester(TRegistry registry)
 		{
-			_registry = registry;
+			this._registry = registry;
 		}
 
 		public FakePublicationRecord CreateRecord(IMessage message)
 		{
-			var record = _registry.PublishMessage(message);
+			var record = this._registry.PublishMessage(message);
 
 			Assert.NotNull(record);
 
@@ -30,7 +30,7 @@ namespace Euclid.Common.UnitTests.Registry
 
 		public IMessage GetMessage(FakePublicationRecord publicationRecord)
 		{
-			var message = _registry.GetMessage(publicationRecord.MessageLocation, publicationRecord.MessageType);
+			var message = this._registry.GetMessage(publicationRecord.MessageLocation, publicationRecord.MessageType);
 
 			Assert.NotNull(message);
 
@@ -41,31 +41,30 @@ namespace Euclid.Common.UnitTests.Registry
 
 		public FakePublicationRecord GetRecord()
 		{
-			var record = CreateRecord(new FakeMessage());
+			var record = this.CreateRecord(new FakeMessage());
 
 			Assert.NotNull(record);
 
-			var retrieved = _registry.GetPublicationRecord(record.Identifier);
+			var retrieved = this._registry.GetPublicationRecord(record.Identifier);
 
 			Assert.AreEqual(record.Identifier, retrieved.Identifier);
 
 			return retrieved;
 		}
 
-
 		public FakePublicationRecord MarkAsCompleted()
 		{
-			var record = CreateRecord(new FakeMessage());
+			var record = this.CreateRecord(new FakeMessage());
 
 			Assert.NotNull(record);
 
-			record = _registry.GetPublicationRecord(record.Identifier);
+			record = this._registry.GetPublicationRecord(record.Identifier);
 
 			Assert.NotNull(record);
 
 			Assert.IsFalse(record.Completed);
 
-			record = _registry.MarkAsComplete(record.Identifier);
+			record = this._registry.MarkAsComplete(record.Identifier);
 
 			Assert.NotNull(record);
 
@@ -82,17 +81,17 @@ namespace Euclid.Common.UnitTests.Registry
 
 			const string callStack = "call stack 1";
 
-			var record = CreateRecord(new FakeMessage());
+			var record = this.CreateRecord(new FakeMessage());
 
 			Assert.NotNull(record);
 
-			record = _registry.GetPublicationRecord(record.Identifier);
+			record = this._registry.GetPublicationRecord(record.Identifier);
 
 			Assert.NotNull(record);
 
 			Assert.IsFalse(record.Error);
 
-			record = _registry.MarkAsFailed(record.Identifier, errorMessage, callStack);
+			record = this._registry.MarkAsFailed(record.Identifier, errorMessage, callStack);
 
 			Assert.NotNull(record);
 
@@ -109,17 +108,17 @@ namespace Euclid.Common.UnitTests.Registry
 
 		public IPublicationRecord MarkAsUnableToDispatch()
 		{
-			var record = CreateRecord(new FakeMessage());
+			var record = this.CreateRecord(new FakeMessage());
 
 			Assert.NotNull(record);
 
-			record = _registry.GetPublicationRecord(record.Identifier);
+			record = this._registry.GetPublicationRecord(record.Identifier);
 
 			Assert.NotNull(record);
 
 			Assert.IsFalse(record.Error);
 
-			record = _registry.MarkAsUnableToDispatch(record.Identifier, true, "Unable to dispatch");
+			record = this._registry.MarkAsUnableToDispatch(record.Identifier, true, "Unable to dispatch");
 
 			Assert.NotNull(record);
 
@@ -134,24 +133,25 @@ namespace Euclid.Common.UnitTests.Registry
 			return record;
 		}
 
-
 		public void TestThroughputAsynchronously(int howManyMessages, int numberOfThreads)
 		{
 			var start = DateTime.Now;
 
-			Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof (FakeMessage).FullName);
+			Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof(FakeMessage).FullName);
 
-			var numberOfLoops = howManyMessages/numberOfThreads + 1;
+			var numberOfLoops = howManyMessages / numberOfThreads + 1;
 
 			for (var i = 0; i < numberOfLoops; i++)
 			{
-				var results = Parallel.For
-					(0, numberOfLoops, x =>
-					                   	{
-					                   		var record = CreateRecord(new FakeMessage());
+				var results = Parallel.For(
+					0, 
+					numberOfLoops, 
+					x =>
+						{
+							var record = this.CreateRecord(new FakeMessage());
 
-					                   		Assert.NotNull(record);
-					                   	});
+							Assert.NotNull(record);
+						});
 			}
 
 			Console.WriteLine("Created {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
@@ -163,11 +163,11 @@ namespace Euclid.Common.UnitTests.Registry
 
 			var start = DateTime.Now;
 
-			Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof (FakeMessage).FullName);
+			Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof(FakeMessage).FullName);
 
 			for (var i = 0; i < howManyMessages; i++)
 			{
-				var record = CreateRecord(new FakeMessage());
+				var record = this.CreateRecord(new FakeMessage());
 
 				Assert.NotNull(record);
 
@@ -180,14 +180,15 @@ namespace Euclid.Common.UnitTests.Registry
 
 			foreach (var id in recordIds)
 			{
-				var retrieved = _registry.GetPublicationRecord(id);
+				var retrieved = this._registry.GetPublicationRecord(id);
 
 				Assert.AreEqual(id, retrieved.Identifier);
 
-				Assert.AreEqual(retrieved.MessageType, typeof (FakeMessage));
+				Assert.AreEqual(retrieved.MessageType, typeof(FakeMessage));
 			}
 
-			Console.WriteLine("Retrieved {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
+			Console.WriteLine(
+				"Retrieved {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
 		}
 	}
 }

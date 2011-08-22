@@ -8,32 +8,18 @@ namespace Euclid.Common.UnitTests.Storage
 	[Category(TestCategories.Unit)]
 	public class InMemoryBlobTests
 	{
-		#region Setup/Teardown
-
-		[SetUp]
-		public void Setup()
-		{
-			var blobStorage = new InMemoryBlobStorage();
-
-			blobStorage.Configure(new BlobStorageSettings());
-
-			_blobTester = new BlobTester(blobStorage);
-		}
-
-		#endregion
-
 		private BlobTester _blobTester;
 
 		[Test]
 		public void Deletes()
 		{
-			var blob = _blobTester.GetNewBlob();
+			var blob = this._blobTester.GetNewBlob();
 
-			var uri = _blobTester.Put(blob);
+			var uri = this._blobTester.Put(blob);
 
-			_blobTester.Delete(uri);
+			this._blobTester.Delete(uri);
 
-			var retrieved = _blobTester.Get(uri);
+			var retrieved = this._blobTester.Get(uri);
 
 			Assert.IsNull(retrieved);
 		}
@@ -41,11 +27,11 @@ namespace Euclid.Common.UnitTests.Storage
 		[Test]
 		public void Gets()
 		{
-			var blob = _blobTester.GetNewBlob();
+			var blob = this._blobTester.GetNewBlob();
 
-			var uri = _blobTester.Put(blob);
+			var uri = this._blobTester.Put(blob);
 
-			var retrieved = _blobTester.Get(uri);
+			var retrieved = this._blobTester.Get(uri);
 
 			Assert.AreEqual(blob.MD5, retrieved.MD5);
 
@@ -59,9 +45,19 @@ namespace Euclid.Common.UnitTests.Storage
 		[Test]
 		public void Puts()
 		{
-			var blob = _blobTester.GetNewBlob();
+			var blob = this._blobTester.GetNewBlob();
 
-			_blobTester.Put(blob);
+			this._blobTester.Put(blob);
+		}
+
+		[SetUp]
+		public void Setup()
+		{
+			var blobStorage = new InMemoryBlobStorage();
+
+			blobStorage.Configure(new BlobStorageSettings());
+
+			this._blobTester = new BlobTester(blobStorage);
 		}
 	}
 }

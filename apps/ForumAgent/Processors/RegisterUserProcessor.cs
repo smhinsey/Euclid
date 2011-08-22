@@ -12,21 +12,21 @@ namespace ForumAgent.Processors
 
 		public RegisterUserProcessor(ISimpleRepository<User> repository)
 		{
-			_repository = repository;
+			this._repository = repository;
 		}
 
 		public override void Process(RegisterUser message)
 		{
 			var newUser = new User
-			              	{
-			              		PasswordHash = message.PasswordHash,
-			              		PasswordSalt = message.PasswordSalt,
-			              		Username = message.Username,
-			              		Created = DateTime.Now,
-			              		Modified = DateTime.Now
-			              	};
+				{
+					PasswordHash = message.PasswordHash, 
+					PasswordSalt = message.PasswordSalt, 
+					Username = message.Username, 
+					Created = DateTime.Now, 
+					Modified = DateTime.Now
+				};
 
-			_repository.Save(newUser);
+			this._repository.Save(newUser);
 		}
 	}
 }

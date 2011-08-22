@@ -8,7 +8,7 @@ namespace Euclid.Common.Configuration
 
 		public OverridableTypeSetting(string name)
 		{
-			Name = name;
+			this.Name = name;
 		}
 
 		public Type DefaultValue { get; private set; }
@@ -17,14 +17,19 @@ namespace Euclid.Common.Configuration
 
 		public Type Value
 		{
-			get { return _value; }
+			get
+			{
+				return this._value;
+			}
+
 			private set
 			{
-				if (!typeof (TImplements).IsAssignableFrom(value))
+				if (!typeof(TImplements).IsAssignableFrom(value))
 				{
-					throw new InvalidTypeSettingException(Name, typeof (TImplements), value);
+					throw new InvalidTypeSettingException(this.Name, typeof(TImplements), value);
 				}
-				_value = value;
+
+				this._value = value;
 			}
 		}
 
@@ -32,14 +37,14 @@ namespace Euclid.Common.Configuration
 
 		public void ApplyOverride(Type newValue)
 		{
-			Value = newValue;
-			WasOverridden = true;
+			this.Value = newValue;
+			this.WasOverridden = true;
 		}
 
 		public void WithDefault(Type value)
 		{
-			Value = value;
-			DefaultValue = Value;
+			this.Value = value;
+			this.DefaultValue = this.Value;
 		}
 	}
 }

@@ -6,7 +6,7 @@ using Euclid.Sdk.FakeAgent.ReadModels;
 
 [assembly: AgentSystemName(Value = "SDKTests.FakeAgent")]
 [assembly: AgentName(Value = "Fake Agent")]
-[assembly: LocationOfCommands(NamespaceOfType = typeof (FakeCommand))]
-[assembly: LocationOfQueries(NamespaceOfType = typeof (FakeQuery))]
-[assembly: LocationOfProcessors(NamespaceOfType = typeof (FakeCommandProcessor))]
-[assembly: LocationOfReadModels(NamespaceOfType = typeof (FakeReadModel))]
+[assembly: LocationOfCommands(NamespaceOfType = typeof(FakeCommand))]
+[assembly: LocationOfQueries(NamespaceOfType = typeof(FakeQuery))]
+[assembly: LocationOfProcessors(NamespaceOfType = typeof(FakeCommandProcessor))]
+[assembly: LocationOfReadModels(NamespaceOfType = typeof(FakeReadModel))]

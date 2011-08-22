@@ -14,18 +14,18 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public NhRecordMapper(ISession session)
 		{
-			_session = session;
+			this._session = session;
 		}
 
 		public TRecord Create(TRecord record)
 		{
 			this.WriteDebugMessage(string.Format("Creating record {0}({1})", record.GetType().Name, record.Identifier));
 
-			using (var transaction = _session.BeginTransaction())
+			using (var transaction = this._session.BeginTransaction())
 			{
 				try
 				{
-					_session.Save(record);
+					this._session.Save(record);
 				}
 				catch (Exception e)
 				{
@@ -44,9 +44,9 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public TRecord Delete(Guid id)
 		{
-			var record = Retrieve(id);
+			var record = this.Retrieve(id);
 
-			using (var transaction = _session.BeginTransaction())
+			using (var transaction = this._session.BeginTransaction())
 			{
 				try
 				{
@@ -57,7 +57,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 					this.WriteDebugMessage(string.Format("Deleting record {0}({1})", record.GetType().Name, record.Identifier));
 
-					_session.Delete(record);
+					this._session.Delete(record);
 				}
 				catch (Exception e)
 				{
@@ -76,18 +76,18 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public TRecord Retrieve(Guid id)
 		{
-			return _session.Get<TRecord>(id);
+			return this._session.Get<TRecord>(id);
 		}
 
 		public TRecord Update(TRecord record)
 		{
 			this.WriteDebugMessage(string.Format("Updating record {0}({1})", record.GetType().Name, record.Identifier));
 
-			using (var transaction = _session.BeginTransaction())
+			using (var transaction = this._session.BeginTransaction())
 			{
 				try
 				{
-					_session.Update(record, record.Identifier);
+					this._session.Update(record, record.Identifier);
 				}
 				catch (Exception e)
 				{
@@ -101,7 +101,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 			this.WriteDebugMessage(string.Format("Updated record {0}({1})", record.GetType().Name, record.Identifier));
 
-			return Retrieve(record.Identifier);
+			return this.Retrieve(record.Identifier);
 		}
 	}
 }

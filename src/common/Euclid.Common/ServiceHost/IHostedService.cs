@@ -7,9 +7,11 @@ namespace Euclid.Common.ServiceHost
 	public interface IHostedService
 	{
 		string Name { get; }
+
 		HostedServiceState State { get; }
 
 		void Cancel();
+
 		void Start();
 	}
 }

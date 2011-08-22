@@ -13,14 +13,14 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public PartCollectionBinder(IAgentResolver[] resolvers)
 		{
-			_resolvers = resolvers;
+			this._resolvers = resolvers;
 		}
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			var systemName = controllerContext.GetAgentSystemName();
 
-			var metadata = _resolvers.GetAgentMetadata(systemName);
+			var metadata = this._resolvers.GetAgentMetadata(systemName);
 
 			var partName = controllerContext.GetPartName();
 
@@ -36,7 +36,6 @@ namespace Euclid.Composites.Mvc.Binders
 				partCollection = metadata.GetPartCollectionContainingPartName(partName);
 			}
 
-
 			if (partCollection == null)
 			{
 				throw new PartCollectionNotFoundException();
@@ -47,7 +46,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public bool IsMatch(Type modelType)
 		{
-			return typeof (IPartCollection).IsAssignableFrom(modelType);
+			return typeof(IPartCollection).IsAssignableFrom(modelType);
 		}
 	}
 }

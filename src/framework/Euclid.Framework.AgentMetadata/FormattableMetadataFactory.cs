@@ -16,15 +16,15 @@ namespace Euclid.Framework.AgentMetadata
 
 		public static IMetadataFormatter GetFormatter(ITypeMetadata metadata)
 		{
-			if (typeof (ICommand).IsAssignableFrom(metadata.Type))
+			if (typeof(ICommand).IsAssignableFrom(metadata.Type))
 			{
 				return new CommandFormatter(metadata);
 			}
-			else if (typeof (IReadModel).IsAssignableFrom(metadata.Type))
+			else if (typeof(IReadModel).IsAssignableFrom(metadata.Type))
 			{
 				return new ReadModelFormatter(metadata);
 			}
-			else if (typeof (IQuery).IsAssignableFrom(metadata.Type))
+			else if (typeof(IQuery).IsAssignableFrom(metadata.Type))
 			{
 				return new QueryFormatter(metadata);
 			}
@@ -34,15 +34,15 @@ namespace Euclid.Framework.AgentMetadata
 
 		public static IMetadataFormatter GetFormatter(IPartCollection metadata)
 		{
-			if (typeof (ICommand).IsAssignableFrom(metadata.CollectionType))
+			if (typeof(ICommand).IsAssignableFrom(metadata.CollectionType))
 			{
 				return new CommandCollectionFormatter(metadata);
 			}
-			else if (typeof (IReadModel).IsAssignableFrom(metadata.CollectionType))
+			else if (typeof(IReadModel).IsAssignableFrom(metadata.CollectionType))
 			{
 				return new ReadModelCollectionFormatter(metadata);
 			}
-			else if (typeof (IQuery).IsAssignableFrom(metadata.CollectionType))
+			else if (typeof(IQuery).IsAssignableFrom(metadata.CollectionType))
 			{
 				return new QueryCollectionFormatter(metadata);
 			}

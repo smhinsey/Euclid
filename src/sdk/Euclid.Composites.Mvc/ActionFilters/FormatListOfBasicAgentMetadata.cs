@@ -11,20 +11,23 @@ namespace Euclid.Composites.Mvc.ActionFilters
 		{
 			var format = filterContext.ActionParameters["format"] as string ?? string.Empty;
 
-			if (format == string.Empty) return;
+			if (format == string.Empty)
+			{
+				return;
+			}
 
-			var agentMetadata = AppDomain.CurrentDomain
-				.GetAssemblies()
-				.Where(assembly => assembly.ContainsAgent()).Select(assembly => assembly.GetAgentMetadata());
+			var agentMetadata =
+				AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.ContainsAgent()).Select(
+					assembly => assembly.GetAgentMetadata());
 
 			var formatter = agentMetadata.GetBasicMetadataFormatter();
 
 			filterContext.Result = new ContentResult
-			                       	{
-			                       		Content = formatter.GetRepresentation(format),
-			                       		ContentType = formatter.GetContentType(format),
-			                       		ContentEncoding = formatter.GetEncoding(format)
-			                       	};
+				{
+					Content = formatter.GetRepresentation(format), 
+					ContentType = formatter.GetContentType(format), 
+					ContentEncoding = formatter.GetEncoding(format)
+				};
 
 			base.OnActionExecuting(filterContext);
 		}

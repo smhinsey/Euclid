@@ -2,8 +2,10 @@ namespace Euclid.Common.Messaging
 {
 	public enum MessageDispatcherState
 	{
-		Enabled,
-		Disabled,
+		Enabled, 
+
+		Disabled, 
+
 		Failed
 	}
 }

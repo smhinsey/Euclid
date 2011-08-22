@@ -19,7 +19,7 @@ namespace Euclid.Composites.Mvc.Results
 
 			if (!string.IsNullOrEmpty(jsoncallback))
 			{
-				response.ContentType = string.IsNullOrEmpty(ContentType) ? "application/json" : ContentType;
+				response.ContentType = string.IsNullOrEmpty(this.ContentType) ? "application/json" : this.ContentType;
 
 				response.Write(string.Format("{0}(", jsoncallback));
 			}

@@ -7,20 +7,24 @@ namespace Euclid.Common.Messaging
 	{
 		public MessageDispatcherSettings()
 		{
-			InvalidChannel = new OverridableSetting<IMessageChannel>();
-			InputChannel = new OverridableSetting<IMessageChannel>();
-			MessageProcessorTypes = new OverridableSettingList<Type>();
-			NumberOfMessagesToDispatchPerSlice = new OverridableSetting<int>();
-			DurationOfDispatchingSlice = new OverridableSetting<TimeSpan>();
+			this.InvalidChannel = new OverridableSetting<IMessageChannel>();
+			this.InputChannel = new OverridableSetting<IMessageChannel>();
+			this.MessageProcessorTypes = new OverridableSettingList<Type>();
+			this.NumberOfMessagesToDispatchPerSlice = new OverridableSetting<int>();
+			this.DurationOfDispatchingSlice = new OverridableSetting<TimeSpan>();
 
-			NumberOfMessagesToDispatchPerSlice.WithDefault(32);
-			DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:01"));
+			this.NumberOfMessagesToDispatchPerSlice.WithDefault(32);
+			this.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:01"));
 		}
 
 		public IOverridableSetting<TimeSpan> DurationOfDispatchingSlice { get; set; }
+
 		public IOverridableSetting<IMessageChannel> InputChannel { get; set; }
+
 		public IOverridableSetting<IMessageChannel> InvalidChannel { get; set; }
+
 		public IOverridableSettingList<Type> MessageProcessorTypes { get; set; }
+
 		public IOverridableSetting<int> NumberOfMessagesToDispatchPerSlice { get; set; }
 	}
 }

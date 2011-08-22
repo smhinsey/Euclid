@@ -11,7 +11,7 @@ namespace Euclid.Common.UnitTests.Transport
 {
 	public class TestTransport
 	{
-		private static readonly Random Random = new Random((int) DateTime.Now.Ticks);
+		private static readonly Random Random = new Random((int)DateTime.Now.Ticks);
 
 		public static void Clear(IMessageChannel channel)
 		{
@@ -35,16 +35,11 @@ namespace Euclid.Common.UnitTests.Transport
 		public static IMessage GetNewMessage()
 		{
 			return new FakeMessage
-			       	{
-			       		Identifier = Guid.NewGuid(),
-			       		Field1 = Random.Next(),
-			       		Field2 = new List<string>
-			       		         	{
-			       		         		Random.Next().ToString(),
-			       		         		Random.Next().ToString(),
-			       		         		Random.Next().ToString()
-			       		         	}
-			       	};
+				{
+					Identifier = Guid.NewGuid(), 
+					Field1 = Random.Next(), 
+					Field2 = new List<string> { Random.Next().ToString(), Random.Next().ToString(), Random.Next().ToString() }
+				};
 		}
 
 		public static void ReceiveTimeout(IMessageChannel channel)
@@ -109,12 +104,11 @@ namespace Euclid.Common.UnitTests.Transport
 
 			var m = GetNewMessage();
 
-			Assert.Throws(typeof (InvalidOperationException), () => channel.Send(m));
+			Assert.Throws(typeof(InvalidOperationException), () => channel.Send(m));
 		}
 
-		public static void TestThroughputAsynchronously
-			(IMessageChannel channel, int howManyMessages, int howManyThreads,
-			 int? maxMessagesToReceive = null)
+		public static void TestThroughputAsynchronously(
+			IMessageChannel channel, int howManyMessages, int howManyThreads, int? maxMessagesToReceive = null)
 		{
 			channel.Open();
 
@@ -123,51 +117,54 @@ namespace Euclid.Common.UnitTests.Transport
 			var numberTimesToLoop = 1;
 			if (maxMessagesToReceive.HasValue)
 			{
-				var numberMessagesPerThread = howManyMessages/howManyThreads + 2;
+				var numberMessagesPerThread = howManyMessages / howManyThreads + 2;
 
 				do
 				{
 					numberMessagesPerThread--;
-					numberTimesToLoop = howManyMessages/(numberMessagesPerThread*howManyThreads) + 1;
-				} while (numberMessagesPerThread > maxMessagesToReceive);
+					numberTimesToLoop = howManyMessages / (numberMessagesPerThread * howManyThreads) + 1;
+				}
+				while (numberMessagesPerThread > maxMessagesToReceive);
 
 				Assert.LessOrEqual(numberMessagesPerThread, maxMessagesToReceive);
 				maxMessagesToReceive = numberMessagesPerThread;
 			}
 			else
 			{
-				maxMessagesToReceive = howManyMessages/howManyThreads + 1;
+				maxMessagesToReceive = howManyMessages / howManyThreads + 1;
 			}
 
-			Console.WriteLine
-				("Sending {0} messages through the {1} channel across {2} threads in batches of {3}",
-				 maxMessagesToReceive*howManyThreads*numberTimesToLoop,
-				 channel.GetType().FullName,
-				 howManyThreads,
-				 maxMessagesToReceive);
+			Console.WriteLine(
+				"Sending {0} messages through the {1} channel across {2} threads in batches of {3}", 
+				maxMessagesToReceive * howManyThreads * numberTimesToLoop, 
+				channel.GetType().FullName, 
+				howManyThreads, 
+				maxMessagesToReceive);
 
 			for (var i = 0; i < numberTimesToLoop; i++)
 			{
-				var results = Parallel.For
-					(0, howManyThreads, x =>
-					                    	{
-					                    		SendMessages(channel, maxMessagesToReceive.Value);
-					                    		channel.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue);
-					                    	});
+				var results = Parallel.For(
+					0, 
+					howManyThreads, 
+					x =>
+						{
+							SendMessages(channel, maxMessagesToReceive.Value);
+							channel.ReceiveMany(maxMessagesToReceive.Value, TimeSpan.MaxValue);
+						});
 
 				Assert.True(results.IsCompleted);
 			}
 
-			Console.WriteLine
-				("Received {0} messages in {1} seconds", (maxMessagesToReceive*howManyThreads*numberTimesToLoop),
-				 DateTime.Now.Subtract(start).TotalSeconds);
+			Console.WriteLine(
+				"Received {0} messages in {1} seconds", 
+				maxMessagesToReceive * howManyThreads * numberTimesToLoop, 
+				DateTime.Now.Subtract(start).TotalSeconds);
 
 			channel.Close();
 		}
 
-		public static void TestThroughputSynchronously
-			(IMessageChannel channel, int howManyMessages,
-			 int? maxMessagesToReceive)
+		public static void TestThroughputSynchronously(
+			IMessageChannel channel, int howManyMessages, int? maxMessagesToReceive)
 		{
 			var start = DateTime.Now;
 
@@ -186,7 +183,7 @@ namespace Euclid.Common.UnitTests.Transport
 			var numberTimesToLoop = 1;
 			if (maxMessagesToReceive.HasValue)
 			{
-				numberTimesToLoop = howManyMessages/maxMessagesToReceive.Value + 1;
+				numberTimesToLoop = howManyMessages / maxMessagesToReceive.Value + 1;
 			}
 			else
 			{
@@ -201,7 +198,9 @@ namespace Euclid.Common.UnitTests.Transport
 				}
 
 				if (howManyMessages - receivedMessageCount < maxMessagesToReceive)
-					maxMessagesToReceive = (howManyMessages - receivedMessageCount);
+				{
+					maxMessagesToReceive = howManyMessages - receivedMessageCount;
+				}
 			}
 
 			channel.Close();

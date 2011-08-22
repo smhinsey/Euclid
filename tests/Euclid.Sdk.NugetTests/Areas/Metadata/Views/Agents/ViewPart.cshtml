@@ -2,24 +2,24 @@
 @using MetadataComposite.Areas.Metadata.Models
 @model PartModel
 
-<h1>@ViewBag.Title</h1>
+<h1>@this.ViewBag.Title</h1>
 
-@if (Model.TypeMetadata.Properties.Count() > 0)
+@if (this.Model.TypeMetadata.Properties.Count() > 0)
 {
 	<h3>Properties</h3>
 	<ul>
-		@foreach (var p in Model.TypeMetadata.Properties)
+		@foreach (var p in this.Model.TypeMetadata.Properties)
 		{
 			<li>@p.Name (@p.PropertyType.Name)</li>
 		}
 	</ul>
 }
 
-@if (Model.TypeMetadata.Methods.Count() > 0)
+@if (this.Model.TypeMetadata.Methods.Count() > 0)
 {
 	<h3>Methods</h3>
 	<ul>
-		@foreach (var m in Model.TypeMetadata.Methods)
+		@foreach (var m in this.Model.TypeMetadata.Methods)
 		{
 			var sb = new StringBuilder();
 			foreach (var a in m.Arguments)
@@ -39,10 +39,10 @@
 
 			<li>
 				@m.ReturnType
-				@m.Name (@Html.Raw(sb.ToString()))
+				@m.Name (@this.Html.Raw(sb.ToString()))
 			</li>
 		}
 	</ul>
 }
 
-@{ Html.RenderPartial("MetadataLinks", Model); }
+@{ this.Html.RenderPartial("MetadataLinks", this.Model); }

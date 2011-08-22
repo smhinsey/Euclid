@@ -9,11 +9,9 @@ namespace Euclid.Composites.AgentResolution
 	{
 		public override Assembly GetAgent(string systemName)
 		{
-			return AppDomain.CurrentDomain
-				.GetAssemblies()
-				.Where(
-				       assembly => assembly.ContainsAgent() && IsAgent(assembly, systemName))
-				.FirstOrDefault();
+			return
+				AppDomain.CurrentDomain.GetAssemblies().Where(
+					assembly => assembly.ContainsAgent() && this.IsAgent(assembly, systemName)).FirstOrDefault();
 		}
 	}
 }

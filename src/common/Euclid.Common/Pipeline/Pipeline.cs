@@ -10,16 +10,16 @@ namespace Euclid.Common.Pipeline
 
 		public void Configure(params IPipelineStep<T>[] steps)
 		{
-			GuardAgainstNullSteps(steps);
-			GuardAgainstMultiple(steps, PipelinePriority.First);
-			GuardAgainstMultiple(steps, PipelinePriority.Last);
+			this.GuardAgainstNullSteps(steps);
+			this.GuardAgainstMultiple(steps, PipelinePriority.First);
+			this.GuardAgainstMultiple(steps, PipelinePriority.Last);
 
-			steps.ToList().ForEach(item => _steps.Add((int) item.Priority, item));
+			steps.ToList().ForEach(item => this._steps.Add((int)item.Priority, item));
 		}
 
 		public T Process(T dataToProcess)
 		{
-			foreach (var step in _steps)
+			foreach (var step in this._steps)
 			{
 				try
 				{
@@ -37,7 +37,7 @@ namespace Euclid.Common.Pipeline
 		// REMARK: Guard Clause
 		private void GuardAgainstMultiple(IPipelineStep<T>[] steps, PipelinePriority priority)
 		{
-			var name = Enum.GetName(typeof (PipelinePriority), priority);
+			var name = Enum.GetName(typeof(PipelinePriority), priority);
 			if (steps.Where(x => x.Priority == priority).Count() > 1)
 			{
 				throw new StepConfigurationException(string.Format("The pipeline cannot have multiple {0} steps", name));

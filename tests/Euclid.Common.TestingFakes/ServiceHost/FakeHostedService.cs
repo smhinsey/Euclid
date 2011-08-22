@@ -9,16 +9,16 @@ namespace Euclid.Common.TestingFakes.ServiceHost
 	{
 		protected override void OnStart()
 		{
-			Console.WriteLine(string.Format("{1}({0})[{2}]: started", Task.CurrentId, Name, State));
+			Console.WriteLine(string.Format("{1}({0})[{2}]: started", Task.CurrentId, this.Name, this.State));
 
 			for (var i = 0; i < 100; i++)
 			{
-				Console.WriteLine("{3}({2})[{0}]: {1}", State, i + 1, Task.CurrentId, Name);
+				Console.WriteLine("{3}({2})[{0}]: {1}", this.State, i + 1, Task.CurrentId, this.Name);
 				Thread.Sleep(10);
 
-				if (State == HostedServiceState.Stopped)
+				if (this.State == HostedServiceState.Stopped)
 				{
-					Console.WriteLine(string.Format("{1}({0})[{2}]: stopped", Task.CurrentId, Name, State));
+					Console.WriteLine(string.Format("{1}({0})[{2}]: stopped", Task.CurrentId, this.Name, this.State));
 
 					break;
 				}
@@ -27,7 +27,7 @@ namespace Euclid.Common.TestingFakes.ServiceHost
 
 		protected override void OnStop()
 		{
-			Console.WriteLine(string.Format("{1}({0})[{2}]: stopping", Task.CurrentId, Name, State));
+			Console.WriteLine(string.Format("{1}({0})[{2}]: stopping", Task.CurrentId, this.Name, this.State));
 		}
 	}
 }

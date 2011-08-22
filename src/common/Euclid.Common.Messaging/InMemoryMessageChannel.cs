@@ -11,8 +11,7 @@ namespace Euclid.Common.Messaging
 
 		public override void Clear()
 		{
-			TransportIsOpenFor("Clear");
-
+			this.TransportIsOpenFor("Clear");
 
 			while (!Queue.IsEmpty)
 			{
@@ -26,21 +25,21 @@ namespace Euclid.Common.Messaging
 
 		public override ChannelState Close()
 		{
-			State = ChannelState.Closed;
+			this.State = ChannelState.Closed;
 
-			return State;
+			return this.State;
 		}
 
 		public override ChannelState Open()
 		{
-			State = ChannelState.Open;
+			this.State = ChannelState.Open;
 
-			return State;
+			return this.State;
 		}
 
 		public override IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout)
 		{
-			TransportIsOpenFor("ReceiveMany");
+			this.TransportIsOpenFor("ReceiveMany");
 
 			var start = DateTime.Now;
 
@@ -52,7 +51,10 @@ namespace Euclid.Common.Messaging
 
 				Queue.TryDequeue(out message);
 
-				if (message == null) continue;
+				if (message == null)
+				{
+					continue;
+				}
 
 				count++;
 
@@ -64,14 +66,14 @@ namespace Euclid.Common.Messaging
 
 		public override IMessage ReceiveSingle(TimeSpan timeout)
 		{
-			TransportIsOpenFor("ReceiveSingle");
+			this.TransportIsOpenFor("ReceiveSingle");
 
-			return Queue.Count == 0 ? null : ReceiveMany(1, timeout).First();
+			return Queue.Count == 0 ? null : this.ReceiveMany(1, timeout).First();
 		}
 
 		public override void Send(IMessage message)
 		{
-			TransportIsOpenFor("Send");
+			this.TransportIsOpenFor("Send");
 
 			if (message.Identifier == Guid.Empty)
 			{

@@ -30,15 +30,16 @@ namespace Euclid.Composites
 	{
 		public BasicCompositeApp()
 		{
-			State = CompositeApplicationState.Uninitailized;
-			Agents = new List<IAgentMetadata>();
-			InputModelTransformers = new InputModelToCommandTransformerRegistry();
-			Container = new WindsorContainer();
+			this.State = CompositeApplicationState.Uninitailized;
+			this.Agents = new List<IAgentMetadata>();
+			this.InputModelTransformers = new InputModelToCommandTransformerRegistry();
+			this.Container = new WindsorContainer();
 		}
 
-		public BasicCompositeApp(IWindsorContainer container) : this()
+		public BasicCompositeApp(IWindsorContainer container)
+			: this()
 		{
-			Container = container;
+			this.Container = container;
 		}
 
 		public IList<IAgentMetadata> Agents { get; private set; }
@@ -50,23 +51,6 @@ namespace Euclid.Composites
 		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
 
 		protected CompositeAppSettings Settings { get; set; }
-
-		public virtual void Configure(CompositeAppSettings compositeAppSettings)
-		{
-			Container.Kernel.Resolver.AddSubResolver(new ArrayResolver(Container.Kernel));
-
-			Container.Kernel.Resolver.AddSubResolver(new ListResolver(Container.Kernel));
-
-			RegisterConfiguredTypes(compositeAppSettings);
-
-			Container.Register(Component
-			                   	.For<IInputModelTransfomerRegistry>()
-			                   	.Instance(InputModelTransformers)
-			                   	.LifeStyle.Singleton);
-
-			Settings = compositeAppSettings;
-			State = CompositeApplicationState.Configured;
-		}
 
 		public void AddAgent(Assembly assembly)
 		{
@@ -83,16 +67,30 @@ namespace Euclid.Composites
 			// enumerate queries, commands & read models
 			var agent = assembly.GetAgentMetadata();
 
-			Agents.Add(agent);
+			this.Agents.Add(agent);
 
 			// SELF the Where call below changes the meaning of the rest of the registration so it had to be removed
+			this.Container.Register(
+				AllTypes.FromAssembly(agent.AgentAssembly)
+          
+					
+					// .Where(Component.IsInNamespace(agent.Queries.Namespace))
+					.BasedOn(typeof(IQuery)).WithService.Self().Configure(component => component.LifeStyle.Transient));
+		}
 
-			Container.Register
-				(AllTypes.FromAssembly(agent.AgentAssembly)
-				 	//.Where(Component.IsInNamespace(agent.Queries.Namespace))
-				 	.BasedOn(typeof (IQuery))
-				 	.WithService.Self()
-				 	.Configure(component => component.LifeStyle.Transient));
+		public virtual void Configure(CompositeAppSettings compositeAppSettings)
+		{
+			this.Container.Kernel.Resolver.AddSubResolver(new ArrayResolver(this.Container.Kernel));
+
+			this.Container.Kernel.Resolver.AddSubResolver(new ListResolver(this.Container.Kernel));
+
+			this.RegisterConfiguredTypes(compositeAppSettings);
+
+			this.Container.Register(
+				Component.For<IInputModelTransfomerRegistry>().Instance(this.InputModelTransformers).LifeStyle.Singleton);
+
+			this.Settings = compositeAppSettings;
+			this.State = CompositeApplicationState.Configured;
 		}
 
 		public void RegisterInputModel(IInputToCommandConverter converter)
@@ -104,7 +102,7 @@ namespace Euclid.Composites
 
 			var commandMetadata = converter.CommandType.GetMetadata();
 
-			var agent = Agents.Where(a => a.Commands.Namespace == commandMetadata.Namespace).FirstOrDefault();
+			var agent = this.Agents.Where(a => a.Commands.Namespace == commandMetadata.Namespace).FirstOrDefault();
 
 			if (agent == null)
 			{
@@ -116,58 +114,47 @@ namespace Euclid.Composites
 				throw new CommandNotPresentInAgentException();
 			}
 
-			InputModelTransformers.Add(commandMetadata.Name, converter);
+			this.InputModelTransformers.Add(commandMetadata.Name, converter);
 		}
 
 		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
 		{
-			var lifestyleType = (isWeb) ? LifestyleType.PerWebRequest : LifestyleType.Transient;
+			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
-			Container.Register(
-			                   Component.For<ISessionFactory>()
-			                   	.UsingFactoryMethod(() =>
-			                   	                    Fluently
-			                   	                    	.Configure()
-			                   	                    	.Database(databaseConfiguration)
-			                   	                    	.Mappings(map => mapAllAssemblies(map))
-			                   	                    	.ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, buildSchema))
-			                   	                    	.BuildSessionFactory()
-			                   	).LifeStyle.Singleton);
+			this.Container.Register(
+				Component.For<ISessionFactory>().UsingFactoryMethod(
+					() =>
+					Fluently.Configure().Database(databaseConfiguration).Mappings(map => this.mapAllAssemblies(map)).
+						ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, buildSchema)).BuildSessionFactory()).LifeStyle.
+					Singleton);
 
 			// jt: open session should be read-only
-			Container.Register(
-			                   Component.For<ISession>()
-			                   	.UsingFactoryMethod(
-			                   	                    () => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(lifestyleType)
-				);
+			this.Container.Register(
+				Component.For<ISession>().UsingFactoryMethod(() => this.Container.Resolve<ISessionFactory>().OpenSession()).
+					LifeStyle.Is(lifestyleType));
 		}
 
 		protected void RegisterConfiguredTypes(CompositeAppSettings compositeAppSettings)
 		{
-			Container.Register(Component.For<IPublisher>()
-			                   	.ImplementedBy(compositeAppSettings.Publisher.Value)
-			                   	.LifeStyle.Transient);
+			this.Container.Register(
+				Component.For<IPublisher>().ImplementedBy(compositeAppSettings.Publisher.Value).LifeStyle.Transient);
 
-			Container.Register(Component.For<IMessageChannel>()
-			                   	.ImplementedBy(compositeAppSettings.MessageChannel.Value)
-			                   	.LifeStyle.Transient);
+			this.Container.Register(
+				Component.For<IMessageChannel>().ImplementedBy(compositeAppSettings.MessageChannel.Value).LifeStyle.Transient);
 
-			Container.Register(Component.For<IRecordMapper<CommandPublicationRecord>>()
-			                   	.ImplementedBy(compositeAppSettings.CommandPublicationRecordMapper.Value)
-			                   	.LifeStyle.Transient);
+			this.Container.Register(
+				Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy(
+					compositeAppSettings.CommandPublicationRecordMapper.Value).LifeStyle.Transient);
 
-			Container.Register(Component.For<IBlobStorage>()
-			                   	.ImplementedBy(compositeAppSettings.BlobStorage.Value)
-			                   	.LifeStyle.Transient);
+			this.Container.Register(
+				Component.For<IBlobStorage>().ImplementedBy(compositeAppSettings.BlobStorage.Value).LifeStyle.Transient);
 
-			Container.Register(Component.For<IMessageSerializer>()
-			                   	.ImplementedBy(compositeAppSettings.MessageSerializer.Value)
-			                   	.LifeStyle.Transient);
+			this.Container.Register(
+				Component.For<IMessageSerializer>().ImplementedBy(compositeAppSettings.MessageSerializer.Value).LifeStyle.Transient);
 
-			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>()
-			                   	.Forward<ICommandRegistry>()
-			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
-			                   	.LifeStyle.Transient);
+			this.Container.Register(
+				Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().Forward<ICommandRegistry>().
+					ImplementedBy(compositeAppSettings.PublicationRegistry.Value).LifeStyle.Transient);
 		}
 
 		private MappingConfiguration mapAllAssemblies(MappingConfiguration mcfg)
@@ -176,12 +163,12 @@ namespace Euclid.Composites
 
 			var assembliesToMap = new Dictionary<Assembly, Assembly>();
 
-			if (Settings.CommandPublicationRecordMapper.Value == typeof (NhRecordMapper<CommandPublicationRecord>))
+			if (this.Settings.CommandPublicationRecordMapper.Value == typeof(NhRecordMapper<CommandPublicationRecord>))
 			{
 				mcfg.AutoMappings.Add(AutoMap.AssemblyOf<CommandPublicationRecord>(autoMapperConfiguration));
 			}
 
-			foreach (var agent in Agents)
+			foreach (var agent in this.Agents)
 			{
 				foreach (var rm in agent.ReadModels.Collection)
 				{

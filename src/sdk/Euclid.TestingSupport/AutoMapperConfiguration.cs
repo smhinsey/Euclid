@@ -11,19 +11,19 @@ namespace Euclid.TestingSupport
 
 		public AutoMapperConfiguration(params Type[] mappableTypes)
 		{
-			_mappableTypes = mappableTypes;
+			this._mappableTypes = mappableTypes;
 		}
 
 		public override bool IsId(Member member)
 		{
-			return (member.Name == "Identifier");
+			return member.Name == "Identifier";
 		}
 
 		public override bool ShouldMap(Type type)
 		{
 			var mapMe = false;
 
-			foreach (var mappableType in _mappableTypes.Where(mappableType => mappableType == type))
+			foreach (var mappableType in this._mappableTypes.Where(mappableType => mappableType == type))
 			{
 				mapMe = true;
 			}

@@ -10,15 +10,11 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 {
 	public abstract class MetadataFormatter : IMetadataFormatter
 	{
-		private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string>
-		                                                                      	{
-		                                                                      		{"xml", MimeTypes.GetByExtension("xml")},
-		                                                                      		{"json", MimeTypes.GetByExtension("json")}
-		                                                                      	};
+		private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string> { { "xml", MimeTypes.GetByExtension("xml") }, { "json", MimeTypes.GetByExtension("json") } };
 
 		public string GetContentType(string format)
 		{
-			return !_supportedContentTypes.ContainsKey(format) ? null : _supportedContentTypes[format];
+			return !this._supportedContentTypes.ContainsKey(format) ? null : this._supportedContentTypes[format];
 		}
 
 		public Encoding GetEncoding(string format)
@@ -28,7 +24,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public IEnumerable<string> GetFormats(string contentType)
 		{
-			return _supportedContentTypes.Where(item => item.Value == contentType).Select(item => item.Key);
+			return this._supportedContentTypes.Where(item => item.Value == contentType).Select(item => item.Key);
 		}
 
 		public string GetRepresentation(string format)
@@ -36,9 +32,9 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			switch (format.ToLower())
 			{
 				case "xml":
-					return GetAsXml();
+					return this.GetAsXml();
 				case "json":
-					return SetupJsonSerialization();
+					return this.SetupJsonSerialization();
 			}
 
 			throw new MetadataFormatNotSupportedException(format);
@@ -52,11 +48,11 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 			var json = new StringBuilder();
 
-			var writer = new JsonTextWriter(new StringWriter(json)) {Formatting = Formatting.Indented};
+			var writer = new JsonTextWriter(new StringWriter(json)) { Formatting = Formatting.Indented };
 
 			var serializer = JsonSerializer.Create(serializerSettings);
 
-			var data = GetJsonObject(serializer);
+			var data = this.GetJsonObject(serializer);
 
 			serializer.Serialize(writer, data);
 
@@ -64,6 +60,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 		}
 
 		protected abstract string GetAsXml();
+
 		protected abstract object GetJsonObject(JsonSerializer serializer);
 	}
 }

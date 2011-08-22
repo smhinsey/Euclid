@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-ca">
 	<head>
-		<title>@ViewBag.Title</title>
+		<title>@this.ViewBag.Title</title>
 		<link rel="stylesheet" type="text/css" href="../../Content/themes/swiss/style.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="../../Content/themes/swiss/custom.css" media="screen" />
 		<link rel="shortcut icon" href="../../Content/themes/swiss/favicon.png" type="image/x-icon" />
@@ -14,10 +14,10 @@
 					<a href="#"><img src="../../Content/themes/swiss/images/logo.gif" alt="" /></a>
 				</div>
 				<div id="menu" class="sidebar-block">
-					@RenderPage("LeftMenu.cshtml")
+					@this.RenderPage("LeftMenu.cshtml")
 				</div>
 				<div id="search" class="sidebar-block">
-					@RenderPage("Search.cshtml")
+					@this.RenderPage("Search.cshtml")
 				</div>
 				<div id="categories" class="sidebar-block">
 					<!--
@@ -32,14 +32,14 @@
 						</div>
 						-->
 					<div class="Box BoxCategories">
-						@RenderPage("Categories.cshtml")
+						@this.RenderPage("Categories.cshtml")
 					</div>
 				</div>
 			</div>
 			<div id="Body">
 				<div id="Content">
-					@RenderPage("TopMenu.cshtml")
-					@RenderBody()
+					@this.RenderPage("TopMenu.cshtml")
+					@this.RenderBody()
 					<div id="Copyright">Powered by Euclid</div>
 				</div>
 			</div>

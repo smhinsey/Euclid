@@ -7,13 +7,14 @@ namespace Euclid.Sdk.FakeAgent.Queries
 {
 	public class FakeQuery : NhQuery<FakeReadModel>
 	{
-		public FakeQuery(ISession session) : base(session)
+		public FakeQuery(ISession session)
+			: base(session)
 		{
 		}
 
 		public IList<FakeReadModel> FindByNumber(int number)
 		{
-			var session = GetCurrentSession();
+			var session = this.GetCurrentSession();
 
 			return session.QueryOver<FakeReadModel>().Where(model => model.Number == number).List();
 		}

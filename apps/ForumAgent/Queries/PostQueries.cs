@@ -8,26 +8,25 @@ namespace ForumAgent.Queries
 {
 	public class PostQueries : NhQuery<Post>
 	{
-		public PostQueries(ISession session) : base(session)
+		public PostQueries(ISession session)
+			: base(session)
 		{
 		}
 
 		public Post FindByTitle(string title)
 		{
-			var session = GetCurrentSession();
+			var session = this.GetCurrentSession();
 
-			var posts = session.QueryOver<Post>()
-				.Where(post => post.Title == title);
+			var posts = session.QueryOver<Post>().Where(post => post.Title == title);
 
 			return posts.SingleOrDefault();
 		}
 
 		public IList<Post> FindPostsByCategory(Guid categoryIdentifier)
 		{
-			var session = GetCurrentSession();
+			var session = this.GetCurrentSession();
 
-			var posts = session.QueryOver<Post>()
-				.Where(post => post.CategoryIdentifier == categoryIdentifier);
+			var posts = session.QueryOver<Post>().Where(post => post.CategoryIdentifier == categoryIdentifier);
 
 			return posts.List();
 		}

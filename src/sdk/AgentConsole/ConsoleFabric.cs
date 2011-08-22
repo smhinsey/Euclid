@@ -9,16 +9,16 @@ namespace AgentConsole
 {
 	public class ConsoleFabric : BasicFabric
 	{
-		public ConsoleFabric(IWindsorContainer container) : base(container)
+		public ConsoleFabric(IWindsorContainer container)
+			: base(container)
 		{
-			container.Register(Component.For<IServiceLocator>().Instance(new WindsorServiceLocator(Container)));
+			container.Register(Component.For<IServiceLocator>().Instance(new WindsorServiceLocator(this.Container)));
 		}
 
 		public override void Initialize(IFabricRuntimeSettings settings)
 		{
-			Container.Register(Component.For<IServiceHost>()
-			                   	.Forward<MultitaskingServiceHost>()
-			                   	.Instance(new MultitaskingServiceHost()));
+			this.Container.Register(
+				Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(new MultitaskingServiceHost()));
 
 			base.Initialize(settings);
 		}

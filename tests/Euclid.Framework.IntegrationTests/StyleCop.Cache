@@ -1,0 +1,40 @@
+<stylecopresultscache>
+  <version>11</version>
+  <project key="767740487">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>03/09/2011 18:52:10</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>08/22/2011 04:12:28</timestamp>
+    <milliseconds>308</milliseconds>
+    <violations />
+  </sourcecode>
+  <sourcecode name="NhQueryTests.cs" parser="StyleCop.CSharp.CsParser">
+    <settings>
+      <timestamp>03/09/2011 18:52:10</timestamp>
+      <milliseconds>0</milliseconds>
+    </settings>
+    <timestamp>08/22/2011 04:12:28</timestamp>
+    <milliseconds>308</milliseconds>
+    <violations>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="FileMustHaveHeader" ruleCheckId="SA1633">
+        <context>The file has no header, the header Xml is invalid, or the header is not located at the top of the file.</context>
+        <line>1</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The class must have a documentation header.</context>
+        <line>12</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementsMustBeDocumented" ruleCheckId="SA1600">
+        <context>The field must have a documentation header.</context>
+        <line>14</line>
+        <warning>False</warning>
+      </violation>
+    </violations>
+  </sourcecode>
+</stylecopresultscache>

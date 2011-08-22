@@ -13,24 +13,24 @@ namespace Euclid.Composites.Mvc.Results
 		public override void ExecuteResult(ControllerContext context)
 		{
 			if (context == null)
+			{
 				throw new ArgumentNullException("context");
+			}
 
 			var response = context.HttpContext.Response;
 
 			response.ContentEncoding = Encoding.UTF8;
 			response.ContentType = MimeTypes.GetByExtension("xml");
 
-			if (Data != null)
+			if (this.Data != null)
 			{
-				var root = new XElement(Data.GetType().Name);
+				var root = new XElement(this.Data.GetType().Name);
 
-				foreach (var property in Data.GetType().GetProperties())
+				foreach (var property in this.Data.GetType().GetProperties())
 				{
-					var rawValue = property.GetValue(Data, null) ?? string.Empty;
+					var rawValue = property.GetValue(this.Data, null) ?? string.Empty;
 
-					var value = (property.PropertyType == typeof (Type))
-					            	? (rawValue as Type).FullName
-					            	: rawValue.ToString();
+					var value = (property.PropertyType == typeof(Type)) ? (rawValue as Type).FullName : rawValue.ToString();
 
 					root.Add(new XElement(property.Name, value));
 				}

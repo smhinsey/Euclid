@@ -5,28 +5,37 @@ namespace Euclid.Framework.Agent
 	public abstract class NamespaceFinderAttribute : Attribute, IAgentAttribute
 	{
 		private string _ns;
+
 		private Type _type;
 
 		public string Namespace
 		{
-			get { return _ns; }
+			get
+			{
+				return this._ns;
+			}
+
 			set
 			{
-				_ns = value;
-				NamespaceOfType = null;
+				this._ns = value;
+				this.NamespaceOfType = null;
 			}
 		}
 
 		public Type NamespaceOfType
 		{
-			get { return _type; }
+			get
+			{
+				return this._type;
+			}
+
 			set
 			{
-				_type = value;
+				this._type = value;
 
 				if (value != null)
 				{
-					Namespace = _type.Namespace;
+					this.Namespace = this._type.Namespace;
 				}
 			}
 		}

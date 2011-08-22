@@ -4,14 +4,13 @@
 //      SpecFlow Version:1.7.0.0
 //      SpecFlow Generator Version:1.7.0.0
 //      Runtime Version:4.0.30319.225
-// 
 //      Changes to this file may cause incorrect behavior and will be lost if
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
-
 #region Designer generated code
 
+using System.Globalization;
 using TechTalk.SpecFlow;
 
 namespace Euclid.Sdk.Metadata
@@ -19,13 +18,13 @@ namespace Euclid.Sdk.Metadata
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
 	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
 	[NUnit.Framework.TestFixtureAttribute()]
-	[NUnit.Framework.DescriptionAttribute("In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" +
-	                                      "a in arbitrary formats")]
+	[NUnit.Framework.DescriptionAttribute(
+		"In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" + "a in arbitrary formats")]
 	[NUnit.Framework.CategoryAttribute("SdkSpecs")]
 	[NUnit.Framework.CategoryAttribute("MetadataService")]
 	public partial class EuclidAgentsProvideMetadataFeature
 	{
-		private static TechTalk.SpecFlow.ITestRunner testRunner;
+		private static ITestRunner testRunner;
 
 #line 1 "MetadataService.feature"
 #line hidden
@@ -34,13 +33,12 @@ namespace Euclid.Sdk.Metadata
 		public virtual void FeatureSetup()
 		{
 			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-			var featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Euclid agents provide metadata",
-			                                                    "In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" +
-			                                                    "a in arbitrary formats", ProgrammingLanguage.CSharp, new string[]
-			                                                                                                          	{
-			                                                                                                          		"SdkSpecs",
-			                                                                                                          		"MetadataService"
-			                                                                                                          	});
+			var featureInfo = new FeatureInfo(
+				new CultureInfo("en-US"), 
+				"Euclid agents provide metadata", 
+				"In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" + "a in arbitrary formats", 
+				ProgrammingLanguage.CSharp, 
+				new[] { "SdkSpecs", "MetadataService" });
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -62,7 +60,7 @@ namespace Euclid.Sdk.Metadata
 			testRunner.OnScenarioEnd();
 		}
 
-		public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+		public virtual void ScenarioSetup(ScenarioInfo scenarioInfo)
 		{
 			testRunner.OnScenarioStart(scenarioInfo);
 		}
@@ -78,9 +76,10 @@ namespace Euclid.Sdk.Metadata
 		[NUnit.Framework.TestCaseAttribute("basic", "json", "application/json", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("full", "xml", "text/xml", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("full", "json", "application/json", new string[0])]
-		public virtual void AgentsHave2TypesOfMetadataRepresentations(string representation_Type, string format_Name, string content_Type, string[] exampleTags)
+		public virtual void AgentsHave2TypesOfMetadataRepresentations(
+			string representation_Type, string format_Name, string content_Type, string[] exampleTags)
 		{
-			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(": Agents have 2 types of metadata representations", exampleTags);
+			var scenarioInfo = new ScenarioInfo(": Agents have 2 types of metadata representations", exampleTags);
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -105,9 +104,10 @@ namespace Euclid.Sdk.Metadata
 		[NUnit.Framework.TestCaseAttribute("query", "json", "application/json", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("readmodel", "xml", "text/xml", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("readmodel", "json", "application/json", new string[0])]
-		public virtual void AgentPartsProvideFormattedMetadata(string agent_Part, string format_Name, string content_Type, string[] exampleTags)
+		public virtual void AgentPartsProvideFormattedMetadata(
+			string agent_Part, string format_Name, string content_Type, string[] exampleTags)
 		{
-			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Agent parts provide formatted metadata", exampleTags);
+			var scenarioInfo = new ScenarioInfo("Agent parts provide formatted metadata", exampleTags);
 #line 21
 			this.ScenarioSetup(scenarioInfo);
 #line 22
@@ -130,9 +130,10 @@ namespace Euclid.Sdk.Metadata
 		[NUnit.Framework.TestCaseAttribute("queries", "json", "application/json", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("readmodels", "xml", "text/xml", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("readmodels", "json", "application/json", new string[0])]
-		public virtual void AgentPartCollectionsProvideFormattedMetadata(string descriptive_Name, string format_Name, string content_Type, string[] exampleTags)
+		public virtual void AgentPartCollectionsProvideFormattedMetadata(
+			string descriptive_Name, string format_Name, string content_Type, string[] exampleTags)
 		{
-			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Agent part collections provide formatted metadata", exampleTags);
+			var scenarioInfo = new ScenarioInfo("Agent part collections provide formatted metadata", exampleTags);
 #line 39
 			this.ScenarioSetup(scenarioInfo);
 #line 40
@@ -153,9 +154,11 @@ namespace Euclid.Sdk.Metadata
 		[NUnit.Framework.TestCaseAttribute("basic", "json", "application/json", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("full", "xml", "text/xml", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("full", "json", "application/json", new string[0])]
-		public virtual void CollectionsOfAgentMetadataProvide2TypesOfFormattedMetadata(string representation_Type, string format_Name, string content_Type, string[] exampleTags)
+		public virtual void CollectionsOfAgentMetadataProvide2TypesOfFormattedMetadata(
+			string representation_Type, string format_Name, string content_Type, string[] exampleTags)
 		{
-			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Collections of agent metadata provide 2 types of formatted metadata", exampleTags);
+			var scenarioInfo = new ScenarioInfo(
+				"Collections of agent metadata provide 2 types of formatted metadata", exampleTags);
 #line 54
 			this.ScenarioSetup(scenarioInfo);
 #line 55

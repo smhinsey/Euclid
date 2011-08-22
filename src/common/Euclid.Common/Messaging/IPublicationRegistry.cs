@@ -49,8 +49,7 @@ namespace Euclid.Common.Messaging
 		/// <param name = "message">A message associated with the error.</param>
 		/// <param name = "callStack">The callstack of the error.</param>
 		/// <returns>The updated record.</returns>
-		TPublicationRecordContract MarkAsFailed
-			(Guid identifier, string message = null, string callStack = null);
+		TPublicationRecordContract MarkAsFailed(Guid identifier, string message = null, string callStack = null);
 
 		// SELF we probably need to differentiate between "no dispatcher available" and "dispatcher blew up" below
 
@@ -62,8 +61,7 @@ namespace Euclid.Common.Messaging
 		/// <param name = "isError"></param>
 		/// <param name = "message"></param>
 		/// <returns>The updated record.</returns>
-		TPublicationRecordContract MarkAsUnableToDispatch
-			(Guid identifier, bool isError = false, string message = null);
+		TPublicationRecordContract MarkAsUnableToDispatch(Guid identifier, bool isError = false, string message = null);
 
 		/// <summary>
 		/// 	Called by a publisher. Creates a TPublicationRecord containing all relevant info from the 

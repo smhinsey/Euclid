@@ -12,16 +12,16 @@ namespace Euclid.Common.UnitTests.Storage
 
 		public BlobTester(IBlobStorage blobStorage)
 		{
-			_blobStorage = blobStorage;
+			this._blobStorage = blobStorage;
 		}
 
 		public Uri Delete(Uri uri)
 		{
 			Assert.NotNull(uri);
-			Assert.True(_blobStorage.Exists(uri));
+			Assert.True(this._blobStorage.Exists(uri));
 
-			_blobStorage.Delete(uri);
-			Assert.False(_blobStorage.Exists(uri));
+			this._blobStorage.Delete(uri);
+			Assert.False(this._blobStorage.Exists(uri));
 
 			return uri;
 		}
@@ -29,30 +29,29 @@ namespace Euclid.Common.UnitTests.Storage
 		public bool Exists(Uri uri)
 		{
 			Assert.NotNull(uri);
-			return _blobStorage.Exists(uri);
+			return this._blobStorage.Exists(uri);
 		}
 
 		public IBlob Get(Uri uri)
 		{
 			Assert.NotNull(uri);
 
-			var retrieved = _blobStorage.Get(uri);
+			var retrieved = this._blobStorage.Get(uri);
 			return retrieved;
 		}
 
 		public IBlob GetNewBlob()
 		{
 			return new Blob
-			       	{
-			       		Bytes =
-			       			Encoding.UTF8.GetBytes
-			       			(
-			       			 string.Format
-			       			 	(
-			       			 	 "<blob><title>Test Blob</title><created>{0}</created><testing>{1}</testing></blob>",
-			       			 	 DateTime.Now, _blobStorage.GetType().FullName)),
-			       		ContentType = "text/xml",
-			       	};
+				{
+					Bytes =
+						Encoding.UTF8.GetBytes(
+							string.Format(
+								"<blob><title>Test Blob</title><created>{0}</created><testing>{1}</testing></blob>", 
+								DateTime.Now, 
+								this._blobStorage.GetType().FullName)), 
+					ContentType = "text/xml", 
+				};
 		}
 
 		public Uri Put(IBlob blob)
@@ -60,7 +59,7 @@ namespace Euclid.Common.UnitTests.Storage
 			Assert.NotNull(blob);
 			Assert.NotNull(blob.Bytes);
 
-			var uri = _blobStorage.Put(blob, "test");
+			var uri = this._blobStorage.Put(blob, "test");
 
 			Assert.NotNull(uri);
 

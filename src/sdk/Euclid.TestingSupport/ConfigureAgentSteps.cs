@@ -14,28 +14,30 @@ using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using FluentNHibernate.Cfg.Db;
+using log4net.Config;
 using Microsoft.WindowsAzure;
 using TechTalk.SpecFlow;
-using log4net.Config;
 
 namespace Euclid.TestingSupport
 {
 	/// <summary>
-	/// Implement a single ConfigureAgentSteps subclass per agent being tested by Specflow.
+	/// 	Implement a single ConfigureAgentSteps subclass per agent being tested by Specflow.
 	/// </summary>
-	/// <typeparam name="TTypeFromAgent"></typeparam>
+	/// <typeparam name = "TTypeFromAgent"></typeparam>
 	public abstract class ConfigureAgentSteps<TTypeFromAgent>
 	{
 		protected WindsorContainer Container;
+
 		private bool _configured;
+
 		private ConsoleFabric _fabric;
 
 		[Given(@"the agent (.*)")]
 		public void GivenTheAgent(string assemblyName)
 		{
-			if (!_configured)
+			if (!this._configured)
 			{
-				configure(typeof (TTypeFromAgent).Assembly);
+				this.configure(typeof(TTypeFromAgent).Assembly);
 			}
 		}
 
@@ -44,7 +46,7 @@ namespace Euclid.TestingSupport
 		{
 			while (true)
 			{
-				var registry = Container.Resolve<ICommandRegistry>();
+				var registry = this.Container.Resolve<ICommandRegistry>();
 
 				var record = registry.GetPublicationRecord(DefaultSpecSteps.PubIdOfLastMessage);
 
@@ -61,38 +63,39 @@ namespace Euclid.TestingSupport
 		{
 			XmlConfigurator.Configure();
 
-			Container = new WindsorContainer();
+			this.Container = new WindsorContainer();
 
-			setAzureCredentials(Container);
+			this.setAzureCredentials(this.Container);
 
-			_fabric = new ConsoleFabric(Container);
+			this._fabric = new ConsoleFabric(this.Container);
 
-			var composite = new BasicCompositeApp(Container);
+			var composite = new BasicCompositeApp(this.Container);
 
-			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+			composite.RegisterNh(
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
 			composite.AddAgent(agentAssembly);
 
-			composite.Configure(getCompositeSettings());
+			composite.Configure(this.getCompositeSettings());
 
-			_fabric.Initialize(getFabricSettings());
+			this._fabric.Initialize(this.getFabricSettings());
 
-			_fabric.InstallComposite(composite);
+			this._fabric.InstallComposite(composite);
 
-			_fabric.Start();
+			this._fabric.Start();
 
-			_configured = true;
+			this._configured = true;
 
-			DefaultSpecSteps.SetContainerInScenarioContext(Container);
+			DefaultSpecSteps.SetContainerInScenarioContext(this.Container);
 		}
 
 		private CompositeAppSettings getCompositeSettings()
 		{
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.MessageChannel.WithDefault(typeof (AzureMessageChannel));
-			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
-			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.MessageChannel.WithDefault(typeof(AzureMessageChannel));
+			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
 
 			return compositeAppSettings;
 		}
@@ -101,8 +104,8 @@ namespace Euclid.TestingSupport
 		{
 			var fabricSettings = new FabricRuntimeSettings();
 
-			fabricSettings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
-			fabricSettings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
+			fabricSettings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
+			fabricSettings.HostedServices.WithDefault(new List<Type> { typeof(CommandHost) });
 
 			var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
 
@@ -115,11 +118,11 @@ namespace Euclid.TestingSupport
 		private void setAzureCredentials(IWindsorContainer container)
 		{
 			// as soon as we can stop using the azure storage emulator we should
-
-			var storageAccount = new CloudStorageAccount(CloudStorageAccount.DevelopmentStorageAccount.Credentials,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
+			var storageAccount = new CloudStorageAccount(
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
 		}

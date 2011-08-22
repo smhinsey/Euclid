@@ -7,7 +7,7 @@ namespace Euclid.Common.Messaging
 	{
 		public override bool CanConvert(Type objectType)
 		{
-			return objectType == typeof (Envelope);
+			return objectType == typeof(Envelope);
 		}
 
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -18,9 +18,8 @@ namespace Euclid.Common.Messaging
 				reader.Read();
 
 				// SELF this depends on the alphabetical order of the property names and should be changed
-
-				if (reader.TokenType == JsonToken.PropertyName &&
-				    string.Compare(reader.Value as string, "MessageTypeName", true) == 0)
+				if (reader.TokenType == JsonToken.PropertyName
+				    && string.Compare(reader.Value as string, "MessageTypeName", true) == 0)
 				{
 					reader.Read();
 					typeName = reader.Value.ToString();
@@ -36,8 +35,8 @@ namespace Euclid.Common.Messaging
 
 					return new Envelope(msg as IMessage);
 				}
-			} while (reader.TokenType != JsonToken.EndObject);
-
+			}
+			while (reader.TokenType != JsonToken.EndObject);
 
 			reader.Read();
 

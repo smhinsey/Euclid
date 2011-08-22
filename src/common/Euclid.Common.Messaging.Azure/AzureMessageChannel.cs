@@ -12,13 +12,16 @@ namespace Euclid.Common.Messaging.Azure
 	public class AzureMessageChannel : MessageChannelBase
 	{
 		private const int MaximumNumberOfMessagesThatCanBeFetched = 32;
+
 		private static readonly object Down = new object();
-		private static CloudQueue _queue;
+
 		private readonly IMessageSerializer _serializer;
+
+		private static CloudQueue _queue;
 
 		public AzureMessageChannel(IMessageSerializer serializer)
 		{
-			_serializer = serializer;
+			this._serializer = serializer;
 		}
 
 		private AzureMessageChannel()
@@ -36,10 +39,10 @@ namespace Euclid.Common.Messaging.Azure
 			{
 				_queue.Delete();
 				_queue = null;
-				State = ChannelState.Closed;
+				this.State = ChannelState.Closed;
 			}
 
-			return State;
+			return this.State;
 		}
 
 		public override ChannelState Open()
@@ -48,18 +51,18 @@ namespace Euclid.Common.Messaging.Azure
 			{
 				if (_queue == null)
 				{
-					CreateQueue(ChannelName);
+					CreateQueue(this.ChannelName);
 				}
 
-				State = ChannelState.Open;
+				this.State = ChannelState.Open;
 			}
 
-			return State;
+			return this.State;
 		}
 
 		public override IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout)
 		{
-			TransportIsOpenFor("ReceiveMany");
+			this.TransportIsOpenFor("ReceiveMany");
 
 			ValidNumberOfMessagesRequested(howMany);
 
@@ -73,11 +76,14 @@ namespace Euclid.Common.Messaging.Azure
 
 				count++;
 
-				if (message == null) continue;
+				if (message == null)
+				{
+					continue;
+				}
 
 				_queue.DeleteMessage(message);
 
-				yield return _serializer.Deserialize(message.AsBytes);
+				yield return this._serializer.Deserialize(message.AsBytes);
 			}
 
 			yield break;
@@ -85,51 +91,35 @@ namespace Euclid.Common.Messaging.Azure
 
 		public override IMessage ReceiveSingle(TimeSpan timeSpan)
 		{
-			TransportIsOpenFor("ReceiveSingle");
+			this.TransportIsOpenFor("ReceiveSingle");
 
 			var msg = _queue.GetMessage();
 
 			_queue.DeleteMessage(msg);
 
-			return _serializer.Deserialize(msg.AsBytes);
+			return this._serializer.Deserialize(msg.AsBytes);
 		}
 
 		public override void Send(IMessage message)
 		{
-			TransportIsOpenFor("Send");
+			this.TransportIsOpenFor("Send");
 
-			var msg = MessageIsNotTooBig(message);
+			var msg = this.MessageIsNotTooBig(message);
 
 			_queue.AddMessage(msg);
 		}
 
-		private CloudQueueMessage MessageIsNotTooBig(IMessage message)
-		{
-			var msgBytes = _serializer.Serialize(message);
-
-			var msg = msgBytes.GetString(Encoding.UTF8);
-
-			if ((msg.Length/1024) > 8)
-			{
-				throw new Exception("The message is larger than 8k and can't be saved to the azure channel");
-			}
-
-			return new CloudQueueMessage(msg);
-		}
-
 		private static void CreateQueue(string channelName)
 		{
-			CloudStorageAccount.SetConfigurationSettingPublisher
-				((configurationKey, publishConfigurationValue) =>
-				 	{
-				 		var connectionString =
-				 			RoleEnvironment.IsAvailable
-				 				? RoleEnvironment.GetConfigurationSettingValue
-				 				  	(configurationKey)
-				 				: ConfigurationManager.AppSettings[configurationKey];
+			CloudStorageAccount.SetConfigurationSettingPublisher(
+				(configurationKey, publishConfigurationValue) =>
+					{
+						var connectionString = RoleEnvironment.IsAvailable
+						                       	? RoleEnvironment.GetConfigurationSettingValue(configurationKey)
+						                       	: ConfigurationManager.AppSettings[configurationKey];
 
-				 		publishConfigurationValue(connectionString);
-				 	});
+						publishConfigurationValue(connectionString);
+					});
 
 			var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
 			var queueClient = storageAccount.CreateCloudQueueClient();
@@ -142,8 +132,24 @@ namespace Euclid.Common.Messaging.Azure
 		{
 			if (howMany > MaximumNumberOfMessagesThatCanBeFetched)
 			{
-				throw new InvalidOperationException(string.Format("Only {0} messages can be retrieved from an azure channel at a time", MaximumNumberOfMessagesThatCanBeFetched));
+				throw new InvalidOperationException(
+					string.Format(
+						"Only {0} messages can be retrieved from an azure channel at a time", MaximumNumberOfMessagesThatCanBeFetched));
 			}
+		}
+
+		private CloudQueueMessage MessageIsNotTooBig(IMessage message)
+		{
+			var msgBytes = this._serializer.Serialize(message);
+
+			var msg = msgBytes.GetString(Encoding.UTF8);
+
+			if ((msg.Length / 1024) > 8)
+			{
+				throw new Exception("The message is larger than 8k and can't be saved to the azure channel");
+			}
+
+			return new CloudQueueMessage(msg);
 		}
 	}
 }
