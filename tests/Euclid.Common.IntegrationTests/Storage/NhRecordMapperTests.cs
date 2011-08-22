@@ -20,46 +20,45 @@ namespace Euclid.Common.IntegrationTests.Storage
 	[Category(TestCategories.Integration)]
 	public class NhRecordMapperTests
 	{
-		private RecordMapperTester<NhRecordMapper<FakePublicationRecord>> _repoTester;
-
 		private ISession _session;
+
+		private RecordMapperTester<NhRecordMapper<FakePublicationRecord>> _tester;
 
 		public void ConfigureDatabase()
 		{
 			var cfg = new AutoMapperConfiguration(typeof(FakeMessage), typeof(FakePublicationRecord));
 
-			this._session =
+			_session =
 				Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("NhRecordMapperTests")).Mappings(
-					map => map.AutoMappings.Add(AutoMap.AssemblyOf<FakeMessage>(cfg))).ExposeConfiguration(BuildSchema).
+					map => map.AutoMappings.Add(AutoMap.AssemblyOf<FakeMessage>(cfg))).ExposeConfiguration(buildSchema).
 					BuildSessionFactory().OpenSession();
 		}
 
 		[SetUp]
 		public void Setup()
 		{
-			if (this._session == null)
+			if (_session == null)
 			{
-				this.ConfigureDatabase();
+				ConfigureDatabase();
 			}
 
 			var storage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
-			var repo = new NhRecordMapper<FakePublicationRecord>(this._session);
+			var repo = new NhRecordMapper<FakePublicationRecord>(_session);
 
-			this._repoTester = new RecordMapperTester<NhRecordMapper<FakePublicationRecord>>(repo);
+			_tester = new RecordMapperTester<NhRecordMapper<FakePublicationRecord>>(repo);
 		}
 
 		[Test]
 		public void TestAutoMap()
 		{
-			Assert.Null(this._session.Query<FakeMessage>().FirstOrDefault());
+			Assert.Null(_session.Query<FakeMessage>().FirstOrDefault());
 
-			var id = Guid.NewGuid();
-			var primaryKey = (Guid)this._session.Save(new FakeMessage { Created = DateTime.Now, CreatedBy = Guid.NewGuid() });
+			var primaryKey = (Guid)_session.Save(new FakeMessage { Created = DateTime.Now, CreatedBy = Guid.NewGuid() });
 			Assert.NotNull(primaryKey);
-			this._session.Flush();
+			_session.Flush();
 
-			var message = this._session.Query<FakeMessage>().Where(m => m.Identifier == primaryKey).FirstOrDefault();
+			var message = _session.Query<FakeMessage>().Where(m => m.Identifier == primaryKey).FirstOrDefault();
 			Assert.NotNull(message);
 			Assert.AreEqual(primaryKey, message.Identifier);
 		}
@@ -67,28 +66,40 @@ namespace Euclid.Common.IntegrationTests.Storage
 		[Test]
 		public void TestCreate()
 		{
-			this._repoTester.TestCreate();
+			_tester.TestCreate();
 		}
 
 		[Test]
 		public void TestDelete()
 		{
-			this._repoTester.TestDelete();
+			_tester.TestDelete();
+		}
+
+		[Test]
+		public void TestList()
+		{
+			_tester.TestList();
+		}
+
+		[Test]
+		public void TestListPagination()
+		{
+			_tester.TestList();
 		}
 
 		[Test]
 		public void TestRetrieve()
 		{
-			this._repoTester.TestRetrieve();
+			_tester.TestRetrieve();
 		}
 
 		[Test]
 		public void TestUpdate()
 		{
-			this._repoTester.TestUpdate();
+			_tester.TestUpdate();
 		}
 
-		private static void BuildSchema(NHibernate.Cfg.Configuration cfg)
+		private static void buildSchema(NHibernate.Cfg.Configuration cfg)
 		{
 			new SchemaExport(cfg).Create(false, true);
 		}

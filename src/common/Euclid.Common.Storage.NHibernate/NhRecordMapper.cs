@@ -14,18 +14,18 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public NhRecordMapper(ISession session)
 		{
-			this._session = session;
+			_session = session;
 		}
 
 		public TRecord Create(TRecord record)
 		{
 			this.WriteDebugMessage(string.Format("Creating record {0}({1})", record.GetType().Name, record.Identifier));
 
-			using (var transaction = this._session.BeginTransaction())
+			using (var transaction = _session.BeginTransaction())
 			{
 				try
 				{
-					this._session.Save(record);
+					_session.Save(record);
 				}
 				catch (Exception e)
 				{
@@ -44,9 +44,9 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public TRecord Delete(Guid id)
 		{
-			var record = this.Retrieve(id);
+			var record = Retrieve(id);
 
-			using (var transaction = this._session.BeginTransaction())
+			using (var transaction = _session.BeginTransaction())
 			{
 				try
 				{
@@ -57,7 +57,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 					this.WriteDebugMessage(string.Format("Deleting record {0}({1})", record.GetType().Name, record.Identifier));
 
-					this._session.Delete(record);
+					_session.Delete(record);
 				}
 				catch (Exception e)
 				{
@@ -74,20 +74,25 @@ namespace Euclid.Common.Storage.NHibernate
 			return record;
 		}
 
+		public IList<TRecord> List(int count, int offset)
+		{
+			return _session.QueryOver<TRecord>().Take(count).Skip(offset).List();
+		}
+
 		public TRecord Retrieve(Guid id)
 		{
-			return this._session.Get<TRecord>(id);
+			return _session.Get<TRecord>(id);
 		}
 
 		public TRecord Update(TRecord record)
 		{
 			this.WriteDebugMessage(string.Format("Updating record {0}({1})", record.GetType().Name, record.Identifier));
 
-			using (var transaction = this._session.BeginTransaction())
+			using (var transaction = _session.BeginTransaction())
 			{
 				try
 				{
-					this._session.Update(record, record.Identifier);
+					_session.Update(record, record.Identifier);
 				}
 				catch (Exception e)
 				{
@@ -101,7 +106,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 			this.WriteDebugMessage(string.Format("Updated record {0}({1})", record.GetType().Name, record.Identifier));
 
-			return this.Retrieve(record.Identifier);
+			return Retrieve(record.Identifier);
 		}
 	}
 }

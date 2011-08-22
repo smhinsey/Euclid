@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Euclid.Common.Storage.Record
 {
@@ -11,5 +12,7 @@ namespace Euclid.Common.Storage.Record
 		TRecord Retrieve(Guid id);
 
 		TRecord Update(TRecord record);
+
+		IList<TRecord> List(int count, int offset);
 	}
 }

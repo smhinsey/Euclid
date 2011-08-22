@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Record;
 
@@ -40,6 +42,11 @@ namespace Euclid.Common.Storage
 			Records.TryUpdate(record.Identifier, record, Records[record.Identifier]);
 
 			return record;
+		}
+
+		public IList<TRecord> List(int count, int offset)
+		{
+			return new List<TRecord>(Records.Values.ToList().Take(count).Skip(offset));
 		}
 	}
 }
