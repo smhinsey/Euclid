@@ -6,16 +6,16 @@
 
 @using (Html.BeginForm())
 {
-    @Html.ValidationSummary(true)
+	@Html.ValidationSummary(true)
 
-    <fieldset>
-        @Html.EditorFor(p => Model)
-    </fieldset>
+	<fieldset>
+		@Html.EditorFor(p => Model)
+	</fieldset>
 
-    <input type="submit" value="Publish Command" />
+	<input type="submit" value="Publish Command" />
 }
 
 @{
-    var footer = (FooterLinkModel) ViewBag.Navigation;
-    Html.RenderPartial("MetadataLinks", footer);
+	var footer = (FooterLinkModel) ViewBag.Navigation;
+	Html.RenderPartial("MetadataLinks", footer);
 }

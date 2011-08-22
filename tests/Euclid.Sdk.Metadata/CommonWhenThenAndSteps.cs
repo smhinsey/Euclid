@@ -5,43 +5,43 @@ using TechTalk.SpecFlow;
 
 namespace Euclid.Sdk.Metadata
 {
-    [Binding]
-    public class CommonWhenThenAndSteps : PropertiesUsedInTests
-    {
-        [When(@"metadata is requested as (.*)")]
-        public void MetadataIsRequested(string format)
-        {
-            Assert.False(string.IsNullOrEmpty(format));
+	[Binding]
+	public class CommonWhenThenAndSteps : PropertiesUsedInTests
+	{
+		[Then(@"has been independently validated")]
+		public void IndependentlyValidate()
+		{
+			Assert.NotNull(Formatter);
 
-            Format = format;
-        }
+			Assert.False(string.IsNullOrEmpty(Format));
 
-        [Then(@"it can be represented as (.*)")]
-        public void ItCanBeRepresentedAs(string contentType)
-        {
-            Assert.NotNull(Formatter);
+			var representation = Formatter.GetRepresentation(Format);
 
-            Assert.False(string.IsNullOrEmpty(Format));
+			Assert.False(string.IsNullOrEmpty(representation));
 
-            Assert.False(string.IsNullOrEmpty(contentType));
+			Console.WriteLine(representation);
+		}
 
-            Assert.AreEqual(contentType, Formatter.GetContentType(Format));
+		[Then(@"it can be represented as (.*)")]
+		public void ItCanBeRepresentedAs(string contentType)
+		{
+			Assert.NotNull(Formatter);
 
-            Assert.True(Formatter.GetFormats(contentType).Contains(Format));
-        }
+			Assert.False(string.IsNullOrEmpty(Format));
 
-        [Then(@"has been independently validated")]
-        public void IndependentlyValidate()
-        {
-            Assert.NotNull(Formatter);
+			Assert.False(string.IsNullOrEmpty(contentType));
 
-            Assert.False(string.IsNullOrEmpty(Format));
+			Assert.AreEqual(contentType, Formatter.GetContentType(Format));
 
-            var representation = Formatter.GetRepresentation(Format);
+			Assert.True(Formatter.GetFormats(contentType).Contains(Format));
+		}
 
-            Assert.False(string.IsNullOrEmpty(representation));
+		[When(@"metadata is requested as (.*)")]
+		public void MetadataIsRequested(string format)
+		{
+			Assert.False(string.IsNullOrEmpty(format));
 
-            Console.WriteLine(representation);
-        }
-    }
+			Format = format;
+		}
+	}
 }

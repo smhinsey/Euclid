@@ -30,7 +30,7 @@ namespace MetadataComposite
 			/*
           jt: this is going to be injected into composites adding this pacage
           */
-			_composite.AddAgent(typeof(PublishPost).Assembly);
+			_composite.AddAgent(typeof (PublishPost).Assembly);
 
 			// composite.RegisterInputModel(new InputToFakeCommand4Converter());
 
@@ -52,7 +52,6 @@ namespace MetadataComposite
 			RegisterGlobalFilters(GlobalFilters.Filters);
 
 			RegisterRoutes(RouteTable.Routes);
-
 		}
 	}
 }

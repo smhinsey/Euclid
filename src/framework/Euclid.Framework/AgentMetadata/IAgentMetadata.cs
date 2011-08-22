@@ -13,8 +13,8 @@ namespace Euclid.Framework.AgentMetadata
 		IPartCollection ReadModels { get; }
 		string SystemName { get; }
 
-	    IMetadataFormatter GetBasicMetadataFormatter();
-	    IMetadataFormatter GetMetadataFormatter();
+		IMetadataFormatter GetBasicMetadataFormatter();
+		IMetadataFormatter GetMetadataFormatter();
 
 		ITypeMetadata GetPartByTypeName(string partName);
 		IPartCollection GetPartCollectionByDescriptiveName(string descriptiveName);

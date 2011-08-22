@@ -82,14 +82,6 @@ namespace ForumTests.Steps
 			Assert.AreEqual(score, post.Score);
 		}
 
-		[When(@"I publish the command PublishPost")]
-		public void WhenIPublishTheCommandPublishPost()
-		{
-			var publisher = GetContainer().Resolve<IPublisher>();
-
-			PubIdOfLastMessage = publisher.PublishMessage(new PublishPost {Title = PostTitle, Body = PostBody, CategoryIdentifier = _categoryId});
-		}
-
 		[When(@"I publish the command CommentOnPost")]
 		public void WhenIPublishTheCommandCommentOnPost()
 		{
@@ -99,6 +91,14 @@ namespace ForumTests.Steps
 			var post = query.FindByTitle(PostTitle);
 
 			PubIdOfLastMessage = publisher.PublishMessage(new CommentOnPost {PostIdentifier = post.Identifier, Title = CommentTitle, Body = CommentBody});
+		}
+
+		[When(@"I publish the command PublishPost")]
+		public void WhenIPublishTheCommandPublishPost()
+		{
+			var publisher = GetContainer().Resolve<IPublisher>();
+
+			PubIdOfLastMessage = publisher.PublishMessage(new PublishPost {Title = PostTitle, Body = PostBody, CategoryIdentifier = _categoryId});
 		}
 
 		[When(@"I publish the command VoteOnComment VoteUp=(.*)")]

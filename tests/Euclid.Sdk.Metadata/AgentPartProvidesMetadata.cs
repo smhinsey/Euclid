@@ -1,34 +1,31 @@
-﻿using System;
-using Euclid.Framework.AgentMetadata;
-using Euclid.Framework.AgentMetadata.Extensions;
+﻿using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Sdk.FakeAgent.Commands;
 using Euclid.Sdk.FakeAgent.Queries;
 using Euclid.Sdk.FakeAgent.ReadModels;
-using NUnit.Framework;
 using TechTalk.SpecFlow;
 
 namespace Euclid.Sdk.Metadata
 {
-    [Binding]
+	[Binding]
 	public class AgentPartProvidesMetadata : PropertiesUsedInTests
-    {
-	    [Given("the part (.*)")]
-        public void ValidAgentMetadata(string partName)
-        {
-            Agent = typeof(FakeCommand).Assembly.GetAgentMetadata();
+	{
+		[Given("the part (.*)")]
+		public void ValidAgentMetadata(string partName)
+		{
+			Agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
 
-            switch(partName.ToLower())
-            {
-                case "command":
-                    Formatter = typeof (FakeCommand).GetMetadata().GetFormatter();
-                    break;
-                case "query":
-                    Formatter = typeof(FakeQuery).GetMetadata().GetFormatter();
-                    break;
-                case "readmodel":
-                    Formatter = typeof(FakeReadModel).GetMetadata().GetFormatter();
-                    break;
-            }
-        }
-    }
+			switch (partName.ToLower())
+			{
+				case "command":
+					Formatter = typeof (FakeCommand).GetMetadata().GetFormatter();
+					break;
+				case "query":
+					Formatter = typeof (FakeQuery).GetMetadata().GetFormatter();
+					break;
+				case "readmodel":
+					Formatter = typeof (FakeReadModel).GetMetadata().GetFormatter();
+					break;
+			}
+		}
+	}
 }
