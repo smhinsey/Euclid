@@ -25,7 +25,7 @@ namespace Euclid.Framework.UnitTests.Cqrs
 			var command = new FakeCommand {Identifier = Guid.NewGuid()};
 			var registry = new CommandRegistry(new InMemoryRecordMapper<CommandPublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
 
-			var record = registry.CreateRecord(command);
+			var record = registry.PublishMessage(command);
 			Assert.NotNull(record);
 
 			var retrieved = registry.GetMessage(record.MessageLocation, record.MessageType);

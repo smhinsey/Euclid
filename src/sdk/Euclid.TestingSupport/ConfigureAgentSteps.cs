@@ -20,7 +20,11 @@ using log4net.Config;
 
 namespace Euclid.TestingSupport
 {
-	public class ConfigureAgentSteps<TTypeFromAgent>
+	/// <summary>
+	/// Implement a single ConfigureAgentSteps subclass per agent being tested by Specflow.
+	/// </summary>
+	/// <typeparam name="TTypeFromAgent"></typeparam>
+	public abstract class ConfigureAgentSteps<TTypeFromAgent>
 	{
 		protected WindsorContainer Container;
 		private bool _configured;
@@ -42,7 +46,7 @@ namespace Euclid.TestingSupport
 			{
 				var registry = Container.Resolve<ICommandRegistry>();
 
-				var record = registry.GetRecord(DefaultSpecSteps.PubIdOfLastMessage);
+				var record = registry.GetPublicationRecord(DefaultSpecSteps.PubIdOfLastMessage);
 
 				if (record.Completed || record.Error)
 				{

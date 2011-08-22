@@ -36,7 +36,7 @@ namespace Euclid.Common.UnitTests.Publishing
 			Assert.NotNull(recordId);
 			Assert.AreNotEqual(Guid.Empty, recordId);
 
-			var record = registry.GetRecord(recordId);
+			var record = registry.GetPublicationRecord(recordId);
 			Assert.NotNull(record);
 			Assert.AreEqual(typeof (FakeMessage), record.MessageType);
 

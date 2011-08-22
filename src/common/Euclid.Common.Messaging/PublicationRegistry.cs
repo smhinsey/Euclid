@@ -21,7 +21,7 @@ namespace Euclid.Common.Messaging
 			Serializer = serializer;
 		}
 
-		public virtual TRecordContract CreateRecord(IMessage message)
+		public virtual TRecordContract PublishMessage(IMessage message)
 		{
 			var msgBlob = new Blob
 			              	{
@@ -49,10 +49,10 @@ namespace Euclid.Common.Messaging
 			return Convert.ChangeType(Serializer.Deserialize(messageBlob.Bytes), recordType) as IMessage;
 		}
 
-		public virtual TRecordContract MarkAsComplete(Guid id)
+		public virtual TRecordContract MarkAsComplete(Guid identifier)
 		{
 			return updateRecord
-				(id, r =>
+				(identifier, r =>
 				     	{
 				     		r.Completed = true;
 				     		r.Dispatched = true;
@@ -60,10 +60,10 @@ namespace Euclid.Common.Messaging
 				     	});
 		}
 
-		public virtual TRecordContract MarkAsFailed(Guid id, string message, string callStack)
+		public virtual TRecordContract MarkAsFailed(Guid identifier, string message, string callStack)
 		{
 			return updateRecord
-				(id, r =>
+				(identifier, r =>
 				     	{
 				     		r.Dispatched = true;
 				     		r.Completed = true;
@@ -73,10 +73,10 @@ namespace Euclid.Common.Messaging
 				     	});
 		}
 
-		public virtual TRecordContract MarkAsUnableToDispatch(Guid recordId, bool isError = false, string message = null)
+		public virtual TRecordContract MarkAsUnableToDispatch(Guid identifier, bool isError = false, string message = null)
 		{
 			return updateRecord
-				(recordId, r =>
+				(identifier, r =>
 				           	{
 				           		r.Dispatched = false;
 				           		r.Completed = true;
@@ -85,14 +85,14 @@ namespace Euclid.Common.Messaging
 				           	});
 		}
 
-		public TRecordContract GetRecord(Guid identifier)
+		public TRecordContract GetPublicationRecord(Guid identifier)
 		{
 			return Mapper.Retrieve(identifier);
 		}
 
 		private TRecordContract updateRecord(Guid id, Action<TRecordContract> actOnRecord)
 		{
-			var record = GetRecord(id);
+			var record = GetPublicationRecord(id);
 
 			actOnRecord(record);
 

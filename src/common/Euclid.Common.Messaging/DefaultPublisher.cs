@@ -7,7 +7,9 @@ namespace Euclid.Common.Messaging
 		private readonly IMessageChannel _channel;
 		private readonly IPublicationRegistry<IPublicationRecord, IPublicationRecord> _publicationRegistry;
 
-		public DefaultPublisher(IPublicationRegistry<IPublicationRecord, IPublicationRecord> publicationRegistry, IMessageChannel channel)
+		public DefaultPublisher
+			(IPublicationRegistry<IPublicationRecord, IPublicationRecord> publicationRegistry,
+			 IMessageChannel channel)
 		{
 			_publicationRegistry = publicationRegistry;
 			_channel = channel;
@@ -20,7 +22,7 @@ namespace Euclid.Common.Messaging
 				_channel.Open();
 			}
 
-			var record = _publicationRegistry.CreateRecord(message);
+			var record = _publicationRegistry.PublishMessage(message);
 
 			_channel.Send(record);
 

@@ -46,7 +46,7 @@ namespace Euclid.Common.IntegrationTests
 			          		Identifier = msgId
 			          	};
 
-			var record = _publicationRegistry.CreateRecord(msg);
+			var record = _publicationRegistry.PublishMessage(msg);
 
 			_channel.Send(record);
 

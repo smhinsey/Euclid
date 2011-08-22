@@ -19,7 +19,7 @@ namespace Euclid.Common.UnitTests.Registry
 
 		public FakePublicationRecord CreateRecord(IMessage message)
 		{
-			var record = _registry.CreateRecord(message);
+			var record = _registry.PublishMessage(message);
 
 			Assert.NotNull(record);
 
@@ -45,7 +45,7 @@ namespace Euclid.Common.UnitTests.Registry
 
 			Assert.NotNull(record);
 
-			var retrieved = _registry.GetRecord(record.Identifier);
+			var retrieved = _registry.GetPublicationRecord(record.Identifier);
 
 			Assert.AreEqual(record.Identifier, retrieved.Identifier);
 
@@ -59,7 +59,7 @@ namespace Euclid.Common.UnitTests.Registry
 
 			Assert.NotNull(record);
 
-			record = _registry.GetRecord(record.Identifier);
+			record = _registry.GetPublicationRecord(record.Identifier);
 
 			Assert.NotNull(record);
 
@@ -86,7 +86,7 @@ namespace Euclid.Common.UnitTests.Registry
 
 			Assert.NotNull(record);
 
-			record = _registry.GetRecord(record.Identifier);
+			record = _registry.GetPublicationRecord(record.Identifier);
 
 			Assert.NotNull(record);
 
@@ -113,7 +113,7 @@ namespace Euclid.Common.UnitTests.Registry
 
 			Assert.NotNull(record);
 
-			record = _registry.GetRecord(record.Identifier);
+			record = _registry.GetPublicationRecord(record.Identifier);
 
 			Assert.NotNull(record);
 
@@ -180,7 +180,7 @@ namespace Euclid.Common.UnitTests.Registry
 
 			foreach (var id in recordIds)
 			{
-				var retrieved = _registry.GetRecord(id);
+				var retrieved = _registry.GetPublicationRecord(id);
 
 				Assert.AreEqual(id, retrieved.Identifier);
 
