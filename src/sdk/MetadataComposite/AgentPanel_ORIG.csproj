@@ -328,10 +328,6 @@
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\common\Euclid.Common.Logging\Euclid.Common.Logging.csproj">
-      <Project>{8D46ACE3-E0DC-4317-B321-BDFE71F843E7}</Project>
-      <Name>Euclid.Common.Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj">
       <Project>{BB6CE799-54E1-4019-B918-992DCD78480A}</Project>
       <Name>Euclid.Common.Messaging.Azure</Name>
@@ -339,10 +335,6 @@
     <ProjectReference Include="..\..\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
       <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
       <Name>Euclid.Common.Messaging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\common\Euclid.Common.Packaging\Euclid.Common.Packaging.csproj">
-      <Project>{53F086A1-EC8E-40F8-BC87-2E5B3AA778D6}</Project>
-      <Name>Euclid.Common.Packaging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
       <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>

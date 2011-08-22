@@ -66,7 +66,7 @@ namespace Euclid.TestingSupport
 			{
 				var registry = Container.Resolve<ICommandRegistry>();
 
-				var record = registry.GetRecord(publicationId);
+				var record = registry.GetPublicationRecord(publicationId);
 
 				if (record.Completed || record.Error)
 				{

@@ -36,6 +36,7 @@ namespace AgentPanel.Areas.Metadata.Controllers
 		{
 			var command = _transformer.GetCommand(inputModel);
 
+			// smh: it's pretty surprising that Inspect calls Publish. i think this should be really explicit.
 			return Publish(command);
 		}
 

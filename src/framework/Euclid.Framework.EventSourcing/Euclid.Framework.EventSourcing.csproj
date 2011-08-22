@@ -88,10 +88,6 @@
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\common\Euclid.Common.Logging\Euclid.Common.Logging.csproj">
-      <Project>{8D46ACE3-E0DC-4317-B321-BDFE71F843E7}</Project>
-      <Name>Euclid.Common.Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common.ServiceHost\Euclid.Common.ServiceHost.csproj">
       <Project>{4192538D-5E42-4841-8C8F-6A2072808D41}</Project>
       <Name>Euclid.Common.ServiceHost</Name>

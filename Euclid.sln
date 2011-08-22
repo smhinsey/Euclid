@@ -1,3 +1,5 @@
+
+d:\Projects\Euclid\platform>@git.exe %*
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
@@ -680,3 +682,9 @@ Global
 		{780B3603-392F-4C71-BBE1-87477248D1A8} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 	EndGlobalSection
 EndGlobal
+
+d:\Projects\Euclid\platform>@set ErrorLevel=%ErrorLevel%
+
+d:\Projects\Euclid\platform>@rem Restore the original console codepage.
+
+d:\Projects\Euclid\platform>@chcp %cp_oem% > nul < nul

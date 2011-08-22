@@ -18,12 +18,21 @@ namespace Euclid.Common.Messaging
 
 		public Guid PublishMessage(IMessage message)
 		{
+<<<<<<< HEAD
+            if (_channel == null)
+            {
+                throw new NullReferenceException("the publishing channel is null");
+            }
+
+            if (_channel.State != ChannelState.Open)
+=======
 			if(message.Identifier == Guid.Empty)
 			{
 				message.Identifier = Guid.NewGuid();
 			}
 
-            if (_channel.State != ChannelState.Open)
+			if (_channel.State != ChannelState.Open)
+>>>>>>> 991644c304ac9bd14cfe0ecd673b067482a927c4
 			{
 				this.WriteDebugMessage("Publication to closed channel detected. Attempting to open channel.");
 

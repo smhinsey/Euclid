@@ -49,6 +49,16 @@ namespace Euclid.Framework.AgentMetadata
 
 		public string SystemName { get; private set; }
 
+		public IMetadataFormatter GetBasicMetadataFormatter()
+		{
+			return new BasicAgentMetadataFormatter(this);
+		}
+
+		public IMetadataFormatter GetMetadataFormatter()
+		{
+			return new AgentMetadataFormatter(this);
+		}
+
 		public ITypeMetadata GetPartByTypeName(string partName)
 		{
 			var partCollection = GetPartCollectionContainingPartName(partName);
@@ -108,114 +118,104 @@ namespace Euclid.Framework.AgentMetadata
 			throw new PartCollectionNotFound(partType.Name);
 		}
 
-	    public IMetadataFormatter GetBasicMetadataFormatter()
-	    {
-	        return new BasicAgentMetadataFormatter(this);
-	    }
+		private class AgentMetadataFormatter : MetadataFormatter
+		{
+			private readonly IAgentMetadata _agentMetadata;
 
-        public IMetadataFormatter GetMetadataFormatter()
-        {
-            return new AgentMetadataFormatter(this);
-        }
+			public AgentMetadataFormatter(IAgentMetadata agentMetadata)
+			{
+				_agentMetadata = agentMetadata;
+			}
 
-        private class AgentMetadataFormatter : MetadataFormatter
-        {
-            private readonly IAgentMetadata _agentMetadata;
+			protected override string GetAsXml()
+			{
+				var xml = new XElement("Agent",
+				                       new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
+				                       new XElement("SystemName", _agentMetadata.SystemName));
 
-            public AgentMetadataFormatter(IAgentMetadata agentMetadata)
-            {
-                _agentMetadata = agentMetadata;
-            }
-
-            protected override string GetAsXml()
-            {
-                var xml = new XElement("Agent",
-                                       new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
-                                       new XElement("SystemName", _agentMetadata.SystemName));
-
-                var commands = new XElement("Commands");
-                foreach (var c in _agentMetadata.Commands.Collection)
-                {
-                    commands.Add(
-                        new XElement("Command",
-                                     new XAttribute("Namespace", c.Namespace),
-                                     new XAttribute("Name", c.Name)));
-                }
-                xml.Add(commands);
+				var commands = new XElement("Commands");
+				foreach (var c in _agentMetadata.Commands.Collection)
+				{
+					commands.Add(
+					             new XElement("Command",
+					                          new XAttribute("Namespace", c.Namespace),
+					                          new XAttribute("Name", c.Name)));
+				}
+				xml.Add(commands);
 
 
-                var readModels = new XElement("ReadModels");
-                foreach (var r in _agentMetadata.ReadModels.Collection)
-                {
-                    readModels.Add(
-                        new XElement("ReadModel",
-                                     new XAttribute("Namespace", r.Namespace),
-                                     new XAttribute("Name", r.Name)));
-                }
-                xml.Add(readModels);
+				var readModels = new XElement("ReadModels");
+				foreach (var r in _agentMetadata.ReadModels.Collection)
+				{
+					readModels.Add(
+					               new XElement("ReadModel",
+					                            new XAttribute("Namespace", r.Namespace),
+					                            new XAttribute("Name", r.Name)));
+				}
+				xml.Add(readModels);
 
-                var queries = new XElement("Queries");
-                foreach (var q in _agentMetadata.Queries.Collection)
-                {
-                    queries.Add(
-                        new XElement("Query",
-                                     new XAttribute("Namespace", q.Namespace),
-                                     new XAttribute("Name", q.Name)));
-                }
-                xml.Add(queries);
+				var queries = new XElement("Queries");
+				foreach (var q in _agentMetadata.Queries.Collection)
+				{
+					queries.Add(
+					            new XElement("Query",
+					                         new XAttribute("Namespace", q.Namespace),
+					                         new XAttribute("Name", q.Name)));
+				}
+				xml.Add(queries);
 
-                return xml.ToString();
-            }
+				return xml.ToString();
+			}
 
-            protected override object GetJsonObject(JsonSerializer serializer)
-            {
-                return new
-                {
-                    _agentMetadata.DescriptiveName,
-                    _agentMetadata.SystemName,
-                    Commands = _agentMetadata.Commands.Collection.Select(x => new
-                    {
-                        x.Namespace,
-                        x.Name
-                    }),
-                    ReadModels = _agentMetadata.ReadModels.Collection.Select(x => new
-                    {
-                        x.Namespace,
-                        x.Name
-                    }),
-                    Queries = _agentMetadata.Queries.Collection.Select(x => new
-                    {
-                        x.Namespace,
-                        x.Name
-                    })
-                };
-            }
-        }
+			protected override object GetJsonObject(JsonSerializer serializer)
+			{
+				return new
+				       	{
+				       		_agentMetadata.DescriptiveName,
+				       		_agentMetadata.SystemName,
+				       		Commands = _agentMetadata.Commands.Collection.Select(x => new
+				       		                                                          	{
+				       		                                                          		x.Namespace,
+				       		                                                          		x.Name
+				       		                                                          	}),
+				       		ReadModels = _agentMetadata.ReadModels.Collection.Select(x => new
+				       		                                                              	{
+				       		                                                              		x.Namespace,
+				       		                                                              		x.Name
+				       		                                                              	}),
+				       		Queries = _agentMetadata.Queries.Collection.Select(x => new
+				       		                                                        	{
+				       		                                                        		x.Namespace,
+				       		                                                        		x.Name
+				       		                                                        	})
+				       	};
+			}
+		}
 
-        private class BasicAgentMetadataFormatter : MetadataFormatter
-        {
-            private readonly IAgentMetadata _agentMetadata;
+		private class BasicAgentMetadataFormatter : MetadataFormatter
+		{
+			private readonly IAgentMetadata _agentMetadata;
 
-            public BasicAgentMetadataFormatter(IAgentMetadata agentMetadata)
-            {
-                _agentMetadata = agentMetadata;
-            }
+			public BasicAgentMetadataFormatter(IAgentMetadata agentMetadata)
+			{
+				_agentMetadata = agentMetadata;
+			}
 
-            protected override string GetAsXml()
-            {
-                return new XElement("Agent",
-                                    new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
-                                    new XElement("SystemName", _agentMetadata.SystemName)).ToString();
-            }
+			protected override string GetAsXml()
+			{
+				return new XElement("Agent",
+				                    new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
+				                    new XElement("SystemName", _agentMetadata.SystemName)).ToString();
+			}
 
-            protected override object GetJsonObject(JsonSerializer serializer)
-            {
-                return new
-                {
-                    _agentMetadata.DescriptiveName,
-                    _agentMetadata.SystemName
-                };
-            }
-        }
+			protected override object GetJsonObject(JsonSerializer serializer)
+			{
+				return new
+				       	{
+				       		_agentMetadata.DescriptiveName,
+				       		_agentMetadata.SystemName
+				       	};
+			}
+		}
 	}
 }

@@ -5,19 +5,19 @@ using TechTalk.SpecFlow;
 
 namespace Euclid.Sdk.Metadata
 {
-    [Binding]
-    public class AgentPartCollectionProvidesMetadata : PropertiesUsedInTests
-    {
-        [Given("a part collection (.*)")]
-        public void ThePartCollection(string descriptiveName)
-        {
-            Agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
+	[Binding]
+	public class AgentPartCollectionProvidesMetadata : PropertiesUsedInTests
+	{
+		[Given("a part collection (.*)")]
+		public void ThePartCollection(string descriptiveName)
+		{
+			Agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
 
-            var partCollection = Agent.GetPartCollectionByDescriptiveName(descriptiveName);
+			var partCollection = Agent.GetPartCollectionByDescriptiveName(descriptiveName);
 
-            Assert.NotNull(partCollection);
+			Assert.NotNull(partCollection);
 
-            Formatter = partCollection.GetFormatter();
-        }
-    }
+			Formatter = partCollection.GetFormatter();
+		}
+	}
 }

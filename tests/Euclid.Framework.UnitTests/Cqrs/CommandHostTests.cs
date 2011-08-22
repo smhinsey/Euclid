@@ -139,7 +139,7 @@ namespace Euclid.Framework.UnitTests.Cqrs
 
 			channel.Open();
 
-			var recordOfCommandOne = registry.CreateRecord(new FakeCommand());
+			var recordOfCommandOne = registry.PublishMessage(new FakeCommand());
 
 			channel.Send(recordOfCommandOne);
 
@@ -149,7 +149,7 @@ namespace Euclid.Framework.UnitTests.Cqrs
 
 			Assert.Greater(FakeCommandProcessor.FakeCommandCount, 0);
 
-			var recordOfCommandTwo = registry.CreateRecord(new FakeCommand2());
+			var recordOfCommandTwo = registry.PublishMessage(new FakeCommand2());
 
 			channel.Send(recordOfCommandTwo);
 
@@ -159,13 +159,13 @@ namespace Euclid.Framework.UnitTests.Cqrs
 
 			Assert.Greater(FakeCommandProcessor.FakeCommandTwoCount, 0);
 
-			var recordOfCommandThree = registry.CreateRecord(new FakeCommand3());
+			var recordOfCommandThree = registry.PublishMessage(new FakeCommand3());
 
 			channel.Send(recordOfCommandThree);
 
 			Thread.Sleep(750);
 
-			recordOfCommandThree = registry.GetRecord(recordOfCommandThree.Identifier);
+			recordOfCommandThree = registry.GetPublicationRecord(recordOfCommandThree.Identifier);
 
 			Assert.True(recordOfCommandThree.Error);
 

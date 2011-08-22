@@ -4,7 +4,10 @@ using TechTalk.SpecFlow;
 
 namespace Euclid.TestingSupport
 {
-	public class DefaultSpecSteps
+	/// <summary>
+	/// A base class for use by steps defined in order to support Specflow based testing of agents.
+	/// </summary>
+	public abstract class DefaultSpecSteps
 	{
 		private const string ContainerContextKey = "IWindsorContainer";
 

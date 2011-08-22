@@ -72,7 +72,7 @@ namespace Euclid.Common.UnitTests.Transport
 			          		         	}
 			          	};
 
-			return _registry.CreateRecord(msg);
+			return _registry.PublishMessage(msg);
 		}
 
 		[Test]
@@ -153,7 +153,7 @@ namespace Euclid.Common.UnitTests.Transport
 			{
 				Thread.Sleep(200);
 
-				numberOfMessagesProcessed = recordIds.Where(id => _registry.GetRecord(id).Completed).Count();
+				numberOfMessagesProcessed = recordIds.Where(id => _registry.GetPublicationRecord(id).Completed).Count();
 
 				Console.WriteLine("{0} messages processed", numberOfMessagesProcessed);
 			} while (numberOfMessagesProcessed < recordIds.Count());
