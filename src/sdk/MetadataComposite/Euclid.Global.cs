@@ -10,17 +10,13 @@ namespace MetadataComposite
 {
 	public partial class MvcApplication
 	{
-		protected void Application_Start()
+		private MvcCompositeApp _composite;
+
+		public override void Init()
 		{
-			AreaRegistration.RegisterAllAreas();
-
-			RegisterGlobalFilters(GlobalFilters.Filters);
-
-			RegisterRoutes(RouteTable.Routes);
-
 			var container = new WindsorContainer();
 
-			var composite = new MvcCompositeApp(container);
+			_composite = new MvcCompositeApp(container);
 
 			var euclidCompositeConfiguration = new CompositeAppSettings();
 
@@ -29,21 +25,34 @@ namespace MetadataComposite
            * euclidCompositeConfiguration.BlobStorage.ApplyOverride(typeof(SomeBlobStorageImplementation));
            */
 
-			composite.Configure(euclidCompositeConfiguration);
+			_composite.Configure(euclidCompositeConfiguration);
 
 			/*
           jt: this is going to be injected into composites adding this pacage
           */
-			composite.AddAgent(typeof (PublishPost).Assembly);
+			_composite.AddAgent(typeof(PublishPost).Assembly);
 
 			// composite.RegisterInputModel(new InputToFakeCommand4Converter());
 
 
-			container.Register(Component.For<ICompositeApp>().Instance(composite));
+			container.Register(Component.For<ICompositeApp>().Instance(_composite));
 
-			Error += composite.LogUnhandledException;
 
-			BeginRequest += composite.BeginPageRequest;
+			Error += _composite.LogUnhandledException;
+
+			BeginRequest += _composite.BeginPageRequest;
+
+			base.Init();
+		}
+
+		protected void Application_Start()
+		{
+			AreaRegistration.RegisterAllAreas();
+
+			RegisterGlobalFilters(GlobalFilters.Filters);
+
+			RegisterRoutes(RouteTable.Routes);
+
 		}
 	}
 }
