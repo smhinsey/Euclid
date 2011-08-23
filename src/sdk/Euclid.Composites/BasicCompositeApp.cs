@@ -61,7 +61,7 @@ namespace Euclid.Composites
 
 		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
 
-		protected CompositeAppSettings Settings { get; set; }
+		public CompositeAppSettings Settings { get; set; }
 
 		public virtual void Configure(CompositeAppSettings compositeAppSettings)
 		{

@@ -43,50 +43,35 @@ namespace AgentPanel.Areas.Metadata.Controllers
 					new AgentModel
 						{
 							DescriptiveName = agentMetadata.DescriptiveName, 
-							SystemName = agentMetadata.SystemName, 
-							Commands =
+							
+                            SystemName = agentMetadata.SystemName, 
+							
+                            Commands =
 								new AgentPartModel
 									{
 										AgentSystemName = agentMetadata.SystemName, 
 										NextAction = "ViewInputModelForCommand", 
 										Part = agentMetadata.Commands
 									}, 
-							Queries =
+							
+                            Queries =
 								new AgentPartModel
 									{
-            AgentSystemName = agentMetadata.SystemName, NextAction = "ViewPart", Part = agentMetadata.Queries 
-         }, 
-							ReadModels =
+                                        AgentSystemName = agentMetadata.SystemName, 
+                                        NextAction = "ViewPart", 
+                                        Part = agentMetadata.Queries 
+                                }, 
+
+                            ReadModels =
 								new AgentPartModel
 									{
-            AgentSystemName = agentMetadata.SystemName, NextAction = "ViewPart", Part = agentMetadata.ReadModels 
-         }, 
-							AgentSytemName = agentMetadata.SystemName
+                                        AgentSystemName = agentMetadata.SystemName, 
+                                        NextAction = "ViewPart", 
+                                        Part = agentMetadata.ReadModels 
+                                    }, 
+
+                            AgentSytemName = agentMetadata.SystemName
 						});
-			return View(new AgentModel
-			            	{
-			            		DescriptiveName = agentMetadata.DescriptiveName,
-			            		SystemName = agentMetadata.SystemName,
-			            		Commands = new AgentPartModel
-			            		           	{
-			            		           		AgentSystemName = agentMetadata.SystemName,
-			            		           		NextAction = "ViewInputModelForCommand",
-			            		           		Part = agentMetadata.Commands
-			            		           	},
-			            		Queries = new AgentPartModel
-			            		          	{
-			            		          		AgentSystemName = agentMetadata.SystemName,
-			            		          		NextAction = "ViewPart",
-			            		          		Part = agentMetadata.Queries
-			            		          	},
-			            		ReadModels = new AgentPartModel
-			            		             	{
-			            		             		AgentSystemName = agentMetadata.SystemName,
-			            		             		NextAction = "ViewPart",
-			            		             		Part = agentMetadata.ReadModels
-			            		             	},
-			            		AgentSytemName = agentMetadata.SystemName
-			            	});
 		}
 
 		[FormatInputModel]

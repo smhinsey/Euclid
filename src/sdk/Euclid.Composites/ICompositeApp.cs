@@ -11,7 +11,10 @@ namespace Euclid.Composites
     public interface ICompositeApp : ILoggingSource
 	{
 		IEnumerable<IAgentMetadata> Agents { get; }
+
         IEnumerable<ITypeMetadata> InputModels { get; }
+
+        CompositeAppSettings Settings { get; }
     
         CompositeApplicationState State { get; set; }
 
@@ -22,7 +25,9 @@ namespace Euclid.Composites
 		void RegisterInputModel(IInputToCommandConverter converter);
 
 	    IMetadataFormatter GetFormatter();
+        
         IEnumerable<string> GetConfigurationErrors();
-	    bool IsValid();
+	    
+        bool IsValid();
 	}
 }
