@@ -22,15 +22,17 @@ namespace Euclid.Sdk.TestComposite
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-
         }
 
-        protected void Application_Start()
+        public override void Init()
         {
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
+
             RegisterRoutes(RouteTable.Routes);
+
+            WebRole.GetInstance().Init();
         }
     }
 }

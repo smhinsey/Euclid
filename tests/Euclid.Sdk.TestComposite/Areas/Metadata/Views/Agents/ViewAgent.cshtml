@@ -1,0 +1,13 @@
+@using AgentPanel.Areas.Metadata.Models
+@model AgentModel
+
+<h1>@ViewBag.Title</h1>
+<ul>
+	<li>@Model.SystemName</li>
+	<li>@Model.DescriptiveName</li>
+	<li>@Html.DisplayFor(x => x.Commands, "IAgentPart", @Model.Commands)</li>
+	<li>@Html.DisplayFor(x => x.Queries, "IAgentPart", @Model.Queries)</li>
+	<li>@Html.DisplayFor(x => x.ReadModels, "IAgentPart", @Model.ReadModels)</li>
+</ul>
+
+@{ Html.RenderPartial("MetadataLinks", Model); }

@@ -32,12 +32,14 @@ namespace Euclid.Composites.Mvc
 		public void LogUnhandledException(object sender, EventArgs eventArgs)
 		{
 			var e = HttpContext.Current.Server.GetLastError();
-			this.WriteFatalMessage(e.Message, e);
+			
+            this.WriteFatalMessage(e.Message, e);
 		}
 
 		private void wireMvcInfrastructure()
 		{
 			Container.Install(new ModelBinderInstaller());
+
 			Container.Install(new ControllerContainerInstaller());
 
 			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());

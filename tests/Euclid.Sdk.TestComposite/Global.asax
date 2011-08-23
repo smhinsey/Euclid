@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Euclid.Sdk.FakeAgentComposite.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Euclid.Sdk.TestComposite.MvcApplication" Language="C#" %>
