@@ -63,7 +63,7 @@ namespace Euclid.Common.IntegrationTests
 
 			Assert.NotNull(blob);
 
-			var storedMessage = Convert.ChangeType(_serializer.Deserialize(blob.Bytes), receivedRecord.MessageType);
+			var storedMessage = Convert.ChangeType(_serializer.Deserialize(blob.Content), receivedRecord.MessageType);
 
 			Assert.NotNull(storedMessage);
 

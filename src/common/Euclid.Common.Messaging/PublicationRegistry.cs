@@ -25,7 +25,7 @@ namespace Euclid.Common.Messaging
 		{
 			var messageBlob = BlobStorage.Get(messageLocation);
 
-			return Convert.ChangeType(Serializer.Deserialize(messageBlob.Bytes), recordType) as IMessage;
+			return Convert.ChangeType(Serializer.Deserialize(messageBlob.Content), recordType) as IMessage;
 		}
 
 		public TRecordContract GetPublicationRecord(Guid identifier)
@@ -74,7 +74,7 @@ namespace Euclid.Common.Messaging
 
 		public virtual TRecordContract PublishMessage(IMessage message)
 		{
-			var msgBlob = new Blob { Bytes = Serializer.Serialize(message), ContentType = "application/octet-stream" };
+			var msgBlob = new Blob { Content = Serializer.Serialize(message), ContentType = "application/octet-stream" };
 
 			var uri = BlobStorage.Put(msgBlob, message.GetType().FullName);
 

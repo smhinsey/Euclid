@@ -73,7 +73,7 @@ namespace Euclid.Common.Storage.Azure
 				target.FetchAttributes();
 				blob = new Blob(target.Properties.ContentMD5, target.Properties.ETag)
 					{
-        Bytes = target.DownloadByteArray(), ContentType = target.Properties.ContentType, 
+        Content = target.DownloadByteArray(), ContentType = target.Properties.ContentType, 
      };
 
 				foreach (var key in target.Metadata.AllKeys)
@@ -103,14 +103,14 @@ namespace Euclid.Common.Storage.Azure
 
 				azureBlob.Properties.ContentType = blob.ContentType;
 
-				azureBlob.Properties.ContentMD5 = blob.MD5;
+				azureBlob.Properties.ContentMD5 = blob.Md5;
 
 				if (blob.Metdata != null)
 				{
 					blob.Metdata.ToList().ForEach(item => azureBlob.Metadata.Add(item.Key, item.Value));
 				}
 
-				azureBlob.UploadByteArray(blob.Bytes);
+				azureBlob.UploadByteArray(blob.Content);
 
 				uri = azureBlob.Uri;
 			}

@@ -33,7 +33,7 @@ namespace Euclid.Common.UnitTests.Storage
 
 			var retrieved = _blobTester.Get(uri);
 
-			Assert.AreEqual(blob.MD5, retrieved.MD5);
+			Assert.AreEqual(blob.Md5, retrieved.Md5);
 
 			Assert.AreEqual(blob.ContentType, retrieved.ContentType);
 

@@ -39,7 +39,7 @@ namespace Euclid.Common.Storage.NHibernate
 			this.WriteDebugMessage(string.Format("Deleted model {0}({1})", model.GetType().Name, model.Identifier));
 		}
 
-		public void Delete(Guid id)
+		public void Delete(Guid identifier)
 		{
 			var session = GetCurrentSession();
 
@@ -47,7 +47,7 @@ namespace Euclid.Common.Storage.NHibernate
 			{
 				try
 				{
-					var model = (TModel)session.Get(typeof(TModel), id);
+					var model = (TModel)session.Get(typeof(TModel), identifier);
 
 					this.WriteDebugMessage(string.Format("Deleting model {0}({1})", model.GetType().Name, model.Identifier));
 
@@ -84,11 +84,11 @@ namespace Euclid.Common.Storage.NHibernate
 			return query.List();
 		}
 
-		public TModel FindById(Guid id)
+		public TModel FindById(Guid identifier)
 		{
 			var session = GetCurrentSession();
 
-			var query = session.QueryOver<TModel>().Where(x => x.Identifier == id);
+			var query = session.QueryOver<TModel>().Where(x => x.Identifier == identifier);
 
 			return query.SingleOrDefault();
 		}

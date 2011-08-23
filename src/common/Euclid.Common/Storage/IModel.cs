@@ -8,10 +8,19 @@ namespace Euclid.Common.Storage
 	/// </summary>
 	public interface IModel
 	{
+		/// <summary>
+		/// Gets or sets the date the model was created.
+		/// </summary>
 		DateTime Created { get; set; }
 
+		/// <summary>
+		/// Gets or sets the model's unique identifier.
+		/// </summary>
 		Guid Identifier { get; set; }
 
+		/// <summary>
+		/// Gets or sets the date of the last time the model was modified.
+		/// </summary>
 		DateTime Modified { get; set; }
 	}
 }

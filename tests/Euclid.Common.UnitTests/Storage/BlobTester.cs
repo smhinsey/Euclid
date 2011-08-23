@@ -44,7 +44,7 @@ namespace Euclid.Common.UnitTests.Storage
 		{
 			return new Blob
 				{
-					Bytes =
+					Content =
 						Encoding.UTF8.GetBytes(
 							string.Format(
 								"<blob><title>Test Blob</title><created>{0}</created><testing>{1}</testing></blob>", 
@@ -57,7 +57,7 @@ namespace Euclid.Common.UnitTests.Storage
 		public Uri Put(IBlob blob)
 		{
 			Assert.NotNull(blob);
-			Assert.NotNull(blob.Bytes);
+			Assert.NotNull(blob.Content);
 
 			var uri = _blobStorage.Put(blob, "test");
 
