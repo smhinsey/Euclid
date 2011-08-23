@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Euclid.Composites;
 using Euclid.Framework.AgentMetadata;
 
 namespace AgentPanel.Areas.Metadata.Models
@@ -10,5 +11,7 @@ namespace AgentPanel.Areas.Metadata.Models
         public IEnumerable<IAgentMetadata> Agents { get; set; }
 
         public IEnumerable<string> ConfigurationErrors { get; set; }
+
+        public CompositeAppSettings Settings { get; set; }
     }
 }

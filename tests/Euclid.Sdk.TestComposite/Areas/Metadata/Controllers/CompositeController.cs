@@ -22,7 +22,8 @@ namespace AgentPanel.Areas.Metadata.Controllers
                          {
                              Agents = _composite.Agents,
                              InputModels = _composite.InputModels,
-                             ConfigurationErrors = _composite.GetConfigurationErrors()
+                             ConfigurationErrors = _composite.GetConfigurationErrors(),
+                             Settings = _composite.Settings
                          });
         }
     }

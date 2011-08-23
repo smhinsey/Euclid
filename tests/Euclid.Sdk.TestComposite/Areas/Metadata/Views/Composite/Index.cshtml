@@ -1,7 +1,7 @@
 ﻿@using AgentPanel.Areas.Metadata.Models
 @model CompositeModel
            
-<h2>@ViewBag.Title</h2>
+<h1>@ViewBag.Title</h1>
 
 <h2>Agents</h2>
 <ul>
@@ -19,6 +19,7 @@
 }
 </ul>
 
+
 @if (Model.ConfigurationErrors.Count() > 0)
 {
     <h2>Errors</h2>
@@ -27,6 +28,18 @@
     {
         <li>@e</li>
     }
+    </ul>
+} else
+{
+    <h2>Configuration</h2>
+    <ul>
+        <li>Output Channel: @Model.Settings.OutputChannel.Value.Name</li>
+        <li>Publisher: @Model.Settings.Publisher.Value.Name</li>
+        <li>Blob Storage: @Model.Settings.BlobStorage.Value.Name</li>
+        <li>Command Dispatcher: @Model.Settings.CommandDispatcher.Value.Name</li>
+        <li>Command Publication Record Mapper: @Model.Settings.CommandPublicationRecordMapper.Value.Name</li>
+        <li>Message Serializer: @Model.Settings.MessageSerializer.Value.Name</li>
+        <li>Publication Registry: @Model.Settings.PublicationRegistry.Value.Name</li>
     </ul>
 }
 
