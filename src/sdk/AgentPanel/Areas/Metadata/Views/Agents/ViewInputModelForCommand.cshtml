@@ -4,7 +4,7 @@
 
 <h1>@ViewBag.Title</h1>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Publish", "Agents", FormMethod.Post))
 {
     @Html.ValidationSummary(true)
 

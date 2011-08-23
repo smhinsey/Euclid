@@ -31,16 +31,23 @@ namespace Euclid.Framework.AgentMetadata
 
 		public Type Type { get; set; }
 
-		public IPartCollection GetContainingPartCollection()
-		{
-			var agent = Type.Assembly.GetAgentMetadata();
-
-			return agent.GetPartCollectionContainingType(Type);
-		}
-
 		public IMetadataFormatter GetFormatter()
 		{
 			return FormattableMetadataFactory.GetFormatter(this);
 		}
 	}
+
+    public class AgentPartMetadata : TypeMetadata, IAgentPartMetadata
+    {
+        public AgentPartMetadata(Type type) : base(type)
+        {
+        }
+
+        public IPartCollection GetContainingPartCollection()
+        {
+            var agent = Type.Assembly.GetAgentMetadata();
+
+            return agent.GetPartCollectionContainingType(Type);
+        }
+    }
 }

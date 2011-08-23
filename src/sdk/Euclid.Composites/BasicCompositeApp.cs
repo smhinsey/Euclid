@@ -142,7 +142,7 @@ namespace Euclid.Composites
 	        return new CompositeMetadataFormatter(this);
 	    }
 
-	    public bool HasConfigurationErrors()
+	    public bool IsValid()
 	    {
 	        return GetConfigurationErrors().Count() == 0;
 	    }

@@ -59,7 +59,7 @@ namespace Euclid.Framework.AgentMetadata
 			return new AgentMetadataFormatter(this);
 		}
 
-		public ITypeMetadata GetPartByTypeName(string partName)
+		public IAgentPartMetadata GetPartByTypeName(string partName)
 		{
 			var partCollection = GetPartCollectionContainingPartName(partName);
 

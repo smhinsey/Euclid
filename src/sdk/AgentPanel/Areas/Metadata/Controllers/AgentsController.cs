@@ -31,15 +31,6 @@ namespace AgentPanel.Areas.Metadata.Controllers
 			return View(new AgentListModel(_composite.Agents));
 		}
 
-		[HttpPost]
-		public ContentResult Inspect(IInputModel inputModel)
-		{
-			var command = _transformer.GetCommand(inputModel);
-
-			// smh: it's pretty surprising that Inspect calls Publish. i think this should be really explicit.
-			return Publish(command);
-		}
-
 		[FormatAgentMetadata]
 		public ViewResult ViewAgent(IAgentMetadata agentMetadata, string format)
 		{
@@ -72,7 +63,7 @@ namespace AgentPanel.Areas.Metadata.Controllers
 		}
 
 		[FormatInputModel]
-		public ActionResult ViewInputModelForCommand(IInputModel inputModel, ITypeMetadata typeMetadata, string format)
+		public ActionResult ViewInputModelForCommand(IInputModel inputModel, IAgentPartMetadata typeMetadata, string format)
 		{
 			var partCollection = typeMetadata.GetContainingPartCollection();
 
@@ -131,7 +122,8 @@ namespace AgentPanel.Areas.Metadata.Controllers
 			            	});
 		}
 
-		private ContentResult Publish(ICommand command)
+        [HttpPost]
+        private ContentResult Publish(ICommand command)
 		{
 			if (command == null)
 			{

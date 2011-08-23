@@ -7,7 +7,7 @@ namespace Euclid.Framework.AgentMetadata
 	{
 		string AgentSystemName { get; }
 
-		IEnumerable<ITypeMetadata> Collection { get; }
+		IEnumerable<IAgentPartMetadata> Collection { get; }
 		Type CollectionType { get; }
 		string DescriptiveName { get; }
 		string Namespace { get; }

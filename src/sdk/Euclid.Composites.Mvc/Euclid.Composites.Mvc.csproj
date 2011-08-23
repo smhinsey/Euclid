@@ -110,6 +110,7 @@
     <Compile Include="Binders\AgentMetadataBinder.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Binders\AgentPartMetadataBinder.cs" />
     <Compile Include="Binders\AgentPartTypeNotSpecifiedException.cs" />
     <Compile Include="Binders\CannotSetInputModelPropertyValues.cs" />
     <Compile Include="Binders\IEuclidModelBinder.cs" />

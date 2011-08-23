@@ -20,6 +20,6 @@ namespace Euclid.Composites
 
 	    IMetadataFormatter GetFormatter();
         IEnumerable<string> GetConfigurationErrors();
-	    bool HasConfigurationErrors();
+	    bool IsValid();
 	}
 }

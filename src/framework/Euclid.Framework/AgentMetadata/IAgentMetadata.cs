@@ -16,7 +16,7 @@ namespace Euclid.Framework.AgentMetadata
 		IMetadataFormatter GetBasicMetadataFormatter();
 		IMetadataFormatter GetMetadataFormatter();
 
-		ITypeMetadata GetPartByTypeName(string partName);
+		IAgentPartMetadata GetPartByTypeName(string partName);
 		IPartCollection GetPartCollectionByDescriptiveName(string descriptiveName);
 		IPartCollection GetPartCollectionContainingPartName(string partName);
 		IPartCollection GetPartCollectionContainingType(Type partType);

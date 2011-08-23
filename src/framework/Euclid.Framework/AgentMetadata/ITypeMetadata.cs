@@ -11,7 +11,11 @@ namespace Euclid.Framework.AgentMetadata
 
 		IEnumerable<IPropertyMetadata> Properties { get; }
 		Type Type { get; set; }
-		IPartCollection GetContainingPartCollection();
 		IMetadataFormatter GetFormatter();
 	}
+
+    public interface IAgentPartMetadata : ITypeMetadata
+    {
+        IPartCollection GetContainingPartCollection();
+    }
 }
