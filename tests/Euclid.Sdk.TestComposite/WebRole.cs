@@ -2,51 +2,77 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging;
+using Euclid.Common.Messaging.Azure;
+using Euclid.Common.Storage.Azure;
+using Euclid.Common.Storage.NHibernate;
 using Euclid.Composites;
 using Euclid.Composites.Mvc;
+using Euclid.Framework.Cqrs;
 using Euclid.Sdk.TestAgent.Commands;
 using Euclid.Sdk.TestComposite.Converters;
+using FluentNHibernate.Cfg.Db;
+using Microsoft.WindowsAzure;
 
 namespace Euclid.Sdk.TestComposite
 {
-    public class WebRole
-    {
-        private bool _initialized;
-        public void Init()
-        {
-            if (_initialized) return;
+	public class WebRole
+	{
+		private static WebRole _instance;
 
-            AreaRegistration.RegisterAllAreas();
+		private bool _initialized;
 
-            var container = new WindsorContainer();
+		private WebRole()
+		{
+		}
 
-            var composite = new MvcCompositeApp(container);
+		public static WebRole GetInstance()
+		{
+			return _instance ?? (_instance = new WebRole());
+		}
 
-            var euclidCompositeConfiguration = new CompositeAppSettings();
+		public void Init()
+		{
+			if (_initialized)
+			{
+				return;
+			}
 
-            euclidCompositeConfiguration.OutputChannel.ApplyOverride(typeof(InMemoryMessageChannel));
+			AreaRegistration.RegisterAllAreas();
 
-            composite.Configure(euclidCompositeConfiguration);
+			var container = new WindsorContainer();
 
-            composite.AddAgent(typeof(TestCommand).Assembly);
+			var composite = new MvcCompositeApp(container);
 
-            composite.RegisterInputModel(new TestInputModelToCommandConverter());
+			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
-            container.Register(Component.For<ICompositeApp>().Instance(composite));
+			var compositeAppSettings = new CompositeAppSettings();
 
-            _initialized = true;
-        }
+			compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
+			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
+			composite.Configure(compositeAppSettings);
 
-        private static WebRole _instance;
+			composite.AddAgent(typeof(TestCommand).Assembly);
 
-        public static WebRole GetInstance()
-        {
-            return _instance ?? (_instance = new WebRole());
-        }
+			composite.RegisterInputModel(new TestInputModelToCommandConverter());
 
-        private WebRole()
-        {
-            
-        }
-    }
+			container.Register(Component.For<ICompositeApp>().Instance(composite));
+
+			setAzureCredentials(container);
+
+			_initialized = true;
+		}
+
+		private void setAzureCredentials(IWindsorContainer container)
+		{
+			// as soon as we can stop using the azure storage emulator we should
+			var storageAccount = new CloudStorageAccount(
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
+
+			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
+		}
+	}
 }
