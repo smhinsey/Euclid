@@ -18,8 +18,9 @@ namespace AgentPanel.Areas.Metadata
 
             context.MapRoute("Composite", "metadata/composite/{action}",
                              new { controller = "Composite", action = "Index" });
-            
+
             context.MapRoute("AllAgentsWithFormat", "metadata/agents/index.{format}",
+                 new { controller = "Agents", action = "Index" });
 
 			context.MapRoute("AllAgents", "metadata/agents", new { controller = "Agents", action = "Index" });
 

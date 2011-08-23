@@ -110,27 +110,6 @@ namespace Euclid.Composites
 					.BasedOn(typeof(IQuery)).WithService.Self().Configure(component => component.LifeStyle.Transient));
 		}
 
-		public virtual void Configure(CompositeAppSettings compositeAppSettings)
-		{
-			Container.Kernel.Resolver.AddSubResolver(new ArrayResolver(Container.Kernel));
-
-			Container.Kernel.Resolver.AddSubResolver(new ListResolver(Container.Kernel));
-
-			RegisterConfiguredTypes(compositeAppSettings);
-
-			Container.Register(
-				Component.For<IInputModelTransfomerRegistry>().Instance(InputModelTransformers).LifeStyle.Singleton);
-
-			Settings = compositeAppSettings;
-			State = CompositeApplicationState.Configured;
-
-			Container.Register
-				(AllTypes.FromAssembly(agent.AgentAssembly)
-				 	//.Where(Component.IsInNamespace(agent.Queries.Namespace))
-				 	.BasedOn(typeof (IQuery))
-				 	.WithService.Self()
-				 	.Configure(component => component.LifeStyle.Transient));
-		}
 
 		public void RegisterInputModel(IInputToCommandConverter converter)
 		{
@@ -178,31 +157,18 @@ namespace Euclid.Composites
 
 	    public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
 		{
-			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
+            var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
-			Container.Register(
-				Component.For<ISessionFactory>().UsingFactoryMethod(
-					() =>
-					Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).ExposeConfiguration(
-						cfg => new SchemaExport(cfg).Create(false, buildSchema)).BuildSessionFactory()).LifeStyle.Singleton);
-			                   Component.For<ISessionFactory>()
-			                   	.UsingFactoryMethod(() =>
-			                   	                    Fluently
-			                   	                    	.Configure()
-			                   	                    	.Database(databaseConfiguration)
-			                   	                    	.Mappings(map => mapAllAssemblies(map))
-			                   	                    	.ExposeConfiguration(cfg => new SchemaExport(cfg).Create(false, buildSchema))
-			                   	                    	.BuildSessionFactory()
-			                   	).LifeStyle.Singleton);
+            Container.Register(
+                Component.For<ISessionFactory>().UsingFactoryMethod(
+                    () =>
+                    Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).ExposeConfiguration(
+                        cfg => new SchemaExport(cfg).Create(false, buildSchema)).BuildSessionFactory()).LifeStyle.Singleton);
 
-			// jt: open session should be read-only
-			Container.Register(
-				Component.For<ISession>().UsingFactoryMethod(() => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(
-					lifestyleType));
-			                   Component.For<ISession>()
-			                   	.UsingFactoryMethod(
-			                   	                    () => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(lifestyleType)
-				);
+            // jt: open session should be read-only
+            Container.Register(
+                Component.For<ISession>().UsingFactoryMethod(() => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(
+                    lifestyleType));
 		}
 
 		protected void RegisterConfiguredTypes(CompositeAppSettings compositeAppSettings)
@@ -214,7 +180,8 @@ namespace Euclid.Composites
 			                   	.LifeStyle.Transient);
 
 			Container.Register(
-			                   	.ImplementedBy(compositeAppSettings.OutputChannel.Value)
+			                   	Component
+                                .For<IMessageChannel>().ImplementedBy(compositeAppSettings.OutputChannel.Value)
 			                   	.LifeStyle.Transient);
 
 			Container.Register(

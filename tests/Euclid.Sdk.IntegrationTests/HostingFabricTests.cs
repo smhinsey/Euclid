@@ -44,8 +44,7 @@ namespace Euclid.Sdk.IntegrationTests
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			WaitUntilComplete(publisher.PublishMessage(new FakeCommand { Number = MessageNumber }));
-                              publisher.PublishMessage(new TestCommand { Number = messageNumber }));
+			WaitUntilComplete(publisher.PublishMessage(new TestCommand { Number = MessageNumber }));
 
 			var query = Container.Resolve<TestQuery>();
 

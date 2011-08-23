@@ -19,7 +19,6 @@ namespace AgentPanel.Areas.Metadata.Controllers
         private readonly IInputModelTransfomerRegistry _transformer;
 
         public AgentsController(ICompositeApp composite, IPublisher commandPublisher, IInputModelTransfomerRegistry transformer)
-			ICompositeApp composite, IPublisher commandPublisher, IInputModelTransfomerRegistry transformer)
 		{
 			_composite = composite;
 			_commandPublisher = commandPublisher;

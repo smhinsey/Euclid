@@ -31,10 +31,10 @@ namespace Euclid.Composites.Conversion
 
 		public ICommand GetCommand(IInputModel model)
 		{
-			var partName =
-				.Where(row => row.Value.InputModelType == model.GetType())
-				.Select(row => row.Key)
-				.FirstOrDefault();
+            var partName = _inputModelsAndValues
+				                .Where(row => row.Value.InputModelType == model.GetType())
+				                .Select(row => row.Key)
+				                .FirstOrDefault();
 
 			GuardPartNameRegistered(partName);
 
