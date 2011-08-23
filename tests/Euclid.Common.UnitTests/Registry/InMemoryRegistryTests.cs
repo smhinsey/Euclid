@@ -11,6 +11,10 @@ namespace Euclid.Common.UnitTests.Registry
 	[Category(TestCategories.Unit)]
 	public class InMemoryRegistryTests
 	{
+		private const int LargeNumber = 10000;
+
+		private const int NumberThreads = 15;
+
 		private RegistryTester<PublicationRegistry<FakePublicationRecord, FakePublicationRecord>> _registryTester;
 
 		[TestFixtureSetUp]
@@ -20,12 +24,9 @@ namespace Euclid.Common.UnitTests.Registry
 			var serializer = new JsonMessageSerializer();
 			var repository = new InMemoryRecordMapper<FakePublicationRecord>();
 			_registryTester =
-				new RegistryTester<PublicationRegistry<FakePublicationRecord, FakePublicationRecord>>
-					(new PublicationRegistry<FakePublicationRecord, FakePublicationRecord>(repository, storage, serializer));
+				new RegistryTester<PublicationRegistry<FakePublicationRecord, FakePublicationRecord>>(
+					new PublicationRegistry<FakePublicationRecord, FakePublicationRecord>(repository, storage, serializer));
 		}
-
-		private const int LargeNumber = 10000;
-		private const int NumberThreads = 15;
 
 		[Test]
 		public void TestCreateRecord()
@@ -38,12 +39,7 @@ namespace Euclid.Common.UnitTests.Registry
 		{
 			var start = DateTime.Now;
 			var createdById = new Guid("CBE5D20E-9B5A-46DF-B2FF-93B5F45A3460");
-			var record = _registryTester.CreateRecord
-				(new FakeMessage
-				 	{
-				 		Created = start,
-				 		CreatedBy = createdById
-				 	});
+			var record = _registryTester.CreateRecord(new FakeMessage { Created = start, CreatedBy = createdById });
 
 			var message = _registryTester.GetMessage(record);
 

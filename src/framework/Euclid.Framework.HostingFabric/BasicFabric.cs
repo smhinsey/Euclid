@@ -19,9 +19,13 @@ namespace Euclid.Framework.HostingFabric
 	public class BasicFabric : IFabricRuntime, ILoggingSource
 	{
 		protected ICompositeApp Composite;
+
 		protected IList<Type> ConfiguredHostedServices;
+
 		protected IWindsorContainer Container;
+
 		protected IFabricRuntimeSettings CurrentSettings;
+
 		private IServiceHost _serviceHost;
 
 		public BasicFabric(IWindsorContainer container)
@@ -40,8 +44,12 @@ namespace Euclid.Framework.HostingFabric
 
 		public virtual IFabricRuntimeStatistics GetStatistics()
 		{
-			return new DefaultRuntimeStatistics
-				(_serviceHost.GetExceptionsThrownByHostedServices(), ConfiguredHostedServices, _serviceHost.GetType(), State, CurrentSettings);
+			return new DefaultRuntimeStatistics(
+				_serviceHost.GetExceptionsThrownByHostedServices(), 
+				ConfiguredHostedServices, 
+				_serviceHost.GetType(), 
+				State, 
+				CurrentSettings);
 		}
 
 		public virtual void Initialize(IFabricRuntimeSettings settings)
@@ -62,17 +70,41 @@ namespace Euclid.Framework.HostingFabric
 
 			try
 			{
-				_serviceHost = (IServiceHost) Container.Resolve(settings.ServiceHost.Value);
+				_serviceHost = (IServiceHost)Container.Resolve(settings.ServiceHost.Value);
 			}
 			catch (ComponentNotFoundException e)
 			{
-				throw new ServiceHostNotResolvableException
-					(string.Format("Unable to resolve service host of type {0} from container.", settings.ServiceHost.Value), e);
+				throw new ServiceHostNotResolvableException(
+					string.Format("Unable to resolve service host of type {0} from container.", settings.ServiceHost.Value), e);
 			}
 
 			CurrentSettings = settings;
 
 			this.WriteInfoMessage(string.Format("Initialized {0}.", GetType().Name));
+		}
+
+		public void InstallComposite(ICompositeApp composite)
+		{
+			this.WriteDebugMessage(string.Format("Installing composite {0}.", composite.GetType().FullName));
+
+			if (Composite != null)
+			{
+				throw new CompositeAlreadyInstalledException();
+			}
+
+			if (composite.State != CompositeApplicationState.Configured)
+			{
+				throw new CompositeNotConfiguredException();
+			}
+
+			Composite = composite;
+
+			Container.Register(
+				Component.For(typeof(ISimpleRepository<>)).ImplementedBy(typeof(NhSimpleRepository<>)).LifeStyle.Transient);
+
+			extractProcessorsFromAgents();
+
+			this.WriteInfoMessage(string.Format("Installed composite {0}.", composite.GetType().Name));
 		}
 
 		public virtual void Shutdown()
@@ -98,14 +130,15 @@ namespace Euclid.Framework.HostingFabric
 			{
 				try
 				{
-					hostedServices.Add((IHostedService) Container.Resolve(hostedServiceType));
+					hostedServices.Add((IHostedService)Container.Resolve(hostedServiceType));
 
 					ConfiguredHostedServices.Add(hostedServiceType);
 				}
 				catch (ComponentNotFoundException e)
 				{
-					throw new HostedServiceNotResolvableException
-						(string.Format("Unable to resolve hosted service of type {0} from container.", CurrentSettings.ServiceHost.Value), e);
+					throw new HostedServiceNotResolvableException(
+						string.Format("Unable to resolve hosted service of type {0} from container.", CurrentSettings.ServiceHost.Value), 
+						e);
 				}
 			}
 
@@ -121,29 +154,6 @@ namespace Euclid.Framework.HostingFabric
 			this.WriteInfoMessage(string.Format("Started {0}.", GetType().Name));
 		}
 
-		public void InstallComposite(ICompositeApp composite)
-		{
-			this.WriteDebugMessage(string.Format("Installing composite {0}.", composite.GetType().FullName));
-
-			if (Composite != null)
-			{
-				throw new CompositeAlreadyInstalledException();
-			}
-
-			if (composite.State != CompositeApplicationState.Configured)
-			{
-				throw new CompositeNotConfiguredException();
-			}
-
-			Composite = composite;
-
-			Container.Register(Component.For(typeof (ISimpleRepository<>)).ImplementedBy(typeof (NhSimpleRepository<>)).LifeStyle.Transient);
-
-			extractProcessorsFromAgents();
-
-			this.WriteInfoMessage(string.Format("Installed composite {0}.", composite.GetType().Name));
-		}
-
 		private void extractProcessorsFromAgents()
 		{
 			foreach (var agent in Composite.Agents)
@@ -151,13 +161,14 @@ namespace Euclid.Framework.HostingFabric
 				var processorAttribute = agent.AgentAssembly.GetAttributeValue<LocationOfProcessorsAttribute>();
 
 				// SELF the Where call below changes the meaning of the rest of the registration so it had to be removed
-
-				Container.Register
-					(AllTypes.FromAssembly(agent.AgentAssembly)
-					 	//.Where(Component.IsInNamespace(processorAttribute.Namespace))
-					 	.BasedOn(typeof (ICommandProcessor))
-					 	.Configure(c => c.LifeStyle.Transient)
-					 	.WithService.AllInterfaces().WithService.Self());
+				Container.Register(
+					AllTypes.FromAssembly(agent.AgentAssembly)
+            
+						
+						
+						// .Where(Component.IsInNamespace(processorAttribute.Namespace))
+						.BasedOn(typeof(ICommandProcessor)).Configure(c => c.LifeStyle.Transient).WithService.AllInterfaces().WithService.
+						Self());
 
 				var registry = Container.Resolve<ICommandRegistry>();
 
@@ -168,7 +179,7 @@ namespace Euclid.Framework.HostingFabric
 				dispatcherSettings.InputChannel.WithDefault(CurrentSettings.InputChannel.Value);
 				dispatcherSettings.InvalidChannel.WithDefault(CurrentSettings.ErrorChannel.Value);
 
-				var processors = Container.ResolveAll(typeof (ICommandProcessor));
+				var processors = Container.ResolveAll(typeof(ICommandProcessor));
 
 				foreach (var processor in processors)
 				{
@@ -177,7 +188,7 @@ namespace Euclid.Framework.HostingFabric
 
 				dispatcher.Configure(dispatcherSettings);
 
-				var commandHost = new CommandHost(new ICommandDispatcher[] {dispatcher});
+				var commandHost = new CommandHost(new ICommandDispatcher[] { dispatcher });
 
 				Container.Register(Component.For<IHostedService>().Instance(commandHost).Forward<CommandHost>().LifeStyle.Transient);
 			}

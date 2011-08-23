@@ -9,6 +9,9 @@ namespace Euclid.Framework.EventSourcing
 	/// </summary>
 	public interface IEventSourcedAggregate : IAggregateRoot
 	{
+		/// <summary>
+		/// Gets the last event that updated the aggregate.
+		/// </summary>
 		IEvent CurrentAsOf { get; }
 	}
 }

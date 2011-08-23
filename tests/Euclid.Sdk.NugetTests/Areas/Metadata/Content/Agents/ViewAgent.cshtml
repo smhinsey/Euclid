@@ -5,9 +5,9 @@
 <ul>
 	<li>@Model.SystemName</li>
 	<li>@Model.DescriptiveName</li>
-	<li>@Html.DisplayFor(x => x.Commands, "IAgentPart", @Model.Commands)</li>
-	<li>@Html.DisplayFor(x => x.Queries, "IAgentPart", @Model.Queries)</li>
-	<li>@Html.DisplayFor(x => x.ReadModels, "IAgentPart", @Model.ReadModels)</li>
+	<li>@Html.DisplayFor(x => x.Commands, "IAgentPart", Model.Commands)</li>
+	<li>@Html.DisplayFor(x => x.Queries, "IAgentPart", Model.Queries)</li>
+	<li>@Html.DisplayFor(x => x.ReadModels, "IAgentPart", Model.ReadModels)</li>
 </ul>
 
-@{ Html.RenderPartial("MetadataLinks", Model); }
+@{ Html.RenderPartial("MetadataLinks", Model);  }

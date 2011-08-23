@@ -17,6 +17,7 @@ namespace Euclid.Framework.AgentMetadata
 		public Type ImplementationType { get; private set; }
 
 		public string InterfaceName { get; private set; }
+
 		public Type InterfaceType { get; private set; }
 	}
 }

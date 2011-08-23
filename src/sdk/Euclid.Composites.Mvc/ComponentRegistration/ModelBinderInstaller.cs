@@ -12,20 +12,12 @@ namespace Euclid.Composites.Mvc.ComponentRegistration
 		{
 			foreach (var t in GetTypesThatImplement<IAgentResolver>())
 			{
-				container.Register(
-				                   Component
-				                   	.For<IAgentResolver>()
-				                   	.ImplementedBy(t)
-				                   	.LifeStyle.Transient);
+				container.Register(Component.For<IAgentResolver>().ImplementedBy(t).LifeStyle.Transient);
 			}
 
 			foreach (var t in GetTypesThatImplement<IEuclidModelBinder>())
 			{
-				container.Register(
-				                   Component
-				                   	.For<IEuclidModelBinder>()
-				                   	.ImplementedBy(t)
-				                   	.LifeStyle.Transient);
+				container.Register(Component.For<IEuclidModelBinder>().ImplementedBy(t).LifeStyle.Transient);
 			}
 		}
 	}

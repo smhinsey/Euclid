@@ -13,7 +13,6 @@ namespace Euclid.Common.Configuration
 		public static TOverridableSettings Settings { get; set; }
 
 		public static TOverridableSettings Build(Action<TOverridableSettings> action)
-
 		{
 			action(Settings);
 

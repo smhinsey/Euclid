@@ -10,6 +10,7 @@ namespace Euclid.Framework.EventSourcing
 	public class EventRecorder : DefaultCommandProcessor<IEvent>
 	{
 		private readonly IStoreEvents _eventStore;
+
 		private readonly Guid _streamId;
 
 		public EventRecorder(IStoreEvents eventStore, Guid streamId)
@@ -22,7 +23,7 @@ namespace Euclid.Framework.EventSourcing
 		{
 			using (var stream = _eventStore.CreateStream(_streamId))
 			{
-				stream.Add(new EventMessage {Body = message});
+				stream.Add(new EventMessage { Body = message });
 			}
 		}
 	}

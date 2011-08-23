@@ -12,10 +12,13 @@ namespace Euclid.Common.TestingFakes.Transport
 		}
 
 		public DateTime Created { get; set; }
+
 		public Guid CreatedBy { get; set; }
 
 		public int Field1 { get; set; }
+
 		public IList<string> Field2 { get; set; }
+
 		public Guid Identifier { get; set; }
 	}
 }

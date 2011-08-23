@@ -4,9 +4,7 @@ namespace ForumComposite.Controllers
 {
 	public class PostController : Controller
 	{
-		//
 		// GET: /Home/
-
 		public ActionResult List()
 		{
 			return View();

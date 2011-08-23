@@ -16,7 +16,7 @@ namespace Euclid.TestingSupport
 
 		public override bool IsId(Member member)
 		{
-			return (member.Name == "Identifier");
+			return member.Name == "Identifier";
 		}
 
 		public override bool ShouldMap(Type type)

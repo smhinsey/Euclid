@@ -12,14 +12,21 @@ namespace Euclid.Framework.Cqrs.Settings
 	public class Dispatcher
 	{
 		private readonly IWindsorContainer _container;
+
 		private readonly IList<Type> _messageProcessors;
+
 		private readonly TimeSpanConfiguration<Dispatcher> _tsc;
+
 		private int _bs = 25;
 
 		private bool _hasBlob;
+
 		private bool _hasInput;
+
 		private bool _hasInvalid;
+
 		private bool _hasRepo;
+
 		private bool _hasSerializer;
 
 		private Dispatcher()
@@ -27,98 +34,6 @@ namespace Euclid.Framework.Cqrs.Settings
 			_tsc = new TimeSpanConfiguration<Dispatcher>(this);
 			_container = new WindsorContainer();
 			_messageProcessors = new List<Type>();
-		}
-
-		public Dispatcher AddCommandProcessor<T>() where T : IMessageProcessor
-		{
-			_container.Register
-				(
-				 Component
-				 	.For(typeof (T))
-				 	.ImplementedBy(typeof (T)));
-
-			_messageProcessors.Add(typeof (T));
-
-			return this;
-		}
-
-		public Dispatcher BlobStorageAs<T>() where T : IBlobStorage
-		{
-			_container.Register
-				(
-				 Component
-				 	.For<IBlobStorage>()
-				 	.ImplementedBy(typeof (T)));
-
-			_hasBlob = true;
-
-			return this;
-		}
-
-		public Dispatcher CommandSerializerAs<T>() where T : IMessageSerializer
-		{
-			_container.Register
-				(
-				 Component
-				 	.For<IMessageSerializer>()
-				 	.ImplementedBy(typeof (T)));
-
-			_hasSerializer = true;
-
-			return this;
-		}
-
-		public Dispatcher InputChannelAs<T>() where T : IMessageChannel
-		{
-			_container.Register
-				(
-				 Component
-				 	.For<IMessageChannel>()
-				 	.ImplementedBy(typeof (T))
-				 	.Named("input"));
-
-			_hasInput = true;
-
-			return this;
-		}
-
-		public Dispatcher InvalidChannelAs<T>() where T : IMessageChannel
-		{
-			_container.Register
-				(
-				 Component
-				 	.For<IMessageChannel>()
-				 	.ImplementedBy(typeof (T))
-				 	.Named("invalid"));
-
-			_hasInvalid = true;
-
-			return this;
-		}
-
-		public TimeSpanConfiguration<Dispatcher> PollingInterval()
-		{
-			return _tsc;
-		}
-
-		public Dispatcher ProcessMessageInBatchesOf(int batchSize)
-		{
-			_bs = batchSize;
-
-			return this;
-		}
-
-		public Dispatcher RecordRepositoryAs<T>() where T : IRecordMapper<CommandPublicationRecord>
-		{
-			_container.Register
-				(
-				 Component
-				 	.For<IRecordMapper<CommandPublicationRecord>>()
-				 	.ImplementedBy(typeof (T)));
-
-			_hasRepo = true;
-
-			return this;
 		}
 
 		public static Dispatcher Configure()
@@ -130,7 +45,7 @@ namespace Euclid.Framework.Cqrs.Settings
 		{
 			EnsureDispatcherConfiguration(config);
 
-			var dispatchInterval = config._tsc == null ? new TimeSpan(0, 0, 0, 0, 1500) : (TimeSpan) config._tsc;
+			var dispatchInterval = config._tsc == null ? new TimeSpan(0, 0, 0, 0, 1500) : (TimeSpan)config._tsc;
 
 			var settings = new MessageDispatcherSettings();
 			settings.InvalidChannel.WithDefault(config._container.Resolve<IMessageChannel>("invalid"));
@@ -153,37 +68,109 @@ namespace Euclid.Framework.Cqrs.Settings
 			return dispatcher;
 		}
 
+		public Dispatcher AddCommandProcessor<T>() where T : IMessageProcessor
+		{
+			_container.Register(Component.For(typeof(T)).ImplementedBy(typeof(T)));
+
+			_messageProcessors.Add(typeof(T));
+
+			return this;
+		}
+
+		public Dispatcher BlobStorageAs<T>() where T : IBlobStorage
+		{
+			_container.Register(Component.For<IBlobStorage>().ImplementedBy(typeof(T)));
+
+			_hasBlob = true;
+
+			return this;
+		}
+
+		public Dispatcher CommandSerializerAs<T>() where T : IMessageSerializer
+		{
+			_container.Register(Component.For<IMessageSerializer>().ImplementedBy(typeof(T)));
+
+			_hasSerializer = true;
+
+			return this;
+		}
+
+		public Dispatcher InputChannelAs<T>() where T : IMessageChannel
+		{
+			_container.Register(Component.For<IMessageChannel>().ImplementedBy(typeof(T)).Named("input"));
+
+			_hasInput = true;
+
+			return this;
+		}
+
+		public Dispatcher InvalidChannelAs<T>() where T : IMessageChannel
+		{
+			_container.Register(Component.For<IMessageChannel>().ImplementedBy(typeof(T)).Named("invalid"));
+
+			_hasInvalid = true;
+
+			return this;
+		}
+
+		public TimeSpanConfiguration<Dispatcher> PollingInterval()
+		{
+			return _tsc;
+		}
+
+		public Dispatcher ProcessMessageInBatchesOf(int batchSize)
+		{
+			_bs = batchSize;
+
+			return this;
+		}
+
+		public Dispatcher RecordRepositoryAs<T>() where T : IRecordMapper<CommandPublicationRecord>
+		{
+			_container.Register(Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy(typeof(T)));
+
+			_hasRepo = true;
+
+			return this;
+		}
+
 		private static void EnsureDispatcherConfiguration(Dispatcher config)
 		{
 			var configErrors = new List<string>();
 			if (!config._hasBlob)
 			{
-				configErrors.Add("No BlobStorage service configured, call BlobStorageAs<T> with the appropriate IBlobStorage implementation");
+				configErrors.Add(
+					"No BlobStorage service configured, call BlobStorageAs<T> with the appropriate IBlobStorage implementation");
 			}
 
 			if (!config._hasInput)
 			{
-				configErrors.Add("No InputChannel configured, call InputChannelAs<T> with the appropriate IMessageChannel implementation");
+				configErrors.Add(
+					"No InputChannel configured, call InputChannelAs<T> with the appropriate IMessageChannel implementation");
 			}
 
 			if (!config._hasInvalid)
 			{
-				configErrors.Add("No InvalidChannel configured, call InvalidChannelAs<T> with the appropriate IMessageChannel implementation");
+				configErrors.Add(
+					"No InvalidChannel configured, call InvalidChannelAs<T> with the appropriate IMessageChannel implementation");
 			}
 
 			if (!config._hasRepo)
 			{
-				configErrors.Add("No RecordRepository configured, call RecordRepositoryAs<T> with the appropriate IBasicRecordRepository<CommandPublicationRecord>");
+				configErrors.Add(
+					"No RecordRepository configured, call RecordRepositoryAs<T> with the appropriate IBasicRecordRepository<CommandPublicationRecord>");
 			}
 
 			if (!config._hasSerializer)
 			{
-				configErrors.Add("No MessageSerializer configured, call CommandSerializerAs<T> with the appropriate IMessageSerializer implementation");
+				configErrors.Add(
+					"No MessageSerializer configured, call CommandSerializerAs<T> with the appropriate IMessageSerializer implementation");
 			}
 
 			if (config._messageProcessors.Count == 0)
 			{
-				configErrors.Add("No CommandProcessors configured, add one or more CommandProcessors by calling AddCommandProcessor<T> with the appropriate IMessageProcessor implementation");
+				configErrors.Add(
+					"No CommandProcessors configured, add one or more CommandProcessors by calling AddCommandProcessor<T> with the appropriate IMessageProcessor implementation");
 			}
 
 			if (configErrors.Count > 0)

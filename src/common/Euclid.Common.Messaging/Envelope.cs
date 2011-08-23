@@ -9,6 +9,7 @@
 		}
 
 		public string MessageTypeName { get; private set; }
+
 		public IMessage Payload { get; private set; }
 	}
 }

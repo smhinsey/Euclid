@@ -14,17 +14,19 @@ using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using FluentNHibernate.Cfg.Db;
+using log4net.Config;
 using Microsoft.WindowsAzure;
 using NUnit.Framework;
-using log4net.Config;
 
 namespace Euclid.TestingSupport
 {
 	public class HostingFabricFixture
 	{
-		private readonly Assembly[] _agentAssemblies;
 		protected WindsorContainer Container;
+
 		protected ConsoleFabric Fabric;
+
+		private readonly Assembly[] _agentAssemblies;
 
 		public HostingFabricFixture(params Assembly[] agentAssemblies)
 		{
@@ -44,7 +46,8 @@ namespace Euclid.TestingSupport
 
 			var composite = new BasicCompositeApp(Container);
 
-			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+			composite.RegisterNh(
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
 			foreach (var agentAssembly in _agentAssemblies)
 			{
@@ -82,8 +85,8 @@ namespace Euclid.TestingSupport
 			var compositeAppSettings = new CompositeAppSettings();
 
 			compositeAppSettings.OutputChannel.WithDefault(typeof (AzureMessageChannel));
-			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
-			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
 
 			return compositeAppSettings;
 		}
@@ -92,8 +95,8 @@ namespace Euclid.TestingSupport
 		{
 			var fabricSettings = new FabricRuntimeSettings();
 
-			fabricSettings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
-			fabricSettings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
+			fabricSettings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
+			fabricSettings.HostedServices.WithDefault(new List<Type> { typeof(CommandHost) });
 
 			var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
 
@@ -106,11 +109,11 @@ namespace Euclid.TestingSupport
 		private void setAzureCredentials(IWindsorContainer container)
 		{
 			// as soon as we can stop using the azure storage emulator we should
-
-			var storageAccount = new CloudStorageAccount(CloudStorageAccount.DevelopmentStorageAccount.Credentials,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
+			var storageAccount = new CloudStorageAccount(
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
 		}

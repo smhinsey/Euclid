@@ -11,7 +11,10 @@ namespace Euclid.Composites.Mvc.ActionFilters
 		{
 			var format = filterContext.ActionParameters["format"] as string ?? string.Empty;
 
-			if (format == string.Empty) return;
+			if (format == string.Empty)
+			{
+				return;
+			}
 
 			var formatter = GetFormatter(filterContext);
 
@@ -21,11 +24,11 @@ namespace Euclid.Composites.Mvc.ActionFilters
 			}
 
 			filterContext.Result = new ContentResult
-			                       	{
-			                       		Content = formatter.GetRepresentation(format),
-			                       		ContentType = formatter.GetContentType(format),
-			                       		ContentEncoding = formatter.GetEncoding(format)
-			                       	};
+				{
+					Content = formatter.GetRepresentation(format), 
+					ContentType = formatter.GetContentType(format), 
+					ContentEncoding = formatter.GetEncoding(format)
+				};
 
 			base.OnActionExecuting(filterContext);
 		}

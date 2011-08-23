@@ -1,0 +1,463 @@
+<CodeStyleSettings>
+  <CSS>
+    <FormatSettings />
+    <Naming2 />
+  </CSS>
+  <CSharp>
+    <FormatSettings>
+      <ALIGN_FIRST_ARG_BY_PAREN>True</ALIGN_FIRST_ARG_BY_PAREN>
+      <LINE_FEED_AT_FILE_END>True</LINE_FEED_AT_FILE_END>
+      <MODIFIERS_ORDER IsNull="False">
+        <Item>public</Item>
+        <Item>protected</Item>
+        <Item>internal</Item>
+        <Item>private</Item>
+        <Item>new</Item>
+        <Item>abstract</Item>
+        <Item>virtual</Item>
+        <Item>override</Item>
+        <Item>sealed</Item>
+        <Item>static</Item>
+        <Item>readonly</Item>
+        <Item>extern</Item>
+        <Item>unsafe</Item>
+        <Item>volatile</Item>
+      </MODIFIERS_ORDER>
+      <PLACE_FIELD_ATTRIBUTE_ON_SAME_LINE>False</PLACE_FIELD_ATTRIBUTE_ON_SAME_LINE>
+      <PLACE_SIMPLE_LINQ_ON_SINGLE_LINE>False</PLACE_SIMPLE_LINQ_ON_SINGLE_LINE>
+      <PLACE_TYPE_CONSTRAINTS_ON_SAME_LINE>False</PLACE_TYPE_CONSTRAINTS_ON_SAME_LINE>
+      <WRAP_BEFORE_DECLARATION_LPAR>True</WRAP_BEFORE_DECLARATION_LPAR>
+    </FormatSettings>
+    <UsingsSettings />
+    <Naming2>
+      <EventHandlerPatternLong>$object$_On$event$</EventHandlerPatternLong>
+      <EventHandlerPatternShort>$event$Handler</EventHandlerPatternShort>
+      <OverrideDefaultSettings>True</OverrideDefaultSettings>
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="TypesAndNamespaces" />
+      <PredefinedRule Inspect="True" Prefix="I" Suffix="" Style="AaBb" ElementKind="Interfaces" />
+      <PredefinedRule Inspect="True" Prefix="T" Suffix="" Style="AaBb" ElementKind="TypeParameters" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="MethodPropertyEvent" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Locals" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="LocalConstants" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Parameters" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PublicFields" />
+      <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateInstanceFields" />
+      <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateStaticFields" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Constants" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateConstants" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="StaticReadonly" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateStaticReadonly" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
+      <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
+      <UserRule Inspect="True" Prefix="" Suffix="" Style="AaBb" StaticnessKind="Static, Instance" AccessRight="Public" Description="Public Methods">
+        <ElementKinds>
+          <Kind Name="METHOD" />
+        </ElementKinds>
+      </UserRule>
+      <UserRule Inspect="True" Prefix="" Suffix="" Style="aaBb" StaticnessKind="Static, Instance" AccessRight="Private" Description="Private Methods">
+        <ElementKinds>
+          <Kind Name="METHOD" />
+        </ElementKinds>
+      </UserRule>
+      <UserRule Inspect="True" Prefix="" Suffix="" Style="AaBb" StaticnessKind="Static, Instance" AccessRight="Protected, ProtectedInternal, Internal" Description="Protected Methods">
+        <ElementKinds>
+          <Kind Name="METHOD" />
+        </ElementKinds>
+      </UserRule>
+    </Naming2>
+    <CustomMemberReorderingPatterns><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<Patterns xmlns="urn:shemas-jetbrains-com:member-reordering-patterns">
+
+  <!--Do not reorder COM interfaces-->
+  <Pattern>
+    <Match>
+      <And Weight="100">
+        <Kind Is="interface"/>
+        <HasAttribute CLRName="System.Runtime.InteropServices.InterfaceTypeAttribute"/>
+      </And>
+    </Match>
+  </Pattern>
+
+  <!--Special formatting of NUnit test fixture-->
+  <Pattern RemoveAllRegions="true">
+    <Match>
+      <And Weight="100">
+        <Kind Is="class"/>
+        <HasAttribute CLRName="NUnit.Framework.TestFixtureAttribute" Inherit="true"/>
+      </And>
+    </Match>
+
+    <!--Setup/Teardow-->
+    <Entry>
+      <Match>
+        <And>
+          <Kind Is="method"/>
+          <Or>
+            <HasAttribute CLRName="NUnit.Framework.SetUpAttribute" Inherit="true"/>
+            <HasAttribute CLRName="NUnit.Framework.TearDownAttribute" Inherit="true"/>
+            <HasAttribute CLRName="NUnit.Framework.FixtureSetUpAttribute" Inherit="true"/>
+            <HasAttribute CLRName="NUnit.Framework.FixtureTearDownAttribute" Inherit="true"/>
+          </Or>
+        </And>
+      </Match>
+      <Group Region="Setup/Teardown"/>
+    </Entry>
+
+    <!--All other members-->
+    <Entry/>
+
+    <!--Test methods-->
+    <Entry>
+      <Match>
+        <And Weight="100">
+          <Kind Is="method"/>
+          <HasAttribute CLRName="NUnit.Framework.TestAttribute" Inherit="false"/>
+        </And>
+      </Match>
+      <Sort>
+        <Name/>
+      </Sort>
+    </Entry>
+  </Pattern>
+
+  <!--Default pattern-->
+  <Pattern RemoveAllRegions="true">
+    <!--delegate-->
+    <Entry>
+      <Match>
+        <And Weight="100">
+          <Access Is="public"/>
+          <Kind Is="delegate"/>
+        </And>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--enums-->
+    <Entry>
+      <Match>
+        <Kind Is="enum"/>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--constants-->
+    <Entry>
+      <Match>
+        <Kind Is="constant"/>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--static and readonly fields-->
+    <Entry>
+      <Match>
+        <And>
+          <Kind Is="field"/>
+          <Or>
+            <Static/>
+            <Readonly/>
+          </Or>
+        </And>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--fields-->
+    <Entry>
+      <Match>
+        <Kind Is="field"/>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--Constructors. Place static one first-->
+    <Entry>
+      <Match>
+        <Kind Is="constructor"/>
+      </Match>
+      <Sort>
+        <Static/>
+        <Access Order="public protected internal private" />
+      </Sort>
+    </Entry>
+
+    <!--Destructors. Place static one first-->
+    <Entry>
+      <Match>
+        <Kind Is="destructor"/>
+      </Match>
+      <Sort>
+        <Static/>
+        <Access Order="public protected internal private" />
+      </Sort>
+    </Entry>
+
+    <!--Instance indexers-->
+    <Entry>
+      <Match>
+        <And>
+          <Kind Is="indexer"/>
+          <Not>
+            <Static/>
+          </Not>
+        </And>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Abstract/>
+        <Virtual/>
+        <Override/>
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--instance properties-->
+    <Entry>
+      <Match>
+        <And>
+          <Kind Is="property"/>
+          <Not>
+            <Static/>
+          </Not>
+          <Not>
+            <Kind Is="indexer"/>
+          </Not>
+        </And>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Abstract/>
+        <Virtual/>
+        <Override/>
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--Methods-->
+    <Entry>
+      <Match>
+        <And>
+          <Kind Is="method"/>
+          <Not>
+            <Static/>
+          </Not>
+          <Not>
+            <HandlesEvent />
+          </Not>
+          <Not>
+            <Kind Is="destructor"/>
+          </Not>
+        </And>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Abstract/>
+        <Virtual/>
+        <Override/>
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--Event Handling-->
+    <Entry>
+      <Match>
+        <HandlesEvent />
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Abstract/>
+        <Virtual/>
+        <Override/>
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!-- event -->
+    <Entry>
+      <Match>
+        <Kind Is="event"/>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!-- operator -->
+    <Entry>
+      <Match>
+        <Kind Is="operator"/>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--interface implementations-->
+    <Entry>
+      <Match>
+        <And>
+          <Kind Is="member"/>
+          <ImplementsInterface/>
+        </And>
+      </Match>
+    </Entry>
+
+    <!--Class indexers-->
+    <Entry>
+      <Match>
+        <And>
+          <Kind Is="indexer"/>
+          <Static/>
+        </And>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Abstract/>
+        <Virtual/>
+        <Override/>
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--Class properties-->
+    <Entry>
+      <Match>
+        <And>
+          <Kind Is="property"/>
+          <Static/>
+        </And>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Abstract/>
+        <Virtual/>
+        <Override/>
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--Class Methods-->
+    <Entry>
+      <Match>
+        <And>
+          <Kind Is="method"/>
+          <Static/>
+        </And>
+      </Match>
+      <Sort>
+        <Access Order="public protected internal private" />
+        <Abstract/>
+        <Virtual/>
+        <Override/>
+        <Name/>
+      </Sort>
+    </Entry>
+
+    <!--all other members-->
+    <Entry>
+      <Sort>
+        <Access Order="public internal protected-internal protected private"/>
+        <Static/>
+        <Abstract/>
+        <Virtual/>
+        <Override/>
+        <Name/>
+      </Sort>
+   	</Entry>
+
+    <!--nested types-->
+    <Entry>
+      <Match>
+        <Kind Is="type"/>
+      </Match>
+      <Sort>
+        <Access Order="public internal protected-internal protected private"/>
+        <Static/>
+        <Abstract/>
+        <Virtual/>
+        <Override/>
+        <Name/>
+      </Sort>
+    </Entry>
+  </Pattern>
+
+</Patterns>]]></CustomMemberReorderingPatterns>
+  </CSharp>
+  <HTML>
+    <FormatSettings />
+  </HTML>
+  <JavaScript>
+    <FormatSettings />
+    <Naming2>
+      <UserRule Name="JS_LOCAL_VARIABLE" Inspect="True" Prefix="" Suffix="" Style="aaBb" />
+      <UserRule Name="JS_FUNCTION" Inspect="True" Prefix="" Suffix="" Style="aaBb" />
+      <UserRule Name="JS_PARAMETER" Inspect="True" Prefix="" Suffix="" Style="aaBb" />
+      <UserRule Name="JS_LABEL" Inspect="True" Prefix="" Suffix="" Style="aaBb" />
+      <UserRule Name="JS_GLOBAL_VARIABLE" Inspect="True" Prefix="" Suffix="" Style="AaBb" />
+      <UserRule Name="JS_OBJECT_PROPERTY_OF_FUNCTION" Inspect="True" Prefix="" Suffix="" Style="aaBb" />
+      <UserRule Name="JS_CONSTRUCTOR" Inspect="True" Prefix="" Suffix="" Style="AaBb" />
+    </Naming2>
+  </JavaScript>
+  <VB>
+    <FormatSettings />
+    <ImportsSettings />
+    <Naming2>
+      <EventHandlerPatternLong>$object$_On$event$</EventHandlerPatternLong>
+      <EventHandlerPatternShort>$event$Handler</EventHandlerPatternShort>
+    </Naming2>
+  </VB>
+  <Web>
+    <Naming2 />
+  </Web>
+  <XML>
+    <FormatSettings>
+      <MaxBlankLines>1</MaxBlankLines>
+      <ProcessingInstructionAttributeIndenting>OneStep</ProcessingInstructionAttributeIndenting>
+      <ProcessingInstructionAttributesFormat>FirstAttributeOnSingleLine</ProcessingInstructionAttributesFormat>
+      <ProcessingInstructionSpaceAfterLastAttr>True</ProcessingInstructionSpaceAfterLastAttr>
+      <WrapInsideText>True</WrapInsideText>
+    </FormatSettings>
+  </XML>
+  <Xaml>
+    <Naming2 />
+  </Xaml>
+  <GenerateMemberBody />
+  <Naming2>
+    <EventHandlerPatternLong>$object$_On$event$</EventHandlerPatternLong>
+    <EventHandlerPatternShort>$event$Handler</EventHandlerPatternShort>
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="TypesAndNamespaces" />
+    <PredefinedRule Inspect="True" Prefix="I" Suffix="" Style="AaBb" ElementKind="Interfaces" />
+    <PredefinedRule Inspect="True" Prefix="T" Suffix="" Style="AaBb" ElementKind="TypeParameters" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="MethodPropertyEvent" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Locals" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="LocalConstants" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="aaBb" ElementKind="Parameters" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PublicFields" />
+    <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateInstanceFields" />
+    <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateStaticFields" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Constants" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateConstants" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="StaticReadonly" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="PrivateStaticReadonly" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
+    <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
+  </Naming2>
+</CodeStyleSettings>

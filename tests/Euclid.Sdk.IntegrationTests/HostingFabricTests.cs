@@ -20,11 +20,11 @@ namespace Euclid.Sdk.IntegrationTests
 		public void PublishProcessAndCompleteManyCommands()
 		{
 			var publicationIds = new List<Guid>();
-			const int numberOfCommands = 100;
+			const int NumberOfCommands = 100;
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			for (var i = 0; i < numberOfCommands; i++)
+			for (var i = 0; i < NumberOfCommands; i++)
 			{
                 var publicationId = publisher.PublishMessage(new TestCommand { Number = i });
 
@@ -40,19 +40,19 @@ namespace Euclid.Sdk.IntegrationTests
 		[Test]
 		public void PublishProcessAndVerifyCommandByQuery()
 		{
-			const int messageNumber = 134;
+			const int MessageNumber = 134;
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			WaitUntilComplete(
+			WaitUntilComplete(publisher.PublishMessage(new FakeCommand { Number = MessageNumber }));
                               publisher.PublishMessage(new TestCommand { Number = messageNumber }));
 
 			var query = Container.Resolve<TestQuery>();
 
-			var models = query.FindByNumber(messageNumber);
+			var models = query.FindByNumber(MessageNumber);
 
 			Assert.AreEqual(1, models.Count);
-			Assert.AreEqual(messageNumber, models[0].Number);
+			Assert.AreEqual(MessageNumber, models[0].Number);
 		}
 	}
 }

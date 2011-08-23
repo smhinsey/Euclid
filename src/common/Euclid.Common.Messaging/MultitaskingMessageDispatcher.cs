@@ -12,12 +12,19 @@ namespace Euclid.Common.Messaging
 		where TRegistry : IPublicationRegistry<IPublicationRecord, IPublicationRecord>
 	{
 		private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+
 		private readonly IServiceLocator _container;
+
 		private readonly IPublicationRegistry<IPublicationRecord, IPublicationRecord> _publicationRegistry;
+
 		private bool _configured;
+
 		private IMessageChannel _inputChannel;
+
 		private IMessageChannel _invalidChannel;
+
 		private Task _listenerTask;
+
 		private IList<IMessageProcessor> _messageProcessors;
 
 		public MultitaskingMessageDispatcher(IServiceLocator container, TRegistry publicationRegistry)
@@ -27,15 +34,14 @@ namespace Euclid.Common.Messaging
 		}
 
 		public IMessageDispatcherSettings CurrentSettings { get; private set; }
+
 		public MessageDispatcherState State { get; private set; }
 
 		public void Configure(IMessageDispatcherSettings settings)
 		{
 			if (settings.InputChannel.Value == null)
 			{
-				throw new NoInputChannelConfiguredException
-					(
-					"You must specify an input channel for a message dispatcher");
+				throw new NoInputChannelConfiguredException("You must specify an input channel for a message dispatcher");
 			}
 
 			if (settings.InvalidChannel.Value == null)
@@ -45,22 +51,19 @@ namespace Euclid.Common.Messaging
 
 			if (settings.MessageProcessorTypes.Value == null || settings.MessageProcessorTypes.Value.Count == 0)
 			{
-				throw new NoMessageProcessorsConfiguredException
-					(
+				throw new NoMessageProcessorsConfiguredException(
 					"You must specify one or more message processors for a message dispatcher");
 			}
 
 			if (settings.DurationOfDispatchingSlice.Value.TotalMilliseconds == 0)
 			{
-				throw new NoDispatchingSliceDurationConfiguredException
-					(
+				throw new NoDispatchingSliceDurationConfiguredException(
 					"You must specify a duration for the dispatcher to dispatch messages during.");
 			}
 
 			if (settings.NumberOfMessagesToDispatchPerSlice.Value == 0)
 			{
-				throw new NoNumberOfMessagesPerSliceConfiguredException
-					(
+				throw new NoNumberOfMessagesPerSliceConfiguredException(
 					"You must specify the maximum number of messages to be dispatched during a slice of time.");
 			}
 
@@ -75,13 +78,20 @@ namespace Euclid.Common.Messaging
 			{
 				var processor = _container.GetInstance(type) as IMessageProcessor;
 
-				if (processor == null) continue;
+				if (processor == null)
+				{
+					continue;
+				}
 
 				(_messageProcessors as List<IMessageProcessor>).Add(processor);
 			}
 
-			this.WriteInfoMessage(string.Format("Dispatcher configured with input channel {0}({1}) and {2} message processors.", 
-				_inputChannel.GetType().Name, _inputChannel.ChannelName , _messageProcessors.Count()));
+			this.WriteInfoMessage(
+				string.Format(
+					"Dispatcher configured with input channel {0}({1}) and {2} message processors.", 
+					_inputChannel.GetType().Name, 
+					_inputChannel.ChannelName, 
+					_messageProcessors.Count()));
 
 			_configured = true;
 		}
@@ -123,8 +133,8 @@ namespace Euclid.Common.Messaging
 
 		private void dispatchMessage()
 		{
-			var messages = _inputChannel
-				.ReceiveMany(CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value, CurrentSettings.DurationOfDispatchingSlice.Value);
+			var messages = _inputChannel.ReceiveMany(
+				CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value, CurrentSettings.DurationOfDispatchingSlice.Value);
 
 			foreach (var channelMessage in messages)
 			{
@@ -142,7 +152,10 @@ namespace Euclid.Common.Messaging
 
 				if (processors.Count() == 0)
 				{
-					var msg = string.Format("The dispatcher {0} has no processors configured to handle a message of type {1}", GetType().FullName, message.GetType().FullName);
+					var msg = string.Format(
+						"The dispatcher {0} has no processors configured to handle a message of type {1}", 
+						GetType().FullName, 
+						message.GetType().FullName);
 
 					this.WriteErrorMessage(msg, null);
 
@@ -159,32 +172,32 @@ namespace Euclid.Common.Messaging
 					// freeing us of the need to resolve the registry inside the task. The task should look something like:
 					// var task = new Task<MessageDispatchResult>({ try{...} catch(Exception e) { return new MessageDispatchResult { Failed = true, Error = e} ; }})
 
-					Task.Factory.StartNew
-						(() =>
-						 	{
-						 		try
-						 		{
-						 			var handler = processor.GetType().GetMethod("Process", new[] {message.GetType()});
+					Task.Factory.StartNew(
+						() =>
+							{
+								try
+								{
+									var handler = processor.GetType().GetMethod("Process", new[] { message.GetType() });
 
-						 			handler.Invoke(processor, new[] {message});
+									handler.Invoke(processor, new[] { message });
 
-						 			var registry =
-						 				(IPublicationRegistry<IPublicationRecord, IPublicationRecord>) _container.GetInstance(typeof (IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
+									var registry =
+										(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
+										_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
 
-						 			registry.MarkAsComplete(record.Identifier);
-
-						 			this.WriteInfoMessage("Dispatched message {0} with id {1}.", message.GetType().Name, message.Identifier);
-						 		}
-						 		catch (Exception e)
-						 		{
-						 			this.WriteErrorMessage("An error occurred processing message {0} with id {1}.", e, message.GetType().Name, message.Identifier);
-
-						 			var registry =
-						 				(IPublicationRegistry<IPublicationRecord, IPublicationRecord>) _container.GetInstance(typeof (IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
-
-						 			registry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
-						 		}
-						 	});
+									registry.MarkAsComplete(record.Identifier);
+									this.WriteInfoMessage("Dispatched message {0} with id {1}.", message.GetType().Name, message.Identifier);
+								}
+								catch (Exception e)
+								{
+									this.WriteErrorMessage(
+										"An error occurred processing message {0} with id {1}.", e, message.GetType().Name, message.Identifier);
+									var registry =
+										(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
+										_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
+									registry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
+								}
+							});
 				}
 			}
 		}
@@ -193,7 +206,8 @@ namespace Euclid.Common.Messaging
 		{
 			if (!_configured)
 			{
-				throw new DispatcherNotConfiguredException(string.Format("The dispatcher {0} has not been configured", GetType().FullName));
+				throw new DispatcherNotConfiguredException(
+					string.Format("The dispatcher {0} has not been configured", GetType().FullName));
 			}
 		}
 
@@ -203,7 +217,7 @@ namespace Euclid.Common.Messaging
 			{
 				Task.Factory.StartNew(dispatchTask => dispatchMessage(), _cancellationToken);
 
-				Thread.Sleep((int) CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
+				Thread.Sleep((int)CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
 			}
 		}
 	}

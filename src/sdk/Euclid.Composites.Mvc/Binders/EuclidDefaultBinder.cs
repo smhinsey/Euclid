@@ -22,7 +22,7 @@ namespace Euclid.Composites.Mvc.Binders
 				}
 			}
 
-			return (bindingContext.ModelType.IsInterface) ? null : base.BindModel(controllerContext, bindingContext);
+			return bindingContext.ModelType.IsInterface ? null : base.BindModel(controllerContext, bindingContext);
 		}
 	}
 }

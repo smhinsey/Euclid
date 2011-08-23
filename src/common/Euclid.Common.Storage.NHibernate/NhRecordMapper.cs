@@ -74,6 +74,11 @@ namespace Euclid.Common.Storage.NHibernate
 			return record;
 		}
 
+		public IList<TRecord> List(int count, int offset)
+		{
+			return _session.QueryOver<TRecord>().Take(count).Skip(offset).List();
+		}
+
 		public TRecord Retrieve(Guid id)
 		{
 			return _session.Get<TRecord>(id);

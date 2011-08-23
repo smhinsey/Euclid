@@ -29,9 +29,9 @@ namespace Euclid.Composites.Mvc.Extensions
 
 				foreach (var pi in _inputModel.GetType().GetProperties())
 				{
-					root.Add(new XElement("Property",
-					                      new XElement("PropertyName", pi.Name),
-					                      new XElement("PropertyType", pi.PropertyType.Name)));
+					root.Add(
+						new XElement(
+							"Property", new XElement("PropertyName", pi.Name), new XElement("PropertyType", pi.PropertyType.Name)));
 				}
 
 				return root.ToString();
@@ -39,11 +39,9 @@ namespace Euclid.Composites.Mvc.Extensions
 
 			protected override object GetJsonObject(JsonSerializer serializer)
 			{
-				return _inputModel.GetType().GetProperties().Select(pi => new
-				                                                          	{
-				                                                          		PropertyName = pi.Name,
-				                                                          		PropertyType = pi.PropertyType.Name
-				                                                          	});
+				return
+					_inputModel.GetType().GetProperties().Select(
+						pi => new { PropertyName = pi.Name, PropertyType = pi.PropertyType.Name });
 			}
 		}
 	}

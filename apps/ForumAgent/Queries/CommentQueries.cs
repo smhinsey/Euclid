@@ -8,7 +8,8 @@ namespace ForumAgent.Queries
 {
 	public class CommentQueries : NhQuery<Comment>
 	{
-		public CommentQueries(ISession session) : base(session)
+		public CommentQueries(ISession session)
+			: base(session)
 		{
 		}
 
@@ -16,8 +17,7 @@ namespace ForumAgent.Queries
 		{
 			var session = GetCurrentSession();
 
-			var categories = session.QueryOver<Comment>()
-				.Where(comment => comment.PostIdentifier == postId);
+			var categories = session.QueryOver<Comment>().Where(comment => comment.PostIdentifier == postId);
 
 			return categories.List();
 		}

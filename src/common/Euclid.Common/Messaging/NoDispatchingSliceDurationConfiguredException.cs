@@ -4,7 +4,8 @@ namespace Euclid.Common.Messaging
 {
 	public class NoDispatchingSliceDurationConfiguredException : Exception
 	{
-		public NoDispatchingSliceDurationConfiguredException(string message) : base(message)
+		public NoDispatchingSliceDurationConfiguredException(string message)
+			: base(message)
 		{
 		}
 	}

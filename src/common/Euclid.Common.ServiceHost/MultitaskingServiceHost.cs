@@ -13,8 +13,11 @@ namespace Euclid.Common.ServiceHost
 	public class MultitaskingServiceHost : IServiceHost, ILoggingSource
 	{
 		private readonly IList<Exception> _serviceExceptions;
+
 		private readonly TimeSpan _shutdownTimeout;
+
 		private readonly IDictionary<Guid, Task> _taskMap;
+
 		private readonly IDictionary<Guid, CancellationTokenSource> _taskTokenSources;
 
 		public MultitaskingServiceHost()
@@ -28,6 +31,7 @@ namespace Euclid.Common.ServiceHost
 		}
 
 		public IDictionary<Guid, IHostedService> Services { get; private set; }
+
 		public ServiceHostState State { get; private set; }
 
 		public void Cancel(Guid id)

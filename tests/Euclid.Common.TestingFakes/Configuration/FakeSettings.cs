@@ -15,9 +15,13 @@ namespace Euclid.Common.TestingFakes.Configuration
 		}
 
 		public OverridableSetting<bool> AnotherFakeConfigSetting { get; set; }
+
 		public OverridableSetting<FakeSettingModes> EnumConfigSetting { get; set; }
+
 		public OverridableSetting<string> FakeConfigSetting { get; set; }
+
 		public OverridableSettingList<Assembly> ListOfAssemblies { get; set; }
+
 		public OverridableSetting<int> NumericConfigSetting { get; set; }
 	}
 }

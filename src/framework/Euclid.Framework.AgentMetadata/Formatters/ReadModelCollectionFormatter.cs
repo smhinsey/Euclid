@@ -19,10 +19,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 			foreach (var item in _metadata.Collection)
 			{
-				root.Add(
-				         new XElement("ReadModel",
-				                      new XAttribute("Namespace", item.Namespace),
-				                      new XAttribute("Name", item.Name)));
+				root.Add(new XElement("ReadModel", new XAttribute("Namespace", item.Namespace), new XAttribute("Name", item.Name)));
 			}
 
 			return root.ToString();
@@ -30,14 +27,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		protected override object GetJsonObject(JsonSerializer serializer)
 		{
-			return new
-			       	{
-			       		ReadModels = _metadata.Collection.Select(x => new
-			       		                                              	{
-			       		                                              		x.Namespace,
-			       		                                              		x.Name,
-			       		                                              	})
-			       	};
+			return new { ReadModels = _metadata.Collection.Select(x => new { x.Namespace, x.Name, }) };
 		}
 	}
 }

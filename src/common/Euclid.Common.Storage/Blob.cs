@@ -6,7 +6,7 @@ namespace Euclid.Common.Storage
 {
 	public class Blob : IBlob
 	{
-		private byte[] _bytes;
+		private byte[] _content;
 
 		private string _md5;
 
@@ -15,26 +15,32 @@ namespace Euclid.Common.Storage
 			Metdata = new List<KeyValuePair<string, string>>();
 		}
 
-		public Blob(string md5, string eTag) : this()
+		public Blob(string md5, string eTag)
+			: this()
 		{
 			_md5 = md5;
 			ETag = eTag;
 		}
 
-		public Blob(IBlob blob) : this(blob.MD5, Guid.NewGuid().ToString())
+		public Blob(IBlob blob)
+			: this(blob.Md5, Guid.NewGuid().ToString())
 		{
 			Metdata = new List<KeyValuePair<string, string>>(blob.Metdata);
-			Bytes = blob.Bytes;
+			Content = blob.Content;
 			ContentType = blob.ContentType;
 		}
 
-		public byte[] Bytes
+		public byte[] Content
 		{
-			get { return _bytes; }
+			get
+			{
+				return _content;
+			}
+
 			set
 			{
-				_bytes = value;
-				_md5 = _bytes.GetMd5Hash();
+				_content = value;
+				_md5 = _content.GetMd5Hash();
 			}
 		}
 
@@ -42,10 +48,17 @@ namespace Euclid.Common.Storage
 
 		public string ETag { get; private set; }
 
-		public string MD5
+		public string Md5
 		{
-			get { return _md5; }
-			set { _md5 = value; }
+			get
+			{
+				return _md5;
+			}
+
+			set
+			{
+				_md5 = value;
+			}
 		}
 
 		public IList<KeyValuePair<string, string>> Metdata { get; private set; }

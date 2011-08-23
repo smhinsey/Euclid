@@ -10,8 +10,8 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
-using Microsoft.WindowsAzure;
 using log4net.Config;
+using Microsoft.WindowsAzure;
 
 namespace AgentConsole
 {
@@ -33,7 +33,7 @@ namespace AgentConsole
 			{
 				composite.RegisterNh(SQLiteConfiguration.Standard.UsingFile("AgentConsoleDb"), true, false);
 
-				composite.AddAgent(typeof (CommentOnPost).Assembly);
+				composite.AddAgent(typeof(CommentOnPost).Assembly);
 
 				composite.Configure(getCompositeSettings());
 
@@ -62,7 +62,7 @@ namespace AgentConsole
 		{
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
+			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
 
 			return compositeAppSettings;
 		}
@@ -71,8 +71,8 @@ namespace AgentConsole
 		{
 			var fabricSettings = new FabricRuntimeSettings();
 
-			fabricSettings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
-			fabricSettings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
+			fabricSettings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
+			fabricSettings.HostedServices.WithDefault(new List<Type> { typeof(CommandHost) });
 
 			fabricSettings.InputChannel.WithDefault(new InMemoryMessageChannel());
 			fabricSettings.ErrorChannel.WithDefault(new InMemoryMessageChannel());
@@ -82,10 +82,11 @@ namespace AgentConsole
 
 		private static void setAzureCredentials(IWindsorContainer container)
 		{
-			var storageAccount = new CloudStorageAccount(CloudStorageAccount.DevelopmentStorageAccount.Credentials,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
-			                                             CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
+			var storageAccount = new CloudStorageAccount(
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
 		}

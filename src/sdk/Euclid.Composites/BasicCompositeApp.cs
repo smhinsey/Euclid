@@ -45,7 +45,8 @@ namespace Euclid.Composites
 			Container = new WindsorContainer();
 		}
 
-		public BasicCompositeApp(IWindsorContainer container) : this()
+		public BasicCompositeApp(IWindsorContainer container)
+			: this()
 		{
 			Container = container;
 		}
@@ -100,6 +101,28 @@ namespace Euclid.Composites
             _agents.Add(agent);
 
 			// SELF the Where call below changes the meaning of the rest of the registration so it had to be removed
+			Container.Register(
+				AllTypes.FromAssembly(agent.AgentAssembly)
+          
+					
+					
+					// .Where(Component.IsInNamespace(agent.Queries.Namespace))
+					.BasedOn(typeof(IQuery)).WithService.Self().Configure(component => component.LifeStyle.Transient));
+		}
+
+		public virtual void Configure(CompositeAppSettings compositeAppSettings)
+		{
+			Container.Kernel.Resolver.AddSubResolver(new ArrayResolver(Container.Kernel));
+
+			Container.Kernel.Resolver.AddSubResolver(new ListResolver(Container.Kernel));
+
+			RegisterConfiguredTypes(compositeAppSettings);
+
+			Container.Register(
+				Component.For<IInputModelTransfomerRegistry>().Instance(InputModelTransformers).LifeStyle.Singleton);
+
+			Settings = compositeAppSettings;
+			State = CompositeApplicationState.Configured;
 
 			Container.Register
 				(AllTypes.FromAssembly(agent.AgentAssembly)
@@ -155,9 +178,13 @@ namespace Euclid.Composites
 
 	    public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
 		{
-			var lifestyleType = (isWeb) ? LifestyleType.PerWebRequest : LifestyleType.Transient;
+			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
 			Container.Register(
+				Component.For<ISessionFactory>().UsingFactoryMethod(
+					() =>
+					Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).ExposeConfiguration(
+						cfg => new SchemaExport(cfg).Create(false, buildSchema)).BuildSessionFactory()).LifeStyle.Singleton);
 			                   Component.For<ISessionFactory>()
 			                   	.UsingFactoryMethod(() =>
 			                   	                    Fluently
@@ -170,6 +197,8 @@ namespace Euclid.Composites
 
 			// jt: open session should be read-only
 			Container.Register(
+				Component.For<ISession>().UsingFactoryMethod(() => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(
+					lifestyleType));
 			                   Component.For<ISession>()
 			                   	.UsingFactoryMethod(
 			                   	                    () => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(lifestyleType)
@@ -178,30 +207,29 @@ namespace Euclid.Composites
 
 		protected void RegisterConfiguredTypes(CompositeAppSettings compositeAppSettings)
 		{
+			Container.Register(
+				Component.For<IPublisher>().ImplementedBy(compositeAppSettings.Publisher.Value).LifeStyle.Transient);
 			Container.Register(Component.For<IPublisher>()
 			                   	.ImplementedBy(compositeAppSettings.Publisher.Value)
 			                   	.LifeStyle.Transient);
 
-			Container.Register(Component.For<IMessageChannel>()
+			Container.Register(
 			                   	.ImplementedBy(compositeAppSettings.OutputChannel.Value)
 			                   	.LifeStyle.Transient);
 
-			Container.Register(Component.For<IRecordMapper<CommandPublicationRecord>>()
-			                   	.ImplementedBy(compositeAppSettings.CommandPublicationRecordMapper.Value)
-			                   	.LifeStyle.Transient);
+			Container.Register(
+				Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy(
+					compositeAppSettings.CommandPublicationRecordMapper.Value).LifeStyle.Transient);
 
-			Container.Register(Component.For<IBlobStorage>()
-			                   	.ImplementedBy(compositeAppSettings.BlobStorage.Value)
-			                   	.LifeStyle.Transient);
+			Container.Register(
+				Component.For<IBlobStorage>().ImplementedBy(compositeAppSettings.BlobStorage.Value).LifeStyle.Transient);
 
-			Container.Register(Component.For<IMessageSerializer>()
-			                   	.ImplementedBy(compositeAppSettings.MessageSerializer.Value)
-			                   	.LifeStyle.Transient);
+			Container.Register(
+				Component.For<IMessageSerializer>().ImplementedBy(compositeAppSettings.MessageSerializer.Value).LifeStyle.Transient);
 
-			Container.Register(Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>()
-			                   	.Forward<ICommandRegistry>()
-			                   	.ImplementedBy(compositeAppSettings.PublicationRegistry.Value)
-			                   	.LifeStyle.Transient);
+			Container.Register(
+				Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().Forward<ICommandRegistry>().
+					ImplementedBy(compositeAppSettings.PublicationRegistry.Value).LifeStyle.Transient);
 		}
 
 		private MappingConfiguration mapAllAssemblies(MappingConfiguration mcfg)
@@ -210,7 +238,7 @@ namespace Euclid.Composites
 
 			var assembliesToMap = new Dictionary<Assembly, Assembly>();
 
-			if (Settings.CommandPublicationRecordMapper.Value == typeof (NhRecordMapper<CommandPublicationRecord>))
+			if (Settings.CommandPublicationRecordMapper.Value == typeof(NhRecordMapper<CommandPublicationRecord>))
 			{
 				mcfg.AutoMappings.Add(AutoMap.AssemblyOf<CommandPublicationRecord>(autoMapperConfiguration));
 			}

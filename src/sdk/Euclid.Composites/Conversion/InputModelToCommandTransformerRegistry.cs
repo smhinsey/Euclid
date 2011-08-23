@@ -31,7 +31,7 @@ namespace Euclid.Composites.Conversion
 
 		public ICommand GetCommand(IInputModel model)
 		{
-			var partName = _inputModelsAndValues
+			var partName =
 				.Where(row => row.Value.InputModelType == model.GetType())
 				.Select(row => row.Key)
 				.FirstOrDefault();
@@ -90,8 +90,8 @@ namespace Euclid.Composites.Conversion
 
 	public class InputModelForPartNotRegisteredException : Exception
 	{
-		public InputModelForPartNotRegisteredException(string partName) :
-			base(string.Format("There are no input models associated with the command '{0}'", partName))
+		public InputModelForPartNotRegisteredException(string partName)
+			: base(string.Format("There are no input models associated with the command '{0}'", partName))
 		{
 		}
 	}

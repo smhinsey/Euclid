@@ -21,27 +21,34 @@ namespace Euclid.Composites.Mvc.Results
 		}
 
 		public Encoding ContentEncoding { get; set; }
+
 		public string ContentType { get; set; }
+
 		public object Data { get; set; }
 
 		public Formatting Formatting { get; set; }
+
 		public JsonSerializerSettings SerializerSettings { get; set; }
 
 		public override void ExecuteResult(ControllerContext context)
 		{
 			if (context == null)
+			{
 				throw new ArgumentNullException("context");
+			}
 
 			var response = context.HttpContext.Response;
 
 			response.ContentType = MimeTypes.GetByExtension("json");
 
 			if (ContentEncoding != null)
+			{
 				response.ContentEncoding = ContentEncoding;
+			}
 
 			if (Data != null)
 			{
-				var writer = new JsonTextWriter(response.Output) {Formatting = Formatting};
+				var writer = new JsonTextWriter(response.Output) { Formatting = Formatting };
 
 				var serializer = JsonSerializer.Create(SerializerSettings);
 				serializer.Serialize(writer, Data);

@@ -10,20 +10,15 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 	[Category(TestCategories.Integration)]
 	public class NhSimpleRepositoryTests : NhTestFixture<FakeModel>
 	{
-		public NhSimpleRepositoryTests() :
-			base(new AutoMapperConfiguration(typeof (FakeModel)))
+		public NhSimpleRepositoryTests()
+			: base(new AutoMapperConfiguration(typeof(FakeModel)))
 		{
 		}
 
 		[Test]
 		public void Delete()
 		{
-			var model = new FakeModel
-			            	{
-			            		Created = DateTime.Now,
-			            		Modified = DateTime.Now,
-			            		Name = "Name"
-			            	};
+			var model = new FakeModel { Created = DateTime.Now, Modified = DateTime.Now, Name = "Name" };
 
 			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
@@ -39,12 +34,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		[Test]
 		public void DeleteById()
 		{
-			var model = new FakeModel
-			            	{
-			            		Created = DateTime.Now,
-			            		Modified = DateTime.Now,
-			            		Name = "Name"
-			            	};
+			var model = new FakeModel { Created = DateTime.Now, Modified = DateTime.Now, Name = "Name" };
 
 			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
@@ -62,12 +52,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		{
 			var now = DateTime.Now;
 
-			var model = new FakeModel
-			            	{
-			            		Created = now,
-			            		Modified = DateTime.Now,
-			            		Name = "Name"
-			            	};
+			var model = new FakeModel { Created = now, Modified = DateTime.Now, Name = "Name" };
 
 			var session = SessionFactory.OpenSession();
 
@@ -86,12 +71,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		{
 			var now = DateTime.Now;
 
-			var model = new FakeModel
-			            	{
-			            		Created = now,
-			            		Modified = DateTime.Now,
-			            		Name = "Name"
-			            	};
+			var model = new FakeModel { Created = now, Modified = DateTime.Now, Name = "Name" };
 
 			var session = SessionFactory.OpenSession();
 
@@ -110,12 +90,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		{
 			var now = DateTime.Now;
 
-			var model = new FakeModel
-			            	{
-			            		Created = DateTime.Now,
-			            		Modified = now,
-			            		Name = "Name"
-			            	};
+			var model = new FakeModel { Created = DateTime.Now, Modified = now, Name = "Name" };
 
 			var session = SessionFactory.OpenSession();
 
@@ -134,12 +109,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		{
 			var now = DateTime.Now;
 
-			var model = new FakeModel
-			            	{
-			            		Created = DateTime.Now,
-			            		Modified = now,
-			            		Name = "Name"
-			            	};
+			var model = new FakeModel { Created = DateTime.Now, Modified = now, Name = "Name" };
 
 			var session = SessionFactory.OpenSession();
 
@@ -156,12 +126,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		[Test]
 		public void FindById()
 		{
-			var model = new FakeModel
-			            	{
-			            		Created = DateTime.Now,
-			            		Modified = DateTime.Now,
-			            		Name = "Name"
-			            	};
+			var model = new FakeModel { Created = DateTime.Now, Modified = DateTime.Now, Name = "Name" };
 
 			var session = SessionFactory.OpenSession();
 
@@ -178,12 +143,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		[Test]
 		public void Save()
 		{
-			var model = new FakeModel
-			            	{
-			            		Created = DateTime.Now,
-			            		Modified = DateTime.Now,
-			            		Name = "Name"
-			            	};
+			var model = new FakeModel { Created = DateTime.Now, Modified = DateTime.Now, Name = "Name" };
 
 			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
@@ -196,12 +156,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 			const string firstName = "Name1";
 			const string secondName = "Name2";
 
-			var model = new FakeModel
-			            	{
-			            		Created = DateTime.Now,
-			            		Modified = DateTime.Now,
-			            		Name = firstName
-			            	};
+			var model = new FakeModel { Created = DateTime.Now, Modified = DateTime.Now, Name = firstName };
 
 			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 

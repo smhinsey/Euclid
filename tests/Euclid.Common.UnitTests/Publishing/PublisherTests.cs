@@ -18,19 +18,15 @@ namespace Euclid.Common.UnitTests.Publishing
 			var blobStorage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
 			var transport = new InMemoryMessageChannel();
-			var registry = new PublicationRegistry<FakePublicationRecord, FakePublicationRecord>(repository, blobStorage, serializer);
+			var registry = new PublicationRegistry<FakePublicationRecord, FakePublicationRecord>(
+				repository, blobStorage, serializer);
 
 			var publisher = new DefaultPublisher(registry, transport);
 
 			var start = DateTime.Now;
 			var createdBy = new Guid("C60696AF-F2F8-44EB-B9A1-7967693AC466");
 			var identifier = new Guid("EF994892-F442-4681-AD1C-217BB11A6D38");
-			var message = new FakeMessage
-			              	{
-			              		Created = start,
-			              		CreatedBy = createdBy,
-			              		Identifier = identifier
-			              	};
+			var message = new FakeMessage { Created = start, CreatedBy = createdBy, Identifier = identifier };
 
 			var recordId = publisher.PublishMessage(message);
 			Assert.NotNull(recordId);
@@ -38,7 +34,7 @@ namespace Euclid.Common.UnitTests.Publishing
 
 			var record = registry.GetPublicationRecord(recordId);
 			Assert.NotNull(record);
-			Assert.AreEqual(typeof (FakeMessage), record.MessageType);
+			Assert.AreEqual(typeof(FakeMessage), record.MessageType);
 
 			var retrieved = registry.GetMessage(record.MessageLocation, record.MessageType);
 			Assert.NotNull(retrieved);

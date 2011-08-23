@@ -18,6 +18,7 @@ namespace Euclid.Framework.AgentMetadata
 		public bool IsWritable { get; set; }
 
 		public string Name { get; set; }
+
 		public Type PropertyType { get; set; }
 	}
 }

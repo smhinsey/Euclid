@@ -6,7 +6,10 @@ namespace Euclid.Common.ServiceHost
 	{
 		public string Name
 		{
-			get { return GetType().Name; }
+			get
+			{
+				return GetType().Name;
+			}
 		}
 
 		public HostedServiceState State { get; protected set; }
@@ -33,6 +36,7 @@ namespace Euclid.Common.ServiceHost
 		}
 
 		protected abstract void OnStart();
+
 		protected abstract void OnStop();
 	}
 }

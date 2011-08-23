@@ -10,7 +10,7 @@
         *@
 	<div class="property-label">Command Namespace</div>
 	<div class="property-value">
-		<a href="@Url.Action("ListParts", "Agents", new {agentSystemName = Model.SystemName, partType = "Commands"})">
+		<a href="@Url.Action("ListParts", "Agents", new { agentSystemName = Model.SystemName, partType = "Commands" })">
 			@Model.Commands.Namespace
 		</a>
 	</div>
@@ -22,7 +22,7 @@
         *@
 	<div class="property-label">Query Namespace</div>
 	<div class="property-value">
-		<a href="@Url.Action("ListParts", "Agents", new {agentSystemName = Model.SystemName, partType = "Queries"})">
+		<a href="@Url.Action("ListParts", "Agents", new { agentSystemName = Model.SystemName, partType = "Queries" })">
 			@Model.Queries.Namespace
 		</a>
 	</div>

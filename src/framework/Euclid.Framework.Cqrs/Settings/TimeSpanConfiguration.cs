@@ -5,10 +5,15 @@ namespace Euclid.Framework.Cqrs.Settings
 	public class TimeSpanConfiguration<T>
 	{
 		private readonly T _parent;
+
 		private int _d;
+
 		private int _h;
+
 		private int _m;
+
 		private int _ms;
+
 		private int _s;
 
 		public TimeSpanConfiguration(T parent)

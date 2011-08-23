@@ -13,10 +13,14 @@ namespace Euclid.Common.IntegrationTests
 	[Category(TestCategories.Integration)]
 	public class PublicationTests
 	{
-		private readonly IPublicationRegistry<FakePublicationRecord, FakePublicationRecord> _publicationRegistry;
-		private readonly IMessageChannel _channel;
-		private readonly IRecordMapper<FakePublicationRecord> _mapper;
 		private readonly IBlobStorage _blobStorage;
+
+		private readonly IMessageChannel _channel;
+
+		private readonly IRecordMapper<FakePublicationRecord> _mapper;
+
+		private readonly IPublicationRegistry<FakePublicationRecord, FakePublicationRecord> _publicationRegistry;
+
 		private readonly IMessageSerializer _serializer;
 
 		public PublicationTests()
@@ -39,12 +43,7 @@ namespace Euclid.Common.IntegrationTests
 
 			var created = DateTime.Now;
 
-			var msg = new FakeMessage
-			          	{
-			          		Created = created,
-			          		CreatedBy = createdById,
-			          		Identifier = msgId
-			          	};
+			var msg = new FakeMessage { Created = created, CreatedBy = createdById, Identifier = msgId };
 
 			var record = _publicationRegistry.PublishMessage(msg);
 
@@ -58,17 +57,17 @@ namespace Euclid.Common.IntegrationTests
 
 			var receivedRecord = receivedMsg as FakePublicationRecord;
 
-			Assert.AreEqual(typeof (FakeMessage), receivedRecord.MessageType);
+			Assert.AreEqual(typeof(FakeMessage), receivedRecord.MessageType);
 
 			var blob = _blobStorage.Get(receivedRecord.MessageLocation);
 
 			Assert.NotNull(blob);
 
-			var storedMessage = Convert.ChangeType(_serializer.Deserialize(blob.Bytes), receivedRecord.MessageType);
+			var storedMessage = Convert.ChangeType(_serializer.Deserialize(blob.Content), receivedRecord.MessageType);
 
 			Assert.NotNull(storedMessage);
 
-			Assert.AreEqual(typeof (FakeMessage), storedMessage.GetType());
+			Assert.AreEqual(typeof(FakeMessage), storedMessage.GetType());
 
 			_channel.Close();
 		}

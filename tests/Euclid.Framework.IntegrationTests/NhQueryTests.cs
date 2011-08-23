@@ -13,27 +13,9 @@ namespace Euclid.Framework.IntegrationTests
 	{
 		private const string ModelMessage = "Lorem ipsum";
 
-		public NhQueryTests() : base(new AutoMapperConfiguration(typeof (FakeReadModel)))
+		public NhQueryTests()
+			: base(new AutoMapperConfiguration(typeof(FakeReadModel)))
 		{
-		}
-
-		private Guid createFakeData()
-		{
-			var model = new FakeReadModel
-			            	{
-			            		Created = DateTime.Today,
-			            		Modified = DateTime.Today,
-			            		Message = ModelMessage
-			            	};
-
-			using (var session = SessionFactory.OpenSession())
-			{
-				session.Save(model);
-
-				session.Flush();
-			}
-
-			return model.Identifier;
 		}
 
 		[Test]
@@ -75,6 +57,20 @@ namespace Euclid.Framework.IntegrationTests
 			Assert.IsNotNull(result);
 			Assert.AreEqual(1, result.Count);
 			Assert.AreEqual(ModelMessage, result[0].Message);
+		}
+
+		private Guid createFakeData()
+		{
+			var model = new FakeReadModel { Created = DateTime.Today, Modified = DateTime.Today, Message = ModelMessage };
+
+			using (var session = SessionFactory.OpenSession())
+			{
+				session.Save(model);
+
+				session.Flush();
+			}
+
+			return model.Identifier;
 		}
 	}
 }

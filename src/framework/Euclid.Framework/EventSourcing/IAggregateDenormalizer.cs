@@ -8,6 +8,7 @@ namespace Euclid.Framework.EventSourcing
 	/// 	or more IReadModels. The denormalizer is invoked whenever an IEventSourcedAggregate instance is 
 	/// 	persisted.
 	/// </summary>
+	/// <typeparam name="TAggregate">The aggregate to denormalize.</typeparam>
 	public interface IAggregateDenormalizer<in TAggregate>
 		where TAggregate : IEventSourcedAggregate
 	{

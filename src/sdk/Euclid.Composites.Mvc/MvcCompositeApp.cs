@@ -10,15 +10,9 @@ namespace Euclid.Composites.Mvc
 {
 	public class MvcCompositeApp : BasicCompositeApp
 	{
-		public MvcCompositeApp(IWindsorContainer container) : base(container)
+		public MvcCompositeApp(IWindsorContainer container)
+			: base(container)
 		{
-		}
-
-		public override void Configure(CompositeAppSettings compositeAppSettings)
-		{
-			base.Configure(compositeAppSettings);
-
-			wireMvcInfrastructure();
 		}
 
 		public void BeginPageRequest(object sender, EventArgs eventArgs)
@@ -27,6 +21,13 @@ namespace Euclid.Composites.Mvc
 			{
 				throw new InvalidCompositeApplicationStateException(State, CompositeApplicationState.Configured);
 			}
+		}
+
+		public override void Configure(CompositeAppSettings compositeAppSettings)
+		{
+			base.Configure(compositeAppSettings);
+
+			wireMvcInfrastructure();
 		}
 
 		public void LogUnhandledException(object sender, EventArgs eventArgs)

@@ -10,6 +10,7 @@ namespace Euclid.Composites.Mvc.Binders
 	public class InputModelBinder : IEuclidModelBinder
 	{
 		private readonly IAgentResolver[] _resolvers;
+
 		private readonly IInputModelTransfomerRegistry _transformers;
 
 		public InputModelBinder(IAgentResolver[] resolvers, IInputModelTransfomerRegistry transfomers)
@@ -44,10 +45,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 					if (property.CanWrite)
 					{
-						property.SetValue(
-						                  inputModel,
-						                  value,
-						                  null);
+						property.SetValue(inputModel, value, null);
 					}
 				}
 				catch (Exception e)
@@ -61,7 +59,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public bool IsMatch(Type modelType)
 		{
-			return typeof (IInputModel).IsAssignableFrom(modelType);
+			return typeof(IInputModel).IsAssignableFrom(modelType);
 		}
 	}
 }

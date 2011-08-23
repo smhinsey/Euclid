@@ -9,7 +9,8 @@ namespace Euclid.Common.Storage.NHibernate
 	public class NhSimpleRepository<TModel> : NhSessionConsumer, ISimpleRepository<TModel>, ILoggingSource
 		where TModel : class, IModel
 	{
-		public NhSimpleRepository(ISession session) : base(session)
+		public NhSimpleRepository(ISession session)
+			: base(session)
 		{
 		}
 
@@ -36,10 +37,9 @@ namespace Euclid.Common.Storage.NHibernate
 			}
 
 			this.WriteDebugMessage(string.Format("Deleted model {0}({1})", model.GetType().Name, model.Identifier));
-
 		}
 
-		public void Delete(Guid id)
+		public void Delete(Guid identifier)
 		{
 			var session = GetCurrentSession();
 
@@ -47,7 +47,7 @@ namespace Euclid.Common.Storage.NHibernate
 			{
 				try
 				{
-					var model = (TModel)session.Get(typeof(TModel), id);
+					var model = (TModel)session.Get(typeof(TModel), identifier);
 
 					this.WriteDebugMessage(string.Format("Deleting model {0}({1})", model.GetType().Name, model.Identifier));
 
@@ -70,8 +70,7 @@ namespace Euclid.Common.Storage.NHibernate
 		{
 			var session = GetCurrentSession();
 
-			var query = session.QueryOver<TModel>()
-				.Where(x => x.Created == specificDate);
+			var query = session.QueryOver<TModel>().Where(x => x.Created == specificDate);
 
 			return query.List();
 		}
@@ -80,18 +79,16 @@ namespace Euclid.Common.Storage.NHibernate
 		{
 			var session = GetCurrentSession();
 
-			var query = session.QueryOver<TModel>()
-				.WhereRestrictionOn(x => x.Created).IsBetween(begin).And(end);
+			var query = session.QueryOver<TModel>().WhereRestrictionOn(x => x.Created).IsBetween(begin).And(end);
 
 			return query.List();
 		}
 
-		public TModel FindById(Guid id)
+		public TModel FindById(Guid identifier)
 		{
 			var session = GetCurrentSession();
 
-			var query = session.QueryOver<TModel>()
-				.Where(x => x.Identifier == id);
+			var query = session.QueryOver<TModel>().Where(x => x.Identifier == identifier);
 
 			return query.SingleOrDefault();
 		}
@@ -100,8 +97,7 @@ namespace Euclid.Common.Storage.NHibernate
 		{
 			var session = GetCurrentSession();
 
-			var query = session.QueryOver<TModel>()
-				.Where(x => x.Modified == specificDate);
+			var query = session.QueryOver<TModel>().Where(x => x.Modified == specificDate);
 
 			return query.List();
 		}
@@ -110,8 +106,7 @@ namespace Euclid.Common.Storage.NHibernate
 		{
 			var session = GetCurrentSession();
 
-			var query = session.QueryOver<TModel>()
-				.WhereRestrictionOn(x => x.Modified).IsBetween(begin).And(end);
+			var query = session.QueryOver<TModel>().WhereRestrictionOn(x => x.Modified).IsBetween(begin).And(end);
 
 			return query.List();
 		}

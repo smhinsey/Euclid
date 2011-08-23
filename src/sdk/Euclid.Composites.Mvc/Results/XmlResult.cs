@@ -13,7 +13,9 @@ namespace Euclid.Composites.Mvc.Results
 		public override void ExecuteResult(ControllerContext context)
 		{
 			if (context == null)
+			{
 				throw new ArgumentNullException("context");
+			}
 
 			var response = context.HttpContext.Response;
 
@@ -28,9 +30,7 @@ namespace Euclid.Composites.Mvc.Results
 				{
 					var rawValue = property.GetValue(Data, null) ?? string.Empty;
 
-					var value = (property.PropertyType == typeof (Type))
-					            	? (rawValue as Type).FullName
-					            	: rawValue.ToString();
+					var value = (property.PropertyType == typeof(Type)) ? (rawValue as Type).FullName : rawValue.ToString();
 
 					root.Add(new XElement(property.Name, value));
 				}

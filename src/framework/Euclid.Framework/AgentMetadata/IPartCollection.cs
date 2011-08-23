@@ -8,9 +8,13 @@ namespace Euclid.Framework.AgentMetadata
 		string AgentSystemName { get; }
 
 		IEnumerable<IAgentPartMetadata> Collection { get; }
+
 		Type CollectionType { get; }
+
 		string DescriptiveName { get; }
+
 		string Namespace { get; }
+
 		IMetadataFormatter GetFormatter();
 	}
 }

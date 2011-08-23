@@ -18,9 +18,13 @@ namespace Euclid.Common.Messaging
 		}
 
 		public IOverridableSetting<TimeSpan> DurationOfDispatchingSlice { get; set; }
+
 		public IOverridableSetting<IMessageChannel> InputChannel { get; set; }
+
 		public IOverridableSetting<IMessageChannel> InvalidChannel { get; set; }
+
 		public IOverridableSettingList<Type> MessageProcessorTypes { get; set; }
+
 		public IOverridableSetting<int> NumberOfMessagesToDispatchPerSlice { get; set; }
 	}
 }

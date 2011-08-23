@@ -8,6 +8,7 @@ namespace Euclid.Common.Storage
 	public class InMemoryBlobStorage : IBlobStorage
 	{
 		private readonly ConcurrentDictionary<Uri, IBlob> _blobs;
+
 		private string _containerName;
 
 		public InMemoryBlobStorage()
@@ -50,7 +51,14 @@ namespace Euclid.Common.Storage
 		{
 			var upload = new Blob(blob);
 
-			var uri = new Uri(string.Format("http://in-memory/{0}/{1}/{2}.{3}", _containerName, Guid.NewGuid(), name, MimeTypes.GetExtensionFromContentType(blob.ContentType)));
+			var uri =
+				new Uri(
+					string.Format(
+						"http://in-memory/{0}/{1}/{2}.{3}", 
+						_containerName, 
+						Guid.NewGuid(), 
+						name, 
+						MimeTypes.GetExtensionFromContentType(blob.ContentType)));
 
 			_blobs.TryAdd(uri, upload);
 

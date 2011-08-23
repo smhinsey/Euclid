@@ -11,17 +11,18 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 	{
 		public static bool ContainsAgent(this Assembly assembly)
 		{
-			var agentAttributeTypes = new List<Type>
-			                          	{
-			                          		typeof (AgentNameAttribute),
-			                          		typeof (AgentSystemNameAttribute),
-			                          		typeof (LocationOfCommandsAttribute),
-			                          		typeof (LocationOfQueriesAttribute),
-			                          		typeof (LocationOfProcessorsAttribute),
-			                          		typeof (LocationOfReadModelsAttribute)
-			                          	};
+			var agentAttributeTypes = new List<Type> {
+					typeof(AgentNameAttribute), 
+					typeof(AgentSystemNameAttribute), 
+					typeof(LocationOfCommandsAttribute), 
+					typeof(LocationOfQueriesAttribute), 
+					typeof(LocationOfProcessorsAttribute), 
+					typeof(LocationOfReadModelsAttribute)
+				};
 
-			var attributes = assembly.GetCustomAttributes(false).Where(attr => attr.GetType().GetInterface(typeof (IAgentAttribute).Name) != null).Select(x => x.GetType()).ToList();
+			var attributes =
+				assembly.GetCustomAttributes(false).Where(attr => attr.GetType().GetInterface(typeof(IAgentAttribute).Name) != null)
+					.Select(x => x.GetType()).ToList();
 
 			return attributes.Intersect(agentAttributeTypes).Count() == agentAttributeTypes.Count();
 		}
@@ -43,18 +44,18 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 
 		public static T GetAttributeValue<T>(this Assembly assembly) where T : Attribute
 		{
-			var attributes = assembly.GetCustomAttributes(typeof (T), false);
+			var attributes = assembly.GetCustomAttributes(typeof(T), false);
 
 			if (attributes.Count() == 0)
 			{
-				throw new AssemblyNotAgentException(assembly, typeof (T));
+				throw new AssemblyNotAgentException(assembly, typeof(T));
 			}
 
 			var attribute = attributes[0] as T;
 
 			if (attribute == null)
 			{
-				throw new AssemblyNotAgentException(assembly, typeof (T));
+				throw new AssemblyNotAgentException(assembly, typeof(T));
 			}
 
 			return attribute;
@@ -67,11 +68,7 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 
 		internal static IEnumerable<Type> GetCommandTypes(this Assembly agent, string commandNamespace)
 		{
-			return agent
-				.GetTypes()
-				.Where(
-				       x => x.Namespace == commandNamespace
-				            && typeof (ICommand).IsAssignableFrom(x));
+			return agent.GetTypes().Where(x => x.Namespace == commandNamespace && typeof(ICommand).IsAssignableFrom(x));
 		}
 
 		internal static string GetProcessorNamespace(this Assembly agent)

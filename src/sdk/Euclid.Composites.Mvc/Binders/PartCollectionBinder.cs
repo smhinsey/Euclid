@@ -36,7 +36,6 @@ namespace Euclid.Composites.Mvc.Binders
 				partCollection = metadata.GetPartCollectionContainingPartName(partName);
 			}
 
-
 			if (partCollection == null)
 			{
 				throw new PartCollectionNotFoundException();
@@ -47,7 +46,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public bool IsMatch(Type modelType)
 		{
-			return typeof (IPartCollection).IsAssignableFrom(modelType);
+			return typeof(IPartCollection).IsAssignableFrom(modelType);
 		}
 	}
 }

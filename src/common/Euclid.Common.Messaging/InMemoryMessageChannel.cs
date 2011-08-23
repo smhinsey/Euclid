@@ -13,7 +13,6 @@ namespace Euclid.Common.Messaging
 		{
 			TransportIsOpenFor("Clear");
 
-
 			while (!Queue.IsEmpty)
 			{
 				IMessage m = null;
@@ -52,7 +51,10 @@ namespace Euclid.Common.Messaging
 
 				Queue.TryDequeue(out message);
 
-				if (message == null) continue;
+				if (message == null)
+				{
+					continue;
+				}
 
 				count++;
 

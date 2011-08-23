@@ -14,8 +14,11 @@ namespace Euclid.Composites
         IEnumerable<ITypeMetadata> InputModels { get; }
     
         CompositeApplicationState State { get; set; }
+
 		void AddAgent(Assembly assembly);
+
 		void Configure(CompositeAppSettings compositeAppSettings);
+
 		void RegisterInputModel(IInputToCommandConverter converter);
 
 	    IMetadataFormatter GetFormatter();

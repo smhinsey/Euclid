@@ -9,7 +9,7 @@
 			@foreach (var m in Model.Commands)
 			{
 				<li>
-					<a href="@Url.Action("Inspect", "Command", new {agentSystemName = Model.AgentSystemName, commandName = m.Name})">
+					<a href="@Url.Action("Inspect", "Command", new { agentSystemName = Model.AgentSystemName, commandName = m.Name })">
 						@m.Name
 					</a>
 				</li>

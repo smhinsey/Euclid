@@ -4,14 +4,13 @@
 //      SpecFlow Version:1.7.0.0
 //      SpecFlow Generator Version:1.7.0.0
 //      Runtime Version:4.0.30319.235
-// 
 //      Changes to this file may cause incorrect behavior and will be lost if
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
-
 #region Designer generated code
 
+using System.Globalization;
 using TechTalk.SpecFlow;
 
 namespace ForumTests
@@ -19,12 +18,12 @@ namespace ForumTests
 	[System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
 	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
 	[NUnit.Framework.TestFixtureAttribute()]
-	[NUnit.Framework.DescriptionAttribute("In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" +
-	                                      "t Forum")]
+	[NUnit.Framework.DescriptionAttribute(
+		"In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" + "t Forum")]
 	[NUnit.Framework.CategoryAttribute("ForumAgentSpecs")]
 	public partial class ForumPostingFeature
 	{
-		private static TechTalk.SpecFlow.ITestRunner testRunner;
+		private static ITestRunner testRunner;
 
 #line 1 "ForumPosting.feature"
 #line hidden
@@ -33,12 +32,12 @@ namespace ForumTests
 		public virtual void FeatureSetup()
 		{
 			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-			var featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Forum Posting",
-			                                                    "In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" +
-			                                                    "t Forum", ProgrammingLanguage.CSharp, new string[]
-			                                                                                           	{
-			                                                                                           		"ForumAgentSpecs"
-			                                                                                           	});
+			var featureInfo = new FeatureInfo(
+				new CultureInfo("en-US"), 
+				"Forum Posting", 
+				"In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" + "t Forum", 
+				ProgrammingLanguage.CSharp, 
+				new[] { "ForumAgentSpecs" });
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -60,7 +59,7 @@ namespace ForumTests
 			testRunner.OnScenarioEnd();
 		}
 
-		public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+		public virtual void ScenarioSetup(ScenarioInfo scenarioInfo)
 		{
 			testRunner.OnScenarioStart(scenarioInfo);
 		}
@@ -74,7 +73,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Publish Post")]
 		public virtual void PublishPost()
 		{
-			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish Post", ((string[]) (null)));
+			var scenarioInfo = new ScenarioInfo("Publish Post", (string[])null);
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -93,7 +92,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Publish Post in a Category")]
 		public virtual void PublishPostInACategory()
 		{
-			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish Post in a Category", ((string[]) (null)));
+			var scenarioInfo = new ScenarioInfo("Publish Post in a Category", (string[])null);
 #line 15
 			this.ScenarioSetup(scenarioInfo);
 #line 16

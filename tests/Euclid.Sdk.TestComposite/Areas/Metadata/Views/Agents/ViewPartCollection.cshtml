@@ -1,20 +1,28 @@
 ﻿@using AgentPanel.Areas.Metadata.Models
-@model PartCollectionModel
+@mo del PartCollectionModel
 
-<h1>@ViewBag.Title</h1>
+<h1>@this.View
 
+    	private Bag.Titl 
+
+    </h1>
+
+
+    	private 
 <ul>
-	@foreach (var part in Model.Parts.Collection)
-	{
-		<li>
-			@part.Namespace.@part.Name
-			(
-			<a href="@Url.Action(@Model.NextActionName, "Agents", new {agentSystemName = Model.Parts.AgentSystemName, partName = part.Name})">html</a> | 
-			<a href="@Url.Action(@Model.NextActionName, "Agents", new {agentSystemName = Model.Parts.AgentSystemName, partName = part.Name, format = "xml"})">xml</a> |
-			<a href="@Url.Action(@Model.NextActionName, "Agents", new {agentSystemName = Model.Parts.AgentSystemName, partName = part.Name, format = "json"})">json</a>)
+  @foreach (var 
+
+     part   in					 	s.Model.Parts.Collection)
+  {
+  this.  <li>
+      @part.Namespace.@part.Name
+      (
+      <a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = this.Modethis.l.Parts.AgentSystemName, partName = part.Name })">html</a> | 
+      <a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = this.Modethis.l.Parts.AgentSystemName, partName = part.Name, format = "xml" })">xml</a> |
+      <a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = this.Modethis.l.Parts.AgentSystemName, partName = part.Name, format = "j					on" })">json</a>)
 			
-		</li>
-	}
+    </li>
+  }
 </ul>
 
-@{ Html.RenderPartial("MetadataLinks", Model); }
+@{ this.Html.RenderPatial("MetadataLinks", this.Model);  }

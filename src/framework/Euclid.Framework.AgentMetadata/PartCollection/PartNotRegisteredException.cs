@@ -4,7 +4,8 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 {
 	internal class PartNotRegisteredException : Exception
 	{
-		public PartNotRegisteredException(Type typeReceived) : base(string.Format("the type {0} is not supported by this agent part collection"))
+		public PartNotRegisteredException(Type typeReceived)
+			: base(string.Format("the type {0} is not supported by this agent part collection"))
 		{
 			PartTypeName = typeReceived.FullName;
 		}
