@@ -2,17 +2,17 @@
 @using Euclid.Framework.Models
 @model IInputModel
 
-<h1>@ViewBag.Title</h1>
-
-@using (Html.BeginForm("Publish", "Agents", FormMethod.Post))
+@using (Html.BeginForm("Publish", "Agents",  new { AgentSystemName = Model.AgentSystemName, PartName = Model.CommandName }, FormMethod.Post))
 {
     @Html.ValidationSummary(true)
 
     <fieldset>
+        <legend>@Model.CommandName</legend>
+
         @Html.EditorFor(p => Model)
     </fieldset>
 
-    <input type="submit" value="Publish Command" />
+    <input type="submit" id="publish-command" value="Publish Command" />
 }
 
 @{

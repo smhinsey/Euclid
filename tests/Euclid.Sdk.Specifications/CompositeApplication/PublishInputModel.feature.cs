@@ -77,15 +77,13 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("an agent TestAgent");
+ testRunner.Given("the TestComposite running on http://localhost:4997");
 #line 9
- testRunner.And("a configured mvc composite running on http://localhost:4997");
-#line 10
  testRunner.When("I fill out the input model TestInputModel");
+#line 10
+ testRunner.Then("the command TestCommand should be marked complete");
 #line 11
- testRunner.Then("The command TestCommand should be marked complete");
-#line 12
-    testRunner.And("The query TestQuery returns data");
+    testRunner.And("the query TestQuery returns data");
 #line hidden
             this.ScenarioCleanup();
         }

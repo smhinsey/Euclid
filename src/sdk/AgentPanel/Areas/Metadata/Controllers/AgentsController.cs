@@ -123,8 +123,10 @@ namespace AgentPanel.Areas.Metadata.Controllers
 		}
 
         [HttpPost]
-        private ContentResult Publish(ICommand command)
+        private ContentResult Publish(IInputModel inputModel)
 		{
+            var command = _transformer.GetCommand(inputModel);
+
 			if (command == null)
 			{
 				return new ContentResult

@@ -14,11 +14,13 @@ namespace AgentPanel.Areas.Metadata.Controllers
 	{
 		private readonly IPublisher _commandPublisher;
 		private readonly ICompositeApp _composite;
+        private readonly IInputModelTransfomerRegistry _transformer;
 
-		public AgentsController(ICompositeApp composite, IPublisher commandPublisher, IInputModelTransfomerRegistry transformer)
+        public AgentsController(ICompositeApp composite, IPublisher commandPublisher, IInputModelTransfomerRegistry transformer)
 		{
 			_composite = composite;
 			_commandPublisher = commandPublisher;
+            _transformer = transformer;
 		}
 
 		[FormatListOfBasicAgentMetadata]
@@ -121,8 +123,10 @@ namespace AgentPanel.Areas.Metadata.Controllers
 		}
 
         [HttpPost]
-        public ContentResult Publish(ICommand command)
+        public ContentResult Publish(IInputModel inputModel)
 		{
+            var command = _transformer.GetCommand(inputModel);
+
 			if (command == null)
 			{
 				return new ContentResult

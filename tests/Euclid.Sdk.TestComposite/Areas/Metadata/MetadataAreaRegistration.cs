@@ -12,7 +12,11 @@ namespace AgentPanel.Areas.Metadata
 		public override void RegisterArea(AreaRegistrationContext context)
 		{
 			context.Routes.Clear();
-			context.MapRoute("AllAgentsWithFormat", "metadata/agents/index.{format}",
+
+            context.MapRoute("Composite", "metadata/composite/{action}",
+                             new { controller = "Composite", action = "Index" });
+            
+            context.MapRoute("AllAgentsWithFormat", "metadata/agents/index.{format}",
 			                 new {controller = "Agents", action = "Index"});
 
 			context.MapRoute("AllAgents", "metadata/agents",
@@ -35,9 +39,6 @@ namespace AgentPanel.Areas.Metadata
 
 			context.MapRoute("AgentPart", "metadata/agents/{agentSystemName}/{action}/{partName}",
 			                 new {controller = "Agents", action = "ViewPart"});
-
-		    context.MapRoute("Composite", "metadata/composite/{action}",
-		                     new {controller = "Composite", action = "Index"});
 		}
 	}
 }
