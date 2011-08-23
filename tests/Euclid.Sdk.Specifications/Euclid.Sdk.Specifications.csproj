@@ -120,7 +120,9 @@
     <Compile Include="AppSettings\SettingOutputChannelOnCompositeAppSetting.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="AppSettings\CompositeSettingsCanBeValidated.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CompositeSettingsCanBeValidated.feature.cs</LastGenOutput>
