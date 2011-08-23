@@ -1,26 +1,18 @@
 @using AgentPanel.Areas.Metadata.Models
 @model AgentListModel
 
-<h1>@this.Vi
+<h1>@ViewBag.Tite</h1>
 
-    	private ewBag.Tit 
-
-    e</h1>
-
-
-    	private 
 <ul>
-  @f 
-
-    oreac  h (					 	agent in this.Model.Agents)
+  @foreach (var agent in this.Model.Agents)
   {
-    <li>this.
-      @this.agent.DescriptiveName - @agent.SystemName 
-      (<a href="@this.Url.Action("ViewAgenthis.t", "Agents", new { AgentSystemName = agent.SystemName })">html</a> |
-      <a href="@this.Url.Action("ViewAgenthis.t", "Agents", new { AgentSystemName = agent.SystemName, Format = "xml" })">xml</a> |
-      <a href="@this.Url.Action("ViewAgenthis.t", "Agents", new { AgentSystemName = agent.SystemName, Form					t = "json" })">json</a>)
+    <li>
+      @agent.DescriptiveName - @agent.SystemName 
+      (<a href="@Url.Action("Index", "Agents", new { AgentSystemName = agent.SystemName })">html</a> |
+      <a href="@Url.Action("Index", "Agents", new { AgentSystemName = agent.SystemName, Format = "xml" })">xml</a> |
+      <a href="@Url.Action("Index", "Agents", new { AgentSystemName = agent.SystemName, Format = "json" })">json</a>)
     </li>
   }
 </ul>
 
-@{ this.Html.Renderartial("MetadataLinks", this.Model);  }
+@{ this.Html.RenderPartial("MetadataLinks", this.Model);  }

@@ -1,4 +1,4 @@
-﻿@SdkSpec @AgentPanel
+﻿@SdkSpecs @AgentPanel
 Feature: Publish input models as commands
 	In order to avoid silly mistakes
 	As a math idiot

@@ -20,7 +20,7 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
         "wo numbers")]
-    [NUnit.Framework.CategoryAttribute("SdkSpec")]
+    [NUnit.Framework.CategoryAttribute("SdkSpecs")]
     [NUnit.Framework.CategoryAttribute("AgentPanel")]
     public partial class PublishInputModelsAsCommandsFeature
     {
@@ -36,7 +36,7 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Publish input models as commands", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
                     "wo numbers", ProgrammingLanguage.CSharp, new string[] {
-                        "SdkSpec",
+                        "SdkSpecs",
                         "AgentPanel"});
             testRunner.OnFeatureStart(featureInfo);
         }
