@@ -175,9 +175,6 @@ namespace Euclid.Composites
 		{
 			Container.Register(
 				Component.For<IPublisher>().ImplementedBy(compositeAppSettings.Publisher.Value).LifeStyle.Transient);
-			Container.Register(Component.For<IPublisher>()
-			                   	.ImplementedBy(compositeAppSettings.Publisher.Value)
-			                   	.LifeStyle.Transient);
 
 			Container.Register(
 			                   	Component
