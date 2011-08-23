@@ -18,53 +18,53 @@ namespace Euclid.Framework.Cqrs.Settings
 
 		public TimeSpanConfiguration(T parent)
 		{
-			this._parent = parent;
+			_parent = parent;
 		}
 
 		public T Days(int d)
 		{
-			this._d = d;
+			_d = d;
 
-			return this._parent;
+			return _parent;
 		}
 
 		public T Hours(int h)
 		{
-			this._h = h;
+			_h = h;
 
-			return this._parent;
+			return _parent;
 		}
 
 		public T Milliseconds(int ms)
 		{
-			this._ms = ms;
+			_ms = ms;
 
-			return this._parent;
+			return _parent;
 		}
 
 		public T Minutes(int m)
 		{
-			this._m = m;
+			_m = m;
 
-			return this._parent;
+			return _parent;
 		}
 
 		public T Seconds(int s)
 		{
-			this._s = s;
+			_s = s;
 
-			return this._parent;
+			return _parent;
 		}
 
 		public T TimeSpan(TimeSpan t)
 		{
-			this._ms = t.Milliseconds;
-			this._d = t.Days;
-			this._m = t.Minutes;
-			this._s = t.Seconds;
-			this._h = t.Hours;
+			_ms = t.Milliseconds;
+			_d = t.Days;
+			_m = t.Minutes;
+			_s = t.Seconds;
+			_h = t.Hours;
 
-			return this._parent;
+			return _parent;
 		}
 
 		public static explicit operator TimeSpan(TimeSpanConfiguration<T> config)

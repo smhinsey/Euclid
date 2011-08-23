@@ -20,14 +20,14 @@ namespace Euclid.Composites.Mvc.Extensions
 
 			public InputModelMetadataFormatter(IInputModel inputModel)
 			{
-				this._inputModel = inputModel;
+				_inputModel = inputModel;
 			}
 
 			protected override string GetAsXml()
 			{
 				var root = new XElement("InputModel");
 
-				foreach (var pi in this._inputModel.GetType().GetProperties())
+				foreach (var pi in _inputModel.GetType().GetProperties())
 				{
 					root.Add(
 						new XElement(
@@ -40,7 +40,7 @@ namespace Euclid.Composites.Mvc.Extensions
 			protected override object GetJsonObject(JsonSerializer serializer)
 			{
 				return
-					this._inputModel.GetType().GetProperties().Select(
+					_inputModel.GetType().GetProperties().Select(
 						pi => new { PropertyName = pi.Name, PropertyType = pi.PropertyType.Name });
 			}
 		}

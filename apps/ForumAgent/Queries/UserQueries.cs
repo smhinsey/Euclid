@@ -15,7 +15,7 @@ namespace ForumAgent.Queries
 		public bool Authenticate(string username, string password)
 		{
 			// TODO: implement safe hashing/salting and all that noise
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var matchedAccount =
 				session.QueryOver<User>().Where(user => user.PasswordHash == password).Where(user => user.PasswordSalt == password).
@@ -26,7 +26,7 @@ namespace ForumAgent.Queries
 
 		public UserProfile FindByUserIdentifier(Guid identifier)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var matchedUser = session.QueryOver<UserProfile>().Where(user => user.UserIdentifier == identifier);
 
@@ -35,7 +35,7 @@ namespace ForumAgent.Queries
 
 		public User FindByUsername(string username)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var matchedUser = session.QueryOver<User>().Where(user => user.Username == username);
 

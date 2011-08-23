@@ -10,14 +10,14 @@ namespace Euclid.Framework.Cqrs
 
 		public CommandHost(IEnumerable<ICommandDispatcher> dispatchers)
 		{
-			this.State = HostedServiceState.Unspecified;
+			State = HostedServiceState.Unspecified;
 
-			this._dispatchers = new List<ICommandDispatcher>(dispatchers);
+			_dispatchers = new List<ICommandDispatcher>(dispatchers);
 		}
 
 		protected override void OnStart()
 		{
-			foreach (var d in this._dispatchers)
+			foreach (var d in _dispatchers)
 			{
 				d.Enable();
 			}
@@ -25,7 +25,7 @@ namespace Euclid.Framework.Cqrs
 
 		protected override void OnStop()
 		{
-			foreach (var d in this._dispatchers)
+			foreach (var d in _dispatchers)
 			{
 				d.Disable();
 			}

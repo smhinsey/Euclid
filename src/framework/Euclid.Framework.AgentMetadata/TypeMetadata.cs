@@ -9,13 +9,13 @@ namespace Euclid.Framework.AgentMetadata
 	{
 		public TypeMetadata(Type type)
 		{
-			this.Namespace = type.Namespace;
-			this.Name = type.Name;
-			this.Type = type;
+			Namespace = type.Namespace;
+			Name = type.Name;
+			Type = type;
 
-			this.Properties = this.Type.GetProperties().Select(pi => new PropertyMetadata(pi));
-			this.Methods =
-				this.Type.GetMethods().Where(mi => !mi.IsSpecialName && mi.DeclaringType != typeof(object)).Select(
+			Properties = Type.GetProperties().Select(pi => new PropertyMetadata(pi));
+			Methods =
+				Type.GetMethods().Where(mi => !mi.IsSpecialName && mi.DeclaringType != typeof(object)).Select(
 					mi => new MethodMetadata(mi));
 		}
 
@@ -35,9 +35,9 @@ namespace Euclid.Framework.AgentMetadata
 
 		public IPartCollection GetContainingPartCollection()
 		{
-			var agent = this.Type.Assembly.GetAgentMetadata();
+			var agent = Type.Assembly.GetAgentMetadata();
 
-			return agent.GetPartCollectionContainingType(this.Type);
+			return agent.GetPartCollectionContainingType(Type);
 		}
 
 		public IMetadataFormatter GetFormatter()

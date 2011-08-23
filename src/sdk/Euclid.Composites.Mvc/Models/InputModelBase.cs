@@ -14,7 +14,7 @@ namespace Euclid.Composites.Mvc.Models
 		{
 			get
 			{
-				return this.CommandType != null ? this.CommandType.Name : string.Empty;
+				return CommandType != null ? CommandType.Name : string.Empty;
 			}
 		}
 

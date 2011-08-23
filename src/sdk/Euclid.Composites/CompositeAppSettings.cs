@@ -25,23 +25,23 @@ namespace Euclid.Composites
 
 		public CompositeAppSettings()
 		{
-			this.BlobStorage = new OverridableTypeSetting<IBlobStorage>("BlobStorage");
-			this.CommandDispatcher = new OverridableTypeSetting<ICommandDispatcher>("CommandDispatcher");
-			this.CommandPublicationRecordMapper =
+			BlobStorage = new OverridableTypeSetting<IBlobStorage>("BlobStorage");
+			CommandDispatcher = new OverridableTypeSetting<ICommandDispatcher>("CommandDispatcher");
+			CommandPublicationRecordMapper =
 				new OverridableTypeSetting<IRecordMapper<CommandPublicationRecord>>("CommandPublicationRecordMapper");
-			this.MessageChannel = new OverridableTypeSetting<IMessageChannel>("MessageChannel");
-			this.MessageSerializer = new OverridableTypeSetting<IMessageSerializer>("MessageSerializer");
-			this.PublicationRegistry =
+			MessageChannel = new OverridableTypeSetting<IMessageChannel>("MessageChannel");
+			MessageSerializer = new OverridableTypeSetting<IMessageSerializer>("MessageSerializer");
+			PublicationRegistry =
 				new OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>("PublicationRegistry");
-			this.Publisher = new OverridableTypeSetting<IPublisher>("Publisher");
+			Publisher = new OverridableTypeSetting<IPublisher>("Publisher");
 
-			this.Publisher.WithDefault(typeof(DefaultPublisher));
-			this.MessageChannel.WithDefault(typeof(InMemoryMessageChannel));
-			this.PublicationRegistry.WithDefault(typeof(CommandRegistry));
-			this.BlobStorage.WithDefault(typeof(InMemoryBlobStorage));
-			this.MessageSerializer.WithDefault(typeof(JsonMessageSerializer));
-			this.CommandDispatcher.WithDefault(typeof(CommandDispatcher));
-			this.CommandPublicationRecordMapper.WithDefault(typeof(InMemoryCommandPublicationRecordMapper));
+			Publisher.WithDefault(typeof(DefaultPublisher));
+			MessageChannel.WithDefault(typeof(InMemoryMessageChannel));
+			PublicationRegistry.WithDefault(typeof(CommandRegistry));
+			BlobStorage.WithDefault(typeof(InMemoryBlobStorage));
+			MessageSerializer.WithDefault(typeof(JsonMessageSerializer));
+			CommandDispatcher.WithDefault(typeof(CommandDispatcher));
+			CommandPublicationRecordMapper.WithDefault(typeof(InMemoryCommandPublicationRecordMapper));
 		}
 	}
 }

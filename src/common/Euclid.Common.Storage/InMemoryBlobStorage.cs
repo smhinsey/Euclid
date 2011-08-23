@@ -13,35 +13,35 @@ namespace Euclid.Common.Storage
 
 		public InMemoryBlobStorage()
 		{
-			this._blobs = new ConcurrentDictionary<Uri, IBlob>();
+			_blobs = new ConcurrentDictionary<Uri, IBlob>();
 		}
 
 		public void Configure(IBlobStorageSettings settings)
 		{
-			this._containerName = settings.ContainerName.Value;
+			_containerName = settings.ContainerName.Value;
 		}
 
 		public void Delete(Uri uri)
 		{
-			if (this.Exists(uri))
+			if (Exists(uri))
 			{
 				IBlob blob;
-				this._blobs.TryRemove(uri, out blob);
+				_blobs.TryRemove(uri, out blob);
 			}
 		}
 
 		public bool Exists(Uri uri)
 		{
-			return this._blobs.ContainsKey(uri);
+			return _blobs.ContainsKey(uri);
 		}
 
 		public IBlob Get(Uri uri)
 		{
 			IBlob blob = null;
 
-			if (this.Exists(uri))
+			if (Exists(uri))
 			{
-				this._blobs.TryGetValue(uri, out blob);
+				_blobs.TryGetValue(uri, out blob);
 			}
 
 			return blob;
@@ -55,12 +55,12 @@ namespace Euclid.Common.Storage
 				new Uri(
 					string.Format(
 						"http://in-memory/{0}/{1}/{2}.{3}", 
-						this._containerName, 
+						_containerName, 
 						Guid.NewGuid(), 
 						name, 
 						MimeTypes.GetExtensionFromContentType(blob.ContentType)));
 
-			this._blobs.TryAdd(uri, upload);
+			_blobs.TryAdd(uri, upload);
 
 			return uri;
 		}

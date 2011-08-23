@@ -12,7 +12,7 @@ namespace ForumAgent.Processors
 
 		public CommentOnPostProcessor(ISimpleRepository<Comment> repository)
 		{
-			this._repository = repository;
+			_repository = repository;
 		}
 
 		public override void Process(CommentOnPost message)
@@ -27,7 +27,7 @@ namespace ForumAgent.Processors
 					Modified = DateTime.Now
 				};
 
-			this._repository.Save(comment);
+			_repository.Save(comment);
 		}
 	}
 }

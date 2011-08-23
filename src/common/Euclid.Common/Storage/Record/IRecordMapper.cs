@@ -9,10 +9,10 @@ namespace Euclid.Common.Storage.Record
 
 		TRecord Delete(Guid id);
 
+		IList<TRecord> List(int count, int offset);
+
 		TRecord Retrieve(Guid id);
 
 		TRecord Update(TRecord record);
-
-		IList<TRecord> List(int count, int offset);
 	}
 }

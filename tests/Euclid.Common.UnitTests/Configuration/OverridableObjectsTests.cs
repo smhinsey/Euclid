@@ -68,7 +68,7 @@ namespace Euclid.Common.UnitTests.Configuration
 		{
 			const string fakeSettingDefaultValue = "Default value";
 			const bool anotherFakeSettingDefaultValue = true;
-			var currentAssembly = this.GetType().Assembly;
+			var currentAssembly = GetType().Assembly;
 
 			var config = OverridableSettings<FakeSettings>.Build(
 				settings =>
@@ -90,7 +90,7 @@ namespace Euclid.Common.UnitTests.Configuration
 		{
 			const string fakeSettingDefaultValue = "Default value";
 			const bool anotherFakeSettingDefaultValue = true;
-			var currentAssembly = this.GetType().Assembly;
+			var currentAssembly = GetType().Assembly;
 
 			var config = OverridableSettings<FakeSettings>.Build(
 				settings =>

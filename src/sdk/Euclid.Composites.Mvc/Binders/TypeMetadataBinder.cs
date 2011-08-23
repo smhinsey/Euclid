@@ -14,7 +14,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public TypeMetadataBinder(IAgentResolver[] resolvers)
 		{
-			this._resolvers = resolvers;
+			_resolvers = resolvers;
 		}
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
@@ -23,7 +23,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 			var partName = controllerContext.GetPartName();
 
-			var metadata = this._resolvers.GetAgentMetadata(systemName);
+			var metadata = _resolvers.GetAgentMetadata(systemName);
 
 			var typeMetadata = metadata.GetPartByTypeName(partName);
 

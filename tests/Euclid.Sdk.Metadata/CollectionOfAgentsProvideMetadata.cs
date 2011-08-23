@@ -14,7 +14,7 @@ namespace Euclid.Sdk.Metadata
 		[Given("an agent collection")]
 		public void AnAgentCollection()
 		{
-			this._agents = new List<IAgentMetadata> { typeof(FakeCommand).Assembly.GetAgentMetadata() };
+			_agents = new List<IAgentMetadata> { typeof(FakeCommand).Assembly.GetAgentMetadata() };
 		}
 
 		[When("the (.*) is requested from the collection")]
@@ -23,10 +23,10 @@ namespace Euclid.Sdk.Metadata
 			switch (representationType.ToLower())
 			{
 				case "basic":
-					this.Formatter = this._agents.GetBasicMetadataFormatter();
+					Formatter = _agents.GetBasicMetadataFormatter();
 					break;
 				case "full":
-					this.Formatter = this._agents.GetFullMetadataFormatter();
+					Formatter = _agents.GetFullMetadataFormatter();
 					break;
 			}
 		}

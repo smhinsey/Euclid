@@ -25,17 +25,17 @@ namespace Euclid.Common.IntegrationTests
 
 		public PublicationTests()
 		{
-			this._serializer = new JsonMessageSerializer();
-			this._blobStorage = new InMemoryBlobStorage();
-			this._mapper = new InMemoryRecordMapper<FakePublicationRecord>();
-			this._publicationRegistry = new FakeRegistry(this._mapper, this._blobStorage, this._serializer);
-			this._channel = new InMemoryMessageChannel();
+			_serializer = new JsonMessageSerializer();
+			_blobStorage = new InMemoryBlobStorage();
+			_mapper = new InMemoryRecordMapper<FakePublicationRecord>();
+			_publicationRegistry = new FakeRegistry(_mapper, _blobStorage, _serializer);
+			_channel = new InMemoryMessageChannel();
 		}
 
 		[Test]
 		public void TestSendMessageOverTransport()
 		{
-			this._channel.Open();
+			_channel.Open();
 
 			var msgId = Guid.NewGuid();
 
@@ -45,11 +45,11 @@ namespace Euclid.Common.IntegrationTests
 
 			var msg = new FakeMessage { Created = created, CreatedBy = createdById, Identifier = msgId };
 
-			var record = this._publicationRegistry.PublishMessage(msg);
+			var record = _publicationRegistry.PublishMessage(msg);
 
-			this._channel.Send(record);
+			_channel.Send(record);
 
-			var receivedMsg = this._channel.ReceiveSingle(TimeSpan.MaxValue);
+			var receivedMsg = _channel.ReceiveSingle(TimeSpan.MaxValue);
 
 			Assert.NotNull(receivedMsg);
 
@@ -59,17 +59,17 @@ namespace Euclid.Common.IntegrationTests
 
 			Assert.AreEqual(typeof(FakeMessage), receivedRecord.MessageType);
 
-			var blob = this._blobStorage.Get(receivedRecord.MessageLocation);
+			var blob = _blobStorage.Get(receivedRecord.MessageLocation);
 
 			Assert.NotNull(blob);
 
-			var storedMessage = Convert.ChangeType(this._serializer.Deserialize(blob.Bytes), receivedRecord.MessageType);
+			var storedMessage = Convert.ChangeType(_serializer.Deserialize(blob.Bytes), receivedRecord.MessageType);
 
 			Assert.NotNull(storedMessage);
 
 			Assert.AreEqual(typeof(FakeMessage), storedMessage.GetType());
 
-			this._channel.Close();
+			_channel.Close();
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace ForumTests.Steps
 		[Then(@"the query UserQueries can authenticate")]
 		public void ThenTheQueryUserQueriesCanAuthenticate()
 		{
-			var query = this.GetContainer().Resolve<UserQueries>();
+			var query = GetContainer().Resolve<UserQueries>();
 
 			var authenticationResult = query.Authenticate(Username, Password);
 
@@ -29,7 +29,7 @@ namespace ForumTests.Steps
 		[Then(@"the query UserQueries returns the Profile")]
 		public void ThenTheQueryUserQueriesReturnsTheProfile()
 		{
-			var query = this.GetContainer().Resolve<UserQueries>();
+			var query = GetContainer().Resolve<UserQueries>();
 
 			var user = query.FindByUsername(Username);
 
@@ -41,7 +41,7 @@ namespace ForumTests.Steps
 		[Then(@"the query UserQueries returns the updated Profile")]
 		public void ThenTheQueryUserQueriesReturnsTheUpdatedProfile()
 		{
-			var userQueries = this.GetContainer().Resolve<UserQueries>();
+			var userQueries = GetContainer().Resolve<UserQueries>();
 
 			var user = userQueries.FindByUsername(Username);
 			var profile = userQueries.FindByUserIdentifier(user.Identifier);
@@ -53,7 +53,7 @@ namespace ForumTests.Steps
 		[When(@"I publish the command RegisterUser")]
 		public void WhenIPublishTheCommandRegisterUser()
 		{
-			var publisher = this.GetContainer().Resolve<IPublisher>();
+			var publisher = GetContainer().Resolve<IPublisher>();
 
 			PubIdOfLastMessage =
 				publisher.PublishMessage(new RegisterUser { Username = Username, PasswordHash = Password, PasswordSalt = Password });
@@ -62,8 +62,8 @@ namespace ForumTests.Steps
 		[When(@"I publish the command UpdateUserProfile")]
 		public void WhenIPublishTheCommandUpdateUserProfile()
 		{
-			var publisher = this.GetContainer().Resolve<IPublisher>();
-			var query = this.GetContainer().Resolve<UserQueries>();
+			var publisher = GetContainer().Resolve<IPublisher>();
+			var query = GetContainer().Resolve<UserQueries>();
 
 			var user = query.FindByUsername(Username);
 

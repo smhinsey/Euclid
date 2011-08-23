@@ -36,14 +36,14 @@ namespace ForumTests.Steps
 		[Then(@"the query CategoryQueries returns Post")]
 		public void ThenTheQueryCategoryQueriesReturnsPost()
 		{
-			var postQueries = this.GetContainer().Resolve<PostQueries>();
+			var postQueries = GetContainer().Resolve<PostQueries>();
 
-			var posts = postQueries.FindPostsByCategory(this.categoryId);
+			var posts = postQueries.FindPostsByCategory(categoryId);
 
 			Assert.IsNotNull(posts);
 			Assert.AreEqual(PostTitle, posts[0].Title);
 			Assert.AreEqual(PostBody, posts[0].Body);
-			Assert.AreEqual(this.categoryId, posts[0].CategoryIdentifier);
+			Assert.AreEqual(categoryId, posts[0].CategoryIdentifier);
 		}
 
 		/// <summary>
@@ -52,8 +52,8 @@ namespace ForumTests.Steps
 		[Then(@"the query CommentQueries returns the Comment")]
 		public void ThenTheQueryCommentQueriesReturnsTheComment()
 		{
-			var postQueries = this.GetContainer().Resolve<PostQueries>();
-			var commentQueries = this.GetContainer().Resolve<CommentQueries>();
+			var postQueries = GetContainer().Resolve<PostQueries>();
+			var commentQueries = GetContainer().Resolve<CommentQueries>();
 
 			var post = postQueries.FindByTitle(PostTitle);
 
@@ -71,8 +71,8 @@ namespace ForumTests.Steps
 		[Then(@"the query CommentQueries returns the post with a score of (.*)")]
 		public void ThenTheQueryCommentQueriesReturnsTheScore(int score)
 		{
-			var postQueries = this.GetContainer().Resolve<PostQueries>();
-			var commentQueries = this.GetContainer().Resolve<CommentQueries>();
+			var postQueries = GetContainer().Resolve<PostQueries>();
+			var commentQueries = GetContainer().Resolve<CommentQueries>();
 
 			var post = postQueries.FindByTitle(PostTitle);
 
@@ -89,7 +89,7 @@ namespace ForumTests.Steps
 		[Then(@"the query ForumQueries returns the Post")]
 		public void ThenTheQueryForumQueriesReturnsThePost()
 		{
-			var query = this.GetContainer().Resolve<PostQueries>();
+			var query = GetContainer().Resolve<PostQueries>();
 
 			var post = query.FindByTitle(PostTitle);
 
@@ -107,7 +107,7 @@ namespace ForumTests.Steps
 		[Then(@"the query ForumQueries returns the post with a score of (.*)")]
 		public void ThenTheQueryForumQueriesReturnsTheScore(int score)
 		{
-			var query = this.GetContainer().Resolve<PostQueries>();
+			var query = GetContainer().Resolve<PostQueries>();
 
 			var post = query.FindByTitle(PostTitle);
 
@@ -120,8 +120,8 @@ namespace ForumTests.Steps
 		[When(@"I publish the command CommentOnPost")]
 		public void WhenIPublishTheCommandCommentOnPost()
 		{
-			var publisher = this.GetContainer().Resolve<IPublisher>();
-			var query = this.GetContainer().Resolve<PostQueries>();
+			var publisher = GetContainer().Resolve<IPublisher>();
+			var query = GetContainer().Resolve<PostQueries>();
 
 			var post = query.FindByTitle(PostTitle);
 
@@ -136,11 +136,10 @@ namespace ForumTests.Steps
 		[When(@"I publish the command PublishPost")]
 		public void WhenIPublishTheCommandPublishPost()
 		{
-			var publisher = this.GetContainer().Resolve<IPublisher>();
+			var publisher = GetContainer().Resolve<IPublisher>();
 
 			PubIdOfLastMessage =
-				publisher.PublishMessage(
-					new PublishPost { Title = PostTitle, Body = PostBody, CategoryIdentifier = this.categoryId });
+				publisher.PublishMessage(new PublishPost { Title = PostTitle, Body = PostBody, CategoryIdentifier = categoryId });
 		}
 
 		/// <summary>
@@ -152,9 +151,9 @@ namespace ForumTests.Steps
 		[When(@"I publish the command VoteOnComment VoteUp=(.*)")]
 		public void WhenIPublishTheCommandVoteOnComment(bool direction)
 		{
-			var publisher = this.GetContainer().Resolve<IPublisher>();
-			var postQueries = this.GetContainer().Resolve<PostQueries>();
-			var commentQueries = this.GetContainer().Resolve<CommentQueries>();
+			var publisher = GetContainer().Resolve<IPublisher>();
+			var postQueries = GetContainer().Resolve<PostQueries>();
+			var commentQueries = GetContainer().Resolve<CommentQueries>();
 
 			var post = postQueries.FindByTitle(PostTitle);
 
@@ -173,8 +172,8 @@ namespace ForumTests.Steps
 		[When(@"I publish the command VoteOnPost VoteUp=(.*)")]
 		public void WhenIPublishTheCommandVoteOnPost(bool direction)
 		{
-			var publisher = this.GetContainer().Resolve<IPublisher>();
-			var query = this.GetContainer().Resolve<PostQueries>();
+			var publisher = GetContainer().Resolve<IPublisher>();
+			var query = GetContainer().Resolve<PostQueries>();
 
 			var post = query.FindByTitle(PostTitle);
 

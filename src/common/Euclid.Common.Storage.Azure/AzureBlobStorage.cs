@@ -19,19 +19,19 @@ namespace Euclid.Common.Storage.Azure
 
 		public AzureBlobStorage(CloudStorageAccount storageAccount)
 		{
-			this._storageAccount = storageAccount;
+			_storageAccount = storageAccount;
 
-			this._settings = new BlobStorageSettings();
+			_settings = new BlobStorageSettings();
 		}
 
 		public void Configure(IBlobStorageSettings settings)
 		{
-			this._settings = settings;
+			_settings = settings;
 		}
 
 		public void Delete(Uri uri)
 		{
-			var container = this.getContainer();
+			var container = getContainer();
 
 			var target = container.GetBlobReference(uri.ToString());
 
@@ -43,7 +43,7 @@ namespace Euclid.Common.Storage.Azure
 		{
 			var exists = true;
 
-			var container = this.getContainer();
+			var container = getContainer();
 
 			var target = container.GetBlobReference(uri.ToString());
 
@@ -65,7 +65,7 @@ namespace Euclid.Common.Storage.Azure
 
 			var options = new BlobRequestOptions { BlobListingDetails = BlobListingDetails.Metadata };
 
-			var container = this.getContainer();
+			var container = getContainer();
 			var target = container.GetBlobReference(uri.ToString());
 
 			try
@@ -92,7 +92,7 @@ namespace Euclid.Common.Storage.Azure
 
 		public Uri Put(IBlob blob, string name)
 		{
-			var container = this.getContainer();
+			var container = getContainer();
 			var uri = container.Uri;
 			try
 			{
@@ -125,14 +125,14 @@ namespace Euclid.Common.Storage.Azure
 
 		private CloudBlobContainer getContainer()
 		{
-			var blobStorage = this._storageAccount.CreateCloudBlobClient();
-			var container = blobStorage.GetContainerReference(this._settings.ContainerName.Value);
+			var blobStorage = _storageAccount.CreateCloudBlobClient();
+			var container = blobStorage.GetContainerReference(_settings.ContainerName.Value);
 
-			if (!this._init)
+			if (!_init)
 			{
 				container.CreateIfNotExist();
 				container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
-				this._init = true;
+				_init = true;
 			}
 
 			return container;

@@ -15,7 +15,7 @@ namespace ForumAgent.Queries
 
 		public IList<Comment> FindCommentsBelongingToPost(Guid postId)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var categories = session.QueryOver<Comment>().Where(comment => comment.PostIdentifier == postId);
 

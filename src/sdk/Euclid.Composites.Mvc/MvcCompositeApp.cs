@@ -17,9 +17,9 @@ namespace Euclid.Composites.Mvc
 
 		public void BeginPageRequest(object sender, EventArgs eventArgs)
 		{
-			if (this.State != CompositeApplicationState.Configured)
+			if (State != CompositeApplicationState.Configured)
 			{
-				throw new InvalidCompositeApplicationStateException(this.State, CompositeApplicationState.Configured);
+				throw new InvalidCompositeApplicationStateException(State, CompositeApplicationState.Configured);
 			}
 		}
 
@@ -27,7 +27,7 @@ namespace Euclid.Composites.Mvc
 		{
 			base.Configure(compositeAppSettings);
 
-			this.wireMvcInfrastructure();
+			wireMvcInfrastructure();
 		}
 
 		public void LogUnhandledException(object sender, EventArgs eventArgs)
@@ -38,12 +38,12 @@ namespace Euclid.Composites.Mvc
 
 		private void wireMvcInfrastructure()
 		{
-			this.Container.Install(new ModelBinderInstaller());
-			this.Container.Install(new ControllerContainerInstaller());
+			Container.Install(new ModelBinderInstaller());
+			Container.Install(new ControllerContainerInstaller());
 
-			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(this.Container.ResolveAll<IEuclidModelBinder>());
+			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
 
-			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(this.Container));
+			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
 		}
 	}
 }

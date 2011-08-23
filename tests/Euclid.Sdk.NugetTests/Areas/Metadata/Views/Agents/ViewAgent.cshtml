@@ -1,13 +1,13 @@
 @using MetadataComposite.Areas.Metadata.Models
 @model AgentModel
 
-<h1>@this.ViewBag.Title</h1>
+<h1>@ViewBag.Title</h1>
 <ul>
-	<li>@this.Model.SystemName</li>
-	<li>@this.Model.DescriptiveName</li>
-	<li>@this.Html.DisplayFor(x => x.Commands, "IAgentPart", this.Model.Commands)</li>
-	<li>@this.Html.DisplayFor(x => x.Queries, "IAgentPart", this.Model.Queries)</li>
-	<li>@this.Html.DisplayFor(x => x.ReadModels, "IAgentPart", this.Model.ReadModels)</li>
+	<li>@Model.SystemName</li>
+	<li>@Model.DescriptiveName</li>
+	<li>@Html.DisplayFor(x => x.Commands, "IAgentPart", Model.Commands)</li>
+	<li>@Html.DisplayFor(x => x.Queries, "IAgentPart", Model.Queries)</li>
+	<li>@Html.DisplayFor(x => x.ReadModels, "IAgentPart", Model.ReadModels)</li>
 </ul>
 
-@{ this.Html.RenderPartial("MetadataLinks", this.Model); }
+@{ Html.RenderPartial("MetadataLinks", Model);  }

@@ -10,14 +10,14 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public CommandFormatter(ITypeMetadata typeMetadata)
 		{
-			this._typeMetadata = typeMetadata;
+			_typeMetadata = typeMetadata;
 		}
 
 		protected override string GetAsXml()
 		{
 			var root = new XElement("ReadModel");
 
-			foreach (var p in this._typeMetadata.Properties)
+			foreach (var p in _typeMetadata.Properties)
 			{
 				root.Add(
 					new XElement("Property", new XElement("PropertyName", p.Name), new XElement("PropertyType", p.PropertyType.Name)));
@@ -28,7 +28,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		protected override object GetJsonObject(JsonSerializer serializer)
 		{
-			return this._typeMetadata.Properties.Select(p => new { PropertyName = p.Name, PropertyType = p.PropertyType.Name });
+			return _typeMetadata.Properties.Select(p => new { PropertyName = p.Name, PropertyType = p.PropertyType.Name });
 		}
 	}
 }

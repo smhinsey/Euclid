@@ -13,14 +13,14 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public PartCollectionBinder(IAgentResolver[] resolvers)
 		{
-			this._resolvers = resolvers;
+			_resolvers = resolvers;
 		}
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			var systemName = controllerContext.GetAgentSystemName();
 
-			var metadata = this._resolvers.GetAgentMetadata(systemName);
+			var metadata = _resolvers.GetAgentMetadata(systemName);
 
 			var partName = controllerContext.GetPartName();
 

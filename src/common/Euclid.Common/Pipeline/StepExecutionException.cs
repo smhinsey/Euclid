@@ -11,8 +11,8 @@ namespace Euclid.Common.Pipeline
 		public StepExecutionException(object dataToProcess, Type stepType, Exception exception)
 			: base(string.Format("An error occurred executing the step {0}", stepType.FullName), exception)
 		{
-			this._dataToProcess = dataToProcess;
-			this._stepType = stepType;
+			_dataToProcess = dataToProcess;
+			_stepType = stepType;
 		}
 	}
 }

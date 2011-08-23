@@ -22,13 +22,13 @@ namespace Euclid.Composites.Mvc.Results
 			response.ContentEncoding = Encoding.UTF8;
 			response.ContentType = MimeTypes.GetByExtension("xml");
 
-			if (this.Data != null)
+			if (Data != null)
 			{
-				var root = new XElement(this.Data.GetType().Name);
+				var root = new XElement(Data.GetType().Name);
 
-				foreach (var property in this.Data.GetType().GetProperties())
+				foreach (var property in Data.GetType().GetProperties())
 				{
-					var rawValue = property.GetValue(this.Data, null) ?? string.Empty;
+					var rawValue = property.GetValue(Data, null) ?? string.Empty;
 
 					var value = (property.PropertyType == typeof(Type)) ? (rawValue as Type).FullName : rawValue.ToString();
 

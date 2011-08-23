@@ -16,7 +16,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public void Delete(TModel model)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			this.WriteDebugMessage(string.Format("Deleting model {0}({1})", model.GetType().Name, model.Identifier));
 
@@ -41,7 +41,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public void Delete(Guid id)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			using (var transaction = session.BeginTransaction())
 			{
@@ -68,7 +68,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public IList<TModel> FindByCreationDate(DateTime specificDate)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var query = session.QueryOver<TModel>().Where(x => x.Created == specificDate);
 
@@ -77,7 +77,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public IList<TModel> FindByCreationDate(DateTime begin, DateTime end)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var query = session.QueryOver<TModel>().WhereRestrictionOn(x => x.Created).IsBetween(begin).And(end);
 
@@ -86,7 +86,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public TModel FindById(Guid id)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var query = session.QueryOver<TModel>().Where(x => x.Identifier == id);
 
@@ -95,7 +95,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public IList<TModel> FindByModificationDate(DateTime specificDate)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var query = session.QueryOver<TModel>().Where(x => x.Modified == specificDate);
 
@@ -104,7 +104,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public IList<TModel> FindByModificationDate(DateTime begin, DateTime end)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var query = session.QueryOver<TModel>().WhereRestrictionOn(x => x.Modified).IsBetween(begin).And(end);
 
@@ -113,7 +113,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public TModel Save(TModel model)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			this.WriteDebugMessage(string.Format("Saving model {0}({1})", model.GetType().Name, model.Identifier));
 
@@ -142,7 +142,7 @@ namespace Euclid.Common.Storage.NHibernate
 
 		public TModel Update(TModel model)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			this.WriteDebugMessage(string.Format("Updating model {0}({1})", model.GetType().Name, model.Identifier));
 

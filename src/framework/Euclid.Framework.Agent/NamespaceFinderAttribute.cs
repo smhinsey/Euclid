@@ -12,13 +12,13 @@ namespace Euclid.Framework.Agent
 		{
 			get
 			{
-				return this._ns;
+				return _ns;
 			}
 
 			set
 			{
-				this._ns = value;
-				this.NamespaceOfType = null;
+				_ns = value;
+				NamespaceOfType = null;
 			}
 		}
 
@@ -26,16 +26,16 @@ namespace Euclid.Framework.Agent
 		{
 			get
 			{
-				return this._type;
+				return _type;
 			}
 
 			set
 			{
-				this._type = value;
+				_type = value;
 
 				if (value != null)
 				{
-					this.Namespace = this._type.Namespace;
+					Namespace = _type.Namespace;
 				}
 			}
 		}

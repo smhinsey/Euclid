@@ -16,7 +16,7 @@ namespace Euclid.Composites.Mvc.ActionFilters
 				return;
 			}
 
-			var formatter = this.GetFormatter(filterContext);
+			var formatter = GetFormatter(filterContext);
 
 			if (formatter == null)
 			{

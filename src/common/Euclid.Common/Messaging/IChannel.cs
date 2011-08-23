@@ -13,13 +13,13 @@ namespace Euclid.Common.Messaging
 		where TMessage : IMessage
 	{
 		/// <summary>
-		/// 	A friendly name for the channel. Depending on the implementation this may include information about
+		/// 	Gets or sets a friendly name for the channel. Depending on the implementation this may include information about
 		/// 	the channel's connection string or other similar connection specification mechanism.
 		/// </summary>
 		string ChannelName { get; set; }
 
 		/// <summary>
-		/// 	The channel's current state.
+		/// 	Gets the channel's current state.
 		/// </summary>
 		ChannelState State { get; }
 
@@ -31,13 +31,13 @@ namespace Euclid.Common.Messaging
 		/// <summary>
 		/// 	Closes the current channel. A closed channel cannot be used for Send or Receive operations.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>The updated channel state.</returns>
 		ChannelState Close();
 
 		/// <summary>
 		/// 	Opens a channel so that messages can be sent and received.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>The updated channel state.</returns>
 		ChannelState Open();
 
 		/// <summary>

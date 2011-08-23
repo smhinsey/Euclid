@@ -14,7 +14,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public string GetContentType(string format)
 		{
-			return !this._supportedContentTypes.ContainsKey(format) ? null : this._supportedContentTypes[format];
+			return !_supportedContentTypes.ContainsKey(format) ? null : _supportedContentTypes[format];
 		}
 
 		public Encoding GetEncoding(string format)
@@ -24,7 +24,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public IEnumerable<string> GetFormats(string contentType)
 		{
-			return this._supportedContentTypes.Where(item => item.Value == contentType).Select(item => item.Key);
+			return _supportedContentTypes.Where(item => item.Value == contentType).Select(item => item.Key);
 		}
 
 		public string GetRepresentation(string format)
@@ -32,9 +32,9 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			switch (format.ToLower())
 			{
 				case "xml":
-					return this.GetAsXml();
+					return GetAsXml();
 				case "json":
-					return this.SetupJsonSerialization();
+					return SetupJsonSerialization();
 			}
 
 			throw new MetadataFormatNotSupportedException(format);
@@ -52,7 +52,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 			var serializer = JsonSerializer.Create(serializerSettings);
 
-			var data = this.GetJsonObject(serializer);
+			var data = GetJsonObject(serializer);
 
 			serializer.Serialize(writer, data);
 

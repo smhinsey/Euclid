@@ -6,8 +6,8 @@
     @if (!string.IsNullOrEmpty(this.Model.AgentSytemName) && !string.IsNullOrEmpty(this.Model.PartType))
     {
       <li class="metadata-link-item">
-        <a class="metadata-link" href="@this.Url.Action("ViewPartCollection", "Agents", new { AgentSystemName = this.Model.AgentSytemName, PartName = this.Model.PartType })">
-          @this.Model.AgentSytemName's @this.Model.PartDescriptiveName
+        <a class="metadata-link" href="@Url.Action("ViewPartCollection", "Agents", new { AgentSystemName = Model.AgentSytemName, PartName = Model.PartType })">
+          @Model.AgentSytemName's @Model.PartDescriptiveName
         </a>
       </li>
     }

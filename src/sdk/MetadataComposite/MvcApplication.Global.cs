@@ -16,7 +16,7 @@ namespace MetadataComposite
 		{
 			var container = new WindsorContainer();
 
-			this._composite = new MvcCompositeApp(container);
+			_composite = new MvcCompositeApp(container);
 
 			var compositeAppSettings = new CompositeAppSettings();
 
@@ -24,19 +24,19 @@ namespace MetadataComposite
            * jt: this is how a composite developer would override the default settings for the mvc composite
            * euclidCompositeConfiguration.BlobStorage.ApplyOverride(typeof(SomeBlobStorageImplementation));
            */
-			this._composite.Configure(compositeAppSettings);
+			_composite.Configure(compositeAppSettings);
 
 			/*
           jt: this is going to be injected into composites adding this pacage
           */
-			this._composite.AddAgent(typeof(PublishPost).Assembly);
+			_composite.AddAgent(typeof(PublishPost).Assembly);
 
 			// composite.RegisterInputModel(new InputToFakeCommand4Converter());
-			container.Register(Component.For<ICompositeApp>().Instance(this._composite));
+			container.Register(Component.For<ICompositeApp>().Instance(_composite));
 
-			this.Error += this._composite.LogUnhandledException;
+			Error += _composite.LogUnhandledException;
 
-			this.BeginRequest += this._composite.BeginPageRequest;
+			BeginRequest += _composite.BeginPageRequest;
 
 			base.Init();
 		}

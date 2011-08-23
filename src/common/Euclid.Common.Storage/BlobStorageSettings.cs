@@ -7,9 +7,9 @@ namespace Euclid.Common.Storage
 	{
 		public BlobStorageSettings()
 		{
-			this.ContainerName = new OverridableSetting<string>();
+			ContainerName = new OverridableSetting<string>();
 
-			this.ContainerName.WithDefault("euclidblobstorage");
+			ContainerName.WithDefault("euclidblobstorage");
 		}
 
 		public IOverridableSetting<string> ContainerName { get; set; }

@@ -230,7 +230,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(this.GetType());
+			settings.ServiceHost.WithDefault(GetType());
 
 			runtime.Initialize(settings);
 		}
@@ -264,7 +264,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			var settings = new FabricRuntimeSettings();
 
 			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> { this.GetType() });
+			settings.HostedServices.WithDefault(new List<Type> { GetType() });
 
 			runtime.Initialize(settings);
 
@@ -281,8 +281,8 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(this.GetType());
-			settings.HostedServices.WithDefault(new List<Type> { this.GetType() });
+			settings.ServiceHost.WithDefault(GetType());
+			settings.HostedServices.WithDefault(new List<Type> { GetType() });
 
 			runtime.Initialize(settings);
 		}

@@ -4,8 +4,8 @@
 	{
 		public Envelope(IMessage message)
 		{
-			this.MessageTypeName = message.GetType().AssemblyQualifiedName;
-			this.Payload = message;
+			MessageTypeName = message.GetType().AssemblyQualifiedName;
+			Payload = message;
 		}
 
 		public string MessageTypeName { get; private set; }

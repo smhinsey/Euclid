@@ -38,9 +38,9 @@ namespace Euclid.Sdk.NugetTests
 			// composite.RegisterInputModel(new InputToFakeCommand4Converter());
 			container.Register(Component.For<ICompositeApp>().Instance(composite));
 
-			this.Error += composite.LogUnhandledException;
+			Error += composite.LogUnhandledException;
 
-			this.BeginRequest += composite.BeginPageRequest;
+			BeginRequest += composite.BeginPageRequest;
 		}
 	}
 }

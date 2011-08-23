@@ -16,8 +16,8 @@ namespace Euclid.Sdk.FakeAgent.Processors
 
 		public FakeCommandProcessor(FakeQuery query, ISimpleRepository<FakeReadModel> repository)
 		{
-			this._query = query;
-			this._repository = repository;
+			_query = query;
+			_repository = repository;
 		}
 
 		public override void Process(FakeCommand message)
@@ -29,7 +29,7 @@ namespace Euclid.Sdk.FakeAgent.Processors
        Identifier = Guid.NewGuid(), Number = message.Number, Created = DateTime.Now, Modified = DateTime.Now 
     };
 
-			this._repository.Save(model);
+			_repository.Save(model);
 		}
 	}
 }

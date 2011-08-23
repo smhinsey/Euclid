@@ -10,14 +10,14 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public QueryCollectionFormatter(IPartCollection metadata)
 		{
-			this._metadata = metadata;
+			_metadata = metadata;
 		}
 
 		protected override string GetAsXml()
 		{
 			var xml = new XElement("Queries");
 
-			foreach (var item in this._metadata.Collection)
+			foreach (var item in _metadata.Collection)
 			{
 				xml.Add(new XElement("Query", new XElement("Namespace", item.Namespace), new XElement("Name", item.Name)));
 			}
@@ -27,7 +27,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		protected override object GetJsonObject(JsonSerializer serializer)
 		{
-			return new { Queries = this._metadata.Collection.Select(x => new { x.Namespace, x.Name }) };
+			return new { Queries = _metadata.Collection.Select(x => new { x.Namespace, x.Name }) };
 		}
 	}
 }

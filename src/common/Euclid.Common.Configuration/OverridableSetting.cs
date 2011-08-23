@@ -10,14 +10,14 @@
 
 		public void ApplyOverride(TSettingType newValue)
 		{
-			this.Value = newValue;
-			this.WasOverridden = true;
+			Value = newValue;
+			WasOverridden = true;
 		}
 
 		public void WithDefault(TSettingType value)
 		{
-			this.DefaultValue = value;
-			this.Value = value;
+			DefaultValue = value;
+			Value = value;
 		}
 	}
 }

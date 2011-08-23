@@ -12,7 +12,7 @@ namespace ForumAgent.Processors
 
 		public PublishPostProcessor(ISimpleRepository<Post> repository)
 		{
-			this._repository = repository;
+			_repository = repository;
 		}
 
 		public override void Process(PublishPost message)
@@ -29,7 +29,7 @@ namespace ForumAgent.Processors
 					Modified = DateTime.Now
 				};
 
-			this._repository.Save(post);
+			_repository.Save(post);
 		}
 	}
 }

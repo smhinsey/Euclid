@@ -30,7 +30,7 @@ namespace Euclid.TestingSupport
 
 		public HostingFabricFixture(params Assembly[] agentAssemblies)
 		{
-			this._agentAssemblies = agentAssemblies;
+			_agentAssemblies = agentAssemblies;
 		}
 
 		[SetUp]
@@ -38,36 +38,36 @@ namespace Euclid.TestingSupport
 		{
 			XmlConfigurator.Configure();
 
-			this.Container = new WindsorContainer();
+			Container = new WindsorContainer();
 
-			this.setAzureCredentials(this.Container);
+			setAzureCredentials(Container);
 
-			this.Fabric = new ConsoleFabric(this.Container);
+			Fabric = new ConsoleFabric(Container);
 
-			var composite = new BasicCompositeApp(this.Container);
+			var composite = new BasicCompositeApp(Container);
 
 			composite.RegisterNh(
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
-			foreach (var agentAssembly in this._agentAssemblies)
+			foreach (var agentAssembly in _agentAssemblies)
 			{
 				composite.AddAgent(agentAssembly);
 			}
 
-			composite.Configure(this.getCompositeSettings());
+			composite.Configure(getCompositeSettings());
 
-			this.Fabric.Initialize(this.getFabricSettings());
+			Fabric.Initialize(getFabricSettings());
 
-			this.Fabric.InstallComposite(composite);
+			Fabric.InstallComposite(composite);
 
-			this.Fabric.Start();
+			Fabric.Start();
 		}
 
 		protected void WaitUntilComplete(Guid publicationId)
 		{
 			while (true)
 			{
-				var registry = this.Container.Resolve<ICommandRegistry>();
+				var registry = Container.Resolve<ICommandRegistry>();
 
 				var record = registry.GetPublicationRecord(publicationId);
 

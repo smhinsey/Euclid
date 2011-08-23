@@ -28,6 +28,11 @@ namespace Euclid.Common.Storage
 			return record;
 		}
 
+		public IList<TRecord> List(int count, int offset)
+		{
+			return new List<TRecord>(Records.Values.ToList().Take(count).Skip(offset));
+		}
+
 		public TRecord Retrieve(Guid id)
 		{
 			TRecord record;
@@ -42,11 +47,6 @@ namespace Euclid.Common.Storage
 			Records.TryUpdate(record.Identifier, record, Records[record.Identifier]);
 
 			return record;
-		}
-
-		public IList<TRecord> List(int count, int offset)
-		{
-			return new List<TRecord>(Records.Values.ToList().Take(count).Skip(offset));
 		}
 	}
 }

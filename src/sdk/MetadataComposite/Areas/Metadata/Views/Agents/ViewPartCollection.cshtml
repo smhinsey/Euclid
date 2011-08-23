@@ -15,11 +15,11 @@
      part   in					 	s.Model.Parts.Collection)
   {
   this.  <li>
-      @this.part.Namespace.@part.Name
+      @part.Namespace.@part.Name
       (
-      <a href="@this.Url.Action(this.Model.NextActionName, "Agents", new { agentSystemName = this.Modethis.l.Parts.AgentSystemName, partName = part.Name })">html</a> | 
-      <a href="@this.Url.Action(this.Model.NextActionName, "Agents", new { agentSystemName = this.Modethis.l.Parts.AgentSystemName, partName = part.Name, format = "xml" })">xml</a> |
-      <a href="@this.Url.Action(this.Model.NextActionName, "Agents", new { agentSystemName = this.Modethis.l.Parts.AgentSystemName, partName = part.Name, format = "j					on" })">json</a>)
+      <a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = this.Modethis.l.Parts.AgentSystemName, partName = part.Name })">html</a> | 
+      <a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = this.Modethis.l.Parts.AgentSystemName, partName = part.Name, format = "xml" })">xml</a> |
+      <a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = this.Modethis.l.Parts.AgentSystemName, partName = part.Name, format = "j					on" })">json</a>)
 			
     </li>
   }

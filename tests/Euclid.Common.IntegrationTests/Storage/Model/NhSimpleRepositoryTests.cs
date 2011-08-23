@@ -20,7 +20,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		{
 			var model = new FakeModel { Created = DateTime.Now, Modified = DateTime.Now, Name = "Name" };
 
-			var repo = new NhSimpleRepository<FakeModel>(this.SessionFactory.OpenSession());
+			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
 			var saved = repo.Save(model);
 
@@ -36,7 +36,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		{
 			var model = new FakeModel { Created = DateTime.Now, Modified = DateTime.Now, Name = "Name" };
 
-			var repo = new NhSimpleRepository<FakeModel>(this.SessionFactory.OpenSession());
+			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
 			var saved = repo.Save(model);
 
@@ -54,7 +54,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 
 			var model = new FakeModel { Created = now, Modified = DateTime.Now, Name = "Name" };
 
-			var session = this.SessionFactory.OpenSession();
+			var session = SessionFactory.OpenSession();
 
 			var repo = new NhSimpleRepository<FakeModel>(session);
 
@@ -73,7 +73,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 
 			var model = new FakeModel { Created = now, Modified = DateTime.Now, Name = "Name" };
 
-			var session = this.SessionFactory.OpenSession();
+			var session = SessionFactory.OpenSession();
 
 			var repo = new NhSimpleRepository<FakeModel>(session);
 
@@ -92,7 +92,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 
 			var model = new FakeModel { Created = DateTime.Now, Modified = now, Name = "Name" };
 
-			var session = this.SessionFactory.OpenSession();
+			var session = SessionFactory.OpenSession();
 
 			var repo = new NhSimpleRepository<FakeModel>(session);
 
@@ -111,7 +111,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 
 			var model = new FakeModel { Created = DateTime.Now, Modified = now, Name = "Name" };
 
-			var session = this.SessionFactory.OpenSession();
+			var session = SessionFactory.OpenSession();
 
 			var repo = new NhSimpleRepository<FakeModel>(session);
 
@@ -128,7 +128,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		{
 			var model = new FakeModel { Created = DateTime.Now, Modified = DateTime.Now, Name = "Name" };
 
-			var session = this.SessionFactory.OpenSession();
+			var session = SessionFactory.OpenSession();
 
 			var repo = new NhSimpleRepository<FakeModel>(session);
 
@@ -145,7 +145,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 		{
 			var model = new FakeModel { Created = DateTime.Now, Modified = DateTime.Now, Name = "Name" };
 
-			var repo = new NhSimpleRepository<FakeModel>(this.SessionFactory.OpenSession());
+			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
 			repo.Save(model);
 		}
@@ -158,7 +158,7 @@ namespace Euclid.Common.IntegrationTests.Storage.Model
 
 			var model = new FakeModel { Created = DateTime.Now, Modified = DateTime.Now, Name = firstName };
 
-			var repo = new NhSimpleRepository<FakeModel>(this.SessionFactory.OpenSession());
+			var repo = new NhSimpleRepository<FakeModel>(SessionFactory.OpenSession());
 
 			var saved = repo.Save(model);
 

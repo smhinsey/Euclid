@@ -13,13 +13,13 @@ namespace Euclid.Common.UnitTests.Storage
 		[Test]
 		public void Deletes()
 		{
-			var blob = this._blobTester.GetNewBlob();
+			var blob = _blobTester.GetNewBlob();
 
-			var uri = this._blobTester.Put(blob);
+			var uri = _blobTester.Put(blob);
 
-			this._blobTester.Delete(uri);
+			_blobTester.Delete(uri);
 
-			var retrieved = this._blobTester.Get(uri);
+			var retrieved = _blobTester.Get(uri);
 
 			Assert.IsNull(retrieved);
 		}
@@ -27,11 +27,11 @@ namespace Euclid.Common.UnitTests.Storage
 		[Test]
 		public void Gets()
 		{
-			var blob = this._blobTester.GetNewBlob();
+			var blob = _blobTester.GetNewBlob();
 
-			var uri = this._blobTester.Put(blob);
+			var uri = _blobTester.Put(blob);
 
-			var retrieved = this._blobTester.Get(uri);
+			var retrieved = _blobTester.Get(uri);
 
 			Assert.AreEqual(blob.MD5, retrieved.MD5);
 
@@ -45,9 +45,9 @@ namespace Euclid.Common.UnitTests.Storage
 		[Test]
 		public void Puts()
 		{
-			var blob = this._blobTester.GetNewBlob();
+			var blob = _blobTester.GetNewBlob();
 
-			this._blobTester.Put(blob);
+			_blobTester.Put(blob);
 		}
 
 		[SetUp]
@@ -57,7 +57,7 @@ namespace Euclid.Common.UnitTests.Storage
 
 			blobStorage.Configure(new BlobStorageSettings());
 
-			this._blobTester = new BlobTester(blobStorage);
+			_blobTester = new BlobTester(blobStorage);
 		}
 	}
 }

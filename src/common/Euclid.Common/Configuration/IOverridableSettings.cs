@@ -1,6 +1,8 @@
 namespace Euclid.Common.Configuration
 {
-	// this is where context-awareness will live
+	/// <summary>
+	/// Marker interface for types which contain one or more instances of IOverridableSetting.
+	/// </summary>
 	public interface IOverridableSettings
 	{
 	}

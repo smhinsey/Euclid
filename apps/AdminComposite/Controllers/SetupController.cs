@@ -7,7 +7,7 @@ namespace AdminComposite.Controllers
 		// GET: /Setup/
 		public ActionResult Start()
 		{
-			return this.View();
+			return View();
 		}
 	}
 }

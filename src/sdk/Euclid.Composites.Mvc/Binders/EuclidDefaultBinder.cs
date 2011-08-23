@@ -9,12 +9,12 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public EuclidDefaultBinder(IEuclidModelBinder[] euclidModelBinders)
 		{
-			this._euclidModelBinders = euclidModelBinders;
+			_euclidModelBinders = euclidModelBinders;
 		}
 
 		public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
-			foreach (var binder in this._euclidModelBinders)
+			foreach (var binder in _euclidModelBinders)
 			{
 				if (binder.IsMatch(bindingContext.ModelType))
 				{

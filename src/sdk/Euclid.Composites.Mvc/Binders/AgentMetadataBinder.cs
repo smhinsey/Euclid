@@ -13,14 +13,14 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public AgentMetadataBinder(IAgentResolver[] resolvers)
 		{
-			this._resolvers = resolvers;
+			_resolvers = resolvers;
 		}
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			var systemName = controllerContext.GetAgentSystemName();
 
-			return this._resolvers.GetAgentMetadata(systemName);
+			return _resolvers.GetAgentMetadata(systemName);
 		}
 
 		public bool IsMatch(Type modelType)

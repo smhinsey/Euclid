@@ -7,7 +7,7 @@ namespace MetadataComposite.Areas.Metadata.Models
 	{
 		public AgentListModel(IList<IAgentMetadata> agents)
 		{
-			this.Agents = agents;
+			Agents = agents;
 		}
 
 		public IList<IAgentMetadata> Agents { get; private set; }

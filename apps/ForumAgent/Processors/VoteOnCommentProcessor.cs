@@ -11,12 +11,12 @@ namespace ForumAgent.Processors
 
 		public VoteOnCommentProcessor(ISimpleRepository<Comment> repository)
 		{
-			this._repository = repository;
+			_repository = repository;
 		}
 
 		public override void Process(VoteOnComment message)
 		{
-			var comment = this._repository.FindById(message.CommentIdentifier);
+			var comment = _repository.FindById(message.CommentIdentifier);
 
 			if (message.VoteUp)
 			{
@@ -27,7 +27,7 @@ namespace ForumAgent.Processors
 				comment.Score--;
 			}
 
-			this._repository.Update(comment);
+			_repository.Update(comment);
 		}
 	}
 }

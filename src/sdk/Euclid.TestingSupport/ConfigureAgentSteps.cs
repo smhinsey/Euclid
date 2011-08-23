@@ -35,9 +35,9 @@ namespace Euclid.TestingSupport
 		[Given(@"the agent (.*)")]
 		public void GivenTheAgent(string assemblyName)
 		{
-			if (!this._configured)
+			if (!_configured)
 			{
-				this.configure(typeof(TTypeFromAgent).Assembly);
+				configure(typeof(TTypeFromAgent).Assembly);
 			}
 		}
 
@@ -46,7 +46,7 @@ namespace Euclid.TestingSupport
 		{
 			while (true)
 			{
-				var registry = this.Container.Resolve<ICommandRegistry>();
+				var registry = Container.Resolve<ICommandRegistry>();
 
 				var record = registry.GetPublicationRecord(DefaultSpecSteps.PubIdOfLastMessage);
 
@@ -63,30 +63,30 @@ namespace Euclid.TestingSupport
 		{
 			XmlConfigurator.Configure();
 
-			this.Container = new WindsorContainer();
+			Container = new WindsorContainer();
 
-			this.setAzureCredentials(this.Container);
+			setAzureCredentials(Container);
 
-			this._fabric = new ConsoleFabric(this.Container);
+			_fabric = new ConsoleFabric(Container);
 
-			var composite = new BasicCompositeApp(this.Container);
+			var composite = new BasicCompositeApp(Container);
 
 			composite.RegisterNh(
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
 			composite.AddAgent(agentAssembly);
 
-			composite.Configure(this.getCompositeSettings());
+			composite.Configure(getCompositeSettings());
 
-			this._fabric.Initialize(this.getFabricSettings());
+			_fabric.Initialize(getFabricSettings());
 
-			this._fabric.InstallComposite(composite);
+			_fabric.InstallComposite(composite);
 
-			this._fabric.Start();
+			_fabric.Start();
 
-			this._configured = true;
+			_configured = true;
 
-			DefaultSpecSteps.SetContainerInScenarioContext(this.Container);
+			DefaultSpecSteps.SetContainerInScenarioContext(Container);
 		}
 
 		private CompositeAppSettings getCompositeSettings()

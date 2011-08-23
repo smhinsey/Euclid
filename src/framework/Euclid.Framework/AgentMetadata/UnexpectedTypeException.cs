@@ -10,8 +10,8 @@ namespace Euclid.Framework.AgentMetadata
 
 		public UnexpectedTypeException(Type expected, Type received)
 		{
-			this._expected = expected;
-			this._received = received;
+			_expected = expected;
+			_received = received;
 		}
 	}
 }

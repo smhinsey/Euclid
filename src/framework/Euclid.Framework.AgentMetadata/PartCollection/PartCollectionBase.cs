@@ -25,20 +25,20 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 
 		protected PartCollectionBase(Assembly agent, string partNamespace)
 		{
-			this._agent = agent;
-			this._partNamespace = partNamespace;
+			_agent = agent;
+			_partNamespace = partNamespace;
 		}
 
 		public string AgentSystemName
 		{
 			get
 			{
-				if (!this._init)
+				if (!_init)
 				{
-					this.Initialize();
+					Initialize();
 				}
 
-				return this._agentSystemName;
+				return _agentSystemName;
 			}
 		}
 
@@ -46,12 +46,12 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 		{
 			get
 			{
-				if (!this._init)
+				if (!_init)
 				{
-					this.Initialize();
+					Initialize();
 				}
 
-				return this._collection;
+				return _collection;
 			}
 		}
 
@@ -59,12 +59,12 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 		{
 			get
 			{
-				if (!this._init)
+				if (!_init)
 				{
-					this.Initialize();
+					Initialize();
 				}
 
-				return this._collectionType;
+				return _collectionType;
 			}
 		}
 
@@ -74,12 +74,12 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 		{
 			get
 			{
-				if (!this._init)
+				if (!_init)
 				{
-					this.Initialize();
+					Initialize();
 				}
 
-				return this._ns;
+				return _ns;
 			}
 		}
 
@@ -90,15 +90,15 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 
 		protected void Initialize()
 		{
-			this._collection =
-				this._agent.GetTypes().Where(type => type.Namespace == this._partNamespace && typeof(T).IsAssignableFrom(type)).
-					Select(type => new TypeMetadata(type)).Cast<ITypeMetadata>().ToList();
+			_collection =
+				_agent.GetTypes().Where(type => type.Namespace == _partNamespace && typeof(T).IsAssignableFrom(type)).Select(
+					type => new TypeMetadata(type)).Cast<ITypeMetadata>().ToList();
 
-			this._collectionType = typeof(T);
-			this._agentSystemName = this._agent.GetAgentSystemName();
-			this._ns = this._partNamespace;
+			_collectionType = typeof(T);
+			_agentSystemName = _agent.GetAgentSystemName();
+			_ns = _partNamespace;
 
-			this._init = true;
+			_init = true;
 		}
 	}
 }

@@ -13,22 +13,22 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public QueryFormatter(ITypeMetadata partMetadata)
 		{
-			this._partMetadata = partMetadata;
-			this._agentMetadata = partMetadata.Type.Assembly.GetAgentMetadata();
+			_partMetadata = partMetadata;
+			_agentMetadata = partMetadata.Type.Assembly.GetAgentMetadata();
 		}
 
 		protected override string GetAsXml()
 		{
 			var root = new XElement(
 				"Query", 
-				new XElement("AgentSystemName", this._agentMetadata.SystemName), 
-				new XElement("Namespace", this._partMetadata.Namespace), 
-				new XElement("Name", this._partMetadata.Name));
+				new XElement("AgentSystemName", _agentMetadata.SystemName), 
+				new XElement("Namespace", _partMetadata.Namespace), 
+				new XElement("Name", _partMetadata.Name));
 
 			var methods = new XElement("Methods");
 			root.Add(methods);
 
-			foreach (var method in this._partMetadata.Methods)
+			foreach (var method in _partMetadata.Methods)
 			{
 				var m = new XElement(
 					"Method", new XElement("ReturnType", GetFormattedReturnType(method)), new XElement("Name", method.Name));
@@ -53,11 +53,11 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			return
 				new
 					{
-						AgentSystemName = this._agentMetadata.SystemName, 
-						this._partMetadata.Namespace, 
-						this._partMetadata.Name, 
+						AgentSystemName = _agentMetadata.SystemName, 
+						_partMetadata.Namespace, 
+						_partMetadata.Name, 
 						Methods =
-							this._partMetadata.Methods.Select(
+							_partMetadata.Methods.Select(
 								method =>
 								new
 									{

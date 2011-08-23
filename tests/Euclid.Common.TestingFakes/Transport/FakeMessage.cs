@@ -8,7 +8,7 @@ namespace Euclid.Common.TestingFakes.Transport
 	{
 		public FakeMessage()
 		{
-			this.Identifier = Guid.NewGuid();
+			Identifier = Guid.NewGuid();
 		}
 
 		public DateTime Created { get; set; }

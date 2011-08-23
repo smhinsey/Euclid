@@ -12,7 +12,7 @@ namespace ForumAgent.Processors
 
 		public UpdateUserProfileProcessor(ISimpleRepository<UserProfile> repository)
 		{
-			this._repository = repository;
+			_repository = repository;
 		}
 
 		public override void Process(UpdateUserProfile message)
@@ -26,7 +26,7 @@ namespace ForumAgent.Processors
 					Modified = DateTime.Now
 				};
 
-			this._repository.Save(profile);
+			_repository.Save(profile);
 		}
 	}
 }

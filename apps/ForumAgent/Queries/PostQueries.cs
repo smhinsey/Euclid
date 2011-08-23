@@ -15,7 +15,7 @@ namespace ForumAgent.Queries
 
 		public Post FindByTitle(string title)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var posts = session.QueryOver<Post>().Where(post => post.Title == title);
 
@@ -24,7 +24,7 @@ namespace ForumAgent.Queries
 
 		public IList<Post> FindPostsByCategory(Guid categoryIdentifier)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			var posts = session.QueryOver<Post>().Where(post => post.CategoryIdentifier == categoryIdentifier);
 

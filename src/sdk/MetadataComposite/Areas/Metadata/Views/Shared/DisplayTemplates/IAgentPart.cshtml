@@ -46,11 +46,11 @@
 
     (var   p i					 	is.Model.Part.Collection)
   {
-    <li id="@this.Model.AgentSystemName-@this.Model.Part.CollectionType.Name.Tothis.Lower()">
-			@this.p.Namespace.@p.Name
-      (<a href="@this.Url.Action(this.Model.NextAction, "Agents", new { agentSystemName = thithis.s.Model.AgentSystemName, partName = p.Name })">html</a> |
-      <a href="@this.Url.Action(this.Model.NextAction, "Agents", new { agentSystemName = thithis.s.Model.AgentSystemName, partName = p.Name, format = "xml" })">xml</a> |
-      <a href="@this.Url.Action(this.Model.NextAction, "Agents", new { agentSystemName = thithis.s.Model.AgentSystemName, partName = p.Name, format =					"json" })">json</a>)
+    <li id="@Model.AgentSystemName-@Model.Part.CollectionType.Name.Tothis.Lower()">
+			@p.Namespace.@p.Name
+      (<a href="@Url.Action(Model.NextAction, "Agents", new { agentSystemName = thithis.s.Model.AgentSystemName, partName = p.Name })">html</a> |
+      <a href="@Url.Action(Model.NextAction, "Agents", new { agentSystemName = thithis.s.Model.AgentSystemName, partName = p.Name, format = "xml" })">xml</a> |
+      <a href="@Url.Action(Model.NextAction, "Agents", new { agentSystemName = thithis.s.Model.AgentSystemName, partName = p.Name, format =					"json" })">json</a>)
 
     </li>
   }

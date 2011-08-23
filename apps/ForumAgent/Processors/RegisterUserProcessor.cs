@@ -12,7 +12,7 @@ namespace ForumAgent.Processors
 
 		public RegisterUserProcessor(ISimpleRepository<User> repository)
 		{
-			this._repository = repository;
+			_repository = repository;
 		}
 
 		public override void Process(RegisterUser message)
@@ -26,7 +26,7 @@ namespace ForumAgent.Processors
 					Modified = DateTime.Now
 				};
 
-			this._repository.Save(newUser);
+			_repository.Save(newUser);
 		}
 	}
 }

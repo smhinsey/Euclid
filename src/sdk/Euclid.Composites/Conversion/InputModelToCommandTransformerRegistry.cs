@@ -17,14 +17,14 @@ namespace Euclid.Composites.Conversion
 
 		public void Add(string partName, IInputToCommandConverter converter)
 		{
-			if (this._inputModelsAndValues.ContainsKey(partName))
+			if (_inputModelsAndValues.ContainsKey(partName))
 			{
 				throw new PartNameAlreadyRegisteredException(partName);
 			}
 
 			var partMetadata = converter.CommandType.GetMetadata();
 
-			this._inputModelsAndValues.Add(partName, new Tuple<Type, ITypeMetadata>(converter.InputModelType, partMetadata));
+			_inputModelsAndValues.Add(partName, new Tuple<Type, ITypeMetadata>(converter.InputModelType, partMetadata));
 
 			Mapper.CreateMap(converter.InputModelType, partMetadata.Type).ConvertUsing(converter.GetType());
 		}
@@ -32,11 +32,11 @@ namespace Euclid.Composites.Conversion
 		public ICommand GetCommand(IInputModel model)
 		{
 			var partName =
-				this._inputModelsAndValues.Where(row => row.Value.Item1 == model.GetType()).Select(row => row.Key).FirstOrDefault();
+				_inputModelsAndValues.Where(row => row.Value.Item1 == model.GetType()).Select(row => row.Key).FirstOrDefault();
 
-			this.GuardPartNameRegistered(partName);
+			GuardPartNameRegistered(partName);
 
-			var command = Activator.CreateInstance(this._inputModelsAndValues[partName].Item2.Type) as ICommand;
+			var command = Activator.CreateInstance(_inputModelsAndValues[partName].Item2.Type) as ICommand;
 
 			if (command == null)
 			{
@@ -59,21 +59,21 @@ namespace Euclid.Composites.Conversion
 
 		public Type GetCommandType(string partName)
 		{
-			this.GuardPartNameRegistered(partName);
+			GuardPartNameRegistered(partName);
 
-			return this._inputModelsAndValues[partName].Item2.Type;
+			return _inputModelsAndValues[partName].Item2.Type;
 		}
 
 		public IInputModel GetInputModel(string partName)
 		{
-			this.GuardPartNameRegistered(partName);
+			GuardPartNameRegistered(partName);
 
-			return Activator.CreateInstance(this._inputModelsAndValues[partName].Item1) as IInputModel;
+			return Activator.CreateInstance(_inputModelsAndValues[partName].Item1) as IInputModel;
 		}
 
 		private void GuardPartNameRegistered(string partName)
 		{
-			if (!this._inputModelsAndValues.ContainsKey(partName))
+			if (!_inputModelsAndValues.ContainsKey(partName))
 			{
 				throw new InputModelForPartNotRegisteredException(partName);
 			}

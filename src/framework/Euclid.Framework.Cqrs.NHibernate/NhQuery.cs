@@ -18,37 +18,37 @@ namespace Euclid.Framework.Cqrs.NHibernate
 
 		public NhQuery(ISession session)
 		{
-			this.Repository = new NhSimpleRepository<TReadModel>(session);
+			Repository = new NhSimpleRepository<TReadModel>(session);
 		}
 
 		public IList<TReadModel> FindByCreationDate(DateTime specificDate)
 		{
-			return this.Repository.FindByCreationDate(specificDate);
+			return Repository.FindByCreationDate(specificDate);
 		}
 
 		public IList<TReadModel> FindByCreationDate(DateTime begin, DateTime end)
 		{
-			return this.Repository.FindByCreationDate(begin, end);
+			return Repository.FindByCreationDate(begin, end);
 		}
 
 		public TReadModel FindById(Guid id)
 		{
-			return this.Repository.FindById(id);
+			return Repository.FindById(id);
 		}
 
 		public IList<TReadModel> FindByModificationDate(DateTime specificDate)
 		{
-			return this.Repository.FindByModificationDate(specificDate);
+			return Repository.FindByModificationDate(specificDate);
 		}
 
 		public IList<TReadModel> FindByModificationDate(DateTime begin, DateTime end)
 		{
-			return this.Repository.FindByModificationDate(begin, end);
+			return Repository.FindByModificationDate(begin, end);
 		}
 
 		protected ISession GetCurrentSession()
 		{
-			return this.Repository.GetCurrentSession();
+			return Repository.GetCurrentSession();
 		}
 	}
 }

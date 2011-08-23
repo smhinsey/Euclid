@@ -8,7 +8,7 @@ namespace Euclid.Composites.Conversion
 
 		public CommandAlreadyMappedException(Type commandType)
 		{
-			this._commandType = commandType;
+			_commandType = commandType;
 		}
 	}
 }

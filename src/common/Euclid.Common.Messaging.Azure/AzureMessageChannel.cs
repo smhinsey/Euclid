@@ -21,7 +21,7 @@ namespace Euclid.Common.Messaging.Azure
 
 		public AzureMessageChannel(IMessageSerializer serializer)
 		{
-			this._serializer = serializer;
+			_serializer = serializer;
 		}
 
 		private AzureMessageChannel()
@@ -39,10 +39,10 @@ namespace Euclid.Common.Messaging.Azure
 			{
 				_queue.Delete();
 				_queue = null;
-				this.State = ChannelState.Closed;
+				State = ChannelState.Closed;
 			}
 
-			return this.State;
+			return State;
 		}
 
 		public override ChannelState Open()
@@ -51,18 +51,18 @@ namespace Euclid.Common.Messaging.Azure
 			{
 				if (_queue == null)
 				{
-					CreateQueue(this.ChannelName);
+					CreateQueue(ChannelName);
 				}
 
-				this.State = ChannelState.Open;
+				State = ChannelState.Open;
 			}
 
-			return this.State;
+			return State;
 		}
 
 		public override IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout)
 		{
-			this.TransportIsOpenFor("ReceiveMany");
+			TransportIsOpenFor("ReceiveMany");
 
 			ValidNumberOfMessagesRequested(howMany);
 
@@ -83,7 +83,7 @@ namespace Euclid.Common.Messaging.Azure
 
 				_queue.DeleteMessage(message);
 
-				yield return this._serializer.Deserialize(message.AsBytes);
+				yield return _serializer.Deserialize(message.AsBytes);
 			}
 
 			yield break;
@@ -91,20 +91,20 @@ namespace Euclid.Common.Messaging.Azure
 
 		public override IMessage ReceiveSingle(TimeSpan timeSpan)
 		{
-			this.TransportIsOpenFor("ReceiveSingle");
+			TransportIsOpenFor("ReceiveSingle");
 
 			var msg = _queue.GetMessage();
 
 			_queue.DeleteMessage(msg);
 
-			return this._serializer.Deserialize(msg.AsBytes);
+			return _serializer.Deserialize(msg.AsBytes);
 		}
 
 		public override void Send(IMessage message)
 		{
-			this.TransportIsOpenFor("Send");
+			TransportIsOpenFor("Send");
 
-			var msg = this.MessageIsNotTooBig(message);
+			var msg = MessageIsNotTooBig(message);
 
 			_queue.AddMessage(msg);
 		}
@@ -140,7 +140,7 @@ namespace Euclid.Common.Messaging.Azure
 
 		private CloudQueueMessage MessageIsNotTooBig(IMessage message)
 		{
-			var msgBytes = this._serializer.Serialize(message);
+			var msgBytes = _serializer.Serialize(message);
 
 			var msg = msgBytes.GetString(Encoding.UTF8);
 

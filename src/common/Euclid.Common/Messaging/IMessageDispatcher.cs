@@ -6,19 +6,19 @@
 	public interface IMessageDispatcher
 	{
 		/// <summary>
-		/// 	The dispatcher's currently active settings.
+		/// Gets the dispatcher's currently active settings.
 		/// </summary>
 		IMessageDispatcherSettings CurrentSettings { get; }
 
 		/// <summary>
-		/// 	The dispatcher's current state.
+		/// 	Gets the dispatcher's current state.
 		/// </summary>
 		MessageDispatcherState State { get; }
 
 		/// <summary>
 		/// 	Configures a dispatcher with an input channel, processors, and other relevant settings.
 		/// </summary>
-		/// <param name = "settings"></param>
+		/// <param name = "settings">The settings to configure.</param>
 		void Configure(IMessageDispatcherSettings settings);
 
 		/// <summary>

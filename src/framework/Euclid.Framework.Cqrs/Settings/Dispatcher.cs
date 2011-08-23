@@ -31,9 +31,9 @@ namespace Euclid.Framework.Cqrs.Settings
 
 		private Dispatcher()
 		{
-			this._tsc = new TimeSpanConfiguration<Dispatcher>(this);
-			this._container = new WindsorContainer();
-			this._messageProcessors = new List<Type>();
+			_tsc = new TimeSpanConfiguration<Dispatcher>(this);
+			_container = new WindsorContainer();
+			_messageProcessors = new List<Type>();
 		}
 
 		public static Dispatcher Configure()
@@ -70,66 +70,66 @@ namespace Euclid.Framework.Cqrs.Settings
 
 		public Dispatcher AddCommandProcessor<T>() where T : IMessageProcessor
 		{
-			this._container.Register(Component.For(typeof(T)).ImplementedBy(typeof(T)));
+			_container.Register(Component.For(typeof(T)).ImplementedBy(typeof(T)));
 
-			this._messageProcessors.Add(typeof(T));
+			_messageProcessors.Add(typeof(T));
 
 			return this;
 		}
 
 		public Dispatcher BlobStorageAs<T>() where T : IBlobStorage
 		{
-			this._container.Register(Component.For<IBlobStorage>().ImplementedBy(typeof(T)));
+			_container.Register(Component.For<IBlobStorage>().ImplementedBy(typeof(T)));
 
-			this._hasBlob = true;
+			_hasBlob = true;
 
 			return this;
 		}
 
 		public Dispatcher CommandSerializerAs<T>() where T : IMessageSerializer
 		{
-			this._container.Register(Component.For<IMessageSerializer>().ImplementedBy(typeof(T)));
+			_container.Register(Component.For<IMessageSerializer>().ImplementedBy(typeof(T)));
 
-			this._hasSerializer = true;
+			_hasSerializer = true;
 
 			return this;
 		}
 
 		public Dispatcher InputChannelAs<T>() where T : IMessageChannel
 		{
-			this._container.Register(Component.For<IMessageChannel>().ImplementedBy(typeof(T)).Named("input"));
+			_container.Register(Component.For<IMessageChannel>().ImplementedBy(typeof(T)).Named("input"));
 
-			this._hasInput = true;
+			_hasInput = true;
 
 			return this;
 		}
 
 		public Dispatcher InvalidChannelAs<T>() where T : IMessageChannel
 		{
-			this._container.Register(Component.For<IMessageChannel>().ImplementedBy(typeof(T)).Named("invalid"));
+			_container.Register(Component.For<IMessageChannel>().ImplementedBy(typeof(T)).Named("invalid"));
 
-			this._hasInvalid = true;
+			_hasInvalid = true;
 
 			return this;
 		}
 
 		public TimeSpanConfiguration<Dispatcher> PollingInterval()
 		{
-			return this._tsc;
+			return _tsc;
 		}
 
 		public Dispatcher ProcessMessageInBatchesOf(int batchSize)
 		{
-			this._bs = batchSize;
+			_bs = batchSize;
 
 			return this;
 		}
 
 		public Dispatcher RecordRepositoryAs<T>() where T : IRecordMapper<CommandPublicationRecord>
 		{
-			this._container.Register(Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy(typeof(T)));
+			_container.Register(Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy(typeof(T)));
 
-			this._hasRepo = true;
+			_hasRepo = true;
 
 			return this;
 		}

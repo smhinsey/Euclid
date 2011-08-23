@@ -10,16 +10,16 @@ namespace Euclid.Common.Pipeline
 
 		public void Configure(params IPipelineStep<T>[] steps)
 		{
-			this.GuardAgainstNullSteps(steps);
-			this.GuardAgainstMultiple(steps, PipelinePriority.First);
-			this.GuardAgainstMultiple(steps, PipelinePriority.Last);
+			GuardAgainstNullSteps(steps);
+			GuardAgainstMultiple(steps, PipelinePriority.First);
+			GuardAgainstMultiple(steps, PipelinePriority.Last);
 
-			steps.ToList().ForEach(item => this._steps.Add((int)item.Priority, item));
+			steps.ToList().ForEach(item => _steps.Add((int)item.Priority, item));
 		}
 
 		public T Process(T dataToProcess)
 		{
-			foreach (var step in this._steps)
+			foreach (var step in _steps)
 			{
 				try
 				{

@@ -11,8 +11,8 @@ namespace Euclid.Framework.AgentMetadata
 
 		public PropertyMetadata(PropertyInfo pi)
 		{
-			this.Name = pi.Name;
-			this.PropertyType = pi.PropertyType;
+			Name = pi.Name;
+			PropertyType = pi.PropertyType;
 		}
 
 		public bool IsWritable { get; set; }

@@ -8,7 +8,7 @@ namespace Euclid.Framework.Cqrs.Settings
 
 		private CommandHostService()
 		{
-			this._dispatchers = new List<ICommandDispatcher>();
+			_dispatchers = new List<ICommandDispatcher>();
 		}
 
 		public static CommandHostService Configure()
@@ -18,14 +18,14 @@ namespace Euclid.Framework.Cqrs.Settings
 
 		public CommandHostService AddDispatcher(Dispatcher dispatcher)
 		{
-			this._dispatchers.Add(Dispatcher.GetConfiguredCommandDispatcher(dispatcher));
+			_dispatchers.Add(Dispatcher.GetConfiguredCommandDispatcher(dispatcher));
 
 			return this;
 		}
 
 		public CommandHost GetCommandHost()
 		{
-			return new CommandHost(this._dispatchers);
+			return new CommandHost(_dispatchers);
 		}
 	}
 }

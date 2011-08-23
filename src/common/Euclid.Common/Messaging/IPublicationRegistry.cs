@@ -58,8 +58,8 @@ namespace Euclid.Common.Messaging
 		/// 	there was simply no dispatcher available to handle the message.
 		/// </summary>
 		/// <param name = "identifier">The identifier of the record whose associated message could not be dispatched.</param>
-		/// <param name = "isError"></param>
-		/// <param name = "message"></param>
+		/// <param name = "isError">Indicates whether the message was unable to dispatch due to an error occurring.</param>
+		/// <param name = "message">If an error ocurred, its message.</param>
 		/// <returns>The updated record.</returns>
 		TPublicationRecordContract MarkAsUnableToDispatch(Guid identifier, bool isError = false, string message = null);
 

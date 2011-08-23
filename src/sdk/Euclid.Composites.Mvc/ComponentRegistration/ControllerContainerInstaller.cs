@@ -9,7 +9,7 @@ namespace Euclid.Composites.Mvc.ComponentRegistration
 	{
 		public override void Install(IWindsorContainer container, IConfigurationStore store)
 		{
-			foreach (var t in this.GetTypesThatImplement<IController>())
+			foreach (var t in GetTypesThatImplement<IController>())
 			{
 				container.Register(Component.For(t).ImplementedBy(t).LifeStyle.PerWebRequest);
 			}

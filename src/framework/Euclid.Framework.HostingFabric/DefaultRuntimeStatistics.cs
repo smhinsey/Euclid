@@ -12,11 +12,11 @@ namespace Euclid.Framework.HostingFabric
 			FabricRuntimeState runtimeState, 
 			IFabricRuntimeSettings settings)
 		{
-			this.HostedServiceExceptions = hostedServiceExceptions;
-			this.ConfiguredHostedServices = configuredHostedServices;
-			this.ConfiguredServiceHost = configuredServiceHost;
-			this.RuntimeState = runtimeState;
-			this.Settings = settings;
+			HostedServiceExceptions = hostedServiceExceptions;
+			ConfiguredHostedServices = configuredHostedServices;
+			ConfiguredServiceHost = configuredServiceHost;
+			RuntimeState = runtimeState;
+			Settings = settings;
 		}
 
 		public IList<Type> ConfiguredHostedServices { get; private set; }

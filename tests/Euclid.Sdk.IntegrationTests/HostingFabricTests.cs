@@ -22,7 +22,7 @@ namespace Euclid.Sdk.IntegrationTests
 			var publicationIds = new List<Guid>();
 			const int NumberOfCommands = 100;
 
-			var publisher = this.Container.Resolve<IPublisher>();
+			var publisher = Container.Resolve<IPublisher>();
 
 			for (var i = 0; i < NumberOfCommands; i++)
 			{
@@ -33,7 +33,7 @@ namespace Euclid.Sdk.IntegrationTests
 
 			foreach (var publicationId in publicationIds)
 			{
-				this.WaitUntilComplete(publicationId);
+				WaitUntilComplete(publicationId);
 			}
 		}
 
@@ -42,11 +42,11 @@ namespace Euclid.Sdk.IntegrationTests
 		{
 			const int MessageNumber = 134;
 
-			var publisher = this.Container.Resolve<IPublisher>();
+			var publisher = Container.Resolve<IPublisher>();
 
-			this.WaitUntilComplete(publisher.PublishMessage(new FakeCommand { Number = MessageNumber }));
+			WaitUntilComplete(publisher.PublishMessage(new FakeCommand { Number = MessageNumber }));
 
-			var query = this.Container.Resolve<FakeQuery>();
+			var query = Container.Resolve<FakeQuery>();
 
 			var models = query.FindByNumber(MessageNumber);
 

@@ -24,14 +24,14 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 
 			public BasicAgentMetadataFormatterAggregator(IEnumerable<IAgentMetadata> metadataList)
 			{
-				this._metadataList = metadataList;
+				_metadataList = metadataList;
 			}
 
 			protected override string GetAsXml()
 			{
 				var root = new XElement("Agents");
 
-				foreach (var agent in this._metadataList)
+				foreach (var agent in _metadataList)
 				{
 					root.Add(XElement.Parse(agent.GetBasicMetadataFormatter().GetRepresentation("xml")));
 				}
@@ -41,7 +41,7 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 
 			protected override object GetJsonObject(JsonSerializer serializer)
 			{
-				return this._metadataList.Select(m => new { m.DescriptiveName, m.SystemName });
+				return _metadataList.Select(m => new { m.DescriptiveName, m.SystemName });
 			}
 		}
 
@@ -51,14 +51,14 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 
 			public FullAgentMetadataFormatterAggregator(IEnumerable<IAgentMetadata> metadataList)
 			{
-				this._metadataList = metadataList;
+				_metadataList = metadataList;
 			}
 
 			protected override string GetAsXml()
 			{
 				var root = new XElement("Agents");
 
-				foreach (var agent in this._metadataList)
+				foreach (var agent in _metadataList)
 				{
 					root.Add(XElement.Parse(agent.GetMetadataFormatter().GetRepresentation("xml")));
 				}
@@ -69,7 +69,7 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 			protected override object GetJsonObject(JsonSerializer serializer)
 			{
 				return
-					this._metadataList.Select(
+					_metadataList.Select(
 						m =>
 						new
 							{

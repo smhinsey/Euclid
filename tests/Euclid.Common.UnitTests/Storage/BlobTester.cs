@@ -12,16 +12,16 @@ namespace Euclid.Common.UnitTests.Storage
 
 		public BlobTester(IBlobStorage blobStorage)
 		{
-			this._blobStorage = blobStorage;
+			_blobStorage = blobStorage;
 		}
 
 		public Uri Delete(Uri uri)
 		{
 			Assert.NotNull(uri);
-			Assert.True(this._blobStorage.Exists(uri));
+			Assert.True(_blobStorage.Exists(uri));
 
-			this._blobStorage.Delete(uri);
-			Assert.False(this._blobStorage.Exists(uri));
+			_blobStorage.Delete(uri);
+			Assert.False(_blobStorage.Exists(uri));
 
 			return uri;
 		}
@@ -29,14 +29,14 @@ namespace Euclid.Common.UnitTests.Storage
 		public bool Exists(Uri uri)
 		{
 			Assert.NotNull(uri);
-			return this._blobStorage.Exists(uri);
+			return _blobStorage.Exists(uri);
 		}
 
 		public IBlob Get(Uri uri)
 		{
 			Assert.NotNull(uri);
 
-			var retrieved = this._blobStorage.Get(uri);
+			var retrieved = _blobStorage.Get(uri);
 			return retrieved;
 		}
 
@@ -49,7 +49,7 @@ namespace Euclid.Common.UnitTests.Storage
 							string.Format(
 								"<blob><title>Test Blob</title><created>{0}</created><testing>{1}</testing></blob>", 
 								DateTime.Now, 
-								this._blobStorage.GetType().FullName)), 
+								_blobStorage.GetType().FullName)), 
 					ContentType = "text/xml", 
 				};
 		}
@@ -59,7 +59,7 @@ namespace Euclid.Common.UnitTests.Storage
 			Assert.NotNull(blob);
 			Assert.NotNull(blob.Bytes);
 
-			var uri = this._blobStorage.Put(blob, "test");
+			var uri = _blobStorage.Put(blob, "test");
 
 			Assert.NotNull(uri);
 

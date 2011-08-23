@@ -7,12 +7,12 @@ namespace ForumComposite.Controllers
 		// GET: /Home/
 		public ActionResult List()
 		{
-			return this.View();
+			return View();
 		}
 
 		public ActionResult Thread()
 		{
-			return this.View();
+			return View();
 		}
 	}
 }

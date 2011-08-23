@@ -2,21 +2,21 @@
 @using MetadataComposite.Areas.Metadata.Models
 @model IInputModel
 
-<h1>@this.ViewBag.Title</h1>
+<h1>@ViewBag.Title</h1>
 
-@using (this.Html.BeginForm())
+@using (Html.BeginForm())
 {
-	@this.Html.ValidationSummary(true)
+	@Html.ValidationSummary(true)
 
 	<fieldset>
-		@this.Html.EditorFor(p => this.Model)
+		@Html.EditorFor(p => Model)
 	</fieldset>
 
 	<input type="submit" value="Publish Command" />
 }
 
 @{
-	var footer = (FooterLinkModel)this.ViewBag.Navigation;
-	this.Html.RenderPartial("MetadataLinks", footer);
+	var footer = (FooterLinkModel)ViewBag.Navigation;
+	Html.RenderPartial("MetadataLinks", footer);
 
 }

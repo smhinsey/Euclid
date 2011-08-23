@@ -32,12 +32,6 @@ namespace Euclid.Common.UnitTests.Storage
 		}
 
 		[Test]
-		public void TestRetrieve()
-		{
-			_tester.TestRetrieve();
-		}
-
-		[Test]
 		public void TestList()
 		{
 			_tester.TestList();
@@ -47,6 +41,12 @@ namespace Euclid.Common.UnitTests.Storage
 		public void TestListPagination()
 		{
 			_tester.TestList();
+		}
+
+		[Test]
+		public void TestRetrieve()
+		{
+			_tester.TestRetrieve();
 		}
 
 		[Test]

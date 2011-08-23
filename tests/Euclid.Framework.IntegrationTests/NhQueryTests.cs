@@ -21,9 +21,9 @@ namespace Euclid.Framework.IntegrationTests
 		[Test]
 		public void FindByCreated()
 		{
-			this.createFakeData();
+			createFakeData();
 
-			var query = new NhQuery<FakeReadModel>(this.SessionFactory.OpenSession());
+			var query = new NhQuery<FakeReadModel>(SessionFactory.OpenSession());
 
 			var result = query.FindByCreationDate(DateTime.Today);
 
@@ -35,9 +35,9 @@ namespace Euclid.Framework.IntegrationTests
 		[Test]
 		public void FindById()
 		{
-			var id = this.createFakeData();
+			var id = createFakeData();
 
-			var query = new NhQuery<FakeReadModel>(this.SessionFactory.OpenSession());
+			var query = new NhQuery<FakeReadModel>(SessionFactory.OpenSession());
 
 			var result = query.FindById(id);
 
@@ -48,9 +48,9 @@ namespace Euclid.Framework.IntegrationTests
 		[Test]
 		public void FindByModified()
 		{
-			this.createFakeData();
+			createFakeData();
 
-			var query = new NhQuery<FakeReadModel>(this.SessionFactory.OpenSession());
+			var query = new NhQuery<FakeReadModel>(SessionFactory.OpenSession());
 
 			var result = query.FindByModificationDate(DateTime.Today);
 
@@ -63,7 +63,7 @@ namespace Euclid.Framework.IntegrationTests
 		{
 			var model = new FakeReadModel { Created = DateTime.Today, Modified = DateTime.Today, Message = ModelMessage };
 
-			using (var session = this.SessionFactory.OpenSession())
+			using (var session = SessionFactory.OpenSession())
 			{
 				session.Save(model);
 

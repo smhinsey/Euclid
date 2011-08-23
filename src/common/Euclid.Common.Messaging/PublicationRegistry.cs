@@ -16,26 +16,26 @@ namespace Euclid.Common.Messaging
 
 		public PublicationRegistry(IRecordMapper<TRecord> mapper, IBlobStorage blobStorage, IMessageSerializer serializer)
 		{
-			this.Mapper = mapper;
-			this.BlobStorage = blobStorage;
-			this.Serializer = serializer;
+			Mapper = mapper;
+			BlobStorage = blobStorage;
+			Serializer = serializer;
 		}
 
 		public virtual IMessage GetMessage(Uri messageLocation, Type recordType)
 		{
-			var messageBlob = this.BlobStorage.Get(messageLocation);
+			var messageBlob = BlobStorage.Get(messageLocation);
 
-			return Convert.ChangeType(this.Serializer.Deserialize(messageBlob.Bytes), recordType) as IMessage;
+			return Convert.ChangeType(Serializer.Deserialize(messageBlob.Bytes), recordType) as IMessage;
 		}
 
 		public TRecordContract GetPublicationRecord(Guid identifier)
 		{
-			return this.Mapper.Retrieve(identifier);
+			return Mapper.Retrieve(identifier);
 		}
 
 		public virtual TRecordContract MarkAsComplete(Guid identifier)
 		{
-			return this.updateRecord(
+			return updateRecord(
 				identifier, 
 				r =>
 					{
@@ -47,7 +47,7 @@ namespace Euclid.Common.Messaging
 
 		public virtual TRecordContract MarkAsFailed(Guid identifier, string message, string callStack)
 		{
-			return this.updateRecord(
+			return updateRecord(
 				identifier, 
 				r =>
 					{
@@ -61,7 +61,7 @@ namespace Euclid.Common.Messaging
 
 		public virtual TRecordContract MarkAsUnableToDispatch(Guid identifier, bool isError = false, string message = null)
 		{
-			return this.updateRecord(
+			return updateRecord(
 				identifier, 
 				r =>
 					{
@@ -74,25 +74,25 @@ namespace Euclid.Common.Messaging
 
 		public virtual TRecordContract PublishMessage(IMessage message)
 		{
-			var msgBlob = new Blob { Bytes = this.Serializer.Serialize(message), ContentType = "application/octet-stream" };
+			var msgBlob = new Blob { Bytes = Serializer.Serialize(message), ContentType = "application/octet-stream" };
 
-			var uri = this.BlobStorage.Put(msgBlob, message.GetType().FullName);
+			var uri = BlobStorage.Put(msgBlob, message.GetType().FullName);
 
 			var record = new TRecord
 				{
        Identifier = Guid.NewGuid(), Created = DateTime.Now, MessageLocation = uri, MessageType = message.GetType() 
     };
 
-			return this.Mapper.Create(record);
+			return Mapper.Create(record);
 		}
 
 		private TRecordContract updateRecord(Guid id, Action<TRecordContract> actOnRecord)
 		{
-			var record = this.GetPublicationRecord(id);
+			var record = GetPublicationRecord(id);
 
 			actOnRecord(record);
 
-			return this.Mapper.Update((TRecord)record);
+			return Mapper.Update((TRecord)record);
 		}
 	}
 }

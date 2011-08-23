@@ -6,8 +6,8 @@ namespace Euclid.Common.Configuration
 	{
 		public OverridableSettingList()
 		{
-			this.DefaultValue = new List<TSettingType>();
-			this.Value = new List<TSettingType>();
+			DefaultValue = new List<TSettingType>();
+			Value = new List<TSettingType>();
 		}
 
 		public IList<TSettingType> DefaultValue { get; private set; }
@@ -18,19 +18,19 @@ namespace Euclid.Common.Configuration
 
 		public void Add(TSettingType newListItem)
 		{
-			this.Value.Add(newListItem);
+			Value.Add(newListItem);
 		}
 
 		public void ApplyOverride(IList<TSettingType> newValue)
 		{
-			this.Value = newValue;
-			this.WasOverridden = true;
+			Value = newValue;
+			WasOverridden = true;
 		}
 
 		public void WithDefault(IList<TSettingType> value)
 		{
-			this.DefaultValue = value;
-			this.Value = value;
+			DefaultValue = value;
+			Value = value;
 		}
 	}
 }

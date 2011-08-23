@@ -7,11 +7,11 @@ namespace Euclid.Common.TestingFakes.Configuration
 	{
 		public FakeSettings()
 		{
-			this.AnotherFakeConfigSetting = new OverridableSetting<bool>();
-			this.FakeConfigSetting = new OverridableSetting<string>();
-			this.ListOfAssemblies = new OverridableSettingList<Assembly>();
-			this.NumericConfigSetting = new OverridableSetting<int>();
-			this.EnumConfigSetting = new OverridableSetting<FakeSettingModes>();
+			AnotherFakeConfigSetting = new OverridableSetting<bool>();
+			FakeConfigSetting = new OverridableSetting<string>();
+			ListOfAssemblies = new OverridableSettingList<Assembly>();
+			NumericConfigSetting = new OverridableSetting<int>();
+			EnumConfigSetting = new OverridableSetting<FakeSettingModes>();
 		}
 
 		public OverridableSetting<bool> AnotherFakeConfigSetting { get; set; }

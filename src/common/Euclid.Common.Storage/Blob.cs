@@ -12,35 +12,35 @@ namespace Euclid.Common.Storage
 
 		public Blob()
 		{
-			this.Metdata = new List<KeyValuePair<string, string>>();
+			Metdata = new List<KeyValuePair<string, string>>();
 		}
 
 		public Blob(string md5, string eTag)
 			: this()
 		{
-			this._md5 = md5;
-			this.ETag = eTag;
+			_md5 = md5;
+			ETag = eTag;
 		}
 
 		public Blob(IBlob blob)
 			: this(blob.MD5, Guid.NewGuid().ToString())
 		{
-			this.Metdata = new List<KeyValuePair<string, string>>(blob.Metdata);
-			this.Bytes = blob.Bytes;
-			this.ContentType = blob.ContentType;
+			Metdata = new List<KeyValuePair<string, string>>(blob.Metdata);
+			Bytes = blob.Bytes;
+			ContentType = blob.ContentType;
 		}
 
 		public byte[] Bytes
 		{
 			get
 			{
-				return this._bytes;
+				return _bytes;
 			}
 
 			set
 			{
-				this._bytes = value;
-				this._md5 = this._bytes.GetMd5Hash();
+				_bytes = value;
+				_md5 = _bytes.GetMd5Hash();
 			}
 		}
 
@@ -52,12 +52,12 @@ namespace Euclid.Common.Storage
 		{
 			get
 			{
-				return this._md5;
+				return _md5;
 			}
 
 			set
 			{
-				this._md5 = value;
+				_md5 = value;
 			}
 		}
 

@@ -15,9 +15,9 @@ namespace Euclid.Composites.Mvc.Results
 	{
 		public JsonNetResult()
 		{
-			this.SerializerSettings = new JsonSerializerSettings();
+			SerializerSettings = new JsonSerializerSettings();
 
-			this.SerializerSettings.Converters.Add(new IsoDateTimeConverter());
+			SerializerSettings.Converters.Add(new IsoDateTimeConverter());
 		}
 
 		public Encoding ContentEncoding { get; set; }
@@ -41,17 +41,17 @@ namespace Euclid.Composites.Mvc.Results
 
 			response.ContentType = MimeTypes.GetByExtension("json");
 
-			if (this.ContentEncoding != null)
+			if (ContentEncoding != null)
 			{
-				response.ContentEncoding = this.ContentEncoding;
+				response.ContentEncoding = ContentEncoding;
 			}
 
-			if (this.Data != null)
+			if (Data != null)
 			{
-				var writer = new JsonTextWriter(response.Output) { Formatting = this.Formatting };
+				var writer = new JsonTextWriter(response.Output) { Formatting = Formatting };
 
-				var serializer = JsonSerializer.Create(this.SerializerSettings);
-				serializer.Serialize(writer, this.Data);
+				var serializer = JsonSerializer.Create(SerializerSettings);
+				serializer.Serialize(writer, Data);
 
 				writer.Flush();
 			}

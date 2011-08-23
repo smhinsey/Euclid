@@ -13,10 +13,10 @@ namespace Euclid.Framework.AgentMetadata
 
 		public MethodMetadata(MethodInfo mi)
 		{
-			this.Name = mi.Name;
-			this.ContainingType = mi.DeclaringType;
-			this.ReturnType = mi.ReturnType;
-			this.Arguments =
+			Name = mi.Name;
+			ContainingType = mi.DeclaringType;
+			ReturnType = mi.ReturnType;
+			Arguments =
 				mi.GetParameters().Select(
 					param =>
 					new ArgumentMetadata

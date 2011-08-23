@@ -1,6 +1,6 @@
 @model IAgentMetadata
 
-<h1>@this.ViewBag.Title</h1>
+<h1>@ViewBag.Title</h1>
 
 <div class="property-set">
         
@@ -10,8 +10,8 @@
         *@
 	<div class="property-label">Command Namespace</div>
 	<div class="property-value">
-		<a href="@this.Url.Action("ListParts", "Agents", new { agentSystemName = this.Model.SystemName, partType = "Commands" })">
-			@this.Model.Commands.Namespace
+		<a href="@Url.Action("ListParts", "Agents", new { agentSystemName = Model.SystemName, partType = "Commands" })">
+			@Model.Commands.Namespace
 		</a>
 	</div>
 </div>
@@ -22,10 +22,10 @@
         *@
 	<div class="property-label">Query Namespace</div>
 	<div class="property-value">
-		<a href="@this.Url.Action("ListParts", "Agents", new { agentSystemName = this.Model.SystemName, partType = "Queries" })">
-			@this.Model.Queries.Namespace
+		<a href="@Url.Action("ListParts", "Agents", new { agentSystemName = Model.SystemName, partType = "Queries" })">
+			@Model.Queries.Namespace
 		</a>
 	</div>
 </div>
 
-<a href="@this.Url.Action("Index")">Agents in Composite</a>
+<a href="@Url.Action("Index")">Agents in Composite</a>

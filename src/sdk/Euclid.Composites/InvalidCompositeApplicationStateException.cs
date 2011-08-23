@@ -13,8 +13,8 @@ namespace Euclid.Composites
 			: base(string.Format("The composite application state was {0} but {1} was expected", applicationState, expectedState)
 				)
 		{
-			this._applicationState = applicationState;
-			this._expectedState = expectedState;
+			_applicationState = applicationState;
+			_expectedState = expectedState;
 		}
 	}
 }

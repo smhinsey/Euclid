@@ -8,7 +8,7 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 
 		public InvalidAgentPartImplementationException(Type agentPartImplementationType)
 		{
-			this._type = agentPartImplementationType;
+			_type = agentPartImplementationType;
 		}
 	}
 }

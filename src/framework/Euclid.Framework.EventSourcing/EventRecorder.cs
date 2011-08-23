@@ -15,13 +15,13 @@ namespace Euclid.Framework.EventSourcing
 
 		public EventRecorder(IStoreEvents eventStore, Guid streamId)
 		{
-			this._eventStore = eventStore;
-			this._streamId = streamId;
+			_eventStore = eventStore;
+			_streamId = streamId;
 		}
 
 		public override void Process(IEvent message)
 		{
-			using (var stream = this._eventStore.CreateStream(this._streamId))
+			using (var stream = _eventStore.CreateStream(_streamId))
 			{
 				stream.Add(new EventMessage { Body = message });
 			}

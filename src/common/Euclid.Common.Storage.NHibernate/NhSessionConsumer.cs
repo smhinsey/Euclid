@@ -10,21 +10,21 @@ namespace Euclid.Common.Storage.NHibernate
 
 		protected NhSessionConsumer(ISession session)
 		{
-			this._session = session;
+			_session = session;
 		}
 
 		public ISession GetCurrentSession()
 		{
-			if (this._session.IsOpen)
+			if (_session.IsOpen)
 			{
-				return this._session;
+				return _session;
 			}
 
 			this.WriteErrorMessage(
 				"The current session is closed or unavailable. Session.IsOpen={0} Session.IsConnected={1}", 
 				null, 
-				this._session.IsOpen, 
-				this._session.IsConnected);
+				_session.IsOpen, 
+				_session.IsConnected);
 
 			throw new ModelRepositoryException("The current session is closed");
 		}

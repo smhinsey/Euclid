@@ -21,35 +21,35 @@ namespace MetadataComposite.Areas.Metadata.Controllers
 		public AgentsController(
 			ICompositeApp composite, IPublisher commandPublisher, IInputModelTransfomerRegistry transformer)
 		{
-			this._composite = composite;
-			this._commandPublisher = commandPublisher;
-			this._transformer = transformer;
+			_composite = composite;
+			_commandPublisher = commandPublisher;
+			_transformer = transformer;
 		}
 
 		[FormatListOfBasicAgentMetadata]
 		public ViewResult Index(string format)
 		{
-			this.ViewBag.Title = "Agents in composite";
+			ViewBag.Title = "Agents in composite";
 
-			return this.View(new AgentListModel(this._composite.Agents));
+			return View(new AgentListModel(_composite.Agents));
 		}
 
 		[HttpPost]
 		public ContentResult Inspect(IInputModel inputModel)
 		{
-			var command = this._transformer.GetCommand(inputModel);
+			var command = _transformer.GetCommand(inputModel);
 
 			// smh: it's pretty surprising that Inspect calls Publish. i think this should be really explicit.
-			return this.Publish(command);
+			return Publish(command);
 		}
 
 		[FormatAgentMetadata]
 		public ViewResult ViewAgent(IAgentMetadata agentMetadata, string format)
 		{
-			this.ViewBag.Title = agentMetadata.SystemName;
+			ViewBag.Title = agentMetadata.SystemName;
 
 			return
-				this.View(
+				View(
 					new AgentModel
 						{
 							DescriptiveName = agentMetadata.DescriptiveName, 
@@ -82,13 +82,13 @@ namespace MetadataComposite.Areas.Metadata.Controllers
 
 			if (inputModel == null)
 			{
-				return this.RedirectToAction(
+				return RedirectToAction(
 					"ViewPart", new { partCollection.AgentSystemName, PartName = typeMetadata.Name, Format = format });
 			}
 
-			this.ViewBag.Title = typeMetadata.Type.Name;
+			ViewBag.Title = typeMetadata.Type.Name;
 
-			this.ViewBag.Navigation = new FooterLinkModel
+			ViewBag.Navigation = new FooterLinkModel
 				{
 					AgentSytemName = partCollection.AgentSystemName, 
 					PartDescriptiveName = partCollection.DescriptiveName, 
@@ -103,10 +103,10 @@ namespace MetadataComposite.Areas.Metadata.Controllers
 		[FormatPartMetadataAttribute]
 		public ActionResult ViewPart(ITypeMetadata typeMetadata, IPartCollection containingCollection, string format)
 		{
-			this.ViewBag.Title = typeMetadata.Name;
+			ViewBag.Title = typeMetadata.Name;
 
 			return
-				this.View(
+				View(
 					new PartModel
 						{
 							TypeMetadata = typeMetadata, 
@@ -120,10 +120,10 @@ namespace MetadataComposite.Areas.Metadata.Controllers
 		[FormatPartCollectionMetadata]
 		public ViewResult ViewPartCollection(IPartCollection partCollection, string format)
 		{
-			this.ViewBag.Title = string.Format("Agent {0}", partCollection.DescriptiveName);
+			ViewBag.Title = string.Format("Agent {0}", partCollection.DescriptiveName);
 
 			return
-				this.View(
+				View(
 					new PartCollectionModel
 						{
 							Parts = partCollection, 
@@ -140,7 +140,7 @@ namespace MetadataComposite.Areas.Metadata.Controllers
 				return new ContentResult { Content = "No command to publish" };
 			}
 
-			var commandId = this._commandPublisher.PublishMessage(command);
+			var commandId = _commandPublisher.PublishMessage(command);
 
 			return new ContentResult { Content = commandId.ToString() };
 		}

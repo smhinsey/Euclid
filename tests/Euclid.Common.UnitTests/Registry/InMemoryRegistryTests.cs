@@ -23,7 +23,7 @@ namespace Euclid.Common.UnitTests.Registry
 			var storage = new InMemoryBlobStorage();
 			var serializer = new JsonMessageSerializer();
 			var repository = new InMemoryRecordMapper<FakePublicationRecord>();
-			this._registryTester =
+			_registryTester =
 				new RegistryTester<PublicationRegistry<FakePublicationRecord, FakePublicationRecord>>(
 					new PublicationRegistry<FakePublicationRecord, FakePublicationRecord>(repository, storage, serializer));
 		}
@@ -31,7 +31,7 @@ namespace Euclid.Common.UnitTests.Registry
 		[Test]
 		public void TestCreateRecord()
 		{
-			this._registryTester.CreateRecord(new FakeMessage());
+			_registryTester.CreateRecord(new FakeMessage());
 		}
 
 		[Test]
@@ -39,9 +39,9 @@ namespace Euclid.Common.UnitTests.Registry
 		{
 			var start = DateTime.Now;
 			var createdById = new Guid("CBE5D20E-9B5A-46DF-B2FF-93B5F45A3460");
-			var record = this._registryTester.CreateRecord(new FakeMessage { Created = start, CreatedBy = createdById });
+			var record = _registryTester.CreateRecord(new FakeMessage { Created = start, CreatedBy = createdById });
 
-			var message = this._registryTester.GetMessage(record);
+			var message = _registryTester.GetMessage(record);
 
 			Assert.AreEqual(start.ToString(), message.Created.ToString());
 
@@ -51,31 +51,31 @@ namespace Euclid.Common.UnitTests.Registry
 		[Test]
 		public void TestMarkAsCompleted()
 		{
-			this._registryTester.MarkAsCompleted();
+			_registryTester.MarkAsCompleted();
 		}
 
 		[Test]
 		public void TestMarkAsFailed()
 		{
-			this._registryTester.MarkAsFailed();
+			_registryTester.MarkAsFailed();
 		}
 
 		[Test]
 		public void TestThroughputAsynchronously()
 		{
-			this._registryTester.TestThroughputAsynchronously(LargeNumber, NumberThreads);
+			_registryTester.TestThroughputAsynchronously(LargeNumber, NumberThreads);
 		}
 
 		[Test]
 		public void TestThroughputSynchronously()
 		{
-			this._registryTester.TestThroughputSynchronously(LargeNumber);
+			_registryTester.TestThroughputSynchronously(LargeNumber);
 		}
 
 		[Test]
 		public void TestUnableToDispatch()
 		{
-			this._registryTester.MarkAsUnableToDispatch();
+			_registryTester.MarkAsUnableToDispatch();
 		}
 	}
 }

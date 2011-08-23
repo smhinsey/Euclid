@@ -15,8 +15,8 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public InputModelBinder(IAgentResolver[] resolvers, IInputModelTransfomerRegistry transfomers)
 		{
-			this._resolvers = resolvers;
-			this._transformers = transfomers;
+			_resolvers = resolvers;
+			_transformers = transfomers;
 		}
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
@@ -26,7 +26,7 @@ namespace Euclid.Composites.Mvc.Binders
 			IInputModel inputModel;
 			try
 			{
-				inputModel = this._transformers.GetInputModel(commandName);
+				inputModel = _transformers.GetInputModel(commandName);
 			}
 			catch (InputModelForPartNotRegisteredException e)
 			{
@@ -40,7 +40,7 @@ namespace Euclid.Composites.Mvc.Binders
 				try
 				{
 					var value = (property.Name == "CommandType")
-					            	? this._transformers.GetCommandType(commandName)
+					            	? _transformers.GetCommandType(commandName)
 					            	: (propValue == null) ? null : propValue.ConvertTo(property.PropertyType);
 
 					if (property.CanWrite)

@@ -8,8 +8,8 @@ namespace Euclid.Common.Messaging
 		// SELF why does ChannelName need to be a new guid in order for AzureMessageChannel to work?
 		protected MessageChannelBase()
 		{
-			this.State = ChannelState.Invalid;
-			this.ChannelName = Guid.NewGuid().ToString();
+			State = ChannelState.Invalid;
+			ChannelName = Guid.NewGuid().ToString();
 		}
 
 		public string ChannelName { get; set; }
@@ -30,7 +30,7 @@ namespace Euclid.Common.Messaging
 
 		protected void TransportIsOpenFor(string operationName)
 		{
-			if (this.State != ChannelState.Open)
+			if (State != ChannelState.Open)
 			{
 				throw new InvalidOperationException(
 					string.Format("Cannot {0} a message when the channel is not open", operationName));

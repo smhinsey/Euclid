@@ -8,10 +8,10 @@ namespace Euclid.Composites.AgentResolution
 	{
 		public override Assembly GetAgent(string systemName)
 		{
-			var agent = this.GetAssembly(systemName, Environment.CurrentDirectory)
+			var agent = GetAssembly(systemName, Environment.CurrentDirectory)
 			            ??
-			            this.GetAssembly(systemName, AppDomain.CurrentDomain.RelativeSearchPath)
-			            ?? this.GetAssembly(systemName, AppDomain.CurrentDomain.DynamicDirectory);
+			            GetAssembly(systemName, AppDomain.CurrentDomain.RelativeSearchPath)
+			            ?? GetAssembly(systemName, AppDomain.CurrentDomain.DynamicDirectory);
 
 			return agent;
 		}
@@ -22,7 +22,7 @@ namespace Euclid.Composites.AgentResolution
 			{
 				var assembly = Assembly.LoadFrom(filePath);
 
-				if (this.IsAgent(assembly, systemName))
+				if (IsAgent(assembly, systemName))
 				{
 					return assembly;
 				}

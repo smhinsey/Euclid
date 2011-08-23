@@ -14,7 +14,7 @@ namespace Euclid.Sdk.FakeAgent.Queries
 
 		public IList<FakeReadModel> FindByNumber(int number)
 		{
-			var session = this.GetCurrentSession();
+			var session = GetCurrentSession();
 
 			return session.QueryOver<FakeReadModel>().Where(model => model.Number == number).List();
 		}
