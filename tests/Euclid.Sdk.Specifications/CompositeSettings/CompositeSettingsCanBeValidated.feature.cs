@@ -10,7 +10,7 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-namespace Euclid.Sdk.Metadata.CompositeSettings
+namespace Euclid.Sdk.Specifications.CompositeSettings
 {
     using TechTalk.SpecFlow;
     

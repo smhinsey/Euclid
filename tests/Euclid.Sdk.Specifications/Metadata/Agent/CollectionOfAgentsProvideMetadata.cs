@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Euclid.Framework.AgentMetadata;
 using Euclid.Framework.AgentMetadata.Extensions;
-using Euclid.Sdk.FakeAgent.Commands;
+using Euclid.Sdk.TestAgent.Commands;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata.Metadata.Agent
+namespace Euclid.Sdk.Specifications.Metadata.Agent
 {
 	[Binding]
 	public class CollectionOfAgentsProvideMetadata : PropertiesUsedInTests
@@ -16,7 +16,7 @@ namespace Euclid.Sdk.Metadata.Metadata.Agent
 		{
 			_agents = new List<IAgentMetadata>
 			          	{
-			          		typeof (FakeCommand).Assembly.GetAgentMetadata()
+			          		typeof (TestCommand).Assembly.GetAgentMetadata()
 			          	};
 		}
 

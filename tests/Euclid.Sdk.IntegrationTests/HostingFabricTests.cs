@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Euclid.Common.Messaging;
-using Euclid.Sdk.FakeAgent.Commands;
-using Euclid.Sdk.FakeAgent.Queries;
+using Euclid.Sdk.TestAgent.Commands;
+using Euclid.Sdk.TestAgent.Queries;
 using Euclid.TestingSupport;
 using NUnit.Framework;
 
@@ -12,7 +12,7 @@ namespace Euclid.Sdk.IntegrationTests
 	public class HostingFabricTests : HostingFabricFixture
 	{
 		public HostingFabricTests()
-			: base(typeof (FakeCommand).Assembly)
+			: base(typeof (TestCommand).Assembly)
 		{
 		}
 
@@ -26,7 +26,7 @@ namespace Euclid.Sdk.IntegrationTests
 
 			for (var i = 0; i < numberOfCommands; i++)
 			{
-				var publicationId = publisher.PublishMessage(new FakeCommand {Number = i});
+                var publicationId = publisher.PublishMessage(new TestCommand { Number = i });
 
 				publicationIds.Add(publicationId);
 			}
@@ -45,9 +45,9 @@ namespace Euclid.Sdk.IntegrationTests
 			var publisher = Container.Resolve<IPublisher>();
 
 			WaitUntilComplete(
-			                  publisher.PublishMessage(new FakeCommand {Number = messageNumber}));
+                              publisher.PublishMessage(new TestCommand { Number = messageNumber }));
 
-			var query = Container.Resolve<FakeQuery>();
+			var query = Container.Resolve<TestQuery>();
 
 			var models = query.FindByNumber(messageNumber);
 

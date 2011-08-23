@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata.Metadata
+namespace Euclid.Sdk.Specifications.Metadata
 {
 	[Binding]
 	public class CommonWhenThenAndSteps : PropertiesUsedInTests

@@ -1,7 +1,8 @@
 ﻿using Castle.Windsor;
+using Euclid.Common.Messaging;
 using Euclid.Composites;
-using Euclid.Sdk.FakeAgent.Commands;
-using Euclid.Sdk.FakeAgent.Queries;
+using Euclid.Sdk.TestAgent.Commands;
+using Euclid.Sdk.TestAgent.Queries;
 using Euclid.TestingSupport;
 using FluentNHibernate.Cfg.Db;
 using NUnit.Framework;
@@ -19,13 +20,17 @@ namespace Euclid.Composite.InputModelMapping
 
 			var composite = new BasicCompositeApp(container);
 
-			composite.AddAgent(typeof (FakeCommand).Assembly);
+			composite.AddAgent(typeof (TestCommand).Assembly);
 
 			composite.RegisterNh(SQLiteConfiguration.Standard.UsingFile("CompositeTestsDb"), true, false);
 
-			composite.Configure(new CompositeAppSettings());
+		    var settings = new CompositeAppSettings();
 
-			var query = container.Resolve<FakeQuery>();
+            settings.OutputChannel.ApplyOverride(typeof(InMemoryMessageChannel));
+
+			composite.Configure(settings);
+
+			var query = container.Resolve<TestQuery>();
 
 			Assert.NotNull(query);
 		}

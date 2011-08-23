@@ -1,9 +1,9 @@
 ﻿using Euclid.Framework.AgentMetadata.Extensions;
-using Euclid.Sdk.FakeAgent.Commands;
+using Euclid.Sdk.TestAgent.Commands;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata.Metadata.Agent
+namespace Euclid.Sdk.Specifications.Metadata.Agent
 {
 	[Binding]
 	public class AgentPartCollectionProvidesMetadata : PropertiesUsedInTests
@@ -11,7 +11,7 @@ namespace Euclid.Sdk.Metadata.Metadata.Agent
 		[Given("a part collection (.*)")]
 		public void ThePartCollection(string descriptiveName)
 		{
-			Agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
+			Agent = typeof (TestCommand).Assembly.GetAgentMetadata();
 
 			var partCollection = Agent.GetPartCollectionByDescriptiveName(descriptiveName);
 

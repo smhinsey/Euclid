@@ -1,8 +1,8 @@
 ﻿using System;
 using Euclid.Framework.Cqrs;
-using Euclid.Sdk.FakeAgent.Commands;
+using Euclid.Sdk.TestAgent.Commands;
 
-namespace Euclid.Sdk.FakeAgent.Processors
+namespace Euclid.Sdk.TestAgent.Processors
 {
 	public class FailingCommandProcessor : DefaultCommandProcessor<FailingCommand>
 	{

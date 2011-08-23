@@ -44,7 +44,11 @@ namespace Euclid.Composites.Formatters
         {
             return new
                        {
-                           Agents = _compositeApp.Agents.GetBasicMetadataFormatter().GetRepresentation("json"),
+                           Agents = _compositeApp.Agents.Select(a => new
+                                                                         {
+                                                                             a.DescriptiveName,
+                                                                             a.SystemName
+                                                                         }),
                            InputModels = _compositeApp.InputModels.Select(im => new
                                                                                     {
                                                                                         im.Name,

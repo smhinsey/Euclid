@@ -1,7 +1,7 @@
 using Euclid.Framework.AgentMetadata;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata.Metadata
+namespace Euclid.Sdk.Specifications.Metadata
 {
 	public class PropertiesUsedInTests
 	{

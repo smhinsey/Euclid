@@ -10,7 +10,7 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-namespace Euclid.Sdk.Metadata.Metadata.Agent
+namespace Euclid.Sdk.Specifications.Metadata.Agent
 {
     using TechTalk.SpecFlow;
     

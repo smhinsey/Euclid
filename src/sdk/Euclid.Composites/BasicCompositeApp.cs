@@ -64,8 +64,6 @@ namespace Euclid.Composites
 
 		public virtual void Configure(CompositeAppSettings compositeAppSettings)
 		{
-		    compositeAppSettings.Validate();
-
             Container.Kernel.Resolver.AddSubResolver(new ArrayResolver(Container.Kernel));
 
 			Container.Kernel.Resolver.AddSubResolver(new ListResolver(Container.Kernel));
@@ -78,6 +76,9 @@ namespace Euclid.Composites
 			                   	.LifeStyle.Singleton);
 
 			Settings = compositeAppSettings;
+
+            Settings.Validate();
+
 			State = CompositeApplicationState.Configured;
 		}
 

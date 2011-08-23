@@ -1,9 +1,9 @@
-﻿Feature: Publish input models as commands
+﻿@SdkSpec @AgentPanel
+Feature: Publish input models as commands
 	In order to avoid silly mistakes
 	As a math idiot
 	I want to be told the sum of two numbers
 
-@mytag
 Scenario: Publish an input model via the AgentPanel
 	Given an agent TestAgent
 	And a configured mvc composite running on http://localhost:666

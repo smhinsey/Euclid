@@ -137,9 +137,9 @@
       <Project>{793DEE69-90CB-45D7-94CC-FD2D7CE59790}</Project>
       <Name>Euclid.Framework.TestingFakes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Euclid.Sdk.FakeAgent\Euclid.Sdk.FakeAgent.csproj">
+    <ProjectReference Include="..\Euclid.Sdk.TestAgent\Euclid.Sdk.TestAgent.csproj">
       <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
-      <Name>Euclid.Sdk.FakeAgent</Name>
+      <Name>Euclid.Sdk.TestAgent</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

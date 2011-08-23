@@ -1,10 +1,10 @@
 ﻿using Euclid.Framework.AgentMetadata.Extensions;
-using Euclid.Sdk.FakeAgent.Commands;
-using Euclid.Sdk.FakeAgent.Queries;
-using Euclid.Sdk.FakeAgent.ReadModels;
+using Euclid.Sdk.TestAgent.Commands;
+using Euclid.Sdk.TestAgent.Queries;
+using Euclid.Sdk.TestAgent.ReadModels;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata.Metadata.Agent
+namespace Euclid.Sdk.Specifications.Metadata.Agent
 {
 	[Binding]
 	public class AgentPartProvidesMetadata : PropertiesUsedInTests
@@ -12,18 +12,18 @@ namespace Euclid.Sdk.Metadata.Metadata.Agent
 		[Given("the part (.*)")]
 		public void ValidAgentMetadata(string partName)
 		{
-			Agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
+			Agent = typeof (TestCommand).Assembly.GetAgentMetadata();
 
 			switch (partName.ToLower())
 			{
 				case "command":
-					Formatter = typeof (FakeCommand).GetMetadata().GetFormatter();
+                    Formatter = typeof(TestCommand).GetMetadata().GetFormatter();
 					break;
 				case "query":
-					Formatter = typeof (FakeQuery).GetMetadata().GetFormatter();
+					Formatter = typeof (TestQuery).GetMetadata().GetFormatter();
 					break;
 				case "readmodel":
-					Formatter = typeof (FakeReadModel).GetMetadata().GetFormatter();
+					Formatter = typeof (TestReadModel).GetMetadata().GetFormatter();
 					break;
 			}
 		}

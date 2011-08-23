@@ -47,6 +47,10 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.SHDocVw">
+      <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\Interop.SHDocVw.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
@@ -86,6 +90,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\..\packages\SpecFlow.1.7.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="WatiN.Core">
+      <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\WatiN.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -163,9 +170,9 @@
       <Project>{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}</Project>
       <Name>Euclid.TestingSupport</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Euclid.Sdk.FakeAgent\Euclid.Sdk.FakeAgent.csproj">
+    <ProjectReference Include="..\Euclid.Sdk.TestAgent\Euclid.Sdk.TestAgent.csproj">
       <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
-      <Name>Euclid.Sdk.FakeAgent</Name>
+      <Name>Euclid.Sdk.TestAgent</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

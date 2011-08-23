@@ -312,10 +312,6 @@
       <Project>{B66BD805-49C3-4DC8-B530-15776A68A48A}</Project>
       <Name>Euclid.Framework.UnitTests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\tests\Euclid.Sdk.FakeAgent\Euclid.Sdk.FakeAgent.csproj">
-      <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
-      <Name>Euclid.Sdk.FakeAgent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\tests\Euclid.Sdk.IntegrationTests\Euclid.Sdk.IntegrationTests.csproj">
       <Project>{02AAAF17-7C44-43EB-9AA8-48E03A7C67AE}</Project>
       <Name>Euclid.Sdk.IntegrationTests</Name>

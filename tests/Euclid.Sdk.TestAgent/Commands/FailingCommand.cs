@@ -1,6 +1,6 @@
 ﻿using Euclid.Framework.Cqrs;
 
-namespace Euclid.Sdk.FakeAgent.Commands
+namespace Euclid.Sdk.TestAgent.Commands
 {
 	public class FailingCommand : DefaultCommand
 	{

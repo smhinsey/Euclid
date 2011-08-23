@@ -1,8 +1,8 @@
 ﻿using Euclid.Framework.AgentMetadata.Extensions;
-using Euclid.Sdk.FakeAgent.Commands;
+using Euclid.Sdk.TestAgent.Commands;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata.Metadata.Agent
+namespace Euclid.Sdk.Specifications.Metadata.Agent
 {
 	[Binding]
 	public class AgentProvidesMetadata : PropertiesUsedInTests
@@ -10,7 +10,7 @@ namespace Euclid.Sdk.Metadata.Metadata.Agent
 		[Given("an agent")]
 		public void AnAgent()
 		{
-			Agent = typeof (FakeCommand).Assembly.GetAgentMetadata();
+			Agent = typeof (TestCommand).Assembly.GetAgentMetadata();
 		}
 
 		[When("the (.*) is requested")]

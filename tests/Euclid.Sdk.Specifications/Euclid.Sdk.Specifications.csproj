@@ -8,8 +8,8 @@
     <ProjectGuid>{AC366DF0-1269-4C2C-9599-B02FCB8402FE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Euclid.Sdk.Metadata</RootNamespace>
-    <AssemblyName>Euclid.Sdk.Metadata</AssemblyName>
+    <RootNamespace>Euclid.Sdk.Specifications</RootNamespace>
+    <AssemblyName>Euclid.Sdk.Specifications</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Net.Http">
       <HintPath>..\..\packages\HttpClient.0.3.0\lib\40\Microsoft.Net.Http.dll</HintPath>
     </Reference>
@@ -55,7 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AgentPanel\ConfiguratAgentSteps.cs" />
+    <Compile Include="AgentPanel\ConfigureAgentSteps.cs" />
     <Compile Include="Metadata\Agent\AgentPartCollectionProvidesMetadata.cs" />
     <Compile Include="Metadata\Agent\AgentPartProvidesMetadata.cs" />
     <Compile Include="CompositeSettings\CompositeAppSettingsCanBeValidated.cs" />
@@ -73,16 +76,15 @@
     <Compile Include="Metadata\Agent\AgentProvidesMetadata.cs" />
     <Compile Include="Metadata\Agent\CollectionOfAgentsProvideMetadata.cs" />
     <Compile Include="Metadata\CommonWhenThenAndSteps.cs" />
+    <Compile Include="Metadata\Composite\CommonCompositeWhenAndThenSteps.cs" />
     <Compile Include="Metadata\Composite\CompositeMetadata.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CompositeMetadata.feature</DependentUpon>
     </Compile>
-    <Compile Include="Metadata\Composite\CompositeReportsConfigurationErrors.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CompositeReportsConfigurationErrors.feature</DependentUpon>
-    </Compile>
+    <Compile Include="Metadata\Composite\CompositeProvidesConfigurationMetadata.cs" />
+    <Compile Include="Metadata\Composite\CompositeProvidesFormattedMetadata.cs" />
+    <Compile Include="Metadata\Composite\CompositeTestProperties.cs" />
     <Compile Include="Metadata\PropertiesUsedInTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AgentPanel\PublishInputModel.feature.cs">
@@ -105,10 +107,6 @@
     <None Include="Metadata\Composite\CompositeMetadata.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CompositeMetadata.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Metadata\Composite\CompositeReportsConfigurationErrors.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CompositeReportsConfigurationErrors.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="AgentPanel\PublishInputModel.feature">
@@ -161,9 +159,13 @@
       <Project>{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}</Project>
       <Name>Euclid.TestingSupport</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Euclid.Sdk.FakeAgent\Euclid.Sdk.FakeAgent.csproj">
+    <ProjectReference Include="..\Euclid.Sdk.TestAgent\Euclid.Sdk.TestAgent.csproj">
       <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
-      <Name>Euclid.Sdk.FakeAgent</Name>
+      <Name>Euclid.Sdk.TestAgent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Sdk.TestComposite\Euclid.Sdk.TestComposite.csproj">
+      <Project>{780B3603-392F-4C71-BBE1-87477248D1A8}</Project>
+      <Name>Euclid.Sdk.TestComposite</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

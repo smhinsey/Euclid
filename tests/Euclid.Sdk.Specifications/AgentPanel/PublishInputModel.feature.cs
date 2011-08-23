@@ -10,7 +10,7 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-namespace Euclid.Sdk.Metadata.AgentPanel
+namespace Euclid.Sdk.Specifications.AgentPanel
 {
     using TechTalk.SpecFlow;
     
@@ -20,6 +20,8 @@ namespace Euclid.Sdk.Metadata.AgentPanel
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
         "wo numbers")]
+    [NUnit.Framework.CategoryAttribute("SdkSpec")]
+    [NUnit.Framework.CategoryAttribute("AgentPanel")]
     public partial class PublishInputModelsAsCommandsFeature
     {
         
@@ -33,7 +35,9 @@ namespace Euclid.Sdk.Metadata.AgentPanel
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Publish input models as commands", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-                    "wo numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "wo numbers", ProgrammingLanguage.CSharp, new string[] {
+                        "SdkSpec",
+                        "AgentPanel"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -67,11 +71,9 @@ namespace Euclid.Sdk.Metadata.AgentPanel
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Publish an input model via the AgentPanel")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
         public virtual void PublishAnInputModelViaTheAgentPanel()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish an input model via the AgentPanel", new string[] {
-                        "mytag"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish an input model via the AgentPanel", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8

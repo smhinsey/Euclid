@@ -1,7 +1,7 @@
 ﻿using Euclid.TestingSupport;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata.AgentPanel
+namespace Euclid.Sdk.Specifications.AgentPanel
 {
     [Binding]
     public class InputModelIsPublishedViaAgentPanel : DefaultSpecSteps
