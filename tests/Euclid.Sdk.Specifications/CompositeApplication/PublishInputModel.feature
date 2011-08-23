@@ -5,12 +5,16 @@ Feature: Publish input models as commands
 	I want to be told the sum of two numbers
 
 Scenario: Publish an input model via the AgentPanel
+	
+	Given the agent SDKTests.FakeAgent
+
 	Given the TestComposite running on http://localhost:4997
+	
 	When I fill out the input model TestInputModel
-	Then the command TestCommand should be marked complete
-    And the query TestQuery returns data
+	And the command is complete
+
+	Then the query TestQuery returns data
 
     # add Composite controller include method to validate composite configuration among other things
     # add InputModel to FakeComposite
     # Watin/HtmlUnit/XBrowser/QUnit tests to test the AgentPanel
-    

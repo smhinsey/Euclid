@@ -83,6 +83,8 @@ namespace Euclid.Common.Messaging
 					continue;
 				}
 
+				this.WriteDebugMessage(string.Format("Adding processor {0} to dispatcher.", processor.GetType().Name));
+
 				(_messageProcessors as List<IMessageProcessor>).Add(processor);
 			}
 

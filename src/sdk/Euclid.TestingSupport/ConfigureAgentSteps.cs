@@ -30,7 +30,7 @@ namespace Euclid.TestingSupport
 
 		private bool _configured;
 
-		private ConsoleFabric _fabric;
+		public ConsoleFabric Fabric { get; set; }
 
 		[Given(@"the agent (.*)")]
 		public void GivenTheAgent(string assemblyName)
@@ -44,7 +44,8 @@ namespace Euclid.TestingSupport
 		[When(@"the command is complete")]
 		public void WhenTheCommandIsComplete()
 		{
-			while (true)
+			var attempts = 0;
+			while (true & attempts < 8)
 			{
 				var registry = Container.Resolve<ICommandRegistry>();
 
@@ -55,6 +56,7 @@ namespace Euclid.TestingSupport
 					break;
 				}
 
+				attempts++;
 				Thread.Sleep(250);
 			}
 		}
@@ -67,7 +69,7 @@ namespace Euclid.TestingSupport
 
 			setAzureCredentials(Container);
 
-			_fabric = new ConsoleFabric(Container);
+			Fabric = new ConsoleFabric(Container);
 
 			var composite = new BasicCompositeApp(Container);
 
@@ -78,13 +80,16 @@ namespace Euclid.TestingSupport
 
 			composite.Configure(getCompositeSettings());
 
-			_fabric.Initialize(getFabricSettings());
+			Fabric.Initialize(getFabricSettings());
 
-			_fabric.InstallComposite(composite);
+			Fabric.InstallComposite(composite);
 
-			_fabric.Start();
+			Fabric.Start();
 
 			_configured = true;
+
+			Container.Register(Component.For<BasicFabric>().Instance(Fabric));
+			Container.Register(Component.For<BasicCompositeApp>().Instance(composite));
 
 			DefaultSpecSteps.SetContainerInScenarioContext(Container);
 		}
