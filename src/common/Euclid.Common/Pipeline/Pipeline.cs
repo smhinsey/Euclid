@@ -4,38 +4,50 @@ using System.Linq;
 
 namespace Euclid.Common.Pipeline
 {
-	public class Pipeline<T>
+	/// <summary>
+	/// 	A pipeline encapsulates the sequential execution of a series of steps.
+	/// </summary>
+	/// <typeparam name = "TState">The of state which is passed between steps during execution.</typeparam>
+	public class Pipeline<TState>
 	{
-		private readonly SortedList<int, IPipelineStep<T>> _steps = new SortedList<int, IPipelineStep<T>>();
+		private readonly SortedList<int, IPipelineStep<TState>> _steps = new SortedList<int, IPipelineStep<TState>>();
 
-		public void Configure(params IPipelineStep<T>[] steps)
+		/// <summary>
+		/// 	Configure installs a series of steps into the pipeline.
+		/// </summary>
+		/// <param name = "steps">The pipeline steps.</param>
+		public void Configure(params IPipelineStep<TState>[] steps)
 		{
-			GuardAgainstNullSteps(steps);
-			GuardAgainstMultiple(steps, PipelinePriority.First);
-			GuardAgainstMultiple(steps, PipelinePriority.Last);
+			guardAgainstNullSteps(steps);
+			guardAgainstMultiple(steps, PipelinePriority.First);
+			guardAgainstMultiple(steps, PipelinePriority.Last);
 
 			steps.ToList().ForEach(item => _steps.Add((int)item.Priority, item));
 		}
 
-		public T Process(T dataToProcess)
+		/// <summary>
+		/// 	Process begins the sequential execution of the steps in the pipeline.
+		/// </summary>
+		/// <param name = "initialState">The initial state of the pipeline steps.</param>
+		/// <returns>The final state after the last pipeline step has executed.</returns>
+		public TState Process(TState initialState)
 		{
 			foreach (var step in _steps)
 			{
 				try
 				{
-					dataToProcess = step.Value.Execute(dataToProcess);
+					initialState = step.Value.Execute(initialState);
 				}
 				catch (Exception ex)
 				{
-					throw new StepExecutionException(dataToProcess, step.GetType(), ex);
+					throw new StepExecutionException(initialState, step.GetType(), ex);
 				}
 			}
 
-			return dataToProcess;
+			return initialState;
 		}
 
-		// REMARK: Guard Clause
-		private void GuardAgainstMultiple(IPipelineStep<T>[] steps, PipelinePriority priority)
+		private void guardAgainstMultiple(IPipelineStep<TState>[] steps, PipelinePriority priority)
 		{
 			var name = Enum.GetName(typeof(PipelinePriority), priority);
 			if (steps.Where(x => x.Priority == priority).Count() > 1)
@@ -44,8 +56,7 @@ namespace Euclid.Common.Pipeline
 			}
 		}
 
-		// REMARK: Guard Clause
-		private void GuardAgainstNullSteps(IPipelineStep<T>[] steps)
+		private void guardAgainstNullSteps(IPipelineStep<TState>[] steps)
 		{
 			if (steps == null || steps.Any(item => item == null))
 			{
