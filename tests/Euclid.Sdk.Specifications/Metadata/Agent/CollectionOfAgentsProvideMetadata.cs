@@ -4,7 +4,7 @@ using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Sdk.FakeAgent.Commands;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata
+namespace Euclid.Sdk.Metadata.Metadata.Agent
 {
 	[Binding]
 	public class CollectionOfAgentsProvideMetadata : PropertiesUsedInTests

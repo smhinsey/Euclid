@@ -10,7 +10,7 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-namespace Euclid.Sdk.Metadata
+namespace Euclid.Sdk.Metadata.Metadata.Composite
 {
     using TechTalk.SpecFlow;
     
@@ -18,22 +18,32 @@ namespace Euclid.Sdk.Metadata
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-        "wo numbers")]
-    public partial class PublishInputModelsAsCommandsFeature
+    [NUnit.Framework.DescriptionAttribute("In order to learn if my composite app is configured correctly\r\nAs a composite app" +
+        "lication developer\r\nI want to be to query a composite for it\'s configuration err" +
+        "ors")]
+    [NUnit.Framework.CategoryAttribute("SdkSpecs")]
+    [NUnit.Framework.CategoryAttribute("MetadataService")]
+    [NUnit.Framework.CategoryAttribute("CompositeMetadata")]
+    [NUnit.Framework.CategoryAttribute("Configuration")]
+    public partial class CompositeReportsConfigurationErrorsFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "PublishInputModel.feature"
+#line 1 "CompositeReportsConfigurationErrors.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Publish input models as commands", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-                    "wo numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Composite reports configuration errors", "In order to learn if my composite app is configured correctly\r\nAs a composite app" +
+                    "lication developer\r\nI want to be to query a composite for it\'s configuration err" +
+                    "ors", ProgrammingLanguage.CSharp, new string[] {
+                        "SdkSpecs",
+                        "MetadataService",
+                        "CompositeMetadata",
+                        "Configuration"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,24 +76,22 @@ namespace Euclid.Sdk.Metadata
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publish an input model via the AgentPanel")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
-        public virtual void PublishAnInputModelViaTheAgentPanel()
+        [NUnit.Framework.DescriptionAttribute("Composite is incorrectly configured")]
+        public virtual void CompositeIsIncorrectlyConfigured()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish an input model via the AgentPanel", new string[] {
-                        "mytag"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Composite is incorrectly configured", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("an agent TestAgent");
+ testRunner.Given("A composite that hasn\'t been configured");
 #line 9
- testRunner.And("a configured mvc composite running on http://localhost:666");
+ testRunner.When("I call HasConfigurationErrors");
 #line 10
- testRunner.When("I fill out the input model TestInputModel");
+ testRunner.Then("The result should be true");
 #line 11
- testRunner.Then("The command TestCommand should be marked complete");
+ testRunner.When("I call GetConfigurationErrors");
 #line 12
-    testRunner.And("The query TestQuery returns data");
+ testRunner.Then("I receive an enumerable list of error descriptions with 1 or more items in it");
 #line hidden
             this.ScenarioCleanup();
         }

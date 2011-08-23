@@ -13,6 +13,7 @@ using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.Storage.Record;
 using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Conversion;
+using Euclid.Composites.Formatters;
 using Euclid.Framework.AgentMetadata;
 using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Cqrs;
@@ -136,9 +137,9 @@ namespace Euclid.Composites
             }
 		}
 
-	    public IMetadataFormatter GetFormatter(CompositeMetadata forMetadata)
+	    public IMetadataFormatter GetFormatter()
 	    {
-	        throw new NotImplementedException();
+	        return new CompositeMetadataFormatter(this);
 	    }
 
 	    public bool HasConfigurationErrors()

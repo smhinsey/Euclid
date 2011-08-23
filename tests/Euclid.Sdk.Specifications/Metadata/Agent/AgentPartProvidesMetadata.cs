@@ -4,7 +4,7 @@ using Euclid.Sdk.FakeAgent.Queries;
 using Euclid.Sdk.FakeAgent.ReadModels;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata
+namespace Euclid.Sdk.Metadata.Metadata.Agent
 {
 	[Binding]
 	public class AgentPartProvidesMetadata : PropertiesUsedInTests

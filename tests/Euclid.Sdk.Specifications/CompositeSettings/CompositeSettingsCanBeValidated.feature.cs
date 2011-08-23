@@ -10,7 +10,7 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-namespace Euclid.Sdk.Metadata
+namespace Euclid.Sdk.Metadata.CompositeSettings
 {
     using TechTalk.SpecFlow;
     
@@ -21,6 +21,9 @@ namespace Euclid.Sdk.Metadata
     [NUnit.Framework.DescriptionAttribute("In order to fail fast and identify configuration errors early\r\nAs a composite dev" +
         "eloper\r\nI want to be able to validate configuration and get a description of any" +
         " errors that occur")]
+    [NUnit.Framework.CategoryAttribute("SdkSpecs")]
+    [NUnit.Framework.CategoryAttribute("Configuration")]
+    [NUnit.Framework.CategoryAttribute("Composite")]
     public partial class CompositeSettingsCanBeValidatedFeature
     {
         
@@ -35,7 +38,10 @@ namespace Euclid.Sdk.Metadata
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Composite settings can be validated", "In order to fail fast and identify configuration errors early\r\nAs a composite dev" +
                     "eloper\r\nI want to be able to validate configuration and get a description of any" +
-                    " errors that occur", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    " errors that occur", ProgrammingLanguage.CSharp, new string[] {
+                        "SdkSpecs",
+                        "Configuration",
+                        "Composite"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,14 +74,10 @@ namespace Euclid.Sdk.Metadata
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Validating default CompostiteAppSetting fails")]
-        [NUnit.Framework.CategoryAttribute("configuration")]
-        [NUnit.Framework.CategoryAttribute("composite")]
-        public virtual void ValidatingDefaultCompostiteAppSettingFails()
+        [NUnit.Framework.DescriptionAttribute("Default CompostiteAppSetting is invalid")]
+        public virtual void DefaultCompostiteAppSettingIsInvalid()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Validating default CompostiteAppSetting fails", new string[] {
-                        "configuration",
-                        "composite"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default CompostiteAppSetting is invalid", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -92,10 +94,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Setting an OutputChannel on the CompositeAppSetting")]
-        public virtual void SettingAnOutputChannelOnTheCompositeAppSetting()
+        [NUnit.Framework.DescriptionAttribute("CompositeAppSetting with an OutputChannel is valid")]
+        public virtual void CompositeAppSettingWithAnOutputChannelIsValid()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Setting an OutputChannel on the CompositeAppSetting", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("CompositeAppSetting with an OutputChannel is valid", ((string[])(null)));
 #line 13
 this.ScenarioSetup(scenarioInfo);
 #line 14

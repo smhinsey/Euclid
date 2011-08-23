@@ -320,10 +320,6 @@
       <Project>{02AAAF17-7C44-43EB-9AA8-48E03A7C67AE}</Project>
       <Name>Euclid.Sdk.IntegrationTests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\tests\Euclid.Sdk.Metadata\Euclid.Sdk.MetadataTests.csproj">
-      <Project>{AC366DF0-1269-4C2C-9599-B02FCB8402FE}</Project>
-      <Name>Euclid.Sdk.MetadataTests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>

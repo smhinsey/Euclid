@@ -1,4 +1,4 @@
-@SdkSpecs @MetadataService
+@SdkSpecs @MetadataService @AgentMetadata
 Feature: Euclid agents provide metadata
 	In order to satisfy requests for metadata
 	As an agent

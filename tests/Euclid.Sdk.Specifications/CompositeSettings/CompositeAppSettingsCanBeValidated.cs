@@ -5,7 +5,7 @@ using Euclid.Composites;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata
+namespace Euclid.Sdk.Metadata.CompositeSettings
 {
     [Binding]
     public class CompositeAppSettingsCanBeValidated

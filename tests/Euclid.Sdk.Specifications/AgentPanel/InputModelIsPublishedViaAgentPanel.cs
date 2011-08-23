@@ -1,14 +1,8 @@
-﻿using Euclid.Sdk.FakeAgent.Commands;
-using Euclid.TestingSupport;
+﻿using Euclid.TestingSupport;
 using TechTalk.SpecFlow;
 
-namespace Euclid.Sdk.Metadata
+namespace Euclid.Sdk.Metadata.AgentPanel
 {
-    public class ConfiguratAgentSteps : ConfigureAgentSteps<FakeCommand>
-    {
-        
-    }
-
     [Binding]
     public class InputModelIsPublishedViaAgentPanel : DefaultSpecSteps
     {

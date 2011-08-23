@@ -8,16 +8,6 @@ using Euclid.Framework.Models;
 
 namespace Euclid.Composites
 {
-    [Flags]
-    public enum CompositeMetadata
-    {
-        All = 0x0,
-        Agents = 0x1,
-        InputModels = 0x2,
-        Configuration = 0x4,
-        ConfigurationErrors = 0x8
-    }
-
     public interface ICompositeApp : ILoggingSource
 	{
 		IEnumerable<IAgentMetadata> Agents { get; }
@@ -28,7 +18,7 @@ namespace Euclid.Composites
 		void Configure(CompositeAppSettings compositeAppSettings);
 		void RegisterInputModel(IInputToCommandConverter converter);
 
-	    IMetadataFormatter GetFormatter(CompositeMetadata forMetadata);
+	    IMetadataFormatter GetFormatter();
         IEnumerable<string> GetConfigurationErrors();
 	    bool HasConfigurationErrors();
 	}

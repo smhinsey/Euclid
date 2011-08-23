@@ -4,6 +4,7 @@ using System.Reflection;
 using Euclid.Composites.AgentResolution;
 using Euclid.Framework.AgentMetadata;
 using Euclid.Framework.AgentMetadata.Extensions;
+using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Extensions
 {

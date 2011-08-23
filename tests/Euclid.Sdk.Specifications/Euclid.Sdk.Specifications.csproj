@@ -55,43 +55,63 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AgentPartCollectionProvidesMetadata.cs" />
-    <Compile Include="AgentPartProvidesMetadata.cs" />
-    <Compile Include="CompositeAppSettingsCanBeValidated.cs" />
-    <Compile Include="CompositeSettingsAreValidated.feature.cs">
+    <Compile Include="AgentPanel\ConfiguratAgentSteps.cs" />
+    <Compile Include="Metadata\Agent\AgentPartCollectionProvidesMetadata.cs" />
+    <Compile Include="Metadata\Agent\AgentPartProvidesMetadata.cs" />
+    <Compile Include="CompositeSettings\CompositeAppSettingsCanBeValidated.cs" />
+    <Compile Include="CompositeSettings\CompositeSettingsCanBeValidated.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CompositeSettingsAreValidated.feature</DependentUpon>
+      <DependentUpon>CompositeSettingsCanBeValidated.feature</DependentUpon>
     </Compile>
-    <Compile Include="InputModelIsPublishedViaAgentPanel.cs" />
-    <Compile Include="MetadataService.feature.cs">
+    <Compile Include="AgentPanel\InputModelIsPublishedViaAgentPanel.cs" />
+    <Compile Include="Metadata\Agent\AgentMetadata.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MetadataService.feature</DependentUpon>
+      <DependentUpon>AgentMetadata.feature</DependentUpon>
     </Compile>
-    <Compile Include="AgentProvidesMetadata.cs" />
-    <Compile Include="CollectionOfAgentsProvideMetadata.cs" />
-    <Compile Include="CommonWhenThenAndSteps.cs" />
-    <Compile Include="PropertiesUsedInTests.cs" />
+    <Compile Include="Metadata\Agent\AgentProvidesMetadata.cs" />
+    <Compile Include="Metadata\Agent\CollectionOfAgentsProvideMetadata.cs" />
+    <Compile Include="Metadata\CommonWhenThenAndSteps.cs" />
+    <Compile Include="Metadata\Composite\CompositeMetadata.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompositeMetadata.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\Composite\CompositeReportsConfigurationErrors.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompositeReportsConfigurationErrors.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata\PropertiesUsedInTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PublishInputModel.feature.cs">
+    <Compile Include="AgentPanel\PublishInputModel.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PublishInputModel.feature</DependentUpon>
     </Compile>
+    <Compile Include="CompositeSettings\SettingOutputChannelOnCompositeAppSetting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="CompositeSettingsAreValidated.feature">
+    <None Include="CompositeSettings\CompositeSettingsCanBeValidated.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CompositeSettingsAreValidated.feature.cs</LastGenOutput>
+      <LastGenOutput>CompositeSettingsCanBeValidated.feature.cs</LastGenOutput>
     </None>
-    <None Include="MetadataService.feature">
+    <None Include="Metadata\Agent\AgentMetadata.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>MetadataService.feature.cs</LastGenOutput>
+      <LastGenOutput>AgentMetadata.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Metadata\Composite\CompositeMetadata.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CompositeMetadata.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Metadata\Composite\CompositeReportsConfigurationErrors.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CompositeReportsConfigurationErrors.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
-    <None Include="PublishInputModel.feature">
+    <None Include="AgentPanel\PublishInputModel.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PublishInputModel.feature.cs</LastGenOutput>
     </None>
@@ -146,6 +166,7 @@
       <Name>Euclid.Sdk.FakeAgent</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

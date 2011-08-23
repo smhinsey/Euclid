@@ -5,11 +5,11 @@ namespace AgentPanel.Areas.Metadata.Models
 {
 	public class AgentListModel : FooterLinkModel
 	{
-		public AgentListModel(IList<IAgentMetadata> agents)
+		public AgentListModel(IEnumerable<IAgentMetadata> agents)
 		{
 			Agents = agents;
 		}
 
-		public IList<IAgentMetadata> Agents { get; private set; }
+        public IEnumerable<IAgentMetadata> Agents { get; private set; }
 	}
 }
