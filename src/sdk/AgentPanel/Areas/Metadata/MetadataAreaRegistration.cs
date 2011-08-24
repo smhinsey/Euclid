@@ -15,48 +15,42 @@ namespace AgentPanel.Areas.Metadata
 		{
 			if (!_routesAlreadyAdded)
 			{
+				context.MapRoute("AgentPanel-Composite", "metadata/composite/{action}", 
+				                 new {controller = "Composite", action = "Index"});
 
-				context.MapRoute(
-					"AgentPanel-Composite", "metadata/composite/{action}", new { controller = "Composite", action = "Index" });
+				context.MapRoute("AgentPanel-AllAgentsWithFormat", "metadata/agents/index.{format}", 
+				                 new {controller = "Agents", action = "Index"});
 
-				context.MapRoute(
-					"AgentPanel-AllAgentsWithFormat", "metadata/agents/index.{format}", new { controller = "Agents", action = "Index" });
+				context.MapRoute("AgentPanel-AllAgents", "metadata/agents", new {controller = "Agents", action = "Index"});
 
-				context.MapRoute("AgentPanel-AllAgents", "metadata/agents", new { controller = "Agents", action = "Index" });
+				context.MapRoute("AgentPanel-Agent", "metadata/agents/{agentSystemName}", 
+				                 new {controller = "Agents", action = "ViewAgent"});
 
-				context.MapRoute(
-					"AgentPanel-Agent", "metadata/agents/{agentSystemName}", new { controller = "Agents", action = "ViewAgent" });
+				context.MapRoute("AgentPanel-AgentWithFormat", 
+				                 "metadata/agents/{agentSystemName}.{format}", 
+				                 new {controller = "Agents", action = "ViewAgent"});
 
-				context.MapRoute(
-					"AgentPanel-AgentWithFormat",
-					"metadata/agents/{agentSystemName}.{format}",
-					new { controller = "Agents", action = "ViewAgent" });
+				context.MapRoute("AgentPanel-AgentPartsWithFormat", 
+				                 "metadata/agents/{agentSystemName}/{descriptiveName}.{format}", 
+				                 new {controller = "Agents", action = "ViewPartCollection"});
 
-				context.MapRoute(
-					"AgentPanel-AgentPartsWithFormat",
-					"metadata/agents/{agentSystemName}/{descriptiveName}.{format}",
-					new { controller = "Agents", action = "ViewPartCollection" });
+				context.MapRoute("AgentPanel-AgentParts", 
+				                 "metadata/agents/{agentSystemName}/{descriptiveName}", 
+				                 new {controller = "Agents", action = "ViewPartCollection"});
 
-				context.MapRoute(
-					"AgentPanel-AgentParts",
-					"metadata/agents/{agentSystemName}/{descriptiveName}",
-					new { controller = "Agents", action = "ViewPartCollection" });
+				context.MapRoute("AgentPanel-AgentPartWithFormat", 
+				                 "metadata/agents/{agentSystemName}/{action}/{partName}.{format}", 
+				                 new {controller = "Agents", action = "ViewPart"});
 
-				context.MapRoute(
-					"AgentPanel-AgentPartWithFormat",
-					"metadata/agents/{agentSystemName}/{action}/{partName}.{format}",
-					new { controller = "Agents", action = "ViewPart" });
+				context.MapRoute("AgentPanel-AgentPart", 
+				                 "metadata/agents/{agentSystemName}/{action}/{partName}", 
+				                 new {controller = "Agents", action = "ViewPart"});
 
-				context.MapRoute(
-					"AgentPanel-AgentPart",
-					"metadata/agents/{agentSystemName}/{action}/{partName}",
-					new { controller = "Agents", action = "ViewPart" });
+				context.MapRoute("AgentPanel-CommandRegistryIndex", "metadata/commandregistry", 
+				                 new {controller = "CommandRegistry", action = "Index"});
 
-				context.MapRoute(
-					"AgentPanel-CommandRegistryIndex", "metadata/commandregistry", new { controller = "CommandRegistry", action = "Index" });
-
-				context.MapRoute(
-					"AgentPanel-CommandRegistryDetails", "metadata/commandregistry/{publicationId}", new { controller = "CommandRegistry", action = "Details" });
+				context.MapRoute("AgentPanel-CommandRegistryDetails", "metadata/commandregistry/{publicationId}", 
+				                 new {controller = "CommandRegistry", action = "Details"});
 
 				_routesAlreadyAdded = true;
 			}
