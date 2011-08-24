@@ -7,6 +7,8 @@ namespace ForumAgent.ReadModels
 	{
 		public virtual Guid AuthorIdentifier { get; set; }
 
+		public virtual string AuthorDisplayName { get; set; }
+
 		public virtual string Body { get; set; }
 
 		public virtual Guid PostIdentifier { get; set; }

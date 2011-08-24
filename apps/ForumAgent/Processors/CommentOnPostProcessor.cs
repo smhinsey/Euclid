@@ -17,9 +17,11 @@ namespace ForumAgent.Processors
 
 		public override void Process(CommentOnPost message)
 		{
+			// SELF at some point we'll want to wire up the actual author name there
 			var comment = new Comment
 			              	{
 			              		AuthorIdentifier = message.AuthorIdentifier, 
+												AuthorDisplayName = "Anonymous",
 			              		Body = message.Body, 
 			              		PostIdentifier = message.PostIdentifier, 
 			              		Score = 0, 
