@@ -8,7 +8,7 @@ namespace AgentPanel.Areas.Metadata
 
 		public override string AreaName
 		{
-			get { return "Metadata"; }
+			get { return "metadata"; }
 		}
 
 		public override void RegisterArea(AreaRegistrationContext context)
