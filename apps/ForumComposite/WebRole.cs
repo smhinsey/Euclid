@@ -8,9 +8,10 @@ using Euclid.Composites;
 using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
 using FluentNHibernate.Cfg.Db;
+using ForumAgent.Commands;
 using Microsoft.WindowsAzure;
 
-namespace AgentPanel
+namespace ForumComposite
 {
     public class WebRole
     {
@@ -51,6 +52,7 @@ namespace AgentPanel
             composite.Configure(compositeAppSettings);
 
             /* EUCLID: Install agents and Input models */
+            composite.AddAgent(typeof(PublishPost).Assembly);
 
             container.Register(Component.For<ICompositeApp>().Instance(composite));
 

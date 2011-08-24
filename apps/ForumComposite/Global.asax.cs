@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AgentPanel.Areas.Metadata.Models;
 
 namespace ForumComposite
 {
@@ -29,9 +30,15 @@ namespace ForumComposite
 
 		protected void Application_Start()
 		{
+            BoC.Web.Mvc.PrecompiledViews
+                .ApplicationPartRegistry
+                .Register(typeof(AgentModel).Assembly);
+
 			AreaRegistration.RegisterAllAreas();
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
+
+		    WebRole.GetInstance().Init();
 		}
 	}
 }
