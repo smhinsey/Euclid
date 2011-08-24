@@ -53,7 +53,10 @@ namespace AgentPanel.Areas.Metadata
 					new { controller = "Agents", action = "ViewPart" });
 
 				context.MapRoute(
-					"AgentPanel-CommandRegistry", "metadata/commandregistry", new { controller = "CommandRegistry", action = "Index" });
+					"AgentPanel-CommandRegistryIndex", "metadata/commandregistry", new { controller = "CommandRegistry", action = "Index" });
+
+				context.MapRoute(
+					"AgentPanel-CommandRegistryDetails", "metadata/commandregistry/{publicationId}", new { controller = "CommandRegistry", action = "Details" });
 
 				_routesAlreadyAdded = true;
 			}
