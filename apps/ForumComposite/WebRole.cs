@@ -8,6 +8,7 @@ using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
+using ForumComposite.Converters;
 using Microsoft.WindowsAzure;
 
 namespace ForumComposite
@@ -22,6 +23,11 @@ namespace ForumComposite
 		{
 		}
 
+		public static WebRole GetInstance()
+		{
+			return _instance ?? (_instance = new WebRole());
+		}
+
 		public void Init()
 		{
 			if (_initialized)
@@ -34,19 +40,18 @@ namespace ForumComposite
 			var composite = new MvcCompositeApp(container);
 
 			composite.RegisterNh(
-			                     MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), 
-			                     true, false);
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.OutputChannel.ApplyOverride(typeof (AzureMessageChannel));
-			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
-			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
+			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
 
 			composite.Configure(compositeAppSettings);
 
-			/* EUCLID: Install agents and Input models */
-			composite.AddAgent(typeof (PublishPost).Assembly);
+			composite.AddAgent(typeof(PublishPost).Assembly);
+			composite.RegisterInputModel(new PublishPostInputModelConverter());
 
 			container.Register(Component.For<ICompositeApp>().Instance(composite));
 
@@ -59,17 +64,12 @@ namespace ForumComposite
 		{
 			// as soon as we can stop using the azure storage emulator we should
 			var storageAccount = new CloudStorageAccount(
-				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
-				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
-				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials,
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
 				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
-		}
-
-		public static WebRole GetInstance()
-		{
-			return _instance ?? (_instance = new WebRole());
 		}
 	}
 }

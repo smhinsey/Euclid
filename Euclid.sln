@@ -83,7 +83,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.TestingSupport", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.AgentMetadata", "src\framework\Euclid.Framework.AgentMetadata\Euclid.Framework.AgentMetadata.csproj", "{276664F8-43A3-43E6-AA9A-B9A275B14013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentPanel", "src\sdk\AgentPanel\AgentPanel.csproj", "{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeControl", "src\sdk\CompositeControl\CompositeControl.csproj", "{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.Specifications", "tests\Euclid.Sdk.Specifications\Euclid.Sdk.Specifications.csproj", "{AC366DF0-1269-4C2C-9599-B02FCB8402FE}"
 EndProject
