@@ -2,9 +2,8 @@
 @model AgentModel
 
 <h1>@ViewBag.Title</h1>
+<p>@Model.DescriptiveName</p>
 <ul>
-    <li>@Model.SystemName</li>
-    <li>@Model.DescriptiveName</li>
     <li>@Html.DisplayFor(x => x.Commands, "IAgentPart", @Model.Commands)</li>
     <li>@Html.DisplayFor(x => x.Queries, "IAgentPart", @Model.Queries)</li>
     <li>@Html.DisplayFor(x => x.ReadModels, "IAgentPart", @Model.ReadModels)</li>

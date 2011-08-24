@@ -65,17 +65,12 @@ WriteLiteral("\r\n<h1>");
 
 Write(ViewBag.Title);
 
-WriteLiteral("</h1>\r\n<ul>\r\n    <li>");
+WriteLiteral("</h1>\r\n<p>");
 
 
-   Write(Model.SystemName);
+Write(Model.DescriptiveName);
 
-WriteLiteral("</li>\r\n    <li>");
-
-
-   Write(Model.DescriptiveName);
-
-WriteLiteral("</li>\r\n    <li>");
+WriteLiteral("</p>\r\n<ul>\r\n    <li>");
 
 
    Write(Html.DisplayFor(x => x.Commands, "IAgentPart", @Model.Commands));
