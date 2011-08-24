@@ -12,7 +12,6 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using Euclid.Sdk.TestAgent.Commands;
 using FluentNHibernate.Cfg.Db;
-using ForumAgent.Commands;
 using log4net.Config;
 using Microsoft.WindowsAzure;
 
@@ -34,7 +33,8 @@ namespace AgentConsole
 
 			try
 			{
-                composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+				composite.RegisterNh(
+					MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
 				composite.AddAgent(typeof(TestCommand).Assembly);
 
@@ -46,13 +46,13 @@ namespace AgentConsole
 
 				fabric.Start();
 
-                Console.WriteLine("Press enter to exit console");
+				Console.WriteLine("Press enter to exit console");
 
-                Console.ReadLine();
+				Console.ReadLine();
 			}
 			catch (Exception e)
 			{
-                Console.WriteLine(e);
+				Console.WriteLine(e);
 				Console.ReadLine();
 			}
 		}
@@ -63,9 +63,9 @@ namespace AgentConsole
 
 			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
 
-            compositeAppSettings.OutputChannel.WithDefault(typeof(AzureMessageChannel));
+			compositeAppSettings.OutputChannel.WithDefault(typeof(AzureMessageChannel));
 
-            compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
 
 			return compositeAppSettings;
 		}
@@ -77,18 +77,18 @@ namespace AgentConsole
 			fabricSettings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
 			fabricSettings.HostedServices.WithDefault(new List<Type> { typeof(CommandHost) });
 
-            var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
+			var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
 
-            messageChannel.Open();
+			messageChannel.Open();
 
-		    messageChannel.Clear();
+			messageChannel.Clear();
 
-            messageChannel.Close();
+			messageChannel.Close();
 
-            fabricSettings.InputChannel.WithDefault(messageChannel);
-            fabricSettings.ErrorChannel.WithDefault(messageChannel);
-            
-            return fabricSettings;
+			fabricSettings.InputChannel.WithDefault(messageChannel);
+			fabricSettings.ErrorChannel.WithDefault(messageChannel);
+
+			return fabricSettings;
 		}
 
 		private static void setAzureCredentials(IWindsorContainer container)

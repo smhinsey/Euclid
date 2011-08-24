@@ -1,27 +1,30 @@
-﻿using System.Web.Mvc;
-using System.Web.UI.WebControls;
+﻿using System;
+using System.Web.Mvc;
 using Euclid.Framework.Cqrs;
 
 namespace AgentPanel.Areas.Metadata.Controllers
 {
-    public class CommandRegistryController : Controller
-    {
-        private readonly ICommandRegistry _registry;
+	public class CommandRegistryController : Controller
+	{
+		private readonly ICommandRegistry _registry;
 
-        public CommandRegistryController(ICommandRegistry registry)
-        {
-            _registry = registry;
-        }
+		public CommandRegistryController(ICommandRegistry registry)
+		{
+			_registry = registry;
+		}
 
-        public ActionResult Index()
-        {
-            var records = _registry.GetRecords(999, 0);
+		public ActionResult Details(Guid publicationId)
+		{
+			var record = _registry.GetPublicationRecord(publicationId);
 
-            return View(new
-                            {
-                                PublicationRecordId = records[0].Identifier,
-                                PublicationRecords = records
-                            });
-        }
-    }
+			return View(record);
+		}
+
+		public ActionResult Index(int pageSize = 100, int offset = 0)
+		{
+			var records = _registry.GetRecords(pageSize, offset);
+
+			return View(new { PublicationRecords = records });
+		}
+	}
 }

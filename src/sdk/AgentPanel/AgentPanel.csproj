@@ -131,6 +131,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ViewPartCollection.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Metadata\Views\CommandRegistry\Details.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Details.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Metadata\Views\CommandRegistry\Index.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -444,6 +449,12 @@
     <Content Include="Areas\Metadata\Views\CommandRegistry\Index.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>Index.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Metadata\Views\CommandRegistry\Details.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>Details.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -34,8 +34,6 @@ namespace AgentPanel
                 return;
             }
 
-            AreaRegistration.RegisterAllAreas();
-
             var container = new WindsorContainer();
 
             var composite = new MvcCompositeApp(container);

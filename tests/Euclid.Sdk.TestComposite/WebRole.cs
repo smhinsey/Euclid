@@ -37,8 +37,6 @@ namespace Euclid.Sdk.TestComposite
 				return;
 			}
 
-			AreaRegistration.RegisterAllAreas();
-
 			var container = new WindsorContainer();
 
 			var composite = new MvcCompositeApp(container);

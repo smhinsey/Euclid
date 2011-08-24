@@ -38,15 +38,14 @@ namespace AgentPanel.Areas.Metadata.Views.CommandRegistry
     using System.Web.UI.WebControls.WebParts;
     using System.Web.UI.HtmlControls;
     using System.Xml.Linq;
-    using Euclid.Common.Messaging;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("MvcRazorClassGenerator", "1.0")]
-    [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Metadata/Views/CommandRegistry/Index.cshtml")]
-    public class _Page_Areas_Metadata_Views_CommandRegistry_Index_cshtml : System.Web.Mvc.WebViewPage<dynamic>
+    [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Metadata/Views/CommandRegistry/Details.cshtml")]
+    public class _Page_Areas_Metadata_Views_CommandRegistry_Details_cshtml : System.Web.Mvc.WebViewPage<dynamic>
     {
 #line hidden
 
-        public _Page_Areas_Metadata_Views_CommandRegistry_Index_cshtml()
+        public _Page_Areas_Metadata_Views_CommandRegistry_Details_cshtml()
         {
         }
         protected System.Web.HttpApplication ApplicationInstance
@@ -59,62 +58,43 @@ namespace AgentPanel.Areas.Metadata.Views.CommandRegistry
         public override void Execute()
         {
 
-
-WriteLiteral("\t\t\t\t \r\n<h2>Publication Records</h2>\r\n\r\n");
-
-
- foreach (IPublicationRecord pub in Model.PublicationRecords)
-{
-
-WriteLiteral("\t<div>\r\n\t\tId: <a href=\'");
+WriteLiteral("\r\n    <div>\r\n        Id: ");
 
 
-          Write(Url.Action("Details", "CommandRegistry", new { publicationId = pub.Identifier}));
+       Write(Model.Identifier);
 
-WriteLiteral("\'>");
-
-
-                                                                                            Write(pub.Identifier);
-
-WriteLiteral("</a>\r\n\t\t<br />\r\n\t\tCreated: ");
+WriteLiteral("\r\n        <br/>\r\n        Created: ");
 
 
-      Write(pub.Created);
+            Write(Model.Created);
 
-WriteLiteral("\r\n\t\t<br />\r\n\t\tDispatched: ");
-
-
-         Write(pub.Dispatched);
-
-WriteLiteral("\r\n\t\t<br />\r\n\t\tError: ");
+WriteLiteral("\r\n        <br/>\r\n        Dispatched: ");
 
 
-    Write(pub.Error);
+               Write(Model.Dispatched);
 
-WriteLiteral("\r\n\t\t<br />\r\n\t\tMessage: ");
-
-
-      Write(pub.ErrorMessage);
-
-WriteLiteral("\r\n\t\t<br />\r\n\t\tType: ");
+WriteLiteral("\r\n        <br/>\r\n        Error: ");
 
 
-   Write(pub.MessageType);
+          Write(Model.Error);
 
-WriteLiteral("\r\n\t\t<br />\r\n\t\tLocation: ");
-
-
-       Write(pub.MessageLocation);
-
-WriteLiteral("\r\n\t</div>\r\n");
+WriteLiteral("\r\n        <br/>\r\n        Message: ");
 
 
-    
+            Write(Model.ErrorMessage);
 
-WriteLiteral("\t<br />\r\n");
+WriteLiteral("\r\n        <br/>\r\n        Type: ");
 
 
-}
+         Write(Model.MessageType);
+
+WriteLiteral("\r\n        <br/>\r\n        Location: ");
+
+
+             Write(Model.MessageLocation);
+
+WriteLiteral("\r\n    </div>\r\n");
+
 
         }
     }
