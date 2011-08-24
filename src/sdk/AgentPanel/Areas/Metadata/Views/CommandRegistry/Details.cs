@@ -58,42 +58,42 @@ namespace AgentPanel.Areas.Metadata.Views.CommandRegistry
         public override void Execute()
         {
 
-WriteLiteral("\r\n    <div>\r\n        Id: ");
+WriteLiteral("<div>\r\n\tId: ");
 
 
-       Write(Model.Identifier);
+Write(Model.Identifier);
 
-WriteLiteral("\r\n        <br/>\r\n        Created: ");
-
-
-            Write(Model.Created);
-
-WriteLiteral("\r\n        <br/>\r\n        Dispatched: ");
+WriteLiteral("\r\n\t<br />\r\n\tCreated: ");
 
 
-               Write(Model.Dispatched);
+     Write(Model.Created);
 
-WriteLiteral("\r\n        <br/>\r\n        Error: ");
-
-
-          Write(Model.Error);
-
-WriteLiteral("\r\n        <br/>\r\n        Message: ");
+WriteLiteral("\r\n\t<br />\r\n\tDispatched: ");
 
 
-            Write(Model.ErrorMessage);
+        Write(Model.Dispatched);
 
-WriteLiteral("\r\n        <br/>\r\n        Type: ");
-
-
-         Write(Model.MessageType);
-
-WriteLiteral("\r\n        <br/>\r\n        Location: ");
+WriteLiteral("\r\n\t<br />\r\n\tError: ");
 
 
-             Write(Model.MessageLocation);
+   Write(Model.Error);
 
-WriteLiteral("\r\n    </div>\r\n");
+WriteLiteral("\r\n\t<br />\r\n\tMessage: ");
+
+
+     Write(Model.ErrorMessage);
+
+WriteLiteral("\r\n\t<br />\r\n\tType: ");
+
+
+  Write(Model.MessageType);
+
+WriteLiteral("\r\n\t<br />\r\n\tLocation: ");
+
+
+      Write(Model.MessageLocation);
+
+WriteLiteral("\r\n</div>\r\n\r\n");
 
 
         }

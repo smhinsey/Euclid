@@ -1,16 +1,18 @@
 @using AgentPanel.Areas.Metadata.Models
 @model AgentListModel
 
-<h1>@ViewBag.Title</h1>
+<h1>Configured Agents</h1>
+
+<p>The following agents have been configured in your composite.</p>
 
 <ul>
     @foreach (var agent in Model.Agents)
     {
         <li>
             @agent.DescriptiveName - @agent.SystemName 
-            (<a href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName})">html</a> |
-            <a href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName, Format = "xml"})">xml</a> |
-            <a href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName, Format = "json"})">json</a>)
+            (<a href="@Url.Action("ViewAgent", "Agents", new {agentSystemName = agent.SystemName})">html</a> |
+            <a href="@Url.Action("ViewAgent", "Agents", new {agentSystemName = agent.SystemName, Format = "xml"})">xml</a> |
+            <a href="@Url.Action("ViewAgent", "Agents", new {agentSystemName = agent.SystemName, Format = "json"})">json</a>)
         </li>
     }
 </ul>

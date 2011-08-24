@@ -60,12 +60,8 @@ namespace AgentPanel.Areas.Metadata.Views.Agents
         {
 
 
-WriteLiteral("\r\n<h1>");
-
-
-Write(ViewBag.Title);
-
-WriteLiteral("</h1>\r\n\r\n<ul>\r\n");
+WriteLiteral("\r\n<h1>Configured Agents</h1>\r\n\r\n<p>The following agents have been configured in y" +
+"our composite.</p>\r\n\r\n<ul>\r\n");
 
 
      foreach (var agent in Model.Agents)
@@ -84,17 +80,17 @@ WriteLiteral(" - ");
 WriteLiteral(" \r\n            (<a href=\"");
 
 
-                 Write(Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName}));
+                 Write(Url.Action("ViewAgent", "Agents", new {agentSystemName = agent.SystemName}));
 
 WriteLiteral("\">html</a> |\r\n            <a href=\"");
 
 
-                Write(Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName, Format = "xml"}));
+                Write(Url.Action("ViewAgent", "Agents", new {agentSystemName = agent.SystemName, Format = "xml"}));
 
 WriteLiteral("\">xml</a> |\r\n            <a href=\"");
 
 
-                Write(Url.Action("ViewAgent", "Agents", new {AgentSystemName = agent.SystemName, Format = "json"}));
+                Write(Url.Action("ViewAgent", "Agents", new {agentSystemName = agent.SystemName, Format = "json"}));
 
 WriteLiteral("\">json</a>)\r\n        </li>\r\n");
 

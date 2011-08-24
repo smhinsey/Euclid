@@ -27,8 +27,6 @@ namespace Euclid.Sdk.TestComposite
 
 		protected void Application_Start()
 		{
-			ApplicationPartRegistry.Register(typeof(AgentModel).Assembly);
-
 			AreaRegistration.RegisterAllAreas();
 
 			RegisterGlobalFilters(GlobalFilters.Filters);

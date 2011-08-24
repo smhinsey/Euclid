@@ -1,4 +1,6 @@
 ﻿using System.Web.Mvc;
+using AgentPanel.Areas.Metadata.Models;
+using BoC.Web.Mvc.PrecompiledViews;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging;
@@ -36,6 +38,8 @@ namespace Euclid.Sdk.TestComposite
 			{
 				return;
 			}
+
+			ApplicationPartRegistry.Register(typeof(AgentModel).Assembly);
 
 			var container = new WindsorContainer();
 
