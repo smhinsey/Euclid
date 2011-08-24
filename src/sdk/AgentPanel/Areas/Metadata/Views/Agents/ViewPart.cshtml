@@ -1,59 +1,48 @@
 @using System.Text
-@using MetadataComposite.Areas.Metadata.M odels
+@using AgentPanel.Areas.Metadata.Models
 @model PartModel
 
-<h1>@this.ViewBag.Titl e</h1>
+<h1>@ViewBag.Title</h1>
 
-@if (this.
-
-    	privat 
-
-    eModel.Ty    peM								 	adata.Properties.Coun								 	) > 0)
+@if (Model.TypeMetadata.Properties.Count() > 0)
 {
-  <h3>Properties</h3>
-  <ul>
-    @foreach (var p in t								 	Mod																						eMetadata.Properties)
-    {
-      <li>@																					me (@p.Prope								 rtyType.Name)</li>
-    }
-  </ul>
+	<h3>Properties</h3>
+	<ul>
+		@foreach (var p in Model.TypeMetadata.Properties)
+		{
+			<li>@p.Name (@p.PropertyType.Name)</li>
+		}
+	</ul>
 }
 
-@if (this.Model.Ty							 	private Metadata.Methods.C
-							 	private nt() > 0)
+@if (Model.TypeMetadata.Methods.Count() > 0)
 {
-  <h3>
+	<h3>Methods</h3>
+	<ul>
+		@foreach (var m in Model.TypeMetadata.Methods)
+		{
+			var sb = new StringBuilder();
+			foreach (var a in m.Arguments)
+			{
+				if (sb.Length > 0)
+				{
+					sb.Append(", ");
+				}
 
-							 	private Metho 
+				sb.AppendFormat("{0} {1}", a.PropertyType.Name, a.Name);
 
-s</h3>
+				if (a.DefaultValue != null)
+				{
+					sb.AppendFormat("<i>={0}</i>", a.DefaultValue);
+				}
+			}
 
-
-							 	private   <ul>
-    @foreach (var  
-
-m iis.	 	TypeMetadata.Methods)
-    {
- 	 	ar sb = new StringBuilder();
-  		rea				a in m.Arguments)
- 								   									b.Length > 0)
-   								     				Append(", ");
-        }
-
-        sb.AppendFormat("{0} {1}				pertyType.Name, a.Name);
-
- 																				f (																					alue != null)
-        {
-          sb.AppendForm																				{0}			 a.De	 	alue);
-        }
-      }
-
-      <li>
-        @m.ReturnType
-        @m.Name (@this.Htm	aw(sb.ToString()))
-      </li>
-    }
-  </ul>
+			<li>
+				@m.ReturnType
+				@m.Name (@Html.Raw(sb.ToString()))
+			</li>
+		}
+	</ul>
 }
 
-@{ this.Html.RenderPatial("MetadataLinks", this.Model);  }
+@{ Html.RenderPartial("MetadataLinks", Model); }

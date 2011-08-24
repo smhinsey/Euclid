@@ -12,6 +12,10 @@ namespace AgentPanel.Areas.Metadata
 		public override void RegisterArea(AreaRegistrationContext context)
 		{
 			context.Routes.Clear();
+
+            context.MapRoute("Composite", "metadata/composite/{action}",
+                 new { controller = "Composite", action = "Index" });
+
 			context.MapRoute("AllAgentsWithFormat", "metadata/agents/index.{format}",
 			                 new {controller = "Agents", action = "Index"});
 
