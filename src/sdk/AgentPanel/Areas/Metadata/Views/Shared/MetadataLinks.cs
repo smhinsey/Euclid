@@ -60,19 +60,19 @@ namespace AgentPanel.Areas.Metadata.Views.Shared
         {
 
 
-WriteLiteral("\r\n<div class=\"metadata-links-container\" id=\"link-container\">\r\n\t<ul class=\"metadat" +
-"a-links-list\">\r\n");
+WriteLiteral("<hr />\r\n\r\n<div class=\"metadata-links-container\" id=\"link-container\">\r\n\t<ul class=" +
+"\"metadata-links-list\">\r\n");
 
 
  		if (!string.IsNullOrEmpty(Model.AgentSytemName) && !string.IsNullOrEmpty(Model.PartType))
-		{
+	{
 
-WriteLiteral("\t\t\t<li class=\"metadata-link-item\">\r\n\t\t\t\t<a class=\"metadata-link\" href=\"");
+WriteLiteral("\t\t\t<li class=\"metadata-link-item\"><a class=\"metadata-link\" href=\"");
 
 
-                              Write(Url.Action("ViewPartCollection", "Agents", new {AgentSystemName = Model.AgentSytemName, PartName = Model.PartType}));
+                                                            Write(Url.Action("ViewPartCollection", "Agents", new { AgentSystemName = Model.AgentSytemName, PartName = Model.PartType }));
 
-WriteLiteral("\">\r\n\t\t\t\t\t");
+WriteLiteral("\">\r\n\t\t\t\t");
 
 
 Write(Model.AgentSytemName);
@@ -80,40 +80,38 @@ Write(Model.AgentSytemName);
 WriteLiteral("\'s ");
 
 
-                        Write(Model.PartDescriptiveName);
+                       Write(Model.PartDescriptiveName);
 
-WriteLiteral("\r\n\t\t\t\t</a>\r\n\t\t\t</li>\r\n");
+WriteLiteral("\r\n\t\t\t</a></li>\r\n");
 
 
-		}
-
-WriteLiteral("\r\n");
+	}
 
 
  		if (!string.IsNullOrEmpty(Model.AgentSytemName))
-		{
+	{
 
 WriteLiteral("\t\t\t<li class=\"metadata-link-item\"><a class=\"metadata-link\" href=\"");
 
 
-                                                            Write(Url.Action("ViewAgent", "Agents", new {AgentSystemName = Model.AgentSytemName,}));
+                                                            Write(Url.Action("ViewAgent", "Agents", new { AgentSystemName = Model.AgentSytemName, }));
 
 WriteLiteral("\">");
 
 
-                                                                                                                                               Write(Model.AgentSytemName);
+                                                                                                                                                 Write(Model.AgentSytemName);
 
-WriteLiteral(" details</a></li>\r\n");
+WriteLiteral("\r\n\t\t\t\tdetails</a></li>\r\n");
 
 
-		}
+	}
 
-WriteLiteral("\r\n\t\t<li class=\"metadata-link-item\"><a class=\"metadata-link\" href=\"");
+WriteLiteral("\t\t<li class=\"metadata-link-item\"><a class=\"metadata-link\" href=\"");
 
 
                                                            Write(Url.Action("Index", "Agents"));
 
-WriteLiteral("\">Agents in composite</a></li>\r\n\t</ul>\r\n</div>\r\n");
+WriteLiteral("\">\r\n\t\t\tAgents in composite</a></li>\r\n\t</ul>\r\n</div>\r\n\r\n");
 
 
         }
