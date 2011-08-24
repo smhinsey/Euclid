@@ -110,7 +110,6 @@ namespace Euclid.Composites
 					.BasedOn(typeof(IQuery)).WithService.Self().Configure(component => component.LifeStyle.Transient));
 		}
 
-
 		public void RegisterInputModel(IInputToCommandConverter converter)
 		{
 			if (converter == null)

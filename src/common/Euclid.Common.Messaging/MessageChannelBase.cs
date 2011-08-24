@@ -9,7 +9,7 @@ namespace Euclid.Common.Messaging
 		protected MessageChannelBase()
 		{
 			State = ChannelState.NotConfigured;
-			ChannelName = Guid.NewGuid().ToString();
+            ChannelName = GetType().Name; //Guid.NewGuid().ToString();
 		}
 
 		public string ChannelName { get; set; }
