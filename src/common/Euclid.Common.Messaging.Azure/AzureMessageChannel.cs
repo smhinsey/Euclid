@@ -30,7 +30,9 @@ namespace Euclid.Common.Messaging.Azure
 
 		public override void Clear()
 		{
-			_queue.Clear();
+            TransportIsOpenFor("Clear");
+
+            _queue.Clear();
 		}
 
 		public override ChannelState Close()

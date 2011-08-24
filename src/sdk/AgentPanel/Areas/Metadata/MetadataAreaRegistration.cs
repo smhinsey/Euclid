@@ -39,6 +39,9 @@ namespace AgentPanel.Areas.Metadata
 
 			context.MapRoute("AgentPart", "metadata/agents/{agentSystemName}/{action}/{partName}",
 			                 new {controller = "Agents", action = "ViewPart"});
+
+            context.MapRoute("CommandRegistry", "metadata/commandregistry",
+                             new { controller = "CommandRegistry", action = "Index" });
 		}
 	}
 }

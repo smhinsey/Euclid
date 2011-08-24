@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Euclid.Common.Messaging
 {
@@ -73,5 +74,7 @@ namespace Euclid.Common.Messaging
 		/// 	not necessarily be timely, if some other part of the publication
 		/// 	pipeline fails.</returns>
 		TPublicationRecordContract PublishMessage(IMessage message);
+
+	    IList<IPublicationRecord> GetRecords(int pageSize, int offSet);
 	}
 }

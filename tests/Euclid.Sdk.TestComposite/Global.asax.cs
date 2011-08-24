@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using AgentPanel.Areas.Metadata.Models;
 
 namespace Euclid.Sdk.TestComposite
 {
@@ -26,6 +27,10 @@ namespace Euclid.Sdk.TestComposite
 
         public override void Init()
         {
+            BoC.Web.Mvc.PrecompiledViews
+                .ApplicationPartRegistry
+                .Register(typeof(AgentModel).Assembly);
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

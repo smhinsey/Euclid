@@ -1,0 +1,28 @@
+﻿@using Euclid.Common.Messaging
+@model dynamic
+
+<h2>Publication Records</h2>
+
+@foreach (IPublicationRecord pub in Model.PublicationRecords)
+{
+    <div>
+        Id: @pub.Identifier
+        <br/>
+        Created: @pub.Created
+        <br/>
+        Dispatched: @pub.Dispatched
+        <br/>
+        Error: @pub.Error
+        <br/>
+        Message: @pub.ErrorMessage
+        <br/>
+        Type: @pub.MessageType
+        <br/>
+        Location: @pub.MessageLocation
+    </div>
+    
+    <br />
+}
+
+
+

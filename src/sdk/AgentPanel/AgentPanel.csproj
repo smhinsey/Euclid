@@ -40,6 +40,9 @@
     <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Castle.Windsor.2.5.3\lib\NET40\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="Commons.Web.Mvc.PrecompiledViews">
+      <HintPath>C:\Users\jason turim\AppData\Local\Microsoft\VisualStudio\10.0\Extensions\Chris van de Steeg\Razor Single File Generator for MVC\1.0.5\Commons.Web.Mvc.PrecompiledViews.dll</HintPath>
+    </Reference>
     <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
     </Reference>
@@ -58,6 +61,19 @@
     <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="System.Activities" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -66,6 +82,8 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.WebPages.Deployment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.WorkflowServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -77,15 +95,80 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Metadata\Controllers\AgentsController.cs" />
+    <Compile Include="Areas\Metadata\Controllers\CommandRegistryController.cs" />
+    <Compile Include="Areas\Metadata\Controllers\CompositeController.cs" />
     <Compile Include="Areas\Metadata\MetadataAreaRegistration.cs" />
     <Compile Include="Areas\Metadata\Models\AgentListModel.cs" />
     <Compile Include="Areas\Metadata\Models\AgentModel.cs" />
     <Compile Include="Areas\Metadata\Models\AgentPartModel.cs" />
+    <Compile Include="Areas\Metadata\Models\CompositeModel.cs" />
     <Compile Include="Areas\Metadata\Models\FooterLinkModel.cs" />
     <Compile Include="Areas\Metadata\Models\PartCollectionModel.cs" />
     <Compile Include="Areas\Metadata\Models\PartModel.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
+    <Compile Include="Areas\Metadata\Views\Agents\Index.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\Agents\ViewAgent.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewAgent.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\Agents\ViewInputModelForCommand.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewInputModelForCommand.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\Agents\ViewPart.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewPart.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\Agents\ViewPartCollection.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewPartCollection.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\CommandRegistry\Index.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\Composite\Index.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IAgentMetadata.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IAgentPart.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\Shared\Error.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Error.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\Shared\MetadataLinks.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetadataLinks.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\Shared\_Layout.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Layout.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Metadata\Views\_ViewStart.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_ViewStart.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
@@ -169,79 +252,6 @@
     <Content Include="Areas\Metadata\Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Areas\Metadata\Scripts\MicrosoftMvcValidation.js" />
     <Content Include="Areas\Metadata\Scripts\modernizr-2.0.6-development-only.js" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
-    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
-    <Content Include="Content\themes\base\jquery.ui.all.css" />
-    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
-    <Content Include="Content\themes\base\jquery.ui.base.css" />
-    <Content Include="Content\themes\base\jquery.ui.button.css" />
-    <Content Include="Content\themes\base\jquery.ui.core.css" />
-    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
-    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
-    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
-    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
-    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
-    <Content Include="Content\themes\base\jquery.ui.slider.css" />
-    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
-    <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.all.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.base.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Global.asax" />
-    <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.2.js" />
-    <Content Include="Scripts\jquery-1.6.2.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.15.js" />
-    <Content Include="Scripts\jquery-ui-1.8.15.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -250,34 +260,58 @@
     <Content Include="Areas\Metadata\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Metadata\Views\_ViewStart.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>_ViewStart.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\Index.cshtml" />
+    <Content Include="Areas\Metadata\Views\Agents\Index.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>Index.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewAgent.cshtml" />
+    <Content Include="Areas\Metadata\Views\Agents\ViewAgent.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>ViewAgent.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewCommand.cshtml" />
+    <Content Include="Areas\Metadata\Views\Agents\ViewPart.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>ViewPart.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewPart.cshtml" />
+    <Content Include="Areas\Metadata\Views\Agents\ViewPartCollection.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>ViewPartCollection.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewPartCollection.cshtml" />
+    <Content Include="Areas\Metadata\Views\Shared\_Layout.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>_Layout.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>IAgentPart.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cshtml" />
+    <Content Include="Areas\Metadata\Views\Shared\Error.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>Error.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\Error.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\MetadataLinks.cshtml" />
+    <Content Include="Areas\Metadata\Views\Shared\MetadataLinks.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>MetadataLinks.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\apps\ForumAgent\ForumAgent.csproj">
@@ -390,7 +424,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewInputModelForCommand.cshtml" />
+    <Content Include="Areas\Metadata\Views\Agents\ViewInputModelForCommand.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>ViewInputModelForCommand.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Metadata\Views\Composite\Index.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>Index.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>IAgentMetadata.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Metadata\Views\CommandRegistry\Index.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+      <LastGenOutput>Index.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

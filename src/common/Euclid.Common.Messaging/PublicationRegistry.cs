@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Euclid.Common.Storage;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.Record;
@@ -86,7 +88,12 @@ namespace Euclid.Common.Messaging
 			return Mapper.Create(record);
 		}
 
-		private TRecordContract updateRecord(Guid id, Action<TRecordContract> actOnRecord)
+	    public IList<IPublicationRecord> GetRecords(int pageSize, int offSet)
+	    {
+	        return Mapper.List(pageSize, offSet).Cast<IPublicationRecord>().ToList();
+	    }
+
+	    private TRecordContract updateRecord(Guid id, Action<TRecordContract> actOnRecord)
 		{
 			var record = GetPublicationRecord(id);
 

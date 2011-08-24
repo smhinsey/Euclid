@@ -112,10 +112,10 @@ namespace Euclid.TestingSupport
 			fabricSettings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
 			fabricSettings.HostedServices.WithDefault(new List<Type> { typeof(CommandHost) });
 
-			var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
+            var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
 
-			fabricSettings.InputChannel.WithDefault(messageChannel);
-			fabricSettings.ErrorChannel.WithDefault(messageChannel);
+            fabricSettings.InputChannel.WithDefault(messageChannel);
+            fabricSettings.ErrorChannel.WithDefault(messageChannel);
 
 			return fabricSettings;
 		}
