@@ -1,8 +1,12 @@
 ﻿using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Euclid.Common.Messaging.Azure;
+using Euclid.Common.Storage.Azure;
+using Euclid.Common.Storage.NHibernate;
 using Euclid.Composites;
 using Euclid.Composites.Mvc;
+using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
 
 namespace AgentPanel
@@ -20,14 +24,18 @@ namespace AgentPanel
 
             var composite = new MvcCompositeApp(container);
 
-            var euclidCompositeConfiguration = new CompositeAppSettings();
+            var compositeAppSettings = new CompositeAppSettings();
 
             /*
            * jt: this is how a composite developer would override the default settings for the mvc composite
            * euclidCompositeConfiguration.BlobStorage.ApplyOverride(typeof(SomeBlobStorageImplementation));
            */
 
-            composite.Configure(euclidCompositeConfiguration);
+						compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
+						compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
+						compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
+
+						composite.Configure(compositeAppSettings);
 
             /*
             jt: this is going to be injected into composites adding this pacage

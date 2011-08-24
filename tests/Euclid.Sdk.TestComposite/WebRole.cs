@@ -50,6 +50,7 @@ namespace Euclid.Sdk.TestComposite
 			compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
 			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
 			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
+
 			composite.Configure(compositeAppSettings);
 
 			composite.AddAgent(typeof(TestCommand).Assembly);
