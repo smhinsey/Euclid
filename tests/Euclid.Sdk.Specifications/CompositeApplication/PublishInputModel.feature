@@ -8,7 +8,8 @@ Scenario: Publish an input model via the AgentPanel
 	
 	Given the agent SDKTests.FakeAgent
 
-	Given the TestComposite running on http://localhost:4997
+	Given the TestComposite running on http://localhost:4997 
+	# the above URL should correspond with Euclid.Sdk.TestComposite
 	
 	When I fill out the input model TestInputModel
 	And the command is complete

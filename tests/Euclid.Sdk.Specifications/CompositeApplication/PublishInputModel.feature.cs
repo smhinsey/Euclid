@@ -80,11 +80,11 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Given("the agent SDKTests.FakeAgent");
 #line 11
  testRunner.Given("the TestComposite running on http://localhost:4997");
-#line 13
- testRunner.When("I fill out the input model TestInputModel");
 #line 14
+ testRunner.When("I fill out the input model TestInputModel");
+#line 15
  testRunner.And("the command is complete");
-#line 16
+#line 17
  testRunner.Then("the query TestQuery returns data");
 #line hidden
             this.ScenarioCleanup();
