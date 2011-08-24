@@ -37,7 +37,7 @@ namespace ForumTests
 				"User Profiles", 
 				"In order to interact with a Forum\r\nAs a Forum User\r\nI want to create and maintain" + " a Profile", 
 				ProgrammingLanguage.CSharp, 
-				new[] { "ForumAgentSpecs" });
+				new[] {"ForumAgentSpecs"});
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -73,7 +73,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Register a Profile")]
 		public virtual void RegisterAProfile()
 		{
-			var scenarioInfo = new ScenarioInfo("Register a Profile", (string[])null);
+			var scenarioInfo = new ScenarioInfo("Register a Profile", (string[]) null);
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -92,7 +92,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Update a Profile")]
 		public virtual void UpdateAProfile()
 		{
-			var scenarioInfo = new ScenarioInfo("Update a Profile", (string[])null);
+			var scenarioInfo = new ScenarioInfo("Update a Profile", (string[]) null);
 #line 16
 			this.ScenarioSetup(scenarioInfo);
 #line 17
@@ -115,7 +115,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Authenticate as User")]
 		public virtual void AuthenticateAsUser()
 		{
-			var scenarioInfo = new ScenarioInfo("Authenticate as User", (string[])null);
+			var scenarioInfo = new ScenarioInfo("Authenticate as User", (string[]) null);
 #line 27
 			this.ScenarioSetup(scenarioInfo);
 #line 28

@@ -32,10 +32,7 @@ namespace Euclid.Common.Storage
 
 		public byte[] Content
 		{
-			get
-			{
-				return _content;
-			}
+			get { return _content; }
 
 			set
 			{
@@ -50,15 +47,9 @@ namespace Euclid.Common.Storage
 
 		public string Md5
 		{
-			get
-			{
-				return _md5;
-			}
+			get { return _md5; }
 
-			set
-			{
-				_md5 = value;
-			}
+			set { _md5 = value; }
 		}
 
 		public IList<KeyValuePair<string, string>> Metdata { get; private set; }

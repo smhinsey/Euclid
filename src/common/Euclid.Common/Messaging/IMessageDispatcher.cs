@@ -6,7 +6,7 @@
 	public interface IMessageDispatcher
 	{
 		/// <summary>
-		/// Gets the dispatcher's currently active settings.
+		/// 	Gets the dispatcher's currently active settings.
 		/// </summary>
 		IMessageDispatcherSettings CurrentSettings { get; }
 

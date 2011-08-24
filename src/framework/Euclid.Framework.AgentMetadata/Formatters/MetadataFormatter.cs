@@ -10,7 +10,11 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 {
 	public abstract class MetadataFormatter : IMetadataFormatter
 	{
-		private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string> { { "xml", MimeTypes.GetByExtension("xml") }, { "json", MimeTypes.GetByExtension("json") } };
+		private readonly IDictionary<string, string> _supportedContentTypes = new Dictionary<string, string>
+		                                                                      	{
+		                                                                      		{"xml", MimeTypes.GetByExtension("xml")}, 
+		                                                                      		{"json", MimeTypes.GetByExtension("json")}
+		                                                                      	};
 
 		public string GetContentType(string format)
 		{
@@ -48,7 +52,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 			var json = new StringBuilder();
 
-			var writer = new JsonTextWriter(new StringWriter(json)) { Formatting = Formatting.Indented };
+			var writer = new JsonTextWriter(new StringWriter(json)) {Formatting = Formatting.Indented};
 
 			var serializer = JsonSerializer.Create(serializerSettings);
 

@@ -1,10 +1,11 @@
 ﻿@{
 	ViewBag.Title = "Start a new discussion";
+
 }
 
 <div id="DiscussionForm">
 	<h2>Start a New Discussion</h2>
-	@using (Html.BeginForm("Publish", "Agents", new { area = "metadata" }, FormMethod.Post))
+	@using (Html.BeginForm("Publish", "Agents", new {area = "metadata"}, FormMethod.Post))
 	{
 		<div>
 			<label for="Form_Name">Discussion Title</label>
@@ -35,7 +36,5 @@
 			</div>
 
 		</div>
-
 	}
 </div>
-

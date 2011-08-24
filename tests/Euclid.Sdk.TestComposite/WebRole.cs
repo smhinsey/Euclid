@@ -1,9 +1,7 @@
-﻿using System.Web.Mvc;
-using AgentPanel.Areas.Metadata.Models;
+﻿using AgentPanel.Areas.Metadata.Models;
 using BoC.Web.Mvc.PrecompiledViews;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using Euclid.Common.Messaging;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
 using Euclid.Common.Storage.NHibernate;
@@ -27,11 +25,6 @@ namespace Euclid.Sdk.TestComposite
 		{
 		}
 
-		public static WebRole GetInstance()
-		{
-			return _instance ?? (_instance = new WebRole());
-		}
-
 		public void Init()
 		{
 			if (_initialized)
@@ -39,23 +32,24 @@ namespace Euclid.Sdk.TestComposite
 				return;
 			}
 
-			ApplicationPartRegistry.Register(typeof(AgentModel).Assembly);
+			ApplicationPartRegistry.Register(typeof (AgentModel).Assembly);
 
 			var container = new WindsorContainer();
 
 			var composite = new MvcCompositeApp(container);
 
-			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), 
+			                     true, false);
 
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
-			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
-			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.OutputChannel.ApplyOverride(typeof (AzureMessageChannel));
+			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
 
 			composite.Configure(compositeAppSettings);
 
-			composite.AddAgent(typeof(TestCommand).Assembly);
+			composite.AddAgent(typeof (TestCommand).Assembly);
 
 			composite.RegisterInputModel(new TestInputModelToCommandConverter());
 
@@ -76,6 +70,11 @@ namespace Euclid.Sdk.TestComposite
 				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
+		}
+
+		public static WebRole GetInstance()
+		{
+			return _instance ?? (_instance = new WebRole());
 		}
 	}
 }

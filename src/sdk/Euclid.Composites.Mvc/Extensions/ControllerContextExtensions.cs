@@ -29,7 +29,7 @@ namespace Euclid.Composites.Mvc.Extensions
 		{
 			var value = controllerContext.RouteData.Values[key];
 
-			return (T)value;
+			return (T) value;
 		}
 	}
 }

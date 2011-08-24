@@ -21,7 +21,9 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-				Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(new MultitaskingServiceHost()));
+			                   Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(
+			                                                                                             new MultitaskingServiceHost
+			                                                                                             	()));
 
 			container.Register(Component.For<IHostedService>().Forward<FakeHostedService>().Instance(new FakeHostedService()));
 
@@ -29,8 +31,8 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> { typeof(FakeHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
 			runtime.Initialize(settings);
 		}
@@ -41,7 +43,9 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-				Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(new MultitaskingServiceHost()));
+			                   Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(
+			                                                                                             new MultitaskingServiceHost
+			                                                                                             	()));
 
 			container.Register(Component.For<IHostedService>().Forward<FakeHostedService>().Instance(new FakeHostedService()));
 
@@ -49,8 +53,8 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> { typeof(FakeHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
 			runtime.Initialize(settings);
 
@@ -58,8 +62,8 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			Assert.AreEqual(FabricRuntimeState.Started, runtime.State);
 			Assert.AreEqual(FabricRuntimeState.Started, runtime.GetStatistics().RuntimeState);
-			Assert.AreEqual(typeof(MultitaskingServiceHost), runtime.GetStatistics().ConfiguredServiceHost);
-			Assert.AreEqual(typeof(FakeHostedService), runtime.GetStatistics().ConfiguredHostedServices[0]);
+			Assert.AreEqual(typeof (MultitaskingServiceHost), runtime.GetStatistics().ConfiguredServiceHost);
+			Assert.AreEqual(typeof (FakeHostedService), runtime.GetStatistics().ConfiguredHostedServices[0]);
 		}
 
 		[Test]
@@ -68,17 +72,20 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-				Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(new MultitaskingServiceHost()));
+			                   Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(
+			                                                                                             new MultitaskingServiceHost
+			                                                                                             	()));
 
 			container.Register(
-				Component.For<IHostedService>().Forward<FailingHostedService>().Instance(new FailingHostedService()));
+			                   Component.For<IHostedService>().Forward<FailingHostedService>().Instance(
+			                                                                                            new FailingHostedService()));
 
 			var runtime = new BasicFabric(container);
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> { typeof(FailingHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FailingHostedService)});
 
 			runtime.Initialize(settings);
 
@@ -99,17 +106,20 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-				Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(new MultitaskingServiceHost()));
+			                   Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(
+			                                                                                             new MultitaskingServiceHost
+			                                                                                             	()));
 
 			container.Register(
-				Component.For<IHostedService>().Forward<FailingHostedService>().Instance(new FailingHostedService()));
+			                   Component.For<IHostedService>().Forward<FailingHostedService>().Instance(
+			                                                                                            new FailingHostedService()));
 
 			var runtime = new BasicFabric(container);
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> { typeof(FailingHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FailingHostedService)});
 
 			runtime.Initialize(settings);
 
@@ -120,8 +130,8 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			Thread.Sleep(100); // let the exception have a chance to be thrown and caught
 
 			Assert.AreEqual(FabricRuntimeState.Started, runtime.GetStatistics().RuntimeState);
-			Assert.AreEqual(typeof(MultitaskingServiceHost), runtime.GetStatistics().ConfiguredServiceHost);
-			Assert.AreEqual(typeof(FailingHostedService), runtime.GetStatistics().ConfiguredHostedServices[0]);
+			Assert.AreEqual(typeof (MultitaskingServiceHost), runtime.GetStatistics().ConfiguredServiceHost);
+			Assert.AreEqual(typeof (FailingHostedService), runtime.GetStatistics().ConfiguredHostedServices[0]);
 			Assert.GreaterOrEqual(runtime.GetStatistics().HostedServiceExceptions.Count, 1);
 		}
 
@@ -131,7 +141,9 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-				Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(new MultitaskingServiceHost()));
+			                   Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(
+			                                                                                             new MultitaskingServiceHost
+			                                                                                             	()));
 
 			container.Register(Component.For<IHostedService>().Forward<FakeHostedService>().Instance(new FakeHostedService()));
 
@@ -139,8 +151,8 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> { typeof(FakeHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
 			runtime.Initialize(settings);
 
@@ -155,7 +167,9 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-				Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(new MultitaskingServiceHost()));
+			                   Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(
+			                                                                                             new MultitaskingServiceHost
+			                                                                                             	()));
 
 			container.Register(Component.For<IHostedService>().Forward<FakeHostedService>().Instance(new FakeHostedService()));
 
@@ -163,8 +177,8 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> { typeof(FakeHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
 			runtime.Initialize(settings);
 
@@ -187,7 +201,9 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			var container = new WindsorContainer();
 
 			container.Register(
-				Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(new MultitaskingServiceHost()));
+			                   Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(
+			                                                                                             new MultitaskingServiceHost
+			                                                                                             	()));
 
 			container.Register(Component.For<IHostedService>().Forward<FakeHostedService>().Instance(new FakeHostedService()));
 
@@ -195,8 +211,8 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> { typeof(FakeHostedService) });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {typeof (FakeHostedService)});
 
 			runtime.Initialize(settings);
 
@@ -210,7 +226,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 		}
 
 		[Test]
-		[ExpectedException(typeof(NoServiceHostConfiguredException))]
+		[ExpectedException(typeof (NoServiceHostConfiguredException))]
 		public void ThrowsWhenConfigIsEmpty()
 		{
 			var container = new WindsorContainer();
@@ -221,7 +237,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 		}
 
 		[Test]
-		[ExpectedException(typeof(NoHostedServicesConfiguredException))]
+		[ExpectedException(typeof (NoHostedServicesConfiguredException))]
 		public void ThrowsWhenConfigIsMissingHostedServices()
 		{
 			var container = new WindsorContainer();
@@ -236,7 +252,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 		}
 
 		[Test]
-		[ExpectedException(typeof(NoServiceHostConfiguredException))]
+		[ExpectedException(typeof (NoServiceHostConfiguredException))]
 		public void ThrowsWhenConfigIsMissingServiceHost()
 		{
 			var container = new WindsorContainer();
@@ -251,20 +267,22 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 		}
 
 		[Test]
-		[ExpectedException(typeof(HostedServiceNotResolvableException))]
+		[ExpectedException(typeof (HostedServiceNotResolvableException))]
 		public void ThrowsWhenHostedServiceNotResolvable()
 		{
 			var container = new WindsorContainer();
 
 			container.Register(
-				Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(new MultitaskingServiceHost()));
+			                   Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(
+			                                                                                             new MultitaskingServiceHost
+			                                                                                             	()));
 
 			var runtime = new BasicFabric(container);
 
 			var settings = new FabricRuntimeSettings();
 
-			settings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			settings.HostedServices.WithDefault(new List<Type> { GetType() });
+			settings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			settings.HostedServices.WithDefault(new List<Type> {GetType()});
 
 			runtime.Initialize(settings);
 
@@ -272,7 +290,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 		}
 
 		[Test]
-		[ExpectedException(typeof(ServiceHostNotResolvableException))]
+		[ExpectedException(typeof (ServiceHostNotResolvableException))]
 		public void ThrowsWhenServiceHostNotResolvable()
 		{
 			var container = new WindsorContainer();
@@ -282,7 +300,7 @@ namespace Euclid.Framework.UnitTests.HostingFabric
 			var settings = new FabricRuntimeSettings();
 
 			settings.ServiceHost.WithDefault(GetType());
-			settings.HostedServices.WithDefault(new List<Type> { GetType() });
+			settings.HostedServices.WithDefault(new List<Type> {GetType()});
 
 			runtime.Initialize(settings);
 		}

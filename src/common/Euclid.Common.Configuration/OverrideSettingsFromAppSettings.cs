@@ -17,15 +17,15 @@ namespace Euclid.Common.Configuration
 
 					if (propertyReference is IOverridableSetting<string>)
 					{
-						((IOverridableSetting<string>)propertyReference).ApplyOverride(newValue);
+						((IOverridableSetting<string>) propertyReference).ApplyOverride(newValue);
 					}
 					else if (propertyReference is IOverridableSetting<bool>)
 					{
-						((IOverridableSetting<bool>)propertyReference).ApplyOverride(bool.Parse(newValue));
+						((IOverridableSetting<bool>) propertyReference).ApplyOverride(bool.Parse(newValue));
 					}
 					else if (propertyReference is IOverridableSetting<int>)
 					{
-						((IOverridableSetting<int>)propertyReference).ApplyOverride(int.Parse(newValue));
+						((IOverridableSetting<int>) propertyReference).ApplyOverride(int.Parse(newValue));
 					}
 
 					propertyInfo.SetValue(settings, propertyReference, null);

@@ -12,8 +12,8 @@ namespace Euclid.Composites.Conversion
 {
 	public class InputModelToCommandTransformerRegistry : IInputModelTransfomerRegistry, ILoggingSource
 	{
-        private readonly Dictionary<string, IInputToCommandConverter> _inputModelsAndValues =
-            new Dictionary<string, IInputToCommandConverter>();
+		private readonly Dictionary<string, IInputToCommandConverter> _inputModelsAndValues =
+			new Dictionary<string, IInputToCommandConverter>();
 
 		public void Add(string partName, IInputToCommandConverter converter)
 		{
@@ -31,10 +31,10 @@ namespace Euclid.Composites.Conversion
 
 		public ICommand GetCommand(IInputModel model)
 		{
-            var partName = _inputModelsAndValues
-				                .Where(row => row.Value.InputModelType == model.GetType())
-				                .Select(row => row.Key)
-				                .FirstOrDefault();
+			var partName = _inputModelsAndValues
+				.Where(row => row.Value.InputModelType == model.GetType())
+				.Select(row => row.Key)
+				.FirstOrDefault();
 
 			GuardPartNameRegistered(partName);
 
@@ -73,6 +73,11 @@ namespace Euclid.Composites.Conversion
 			return Activator.CreateInstance(_inputModelsAndValues[partName].InputModelType) as IInputModel;
 		}
 
+		public IEnumerable<ITypeMetadata> GetInputModels()
+		{
+			return _inputModelsAndValues.Values.Select(c => c.InputModelType.GetMetadata());
+		}
+
 		private void GuardPartNameRegistered(string partName)
 		{
 			if (!_inputModelsAndValues.ContainsKey(partName))
@@ -80,12 +85,6 @@ namespace Euclid.Composites.Conversion
 				throw new InputModelForPartNotRegisteredException(partName);
 			}
 		}
-
-        public IEnumerable<ITypeMetadata> GetInputModels()
-        {
-            return _inputModelsAndValues.Values.Select(c => c.InputModelType.GetMetadata());
-        }
-
 	}
 
 	public class InputModelForPartNotRegisteredException : Exception

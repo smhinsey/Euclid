@@ -37,7 +37,7 @@ namespace ForumTests
 				"Forum Posting", 
 				"In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" + "t Forum", 
 				ProgrammingLanguage.CSharp, 
-				new[] { "ForumAgentSpecs" });
+				new[] {"ForumAgentSpecs"});
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -73,7 +73,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Publish Post")]
 		public virtual void PublishPost()
 		{
-			var scenarioInfo = new ScenarioInfo("Publish Post", (string[])null);
+			var scenarioInfo = new ScenarioInfo("Publish Post", (string[]) null);
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -92,7 +92,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Publish Post in a Category")]
 		public virtual void PublishPostInACategory()
 		{
-			var scenarioInfo = new ScenarioInfo("Publish Post in a Category", (string[])null);
+			var scenarioInfo = new ScenarioInfo("Publish Post in a Category", (string[]) null);
 #line 15
 			this.ScenarioSetup(scenarioInfo);
 #line 16

@@ -4,91 +4,97 @@
 //      SpecFlow Version:1.7.0.0
 //      SpecFlow Generator Version:1.7.0.0
 //      Runtime Version:4.0.30319.235
-// 
 //      Changes to this file may cause incorrect behavior and will be lost if
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
+
+using System.Globalization;
+using TechTalk.SpecFlow;
+
 namespace Euclid.Sdk.Specifications.CompositeApplication
 {
-    using TechTalk.SpecFlow;
-    
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-        "wo numbers")]
-    [NUnit.Framework.CategoryAttribute("SdkSpecs")]
-    [NUnit.Framework.CategoryAttribute("AgentPanel")]
-    public partial class PublishInputModelsAsCommandsFeature
-    {
-        
-        private static TechTalk.SpecFlow.ITestRunner testRunner;
-        
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
+	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+	[NUnit.Framework.TestFixtureAttribute()]
+	[NUnit.Framework.DescriptionAttribute(
+		"In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
+		"wo numbers")]
+	[NUnit.Framework.CategoryAttribute("SdkSpecs")]
+	[NUnit.Framework.CategoryAttribute("AgentPanel")]
+	public partial class PublishInputModelsAsCommandsFeature
+	{
+		private static ITestRunner testRunner;
+
 #line 1 "PublishInputModel.feature"
 #line hidden
-        
-        [NUnit.Framework.TestFixtureSetUpAttribute()]
-        public virtual void FeatureSetup()
-        {
-            testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Publish input models as commands", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-                    "wo numbers", ProgrammingLanguage.CSharp, new string[] {
-                        "SdkSpecs",
-                        "AgentPanel"});
-            testRunner.OnFeatureStart(featureInfo);
-        }
-        
-        [NUnit.Framework.TestFixtureTearDownAttribute()]
-        public virtual void FeatureTearDown()
-        {
-            testRunner.OnFeatureEnd();
-            testRunner = null;
-        }
-        
-        [NUnit.Framework.SetUpAttribute()]
-        public virtual void TestInitialize()
-        {
-        }
-        
-        [NUnit.Framework.TearDownAttribute()]
-        public virtual void ScenarioTearDown()
-        {
-            testRunner.OnScenarioEnd();
-        }
-        
-        public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
-        {
-            testRunner.OnScenarioStart(scenarioInfo);
-        }
-        
-        public virtual void ScenarioCleanup()
-        {
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publish an input model via the AgentPanel")]
-        public virtual void PublishAnInputModelViaTheAgentPanel()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish an input model via the AgentPanel", ((string[])(null)));
+
+		[NUnit.Framework.TestFixtureSetUpAttribute()]
+		public virtual void FeatureSetup()
+		{
+			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
+			var featureInfo = new FeatureInfo(new CultureInfo("en-US"), 
+			                                                    "Publish input models as commands", 
+			                                                    "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
+			                                                    "wo numbers", ProgrammingLanguage.CSharp, new[]
+			                                                                                              	{
+			                                                                                              		"SdkSpecs", 
+			                                                                                              		"AgentPanel"
+			                                                                                              	});
+			testRunner.OnFeatureStart(featureInfo);
+		}
+
+		[NUnit.Framework.TestFixtureTearDownAttribute()]
+		public virtual void FeatureTearDown()
+		{
+			testRunner.OnFeatureEnd();
+			testRunner = null;
+		}
+
+		[NUnit.Framework.SetUpAttribute()]
+		public virtual void TestInitialize()
+		{
+		}
+
+		[NUnit.Framework.TearDownAttribute()]
+		public virtual void ScenarioTearDown()
+		{
+			testRunner.OnScenarioEnd();
+		}
+
+		public virtual void ScenarioSetup(ScenarioInfo scenarioInfo)
+		{
+			testRunner.OnScenarioStart(scenarioInfo);
+		}
+
+		public virtual void ScenarioCleanup()
+		{
+			testRunner.CollectScenarioErrors();
+		}
+
+		[NUnit.Framework.TestAttribute()]
+		[NUnit.Framework.DescriptionAttribute("Publish an input model via the AgentPanel")]
+		public virtual void PublishAnInputModelViaTheAgentPanel()
+		{
+			var scenarioInfo = new ScenarioInfo("Publish an input model via the AgentPanel", 
+			                                                      (string[]) (null));
 #line 7
-this.ScenarioSetup(scenarioInfo);
+			this.ScenarioSetup(scenarioInfo);
 #line 9
- testRunner.Given("the agent SDKTests.FakeAgent");
+			testRunner.Given("the agent SDKTests.FakeAgent");
 #line 11
- testRunner.Given("the TestComposite running on http://localhost:4997");
+			testRunner.Given("the TestComposite running on http://localhost:4997");
 #line 14
- testRunner.When("I fill out the input model TestInputModel");
+			testRunner.When("I fill out the input model TestInputModel");
 #line 15
- testRunner.And("the command is complete");
+			testRunner.And("the command is complete");
 #line 17
- testRunner.Then("the query TestQuery returns data");
+			testRunner.Then("the query TestQuery returns data");
 #line hidden
-            this.ScenarioCleanup();
-        }
-    }
+			this.ScenarioCleanup();
+		}
+	}
 }
+
 #endregion

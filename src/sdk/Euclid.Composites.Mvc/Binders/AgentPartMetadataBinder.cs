@@ -8,36 +8,36 @@ using Euclid.Framework.AgentMetadata;
 
 namespace Euclid.Composites.Mvc.Binders
 {
-    public class AgentPartMetadataBinder : IEuclidModelBinder
-    {
-        private readonly IAgentResolver[] _resolvers;
+	public class AgentPartMetadataBinder : IEuclidModelBinder
+	{
+		private readonly IAgentResolver[] _resolvers;
 
-        public AgentPartMetadataBinder(IAgentResolver[] resolvers)
-        {
-            _resolvers = resolvers;
-        }
+		public AgentPartMetadataBinder(IAgentResolver[] resolvers)
+		{
+			_resolvers = resolvers;
+		}
 
-        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
-        {
-            var systemName = controllerContext.GetAgentSystemName();
+		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+		{
+			var systemName = controllerContext.GetAgentSystemName();
 
-            var partName = controllerContext.GetPartName();
+			var partName = controllerContext.GetPartName();
 
-            var metadata = _resolvers.GetAgentMetadata(systemName);
+			var metadata = _resolvers.GetAgentMetadata(systemName);
 
-            var agentPartMetadata = metadata.GetPartByTypeName(partName);
+			var agentPartMetadata = metadata.GetPartByTypeName(partName);
 
-            if (agentPartMetadata == null)
-            {
-                throw new TypeMetadataNotFoundException();
-            }
+			if (agentPartMetadata == null)
+			{
+				throw new TypeMetadataNotFoundException();
+			}
 
-            return agentPartMetadata;
-        }
+			return agentPartMetadata;
+		}
 
-        public bool IsMatch(Type modelType)
-        {
-            return typeof (IAgentPart).IsAssignableFrom(modelType);
-        }
-    }
+		public bool IsMatch(Type modelType)
+		{
+			return typeof (IAgentPart).IsAssignableFrom(modelType);
+		}
+	}
 }

@@ -24,7 +24,7 @@ namespace AgentPanel.Areas.Metadata.Controllers
 		{
 			var records = _registry.GetRecords(pageSize, offset);
 
-			return View(new { PublicationRecords = records });
+			return View(new {PublicationRecords = records});
 		}
 	}
 }

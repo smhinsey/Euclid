@@ -34,10 +34,7 @@ namespace Euclid.Framework.AgentMetadata
 
 		public Assembly AgentAssembly
 		{
-			get
-			{
-				return _agent;
-			}
+			get { return _agent; }
 		}
 
 		public IPartCollection Commands { get; private set; }
@@ -105,15 +102,15 @@ namespace Euclid.Framework.AgentMetadata
 
 		public IPartCollection GetPartCollectionContainingType(Type partType)
 		{
-			if (typeof(ICommand).IsAssignableFrom(partType))
+			if (typeof (ICommand).IsAssignableFrom(partType))
 			{
 				return Commands;
 			}
-			else if (typeof(IQuery).IsAssignableFrom(partType))
+			else if (typeof (IQuery).IsAssignableFrom(partType))
 			{
 				return Queries;
 			}
-			else if (typeof(IReadModel).IsAssignableFrom(partType))
+			else if (typeof (IReadModel).IsAssignableFrom(partType))
 			{
 				return ReadModels;
 			}
@@ -171,9 +168,9 @@ namespace Euclid.Framework.AgentMetadata
 						{
 							_agentMetadata.DescriptiveName, 
 							_agentMetadata.SystemName, 
-							Commands = _agentMetadata.Commands.Collection.Select(x => new { x.Namespace, x.Name }), 
-							ReadModels = _agentMetadata.ReadModels.Collection.Select(x => new { x.Namespace, x.Name }), 
-							Queries = _agentMetadata.Queries.Collection.Select(x => new { x.Namespace, x.Name })
+							Commands = _agentMetadata.Commands.Collection.Select(x => new {x.Namespace, x.Name}), 
+							ReadModels = _agentMetadata.ReadModels.Collection.Select(x => new {x.Namespace, x.Name}), 
+							Queries = _agentMetadata.Queries.Collection.Select(x => new {x.Namespace, x.Name})
 						};
 			}
 		}
@@ -198,7 +195,7 @@ namespace Euclid.Framework.AgentMetadata
 
 			protected override object GetJsonObject(JsonSerializer serializer)
 			{
-				return new { _agentMetadata.DescriptiveName, _agentMetadata.SystemName };
+				return new {_agentMetadata.DescriptiveName, _agentMetadata.SystemName};
 			}
 		}
 	}

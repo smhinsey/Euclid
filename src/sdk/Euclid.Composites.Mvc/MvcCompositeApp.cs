@@ -15,6 +15,13 @@ namespace Euclid.Composites.Mvc
 		{
 		}
 
+		public override void Configure(CompositeAppSettings compositeAppSettings)
+		{
+			base.Configure(compositeAppSettings);
+
+			wireMvcInfrastructure();
+		}
+
 		public void BeginPageRequest(object sender, EventArgs eventArgs)
 		{
 			if (State != CompositeApplicationState.Configured)
@@ -23,18 +30,11 @@ namespace Euclid.Composites.Mvc
 			}
 		}
 
-		public override void Configure(CompositeAppSettings compositeAppSettings)
-		{
-			base.Configure(compositeAppSettings);
-
-			wireMvcInfrastructure();
-		}
-
 		public void LogUnhandledException(object sender, EventArgs eventArgs)
 		{
 			var e = HttpContext.Current.Server.GetLastError();
-			
-            this.WriteFatalMessage(e.Message, e);
+
+			this.WriteFatalMessage(e.Message, e);
 		}
 
 		private void wireMvcInfrastructure()

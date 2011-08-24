@@ -47,7 +47,7 @@ namespace Euclid.Common.Storage.NHibernate
 			{
 				try
 				{
-					var model = (TModel)session.Get(typeof(TModel), identifier);
+					var model = (TModel) session.Get(typeof (TModel), identifier);
 
 					this.WriteDebugMessage(string.Format("Deleting model {0}({1})", model.GetType().Name, model.Identifier));
 

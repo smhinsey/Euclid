@@ -18,13 +18,13 @@ namespace ForumAgent.Processors
 		public override void Process(RegisterUser message)
 		{
 			var newUser = new User
-				{
-					PasswordHash = message.PasswordHash, 
-					PasswordSalt = message.PasswordSalt, 
-					Username = message.Username, 
-					Created = DateTime.Now, 
-					Modified = DateTime.Now
-				};
+			              	{
+			              		PasswordHash = message.PasswordHash, 
+			              		PasswordSalt = message.PasswordSalt, 
+			              		Username = message.Username, 
+			              		Created = DateTime.Now, 
+			              		Modified = DateTime.Now
+			              	};
 
 			_repository.Save(newUser);
 		}

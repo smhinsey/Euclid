@@ -4,6 +4,6 @@ namespace Euclid.Sdk.TestComposite.Models
 {
 	public class TestInputModel : InputModelBase
 	{
-        public int Number { get; set; }
+		public int Number { get; set; }
 	}
 }

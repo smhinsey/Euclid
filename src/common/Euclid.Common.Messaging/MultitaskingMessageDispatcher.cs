@@ -89,11 +89,11 @@ namespace Euclid.Common.Messaging
 			}
 
 			this.WriteInfoMessage(
-				string.Format(
-					"Dispatcher configured with input channel {0}({1}) and {2} message processors.", 
-					_inputChannel.GetType().Name, 
-					_inputChannel.ChannelName, 
-					_messageProcessors.Count()));
+			                      string.Format(
+			                                    "Dispatcher configured with input channel {0}({1}) and {2} message processors.", 
+			                                    _inputChannel.GetType().Name, 
+			                                    _inputChannel.ChannelName, 
+			                                    _messageProcessors.Count()));
 
 			_configured = true;
 		}
@@ -136,7 +136,8 @@ namespace Euclid.Common.Messaging
 		private void dispatchMessage()
 		{
 			var messages = _inputChannel.ReceiveMany(
-				CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value, CurrentSettings.DurationOfDispatchingSlice.Value);
+			                                         CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value, 
+			                                         CurrentSettings.DurationOfDispatchingSlice.Value);
 
 			foreach (var channelMessage in messages)
 			{
@@ -155,9 +156,9 @@ namespace Euclid.Common.Messaging
 				if (processors.Count() == 0)
 				{
 					var msg = string.Format(
-						"The dispatcher {0} has no processors configured to handle a message of type {1}", 
-						GetType().FullName, 
-						message.GetType().FullName);
+					                        "The dispatcher {0} has no processors configured to handle a message of type {1}", 
+					                        GetType().FullName, 
+					                        message.GetType().FullName);
 
 					this.WriteErrorMessage(msg, null);
 
@@ -175,31 +176,36 @@ namespace Euclid.Common.Messaging
 					// var task = new Task<MessageDispatchResult>({ try{...} catch(Exception e) { return new MessageDispatchResult { Failed = true, Error = e} ; }})
 
 					Task.Factory.StartNew(
-						() =>
-							{
-								try
-								{
-									var handler = processor.GetType().GetMethod("Process", new[] { message.GetType() });
+					                      () =>
+					                      	{
+					                      		try
+					                      		{
+					                      			var handler = processor.GetType().GetMethod("Process", new[] {message.GetType()});
 
-									handler.Invoke(processor, new[] { message });
+					                      			handler.Invoke(processor, new[] {message});
 
-									var registry =
-										(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
-										_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
-
-									registry.MarkAsComplete(record.Identifier);
-									this.WriteInfoMessage("Dispatched message {0} with id {1}.", message.GetType().Name, message.Identifier);
-								}
-								catch (Exception e)
-								{
-									this.WriteErrorMessage(
-										"An error occurred processing message {0} with id {1}.", e, message.GetType().Name, message.Identifier);
-									var registry =
-										(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
-										_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
-									registry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
-								}
-							});
+					                      			var registry =
+					                      				(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
+					                      				_container.GetInstance(
+					                      				                       typeof (
+					                      				                       	IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
+					                      			registry.MarkAsComplete(record.Identifier);
+					                      			this.WriteInfoMessage("Dispatched message {0} with id {1}.", message.GetType().Name, 
+					                      			                      message.Identifier);
+					                      		}
+					                      		catch (Exception e)
+					                      		{
+					                      			this.WriteErrorMessage(
+					                      			                       "An error occurred processing message {0} with id {1}.", e, 
+					                      			                       message.GetType().Name, message.Identifier);
+					                      			var registry =
+					                      				(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
+					                      				_container.GetInstance(
+					                      				                       typeof (
+					                      				                       	IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
+					                      			registry.MarkAsFailed(record.Identifier, e.Message, e.StackTrace);
+					                      		}
+					                      	});
 				}
 			}
 		}
@@ -219,12 +225,12 @@ namespace Euclid.Common.Messaging
 			{
 				Task.Factory.StartNew(dispatchTask => dispatchMessage(), _cancellationToken);
 
-				Thread.Sleep((int)CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
+				Thread.Sleep((int) CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
 
-                this.WriteDebugMessage("Polling for records");
+				this.WriteDebugMessage("Polling for records");
 			}
 
-            this.WriteDebugMessage("Stopped polling for records");
+			this.WriteDebugMessage("Stopped polling for records");
 		}
 	}
 }

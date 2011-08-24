@@ -8,9 +8,9 @@ namespace Euclid.Framework.AgentMetadata
 		public AssemblyNotAgentException(Assembly assembly, Type expectedAttribute)
 			: base(
 				string.Format(
-					"The assembly {0} is not an agent.  The required metadata was not found {1}", 
-					assembly.FullName, 
-					expectedAttribute.Name))
+				              "The assembly {0} is not an agent.  The required metadata was not found {1}", 
+				              assembly.FullName, 
+				              expectedAttribute.Name))
 		{
 		}
 

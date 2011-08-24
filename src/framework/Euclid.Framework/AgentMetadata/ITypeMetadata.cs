@@ -19,8 +19,8 @@ namespace Euclid.Framework.AgentMetadata
 		IMetadataFormatter GetFormatter();
 	}
 
-    public interface IAgentPartMetadata : ITypeMetadata
-    {
-        IPartCollection GetContainingPartCollection();
-    }
+	public interface IAgentPartMetadata : ITypeMetadata
+	{
+		IPartCollection GetContainingPartCollection();
+	}
 }

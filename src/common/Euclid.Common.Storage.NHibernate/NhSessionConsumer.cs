@@ -21,10 +21,10 @@ namespace Euclid.Common.Storage.NHibernate
 			}
 
 			this.WriteErrorMessage(
-				"The current session is closed or unavailable. Session.IsOpen={0} Session.IsConnected={1}", 
-				null, 
-				_session.IsOpen, 
-				_session.IsConnected);
+			                       "The current session is closed or unavailable. Session.IsOpen={0} Session.IsConnected={1}", 
+			                       null, 
+			                       _session.IsOpen, 
+			                       _session.IsConnected);
 
 			throw new ModelRepositoryException("The current session is closed");
 		}

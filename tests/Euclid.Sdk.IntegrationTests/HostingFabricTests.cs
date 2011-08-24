@@ -26,7 +26,7 @@ namespace Euclid.Sdk.IntegrationTests
 
 			for (var i = 0; i < NumberOfCommands; i++)
 			{
-                var publicationId = publisher.PublishMessage(new TestCommand { Number = i });
+				var publicationId = publisher.PublishMessage(new TestCommand {Number = i});
 
 				publicationIds.Add(publicationId);
 			}
@@ -44,7 +44,7 @@ namespace Euclid.Sdk.IntegrationTests
 
 			var publisher = Container.Resolve<IPublisher>();
 
-			WaitUntilComplete(publisher.PublishMessage(new TestCommand { Number = MessageNumber }));
+			WaitUntilComplete(publisher.PublishMessage(new TestCommand {Number = MessageNumber}));
 
 			var query = Container.Resolve<TestQuery>();
 

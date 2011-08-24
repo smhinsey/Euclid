@@ -7,59 +7,59 @@ using TechTalk.SpecFlow;
 
 namespace Euclid.Sdk.Specifications.AppSettings
 {
-    [Binding]
-    public class CompositeAppSettingsCanBeValidated
-    {
-        [Given("A new CompositeAppSetting object")]
-        public void NewCompositeAppSetting()
-        {
-            ScenarioContext.Current["AppSetting"] = new CompositeAppSettings();
-        }
+	[Binding]
+	public class CompositeAppSettingsCanBeValidated
+	{
+		[Given("A new CompositeAppSetting object")]
+		public void NewCompositeAppSetting()
+		{
+			ScenarioContext.Current["AppSetting"] = new CompositeAppSettings();
+		}
 
-        [When("I call validate a NullSettingException is thrown")]
-        public void ValidateDefaultCompositeAppSettings()
-        {
-            var setting = ScenarioContext.Current["AppSetting"] as CompositeAppSettings;
+		[When("NullSettingException.SettingName is equal to 'OutputChannel'")]
+		public void SettingNameIsOutputChannel()
+		{
+			var settingName = ScenarioContext.Current["NullSettingName"].ToString();
 
-            Assert.NotNull(setting);
+			Assert.False(string.IsNullOrEmpty(settingName));
 
-            try
-            {
-                setting.Validate();
-                Assert.Fail("default composite app should not be valid");
-            }
-            catch (NullSettingException n)
-            {
-                ScenarioContext.Current["NullSettingName"] = n.SettingName;
-            }
-            catch
-            {
-                Assert.Fail("default composite app should throw NullSettingException");
-            }
-        }
+			Assert.AreEqual("OutputChannel", settingName);
+		}
 
-        [When("NullSettingException.SettingName is equal to 'OutputChannel'")]
-        public void SettingNameIsOutputChannel()
-        {
-            var settingName = ScenarioContext.Current["NullSettingName"].ToString();
+		[When(@"There is 1 reason in the enumerable object returned by CompositeAppSetting\.GetInvalidSettingReasons\(\)")]
+		public void TestInvalidSettingReasons()
+		{
+			var setting = ScenarioContext.Current["AppSetting"] as CompositeAppSettings;
 
-            Assert.False(string.IsNullOrEmpty(settingName));
+			Assert.NotNull(setting);
 
-            Assert.AreEqual("OutputChannel", settingName);
-        }
+			var reasons = setting.GetInvalidSettingReasons();
 
-        [When(@"There is 1 reason in the enumerable object returned by CompositeAppSetting\.GetInvalidSettingReasons\(\)")]
-        public void TestInvalidSettingReasons()
-        {
-            var setting = ScenarioContext.Current["AppSetting"] as CompositeAppSettings;
+			Console.WriteLine(reasons.ElementAt(0));
 
-            Assert.NotNull(setting);
+			Assert.AreEqual(1, reasons.Count());
+		}
 
-            var reasons = setting.GetInvalidSettingReasons();
+		[When("I call validate a NullSettingException is thrown")]
+		public void ValidateDefaultCompositeAppSettings()
+		{
+			var setting = ScenarioContext.Current["AppSetting"] as CompositeAppSettings;
 
-            Console.WriteLine(reasons.ElementAt(0));
+			Assert.NotNull(setting);
 
-            Assert.AreEqual(1, reasons.Count());
-        }
-    }
+			try
+			{
+				setting.Validate();
+				Assert.Fail("default composite app should not be valid");
+			}
+			catch (NullSettingException n)
+			{
+				ScenarioContext.Current["NullSettingName"] = n.SettingName;
+			}
+			catch
+			{
+				Assert.Fail("default composite app should throw NullSettingException");
+			}
+		}
+	}
 }

@@ -13,7 +13,7 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 		private readonly string _partNamespace;
 
 		private string _agentSystemName;
-        private IEnumerable<IAgentPartMetadata> _collection;
+		private IEnumerable<IAgentPartMetadata> _collection;
 		private Type _collectionType;
 		private bool _init;
 
@@ -79,7 +79,7 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 				       type.Namespace == _partNamespace &&
 				       typeof (T).IsAssignableFrom(type))
 				.Select(type => new AgentPartMetadata(type))
-                .Cast<IAgentPartMetadata>()
+				.Cast<IAgentPartMetadata>()
 				.ToList();
 
 			_collectionType = typeof (T);

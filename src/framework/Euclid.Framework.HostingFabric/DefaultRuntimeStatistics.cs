@@ -5,7 +5,8 @@ namespace Euclid.Framework.HostingFabric
 {
 	public class DefaultRuntimeStatistics : IFabricRuntimeStatistics
 	{
-		public DefaultRuntimeStatistics(
+		public DefaultRuntimeStatistics
+			(
 			IList<Exception> hostedServiceExceptions, 
 			IList<Type> configuredHostedServices, 
 			Type configuredServiceHost, 

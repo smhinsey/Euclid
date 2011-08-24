@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Castle.Core;
@@ -24,23 +23,22 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
-using Component = Castle.MicroKernel.Registration.Component;
 using IQuery = Euclid.Framework.Cqrs.IQuery;
 
 namespace Euclid.Composites
 {
 	public class BasicCompositeApp : ICompositeApp
 	{
-	    private readonly IList<IAgentMetadata> _agents;
+		private readonly IList<IAgentMetadata> _agents;
 
-        private readonly IList<ITypeMetadata> _inputModels;
+		private readonly IList<ITypeMetadata> _inputModels;
 
 		public BasicCompositeApp()
 		{
-            _agents = new List<IAgentMetadata>();
-            _inputModels = new List<ITypeMetadata>();
-            
-            State = CompositeApplicationState.Uninitailized;
+			_agents = new List<IAgentMetadata>();
+			_inputModels = new List<ITypeMetadata>();
+
+			State = CompositeApplicationState.Uninitailized;
 			InputModelTransformers = new InputModelToCommandTransformerRegistry();
 			Container = new WindsorContainer();
 		}
@@ -51,21 +49,27 @@ namespace Euclid.Composites
 			Container = container;
 		}
 
-        public IEnumerable<IAgentMetadata> Agents { get { return _agents; } }
+		public IEnumerable<IAgentMetadata> Agents
+		{
+			get { return _agents; }
+		}
 
-        public IEnumerable<ITypeMetadata> InputModels { get { return _inputModels; } }
+		public IEnumerable<ITypeMetadata> InputModels
+		{
+			get { return _inputModels; }
+		}
 
-        public CompositeApplicationState State { get; set; }
+		public CompositeAppSettings Settings { get; set; }
+
+		public CompositeApplicationState State { get; set; }
 
 		protected IWindsorContainer Container { get; set; }
 
 		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
 
-		public CompositeAppSettings Settings { get; set; }
-
 		public virtual void Configure(CompositeAppSettings compositeAppSettings)
 		{
-            Container.Kernel.Resolver.AddSubResolver(new ArrayResolver(Container.Kernel));
+			Container.Kernel.Resolver.AddSubResolver(new ArrayResolver(Container.Kernel));
 
 			Container.Kernel.Resolver.AddSubResolver(new ListResolver(Container.Kernel));
 
@@ -78,7 +82,7 @@ namespace Euclid.Composites
 
 			Settings = compositeAppSettings;
 
-            Settings.Validate();
+			Settings.Validate();
 
 			State = CompositeApplicationState.Configured;
 		}
@@ -98,16 +102,32 @@ namespace Euclid.Composites
 			// enumerate queries, commands & read models
 			var agent = assembly.GetAgentMetadata();
 
-            _agents.Add(agent);
+			_agents.Add(agent);
 
 			// SELF the Where call below changes the meaning of the rest of the registration so it had to be removed
 			Container.Register(
-				AllTypes.FromAssembly(agent.AgentAssembly)
+			                   AllTypes.FromAssembly(agent.AgentAssembly)
           
 					
 					
-					// .Where(Component.IsInNamespace(agent.Queries.Namespace))
-					.BasedOn(typeof(IQuery)).WithService.Self().Configure(component => component.LifeStyle.Transient));
+			                   	
+// .Where(Component.IsInNamespace(agent.Queries.Namespace))
+			                   	.BasedOn(typeof (IQuery)).WithService.Self().Configure(component => component.LifeStyle.Transient));
+		}
+
+		public IEnumerable<string> GetConfigurationErrors()
+		{
+			return Settings.GetInvalidSettingReasons();
+		}
+
+		public IMetadataFormatter GetFormatter()
+		{
+			return new CompositeMetadataFormatter(this);
+		}
+
+		public bool IsValid()
+		{
+			return GetConfigurationErrors().Count() == 0;
 		}
 
 		public void RegisterInputModel(IInputToCommandConverter converter)
@@ -133,66 +153,68 @@ namespace Euclid.Composites
 
 			InputModelTransformers.Add(commandMetadata.Name, converter);
 
-            if (!_inputModels.Where(x=>x.Type == converter.InputModelType).Any())
-            {
-                _inputModels.Add(converter.InputModelType.GetMetadata());
-            }
+			if (!_inputModels.Where(x => x.Type == converter.InputModelType).Any())
+			{
+				_inputModels.Add(converter.InputModelType.GetMetadata());
+			}
 		}
 
-	    public IMetadataFormatter GetFormatter()
-	    {
-	        return new CompositeMetadataFormatter(this);
-	    }
-
-	    public bool IsValid()
-	    {
-	        return GetConfigurationErrors().Count() == 0;
-	    }
-
-        public IEnumerable<string> GetConfigurationErrors()
-        {
-            return Settings.GetInvalidSettingReasons();
-        }
-
-	    public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
+		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
 		{
-            var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
+			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
-            Container.Register(
-                Component.For<ISessionFactory>().UsingFactoryMethod(
-                    () =>
-                    Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).ExposeConfiguration(
-                        cfg => new SchemaExport(cfg).Create(false, buildSchema)).BuildSessionFactory()).LifeStyle.Singleton);
+			Container.Register(
+			                   Component.For<ISessionFactory>().UsingFactoryMethod(
+			                                                                       () =>
+			                                                                       Fluently.Configure().Database(
+			                                                                                                     databaseConfiguration)
+			                                                                       	.Mappings(map => mapAllAssemblies(map)).
+			                                                                       	ExposeConfiguration(
+			                                                                       	                    cfg =>
+			                                                                       	                    new SchemaExport(cfg).
+			                                                                       	                    	Create(false, 
+			                                                                       	                    	       buildSchema)).
+			                                                                       	BuildSessionFactory()).LifeStyle.Singleton);
 
-            // jt: open session should be read-only
-            Container.Register(
-                Component.For<ISession>().UsingFactoryMethod(() => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(
-                    lifestyleType));
+			// jt: open session should be read-only
+			Container.Register(
+			                   Component.For<ISession>().UsingFactoryMethod(
+			                                                                () =>
+			                                                                Container.Resolve<ISessionFactory>().OpenSession()).
+			                   	LifeStyle.Is(
+			                   	             lifestyleType));
 		}
 
 		protected void RegisterConfiguredTypes(CompositeAppSettings compositeAppSettings)
 		{
 			Container.Register(
-				Component.For<IPublisher>().ImplementedBy(compositeAppSettings.Publisher.Value).LifeStyle.Transient);
+			                   Component.For<IPublisher>().ImplementedBy(compositeAppSettings.Publisher.Value).LifeStyle.
+			                   	Transient);
 
 			Container.Register(
-			                   	Component
-                                .For<IMessageChannel>().ImplementedBy(compositeAppSettings.OutputChannel.Value)
+			                   Component
+			                   	.For<IMessageChannel>().ImplementedBy(compositeAppSettings.OutputChannel.Value)
 			                   	.LifeStyle.Transient);
 
 			Container.Register(
-				Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy(
-					compositeAppSettings.CommandPublicationRecordMapper.Value).LifeStyle.Transient);
+			                   Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy(
+			                                                                                          compositeAppSettings.
+			                                                                                          	CommandPublicationRecordMapper
+			                                                                                          	.Value).LifeStyle.
+			                   	Transient);
 
 			Container.Register(
-				Component.For<IBlobStorage>().ImplementedBy(compositeAppSettings.BlobStorage.Value).LifeStyle.Transient);
+			                   Component.For<IBlobStorage>().ImplementedBy(compositeAppSettings.BlobStorage.Value).LifeStyle.
+			                   	Transient);
 
 			Container.Register(
-				Component.For<IMessageSerializer>().ImplementedBy(compositeAppSettings.MessageSerializer.Value).LifeStyle.Transient);
+			                   Component.For<IMessageSerializer>().ImplementedBy(compositeAppSettings.MessageSerializer.Value).
+			                   	LifeStyle.Transient);
 
 			Container.Register(
-				Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().Forward<ICommandRegistry>().
-					ImplementedBy(compositeAppSettings.PublicationRegistry.Value).LifeStyle.Transient);
+			                   Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().Forward
+			                   	<ICommandRegistry>().
+			                   	ImplementedBy(compositeAppSettings.PublicationRegistry.Value).LifeStyle.Transient);
 		}
 
 		private MappingConfiguration mapAllAssemblies(MappingConfiguration mcfg)
@@ -201,7 +223,7 @@ namespace Euclid.Composites
 
 			var assembliesToMap = new Dictionary<Assembly, Assembly>();
 
-			if (Settings.CommandPublicationRecordMapper.Value == typeof(NhRecordMapper<CommandPublicationRecord>))
+			if (Settings.CommandPublicationRecordMapper.Value == typeof (NhRecordMapper<CommandPublicationRecord>))
 			{
 				mcfg.AutoMappings.Add(AutoMap.AssemblyOf<CommandPublicationRecord>(autoMapperConfiguration));
 			}

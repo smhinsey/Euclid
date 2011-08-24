@@ -14,7 +14,7 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 		[Given("an agent collection")]
 		public void AnAgentCollection()
 		{
-            _agents = new List<IAgentMetadata> { typeof(TestCommand).Assembly.GetAgentMetadata() };
+			_agents = new List<IAgentMetadata> {typeof (TestCommand).Assembly.GetAgentMetadata()};
 			_agents = new List<IAgentMetadata>
 			          	{
 			          		typeof (TestCommand).Assembly.GetAgentMetadata()

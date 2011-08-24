@@ -10,6 +10,6 @@ namespace AgentPanel.Areas.Metadata.Models
 			Agents = agents;
 		}
 
-        public IEnumerable<IAgentMetadata> Agents { get; private set; }
+		public IEnumerable<IAgentMetadata> Agents { get; private set; }
 	}
 }

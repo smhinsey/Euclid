@@ -4,114 +4,121 @@
 //      SpecFlow Version:1.7.0.0
 //      SpecFlow Generator Version:1.7.0.0
 //      Runtime Version:4.0.30319.225
-// 
 //      Changes to this file may cause incorrect behavior and will be lost if
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
+
+using System.Globalization;
+using TechTalk.SpecFlow;
+
 namespace Euclid.Sdk.Specifications.AppSettings
 {
-    using TechTalk.SpecFlow;
-    
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("In order to fail fast and identify configuration errors early\r\nAs a composite dev" +
-        "eloper\r\nI want to be able to validate configuration and get a description of any" +
-        " errors that occur")]
-    [NUnit.Framework.CategoryAttribute("SdkSpecs")]
-    [NUnit.Framework.CategoryAttribute("Configuration")]
-    [NUnit.Framework.CategoryAttribute("Composite")]
-    public partial class CompositeSettingsCanBeValidatedFeature
-    {
-        
-        private static TechTalk.SpecFlow.ITestRunner testRunner;
-        
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
+	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+	[NUnit.Framework.TestFixtureAttribute()]
+	[NUnit.Framework.DescriptionAttribute(
+		"In order to fail fast and identify configuration errors early\r\nAs a composite dev" +
+		"eloper\r\nI want to be able to validate configuration and get a description of any" +
+		" errors that occur")]
+	[NUnit.Framework.CategoryAttribute("SdkSpecs")]
+	[NUnit.Framework.CategoryAttribute("Configuration")]
+	[NUnit.Framework.CategoryAttribute("Composite")]
+	public partial class CompositeSettingsCanBeValidatedFeature
+	{
+		private static ITestRunner testRunner;
+
 #line 1 "CompositeSettingsCanBeValidated.feature"
 #line hidden
-        
-        [NUnit.Framework.TestFixtureSetUpAttribute()]
-        public virtual void FeatureSetup()
-        {
-            testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Composite settings can be validated", "In order to fail fast and identify configuration errors early\r\nAs a composite dev" +
-                    "eloper\r\nI want to be able to validate configuration and get a description of any" +
-                    " errors that occur", ProgrammingLanguage.CSharp, new string[] {
-                        "SdkSpecs",
-                        "Configuration",
-                        "Composite"});
-            testRunner.OnFeatureStart(featureInfo);
-        }
-        
-        [NUnit.Framework.TestFixtureTearDownAttribute()]
-        public virtual void FeatureTearDown()
-        {
-            testRunner.OnFeatureEnd();
-            testRunner = null;
-        }
-        
-        [NUnit.Framework.SetUpAttribute()]
-        public virtual void TestInitialize()
-        {
-        }
-        
-        [NUnit.Framework.TearDownAttribute()]
-        public virtual void ScenarioTearDown()
-        {
-            testRunner.OnScenarioEnd();
-        }
-        
-        public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
-        {
-            testRunner.OnScenarioStart(scenarioInfo);
-        }
-        
-        public virtual void ScenarioCleanup()
-        {
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Default CompostiteAppSetting is invalid")]
-        public virtual void DefaultCompostiteAppSettingIsInvalid()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Default CompostiteAppSetting is invalid", ((string[])(null)));
+
+		[NUnit.Framework.TestFixtureSetUpAttribute()]
+		public virtual void FeatureSetup()
+		{
+			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
+			var featureInfo = new FeatureInfo(new CultureInfo("en-US"), 
+			                                                    "Composite settings can be validated", 
+			                                                    "In order to fail fast and identify configuration errors early\r\nAs a composite dev" +
+			                                                    "eloper\r\nI want to be able to validate configuration and get a description of any" +
+			                                                    " errors that occur", ProgrammingLanguage.CSharp, new[]
+			                                                                                                      	{
+			                                                                                                      		"SdkSpecs", 
+			                                                                                                      		"Configuration"
+			                                                                                                      		, 
+			                                                                                                      		"Composite"
+			                                                                                                      	});
+			testRunner.OnFeatureStart(featureInfo);
+		}
+
+		[NUnit.Framework.TestFixtureTearDownAttribute()]
+		public virtual void FeatureTearDown()
+		{
+			testRunner.OnFeatureEnd();
+			testRunner = null;
+		}
+
+		[NUnit.Framework.SetUpAttribute()]
+		public virtual void TestInitialize()
+		{
+		}
+
+		[NUnit.Framework.TearDownAttribute()]
+		public virtual void ScenarioTearDown()
+		{
+			testRunner.OnScenarioEnd();
+		}
+
+		public virtual void ScenarioSetup(ScenarioInfo scenarioInfo)
+		{
+			testRunner.OnScenarioStart(scenarioInfo);
+		}
+
+		public virtual void ScenarioCleanup()
+		{
+			testRunner.CollectScenarioErrors();
+		}
+
+		[NUnit.Framework.TestAttribute()]
+		[NUnit.Framework.DescriptionAttribute("Default CompostiteAppSetting is invalid")]
+		public virtual void DefaultCompostiteAppSettingIsInvalid()
+		{
+			var scenarioInfo = new ScenarioInfo("Default CompostiteAppSetting is invalid", (string[]) (null));
 #line 7
-this.ScenarioSetup(scenarioInfo);
+			this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("A new CompositeAppSetting object");
+			testRunner.Given("A new CompositeAppSetting object");
 #line 9
- testRunner.When("I call validate a NullSettingException is thrown");
+			testRunner.When("I call validate a NullSettingException is thrown");
 #line 10
-    testRunner.And("NullSettingException.SettingName is equal to \'OutputChannel\'");
+			testRunner.And("NullSettingException.SettingName is equal to \'OutputChannel\'");
 #line 11
-    testRunner.And("There is 1 reason in the enumerable object returned by CompositeAppSetting.GetInv" +
-                    "alidSettingReasons()");
+			testRunner.And("There is 1 reason in the enumerable object returned by CompositeAppSetting.GetInv" +
+			               "alidSettingReasons()");
 #line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("CompositeAppSetting with an OutputChannel is valid")]
-        public virtual void CompositeAppSettingWithAnOutputChannelIsValid()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("CompositeAppSetting with an OutputChannel is valid", ((string[])(null)));
+			this.ScenarioCleanup();
+		}
+
+		[NUnit.Framework.TestAttribute()]
+		[NUnit.Framework.DescriptionAttribute("CompositeAppSetting with an OutputChannel is valid")]
+		public virtual void CompositeAppSettingWithAnOutputChannelIsValid()
+		{
+			var scenarioInfo = new ScenarioInfo("CompositeAppSetting with an OutputChannel is valid", 
+			                                                      (string[]) (null));
 #line 13
-this.ScenarioSetup(scenarioInfo);
+			this.ScenarioSetup(scenarioInfo);
 #line 14
-    testRunner.Given("A new CompositeAppSetting object");
+			testRunner.Given("A new CompositeAppSetting object");
 #line 15
-    testRunner.When("I apply an InMemoryMessageChannel to the OutputChannel property");
+			testRunner.When("I apply an InMemoryMessageChannel to the OutputChannel property");
 #line 16
-    testRunner.And("I call validate no exceptions are thrown");
+			testRunner.And("I call validate no exceptions are thrown");
 #line 17
-    testRunner.And("CompositeAppSetting.GetInvalidSettingReasons() returns 0 length enumerable object" +
-                    "");
+			testRunner.And("CompositeAppSetting.GetInvalidSettingReasons() returns 0 length enumerable object" +
+			               string.Empty);
 #line hidden
-            this.ScenarioCleanup();
-        }
-    }
+			this.ScenarioCleanup();
+		}
+	}
 }
+
 #endregion

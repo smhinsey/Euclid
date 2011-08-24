@@ -1,5 +1,4 @@
-﻿using System.Web.Mvc;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
@@ -12,61 +11,61 @@ using Microsoft.WindowsAzure;
 
 namespace AgentPanel
 {
-    public class WebRole
-    {
-        private static WebRole _instance;
+	public class WebRole
+	{
+		private static WebRole _instance;
 
-        private bool _initialized;
+		private bool _initialized;
 
-        private WebRole()
-        {
-        }
+		private WebRole()
+		{
+		}
 
-        public static WebRole GetInstance()
-        {
-            return _instance ?? (_instance = new WebRole());
-        }
+		public void Init()
+		{
+			if (_initialized)
+			{
+				return;
+			}
 
-        public void Init()
-        {
-            if (_initialized)
-            {
-                return;
-            }
+			var container = new WindsorContainer();
 
-            var container = new WindsorContainer();
+			var composite = new MvcCompositeApp(container);
 
-            var composite = new MvcCompositeApp(container);
+			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), 
+			                     true, false);
 
-            composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+			var compositeAppSettings = new CompositeAppSettings();
 
-            var compositeAppSettings = new CompositeAppSettings();
+			compositeAppSettings.OutputChannel.ApplyOverride(typeof (AzureMessageChannel));
+			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
 
-            compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
-            compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
-            compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
+			composite.Configure(compositeAppSettings);
 
-            composite.Configure(compositeAppSettings);
+			/* EUCLID: Install agents and Input models */
+			container.Register(Component.For<ICompositeApp>().Instance(composite));
 
-            /* EUCLID: Install agents and Input models */
+			setAzureCredentials(container);
 
-            container.Register(Component.For<ICompositeApp>().Instance(composite));
+			_initialized = true;
+		}
 
-            setAzureCredentials(container);
+		private void setAzureCredentials(IWindsorContainer container)
+		{
+			// as soon as we can stop using the azure storage emulator we should
+			var storageAccount = new CloudStorageAccount(
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
-            _initialized = true;
-        }
+			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
+		}
 
-        private void setAzureCredentials(IWindsorContainer container)
-        {
-            // as soon as we can stop using the azure storage emulator we should
-            var storageAccount = new CloudStorageAccount(
-                CloudStorageAccount.DevelopmentStorageAccount.Credentials,
-                CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
-                CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
-                CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
-
-            container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
-        }
-    }
+		public static WebRole GetInstance()
+		{
+			return _instance ?? (_instance = new WebRole());
+		}
+	}
 }

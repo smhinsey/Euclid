@@ -2,7 +2,7 @@
 
 namespace Euclid.Composites.Mvc.Binders
 {
-	// lifted wholesale from http://lostechies.com/jimmybogard/2009/03/18/a-better-model-binder/
+// lifted wholesale from http://lostechies.com/jimmybogard/2009/03/18/a-better-model-binder/
 	public class EuclidDefaultBinder : DefaultModelBinder
 	{
 		private readonly IEuclidModelBinder[] _euclidModelBinders;

@@ -15,8 +15,9 @@ namespace Euclid.Framework.AgentMetadata
 
 			Properties = Type.GetProperties().Select(pi => new PropertyMetadata(pi));
 			Methods =
-				Type.GetMethods().Where(mi => !mi.IsSpecialName && mi.DeclaringType != typeof(object)).Select(
-					mi => new MethodMetadata(mi));
+				Type.GetMethods().Where(mi => !mi.IsSpecialName && mi.DeclaringType != typeof (object)).Select(
+				                                                                                               mi =>
+				                                                                                               new MethodMetadata(mi));
 		}
 
 		protected TypeMetadata()
@@ -39,17 +40,17 @@ namespace Euclid.Framework.AgentMetadata
 		}
 	}
 
-    public class AgentPartMetadata : TypeMetadata, IAgentPartMetadata
-    {
-        public AgentPartMetadata(Type type) : base(type)
-        {
-        }
+	public class AgentPartMetadata : TypeMetadata, IAgentPartMetadata
+	{
+		public AgentPartMetadata(Type type) : base(type)
+		{
+		}
 
-        public IPartCollection GetContainingPartCollection()
-        {
-            var agent = Type.Assembly.GetAgentMetadata();
+		public IPartCollection GetContainingPartCollection()
+		{
+			var agent = Type.Assembly.GetAgentMetadata();
 
-            return agent.GetPartCollectionContainingType(Type);
-        }
-    }
+			return agent.GetPartCollectionContainingType(Type);
+		}
+	}
 }

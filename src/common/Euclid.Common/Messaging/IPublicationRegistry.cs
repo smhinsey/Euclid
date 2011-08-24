@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Euclid.Common.Messaging
 {
-	// SELF I'm not sure what to do about TPublicationRecord. 
+// SELF I'm not sure what to do about TPublicationRecord. 
 	// It's not used for anything, but it allows an implementation to specify a concrete type 
 	// for TRecordContract which can be used to create new instances. Since the declaration is 
 	// otherwise unused, I'm not sure about this approach, but for now, it solves a problem that 
@@ -33,6 +33,8 @@ namespace Euclid.Common.Messaging
 		/// <param name = "identifier">The identifier of the record to be retrieved.</param>
 		/// <returns>The current version of the record specified by identifier.</returns>
 		TPublicationRecordContract GetPublicationRecord(Guid identifier);
+
+		IList<IPublicationRecord> GetRecords(int pageSize, int offSet);
 
 		/// <summary>
 		/// 	Indicates that processing has completed without error and that there is no further work 
@@ -74,7 +76,5 @@ namespace Euclid.Common.Messaging
 		/// 	not necessarily be timely, if some other part of the publication
 		/// 	pipeline fails.</returns>
 		TPublicationRecordContract PublishMessage(IMessage message);
-
-	    IList<IPublicationRecord> GetRecords(int pageSize, int offSet);
 	}
 }
