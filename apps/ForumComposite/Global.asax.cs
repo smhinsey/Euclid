@@ -2,12 +2,10 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using AgentPanel.Areas.Metadata.Models;
+using BoC.Web.Mvc.PrecompiledViews;
 
 namespace ForumComposite
 {
-	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-	// visit http://go.microsoft.com/?LinkId=9394801
-
 	public class MvcApplication : HttpApplication
 	{
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -18,27 +16,22 @@ namespace ForumComposite
 		public static void RegisterRoutes(RouteCollection routes)
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+			routes.IgnoreRoute("favicon.ico");
 
 			routes.MapRoute(
-				"Default", 
-				// Route name
-				"{controller}/{action}/{id}", 
-				// URL with parameters
-				new { controller = "Post", action = "List", id = UrlParameter.Optional } // Parameter defaults
-				);
+				"Default", "{controller}/{action}/{id}", new { controller = "Post", action = "List", id = UrlParameter.Optional });
 		}
 
 		protected void Application_Start()
 		{
-            BoC.Web.Mvc.PrecompiledViews
-                .ApplicationPartRegistry
-                .Register(typeof(AgentModel).Assembly);
+			ApplicationPartRegistry.Register(typeof(AgentModel).Assembly);
 
 			AreaRegistration.RegisterAllAreas();
+
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
-		    WebRole.GetInstance().Init();
+			WebRole.GetInstance().Init();
 		}
 	}
 }
