@@ -1,8 +1,8 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using AgentPanel.Areas.Metadata.Models;
 using BoC.Web.Mvc.PrecompiledViews;
+using CompositeControl.Areas.CompositeControl.Models;
 
 namespace ForumComposite
 {

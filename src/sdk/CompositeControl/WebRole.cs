@@ -9,7 +9,7 @@ using Euclid.Framework.Cqrs;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.WindowsAzure;
 
-namespace AgentPanel
+namespace CompositeControl
 {
 	public class WebRole
 	{
@@ -19,6 +19,11 @@ namespace AgentPanel
 
 		private WebRole()
 		{
+		}
+
+		public static WebRole GetInstance()
+		{
+			return _instance ?? (_instance = new WebRole());
 		}
 
 		public void Init()
@@ -32,14 +37,14 @@ namespace AgentPanel
 
 			var composite = new MvcCompositeApp(container);
 
-			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), 
-			                     true, false);
+			composite.RegisterNh(
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.OutputChannel.ApplyOverride(typeof (AzureMessageChannel));
-			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
-			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
+			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
 
 			composite.Configure(compositeAppSettings);
 
@@ -55,17 +60,12 @@ namespace AgentPanel
 		{
 			// as soon as we can stop using the azure storage emulator we should
 			var storageAccount = new CloudStorageAccount(
-				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
-				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
-				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials,
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
 				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
-		}
-
-		public static WebRole GetInstance()
-		{
-			return _instance ?? (_instance = new WebRole());
 		}
 	}
 }

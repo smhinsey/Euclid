@@ -1,7 +1,7 @@
-﻿using AgentPanel.Areas.Metadata.Models;
-using BoC.Web.Mvc.PrecompiledViews;
+﻿using BoC.Web.Mvc.PrecompiledViews;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using CompositeControl.Areas.CompositeControl.Models;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
 using Euclid.Common.Storage.NHibernate;

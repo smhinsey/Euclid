@@ -66,6 +66,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.IdentityModel" />
@@ -95,83 +96,83 @@
     <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Metadata\Controllers\AgentsController.cs" />
-    <Compile Include="Areas\Metadata\Controllers\CommandRegistryController.cs" />
-    <Compile Include="Areas\Metadata\Controllers\CompositeController.cs" />
-    <Compile Include="Areas\Metadata\MetadataAreaRegistration.cs" />
-    <Compile Include="Areas\Metadata\Models\AgentListModel.cs" />
-    <Compile Include="Areas\Metadata\Models\AgentModel.cs" />
-    <Compile Include="Areas\Metadata\Models\AgentPartModel.cs" />
-    <Compile Include="Areas\Metadata\Models\CompositeModel.cs" />
-    <Compile Include="Areas\Metadata\Models\FooterLinkModel.cs" />
-    <Compile Include="Areas\Metadata\Models\PartCollectionModel.cs" />
-    <Compile Include="Areas\Metadata\Models\PartModel.cs" />
-    <Compile Include="Areas\Metadata\Views\Agents\Index.cs">
+    <Compile Include="Areas\CompositeControl\Controllers\AgentsController.cs" />
+    <Compile Include="Areas\CompositeControl\Controllers\CommandRegistryController.cs" />
+    <Compile Include="Areas\CompositeControl\Controllers\CompositeController.cs" />
+    <Compile Include="Areas\CompositeControl\CompositeControlAreaRegistration.cs" />
+    <Compile Include="Areas\CompositeControl\Models\AgentListModel.cs" />
+    <Compile Include="Areas\CompositeControl\Models\AgentModel.cs" />
+    <Compile Include="Areas\CompositeControl\Models\AgentPartModel.cs" />
+    <Compile Include="Areas\CompositeControl\Models\CompositeModel.cs" />
+    <Compile Include="Areas\CompositeControl\Models\FooterLinkModel.cs" />
+    <Compile Include="Areas\CompositeControl\Models\PartCollectionModel.cs" />
+    <Compile Include="Areas\CompositeControl\Models\PartModel.cs" />
+    <Compile Include="Areas\CompositeControl\Views\Agents\Index.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\Agents\ViewAgent.cs">
+    <Compile Include="Areas\CompositeControl\Views\Agents\ViewAgent.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ViewAgent.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\Agents\ViewInputModelForCommand.cs">
+    <Compile Include="Areas\CompositeControl\Views\Agents\ViewInputModelForCommand.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ViewInputModelForCommand.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\Agents\ViewPart.cs">
+    <Compile Include="Areas\CompositeControl\Views\Agents\ViewPart.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ViewPart.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\Agents\ViewPartCollection.cs">
+    <Compile Include="Areas\CompositeControl\Views\Agents\ViewPartCollection.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ViewPartCollection.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\CommandRegistry\Details.cs">
+    <Compile Include="Areas\CompositeControl\Views\CommandRegistry\Details.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Details.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\CommandRegistry\Index.cs">
+    <Compile Include="Areas\CompositeControl\Views\CommandRegistry\Index.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\Composite\Index.cs">
+    <Compile Include="Areas\CompositeControl\Views\Composite\Index.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cs">
+    <Compile Include="Areas\CompositeControl\Views\Shared\DisplayTemplates\IAgentMetadata.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IAgentMetadata.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cs">
+    <Compile Include="Areas\CompositeControl\Views\Shared\DisplayTemplates\IAgentPart.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IAgentPart.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\Shared\Error.cs">
+    <Compile Include="Areas\CompositeControl\Views\Shared\Error.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Error.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\Shared\MetadataLinks.cs">
+    <Compile Include="Areas\CompositeControl\Views\Shared\MetadataLinks.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MetadataLinks.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\Shared\_Layout.cs">
+    <Compile Include="Areas\CompositeControl\Views\Shared\_Layout.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>_Layout.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Metadata\Views\_ViewStart.cs">
+    <Compile Include="Areas\CompositeControl\Views\_ViewStart.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>_ViewStart.cshtml</DependentUpon>
@@ -180,141 +181,141 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Content\euclid-default-styles.css" />
-    <Content Include="Areas\Metadata\Content\Site.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery-ui.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.accordion.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.all.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.autocomplete.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.base.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.button.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.core.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.datepicker.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.dialog.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.progressbar.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.resizable.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.selectable.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.slider.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.tabs.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery-ui.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.accordion.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.all.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.base.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.button.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.core.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.datepicker.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.dialog.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.progressbar.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.resizable.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.selectable.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.slider.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.tabs.min.css" />
-    <Content Include="Areas\Metadata\Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Areas\Metadata\Scripts\jquery-1.5.1-vsdoc.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery-1.6.2-vsdoc.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery-1.6.2.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery-1.6.2.min.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery-ui-1.8.14.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery-ui-1.8.14.min.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery.validate.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery.validate.min.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Areas\Metadata\Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Areas\Metadata\Scripts\MicrosoftAjax.debug.js" />
-    <Content Include="Areas\Metadata\Scripts\MicrosoftAjax.js" />
-    <Content Include="Areas\Metadata\Scripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Areas\Metadata\Scripts\MicrosoftMvcAjax.js" />
-    <Content Include="Areas\Metadata\Scripts\MicrosoftMvcValidation.debug.js" />
-    <Content Include="Areas\Metadata\Scripts\MicrosoftMvcValidation.js" />
-    <Content Include="Areas\Metadata\Scripts\modernizr-2.0.6-development-only.js" />
+    <Content Include="Areas\CompositeControl\Content\euclid-default-styles.css" />
+    <Content Include="Areas\CompositeControl\Content\Site.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery-ui.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.all.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.base.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Areas\CompositeControl\Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery-1.5.1-vsdoc.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery-1.6.2-vsdoc.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery-1.6.2.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery-1.6.2.min.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery-ui-1.8.14.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery-ui-1.8.14.min.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery.validate.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery.validate.min.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Areas\CompositeControl\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Areas\CompositeControl\Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Areas\CompositeControl\Scripts\MicrosoftAjax.js" />
+    <Content Include="Areas\CompositeControl\Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Areas\CompositeControl\Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Areas\CompositeControl\Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Areas\CompositeControl\Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Areas\CompositeControl\Scripts\modernizr-2.0.6-development-only.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Web.config" />
+    <Content Include="Areas\CompositeControl\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\_ViewStart.cshtml">
+    <Content Include="Areas\CompositeControl\Views\_ViewStart.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>_ViewStart.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\Index.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Agents\Index.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>Index.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewAgent.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Agents\ViewAgent.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>ViewAgent.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewPart.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Agents\ViewPart.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>ViewPart.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewPartCollection.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Agents\ViewPartCollection.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>ViewPartCollection.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\_Layout.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Shared\_Layout.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>_Layout.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Shared\DisplayTemplates\IAgentPart.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>IAgentPart.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\Error.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Shared\Error.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>Error.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\MetadataLinks.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Shared\MetadataLinks.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>MetadataLinks.cs</LastGenOutput>
     </Content>
@@ -430,31 +431,44 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewInputModelForCommand.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Agents\ViewInputModelForCommand.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>ViewInputModelForCommand.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Composite\Index.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Composite\Index.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>Index.cs</LastGenOutput>
     </Content>
-    <Content Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cshtml">
+    <Content Include="Areas\CompositeControl\Views\Shared\DisplayTemplates\IAgentMetadata.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>IAgentMetadata.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\CommandRegistry\Index.cshtml">
+    <Content Include="Areas\CompositeControl\Views\CommandRegistry\Index.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>Index.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\CommandRegistry\Details.cshtml">
+    <Content Include="Areas\CompositeControl\Views\CommandRegistry\Details.cshtml">
       <Generator>MvcRazorClassGenerator</Generator>
       <LastGenOutput>Details.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
