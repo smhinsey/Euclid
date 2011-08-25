@@ -1,0 +1,28 @@
+﻿@{
+	ViewBag.Title = "Add a Comment";
+}
+
+<div class="MessageForm CommentForm">
+
+	<div class="Tabs CommentTabs">
+		<ul>
+			<li class="Active"><a href="#" class="WriteButton">Write Comment</a></li>
+			<li><a href="#" class="PreviewButton">Preview</a></li>
+		</ul>
+	</div>
+
+	<div>
+		<form id="Form_Comment" method="post" action="#">
+		<textarea id="Form_Body" name="Comment/Body" rows="6" cols="100" class="TextBox"></textarea>
+
+		<div class="Buttons">
+			<a href="#" class="Back">Back to Discussions</a>
+			<input type="submit" id="Form_PostComment" name="Comment/Post_Comment" value="Post Comment"
+				class="Button CommentButton" />
+		</div>
+
+		</form>
+	</div>
+
+</div>
+

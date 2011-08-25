@@ -277,6 +277,7 @@
     <None Include="Content\site.chirp.coffee" />
     <None Include="Content\styles.chirp.less" />
     <Content Include="Views\Post\Create.cshtml" />
+    <Content Include="Views\Post\AddComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
