@@ -1,0 +1,96 @@
+2011-08-24 17:25:43.4611|INFO|Glimpse.Core.Module|<glimpse enabled="true" loggingEnabled="true">
+    <ipAddresses>
+        <add address="127.0.0.1" />
+        <add address="::1" />
+    </ipAddresses>
+    <contentTypes>
+        <add contentType="text/html" />
+        <add contentType="application/json" />
+    </contentTypes>
+</glimpse>|
+2011-08-24 17:25:43.4701|INFO|Glimpse.Core.Module|Glimpse Module constructed|
+2011-08-24 17:25:44.6249|INFO|Glimpse.Core.Module|MEF Parts composed: 33 IGlimpsePlugins, 24 IGlimpseHandlers and 15 IGlimpseConverters configured|
+2011-08-24 17:25:44.6249|WARN|Glimpse.Core.Module|MEF Loading error|System.BadImageFormatException--Could not load file or assembly 'ForumComposite, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. An attempt was made to load a program with an incorrect format.--   at System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   at System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   at System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   at System.Reflection.Assembly.Load(AssemblyName assemblyRef)
+   at System.ComponentModel.Composition.Hosting.AssemblyCatalog.LoadAssembly(String codeBase)
+   at Glimpse.Core.Plumbing.BlacklistedSafeDirectoryCatalog..ctor(String path, IEnumerable`1 typesBlacklist)
+2011-08-24 17:25:44.6249|WARN|Glimpse.Core.Module|MEF Loading error|System.BadImageFormatException--Could not load file or assembly 'ForumComposite, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. An attempt was made to load a program with an incorrect format.--   at System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   at System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   at System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, StackCrawlMark& stackMark, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   at System.Reflection.Assembly.Load(AssemblyName assemblyRef)
+   at System.ComponentModel.Composition.Hosting.AssemblyCatalog.LoadAssembly(String codeBase)
+   at Glimpse.Core.Plumbing.BlacklistedSafeDirectoryCatalog..ctor(String path, IEnumerable`1 typesBlacklist)
+2011-08-24 17:25:44.6249|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Core.Plugin.Trace|
+2011-08-24 17:25:44.6249|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Binders|
+2011-08-24 17:25:44.6359|WARN|Glimpse.Mvc3.Plugin.Binders|System.Web.Mvc.HttpPostedFileBaseModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6359|WARN|Glimpse.Mvc3.Plugin.Binders|System.Web.Mvc.ByteArrayModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6359|WARN|Glimpse.Mvc3.Plugin.Binders|System.Web.Mvc.LinqBinaryModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6359|WARN|Glimpse.Mvc3.Plugin.Binders|Cannot create proxy of Euclid.Composites.Mvc.Binders.EuclidDefaultBinder. Object must have a parameterless constructor, cannot be sealed, and cannot already be a proxy object.|
+2011-08-24 17:25:44.6359|WARN|Glimpse.Mvc3.Plugin.Binders|Euclid.Composites.Mvc.Binders.EuclidDefaultBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6359|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Execution|
+2011-08-24 17:25:44.6359|WARN|Glimpse.Mvc3.Plugin.Execution|Unable to proxy Euclid.Composites.Mvc.WindsorControllerFactory|
+2011-08-24 17:25:44.6529|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Views|
+2011-08-24 17:25:44.6529|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Core.Plugin.Trace|
+2011-08-24 17:25:44.6529|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Binders|
+2011-08-24 17:25:44.6529|WARN|Glimpse.Mvc3.Plugin.Binders|Glimpse.Mvc3.Plumbing.GlimpseModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6529|WARN|Glimpse.Mvc3.Plugin.Binders|Glimpse.Mvc3.Plumbing.GlimpseModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6529|WARN|Glimpse.Mvc3.Plugin.Binders|Glimpse.Mvc3.Plumbing.GlimpseModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6529|WARN|Glimpse.Mvc3.Plugin.Binders|Glimpse.Mvc3.Plumbing.GlimpseModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6529|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Execution|
+2011-08-24 17:25:44.6529|WARN|Glimpse.Mvc3.Plugin.Execution|Unable to proxy Euclid.Composites.Mvc.WindsorControllerFactory|
+2011-08-24 17:25:44.6529|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Views|
+2011-08-24 17:25:44.6529|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Core.Plugin.Trace|
+2011-08-24 17:25:44.6679|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Binders|
+2011-08-24 17:25:44.6679|WARN|Glimpse.Mvc3.Plugin.Binders|Glimpse.Mvc3.Plumbing.GlimpseModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6679|WARN|Glimpse.Mvc3.Plugin.Binders|Glimpse.Mvc3.Plumbing.GlimpseModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6679|WARN|Glimpse.Mvc3.Plugin.Binders|Glimpse.Mvc3.Plumbing.GlimpseModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6679|WARN|Glimpse.Mvc3.Plugin.Binders|Glimpse.Mvc3.Plumbing.GlimpseModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-24 17:25:44.6679|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Execution|
+2011-08-24 17:25:44.6679|WARN|Glimpse.Mvc3.Plugin.Execution|Unable to proxy Euclid.Composites.Mvc.WindsorControllerFactory|
+2011-08-24 17:25:44.6679|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Views|
+2011-08-24 17:25:44.6679|INFO|Glimpse.Core.Module|Glimpse Module Init Complete|
+2011-08-24 17:25:44.6679|INFO|Glimpse.Core.Module|Glimpse Module Init Complete|
+2011-08-24 17:25:44.6839|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 9c9b52d9-e903-41c6-a22f-245e87b5786c (/metadata/agents/)|
+2011-08-24 17:25:45.9854|ERROR|Glimpse.Core.Module|Exception during PostRequestHandlerExecute|System.ArgumentException--An item with the same key has already been added.--   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at Glimpse.Core.Module.ProcessData(HttpContextBase context, Boolean sessionRequired)
+   at Glimpse.Core.Module.PostRequestHandlerExecute(HttpContextBase context)
+   at Glimpse.Core.Module.OnPostRequestHandlerExecute(Object sender, EventArgs e)
+2011-08-24 17:25:45.9854|INFO|Glimpse.Core.Module|PostReleaseRequestState handling complete for requestId 9c9b52d9-e903-41c6-a22f-245e87b5786c (/metadata/agents/)|
+2011-08-24 17:25:46.0166|ERROR|Glimpse.Core.Module|Exception during EndRequest|System.ArgumentException--An item with the same key has already been added.--   at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at Glimpse.Core.Module.ProcessData(HttpContextBase context, Boolean sessionRequired)
+   at Glimpse.Core.Module.EndRequest(HttpContextBase context)
+   at Glimpse.Core.Module.OnEndRequest(Object sender, EventArgs e)
+2011-08-24 17:25:46.0502|INFO|Glimpse.Core.Module|Glimpse Module Init Complete|
+2011-08-24 17:25:46.0502|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId cbd9e11a-155d-4b8c-9cc5-a20df433711e (/Areas/Metadata/Content/euclid-default-styles.css)|
+2011-08-24 17:25:46.0502|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 5546c20f-7470-4313-97dc-8a310abfd5e3 (/Areas/Metadata/Scripts/jquery-1.6.2.min.js)|
+2011-08-24 17:25:46.0552|INFO|Glimpse.Core.Module|Glimpse Module Init Complete|
+2011-08-24 17:25:46.0552|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id cbd9e11a-155d-4b8c-9cc5-a20df433711e (/Areas/Metadata/Content/euclid-default-styles.css)|
+2011-08-24 17:25:46.0552|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 5546c20f-7470-4313-97dc-8a310abfd5e3 (/Areas/Metadata/Scripts/jquery-1.6.2.min.js)|
+2011-08-24 17:25:46.0552|INFO|Glimpse.Core.Module|Glimpse Module Init Complete|
+2011-08-24 17:25:46.0552|INFO|Glimpse.Core.Module|Glimpse Module Init Complete|
+2011-08-24 17:25:46.0552|INFO|Glimpse.Core.Module|Glimpse Module Init Complete|
+2011-08-24 17:25:46.0552|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId a1fee698-054f-4370-8e79-4a22191814cc (/Areas/Metadata/Scripts/jquery.validate.js)|
+2011-08-24 17:25:46.0712|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 5546c20f-7470-4313-97dc-8a310abfd5e3 (/Areas/Metadata/Scripts/jquery-1.6.2.min.js)|
+2011-08-24 17:25:46.0712|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId a24f9149-3da1-450e-adad-4892d54bbfeb (/Glimpse.axd)|
+2011-08-24 17:25:46.0712|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id cbd9e11a-155d-4b8c-9cc5-a20df433711e (/Areas/Metadata/Content/euclid-default-styles.css)|
+2011-08-24 17:25:46.0712|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 88122048-cc71-4f46-8d20-dd84961f0856 (/Areas/Metadata/Scripts/jquery.validate.unobtrusive.js)|
+2011-08-24 17:25:46.0712|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 9ea4e5f4-41ba-4850-8c06-fa8e7c972eb9 (/Areas/Metadata/Scripts/modernizr-2.0.6-development-only.js)|
+2011-08-24 17:25:46.0712|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id a1fee698-054f-4370-8e79-4a22191814cc (/Areas/Metadata/Scripts/jquery.validate.js)|
+2011-08-24 17:25:46.0872|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 88122048-cc71-4f46-8d20-dd84961f0856 (/Areas/Metadata/Scripts/jquery.validate.unobtrusive.js)|
+2011-08-24 17:25:46.0872|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id a1fee698-054f-4370-8e79-4a22191814cc (/Areas/Metadata/Scripts/jquery.validate.js)|
+2011-08-24 17:25:46.0872|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 88122048-cc71-4f46-8d20-dd84961f0856 (/Areas/Metadata/Scripts/jquery.validate.unobtrusive.js)|
+2011-08-24 17:25:46.0872|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.HttpHandlerValidator invalided request (it will now be ignored) with id a24f9149-3da1-450e-adad-4892d54bbfeb (/Glimpse.axd)|
+2011-08-24 17:25:46.0872|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 9ea4e5f4-41ba-4850-8c06-fa8e7c972eb9 (/Areas/Metadata/Scripts/modernizr-2.0.6-development-only.js)|
+2011-08-24 17:25:46.1032|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.HttpHandlerValidator invalided request (it will now be ignored) with id a24f9149-3da1-450e-adad-4892d54bbfeb (/Glimpse.axd)|
+2011-08-24 17:25:46.1032|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.HttpHandlerValidator invalided request (it will now be ignored) with id a24f9149-3da1-450e-adad-4892d54bbfeb (/Glimpse.axd)|
+2011-08-24 17:25:46.1032|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.HttpHandlerValidator invalided request (it will now be ignored) with id a24f9149-3da1-450e-adad-4892d54bbfeb (/Glimpse.axd)|
+2011-08-24 17:25:46.1032|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 9ea4e5f4-41ba-4850-8c06-fa8e7c972eb9 (/Areas/Metadata/Scripts/modernizr-2.0.6-development-only.js)|
+2011-08-24 17:25:46.1992|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 3199de84-dd4f-4bee-b5d3-f8b5ec72b6ea (/favicon.ico)|
+2011-08-24 17:25:46.1992|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 3199de84-dd4f-4bee-b5d3-f8b5ec72b6ea (/favicon.ico)|
+2011-08-24 17:25:46.1992|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 3199de84-dd4f-4bee-b5d3-f8b5ec72b6ea (/favicon.ico)|

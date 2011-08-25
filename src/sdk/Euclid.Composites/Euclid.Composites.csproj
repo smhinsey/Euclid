@@ -118,7 +118,6 @@
     <Compile Include="Conversion\CommandAlreadyMappedException.cs" />
     <Compile Include="Conversion\IInputModelTransfomerRegistry.cs" />
     <Compile Include="Conversion\IInputToCommandConverter.cs" />
-    <Compile Include="Conversion\InputModelToCommandTransformerRegistry.cs" />
     <Compile Include="Conversion\PartNameAlreadyRegisteredException.cs" />
     <Compile Include="Conversion\PartNameNotRegisteredException.cs" />
     <Compile Include="InvalidCompositeApplicationStateException.cs" />

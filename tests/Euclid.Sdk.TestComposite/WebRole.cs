@@ -39,8 +39,6 @@ namespace Euclid.Sdk.TestComposite
 				return;
 			}
 
-			ApplicationPartRegistry.Register(typeof(AgentModel).Assembly);
-
 			var container = new WindsorContainer();
 
 			var composite = new MvcCompositeApp(container);
