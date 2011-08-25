@@ -126,11 +126,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Converters\CommentOnPostInputModelConverter.cs" />
+    <Compile Include="Converters\VoteOnPostInputModelConverter.cs" />
+    <Compile Include="Converters\VoteOnCommentInputModelConverter.cs" />
+    <Compile Include="Converters\UpdateUserProfileInputModelConverter.cs" />
+    <Compile Include="Converters\RegisterUserInputModelConverter.cs" />
     <Compile Include="Converters\PublishPostInputModelConverter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CommentOnPostInputModel.cs" />
     <Compile Include="Models\PublishPostInputModel.cs" />
+    <Compile Include="Models\RegisterUserInputModel.cs" />
+    <Compile Include="Models\UpdateUserProfileInputModel.cs" />
+    <Compile Include="Models\VoteOnCommentInputModel.cs" />
+    <Compile Include="Models\VoteOnPostInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>

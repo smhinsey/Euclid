@@ -51,7 +51,13 @@ namespace ForumComposite
 			composite.Configure(compositeAppSettings);
 
 			composite.AddAgent(typeof(PublishPost).Assembly);
+
+			composite.RegisterInputModel(new CommentOnPostInputModelConverter());
 			composite.RegisterInputModel(new PublishPostInputModelConverter());
+			composite.RegisterInputModel(new RegisterUserInputModelConverter());
+			composite.RegisterInputModel(new UpdateUserProfileInputModelConverter());
+			composite.RegisterInputModel(new VoteOnCommentInputModelConverter());
+			composite.RegisterInputModel(new VoteOnPostInputModelConverter());
 
 			container.Register(Component.For<ICompositeApp>().Instance(composite));
 
