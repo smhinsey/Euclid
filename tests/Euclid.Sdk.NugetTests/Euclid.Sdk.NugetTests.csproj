@@ -14,7 +14,7 @@
     <AssemblyName>Euclid.Sdk.NugetTests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,179 +34,44 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AgentConsole">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\AgentConsole.exe</HintPath>
+    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\AutoMapper.dll</HintPath>
+    <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Castle.Windsor.2.5.3\lib\NET40\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Core">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="CommonServiceLocator.WindsorAdapter">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\CommonServiceLocator.WindsorAdapter.dll</HintPath>
+    <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Euclid.Common">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.dll</HintPath>
+    <Reference Include="FluentNHibernate, Version=1.3.0.717, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentNHibernate.1.3.0.717\lib\FluentNHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Euclid.Common.Configuration">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.Configuration.dll</HintPath>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Euclid.Common.IntegrationTests">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.IntegrationTests.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Euclid.Common.Logging">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.Logging.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Euclid.Common.Messaging">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.Messaging.dll</HintPath>
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Euclid.Common.Messaging.Azure">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.Messaging.Azure.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="MvcContrib">
+      <HintPath>..\..\packages\MvcContrib.Mvc3-ci.3.0.84.0\lib\MvcContrib.dll</HintPath>
     </Reference>
-    <Reference Include="Euclid.Common.Packaging">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.Packaging.dll</HintPath>
+    <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Euclid.Common.ServiceHost">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.ServiceHost.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Common.Storage">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.Storage.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Common.Storage.Azure">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.Storage.Azure.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Common.Storage.NHibernate">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.Storage.NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Common.TestingFakes">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.TestingFakes.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Common.UnitTests">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Common.UnitTests.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Composite.InputModelMapping">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Composite.InputModelMapping.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Composites">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Composites.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Composites.Mvc">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Composites.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework.Agent">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.Agent.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework.AgentMetadata">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.AgentMetadata.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework.Cqrs">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.Cqrs.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework.Cqrs.NHibernate">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.Cqrs.NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework.EventSourcing">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.EventSourcing.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework.HostingFabric">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.HostingFabric.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework.IntegrationTests">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.IntegrationTests.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework.Models">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.Models.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework.TestingFakes">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.TestingFakes.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Framework.UnitTests">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Framework.UnitTests.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Sdk.FakeAgent">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Sdk.FakeAgent.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Sdk.IntegrationTests">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Sdk.IntegrationTests.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.Sdk.Metadata">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.Sdk.Metadata.dll</HintPath>
-    </Reference>
-    <Reference Include="Euclid.TestingSupport">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Euclid.TestingSupport.dll</HintPath>
-    </Reference>
-    <Reference Include="EventStore">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\EventStore.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentNHibernate">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\FluentNHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="ForumAgent">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\ForumAgent.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.Core">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Glimpse.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.Mvc3">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Glimpse.Mvc3.dll</HintPath>
-    </Reference>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.SHDocVw">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Interop.SHDocVw.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="MetadataComposite">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\MetadataComposite.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Net.Http">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Microsoft.Net.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.mocks">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\nunit.mocks.dll</HintPath>
-    </Reference>
-    <Reference Include="pnunit.framework">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\pnunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="RouteDebugger">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\RouteDebugger.dll</HintPath>
+    <Reference Include="RouteDebugger, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\routedebugger.2.0.0.7\lib\net40\RouteDebugger.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\System.Data.SQLite.DLL</HintPath>
-    </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -229,20 +94,13 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="TechTalk.SpecFlow">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\TechTalk.SpecFlow.dll</HintPath>
-    </Reference>
-    <Reference Include="WatiN.Core">
-      <HintPath>..\..\packages\Euclid.1.0.0.3\lib\NET40\WatiN.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Metadata\MetadataAreaRegistration.cs" />
-    <Compile Include="MvcApplication.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -274,6 +132,7 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="license.txt" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
@@ -311,199 +170,60 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\MetadataLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\Error.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentPart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\DisplayTemplates\IAgentMetadata.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Shared\_Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Command\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Command\Inspect.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewPartCollection.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewPart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewInputModelForCommand.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\ViewAgent.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\Operations.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\Agents\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Views\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Shared\MetadataLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Shared\Error.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Shared\DisplayTemplates\IAgentPart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Shared\DisplayTemplates\IAgentMetadata.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Shared\_Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Command\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Command\Inspect.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Agents\ViewPartCollection.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Agents\ViewPart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Agents\ViewInputModelForCommand.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Agents\ViewAgent.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Agents\Operations.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\Agents\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Scripts\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Shared\MetadataLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Shared\Error.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Shared\DisplayTemplates\IAgentPart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Shared\DisplayTemplates\IAgentMetadata.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Shared\_Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Command\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Command\Inspect.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Agents\ViewPartCollection.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Agents\ViewPart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Agents\ViewInputModelForCommand.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Agents\ViewAgent.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Agents\Operations.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\Agents\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Models\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Shared\MetadataLinks.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Shared\Error.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Shared\DisplayTemplates\IAgentPart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Shared\DisplayTemplates\IAgentMetadata.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Shared\_Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Command\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Command\Inspect.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Agents\ViewPartCollection.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Agents\ViewPart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Agents\ViewInputModelForCommand.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Agents\ViewAgent.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Agents\Operations.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\Agents\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Metadata\Content\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
+      <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
+      <Name>Euclid.Common.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj">
+      <Project>{BB6CE799-54E1-4019-B918-992DCD78480A}</Project>
+      <Name>Euclid.Common.Messaging.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+      <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
+      <Name>Euclid.Common.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj">
+      <Project>{9190A42E-76B2-4315-9374-DF188D78881B}</Project>
+      <Name>Euclid.Common.Storage.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
+      <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
+      <Name>Euclid.Common.Storage.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
+      <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
+      <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
+      <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
+      <Name>Euclid.Framework.Cqrs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework\Euclid.Framework.csproj">
+      <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
+      <Name>Euclid.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
+      <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
+      <Name>Euclid.Composites.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\Euclid.Composites\Euclid.Composites.csproj">
+      <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
+      <Name>Euclid.Composites</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\PortableAgentPanel\PortableAgentPanel.csproj">
+      <Project>{D1B6455D-9E83-423F-A8E0-82073D066846}</Project>
+      <Name>PortableAgentPanel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Sdk.TestAgent\Euclid.Sdk.TestAgent.csproj">
+      <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
+      <Name>Euclid.Sdk.TestAgent</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Web.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -520,12 +240,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>27019</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:27019/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

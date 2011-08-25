@@ -1,0 +1,23 @@
+@using System.Web.Mvc
+@using Euclid.Framework.Models
+@using Microsoft.Web.Mvc.Html
+@using PortableAgentPanel.Models
+@model IInputModel
+
+<h1>@ViewBag.Title</h1>
+
+@using (Html.BeginForm("Publish", "Agents", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        @Html.EditorFor(p => Model)
+    </fieldset>
+
+    <input type="submit" value="Publish Command" />
+}
+
+@{
+	var footer = (FooterLinkModel)ViewBag.Navigation;
+	Html.RenderPartial("MetadataLinks", footer);
+}

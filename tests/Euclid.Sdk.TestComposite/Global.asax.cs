@@ -31,8 +31,6 @@ namespace Euclid.Sdk.TestComposite
 			routes.MapRoute(
 			                "Default", "{controller}/{action}/{id}", 
 			                new {controller = "Post", action = "List", id = UrlParameter.Optional});
-            ApplicationPartRegistry.Register(typeof(AgentModel).Assembly);
-
 		}
 	}
 }

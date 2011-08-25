@@ -106,6 +106,9 @@
     <Compile Include="CompositeApplicationState.cs" />
     <Compile Include="CompositeAppSettings.cs" />
     <Compile Include="BasicCompositeApp.cs" />
+    <Compile Include="Conversion\InputModelToCommandTransformerRegistry.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Formatters\CompositeMetadataFormatter.cs" />
     <Compile Include="ICompositeApp.cs" />
     <Compile Include="InMemoryCommandPublicationRecordMapper.cs" />
