@@ -22,12 +22,12 @@ namespace Euclid.Sdk.TestComposite.Converters
 		public ICommand Convert(ResolutionContext context)
 		{
 			var source = context.SourceValue as TestInputModel;
-			if (source == null)
+			var command = context.DestinationValue as TestCommand;
+
+			if (source == null || command == null)
 			{
 				throw new CannotCreateInputModelException(InputModelType.Name);
 			}
-
-			var command = Activator.CreateInstance<TestCommand>();
 
 			command.Number = source.Number;
 

@@ -21,21 +21,21 @@ namespace ForumComposite.Converters
 
 		public ICommand Convert(ResolutionContext context)
 		{
-			var source = context.SourceValue as PublishPostInputModel;
-			if (source == null)
+			var model = context.SourceValue as PublishPostInputModel;
+			var command = context.DestinationValue as PublishPost;
+
+			if (model == null || command == null)
 			{
 				throw new CannotCreateInputModelException(InputModelType.Name);
 			}
 
-			var command = Activator.CreateInstance<PublishPost>();
-
 			command.AuthorIdentifier = Guid.Empty;
-			command.Body = source.Body;
+			command.Body = model.Body;
 			command.CategoryIdentifier = Guid.Empty;
 			command.Created = DateTime.Now;
 			command.CreatedBy = Guid.Empty;
 			command.Identifier = Guid.NewGuid();
-			command.Title = source.Title;
+			command.Title = model.Title;
 
 			return command;
 		} 
