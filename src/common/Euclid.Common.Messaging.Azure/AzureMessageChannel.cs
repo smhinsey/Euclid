@@ -15,9 +15,8 @@ namespace Euclid.Common.Messaging.Azure
 
 		private static readonly object Down = new object();
 
-		private readonly IMessageSerializer _serializer;
-
 		private static CloudQueue _queue;
+		private readonly IMessageSerializer _serializer;
 
 		public AzureMessageChannel(IMessageSerializer serializer)
 		{
@@ -30,9 +29,9 @@ namespace Euclid.Common.Messaging.Azure
 
 		public override void Clear()
 		{
-            TransportIsOpenFor("Clear");
+			TransportIsOpenFor("Clear");
 
-            _queue.Clear();
+			_queue.Clear();
 		}
 
 		public override ChannelState Close()
@@ -111,23 +110,41 @@ namespace Euclid.Common.Messaging.Azure
 			_queue.AddMessage(msg);
 		}
 
+		private CloudQueueMessage MessageIsNotTooBig(IMessage message)
+		{
+			var msgBytes = _serializer.Serialize(message);
+
+			var msg = msgBytes.GetString(Encoding.UTF8);
+
+			if ((msg.Length/1024) > 8)
+			{
+				throw new Exception("The message is larger than 8k and can't be saved to the azure channel");
+			}
+
+			return new CloudQueueMessage(msg);
+		}
+
 		private static void CreateQueue(string channelName)
 		{
 			CloudStorageAccount.SetConfigurationSettingPublisher(
-				(configurationKey, publishConfigurationValue) =>
-					{
-						var connectionString = RoleEnvironment.IsAvailable
-						                       	? RoleEnvironment.GetConfigurationSettingValue(configurationKey)
-						                       	: ConfigurationManager.AppSettings[configurationKey];
+			                                                     (configurationKey, publishConfigurationValue) =>
+			                                                     	{
+			                                                     		var connectionString = RoleEnvironment.IsAvailable
+			                                                     		                       	? RoleEnvironment.
+			                                                     		                       	  	GetConfigurationSettingValue(
+			                                                     		                       	  	                             configurationKey)
+			                                                     		                       	: ConfigurationManager.AppSettings[
+			                                                     		                       	                                   configurationKey
+			                                                     		                       	  	];
 
-						publishConfigurationValue(connectionString);
-					});
+			                                                     		publishConfigurationValue(connectionString);
+			                                                     	});
 
 			var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
 			var queueClient = storageAccount.CreateCloudQueueClient();
 
-            _queue = queueClient.GetQueueReference(channelName.ToLower());
-            _queue.CreateIfNotExist(); // jt: why does exception get swalloed
+			_queue = queueClient.GetQueueReference(channelName.ToLower());
+			_queue.CreateIfNotExist(); // jt: why does exception get swalloed
 		}
 
 		private static void ValidNumberOfMessagesRequested(int howMany)
@@ -136,22 +153,9 @@ namespace Euclid.Common.Messaging.Azure
 			{
 				throw new InvalidOperationException(
 					string.Format(
-						"Only {0} messages can be retrieved from an azure channel at a time", MaximumNumberOfMessagesThatCanBeFetched));
+					              "Only {0} messages can be retrieved from an azure channel at a time", 
+					              MaximumNumberOfMessagesThatCanBeFetched));
 			}
-		}
-
-		private CloudQueueMessage MessageIsNotTooBig(IMessage message)
-		{
-			var msgBytes = _serializer.Serialize(message);
-
-			var msg = msgBytes.GetString(Encoding.UTF8);
-
-			if ((msg.Length / 1024) > 8)
-			{
-				throw new Exception("The message is larger than 8k and can't be saved to the azure channel");
-			}
-
-			return new CloudQueueMessage(msg);
 		}
 	}
 }

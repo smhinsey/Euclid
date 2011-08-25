@@ -37,7 +37,7 @@ namespace Euclid.TestingSupport
 		{
 			if (!_configured)
 			{
-				configure(typeof(TTypeFromAgent).Assembly);
+				configure(typeof (TTypeFromAgent).Assembly);
 			}
 		}
 
@@ -74,7 +74,8 @@ namespace Euclid.TestingSupport
 			var composite = new BasicCompositeApp(Container);
 
 			composite.RegisterNh(
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+			                     MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), 
+			                     true, false);
 
 			composite.AddAgent(agentAssembly);
 
@@ -99,8 +100,8 @@ namespace Euclid.TestingSupport
 			var compositeAppSettings = new CompositeAppSettings();
 
 			compositeAppSettings.OutputChannel.WithDefault(typeof (AzureMessageChannel));
-			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
-			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
 
 			return compositeAppSettings;
 		}
@@ -109,13 +110,13 @@ namespace Euclid.TestingSupport
 		{
 			var fabricSettings = new FabricRuntimeSettings();
 
-			fabricSettings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
-			fabricSettings.HostedServices.WithDefault(new List<Type> { typeof(CommandHost) });
+			fabricSettings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
+			fabricSettings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
 
-            var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
+			var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
 
-            fabricSettings.InputChannel.WithDefault(messageChannel);
-            fabricSettings.ErrorChannel.WithDefault(messageChannel);
+			fabricSettings.InputChannel.WithDefault(messageChannel);
+			fabricSettings.ErrorChannel.WithDefault(messageChannel);
 
 			return fabricSettings;
 		}

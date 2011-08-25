@@ -127,7 +127,10 @@ namespace ForumTests.Steps
 
 			PubIdOfLastMessage =
 				publisher.PublishMessage(
-					new CommentOnPost { PostIdentifier = post.Identifier, Title = CommentTitle, Body = CommentBody });
+				                         new CommentOnPost
+				                         	{
+                                 PostIdentifier = post.Identifier, Title = CommentTitle, Body = CommentBody
+                              });
 		}
 
 		/// <summary>
@@ -139,7 +142,7 @@ namespace ForumTests.Steps
 			var publisher = GetContainer().Resolve<IPublisher>();
 
 			PubIdOfLastMessage =
-				publisher.PublishMessage(new PublishPost { Title = PostTitle, Body = PostBody, CategoryIdentifier = categoryId });
+				publisher.PublishMessage(new PublishPost {Title = PostTitle, Body = PostBody, CategoryIdentifier = categoryId});
 		}
 
 		/// <summary>
@@ -160,7 +163,7 @@ namespace ForumTests.Steps
 			var comments = commentQueries.FindCommentsBelongingToPost(post.Identifier);
 
 			PubIdOfLastMessage =
-				publisher.PublishMessage(new VoteOnComment { CommentIdentifier = comments[0].Identifier, VoteUp = direction });
+				publisher.PublishMessage(new VoteOnComment {CommentIdentifier = comments[0].Identifier, VoteUp = direction});
 		}
 
 		/// <summary>
@@ -178,7 +181,7 @@ namespace ForumTests.Steps
 			var post = query.FindByTitle(PostTitle);
 
 			PubIdOfLastMessage = publisher.PublishMessage(
-				new VoteOnPost { PostIdentifier = post.Identifier, VoteUp = direction });
+			                                              new VoteOnPost {PostIdentifier = post.Identifier, VoteUp = direction});
 		}
 	}
 }

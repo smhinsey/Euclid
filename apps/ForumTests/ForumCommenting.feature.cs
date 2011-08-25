@@ -37,7 +37,7 @@ namespace ForumTests
 				"Forum Commenting", 
 				"In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" + "t Forum", 
 				ProgrammingLanguage.CSharp, 
-				new[] { "ForumAgentSpecs" });
+				new[] {"ForumAgentSpecs"});
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -73,7 +73,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Comment on Post")]
 		public virtual void CommentOnPost()
 		{
-			var scenarioInfo = new ScenarioInfo("Comment on Post", (string[])null);
+			var scenarioInfo = new ScenarioInfo("Comment on Post", (string[]) null);
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 8

@@ -7,41 +7,23 @@ namespace Euclid.Sdk.Specifications.Metadata
 	{
 		protected IAgentMetadata Agent
 		{
-			get
-			{
-				return ScenarioContext.Current["Agent"] as IAgentMetadata;
-			}
+			get { return ScenarioContext.Current["Agent"] as IAgentMetadata; }
 
-			set
-			{
-				ScenarioContext.Current["Agent"] = value;
-			}
+			set { ScenarioContext.Current["Agent"] = value; }
 		}
 
 		protected string Format
 		{
-			get
-			{
-				return ScenarioContext.Current["Format"].ToString();
-			}
+			get { return ScenarioContext.Current["Format"].ToString(); }
 
-			set
-			{
-				ScenarioContext.Current["Format"] = value;
-			}
+			set { ScenarioContext.Current["Format"] = value; }
 		}
 
 		protected IMetadataFormatter Formatter
 		{
-			get
-			{
-				return ScenarioContext.Current["Formatter"] as IMetadataFormatter;
-			}
+			get { return ScenarioContext.Current["Formatter"] as IMetadataFormatter; }
 
-			set
-			{
-				ScenarioContext.Current["Formatter"] = value;
-			}
+			set { ScenarioContext.Current["Formatter"] = value; }
 		}
 	}
 }

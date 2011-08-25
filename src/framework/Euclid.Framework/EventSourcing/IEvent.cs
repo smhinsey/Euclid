@@ -9,7 +9,7 @@ namespace Euclid.Framework.EventSourcing
 	public interface IEvent : ICommand
 	{
 		/// <summary>
-		/// Gets the time when the event was triggered.
+		/// 	Gets the time when the event was triggered.
 		/// </summary>
 		DateTime TriggeredAt { get; }
 	}

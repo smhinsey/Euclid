@@ -24,9 +24,9 @@ namespace Euclid.Composite.InputModelMapping
 
 			composite.RegisterNh(SQLiteConfiguration.Standard.UsingFile("CompositeTestsDb"), true, false);
 
-		    var settings = new CompositeAppSettings();
+			var settings = new CompositeAppSettings();
 
-            settings.OutputChannel.ApplyOverride(typeof(InMemoryMessageChannel));
+			settings.OutputChannel.ApplyOverride(typeof (InMemoryMessageChannel));
 
 			composite.Configure(settings);
 

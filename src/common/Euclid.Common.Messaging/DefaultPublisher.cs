@@ -9,7 +9,8 @@ namespace Euclid.Common.Messaging
 
 		private readonly IPublicationRegistry<IPublicationRecord, IPublicationRecord> _publicationRegistry;
 
-		public DefaultPublisher(
+		public DefaultPublisher
+			(
 			IPublicationRegistry<IPublicationRecord, IPublicationRecord> publicationRegistry, IMessageChannel channel)
 		{
 			_publicationRegistry = publicationRegistry;
@@ -23,7 +24,7 @@ namespace Euclid.Common.Messaging
 				message.Identifier = Guid.NewGuid();
 			}
 
-            if (_channel.State != ChannelState.Open)
+			if (_channel.State != ChannelState.Open)
 			{
 				this.WriteDebugMessage("Publication to closed channel detected. Attempting to open channel.");
 
@@ -37,12 +38,12 @@ namespace Euclid.Common.Messaging
 			_channel.Send(record);
 
 			this.WriteInfoMessage(
-				string.Format(
-					"Message {0} (record {1}) was successfully published via the channel {2}({3}).", 
-					message.GetType().Name, 
-					record.Identifier, 
-					_channel.GetType().Name, 
-					_channel.ChannelName));
+			                      string.Format(
+			                                    "Message {0} (record {1}) was successfully published via the channel {2}({3}).", 
+			                                    message.GetType().Name, 
+			                                    record.Identifier, 
+			                                    _channel.GetType().Name, 
+			                                    _channel.ChannelName));
 
 			return record.Identifier;
 		}

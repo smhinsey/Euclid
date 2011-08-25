@@ -12,10 +12,7 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 
 		public override string DescriptiveName
 		{
-			get
-			{
-				return "ReadModels";
-			}
+			get { return "ReadModels"; }
 		}
 	}
 }

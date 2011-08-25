@@ -1,5 +1,4 @@
-﻿using System.Web.Mvc;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
@@ -9,6 +8,7 @@ using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
+using ForumComposite.Converters;
 using Microsoft.WindowsAzure;
 
 namespace ForumComposite
@@ -50,8 +50,8 @@ namespace ForumComposite
 
 			composite.Configure(compositeAppSettings);
 
-			/* EUCLID: Install agents and Input models */
 			composite.AddAgent(typeof(PublishPost).Assembly);
+			composite.RegisterInputModel(new PublishPostInputModelConverter());
 
 			container.Register(Component.For<ICompositeApp>().Instance(composite));
 
@@ -64,9 +64,9 @@ namespace ForumComposite
 		{
 			// as soon as we can stop using the azure storage emulator we should
 			var storageAccount = new CloudStorageAccount(
-				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
-				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
-				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials,
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
 				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));

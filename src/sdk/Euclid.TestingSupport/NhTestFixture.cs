@@ -11,9 +11,8 @@ namespace Euclid.TestingSupport
 {
 	public class NhTestFixture<TEntity>
 	{
-		protected ISessionFactory SessionFactory;
-
 		private readonly AutoMapperConfiguration _config;
+		protected ISessionFactory SessionFactory;
 
 		public NhTestFixture(AutoMapperConfiguration config)
 		{
@@ -25,7 +24,18 @@ namespace Euclid.TestingSupport
 		{
 			SessionFactory =
 				Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("NhTestFixtureDb")).Mappings(
-					map => map.AutoMappings.Add(AutoMap.AssemblyOf<TEntity>(_config).IgnoreBase<DefaultReadModel>)).ExposeConfiguration
+				                                                                                                  map =>
+				                                                                                                  map.AutoMappings.
+				                                                                                                  	Add(
+				                                                                                                  	    AutoMap.
+				                                                                                                  	    	AssemblyOf
+				                                                                                                  	    	<TEntity>(
+				                                                                                                  	    	          _config)
+				                                                                                                  	    	.IgnoreBase
+				                                                                                                  	    	<
+				                                                                                                  	    	DefaultReadModel
+				                                                                                                  	    	>)).
+					ExposeConfiguration
 					(buildSchema).BuildSessionFactory();
 		}
 

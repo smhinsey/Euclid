@@ -137,21 +137,21 @@ namespace Euclid.Common.UnitTests.Registry
 		{
 			var start = DateTime.Now;
 
-			Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof(FakeMessage).FullName);
+			Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof (FakeMessage).FullName);
 
-			var numberOfLoops = howManyMessages / numberOfThreads + 1;
+			var numberOfLoops = howManyMessages/numberOfThreads + 1;
 
 			for (var i = 0; i < numberOfLoops; i++)
 			{
 				var results = Parallel.For(
-					0, 
-					numberOfLoops, 
-					x =>
-						{
-							var record = CreateRecord(new FakeMessage());
+				                           0, 
+				                           numberOfLoops, 
+				                           x =>
+				                           	{
+				                           		var record = CreateRecord(new FakeMessage());
 
-							Assert.NotNull(record);
-						});
+				                           		Assert.NotNull(record);
+				                           	});
 			}
 
 			Console.WriteLine("Created {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
@@ -163,7 +163,7 @@ namespace Euclid.Common.UnitTests.Registry
 
 			var start = DateTime.Now;
 
-			Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof(FakeMessage).FullName);
+			Console.WriteLine("Creating {0} records in the {1} registry", howManyMessages, typeof (FakeMessage).FullName);
 
 			for (var i = 0; i < howManyMessages; i++)
 			{
@@ -184,11 +184,11 @@ namespace Euclid.Common.UnitTests.Registry
 
 				Assert.AreEqual(id, retrieved.Identifier);
 
-				Assert.AreEqual(retrieved.MessageType, typeof(FakeMessage));
+				Assert.AreEqual(retrieved.MessageType, typeof (FakeMessage));
 			}
 
 			Console.WriteLine(
-				"Retrieved {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
+			                  "Retrieved {0} messages in {1} seconds", howManyMessages, DateTime.Now.Subtract(start).TotalSeconds);
 		}
 	}
 }

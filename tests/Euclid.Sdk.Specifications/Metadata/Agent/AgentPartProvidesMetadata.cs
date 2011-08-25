@@ -17,7 +17,7 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 			switch (partName.ToLower())
 			{
 				case "command":
-                    Formatter = typeof(TestCommand).GetMetadata().GetFormatter();
+					Formatter = typeof (TestCommand).GetMetadata().GetFormatter();
 					break;
 				case "query":
 					Formatter = typeof (TestQuery).GetMetadata().GetFormatter();

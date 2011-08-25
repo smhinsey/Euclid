@@ -13,6 +13,11 @@ namespace ForumComposite.Controllers
 			_postQueries = postQueries;
 		}
 
+		public ActionResult Create()
+		{
+			return View();
+		}
+
 		public ActionResult List()
 		{
 			var posts = _postQueries.FindByCreationDate(DateTime.Now.AddDays(-5), DateTime.Now);
@@ -21,11 +26,6 @@ namespace ForumComposite.Controllers
 		}
 
 		public ActionResult Thread()
-		{
-			return View();
-		}
-
-		public ActionResult Create()
 		{
 			return View();
 		}

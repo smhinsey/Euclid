@@ -6,39 +6,39 @@ using TechTalk.SpecFlow;
 
 namespace Euclid.Sdk.Specifications.AppSettings
 {
-    [Binding]
-    public class SettingOutputChannelOnCompositeAppSetting
-    {
-        [When("I apply an InMemoryMessageChannel to the OutputChannel property")]
-        public void ApplyMessageChannel()
-        {
-            var setting = ScenarioContext.Current["AppSetting"] as CompositeAppSettings;
+	[Binding]
+	public class SettingOutputChannelOnCompositeAppSetting
+	{
+		[When("I apply an InMemoryMessageChannel to the OutputChannel property")]
+		public void ApplyMessageChannel()
+		{
+			var setting = ScenarioContext.Current["AppSetting"] as CompositeAppSettings;
 
-            Assert.NotNull(setting);
+			Assert.NotNull(setting);
 
-            setting.OutputChannel.ApplyOverride(typeof(InMemoryMessageChannel));
-        }
+			setting.OutputChannel.ApplyOverride(typeof (InMemoryMessageChannel));
+		}
 
-        [When("I call validate no exceptions are thrown")]
-        public void ValidateSettings()
-        {
-            var setting = ScenarioContext.Current["AppSetting"] as CompositeAppSettings;
+		[When(@"CompositeAppSetting\.GetInvalidSettingReasons\(\) returns 0 length enumerable object")]
+		public void SettingsAreValid()
+		{
+			var setting = ScenarioContext.Current["AppSetting"] as CompositeAppSettings;
 
-            Assert.NotNull(setting);
+			Assert.NotNull(setting);
 
-            setting.Validate();
-        }
+			var reasons = setting.GetInvalidSettingReasons();
 
-        [When(@"CompositeAppSetting\.GetInvalidSettingReasons\(\) returns 0 length enumerable object")]
-        public void SettingsAreValid()
-        {
-            var setting = ScenarioContext.Current["AppSetting"] as CompositeAppSettings;
+			Assert.AreEqual(0, reasons.Count());
+		}
 
-            Assert.NotNull(setting);
+		[When("I call validate no exceptions are thrown")]
+		public void ValidateSettings()
+		{
+			var setting = ScenarioContext.Current["AppSetting"] as CompositeAppSettings;
 
-            var reasons = setting.GetInvalidSettingReasons();
+			Assert.NotNull(setting);
 
-            Assert.AreEqual(0, reasons.Count());
-        }
-    }
+			setting.Validate();
+		}
+	}
 }

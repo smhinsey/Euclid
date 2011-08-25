@@ -16,13 +16,13 @@ namespace Euclid.Common.UnitTests.Serialization
 		[Test]
 		public void TestEuclidJsonSerialization()
 		{
-			var r = new Random((int)DateTime.Now.Ticks);
+			var r = new Random((int) DateTime.Now.Ticks);
 			var m = new FakeMessage
-				{
-					Identifier = Guid.NewGuid(), 
-					Field1 = new List<string> { r.Next().ToString(), r.Next().ToString(), r.Next().ToString() }, 
-					Field2 = r.Next()
-				};
+			        	{
+			        		Identifier = Guid.NewGuid(), 
+			        		Field1 = new List<string> {r.Next().ToString(), r.Next().ToString(), r.Next().ToString()}, 
+			        		Field2 = r.Next()
+			        	};
 
 			var serializer = new JsonMessageSerializer();
 
@@ -49,9 +49,11 @@ namespace Euclid.Common.UnitTests.Serialization
 		public void TestJsonNetSerialization()
 		{
 			var m = new FakeMessage
-				{
-       Identifier = Guid.NewGuid(), Field2 = 3, Field1 = new List<string> { "foo", "bar", "baz" } 
-    };
+			        	{
+			        		Identifier = Guid.NewGuid(), 
+			        		Field2 = 3, 
+			        		Field1 = new List<string> {"foo", "bar", "baz"}
+			        	};
 
 			var e = new Envelope(m);
 

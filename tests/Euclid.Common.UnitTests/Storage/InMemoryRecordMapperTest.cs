@@ -9,7 +9,7 @@ namespace Euclid.Common.UnitTests.Storage
 	[Category(TestCategories.Unit)]
 	public class InMemoryRecordMapperTest
 	{
-		private RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>> _tester;
+		#region Setup/Teardown
 
 		[SetUp]
 		public void Setup()
@@ -18,6 +18,10 @@ namespace Euclid.Common.UnitTests.Storage
 
 			_tester = new RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>>(repo);
 		}
+
+		#endregion
+
+		private RecordMapperTester<InMemoryRecordMapper<FakePublicationRecord>> _tester;
 
 		[Test]
 		public void TestCreate()

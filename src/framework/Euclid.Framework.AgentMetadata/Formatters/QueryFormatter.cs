@@ -37,8 +37,8 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 				foreach (var arg in method.Arguments.OrderBy(a => a.Order))
 				{
 					args.Add(
-						new XElement(
-							"Argument", new XElement("ArgumentType", arg.PropertyType.Name), new XElement("ArgumentName", arg.Name)));
+					         new XElement(
+					         	"Argument", new XElement("ArgumentType", arg.PropertyType.Name), new XElement("ArgumentName", arg.Name)));
 				}
 
 				m.Add(args);
@@ -58,15 +58,21 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 						_partMetadata.Name, 
 						Methods =
 							_partMetadata.Methods.Select(
-								method =>
-								new
-									{
-										Arguments =
-									method.Arguments.OrderBy(a => a.Order).Select(
-										a => new { ArgumentType = a.PropertyType.Name, ArgumentName = a.Name }), 
-										ReturnType = GetFormattedReturnType(method), 
-										method.Name
-									})
+							                             method =>
+							                             new
+							                             	{
+							                             		Arguments =
+							                             	method.Arguments.OrderBy(a => a.Order).Select(
+							                             	                                              a =>
+							                             	                                              new
+							                             	                                              	{
+							                             	                                              		ArgumentType =
+							                             	                                              	a.PropertyType.Name, 
+							                             	                                              		ArgumentName = a.Name
+							                             	                                              	}), 
+							                             		ReturnType = GetFormattedReturnType(method), 
+							                             		method.Name
+							                             	})
 					};
 		}
 

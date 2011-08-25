@@ -18,7 +18,9 @@ namespace AgentConsole
 		public override void Initialize(IFabricRuntimeSettings settings)
 		{
 			Container.Register(
-				Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(new MultitaskingServiceHost()));
+			                   Component.For<IServiceHost>().Forward<MultitaskingServiceHost>().Instance(
+			                                                                                             new MultitaskingServiceHost
+			                                                                                             	()));
 
 			base.Initialize(settings);
 		}

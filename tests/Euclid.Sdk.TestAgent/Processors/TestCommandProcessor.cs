@@ -25,9 +25,9 @@ namespace Euclid.Sdk.TestAgent.Processors
 
 			var model = new TestReadModel
 			            	{
-			            		Identifier = Guid.NewGuid(),
-			            		Number = message.Number,
-			            		Created = DateTime.Now,
+			            		Identifier = Guid.NewGuid(), 
+			            		Number = message.Number, 
+			            		Created = DateTime.Now, 
 			            		Modified = DateTime.Now
 			            	};
 

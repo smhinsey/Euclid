@@ -22,7 +22,7 @@ namespace Euclid.Framework.UnitTests.Cqrs
 		[Test]
 		public void CommandRegistryTests()
 		{
-			var command = new FakeCommand { Identifier = Guid.NewGuid() };
+			var command = new FakeCommand {Identifier = Guid.NewGuid()};
 			var registry = new CommandRegistry(
 				new InMemoryRecordMapper<CommandPublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
 
@@ -50,7 +50,8 @@ namespace Euclid.Framework.UnitTests.Cqrs
 			c.Register(Component.For<IWindsorContainer>().Instance(c));
 
 			c.Register(
-				Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy<InMemoryCommandPublicationRecordMapper>());
+			           Component.For<IRecordMapper<CommandPublicationRecord>>().ImplementedBy
+			           	<InMemoryCommandPublicationRecordMapper>());
 
 			c.Register(Component.For<IBlobStorage>().ImplementedBy<InMemoryBlobStorage>());
 

@@ -8,7 +8,8 @@ namespace Euclid.Composites
 
 		private readonly CompositeApplicationState _expectedState;
 
-		public InvalidCompositeApplicationStateException(
+		public InvalidCompositeApplicationStateException
+			(
 			CompositeApplicationState applicationState, CompositeApplicationState expectedState)
 			: base(string.Format("The composite application state was {0} but {1} was expected", applicationState, expectedState)
 				)

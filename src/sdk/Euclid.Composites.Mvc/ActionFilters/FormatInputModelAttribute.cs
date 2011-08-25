@@ -25,11 +25,11 @@ namespace Euclid.Composites.Mvc.ActionFilters
 			var formatter = inputModel.GetMetadataFormatter();
 
 			filterContext.Result = new ContentResult
-				{
-					Content = formatter.GetRepresentation(format), 
-					ContentEncoding = formatter.GetEncoding(format), 
-					ContentType = formatter.GetContentType(format)
-				};
+			                       	{
+			                       		Content = formatter.GetRepresentation(format), 
+			                       		ContentEncoding = formatter.GetEncoding(format), 
+			                       		ContentType = formatter.GetContentType(format)
+			                       	};
 
 			base.OnActionExecuting(filterContext);
 		}

@@ -7,31 +7,31 @@ using Euclid.Sdk.TestComposite.Models;
 
 namespace Euclid.Sdk.TestComposite.Converters
 {
-    public class TestInputModelToCommandConverter : IInputToCommandConverter
-    {
-        public ICommand Convert(ResolutionContext context)
-        {
-            var source = context.SourceValue as TestInputModel;
-            if (source == null)
-            {
-                throw new CannotCreateInputModelException(InputModelType.Name);
-            }
+	public class TestInputModelToCommandConverter : IInputToCommandConverter
+	{
+		public Type CommandType
+		{
+			get { return typeof (TestCommand); }
+		}
 
-            var command = Activator.CreateInstance<TestCommand>();
+		public Type InputModelType
+		{
+			get { return typeof (TestInputModel); }
+		}
 
-            command.Number = source.Number;
+		public ICommand Convert(ResolutionContext context)
+		{
+			var source = context.SourceValue as TestInputModel;
+			if (source == null)
+			{
+				throw new CannotCreateInputModelException(InputModelType.Name);
+			}
 
-            return command;
-        }
+			var command = Activator.CreateInstance<TestCommand>();
 
-        public Type CommandType
-        {
-            get { return typeof(TestCommand); }
-        }
+			command.Number = source.Number;
 
-        public Type InputModelType
-        {
-            get { return typeof(TestInputModel); }
-        }
-    }
+			return command;
+		}
+	}
 }

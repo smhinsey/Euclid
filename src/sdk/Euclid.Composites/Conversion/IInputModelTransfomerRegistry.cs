@@ -16,6 +16,6 @@ namespace Euclid.Composites.Conversion
 
 		IInputModel GetInputModel(string commandName);
 
-	    IEnumerable<ITypeMetadata> GetInputModels();
+		IEnumerable<ITypeMetadata> GetInputModels();
 	}
 }

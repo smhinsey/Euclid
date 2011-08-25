@@ -11,7 +11,7 @@ namespace Euclid.Framework.TestingFakes.Cqrs
 
 		public bool CanProcessMessage(IMessage message)
 		{
-			return message.GetType() == typeof(FakeCommand) || message.GetType() == typeof(FakeCommand2);
+			return message.GetType() == typeof (FakeCommand) || message.GetType() == typeof (FakeCommand2);
 		}
 
 		public void Process(FakeCommand command)

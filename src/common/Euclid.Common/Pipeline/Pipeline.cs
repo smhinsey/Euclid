@@ -22,7 +22,7 @@ namespace Euclid.Common.Pipeline
 			guardAgainstMultiple(steps, PipelinePriority.First);
 			guardAgainstMultiple(steps, PipelinePriority.Last);
 
-			steps.ToList().ForEach(item => _steps.Add((int)item.Priority, item));
+			steps.ToList().ForEach(item => _steps.Add((int) item.Priority, item));
 		}
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace Euclid.Common.Pipeline
 
 		private void guardAgainstMultiple(IPipelineStep<TState>[] steps, PipelinePriority priority)
 		{
-			var name = Enum.GetName(typeof(PipelinePriority), priority);
+			var name = Enum.GetName(typeof (PipelinePriority), priority);
 			if (steps.Where(x => x.Priority == priority).Count() > 1)
 			{
 				throw new StepConfigurationException(string.Format("The pipeline cannot have multiple {0} steps", name));

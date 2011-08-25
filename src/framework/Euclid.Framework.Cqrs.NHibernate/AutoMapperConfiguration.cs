@@ -15,7 +15,7 @@ namespace Euclid.Framework.Cqrs.NHibernate
 
 		public override bool ShouldMap(Type type)
 		{
-			return typeof(IReadModel).IsAssignableFrom(type) || typeof(IPublicationRecord).IsAssignableFrom(type);
+			return typeof (IReadModel).IsAssignableFrom(type) || typeof (IPublicationRecord).IsAssignableFrom(type);
 		}
 	}
 }
