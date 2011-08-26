@@ -1,0 +1,71 @@
+﻿@using CompositeInspector.Models
+@using MvcContrib.UI.Html
+@model InspectorNavigationModel
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#publication-record-id").bind("keypress", function(e) {
+            var pubId = $("#publication-record-id").val();
+            if (e.keyCode == 13 && pubId != "") {
+                if (!$.Guid.IsValid(pubId)) {
+                    $("#publication-record-id").css("background-color", "red");
+                }
+                else {
+                    window.location.href = "@Url.Content("~/compositeinspector/commandregistry")/" + pubId;
+                }
+
+                return false;
+            }
+
+            $("#publication-record-id").css("background-color", "white");
+        });
+    });
+</script>
+
+<hr />
+
+<div class="metadata-links-container" id="composite-link-container">
+    <ul class="metadata-links-list" id="composite-links">
+        <li class="metadata-link-item">
+            <a href="@Url.Action("Index", "Composite")" class="metadata-link">
+                Composite details
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="metadata-links-container" id="agent-link-container">
+    <ul class="metadata-links-list" id="agent-links">
+        @if (!string.IsNullOrEmpty(Model.AgentSytemName) && !string.IsNullOrEmpty(Model.PartType))
+        {
+            <li class="metadata-link-item">
+                <a class="metadata-link" href="@Url.Action("ViewPartCollection", "Agents", new {AgentSystemName = Model.AgentSytemName, PartName = Model.PartType})">
+                    @Model.AgentSytemName's @Model.PartDescriptiveName
+                </a>
+            </li>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.AgentSytemName))
+        {
+            <li class="metadata-link-item">
+                <a class="metadata-link" href="@Url.Action("ViewAgent", "Agents", new {AgentSystemName = Model.AgentSytemName,})">
+                    @Model.AgentSytemName details
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+<div class="metadata-links-container" id="command-registry-link-container">
+    <ul class="metadata-links-list" id="command-registry-links">
+        <li class="metadata-link-item">
+            <a class="metadata-link" href="@Url.Action("Index", "CommandRegistry")">
+                Command registry
+            </a>
+        </li>
+        
+        <li class="metadata-link-item">
+            View publication record: <input type="text" id="publication-record-id"/>
+        </li>
+    </ul>
+</div>

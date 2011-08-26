@@ -1,5 +1,4 @@
-@using Microsoft.Web.Mvc.Html
-@using PortableAgentPanel.Models
+@using CompositeInspector.Models
 @model AgentListModel
 
 <h1>Configured Agents</h1>
@@ -7,15 +6,15 @@
 <p>The following agents have been configured in your composite.</p>
 
 <ul>
-	@foreach (var agent in Model.Agents)
-	{
-		<li>
-			@agent.DescriptiveName - @agent.SystemName 
-			(<a href="@Url.Action("ViewAgent", "Agents", new { agentSystemName = agent.SystemName })">html</a> |
-			<a href="@Url.Action("ViewAgent", "Agents", new { agentSystemName = agent.SystemName, Format = "xml" })">xml</a> |
-			<a href="@Url.Action("ViewAgent", "Agents", new { agentSystemName = agent.SystemName, Format = "json" })">json</a>)
-		</li>
-	}
+    @foreach (var agent in Model.Agents)
+    {
+        <li>
+            @agent.DescriptiveName - @agent.SystemName 
+            (<a href="@Url.Action("ViewAgent", "Agents", new {agentSystemName = agent.SystemName})">html</a> |
+            <a href="@Url.Action("ViewAgent", "Agents", new {agentSystemName = agent.SystemName, Format = "xml"})">xml</a> |
+            <a href="@Url.Action("ViewAgent", "Agents", new {agentSystemName = agent.SystemName, Format = "json"})">json</a>)
+        </li>
+    }
 </ul>
 
-@{ Html.RenderPartial("MetadataLinks", Model); }
+@{ Html.RenderPartial("CompositeInspectorLinks", Model); }

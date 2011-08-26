@@ -1,11 +1,11 @@
 ﻿using Euclid.Framework.AgentMetadata;
 
-namespace PortableAgentPanel.Models
+namespace CompositeInspector.Models
 {
-	public class PartModel : FooterLinkModel
-	{
-		public string NextActionName { get; set; }
+    public class PartModel : InspectorNavigationModel
+    {
+        public string NextActionName { get; set; }
 
-		public ITypeMetadata TypeMetadata { get; set; }
-	}
+        public ITypeMetadata TypeMetadata { get; set; }
+    }
 }

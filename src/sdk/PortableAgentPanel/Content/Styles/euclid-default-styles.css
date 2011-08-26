@@ -1,4 +1,11 @@
-﻿.model-header {
+﻿body
+{
+    font-size: .85em;
+    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #fff;
+}
+.model-header {
     font-weight: bold;
     text-decoration: underline;
     margin-top: 15px;

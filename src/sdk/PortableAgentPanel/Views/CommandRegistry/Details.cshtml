@@ -1,16 +1,29 @@
-﻿@model dynamic
-<div>
-	Id: @Model.Identifier
-	<br />
-	Created: @Model.Created
-	<br />
-	Dispatched: @Model.Dispatched
-	<br />
-	Error: @Model.Error
-	<br />
-	Message: @Model.ErrorMessage
-	<br />
-	Type: @Model.MessageType
-	<br />
-	Location: @Model.MessageLocation
-</div>
+﻿@using CompositeInspector.Models
+@model CommandPublicationModel
+
+@if (!Model.HasValue)
+{
+    <div>
+        No publication record exists with Id @Model.PublicationId
+    </div>
+}
+else
+{
+    <div>
+        Id: @Model.Record.Identifier
+        <br />
+        Created: @Model.Record.Created
+        <br />
+        Dispatched: @Model.Record.Dispatched
+        <br />
+        Error: @Model.Record.Error
+        <br />
+        Message: @Model.Record.ErrorMessage
+        <br />
+        Type: @Model.Record.MessageType
+        <br />
+        Location: @Model.Record.MessageLocation
+    </div>
+}
+
+@{ Html.RenderPartial("CompositeInspectorLinks", Model);   }

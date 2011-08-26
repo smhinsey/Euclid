@@ -5,21 +5,22 @@
 
 @foreach (IPublicationRecord pub in Model.PublicationRecords)
 {
-	<div>
-		Id: <a href='@Url.Action("Details", "CommandRegistry", new { publicationId = pub.Identifier })'>@pub.Identifier</a>
-		<br />
-		Created: @pub.Created
-		<br />
-		Dispatched: @pub.Dispatched
-		<br />
-		Error: @pub.Error
-		<br />
-		Message: @pub.ErrorMessage
-		<br />
-		Type: @pub.MessageType
-		<br />
-		Location: @pub.MessageLocation
-	</div>
+    <div>
+        Id: <a href='@Url.Action("Details", "CommandRegistry", new {publicationId = pub.Identifier})'>@pub.Identifier</a>
+        <br />
+        Created: @pub.Created
+        <br />
+        Dispatched: @pub.Dispatched
+        <br />
+        Error: @pub.Error
+        <br />
+        Message: @pub.ErrorMessage
+        <br />
+        Type: @pub.MessageType
+        <br />
+        Location: @pub.MessageLocation
+    </div>
 
-	<br />
+    <br />
 }
+

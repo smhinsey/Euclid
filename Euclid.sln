@@ -83,8 +83,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.TestingSupport", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Framework.AgentMetadata", "src\framework\Euclid.Framework.AgentMetadata\Euclid.Framework.AgentMetadata.csproj", "{276664F8-43A3-43E6-AA9A-B9A275B14013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeControl", "src\sdk\CompositeControl\CompositeControl.csproj", "{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.Specifications", "tests\Euclid.Sdk.Specifications\Euclid.Sdk.Specifications.csproj", "{AC366DF0-1269-4C2C-9599-B02FCB8402FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.TestAgent", "tests\Euclid.Sdk.TestAgent\Euclid.Sdk.TestAgent.csproj", "{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}"
@@ -97,7 +95,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{B1A8F5A1
 		nuget\package.msbuild = nuget\package.msbuild
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortableAgentPanel", "src\sdk\PortableAgentPanel\PortableAgentPanel.csproj", "{D1B6455D-9E83-423F-A8E0-82073D066846}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeInspector", "src\sdk\PortableAgentPanel\CompositeInspector.csproj", "{D1B6455D-9E83-423F-A8E0-82073D066846}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.NugetTests", "tests\Euclid.Sdk.NugetTests\Euclid.Sdk.NugetTests.csproj", "{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}"
 EndProject
@@ -546,18 +544,6 @@ Global
 		{276664F8-43A3-43E6-AA9A-B9A275B14013}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{276664F8-43A3-43E6-AA9A-B9A275B14013}.Release|x64.ActiveCfg = Release|Any CPU
 		{276664F8-43A3-43E6-AA9A-B9A275B14013}.Release|x86.ActiveCfg = Release|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Release|x64.ActiveCfg = Release|Any CPU
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9}.Release|x86.ActiveCfg = Release|Any CPU
 		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC366DF0-1269-4C2C-9599-B02FCB8402FE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -637,7 +623,6 @@ Global
 		{7A99E385-CC40-4F2F-B301-EEF6C4664ECC} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
 		{A32FFA94-BEEA-46AD-9A99-F09D6F44D58B} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
 		{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
-		{17CCAC3A-EE7A-4D5D-B4D4-0D79CF73EFE9} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
 		{B1A8F5A1-E899-4CE7-BC1F-B4F5C4F031DB} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
 		{D1B6455D-9E83-423F-A8E0-82073D066846} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
 		{F3A0C178-15D9-4E18-B673-28B80F40E665} = {A2581B83-5C10-4F25-A225-0EA00448352F}
