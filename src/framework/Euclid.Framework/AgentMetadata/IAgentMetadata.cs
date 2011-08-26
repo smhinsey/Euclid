@@ -3,6 +3,12 @@ using System.Reflection;
 
 namespace Euclid.Framework.AgentMetadata
 {
+    public enum FormatterType
+    {
+        Basic = 0,
+        Full
+    };
+
 	public interface IAgentMetadata
 	{
 		Assembly AgentAssembly { get; }
@@ -19,11 +25,11 @@ namespace Euclid.Framework.AgentMetadata
 
 		string SystemName { get; }
 
-		IMetadataFormatter GetBasicMetadataFormatter();
+	    string Description { get; }
 
-		IMetadataFormatter GetMetadataFormatter();
+		IMetadataFormatter GetFormatter(FormatterType style);
 
-		IAgentPartMetadata GetPartByTypeName(string partName);
+		IPartMetadata GetPartByTypeName(string partName);
 
 		IPartCollection GetPartCollectionByDescriptiveName(string descriptiveName);
 

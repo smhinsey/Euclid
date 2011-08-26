@@ -18,7 +18,8 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 			                          		typeof (LocationOfCommandsAttribute), 
 			                          		typeof (LocationOfQueriesAttribute), 
 			                          		typeof (LocationOfProcessorsAttribute), 
-			                          		typeof (LocationOfReadModelsAttribute)
+			                          		typeof (LocationOfReadModelsAttribute),
+                                            typeof (AgentDescriptionAttribute)
 			                          	};
 
 			var attributes =
@@ -37,6 +38,11 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 		{
 			return agent.GetAttributeValue<AgentNameAttribute>().Value;
 		}
+
+        public static string GetAgentDescription(this Assembly agent)
+        {
+            return agent.GetAttributeValue<AgentDescriptionAttribute>().Value;
+        }
 
 		public static string GetAgentSystemName(this Assembly agent)
 		{

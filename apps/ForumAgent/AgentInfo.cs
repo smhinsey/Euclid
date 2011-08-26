@@ -4,8 +4,7 @@ using ForumAgent.Processors;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
-// SELF this should actually exist
-//[assembly: AgentDescription(Value = "The Forum Agent supports posting, commenting, voting, moderation, and basic user profiles.")]
+[assembly: AgentDescription(Value = "The Forum Agent supports posting, commenting, voting, moderation, and basic user profiles.")]
 [assembly: AgentName(Value = "NewCo Forum Agent")]
 [assembly: AgentSystemName(Value = "NewCo.ForumAgent")]
 [assembly: LocationOfCommands(NamespaceOfType = typeof (CommentOnPost))]

@@ -32,7 +32,11 @@ namespace Euclid.Sdk.TestComposite
 
 			var container = new WindsorContainer();
 
-			var composite = new MvcCompositeApp(container);
+			var composite = new MvcCompositeApp(container)
+			                    {
+			                        Name = "Test Composite",
+                                    Description = "A composite application that is used to validate the Euclid platform"
+			                    };
 
 			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), 
 			                     true, false);

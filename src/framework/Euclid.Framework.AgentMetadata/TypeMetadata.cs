@@ -40,9 +40,9 @@ namespace Euclid.Framework.AgentMetadata
 		}
 	}
 
-	public class AgentPartMetadata : TypeMetadata, IAgentPartMetadata
+	public class PartMetadata : TypeMetadata, IPartMetadata
 	{
-		public AgentPartMetadata(Type type) : base(type)
+		public PartMetadata(Type type) : base(type)
 		{
 		}
 

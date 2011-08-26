@@ -1,10 +1,8 @@
-﻿body
+﻿.composite-inspector-body
 {
-    font-size: .85em;
-    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
-    color: #232323;
-    background-color: #fff;
+    margin: 10px;
 }
+
 .model-header {
     font-weight: bold;
     text-decoration: underline;
@@ -14,7 +12,7 @@
 }
 
 .property-set {
-    margin-bottom: 8px;
+    margin-bottom: 15px;
 }
 
 .property-label 

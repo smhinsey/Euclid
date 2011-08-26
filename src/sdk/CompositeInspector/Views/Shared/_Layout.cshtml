@@ -4,6 +4,7 @@
         <title>@ViewBag.Title</title>
         <link href="@Url.Content("~/CompositeInspector/Styles/euclid-default-styles.css")" rel="stylesheet" type="text/css"/>
         <link href="@Url.Content("~/CompositeInspector/Styles/jquery.ui.all.css")" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.1.0.min.css">
         <script src="@Url.Content("~/CompositeInspector/Scripts/jquery-1.6.2.min.js")" type="text/javascript"> </script>
         <script src="@Url.Content("~/CompositeInspector/Scripts/jquery-ui-1.8.14.min.js")" type="text/javascript"> </script>
         <script src="@Url.Content("~/CompositeInspector/Scripts/jquery-guid.js")" type="text/javascript"> </script>
@@ -12,7 +13,7 @@
         <script src="@Url.Content("~/CompositeInspector/Scripts/modernizr-2.0.6-development-only.js")" type="text/javascript"> </script>
     </head>
 
-    <body>
+    <body class="composite-inspector-body">
         @RenderBody()
     </body>
 </html>

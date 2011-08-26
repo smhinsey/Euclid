@@ -9,28 +9,67 @@
 }
 else
 {
-    <div>
-        Id: @Model.Record.Identifier
-        <br />
-        Created: @Model.Record.Created
-        <br />
-        Dispatched: @Model.Record.Dispatched
-        <br />
-        Message: @Model.Record.ErrorMessage
-        <br />
-        Type: @Model.Record.MessageType
-        <br />
-        Location: <a href="@Model.Record.MessageLocation">@Model.Record.MessageLocation</a>
-        <br />
-        Error: @Model.Record.Error
+    <h2>Command Details</h2>
+    <div class="row property-set">
+        <div class="span5 columns">
+            <strong>Id</strong>
+            <br/>
+            <span id="id">@Model.Record.Identifier</span>
+        </div>
+            
+        <div class="span5 columns">
+            <strong>Created</strong>
+            <br />
+            <span id="created">@Model.Record.Created</span>
+        </div>
+
+        <div class="span5 columns">
+            <strong>Location</strong>
+            <br />
+            <span id="location"><a href="@Model.Record.MessageLocation">@Model.Record.MessageLocation</a></span>
+        </div>
+    </div>
+
+    <div class="row property-set">
+        <div class="span5 columns">
+            <strong>Type</strong>
+            <br/>
+            <span id="type">@Model.Record.MessageType</span>
+        </div>
+            
+        <div class="span5 columns">
+            <strong>Dispatched</strong>    
+            <br/>
+            <span id="dispatched">@Model.Record.Dispatched</span>
+        </div>
+
+        <div class="span5 columns">
+            <strong>Completed</strong>
+            <br />
+            <span id="completed">@Model.Record.Completed</span>
+        </div>
+    </div>
+
+    <div class="row property-set">
+        <div class="span5 columns">
+            <strong>Error</strong>
+            <br />
+            <span id="error">@Model.Record.Error</span>
+        </div>
+
         @if (@Model.Record.Error)
         {
-            <br/>
-            <span>
-            Message: @Model.Record.ErrorMessage
-            <br/>
-            Call Stack: @Model.Record.CallStack
-            </span>
+            <div class="span5 columns">
+                <strong>Error Message</strong>
+                <br/>
+                <span id="error-message">@Model.Record.ErrorMessage</span>
+            </div>
+            
+            <div class="span5 columns">
+                <strong>Call Stack</strong>
+                <br />
+                <span id="call-stack">@Model.Record.CallStack</span>
+            </div>
         }
     </div>
 }

@@ -49,7 +49,11 @@ namespace Euclid.Composites
 			Container = container;
 		}
 
-		public IEnumerable<IAgentMetadata> Agents
+	    public string Name { get; set; }
+
+        public string Description { get; set; }
+
+	    public IEnumerable<IAgentMetadata> Agents
 		{
 			get
 			{
@@ -116,7 +120,23 @@ namespace Euclid.Composites
 
 		public IEnumerable<string> GetConfigurationErrors()
 		{
-			return Settings.GetInvalidSettingReasons();
+		    var allErrors = new List<string>();
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                allErrors.Add("The composite is not named");
+            }
+
+            if (string.IsNullOrEmpty(Description))
+            {
+                allErrors.Add("The composite has no description");
+            }
+
+			var settingErrors = Settings.GetInvalidSettingReasons();
+
+            allErrors.AddRange(settingErrors);
+
+		    return allErrors;
 		}
 
 		public IMetadataFormatter GetFormatter()
@@ -126,7 +146,7 @@ namespace Euclid.Composites
 
 		public bool IsValid()
 		{
-			return GetConfigurationErrors().Count() == 0;
+			return (GetConfigurationErrors().Count() == 0 && !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Description));
 		}
 
 		public void RegisterInputModel(IInputToCommandConverter converter)

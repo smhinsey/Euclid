@@ -1,7 +1,10 @@
 ﻿@using CompositeInspector.Models
 @model CompositeModel
-           
-<h1>@ViewBag.Title</h1>
+    
+<h2>@Model.Name</h2>
+<dl>
+    <dd>@Model.Description</dd>
+</dl>
 
 @if (Model.Agents.Count() > 0)
 {
