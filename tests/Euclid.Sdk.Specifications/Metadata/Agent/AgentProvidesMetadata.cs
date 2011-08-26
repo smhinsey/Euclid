@@ -1,4 +1,5 @@
-﻿using Euclid.Framework.AgentMetadata.Extensions;
+﻿using Euclid.Framework.AgentMetadata;
+using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Sdk.TestAgent.Commands;
 using TechTalk.SpecFlow;
 
@@ -19,10 +20,10 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 			switch (representationType.ToLower())
 			{
 				case "basic":
-					Formatter = Agent.GetBasicMetadataFormatter();
+					Formatter = Agent.GetFormatter(FormatterType.Basic);
 					break;
 				case "full":
-					Formatter = Agent.GetMetadataFormatter();
+                    Formatter = Agent.GetFormatter(FormatterType.Full);
 					break;
 			}
 		}

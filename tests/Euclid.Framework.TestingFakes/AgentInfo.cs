@@ -12,3 +12,5 @@ using Euclid.Framework.TestingFakes.Cqrs;
 
 // explicitly set namespace
 [assembly: LocationOfProcessors(Namespace = "FakeAgent.Processors")]
+
+[assembly: AgentDescription(Value = "A fake agent used for testing in the Euclid.Framework namespace")]

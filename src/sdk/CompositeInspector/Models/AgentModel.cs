@@ -10,6 +10,6 @@ namespace CompositeInspector.Models
 
         public AgentPartModel ReadModels { get; set; }
 
-        public string SystemName { get; set; }
+        public string Description { get; set; }
     }
 }

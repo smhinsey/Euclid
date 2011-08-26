@@ -43,7 +43,11 @@ namespace Euclid.TestingSupport
 
 			Fabric = new ConsoleFabric(Container);
 
-			var composite = new BasicCompositeApp(Container);
+		    var composite = new BasicCompositeApp(Container)
+		                        {
+		                            Name = "Euclid.TestingSupport.HostingFabricFixture.Composite",
+		                            Description = "A composite used in specification tests"
+		                        };
 
 			composite.RegisterNh(
 			                     MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), 

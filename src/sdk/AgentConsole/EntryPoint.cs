@@ -29,7 +29,11 @@ namespace AgentConsole
 
 			var fabric = new ConsoleFabric(container);
 
-			var composite = new BasicCompositeApp(container);
+		    var composite = new BasicCompositeApp(container)
+		                        {
+		                            Name = "AgentConsole Composite",
+		                            Description = "The composite app used by the agent console"
+		                        };
 
 			try
 			{

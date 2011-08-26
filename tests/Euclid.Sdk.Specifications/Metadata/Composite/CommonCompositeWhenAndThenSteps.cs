@@ -20,8 +20,13 @@ namespace Euclid.Sdk.Specifications.Metadata.Composite
 
 			try
 			{
-				Composite = new BasicCompositeApp();
-				Composite.Configure(settings);
+			    Composite = new BasicCompositeApp
+			                    {
+			                        Name = "Euclid.Sdk.Specifications.Metadata.Composite",
+			                        Description = "A composite used to test the metadata system"
+			                    };
+
+			    Composite.Configure(settings);
 			}
 			catch (NullSettingException)
 			{

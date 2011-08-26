@@ -17,12 +17,12 @@ namespace CompositeInspector.Controllers
 
         public ViewResult Index()
         {
-            ViewBag.Title = "Composite Metadata";
-
             return
                 View(
                     new CompositeModel
                         {
+                            Name = _composite.Name,
+                            Description = _composite.Description,
                             Agents = _composite.Agents,
                             InputModels = _composite.InputModels,
                             ConfigurationErrors = _composite.GetConfigurationErrors(),

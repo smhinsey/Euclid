@@ -53,14 +53,13 @@ namespace CompositeInspector.Controllers
 		[FormatAgentMetadata]
 		public ViewResult ViewAgent(IAgentMetadata agentMetadata, string format)
 		{
-			ViewBag.Title = agentMetadata.SystemName;
-
 			return
 				View(
 					new AgentModel
 						{
+							AgentSytemName = agentMetadata.SystemName,
 							DescriptiveName = agentMetadata.DescriptiveName,
-							SystemName = agentMetadata.SystemName,
+							Description = agentMetadata.Description,
 							Commands =
 								new AgentPartModel
 									{
@@ -74,12 +73,11 @@ namespace CompositeInspector.Controllers
 							ReadModels =
 								new AgentPartModel
 									{ AgentSystemName = agentMetadata.SystemName, NextAction = "ViewPart", Part = agentMetadata.ReadModels },
-							AgentSytemName = agentMetadata.SystemName
 						});
 		}
 
 		[FormatInputModel]
-		public ActionResult ViewInputModelForCommand(IInputModel inputModel, IAgentPartMetadata typeMetadata, string format)
+		public ActionResult ViewInputModelForCommand(IInputModel inputModel, IPartMetadata typeMetadata, string format)
 		{
 			var partCollection = typeMetadata.GetContainingPartCollection();
 

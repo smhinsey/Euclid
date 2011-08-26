@@ -1,8 +1,12 @@
 @using CompositeInspector.Models
 @model AgentModel
 
-<h1>@ViewBag.Title</h1>
-<p>@Model.DescriptiveName</p>
+<h2>@Model.DescriptiveName</h2>
+<dl>
+    <dt>@Model.AgentSytemName</dt>
+    <dd>@Model.Description</dd>
+</dl>
+
 <ul>
     <li>@Html.DisplayFor(x => x.Commands, "IAgentPart", @Model.Commands)</li>
     <li>@Html.DisplayFor(x => x.Queries, "IAgentPart", @Model.Queries)</li>

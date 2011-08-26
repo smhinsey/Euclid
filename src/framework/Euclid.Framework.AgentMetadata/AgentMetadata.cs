@@ -25,6 +25,7 @@ namespace Euclid.Framework.AgentMetadata
 			{
 				DescriptiveName = _agent.GetAgentName();
 				SystemName = _agent.GetAgentSystemName();
+			    Description = _agent.GetAgentDescription();
 
 				Commands = new CommandPartCollection(_agent, _agent.GetCommandNamespace());
 				Queries = new QueryPartCollection(_agent, _agent.GetQueryNamespace());
@@ -41,6 +42,8 @@ namespace Euclid.Framework.AgentMetadata
 
 		public string DescriptiveName { get; private set; }
 
+        public string Description { get; private set; }
+
 		public bool IsValid { get; private set; }
 
 		public IPartCollection Queries { get; private set; }
@@ -49,17 +52,14 @@ namespace Euclid.Framework.AgentMetadata
 
 		public string SystemName { get; private set; }
 
-		public IMetadataFormatter GetBasicMetadataFormatter()
+		public IMetadataFormatter GetFormatter(FormatterType style)
 		{
-			return new BasicAgentMetadataFormatter(this);
+            return (style == FormatterType.Basic)
+                    ? new BasicAgentMetadataFormatter(this) as IMetadataFormatter
+                    : new AgentMetadataFormatter(this) as IMetadataFormatter;
 		}
 
-		public IMetadataFormatter GetMetadataFormatter()
-		{
-			return new AgentMetadataFormatter(this);
-		}
-
-		public IAgentPartMetadata GetPartByTypeName(string partName)
+		public IPartMetadata GetPartByTypeName(string partName)
 		{
 			var partCollection = GetPartCollectionContainingPartName(partName);
 
@@ -190,12 +190,13 @@ namespace Euclid.Framework.AgentMetadata
 					new XElement(
 						"Agent", 
 						new XElement("DescriptiveName", _agentMetadata.DescriptiveName), 
-						new XElement("SystemName", _agentMetadata.SystemName)).ToString();
+						new XElement("SystemName", _agentMetadata.SystemName),
+                        new XElement("Description", _agentMetadata.Description)).ToString();
 			}
 
 			protected override object GetJsonObject(JsonSerializer serializer)
 			{
-				return new {_agentMetadata.DescriptiveName, _agentMetadata.SystemName};
+				return new {_agentMetadata.DescriptiveName, _agentMetadata.SystemName, _agentMetadata.Description};
 			}
 		}
 	}

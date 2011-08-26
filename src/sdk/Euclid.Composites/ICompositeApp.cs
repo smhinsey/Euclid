@@ -8,7 +8,11 @@ namespace Euclid.Composites
 {
 	public interface ICompositeApp : ILoggingSource
 	{
-		IEnumerable<IAgentMetadata> Agents { get; }
+        string Name { get; set; }
+
+        string Description { get; set; }
+
+        IEnumerable<IAgentMetadata> Agents { get; }
 
 		IEnumerable<ITypeMetadata> InputModels { get; }
 
@@ -21,9 +25,11 @@ namespace Euclid.Composites
 		void Configure(CompositeAppSettings compositeAppSettings);
 
 		IEnumerable<string> GetConfigurationErrors();
+
 		IMetadataFormatter GetFormatter();
 
 		bool IsValid();
-		void RegisterInputModel(IInputToCommandConverter converter);
+		
+        void RegisterInputModel(IInputToCommandConverter converter);
 	}
 }

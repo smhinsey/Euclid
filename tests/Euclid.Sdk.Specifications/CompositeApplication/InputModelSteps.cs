@@ -45,12 +45,14 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 
 			var composite = GetContainer().Resolve<BasicCompositeApp>();
 
+            Assert.True(composite.IsValid());
+
 			var agent = composite.Agents.First();
 
 			var command = agent.Commands.Collection.Where(p => p.Name == typeof (TestCommand).Name).First();
 
 			var url = string.Format(
-			                        "http://localhost:4997/metadata/agents/{0}/ViewInputModelForCommand/{1}", agent.SystemName, 
+			                        "http://localhost:4997/CompositeInspector/agents/{0}/ViewInputModelForCommand/{1}", agent.SystemName, 
 			                        command.Name);
 
 			Browser.Navigate(url);

@@ -18,7 +18,11 @@ namespace Euclid.Composite.InputModelMapping
 		{
 			var container = new WindsorContainer();
 
-			var composite = new BasicCompositeApp(container);
+		    var composite = new BasicCompositeApp(container)
+		                        {
+		                            Name = "Euclid.Composite.InputModelMapping.CompositeTests",
+		                            Description = "A composite used for testing"
+		                        };
 
 			composite.AddAgent(typeof (TestCommand).Assembly);
 

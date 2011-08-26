@@ -37,7 +37,11 @@ namespace ForumComposite
 
 			var container = new WindsorContainer();
 
-			var composite = new MvcCompositeApp(container);
+		    var composite = new MvcCompositeApp(container)
+		                        {
+		                            Name = "NewCo Forum Application",
+		                            Description = " A website where ideas and views on issues can be exchanged."
+		                        };
 
 			composite.RegisterNh(
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);

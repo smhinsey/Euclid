@@ -80,7 +80,6 @@
     <Compile Include="Cqrs\FakeCommand4.cs" />
     <Compile Include="Cqrs\FakeCommandProcessor.cs" />
     <Compile Include="Cqrs\FakeReadModel.cs" />
-    <Compile Include="InputModels\InputModelFakeCommand4.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HostingFabric\FakeHostedService.cs" />
   </ItemGroup>
