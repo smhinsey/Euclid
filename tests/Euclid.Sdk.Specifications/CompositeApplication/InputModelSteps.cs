@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using Euclid.Composites;
 using Euclid.Sdk.TestAgent.Commands;
 using Euclid.Sdk.TestAgent.Queries;
@@ -26,16 +27,22 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 			Browser.Find("Number").Value = "7";
 			Browser.Find("publish-command").Click();
 
-			var rawPubId = Browser.Text;
+			var rawPubId = Browser.Find("Id").Value;
 			var pubId = Guid.Parse(rawPubId);
 
 			PubIdOfLastMessage = pubId;
 
 			Assert.AreNotEqual(Guid.Empty, PubIdOfLastMessage);
 
-// if you watch the output log, you'll see that nothing happens during this sleep period. i believe that something
-			// watin is doing with threading is causing problems
-			// Thread.Sleep(10000);
+			Thread.Sleep(5000);
+
+		    var commandUrl = Browser.Url;
+
+		    Browser.Navigate(commandUrl);
+
+		    var completed = Browser.Find("completed").Value;
+
+            Assert.True(bool.Parse(completed));
 		}
 
 		[Given("the TestComposite running on http://localhost:4997")]
