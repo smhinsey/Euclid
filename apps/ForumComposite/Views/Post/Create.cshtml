@@ -5,13 +5,18 @@
 
 <div id="DiscussionForm">
 	<h2>Start a New Discussion</h2>
-	@using (Html.BeginForm("Publish", "Agents", new {area = "metadata"}, FormMethod.Post))
+	@using (Html.BeginForm("Publish", "Agents", new {area = "compositeinspector"}, FormMethod.Post))
 	{
+	 
 		<div>
+
+	 @Html.EditorFor(m => Model)
+
+			<!--
 			<label for="Form_Name">Discussion Title</label>
 			<input type="text" id="Form_Name" name="Discussion/Name" value="" maxlength="100"
 						 class="InputBox" />
-			<!--
+
 				<div class="Category">
 					<label for="Form_CategoryID">Category</label>
 					<select id="Form_CategoryID" name="Discussion/CategoryID">
@@ -23,8 +28,8 @@
 						<option value="6">Others</option>
 					</select>
 				</div>
-		W‌rite();@::-->
 		<textarea id="Form_Body" name="Discussion/Body" rows="6" cols="100" class="TextBox"></textarea>
+		-->
 
 		<div class="PostFormControlPanel">
 			<input type="submit" id="Form_PostDiscussion" name="Discussion/Post_Discussion" value="Post Discussion"
@@ -35,6 +40,6 @@
 							 class="Button PreviewButton" />-->
 		</div>
 
-		W‌rite();@::</div>
+		</div>
 	}
 </div>

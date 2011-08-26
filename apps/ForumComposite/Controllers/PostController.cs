@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using ForumAgent.Queries;
+using ForumComposite.Models;
 
 namespace ForumComposite.Controllers
 {
@@ -15,7 +16,7 @@ namespace ForumComposite.Controllers
 
 		public ActionResult Create()
 		{
-			return View();
+			return View(new PublishPostInputModel());
 		}
 
 		public ActionResult List()
