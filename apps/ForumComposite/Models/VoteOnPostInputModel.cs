@@ -1,10 +1,17 @@
 ﻿using System;
 using Euclid.Composites.Mvc.Models;
+using ForumAgent.Commands;
 
 namespace ForumComposite.Models
 {
 	public class VoteOnPostInputModel : InputModelBase
 	{
+		public VoteOnPostInputModel()
+		{
+			AgentSystemName = "NewCo.ForumAgent";
+			CommandType = typeof(VoteOnPost);
+		}
+
 		public Guid AuthorIdentifier { get; set; }
 
 		public Guid PostIdentifier { get; set; }
