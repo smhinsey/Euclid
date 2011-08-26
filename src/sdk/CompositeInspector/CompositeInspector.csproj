@@ -31,15 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Commons.Web.Mvc.PrecompiledViews">
-      <HintPath>C:\Users\jason turim\AppData\Local\Microsoft\VisualStudio\10.0\Extensions\Chris van de Steeg\Razor Single File Generator for MVC\1.0.5\Commons.Web.Mvc.PrecompiledViews.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\..\..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="MvcContrib">
-      <HintPath>..\..\..\packages\MvcContrib.Mvc3-ci.3.0.84.0\lib\MvcContrib.dll</HintPath>
+    <Reference Include="MvcContrib, Version=3.0.68.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\MvcContrib.Mvc3-ci.3.0.68.0\lib\MvcContrib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Activities" />
@@ -202,6 +200,7 @@
     <EmbeddedResource Include="Views\Agents\ViewPartCollection.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
