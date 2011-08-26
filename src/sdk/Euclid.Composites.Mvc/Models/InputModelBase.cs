@@ -10,7 +10,7 @@ namespace Euclid.Composites.Mvc.Models
 		public string AgentSystemName { get; set; }
 
 		[HiddenInput(DisplayValue = false)]
-		public string CommandName
+		public string PartName
 		{
 			get { return CommandType != null ? CommandType.Name : string.Empty; }
 		}

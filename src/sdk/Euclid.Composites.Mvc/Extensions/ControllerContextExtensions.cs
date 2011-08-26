@@ -27,7 +27,7 @@ namespace Euclid.Composites.Mvc.Extensions
 
 		public static T GetRouteValue<T>(this ControllerContext controllerContext, string key)
 		{
-			var value = controllerContext.RouteData.Values[key];
+			var value = controllerContext.RouteData.Values[key] ?? controllerContext.HttpContext.Request.Params[key];
 
 			return (T) value;
 		}

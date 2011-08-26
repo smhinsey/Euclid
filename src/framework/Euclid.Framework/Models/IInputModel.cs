@@ -6,7 +6,7 @@ namespace Euclid.Framework.Models
 	{
 		string AgentSystemName { get; set; }
 
-		string CommandName { get; }
+		string PartName { get; }
 
 		Type CommandType { get; set; }
 	}

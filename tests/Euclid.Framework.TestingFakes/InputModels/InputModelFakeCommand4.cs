@@ -9,7 +9,7 @@ namespace Euclid.Framework.TestingFakes.InputModels
 
 		public DateTime BirthDay { get; set; }
 
-		public string CommandName { get; set; }
+		public string PartName { get; set; }
 
 		public Type CommandType { get; set; }
 
