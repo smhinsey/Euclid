@@ -1,0 +1,83 @@
+﻿body
+{
+    font-size: .85em;
+    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #fff;
+}
+.model-header {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 16pt;
+}
+
+.property-set {
+    margin-bottom: 8px;
+}
+
+.property-label 
+{
+    font-weight: bold;
+}
+
+.property-value 
+{
+}
+
+.agent-name
+{
+}
+
+.metadata-links-list
+{
+    list-style: none;
+}
+
+#link-container ul li:before
+{
+    content: "\00BB \0020";
+}
+
+.metadata-links-container
+{
+    
+}
+
+.metadata-link-item
+{
+    
+}
+
+.metadata-link
+{
+    
+}
+
+table.gridtable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+
+.guid-input {
+    width: 250px;
+}

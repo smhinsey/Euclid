@@ -95,9 +95,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{B1A8F5A1
 		nuget\package.msbuild = nuget\package.msbuild
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeInspector", "src\sdk\PortableAgentPanel\CompositeInspector.csproj", "{D1B6455D-9E83-423F-A8E0-82073D066846}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.NugetTests", "tests\Euclid.Sdk.NugetTests\Euclid.Sdk.NugetTests.csproj", "{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeInspector", "src\sdk\CompositeInspector\CompositeInspector.csproj", "{D1B6455D-9E83-423F-A8E0-82073D066846}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -592,18 +590,6 @@ Global
 		{D1B6455D-9E83-423F-A8E0-82073D066846}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D1B6455D-9E83-423F-A8E0-82073D066846}.Release|x64.ActiveCfg = Release|Any CPU
 		{D1B6455D-9E83-423F-A8E0-82073D066846}.Release|x86.ActiveCfg = Release|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|x64.ActiveCfg = Release|Any CPU
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -651,6 +637,5 @@ Global
 		{AC366DF0-1269-4C2C-9599-B02FCB8402FE} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 		{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 		{780B3603-392F-4C71-BBE1-87477248D1A8} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
-		{74C63FCD-3B19-4D93-9E80-59FD0A45A5CE} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 	EndGlobalSection
 EndGlobal

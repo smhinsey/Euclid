@@ -1,0 +1,68 @@
+﻿@using CompositeInspector.Models
+@using Euclid.Common.Messaging
+@model PublishedCommandsModel
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#error-details").dialog({ autoOpen: false });
+        $("#error").click(function () {
+            var msg = $("#error").attr("message");
+            var stack = $("#error").attr("callstack");
+
+            $("#error-message").html("<strong>Message</strong><br/>" + msg);
+            $("#call-stack").html("<strong>Call Stack</strong><br/>" + stack);
+            $("#error-details").dialog("open");
+        });
+    });
+</script>
+				 
+<h2>Publication Records</h2>
+
+@if (Model.Records.Count() == 0)
+{
+    <div>
+        No commands have been published through this composite
+    </div>
+}
+else
+{
+    <table class="gridtable">
+        <tr>
+            <th>Id</th>
+            <th>Created</th>
+            <th>Dispatched</th>
+            <th>Error</th>
+            <th>Type</th>
+            <th>Location</th>
+        </tr>
+    @foreach (IPublicationRecord pub in Model.Records)
+    {
+        <tr>
+            <td><a href='@Url.Action("Details", "CommandRegistry", new { publicationId = pub.Identifier })'>@pub.Identifier</a></td>
+            <td>@pub.Created</td>
+            <td>@pub.Dispatched</td>
+            <td>
+                @if (@pub.Error)
+                {
+                    <a href="#" id="error" message="@pub.ErrorMessage" callstack="@pub.CallStack">@pub.Error</a>
+                }
+                else
+                {
+                    @pub.Error
+                }
+            </td>
+            <td>@pub.MessageType</td>
+            <td><a href="@pub.MessageLocation">@pub.MessageLocation</a></td>
+        </tr>
+    }
+    </table>
+}
+
+<div id="error-details" title="Error Details">
+    <div id="error-message"></div>
+    <div id="call-stack"></div>
+</div>
+
+@{ Html.RenderPartial("CompositeInspectorLinks", Model);  }
+
+

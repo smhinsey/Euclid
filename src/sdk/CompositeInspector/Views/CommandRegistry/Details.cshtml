@@ -1,0 +1,38 @@
+﻿@using CompositeInspector.Models
+@model PublishedCommandModel
+
+@if (!Model.HasValue)
+{
+    <div>
+        No publication record exists with Id @Model.PublicationId
+    </div>
+}
+else
+{
+    <div>
+        Id: @Model.Record.Identifier
+        <br />
+        Created: @Model.Record.Created
+        <br />
+        Dispatched: @Model.Record.Dispatched
+        <br />
+        Message: @Model.Record.ErrorMessage
+        <br />
+        Type: @Model.Record.MessageType
+        <br />
+        Location: <a href="@Model.Record.MessageLocation">@Model.Record.MessageLocation</a>
+        <br />
+        Error: @Model.Record.Error
+        @if (@Model.Record.Error)
+        {
+            <br/>
+            <span>
+            Message: @Model.Record.ErrorMessage
+            <br/>
+            Call Stack: @Model.Record.CallStack
+            </span>
+        }
+    </div>
+}
+
+@{ Html.RenderPartial("CompositeInspectorLinks", Model);   }

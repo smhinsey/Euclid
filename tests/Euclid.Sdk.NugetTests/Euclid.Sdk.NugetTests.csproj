@@ -213,10 +213,6 @@
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\sdk\PortableAgentPanel\CompositeInspector.csproj">
-      <Project>{D1B6455D-9E83-423F-A8E0-82073D066846}</Project>
-      <Name>CompositeInspector</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Euclid.Sdk.TestAgent\Euclid.Sdk.TestAgent.csproj">
       <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
       <Name>Euclid.Sdk.TestAgent</Name>
