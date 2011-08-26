@@ -7,35 +7,34 @@ using ForumComposite.Models;
 
 namespace ForumComposite.Converters
 {
-	public class PublishPostInputModelConverter : IInputToCommandConverter
+	public class VoteOnCommentInputModelConverter : IInputToCommandConverter
 	{
 		public Type CommandType
 		{
-			get { return typeof(PublishPost); }
+			get { return typeof(VoteOnComment); }
 		}
 
 		public Type InputModelType
 		{
-			get { return typeof(PublishPostInputModel); }
+			get { return typeof(VoteOnCommentInputModel); }
 		}
 
 		public ICommand Convert(ResolutionContext context)
 		{
-			var model = context.SourceValue as PublishPostInputModel;
-			var command = context.DestinationValue as PublishPost;
+			var model = context.SourceValue as VoteOnCommentInputModel;
+			var command = context.DestinationValue as VoteOnComment;
 
 			if (model == null || command == null)
 			{
 				throw new CannotCreateInputModelException(InputModelType.Name);
 			}
 
-			command.AuthorIdentifier = Guid.Empty;
-			command.Body = model.Body;
-			command.CategoryIdentifier = Guid.Empty;
 			command.Created = DateTime.Now;
 			command.CreatedBy = Guid.Empty;
 			command.Identifier = Guid.NewGuid();
-			command.Title = model.Title;
+			command.AuthorIdentifier = model.AuthorIdentifier;
+			command.CommentIdentifier = model.CommentIdentifier;
+			command.VoteUp = model.VoteUp;
 
 			return command;
 		} 

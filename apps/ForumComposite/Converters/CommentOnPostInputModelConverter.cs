@@ -7,22 +7,22 @@ using ForumComposite.Models;
 
 namespace ForumComposite.Converters
 {
-	public class PublishPostInputModelConverter : IInputToCommandConverter
+	public class CommentOnPostInputModelConverter : IInputToCommandConverter
 	{
 		public Type CommandType
 		{
-			get { return typeof(PublishPost); }
+			get { return typeof(CommentOnPost); }
 		}
 
 		public Type InputModelType
 		{
-			get { return typeof(PublishPostInputModel); }
+			get { return typeof(CommentOnPostInputModel); }
 		}
 
 		public ICommand Convert(ResolutionContext context)
 		{
-			var model = context.SourceValue as PublishPostInputModel;
-			var command = context.DestinationValue as PublishPost;
+			var model = context.SourceValue as CommentOnPostInputModel;
+			var command = context.DestinationValue as CommentOnPost;
 
 			if (model == null || command == null)
 			{
@@ -31,7 +31,6 @@ namespace ForumComposite.Converters
 
 			command.AuthorIdentifier = Guid.Empty;
 			command.Body = model.Body;
-			command.CategoryIdentifier = Guid.Empty;
 			command.Created = DateTime.Now;
 			command.CreatedBy = Guid.Empty;
 			command.Identifier = Guid.NewGuid();
