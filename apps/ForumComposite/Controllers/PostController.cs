@@ -16,7 +16,7 @@ namespace ForumComposite.Controllers
 
 		public ActionResult AddComment()
 		{
-			return View();
+			return View(new CommentOnPostInputModel());
 		}
 
 		public ActionResult Create()
@@ -33,6 +33,8 @@ namespace ForumComposite.Controllers
 
 		public ActionResult Thread()
 		{
+			var postAndComments = _postQueries.FindByIdWithComments(Guid.Empty);
+
 			return View();
 		}
 	}

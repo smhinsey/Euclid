@@ -30,5 +30,10 @@ namespace ForumAgent.Queries
 
 			return posts.List();
 		}
+
+		public Post FindByIdWithComments(Guid postIdentifier)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
