@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Euclid.Framework.AgentMetadata.Extensions;
 
 namespace Euclid.Framework.AgentMetadata
 {
@@ -37,20 +36,6 @@ namespace Euclid.Framework.AgentMetadata
 		public IMetadataFormatter GetFormatter()
 		{
 			return FormattableMetadataFactory.GetFormatter(this);
-		}
-	}
-
-	public class PartMetadata : TypeMetadata, IPartMetadata
-	{
-		public PartMetadata(Type type) : base(type)
-		{
-		}
-
-		public IPartCollection GetContainingPartCollection()
-		{
-			var agent = Type.Assembly.GetAgentMetadata();
-
-			return agent.GetPartCollectionContainingType(Type);
 		}
 	}
 }

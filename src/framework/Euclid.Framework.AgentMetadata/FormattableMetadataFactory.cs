@@ -2,7 +2,6 @@ using System;
 using Euclid.Framework.AgentMetadata.Formatters;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
-using Newtonsoft.Json;
 
 namespace Euclid.Framework.AgentMetadata
 {
@@ -33,8 +32,8 @@ namespace Euclid.Framework.AgentMetadata
 			{
 				return new InputModelFormatter(metadata);
 			}
-
-			throw new AgentPartFormatterNotFoundException(metadata.Type.Name);
+            
+			return new DefaultFormatter(metadata);
 		}
 
 		public static IMetadataFormatter GetFormatter(IPartCollection metadata)
@@ -53,26 +52,6 @@ namespace Euclid.Framework.AgentMetadata
 			}
 
 			throw new AgentPartFormatterNotFoundException(metadata.CollectionType.Name);
-		}
-	}
-
-	public class InputModelFormatter : MetadataFormatter, IMetadataFormatter
-	{
-		private readonly ITypeMetadata _inputModelMetadata;
-
-		public InputModelFormatter(ITypeMetadata inputModelMetadata)
-		{
-			_inputModelMetadata = inputModelMetadata;
-		}
-
-		protected override string GetAsXml()
-		{
-			throw new NotImplementedException();
-		}
-
-		protected override object GetJsonObject(JsonSerializer serializer)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
