@@ -5,6 +5,8 @@ using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using Euclid.Common.Messaging;
 using Euclid.Composites.Conversion;
 using Euclid.Composites.Mvc.ActionFilters;
@@ -34,7 +36,8 @@ namespace Euclid.Composite.InputModelMapping
         private Mock<IPublisher> _publisher;
 
         private Dictionary<string, object> _actionParameters;
-            
+
+        private IWindsorContainer _container;
         [SetUp]
         public void Setup()
         {
@@ -64,6 +67,24 @@ namespace Euclid.Composite.InputModelMapping
             
             _publisher = new Mock<IPublisher>();
             _publisher.Setup(c => c.PublishMessage(It.IsAny<ICommand>())).Returns(Guid.NewGuid());
+
+            _container = new WindsorContainer();
+
+            _container.Register(
+                Component
+                    .For<IInputModelTransformerRegistry>()
+                    .Instance(_registry)
+                );
+
+            _container.Register(
+                Component
+                    .For<IPublisher>()
+                    .Instance(_publisher.Object));
+
+            _container.Register(
+                Component
+                    .For<CommandPublisherAttribute>()
+                    .ImplementedBy<CommandPublisherAttribute>());
         }
 
         [Test]
@@ -83,7 +104,11 @@ namespace Euclid.Composite.InputModelMapping
         [Test]
         public void TestCommandPublisherActionFilter()
         {
-            var commandPublisher = new CommandPublisherAttribute(_registry, _publisher.Object);
+            var commandPublisher = _container.Resolve<CommandPublisherAttribute>();
+
+            Assert.NotNull(commandPublisher.TransformerRegistry);
+
+            Assert.NotNull(commandPublisher.Publisher);
 
             commandPublisher.OnActionExecuting(_filterContext.Object);
 

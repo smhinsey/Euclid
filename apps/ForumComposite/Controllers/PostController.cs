@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
+using Euclid.Composites.Conversion;
+using Euclid.Composites.Mvc.ActionFilters;
 using ForumAgent.Queries;
 using ForumComposite.Models;
 
@@ -8,8 +10,7 @@ namespace ForumComposite.Controllers
 	public class PostController : Controller
 	{
 		private readonly PostQueries _postQueries;
-
-		public PostController(PostQueries postQueries)
+	    public PostController(PostQueries postQueries)
 		{
 			_postQueries = postQueries;
 		}
@@ -35,5 +36,13 @@ namespace ForumComposite.Controllers
 		{
 			return View();
 		}
+
+        [HttpPost]
+        [CommandPublisher]
+        public ActionResult Create(Guid publicationId)
+        {
+            return RedirectToAction("Details", "CommandRegistry",
+                                    new {area = "CompositeInspector", publicationId});
+        }
 	}
 }

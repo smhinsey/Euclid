@@ -1,45 +1,29 @@
-﻿@{
-	ViewBag.Title = "Start a new discussion";
+﻿@using ForumComposite.Models
+@model PublishPostInputModel
 
+@{
+	ViewBag.Title = "Start a new discussion";
 }
 
-<div id="DiscussionForm">
-	<h2>Start a New Discussion</h2>
-	@using (Html.BeginForm("Publish", "Agents", new {area = "compositeinspector"}, FormMethod.Post))
-	{
-	 
-		<div>
+<h2>Start a New Discussion</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.AgentSystemName)
+    @Html.HiddenFor(m=>m.PartName)
 
-	 @Html.EditorFor(m => Model)
+        <div>
+            @Html.LabelFor(m=>m.Title)
+            @Html.TextBoxFor(m=>m.Title)
+        </div>
 
-			<!--
-			<label for="Form_Name">Discussion Title</label>
-			<input type="text" id="Form_Name" name="Discussion/Name" value="" maxlength="100"
-						 class="InputBox" />
+        <div>
+            @Html.LabelFor(m=>m.Body)
+            @Html.TextAreaFor(m=>m.Body)
+        </div>
 
-				<div class="Category">
-					<label for="Form_CategoryID">Category</label>
-					<select id="Form_CategoryID" name="Discussion/CategoryID">
-						<option value="1">General</option>
-						<option value="2">Inspiration</option>
-						<option value="3">Tutorials</option>
-						<option value="4">↳&#160;Illustration</option>
-						<option value="5">↳&#160;Web&#160;Design</option>
-						<option value="6">Others</option>
-					</select>
-				</div>
-		<textarea id="Form_Body" name="Discussion/Body" rows="6" cols="100" class="TextBox"></textarea>
-		-->
-
-		<div class="PostFormControlPanel">
-			<input type="submit" id="Form_PostDiscussion" name="Discussion/Post_Discussion" value="Post Discussion"
-						 class="Button DiscussionButton" />
-			<!--<input type="submit" id="Form_SaveDraft" name="Discussion/Save_Draft" value="Save Draft"
-								 class="Button DraftButton" />
-				<input type="submit" id="Form_Preview" name="Discussion/Preview" value="Preview"
-							 class="Button PreviewButton" />-->
-		</div>
-
-		</div>
-	}
-</div>
+	<div class="PostFormControlPanel">
+		<input type="submit" id="Form_PostDiscussion" name="Discussion/Post_Discussion" value="Post Discussion" class="Button DiscussionButton" />
+		<input type="submit" id="Form_SaveDraft" name="Discussion/Save_Draft" value="Save Draft" class="Button DraftButton" />
+		<input type="submit" id="Form_Preview" name="Discussion/Preview" value="Preview" class="Button PreviewButton" />
+	</div>
+}

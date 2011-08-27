@@ -65,6 +65,8 @@ namespace ForumComposite
 
 			container.Register(Component.For<ICompositeApp>().Instance(composite));
 
+		    container.Register(Component.For<IWindsorContainer>().Instance(container));
+
 			setAzureCredentials(container);
 
 			_initialized = true;

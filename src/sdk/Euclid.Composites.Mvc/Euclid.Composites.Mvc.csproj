@@ -99,6 +99,7 @@
     <Compile Include="ActionFilters\AgentPartMetdataNotFoundException.cs" />
     <Compile Include="ActionFilters\ApplicationNotPartResolverException.cs" />
     <Compile Include="ActionFilters\CannotRetrieveInputModelException.cs" />
+    <Compile Include="ActionFilters\EuclidActionInvoker.cs" />
     <Compile Include="ActionFilters\TypeMetadataNotFoundException.cs" />
     <Compile Include="ActionFilters\FormatAgentMetadata.cs" />
     <Compile Include="ActionFilters\FormatListOfBasicAgentMetadata.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="ActionFilters\FormatPartMetadataAttribute.cs" />
     <Compile Include="ActionFilters\MetadataFormatterAttributeBase.cs" />
     <Compile Include="ActionFilters\CommandPublisherAttribute.cs" />
+    <Compile Include="Extensions\WindsorContainerExtensions.cs" />
     <Compile Include="Binders\AgentMetadataBinder.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -9,17 +9,16 @@ namespace Euclid.Composites.Mvc.ActionFilters
 {
     public class CommandPublisherAttribute : ActionFilterAttribute
     {
-        private readonly IInputModelTransformerRegistry _transformerRegistry;
-        private readonly IPublisher _publisher;
+        public IInputModelTransformerRegistry TransformerRegistry { get; set; }
+        public IPublisher Publisher { get; set; }
 
-        public CommandPublisherAttribute(IInputModelTransformerRegistry transformerRegistry, IPublisher publisher)
+        public CommandPublisherAttribute()
         {
-            _transformerRegistry = transformerRegistry;
-            _publisher = publisher;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+
             var commandName = filterContext.HttpContext.Request.Form["partName"];
 
             if (filterContext.HttpContext.Request.Params == null)
@@ -29,11 +28,11 @@ namespace Euclid.Composites.Mvc.ActionFilters
 
             var valueProvider = new NameValueCollectionValueProvider(filterContext.HttpContext.Request.Params, CultureInfo.CurrentCulture);
 
-            var inputModel = _transformerRegistry.GetInputModel(commandName, valueProvider);
+            var inputModel = TransformerRegistry.GetInputModel(commandName, valueProvider);
 
-            var command = _transformerRegistry.GetCommand(inputModel);
+            var command = TransformerRegistry.GetCommand(inputModel);
 
-            var publicationId = _publisher.PublishMessage(command);
+            var publicationId = Publisher.PublishMessage(command);
 
             filterContext.ActionParameters["publicationId"] = publicationId;
         }

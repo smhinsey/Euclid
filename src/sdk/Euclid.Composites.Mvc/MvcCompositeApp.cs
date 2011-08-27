@@ -1,8 +1,10 @@
 using System;
 using System.Web;
 using System.Web.Mvc;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Logging;
+using Euclid.Composites.Mvc.ActionFilters;
 using Euclid.Composites.Mvc.Binders;
 using Euclid.Composites.Mvc.ComponentRegistration;
 
@@ -42,6 +44,11 @@ namespace Euclid.Composites.Mvc
 			Container.Install(new ModelBinderInstaller());
 
 			Container.Install(new ControllerContainerInstaller());
+
+		    Container.Register(
+		        Component
+		            .For<IActionInvoker>()
+		            .ImplementedBy<EuclidActionInvoker>());
 
 			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
 
