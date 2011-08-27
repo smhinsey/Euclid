@@ -41,7 +41,7 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 
 			protected override object GetJsonObject(JsonSerializer serializer)
 			{
-				return _metadataList.Select(m => new {m.DescriptiveName, m.SystemName});
+				return _metadataList.Select(m => new { m.DescriptiveName, m.SystemName });
 			}
 		}
 
@@ -70,15 +70,15 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 			{
 				return
 					_metadataList.Select(
-					                     m =>
-					                     new
-					                     	{
-					                     		m.DescriptiveName, 
-					                     		m.SystemName, 
-					                     		Commands = m.Commands.Collection.Select(x => new {x.Namespace, x.Name}), 
-					                     		ReadModels = m.ReadModels.Collection.Select(x => new {x.Namespace, x.Name}), 
-					                     		Queries = m.Queries.Collection.Select(x => new {x.Namespace, x.Name})
-					                     	});
+						m =>
+						new
+							{
+								m.DescriptiveName,
+								m.SystemName,
+								Commands = m.Commands.Collection.Select(x => new { x.Namespace, x.Name }),
+								ReadModels = m.ReadModels.Collection.Select(x => new { x.Namespace, x.Name }),
+								Queries = m.Queries.Collection.Select(x => new { x.Namespace, x.Name })
+							});
 			}
 		}
 	}

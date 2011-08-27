@@ -15,7 +15,6 @@ namespace Euclid.Framework.AgentMetadata
 
 		Type Type { get; set; }
 
-
 		IMetadataFormatter GetFormatter();
 	}
 

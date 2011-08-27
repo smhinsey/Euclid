@@ -7,7 +7,8 @@ namespace Euclid.Sdk.TestAgent.Queries
 {
 	public class TestQuery : NhQuery<TestReadModel>
 	{
-		public TestQuery(ISession session) : base(session)
+		public TestQuery(ISession session)
+			: base(session)
 		{
 		}
 

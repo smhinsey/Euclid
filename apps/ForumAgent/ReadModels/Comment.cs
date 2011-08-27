@@ -5,9 +5,9 @@ namespace ForumAgent.ReadModels
 {
 	public class Comment : DefaultReadModel
 	{
-		public virtual Guid AuthorIdentifier { get; set; }
-
 		public virtual string AuthorDisplayName { get; set; }
+
+		public virtual Guid AuthorIdentifier { get; set; }
 
 		public virtual string Body { get; set; }
 

@@ -7,14 +7,26 @@ namespace Euclid.Sdk.Specifications.Metadata.Composite
 	{
 		protected ICompositeApp Composite
 		{
-			get { return ScenarioContext.Current["composite"] as ICompositeApp; }
-			set { ScenarioContext.Current["composite"] = value; }
+			get
+			{
+				return ScenarioContext.Current["composite"] as ICompositeApp;
+			}
+			set
+			{
+				ScenarioContext.Current["composite"] = value;
+			}
 		}
 
 		protected bool IsValid
 		{
-			get { return (bool) ScenarioContext.Current["hasErrors"]; }
-			set { ScenarioContext.Current["hasErrors"] = value; }
+			get
+			{
+				return (bool)ScenarioContext.Current["hasErrors"];
+			}
+			set
+			{
+				ScenarioContext.Current["hasErrors"] = value;
+			}
 		}
 	}
 }

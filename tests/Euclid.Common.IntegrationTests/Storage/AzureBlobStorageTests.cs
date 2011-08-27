@@ -11,27 +11,6 @@ namespace Euclid.Common.IntegrationTests.Storage
 	[Category(TestCategories.Integration)]
 	public class AzureBlobStorageTests
 	{
-		#region Setup/Teardown
-
-		[SetUp]
-		public void Setup()
-		{
-			var settings = new BlobStorageSettings();
-
-			var storageAccount = new CloudStorageAccount(
-				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
-				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
-				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
-				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
-
-			var blobStorage = new AzureBlobStorage(storageAccount);
-			blobStorage.Configure(settings);
-
-			_blobTester = new BlobTester(blobStorage);
-		}
-
-		#endregion
-
 		private BlobTester _blobTester;
 
 		[Test]
@@ -72,6 +51,23 @@ namespace Euclid.Common.IntegrationTests.Storage
 			var blob = _blobTester.GetNewBlob();
 
 			_blobTester.Put(blob);
+		}
+
+		[SetUp]
+		public void Setup()
+		{
+			var settings = new BlobStorageSettings();
+
+			var storageAccount = new CloudStorageAccount(
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials,
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
+				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
+
+			var blobStorage = new AzureBlobStorage(storageAccount);
+			blobStorage.Configure(settings);
+
+			_blobTester = new BlobTester(blobStorage);
 		}
 	}
 }

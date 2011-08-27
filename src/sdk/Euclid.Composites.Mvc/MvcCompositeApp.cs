@@ -15,19 +15,19 @@ namespace Euclid.Composites.Mvc
 		{
 		}
 
-		public override void Configure(CompositeAppSettings compositeAppSettings)
-		{
-			base.Configure(compositeAppSettings);
-
-			wireMvcInfrastructure();
-		}
-
 		public void BeginPageRequest(object sender, EventArgs eventArgs)
 		{
 			if (State != CompositeApplicationState.Configured)
 			{
 				throw new InvalidCompositeApplicationStateException(State, CompositeApplicationState.Configured);
 			}
+		}
+
+		public override void Configure(CompositeAppSettings compositeAppSettings)
+		{
+			base.Configure(compositeAppSettings);
+
+			wireMvcInfrastructure();
 		}
 
 		public void LogUnhandledException(object sender, EventArgs eventArgs)

@@ -4,11 +4,10 @@ using Euclid.Common.Storage.Record;
 
 namespace Euclid.Framework.Cqrs
 {
-	public class CommandRegistry : PublicationRegistry<CommandPublicationRecord, ICommandPublicationRecord>, 
+	public class CommandRegistry : PublicationRegistry<CommandPublicationRecord, ICommandPublicationRecord>,
 	                               ICommandRegistry
 	{
-		public CommandRegistry
-			(
+		public CommandRegistry(
 			IRecordMapper<CommandPublicationRecord> mapper, IBlobStorage blobStorage, IMessageSerializer serializer)
 			: base(mapper, blobStorage, serializer)
 		{

@@ -20,8 +20,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			foreach (var p in _typeMetadata.Properties)
 			{
 				root.Add(
-				         new XElement("Property", new XElement("PropertyName", p.Name), 
-				                      new XElement("PropertyType", p.PropertyType.Name)));
+					new XElement("Property", new XElement("PropertyName", p.Name), new XElement("PropertyType", p.PropertyType.Name)));
 			}
 
 			return root.ToString();
@@ -29,7 +28,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		protected override object GetJsonObject(JsonSerializer serializer)
 		{
-			return _typeMetadata.Properties.Select(p => new {PropertyName = p.Name, PropertyType = p.PropertyType.Name});
+			return _typeMetadata.Properties.Select(p => new { PropertyName = p.Name, PropertyType = p.PropertyType.Name });
 		}
 	}
 }

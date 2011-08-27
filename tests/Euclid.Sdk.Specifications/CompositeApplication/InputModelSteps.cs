@@ -16,9 +16,15 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 	{
 		private Browser Browser
 		{
-			get { return ScenarioContext.Current["browser"] as Browser; }
+			get
+			{
+				return ScenarioContext.Current["browser"] as Browser;
+			}
 
-			set { ScenarioContext.Current["browser"] = value; }
+			set
+			{
+				ScenarioContext.Current["browser"] = value;
+			}
 		}
 
 		[When("I fill out the input model TestInputModel")]
@@ -36,13 +42,13 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 
 			Thread.Sleep(5000);
 
-		    var commandUrl = Browser.Url;
+			var commandUrl = Browser.Url;
 
-		    Browser.Navigate(commandUrl);
+			Browser.Navigate(commandUrl);
 
-		    var completed = Browser.Find("completed").Value;
+			var completed = Browser.Find("completed").Value;
 
-            Assert.True(bool.Parse(completed));
+			Assert.True(bool.Parse(completed));
 		}
 
 		[Given("the TestComposite running on http://localhost:4997")]
@@ -52,15 +58,14 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 
 			var composite = GetContainer().Resolve<BasicCompositeApp>();
 
-            Assert.True(composite.IsValid());
+			Assert.True(composite.IsValid());
 
 			var agent = composite.Agents.First();
 
-			var command = agent.Commands.Collection.Where(p => p.Name == typeof (TestCommand).Name).First();
+			var command = agent.Commands.Collection.Where(p => p.Name == typeof(TestCommand).Name).First();
 
 			var url = string.Format(
-			                        "http://localhost:4997/CompositeInspector/agents/{0}/ViewInputModelForCommand/{1}", agent.SystemName, 
-			                        command.Name);
+				"http://localhost:4997/CompositeInspector/agents/{0}/ViewInputModelForCommand/{1}", agent.SystemName, command.Name);
 
 			Browser.Navigate(url);
 

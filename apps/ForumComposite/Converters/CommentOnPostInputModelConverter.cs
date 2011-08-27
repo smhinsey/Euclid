@@ -11,12 +11,18 @@ namespace ForumComposite.Converters
 	{
 		public Type CommandType
 		{
-			get { return typeof(CommentOnPost); }
+			get
+			{
+				return typeof(CommentOnPost);
+			}
 		}
 
 		public Type InputModelType
 		{
-			get { return typeof(CommentOnPostInputModel); }
+			get
+			{
+				return typeof(CommentOnPostInputModel);
+			}
 		}
 
 		public ICommand Convert(ResolutionContext context)
@@ -37,6 +43,6 @@ namespace ForumComposite.Converters
 			command.Title = model.Title;
 
 			return command;
-		} 
+		}
 	}
 }

@@ -15,9 +15,8 @@ namespace Euclid.Framework.AgentMetadata
 
 			Properties = Type.GetProperties().Select(pi => new PropertyMetadata(pi));
 			Methods =
-				Type.GetMethods().Where(mi => !mi.IsSpecialName && mi.DeclaringType != typeof (object)).Select(
-				                                                                                               mi =>
-				                                                                                               new MethodMetadata(mi));
+				Type.GetMethods().Where(mi => !mi.IsSpecialName && mi.DeclaringType != typeof(object)).Select(
+					mi => new MethodMetadata(mi));
 		}
 
 		protected TypeMetadata()
@@ -42,7 +41,8 @@ namespace Euclid.Framework.AgentMetadata
 
 	public class PartMetadata : TypeMetadata, IPartMetadata
 	{
-		public PartMetadata(Type type) : base(type)
+		public PartMetadata(Type type)
+			: base(type)
 		{
 		}
 

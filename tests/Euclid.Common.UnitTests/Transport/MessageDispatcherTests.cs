@@ -22,57 +22,11 @@ namespace Euclid.Common.UnitTests.Transport
 	[Category(TestCategories.Unit)]
 	public class MessageDispatcherTests
 	{
-		#region Setup/Teardown
-
-		[SetUp]
-		public void Setup()
-		{
-			var container = new WindsorContainer();
-			var processor = new FakeMessageProcessor();
-			container.Register(Component.For<FakeMessageProcessor>().Instance(processor));
-
-			container.Register(
-			                   Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().ImplementedBy
-			                   	<FakeRegistry>());
-			container.Register(
-			                   Component.For<IRecordMapper<FakePublicationRecord>>().ImplementedBy
-			                   	<InMemoryRecordMapper<FakePublicationRecord>>());
-			container.Register(Component.For<IBlobStorage>().ImplementedBy<InMemoryBlobStorage>());
-			container.Register(Component.For<IMessageSerializer>().ImplementedBy<JsonMessageSerializer>());
-
-			container.Register(Component.For<FakeMessageProcessor2>().Instance(new FakeMessageProcessor2()));
-
-			_registry = new FakeRegistry(
-				new InMemoryRecordMapper<FakePublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
-
-			var locator = new WindsorServiceLocator(container);
-
-			_dispatcher = new MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>(
-				locator, _registry);
-
-			_transport = new InMemoryMessageChannel();
-		}
-
-		#endregion
-
 		private MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord, IPublicationRecord>> _dispatcher;
 
 		private FakeRegistry _registry;
 
 		private InMemoryMessageChannel _transport;
-
-		private IPublicationRecord GetRecord()
-		{
-			var msg = new FakeMessage
-			          	{
-			          		Created = DateTime.Now, 
-			          		Field1 = 1, 
-			          		CreatedBy = new Guid("1ABA1517-6A7B-410B-8E90-0F8C73886B01"), 
-			          		Field2 = new List<string> {"foo", "bar", "baz"}
-			          	};
-
-			return _registry.PublishMessage(msg);
-		}
 
 		[Test]
 		public void DispatchesMessage()
@@ -81,7 +35,7 @@ namespace Euclid.Common.UnitTests.Transport
 
 			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
 			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
 			settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 200));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
@@ -115,7 +69,7 @@ namespace Euclid.Common.UnitTests.Transport
 
 			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
 			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
 			settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 200));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
@@ -156,7 +110,7 @@ namespace Euclid.Common.UnitTests.Transport
 
 				Console.WriteLine("{0} messages processed", numberOfMessagesProcessed);
 			}
- while (numberOfMessagesProcessed < recordIds.Count());
+			while (numberOfMessagesProcessed < recordIds.Count());
 
 			Console.WriteLine("Completed in {0} seconds", (DateTime.Now - start).TotalSeconds);
 
@@ -175,7 +129,7 @@ namespace Euclid.Common.UnitTests.Transport
 			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
 			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
 			settings.MessageProcessorTypes.WithDefault(
-			                                           new List<Type> {typeof (FakeMessageProcessor), typeof (FakeMessageProcessor2)});
+				new List<Type> { typeof(FakeMessageProcessor), typeof(FakeMessageProcessor2) });
 			settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 200));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
@@ -212,7 +166,7 @@ namespace Euclid.Common.UnitTests.Transport
 
 			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
 			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
 			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
@@ -235,7 +189,7 @@ namespace Euclid.Common.UnitTests.Transport
 
 			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
 			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
 			settings.DurationOfDispatchingSlice.WithDefault(TimeSpan.Parse("00:00:30"));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
@@ -251,17 +205,17 @@ namespace Euclid.Common.UnitTests.Transport
 		{
 			var settings = new MessageDispatcherSettings();
 
-			Assert.Throws(typeof (NoInputChannelConfiguredException), () => _dispatcher.Configure(settings));
+			Assert.Throws(typeof(NoInputChannelConfiguredException), () => _dispatcher.Configure(settings));
 
 			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
 
-			Assert.Throws(typeof (NoInputChannelConfiguredException), () => _dispatcher.Configure(settings));
+			Assert.Throws(typeof(NoInputChannelConfiguredException), () => _dispatcher.Configure(settings));
 
 			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
 
-			Assert.Throws(typeof (NoMessageProcessorsConfiguredException), () => _dispatcher.Configure(settings));
+			Assert.Throws(typeof(NoMessageProcessorsConfiguredException), () => _dispatcher.Configure(settings));
 
-			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
 
 			_dispatcher.Configure(settings);
 		}
@@ -273,7 +227,7 @@ namespace Euclid.Common.UnitTests.Transport
 
 			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
 			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeMessageProcessor)});
+			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMessageProcessor) });
 			settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 200));
 			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
 
@@ -293,7 +247,7 @@ namespace Euclid.Common.UnitTests.Transport
 
 			Assert.NotNull(received);
 
-			Assert.AreEqual(typeof (FakeMessage), received.GetType());
+			Assert.AreEqual(typeof(FakeMessage), received.GetType());
 
 			_dispatcher.Disable();
 
@@ -302,8 +256,35 @@ namespace Euclid.Common.UnitTests.Transport
 			settings.InputChannel.Value.Close();
 		}
 
+		[SetUp]
+		public void Setup()
+		{
+			var container = new WindsorContainer();
+			var processor = new FakeMessageProcessor();
+			container.Register(Component.For<FakeMessageProcessor>().Instance(processor));
+
+			container.Register(
+				Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().ImplementedBy<FakeRegistry>());
+			container.Register(
+				Component.For<IRecordMapper<FakePublicationRecord>>().ImplementedBy<InMemoryRecordMapper<FakePublicationRecord>>());
+			container.Register(Component.For<IBlobStorage>().ImplementedBy<InMemoryBlobStorage>());
+			container.Register(Component.For<IMessageSerializer>().ImplementedBy<JsonMessageSerializer>());
+
+			container.Register(Component.For<FakeMessageProcessor2>().Instance(new FakeMessageProcessor2()));
+
+			_registry = new FakeRegistry(
+				new InMemoryRecordMapper<FakePublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
+
+			var locator = new WindsorServiceLocator(container);
+
+			_dispatcher = new MultitaskingMessageDispatcher<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>(
+				locator, _registry);
+
+			_transport = new InMemoryMessageChannel();
+		}
+
 		[Test]
-		[ExpectedException(typeof (NoInputChannelConfiguredException))]
+		[ExpectedException(typeof(NoInputChannelConfiguredException))]
 		public void ThrowsWithMissingInputTransport()
 		{
 			var container = new WindsorContainer();
@@ -313,7 +294,7 @@ namespace Euclid.Common.UnitTests.Transport
 		}
 
 		[Test]
-		[ExpectedException(typeof (NoMessageProcessorsConfiguredException))]
+		[ExpectedException(typeof(NoMessageProcessorsConfiguredException))]
 		public void ThrowsWithMissingMessageProcessors()
 		{
 			var container = new WindsorContainer();
@@ -323,6 +304,19 @@ namespace Euclid.Common.UnitTests.Transport
 			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
 
 			_dispatcher.Configure(settings);
+		}
+
+		private IPublicationRecord GetRecord()
+		{
+			var msg = new FakeMessage
+				{
+					Created = DateTime.Now,
+					Field1 = 1,
+					CreatedBy = new Guid("1ABA1517-6A7B-410B-8E90-0F8C73886B01"),
+					Field2 = new List<string> { "foo", "bar", "baz" }
+				};
+
+			return _registry.PublishMessage(msg);
 		}
 	}
 }

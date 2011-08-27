@@ -13,7 +13,7 @@ namespace Euclid.Sdk.Specifications.Metadata.Composite
 		{
 			Assert.NotNull(Composite);
 
-			Composite.AddAgent(typeof (TestCommand).Assembly);
+			Composite.AddAgent(typeof(TestCommand).Assembly);
 		}
 
 		[Given("it contains the TestInputModel")]

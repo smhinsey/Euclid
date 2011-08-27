@@ -24,11 +24,11 @@ namespace Euclid.Composites.Mvc.ActionFilters
 			}
 
 			filterContext.Result = new ContentResult
-			                       	{
-			                       		Content = formatter.GetRepresentation(format), 
-			                       		ContentType = formatter.GetContentType(format), 
-			                       		ContentEncoding = formatter.GetEncoding(format)
-			                       	};
+				{
+					Content = formatter.GetRepresentation(format),
+					ContentType = formatter.GetContentType(format),
+					ContentEncoding = formatter.GetEncoding(format)
+				};
 
 			base.OnActionExecuting(filterContext);
 		}

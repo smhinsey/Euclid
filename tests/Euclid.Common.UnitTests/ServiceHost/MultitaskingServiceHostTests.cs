@@ -3,8 +3,8 @@ using System.Threading;
 using Euclid.Common.ServiceHost;
 using Euclid.Common.TestingFakes.ServiceHost;
 using Euclid.TestingSupport;
-using log4net.Config;
 using NUnit.Framework;
+using log4net.Config;
 
 namespace Euclid.Common.UnitTests.ServiceHost
 {
@@ -12,18 +12,8 @@ namespace Euclid.Common.UnitTests.ServiceHost
 	[Category(TestCategories.Unit)]
 	public class MultitaskingServiceHostTests
 	{
-		#region Setup/Teardown
-
-		[SetUp]
-		public void SetUp()
-		{
-			BasicConfigurator.Configure();
-		}
-
-		#endregion
-
 		[Test]
-		[ExpectedException(typeof (HostedServiceNotFoundException))]
+		[ExpectedException(typeof(HostedServiceNotFoundException))]
 		public void CancelFailsForMissingService()
 		{
 			var host = new MultitaskingServiceHost();
@@ -32,7 +22,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 		}
 
 		[Test]
-		[ExpectedException(typeof (HostedServiceNotFoundException))]
+		[ExpectedException(typeof(HostedServiceNotFoundException))]
 		public void GetStateFailsForMissingService()
 		{
 			var host = new MultitaskingServiceHost();
@@ -80,6 +70,12 @@ namespace Euclid.Common.UnitTests.ServiceHost
 			Assert.AreEqual(HostedServiceState.Stopped, host.GetState(serviceId));
 		}
 
+		[SetUp]
+		public void SetUp()
+		{
+			BasicConfigurator.Configure();
+		}
+
 		[Test]
 		public void StartAndCancelIndividualService()
 		{
@@ -102,7 +98,7 @@ namespace Euclid.Common.UnitTests.ServiceHost
 		}
 
 		[Test]
-		[ExpectedException(typeof (HostedServiceNotFoundException))]
+		[ExpectedException(typeof(HostedServiceNotFoundException))]
 		public void StartFailsForMissingService()
 		{
 			var host = new MultitaskingServiceHost();

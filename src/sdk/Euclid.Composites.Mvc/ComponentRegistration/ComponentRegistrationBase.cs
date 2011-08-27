@@ -21,7 +21,7 @@ namespace Euclid.Composites.Mvc.ComponentRegistration
 			foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
 			{
 				var types =
-					assembly.GetTypes().Where(type => typeof (T).IsAssignableFrom(type) && !type.IsAbstract && type != typeof (T));
+					assembly.GetTypes().Where(type => typeof(T).IsAssignableFrom(type) && !type.IsAbstract && type != typeof(T));
 
 				listOfTypes.AddRange(types);
 			}

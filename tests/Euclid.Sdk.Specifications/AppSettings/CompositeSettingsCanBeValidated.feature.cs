@@ -8,6 +8,7 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
 
 using System.Globalization;
@@ -19,9 +20,8 @@ namespace Euclid.Sdk.Specifications.AppSettings
 	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
 	[NUnit.Framework.TestFixtureAttribute()]
 	[NUnit.Framework.DescriptionAttribute(
-		"In order to fail fast and identify configuration errors early\r\nAs a composite dev" +
-		"eloper\r\nI want to be able to validate configuration and get a description of any" +
-		" errors that occur")]
+		"In order to fail fast and identify configuration errors early\r\nAs a composite dev"
+		+ "eloper\r\nI want to be able to validate configuration and get a description of any" + " errors that occur")]
 	[NUnit.Framework.CategoryAttribute("SdkSpecs")]
 	[NUnit.Framework.CategoryAttribute("Configuration")]
 	[NUnit.Framework.CategoryAttribute("Composite")]
@@ -36,17 +36,13 @@ namespace Euclid.Sdk.Specifications.AppSettings
 		public virtual void FeatureSetup()
 		{
 			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-			var featureInfo = new FeatureInfo(new CultureInfo("en-US"), 
-			                                                    "Composite settings can be validated", 
-			                                                    "In order to fail fast and identify configuration errors early\r\nAs a composite dev" +
-			                                                    "eloper\r\nI want to be able to validate configuration and get a description of any" +
-			                                                    " errors that occur", ProgrammingLanguage.CSharp, new[]
-			                                                                                                      	{
-			                                                                                                      		"SdkSpecs", 
-			                                                                                                      		"Configuration"
-			                                                                                                      		, 
-			                                                                                                      		"Composite"
-			                                                                                                      	});
+			var featureInfo = new FeatureInfo(
+				new CultureInfo("en-US"),
+				"Composite settings can be validated",
+				"In order to fail fast and identify configuration errors early\r\nAs a composite dev"
+				+ "eloper\r\nI want to be able to validate configuration and get a description of any" + " errors that occur",
+				ProgrammingLanguage.CSharp,
+				new[] { "SdkSpecs", "Configuration", "Composite" });
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -82,7 +78,7 @@ namespace Euclid.Sdk.Specifications.AppSettings
 		[NUnit.Framework.DescriptionAttribute("Default CompostiteAppSetting is invalid")]
 		public virtual void DefaultCompostiteAppSettingIsInvalid()
 		{
-			var scenarioInfo = new ScenarioInfo("Default CompostiteAppSetting is invalid", (string[]) (null));
+			var scenarioInfo = new ScenarioInfo("Default CompostiteAppSetting is invalid", (string[])(null));
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -92,8 +88,8 @@ namespace Euclid.Sdk.Specifications.AppSettings
 #line 10
 			testRunner.And("NullSettingException.SettingName is equal to \'OutputChannel\'");
 #line 11
-			testRunner.And("There is 1 reason in the enumerable object returned by CompositeAppSetting.GetInv" +
-			               "alidSettingReasons()");
+			testRunner.And(
+				"There is 1 reason in the enumerable object returned by CompositeAppSetting.GetInv" + "alidSettingReasons()");
 #line hidden
 			this.ScenarioCleanup();
 		}
@@ -102,8 +98,7 @@ namespace Euclid.Sdk.Specifications.AppSettings
 		[NUnit.Framework.DescriptionAttribute("CompositeAppSetting with an OutputChannel is valid")]
 		public virtual void CompositeAppSettingWithAnOutputChannelIsValid()
 		{
-			var scenarioInfo = new ScenarioInfo("CompositeAppSetting with an OutputChannel is valid", 
-			                                                      (string[]) (null));
+			var scenarioInfo = new ScenarioInfo("CompositeAppSetting with an OutputChannel is valid", (string[])(null));
 #line 13
 			this.ScenarioSetup(scenarioInfo);
 #line 14
@@ -113,8 +108,7 @@ namespace Euclid.Sdk.Specifications.AppSettings
 #line 16
 			testRunner.And("I call validate no exceptions are thrown");
 #line 17
-			testRunner.And("CompositeAppSetting.GetInvalidSettingReasons() returns 0 length enumerable object" +
-			               string.Empty);
+			testRunner.And("CompositeAppSetting.GetInvalidSettingReasons() returns 0 length enumerable object" + string.Empty);
 #line hidden
 			this.ScenarioCleanup();
 		}

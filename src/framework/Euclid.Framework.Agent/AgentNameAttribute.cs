@@ -4,7 +4,7 @@
 	{
 	}
 
-    public class AgentDescriptionAttribute:  TextAttribute
-    {
-    }
+	public class AgentDescriptionAttribute : TextAttribute
+	{
+	}
 }

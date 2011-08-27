@@ -2,15 +2,15 @@
 {
 	public enum FabricRuntimeState
 	{
-		Initializing, 
+		Initializing,
 
-		Initialized, 
+		Initialized,
 
-		Started, 
+		Started,
 
-		Stoppping, 
+		Stoppping,
 
-		Stopped, 
+		Stopped,
 
 		Failed
 	}

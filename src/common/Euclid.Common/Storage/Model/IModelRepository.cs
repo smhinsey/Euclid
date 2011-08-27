@@ -1,6 +1,6 @@
 ﻿namespace Euclid.Common.Storage.Model
 {
-// SELF i think this should be combined with ISimpleRepository
+	// SELF i think this should be combined with ISimpleRepository
 
 	/// <summary>
 	/// 	Marker interface

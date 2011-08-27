@@ -10,7 +10,7 @@ namespace Euclid.Composites.Mvc.ComponentRegistration
 	{
 		public override void Install(IWindsorContainer container, IConfigurationStore store)
 		{
-            foreach (var t in GetTypesThatImplement<IAgentResolver>())
+			foreach (var t in GetTypesThatImplement<IAgentResolver>())
 			{
 				container.Register(Component.For<IAgentResolver>().ImplementedBy(t).LifeStyle.Transient);
 			}

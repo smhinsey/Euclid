@@ -9,17 +9,18 @@ namespace Euclid.TestingSupport
 	/// </summary>
 	public abstract class DefaultSpecSteps
 	{
-		private const string ContainerContextKey = "IWindsorContainer";
 		public static Guid PubIdOfLastMessage;
 
-		protected IWindsorContainer GetContainer()
-		{
-			return (IWindsorContainer) ScenarioContext.Current[ContainerContextKey];
-		}
+		private const string ContainerContextKey = "IWindsorContainer";
 
 		public static void SetContainerInScenarioContext(IWindsorContainer container)
 		{
 			ScenarioContext.Current.Add(ContainerContextKey, container);
+		}
+
+		protected IWindsorContainer GetContainer()
+		{
+			return (IWindsorContainer)ScenarioContext.Current[ContainerContextKey];
 		}
 	}
 }

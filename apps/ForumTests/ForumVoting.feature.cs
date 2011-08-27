@@ -8,6 +8,7 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
 
 using System.Globalization;
@@ -33,11 +34,11 @@ namespace ForumTests
 		{
 			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
 			var featureInfo = new FeatureInfo(
-				new CultureInfo("en-US"), 
-				"Forum Voting", 
-				"In order to interact with a Forum\r\nAs a Forum User\r\nI want to vote on Posts and C" + "omments in that Forum", 
-				ProgrammingLanguage.CSharp, 
-				new[] {"ForumAgentSpecs"});
+				new CultureInfo("en-US"),
+				"Forum Voting",
+				"In order to interact with a Forum\r\nAs a Forum User\r\nI want to vote on Posts and C" + "omments in that Forum",
+				ProgrammingLanguage.CSharp,
+				new[] { "ForumAgentSpecs" });
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -73,7 +74,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Vote Post Up")]
 		public virtual void VotePostUp()
 		{
-			var scenarioInfo = new ScenarioInfo("Vote Post Up", (string[]) null);
+			var scenarioInfo = new ScenarioInfo("Vote Post Up", (string[])null);
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -96,7 +97,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Vote Post Down")]
 		public virtual void VotePostDown()
 		{
-			var scenarioInfo = new ScenarioInfo("Vote Post Down", (string[]) null);
+			var scenarioInfo = new ScenarioInfo("Vote Post Down", (string[])null);
 #line 18
 			this.ScenarioSetup(scenarioInfo);
 #line 19
@@ -119,7 +120,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Vote Comment Up")]
 		public virtual void VoteCommentUp()
 		{
-			var scenarioInfo = new ScenarioInfo("Vote Comment Up", (string[]) null);
+			var scenarioInfo = new ScenarioInfo("Vote Comment Up", (string[])null);
 #line 29
 			this.ScenarioSetup(scenarioInfo);
 #line 30
@@ -146,7 +147,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Vote Comment Down")]
 		public virtual void VoteCommentDown()
 		{
-			var scenarioInfo = new ScenarioInfo("Vote Comment Down", (string[]) null);
+			var scenarioInfo = new ScenarioInfo("Vote Comment Down", (string[])null);
 #line 43
 			this.ScenarioSetup(scenarioInfo);
 #line 44

@@ -11,12 +11,18 @@ namespace ForumComposite.Converters
 	{
 		public Type CommandType
 		{
-			get { return typeof(VoteOnComment); }
+			get
+			{
+				return typeof(VoteOnComment);
+			}
 		}
 
 		public Type InputModelType
 		{
-			get { return typeof(VoteOnCommentInputModel); }
+			get
+			{
+				return typeof(VoteOnCommentInputModel);
+			}
 		}
 
 		public ICommand Convert(ResolutionContext context)
@@ -37,6 +43,6 @@ namespace ForumComposite.Converters
 			command.VoteUp = model.VoteUp;
 
 			return command;
-		} 
+		}
 	}
 }

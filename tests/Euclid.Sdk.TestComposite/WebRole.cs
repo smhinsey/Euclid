@@ -23,8 +23,13 @@ namespace Euclid.Sdk.TestComposite
 		{
 		}
 
+		public static WebRole GetInstance()
+		{
+			return _instance ?? (_instance = new WebRole());
+		}
+
 		public void Init()
-		{ 
+		{
 			if (_initialized)
 			{
 				return;
@@ -33,23 +38,20 @@ namespace Euclid.Sdk.TestComposite
 			var container = new WindsorContainer();
 
 			var composite = new MvcCompositeApp(container)
-			                    {
-			                        Name = "Test Composite",
-                                    Description = "A composite application that is used to validate the Euclid platform"
-			                    };
+				{ Name = "Test Composite", Description = "A composite application that is used to validate the Euclid platform" };
 
-			composite.RegisterNh(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), 
-			                     true, false);
+			composite.RegisterNh(
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.OutputChannel.ApplyOverride(typeof (AzureMessageChannel));
-			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
-			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
+			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
 
 			composite.Configure(compositeAppSettings);
 
-			composite.AddAgent(typeof (TestCommand).Assembly);
+			composite.AddAgent(typeof(TestCommand).Assembly);
 
 			composite.RegisterInputModel(new TestInputModelToCommandConverter());
 
@@ -64,17 +66,12 @@ namespace Euclid.Sdk.TestComposite
 		{
 			// as soon as we can stop using the azure storage emulator we should
 			var storageAccount = new CloudStorageAccount(
-				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
-				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
-				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials,
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
 				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
-		}
-
-		public static WebRole GetInstance()
-		{
-			return _instance ?? (_instance = new WebRole());
 		}
 	}
 }

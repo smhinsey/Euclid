@@ -11,12 +11,17 @@ namespace Euclid.Composites
 	public class CompositeAppSettings : IOverridableSettings
 	{
 		public readonly OverridableTypeSetting<IBlobStorage> BlobStorage;
+
 		public readonly OverridableTypeSetting<ICommandDispatcher> CommandDispatcher;
+
 		public readonly OverridableTypeSetting<IRecordMapper<CommandPublicationRecord>> CommandPublicationRecordMapper;
+
 		public readonly OverridableTypeSetting<IMessageSerializer> MessageSerializer;
+
 		public readonly OverridableTypeSetting<IMessageChannel> OutputChannel;
 
-		public readonly OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>> PublicationRegistry;
+		public readonly OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>
+			PublicationRegistry;
 
 		public readonly OverridableTypeSetting<IPublisher> Publisher;
 
@@ -29,17 +34,16 @@ namespace Euclid.Composites
 				new OverridableTypeSetting<IRecordMapper<CommandPublicationRecord>>("CommandPublicationRecordMapper");
 			MessageSerializer = new OverridableTypeSetting<IMessageSerializer>("MessageSerializer");
 			PublicationRegistry =
-				new OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>(
-					"PublicationRegistry");
+				new OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>("PublicationRegistry");
 			Publisher = new OverridableTypeSetting<IPublisher>("Publisher");
 
 			// OutputChannel.WithDefault(typeof (InMemoryMessageChannel));
-			BlobStorage.WithDefault(typeof (InMemoryBlobStorage));
-			CommandDispatcher.WithDefault(typeof (CommandDispatcher));
-			CommandPublicationRecordMapper.WithDefault(typeof (InMemoryCommandPublicationRecordMapper));
-			MessageSerializer.WithDefault(typeof (JsonMessageSerializer));
-			PublicationRegistry.WithDefault(typeof (CommandRegistry));
-			Publisher.WithDefault(typeof (DefaultPublisher));
+			BlobStorage.WithDefault(typeof(InMemoryBlobStorage));
+			CommandDispatcher.WithDefault(typeof(CommandDispatcher));
+			CommandPublicationRecordMapper.WithDefault(typeof(InMemoryCommandPublicationRecordMapper));
+			MessageSerializer.WithDefault(typeof(JsonMessageSerializer));
+			PublicationRegistry.WithDefault(typeof(CommandRegistry));
+			Publisher.WithDefault(typeof(DefaultPublisher));
 		}
 
 		public IEnumerable<string> GetInvalidSettingReasons()

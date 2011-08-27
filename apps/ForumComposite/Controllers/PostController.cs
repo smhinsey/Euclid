@@ -14,6 +14,11 @@ namespace ForumComposite.Controllers
 			_postQueries = postQueries;
 		}
 
+		public ActionResult AddComment()
+		{
+			return View();
+		}
+
 		public ActionResult Create()
 		{
 			return View(new PublishPostInputModel());
@@ -27,11 +32,6 @@ namespace ForumComposite.Controllers
 		}
 
 		public ActionResult Thread()
-		{
-			return View();
-		}
-
-		public ActionResult AddComment()
 		{
 			return View();
 		}

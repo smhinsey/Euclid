@@ -6,16 +6,16 @@
 
 @using (Html.BeginForm("Publish", "Agents", FormMethod.Post))
 {
-    @Html.ValidationSummary(true)
+	@Html.ValidationSummary(true)
 
-    <fieldset>
-        @Html.EditorFor(p => Model)
-    </fieldset>
+	<fieldset>
+		@Html.EditorFor(p => Model)
+	</fieldset>
 
-    <input type="submit" id="publish-command" value="Publish Command" />
+	<input type="submit" id="publish-command" value="Publish Command" />
 }
 
 @{
-    var footer = (InspectorNavigationModel) ViewBag.Navigation;
-    Html.RenderPartial("CompositeInspectorLinks", footer);
+	var footer = (InspectorNavigationModel)ViewBag.Navigation;
+	Html.RenderPartial("CompositeInspectorLinks", footer);
 }

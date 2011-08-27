@@ -10,11 +10,15 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 		where T : IAgentPart
 	{
 		private readonly Assembly _agent;
+
 		private readonly string _partNamespace;
 
 		private string _agentSystemName;
+
 		private IEnumerable<IPartMetadata> _collection;
+
 		private Type _collectionType;
+
 		private bool _init;
 
 		private string _ns;
@@ -25,13 +29,14 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 			_partNamespace = partNamespace;
 		}
 
-		public abstract string DescriptiveName { get; }
-
 		public string AgentSystemName
 		{
 			get
 			{
-				if (!_init) Initialize();
+				if (!_init)
+				{
+					Initialize();
+				}
 
 				return _agentSystemName;
 			}
@@ -41,7 +46,10 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 		{
 			get
 			{
-				if (!_init) Initialize();
+				if (!_init)
+				{
+					Initialize();
+				}
 
 				return _collection;
 			}
@@ -51,17 +59,25 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 		{
 			get
 			{
-				if (!_init) Initialize();
+				if (!_init)
+				{
+					Initialize();
+				}
 
 				return _collectionType;
 			}
 		}
 
+		public abstract string DescriptiveName { get; }
+
 		public string Namespace
 		{
 			get
 			{
-				if (!_init) Initialize();
+				if (!_init)
+				{
+					Initialize();
+				}
 
 				return _ns;
 			}
@@ -74,15 +90,11 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 
 		protected void Initialize()
 		{
-			_collection = _agent.GetTypes()
-				.Where(type =>
-				       type.Namespace == _partNamespace &&
-				       typeof (T).IsAssignableFrom(type))
-				.Select(type => new PartMetadata(type))
-				.Cast<IPartMetadata>()
-				.ToList();
+			_collection =
+				_agent.GetTypes().Where(type => type.Namespace == _partNamespace && typeof(T).IsAssignableFrom(type)).Select(
+					type => new PartMetadata(type)).Cast<IPartMetadata>().ToList();
 
-			_collectionType = typeof (T);
+			_collectionType = typeof(T);
 			_agentSystemName = _agent.GetAgentSystemName();
 			_ns = _partNamespace;
 

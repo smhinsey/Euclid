@@ -25,7 +25,7 @@ namespace Euclid.Framework.AgentMetadata
 			{
 				DescriptiveName = _agent.GetAgentName();
 				SystemName = _agent.GetAgentSystemName();
-			    Description = _agent.GetAgentDescription();
+				Description = _agent.GetAgentDescription();
 
 				Commands = new CommandPartCollection(_agent, _agent.GetCommandNamespace());
 				Queries = new QueryPartCollection(_agent, _agent.GetQueryNamespace());
@@ -35,14 +35,17 @@ namespace Euclid.Framework.AgentMetadata
 
 		public Assembly AgentAssembly
 		{
-			get { return _agent; }
+			get
+			{
+				return _agent;
+			}
 		}
 
 		public IPartCollection Commands { get; private set; }
 
-		public string DescriptiveName { get; private set; }
+		public string Description { get; private set; }
 
-        public string Description { get; private set; }
+		public string DescriptiveName { get; private set; }
 
 		public bool IsValid { get; private set; }
 
@@ -54,9 +57,9 @@ namespace Euclid.Framework.AgentMetadata
 
 		public IMetadataFormatter GetFormatter(FormatterType style)
 		{
-            return (style == FormatterType.Basic)
-                    ? new BasicAgentMetadataFormatter(this) as IMetadataFormatter
-                    : new AgentMetadataFormatter(this) as IMetadataFormatter;
+			return (style == FormatterType.Basic)
+			       	? new BasicAgentMetadataFormatter(this)
+			       	: new AgentMetadataFormatter(this) as IMetadataFormatter;
 		}
 
 		public IPartMetadata GetPartByTypeName(string partName)
@@ -102,15 +105,15 @@ namespace Euclid.Framework.AgentMetadata
 
 		public IPartCollection GetPartCollectionContainingType(Type partType)
 		{
-			if (typeof (ICommand).IsAssignableFrom(partType))
+			if (typeof(ICommand).IsAssignableFrom(partType))
 			{
 				return Commands;
 			}
-			else if (typeof (IQuery).IsAssignableFrom(partType))
+			else if (typeof(IQuery).IsAssignableFrom(partType))
 			{
 				return Queries;
 			}
-			else if (typeof (IReadModel).IsAssignableFrom(partType))
+			else if (typeof(IReadModel).IsAssignableFrom(partType))
 			{
 				return ReadModels;
 			}
@@ -130,8 +133,8 @@ namespace Euclid.Framework.AgentMetadata
 			protected override string GetAsXml()
 			{
 				var xml = new XElement(
-					"Agent", 
-					new XElement("DescriptiveName", _agentMetadata.DescriptiveName), 
+					"Agent",
+					new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
 					new XElement("SystemName", _agentMetadata.SystemName));
 
 				var commands = new XElement("Commands");
@@ -166,11 +169,11 @@ namespace Euclid.Framework.AgentMetadata
 				return
 					new
 						{
-							_agentMetadata.DescriptiveName, 
-							_agentMetadata.SystemName, 
-							Commands = _agentMetadata.Commands.Collection.Select(x => new {x.Namespace, x.Name}), 
-							ReadModels = _agentMetadata.ReadModels.Collection.Select(x => new {x.Namespace, x.Name}), 
-							Queries = _agentMetadata.Queries.Collection.Select(x => new {x.Namespace, x.Name})
+							_agentMetadata.DescriptiveName,
+							_agentMetadata.SystemName,
+							Commands = _agentMetadata.Commands.Collection.Select(x => new { x.Namespace, x.Name }),
+							ReadModels = _agentMetadata.ReadModels.Collection.Select(x => new { x.Namespace, x.Name }),
+							Queries = _agentMetadata.Queries.Collection.Select(x => new { x.Namespace, x.Name })
 						};
 			}
 		}
@@ -188,15 +191,15 @@ namespace Euclid.Framework.AgentMetadata
 			{
 				return
 					new XElement(
-						"Agent", 
-						new XElement("DescriptiveName", _agentMetadata.DescriptiveName), 
+						"Agent",
+						new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
 						new XElement("SystemName", _agentMetadata.SystemName),
-                        new XElement("Description", _agentMetadata.Description)).ToString();
+						new XElement("Description", _agentMetadata.Description)).ToString();
 			}
 
 			protected override object GetJsonObject(JsonSerializer serializer)
 			{
-				return new {_agentMetadata.DescriptiveName, _agentMetadata.SystemName, _agentMetadata.Description};
+				return new { _agentMetadata.DescriptiveName, _agentMetadata.SystemName, _agentMetadata.Description };
 			}
 		}
 	}

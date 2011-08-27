@@ -11,6 +11,7 @@ namespace Euclid.Sdk.TestAgent.Processors
 	public class TestCommandProcessor : DefaultCommandProcessor<TestCommand>, ILoggingSource
 	{
 		private readonly TestQuery _query;
+
 		private readonly ISimpleRepository<TestReadModel> _repository;
 
 		public TestCommandProcessor(TestQuery query, ISimpleRepository<TestReadModel> repository)
@@ -24,12 +25,7 @@ namespace Euclid.Sdk.TestAgent.Processors
 			this.WriteInfoMessage("Command no. {0} was processed by TestCommandProcessor", message.Number);
 
 			var model = new TestReadModel
-			            	{
-			            		Identifier = Guid.NewGuid(), 
-			            		Number = message.Number, 
-			            		Created = DateTime.Now, 
-			            		Modified = DateTime.Now
-			            	};
+				{ Identifier = Guid.NewGuid(), Number = message.Number, Created = DateTime.Now, Modified = DateTime.Now };
 
 			_repository.Save(model);
 		}

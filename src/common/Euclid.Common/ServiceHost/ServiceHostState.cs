@@ -8,17 +8,17 @@
 		/// <summary>
 		/// 	The service host is starting up.
 		/// </summary>
-		Starting, 
+		Starting,
 
 		/// <summary>
 		/// 	The service host is started and running without error.
 		/// </summary>
-		Started, 
+		Started,
 
 		/// <summary>
 		/// 	The service host is stopping.
 		/// </summary>
-		Stopping, 
+		Stopping,
 
 		/// <summary>
 		/// 	The service host is stopped.

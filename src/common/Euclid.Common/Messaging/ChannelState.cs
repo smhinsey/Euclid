@@ -8,16 +8,16 @@
 		/// <summary>
 		/// 	The channel is not configured.
 		/// </summary>
-		NotConfigured, 
+		NotConfigured,
 
 		/// <summary>
 		/// 	The channel is open.
 		/// </summary>
-		Open, 
+		Open,
 
 		/// <summary>
 		/// 	The channel is closed.
 		/// </summary>
-		Closed, 
+		Closed,
 	}
 }
