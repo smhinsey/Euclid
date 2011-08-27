@@ -17,10 +17,10 @@ namespace CompositeInspector.Controllers
 
 		private readonly ICompositeApp _composite;
 
-		private readonly IInputModelTransfomerRegistry _transformer;
+		private readonly IInputModelTransformerRegistry _transformer;
 
 		public AgentsController(
-			ICompositeApp composite, IPublisher commandPublisher, IInputModelTransfomerRegistry transformer)
+			ICompositeApp composite, IPublisher commandPublisher, IInputModelTransformerRegistry transformer)
 		{
 			_composite = composite;
 			_commandPublisher = commandPublisher;

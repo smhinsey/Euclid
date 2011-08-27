@@ -10,7 +10,7 @@ using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Conversion
 {
-	public class InputModelToCommandTransformerRegistry : IInputModelTransfomerRegistry, ILoggingSource
+	public class InputModelToCommandTransformerRegistry : IInputModelTransformerRegistry, ILoggingSource
 	{
 		private readonly Dictionary<string, IInputToCommandConverter> _inputModelsAndValues =
 			new Dictionary<string, IInputToCommandConverter>();
@@ -70,7 +70,18 @@ namespace Euclid.Composites.Conversion
 		{
 			GuardPartNameRegistered(partName);
 
-			return Activator.CreateInstance(_inputModelsAndValues[partName].InputModelType) as IInputModel;
+			var inputModel = Activator.CreateInstance(_inputModelsAndValues[partName].InputModelType) as IInputModel;
+
+            if (inputModel == null)
+            {
+                throw new CannotCreateInputModelException(_inputModelsAndValues[partName].InputModelType.Name);
+            }
+
+		    inputModel.CommandType = _inputModelsAndValues[partName].CommandType;
+
+		    inputModel.AgentSystemName = inputModel.CommandType.Assembly.GetAgentMetadata().SystemName;
+
+		    return inputModel;
 		}
 
 		public IEnumerable<ITypeMetadata> GetInputModels()

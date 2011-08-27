@@ -119,7 +119,7 @@
     <Compile Include="Conversion\CannotMapCommandException.cs" />
     <Compile Include="Conversion\CommandNotRegisteredException.cs" />
     <Compile Include="Conversion\CommandAlreadyMappedException.cs" />
-    <Compile Include="Conversion\IInputModelTransfomerRegistry.cs" />
+    <Compile Include="Conversion\IInputModelTransformerRegistry.cs" />
     <Compile Include="Conversion\IInputToCommandConverter.cs" />
     <Compile Include="Conversion\PartNameAlreadyRegisteredException.cs" />
     <Compile Include="Conversion\PartNameNotRegisteredException.cs" />

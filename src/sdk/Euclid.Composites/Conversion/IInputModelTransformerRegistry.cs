@@ -6,7 +6,7 @@ using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Conversion
 {
-	public interface IInputModelTransfomerRegistry
+	public interface IInputModelTransformerRegistry
 	{
 		void Add(string partName, IInputToCommandConverter converter);
 

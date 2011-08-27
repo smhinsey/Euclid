@@ -75,7 +75,7 @@ namespace Euclid.Composites
 
 		protected IWindsorContainer Container { get; set; }
 
-		protected IInputModelTransfomerRegistry InputModelTransformers { get; private set; }
+		protected IInputModelTransformerRegistry InputModelTransformers { get; private set; }
 
 		public void AddAgent(Assembly assembly)
 		{
@@ -109,7 +109,7 @@ namespace Euclid.Composites
 			RegisterConfiguredTypes(compositeAppSettings);
 
 			Container.Register(
-				Component.For<IInputModelTransfomerRegistry>().Instance(InputModelTransformers).LifeStyle.Singleton);
+				Component.For<IInputModelTransformerRegistry>().Instance(InputModelTransformers).LifeStyle.Singleton);
 
 			Settings = compositeAppSettings;
 

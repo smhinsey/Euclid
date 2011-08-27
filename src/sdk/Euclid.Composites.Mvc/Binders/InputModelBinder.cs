@@ -9,55 +9,22 @@ namespace Euclid.Composites.Mvc.Binders
 {
 	public class InputModelBinder : IEuclidModelBinder
 	{
-		private readonly IAgentResolver[] _resolvers;
+		private readonly IInputModelTransformerRegistry _transformers;
 
-		private readonly IInputModelTransfomerRegistry _transformers;
-
-		public InputModelBinder(IAgentResolver[] resolvers, IInputModelTransfomerRegistry transfomers)
+		public InputModelBinder(IInputModelTransformerRegistry transformers)
 		{
-			_resolvers = resolvers;
-			_transformers = transfomers;
+			_transformers = transformers;
 		}
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			var commandName = controllerContext.GetPartName();
+		    var valueProvider = bindingContext.ValueProvider;
 
-			IInputModel inputModel;
-			try
-			{
-				inputModel = _transformers.GetInputModel(commandName);
-			}
-			catch (InputModelForPartNotRegisteredException e)
-			{
-				return null;
-			}
-
-			var inputModelProperties = inputModel.GetType().GetProperties();
-			foreach (var property in inputModelProperties)
-			{
-				var propValue = bindingContext.ValueProvider.GetValue(property.Name);
-				try
-				{
-					var value = (property.Name == "CommandType")
-					            	? _transformers.GetCommandType(commandName)
-					            	: (propValue == null) ? null : propValue.ConvertTo(property.PropertyType);
-
-					if (property.CanWrite)
-					{
-						property.SetValue(inputModel, value, null);
-					}
-				}
-				catch (Exception e)
-				{
-					throw new CannotSetInputModelPropertyValues(inputModel.GetType().Name, property.Name, e);
-				}
-			}
-
-			return inputModel;
+			return _transformers.GetInputModel(commandName, valueProvider);
 		}
 
-		public bool IsMatch(Type modelType)
+	    public bool IsMatch(Type modelType)
 		{
 			return typeof (IInputModel).IsAssignableFrom(modelType);
 		}

@@ -107,6 +107,7 @@
     <Compile Include="ActionFilters\FormatPartCollectionMetadataAttribute.cs" />
     <Compile Include="ActionFilters\FormatPartMetadataAttribute.cs" />
     <Compile Include="ActionFilters\MetadataFormatterAttributeBase.cs" />
+    <Compile Include="ActionFilters\CommandPublisherAttribute.cs" />
     <Compile Include="Binders\AgentMetadataBinder.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -122,6 +123,7 @@
     <Compile Include="ComponentRegistration\ControllerContainerInstaller.cs" />
     <Compile Include="ComponentRegistration\ModelBinderInstaller.cs" />
     <Compile Include="Extensions\InputModelExtensions.cs" />
+    <Compile Include="Extensions\InputModelTransformerRegistryExtensions.cs" />
     <Compile Include="MvcCompositeApp.cs" />
     <Compile Include="Extensions\ControllerContextExtensions.cs" />
     <Compile Include="Extensions\RequiredRouteDataMissingException.cs" />
