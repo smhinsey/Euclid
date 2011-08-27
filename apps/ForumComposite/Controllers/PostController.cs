@@ -9,9 +9,12 @@ namespace ForumComposite.Controllers
 	{
 		private readonly PostQueries _postQueries;
 
-		public PostController(PostQueries postQueries)
+		private readonly CommentQueries _commentQueries;
+
+		public PostController(PostQueries postQueries, CommentQueries commentQueries)
 		{
 			_postQueries = postQueries;
+			_commentQueries = commentQueries;
 		}
 
 		public ActionResult AddComment()
@@ -28,14 +31,14 @@ namespace ForumComposite.Controllers
 		{
 			var posts = _postQueries.FindByCreationDate(DateTime.Now.AddDays(-5), DateTime.Now);
 
-			return View();
+			return View(posts);
 		}
 
 		public ActionResult Thread()
 		{
-			var postAndComments = _postQueries.FindByIdWithComments(Guid.Empty);
+			var comments = _commentQueries.FindCommentsBelongingToPost(Guid.NewGuid());
 
-			return View();
+			return View(comments);
 		}
 	}
 }

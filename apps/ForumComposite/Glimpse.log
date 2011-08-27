@@ -4404,3 +4404,76 @@
 2011-08-27 15:57:09.7903|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 55bfb2bf-0ea9-4f8f-8341-16bfd8c99daa (/favicon.ico)|
 2011-08-27 15:57:09.7903|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 55bfb2bf-0ea9-4f8f-8341-16bfd8c99daa (/favicon.ico)|
 2011-08-27 15:57:09.7903|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 55bfb2bf-0ea9-4f8f-8341-16bfd8c99daa (/favicon.ico)|
+2011-08-27 19:29:00.5473|INFO|Glimpse.Core.Module|<glimpse enabled="true" loggingEnabled="true">
+    <ipAddresses>
+        <add address="127.0.0.1" />
+        <add address="::1" />
+    </ipAddresses>
+    <contentTypes>
+        <add contentType="text/html" />
+        <add contentType="application/json" />
+    </contentTypes>
+</glimpse>|
+2011-08-27 19:29:00.5653|INFO|Glimpse.Core.Module|Glimpse Module constructed|
+2011-08-27 19:29:01.2323|INFO|Glimpse.Core.Module|MEF Parts composed: 11 IGlimpsePlugins, 8 IGlimpseHandlers and 5 IGlimpseConverters configured|
+2011-08-27 19:29:01.2323|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Core.Plugin.Trace|
+2011-08-27 19:29:01.2323|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Binders|
+2011-08-27 19:29:01.2323|WARN|Glimpse.Mvc3.Plugin.Binders|System.Web.Mvc.HttpPostedFileBaseModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-27 19:29:01.2323|WARN|Glimpse.Mvc3.Plugin.Binders|System.Web.Mvc.ByteArrayModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-27 19:29:01.2323|WARN|Glimpse.Mvc3.Plugin.Binders|System.Web.Mvc.LinqBinaryModelBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-27 19:29:01.2323|WARN|Glimpse.Mvc3.Plugin.Binders|Cannot create proxy of Euclid.Composites.Mvc.Binders.EuclidDefaultBinder. Object must have a parameterless constructor, cannot be sealed, and cannot already be a proxy object.|
+2011-08-27 19:29:01.2493|WARN|Glimpse.Mvc3.Plugin.Binders|Euclid.Composites.Mvc.Binders.EuclidDefaultBinder is not a System.Web.Mvc.DefaultModelBinder.|
+2011-08-27 19:29:01.2493|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Execution|
+2011-08-27 19:29:01.2493|WARN|Glimpse.Mvc3.Plugin.Execution|Unable to proxy Euclid.Composites.Mvc.WindsorControllerFactory|
+2011-08-27 19:29:01.2493|INFO|Glimpse.Core.Module|Calling SetupInit() on Glimpse.Mvc3.Plugin.Views|
+2011-08-27 19:29:01.2633|INFO|Glimpse.Core.Module|Glimpse Module Init Complete|
+2011-08-27 19:29:01.2633|INFO|Glimpse.Core.Module|Glimpse Module Init Complete|
+2011-08-27 19:29:01.2793|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 0da21d8a-9382-4750-90bf-1088513e859e (/)|
+2011-08-27 19:29:04.5325|INFO|Glimpse.Core.Module|PostRequestHandlerExecute handling complete for requestId 0da21d8a-9382-4750-90bf-1088513e859e (/)|
+2011-08-27 19:29:04.5325|INFO|Glimpse.Core.Module|PostReleaseRequestState handling complete for requestId 0da21d8a-9382-4750-90bf-1088513e859e (/)|
+2011-08-27 19:29:04.6945|INFO|Glimpse.Core.Module|Glimpse JSON payload created for requestId 0da21d8a-9382-4750-90bf-1088513e859e (/)|
+2011-08-27 19:29:04.6965|INFO|Glimpse.Core.Module|Glimpse output generated for requestId 0da21d8a-9382-4750-90bf-1088513e859e (/)|
+2011-08-27 19:29:04.6965|INFO|Glimpse.Core.Module|RequestId 0da21d8a-9382-4750-90bf-1088513e859e (/) persisted|
+2011-08-27 19:29:04.6965|INFO|Glimpse.Core.Module|EndRequest handling complete for requestId 0da21d8a-9382-4750-90bf-1088513e859e (/)|
+2011-08-27 19:29:04.7855|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId c7904890-2bfc-4bf1-b868-d2e6ab0f8528 (/Glimpse.axd)|
+2011-08-27 19:29:04.7855|INFO|Glimpse.Core.Module|Glimpse Module Init Complete|
+2011-08-27 19:29:04.7925|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id c7904890-2bfc-4bf1-b868-d2e6ab0f8528 (/Glimpse.axd)|
+2011-08-27 19:29:04.7925|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id c7904890-2bfc-4bf1-b868-d2e6ab0f8528 (/Glimpse.axd)|
+2011-08-27 19:29:04.7925|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 43502bbe-d26e-4dda-a485-453581ea7578 (/Scripts/jquery-1.5.1.js)|
+2011-08-27 19:29:04.7925|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id c7904890-2bfc-4bf1-b868-d2e6ab0f8528 (/Glimpse.axd)|
+2011-08-27 19:29:04.8065|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id c7904890-2bfc-4bf1-b868-d2e6ab0f8528 (/Glimpse.axd)|
+2011-08-27 19:29:04.8065|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 43502bbe-d26e-4dda-a485-453581ea7578 (/Scripts/jquery-1.5.1.js)|
+2011-08-27 19:29:04.8065|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 43502bbe-d26e-4dda-a485-453581ea7578 (/Scripts/jquery-1.5.1.js)|
+2011-08-27 19:29:05.0315|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 9b117712-3ae3-43b3-adcb-0361a45c5d54 (/Content/themes/swiss/images/pixel.png)|
+2011-08-27 19:29:05.0315|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 9b117712-3ae3-43b3-adcb-0361a45c5d54 (/Content/themes/swiss/images/pixel.png)|
+2011-08-27 19:29:05.0315|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 9b117712-3ae3-43b3-adcb-0361a45c5d54 (/Content/themes/swiss/images/pixel.png)|
+2011-08-27 19:29:21.5185|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId decb1220-40de-44ad-abb0-a0a70473343e (/Post/Thread)|
+2011-08-27 19:29:21.5465|INFO|Glimpse.Core.Module|PostRequestHandlerExecute handling complete for requestId decb1220-40de-44ad-abb0-a0a70473343e (/Post/Thread)|
+2011-08-27 19:29:21.5465|INFO|Glimpse.Core.Module|PostReleaseRequestState handling complete for requestId decb1220-40de-44ad-abb0-a0a70473343e (/Post/Thread)|
+2011-08-27 19:29:21.5615|INFO|Glimpse.Core.Module|Glimpse JSON payload created for requestId decb1220-40de-44ad-abb0-a0a70473343e (/Post/Thread)|
+2011-08-27 19:29:21.5615|INFO|Glimpse.Core.Module|Glimpse output generated for requestId decb1220-40de-44ad-abb0-a0a70473343e (/Post/Thread)|
+2011-08-27 19:29:21.5615|INFO|Glimpse.Core.Module|RequestId decb1220-40de-44ad-abb0-a0a70473343e (/Post/Thread) persisted|
+2011-08-27 19:29:21.5615|INFO|Glimpse.Core.Module|EndRequest handling complete for requestId decb1220-40de-44ad-abb0-a0a70473343e (/Post/Thread)|
+2011-08-27 19:29:21.6305|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 55611ffb-12b3-497f-bbc4-d80502b27047 (/Glimpse.axd)|
+2011-08-27 19:29:21.6305|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 336df73b-ad01-44e6-84f4-dcd309c18852 (/Scripts/jquery-1.5.1.js)|
+2011-08-27 19:29:21.6305|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id 55611ffb-12b3-497f-bbc4-d80502b27047 (/Glimpse.axd)|
+2011-08-27 19:29:21.6305|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 336df73b-ad01-44e6-84f4-dcd309c18852 (/Scripts/jquery-1.5.1.js)|
+2011-08-27 19:29:21.6305|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 336df73b-ad01-44e6-84f4-dcd309c18852 (/Scripts/jquery-1.5.1.js)|
+2011-08-27 19:29:21.6305|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id 55611ffb-12b3-497f-bbc4-d80502b27047 (/Glimpse.axd)|
+2011-08-27 19:29:21.6415|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id 55611ffb-12b3-497f-bbc4-d80502b27047 (/Glimpse.axd)|
+2011-08-27 19:29:21.6545|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id 55611ffb-12b3-497f-bbc4-d80502b27047 (/Glimpse.axd)|
+2011-08-27 19:29:26.7108|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 035b24ba-749a-4a60-8f60-250eab3fd65b (/Post/Thread)|
+2011-08-27 19:29:26.7108|INFO|Glimpse.Core.Module|PostRequestHandlerExecute handling complete for requestId 035b24ba-749a-4a60-8f60-250eab3fd65b (/Post/Thread)|
+2011-08-27 19:29:26.7108|INFO|Glimpse.Core.Module|PostReleaseRequestState handling complete for requestId 035b24ba-749a-4a60-8f60-250eab3fd65b (/Post/Thread)|
+2011-08-27 19:29:26.7238|INFO|Glimpse.Core.Module|Glimpse JSON payload created for requestId 035b24ba-749a-4a60-8f60-250eab3fd65b (/Post/Thread)|
+2011-08-27 19:29:26.7408|INFO|Glimpse.Core.Module|Glimpse output generated for requestId 035b24ba-749a-4a60-8f60-250eab3fd65b (/Post/Thread)|
+2011-08-27 19:29:26.7408|INFO|Glimpse.Core.Module|RequestId 035b24ba-749a-4a60-8f60-250eab3fd65b (/Post/Thread) persisted|
+2011-08-27 19:29:26.7408|INFO|Glimpse.Core.Module|EndRequest handling complete for requestId 035b24ba-749a-4a60-8f60-250eab3fd65b (/Post/Thread)|
+2011-08-27 19:29:26.7838|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId 6eee5ef1-aaa0-4666-87ad-d266e3a1bc5c (/Scripts/jquery-1.5.1.js)|
+2011-08-27 19:29:26.7878|INFO|Glimpse.Core.Module|BeginRequest handling complete for requestId a248ddf4-1559-44b8-95d6-7d6e119f9c90 (/Glimpse.axd)|
+2011-08-27 19:29:26.7878|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 6eee5ef1-aaa0-4666-87ad-d266e3a1bc5c (/Scripts/jquery-1.5.1.js)|
+2011-08-27 19:29:26.7878|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ResponseCodeValidator invalided request (it will now be ignored) with id 6eee5ef1-aaa0-4666-87ad-d266e3a1bc5c (/Scripts/jquery-1.5.1.js)|
+2011-08-27 19:29:26.7878|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id a248ddf4-1559-44b8-95d6-7d6e119f9c90 (/Glimpse.axd)|
+2011-08-27 19:29:26.8008|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id a248ddf4-1559-44b8-95d6-7d6e119f9c90 (/Glimpse.axd)|
+2011-08-27 19:29:26.8008|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id a248ddf4-1559-44b8-95d6-7d6e119f9c90 (/Glimpse.axd)|
+2011-08-27 19:29:26.8008|WARN|Glimpse.Core.Validator.GlimpseRequestValidator|Glimpse.Core.Validator.ContentTypeValidator invalided request (it will now be ignored) with id a248ddf4-1559-44b8-95d6-7d6e119f9c90 (/Glimpse.axd)|
