@@ -21,5 +21,13 @@
 
     	    $("#publication-record-id").removeClass("error").removeClass("alert-message");
     	});
+        
+        if (window.location.href == window.parent.location.href) {
+    	    $("#remove-frame").hide();
+            $("#show-frame").show();
+        }else {
+            $("#remove-frame").show();
+            $("#show-frame").hide();
+        }
     });
 </script>
