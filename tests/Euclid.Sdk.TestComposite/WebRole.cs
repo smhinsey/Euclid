@@ -55,6 +55,8 @@ namespace Euclid.Sdk.TestComposite
 
 			composite.RegisterInputModel(new TestInputModelToCommandConverter());
 
+            composite.RegisterInputModel(new FailingInputModelToCommandConverter());
+
 			container.Register(Component.For<ICompositeApp>().Instance(composite));
 
 			setAzureCredentials(container);

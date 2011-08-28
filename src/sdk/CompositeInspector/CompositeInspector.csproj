@@ -74,6 +74,7 @@
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\CommandRegistryController.cs" />
     <Compile Include="Controllers\CompositeController.cs" />
+    <Compile Include="Controllers\FrameController.cs" />
     <Compile Include="Models\AgentListModel.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\AgentPartModel.cs" />
@@ -197,12 +198,12 @@
     <None Include="packages.config" />
     <EmbeddedResource Include="Views\Shared\Scripts.cshtml" />
     <EmbeddedResource Include="Views\Shared\Styles.cshtml" />
+    <EmbeddedResource Include="Views\Frame\Index.cshtml" />
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\Scripts\jquery-guid.js" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Content\Styles\jquery.ui.all.css" />
     <EmbeddedResource Include="Content\Styles\jquery.ui.autocomplete.css" />

@@ -21,6 +21,7 @@ using Euclid.Framework.Models;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using FluentNHibernate.Conventions.Instances;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using IQuery = Euclid.Framework.Cqrs.IQuery;
@@ -222,11 +223,11 @@ namespace Euclid.Composites
 		{
 			var autoMapperConfiguration = new AutoMapperConfiguration();
 
-			var assembliesToMap = new Dictionary<Assembly, Assembly>();
+            var assembliesToMap = new Dictionary<Assembly, Assembly>();
 
 			if (Settings.CommandPublicationRecordMapper.Value == typeof(NhRecordMapper<CommandPublicationRecord>))
 			{
-				mcfg.AutoMappings.Add(AutoMap.AssemblyOf<CommandPublicationRecord>(autoMapperConfiguration));
+                mcfg.AutoMappings.Add(AutoMap.AssemblyOf<CommandPublicationRecord>(autoMapperConfiguration).Conventions.Add<DefaultStringLengthConvention>());
 			}
 
 			foreach (var agent in Agents)

@@ -21,6 +21,7 @@ namespace CompositeInspector
             *   or the MvcContrib.EmbeddedResourceController won't find them
             ********************************/
 
+
 			context.MapRoute(
 				"CompositeInspector-Images",
 				"CompositeInspector/Images/{resourceName}",
@@ -101,7 +102,7 @@ namespace CompositeInspector
 			context.MapRoute(
 				"CompositeInspector-default",
 				"CompositeInspector/{controller}/{action}",
-				new { controller = "Composite", action = "Index" });
+				new { controller = "Frame", action = "Index" });
 
 			RegisterAreaEmbeddedResources();
 		}

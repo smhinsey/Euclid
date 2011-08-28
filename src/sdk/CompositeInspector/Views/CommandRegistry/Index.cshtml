@@ -3,20 +3,43 @@
 @model PublishedCommandsModel
 
 <script type="text/javascript">
-    $(document).ready(function() {
-    	$("#error-details").dialog({ autoOpen: false });
-    	$("#error").click(function() {
-    		var msg = $("#error").attr("message");
-    		var stack = $("#error").attr("callstack");
+    $(document).ready(function () {
 
-    		$("#error-message").html("<strong>Message</strong><br/>" + msg);
-    		$("#call-stack").html("<strong>Call Stack</strong><br/>" + stack);
-    		$("#error-details").dialog("open");
-    	});
+
+        $(".error").click(function () {
+
+            if ($("#error-row").is(":visible")) {
+                $(this).html("Show");
+                hideRow();
+            }
+            else {
+                $(this).html("Hide");
+                
+                var msg = $(this).attr("message");
+                var stack = $(this).attr("callstack");
+        
+
+                showRow($(this).parent().parent(), msg, stack);
+            }
+        });
     });
+    
+    function hideRow() {
+        $("#error-row").hide();        
+    }
+
+    function showRow(parentRow, msg, stack) {
+        hideRow();
+
+        $("#error-message").html(msg);
+        $("#call-stack").html(stack);
+        
+        $("#error-row").insertAfter($(parentRow));
+        $("#error-row").show(164);
+    }
 </script>
 				 
-<h2>Publication Records</h2>
+<h5>Publication Records</h5>
 
 @if (Model.Records.Count() == 0)
 {
@@ -26,7 +49,7 @@
 }
 else
 {
-	<table class="gridtable">
+	<table class="zebra-striped">
 		<tr>
 			<th>Id</th>
 			<th>Created</th>
@@ -44,7 +67,7 @@ else
 				<td>
 					@if (@pub.Error)
 					{
-						<a href="#" id="error" message="@pub.ErrorMessage" callstack="@pub.CallStack">@pub.Error</a>
+						<a href="#" class="error"  message="@pub.ErrorMessage" callstack="@pub.CallStack">Show</a>
 					}
 					else
 					{
@@ -58,7 +81,20 @@ else
 	</table>
 }
 
-<div id="error-details" title="Error Details">
-	<div id="error-message"></div>
-	<div id="call-stack"></div>
-</div>
+<table>
+    <tr id="error-row" style="display: none;">
+        <td colspan="6">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="span3 columns">
+                        <span id="error-message"></span>
+                    </div>
+
+                    <div class="span11 columns">
+                        <span id="call-stack"></span>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>

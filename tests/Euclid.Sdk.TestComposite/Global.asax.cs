@@ -18,9 +18,9 @@ namespace Euclid.Sdk.TestComposite
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.IgnoreRoute("favicon.ico");
-			//routes.MapRoute(
-			//                "Default", "{controller}/{action}/{id}", 
-			//                new {controller = "Post", action = "List", id = UrlParameter.Optional});
+            routes.MapRoute(
+                            "Default", "{controller}/{action}",
+                            new { controller = "Home", action = "Index" });
 		}
 
 		protected void Application_Start()
