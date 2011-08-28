@@ -11,7 +11,7 @@
     	    var pubId = $("#publication-record-id").val().toUpperCase();
     	    if (e.keyCode == 13 && pubId != "") {
     	        if (!$.Guid.IsValid(pubId)) {
-    	            $("#publication-record-id").css("background-color", "red");
+    	            $("#publication-record-id").addClass("alert-message").addClass("error");
     	        } else {
     	            window.location.href = "@Url.Content("~/compositeinspector/commandregistry")/" + pubId;
     	        }
@@ -19,7 +19,7 @@
     	        return false;
     	    }
 
-    	    $("#publication-record-id").css("background-color", "white");
+    	    $("#publication-record-id").removeClass("error").removeClass("alert-message");
     	});
     });
 </script>

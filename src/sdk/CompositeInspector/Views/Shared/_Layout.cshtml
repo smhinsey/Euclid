@@ -41,18 +41,14 @@
 
 		<div class="row show-grid">
 
-			<div class="span4 columns">
-				<a href="@Url.Action("Index", "Composite")" class="metadata-link">Composite details</a>
+            <div class="span5 columns">
+                <a href="@Url.Action("Remove", "Frame")" class="btn primary" id="remove-frame" target="_parent">Remove Frame</a>
+            </div>
+
+			<div class="span5 columns">
+				<input type="text" placeholder="Get publication by id" id="publication-record-id" class="guid-input" />
 			</div>
 
-			<div class="span4 columns">
-				<a class="metadata-link" href="@Url.Action("Index", "CommandRegistry")">Command registry</a>
-			</div>
-
-			<div class="span8 columns">
-				View publication record:
-				<input type="text" id="publication-record-id" class="guid-input" />
-			</div>
 
 		</div>
 
