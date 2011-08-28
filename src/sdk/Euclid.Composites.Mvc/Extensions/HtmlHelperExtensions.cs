@@ -9,6 +9,7 @@ namespace Euclid.Composites.Mvc.Extensions
     {
         public static MvcForm BeginFormForInputModel(this HtmlHelper helper, IInputModel inputModel)
         {
+            // jt: we can deduce the AgentSystemName & PartName w/out requiring them to be explicitly set on the inputmodel
             var form = helper.BeginForm("Publish", "Agents", new { area = "CompositeInspector" }, FormMethod.Post);
 
             var tagBuilder = new TagBuilder("input");
