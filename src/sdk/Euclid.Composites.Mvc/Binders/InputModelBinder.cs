@@ -26,7 +26,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 	    public bool IsMatch(Type modelType)
 		{
-			return typeof (IInputModel).IsAssignableFrom(modelType);
+			return typeof(IInputModel).IsAssignableFrom(modelType);
 		}
 	}
 }

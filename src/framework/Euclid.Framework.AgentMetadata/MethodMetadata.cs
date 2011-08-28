@@ -18,14 +18,14 @@ namespace Euclid.Framework.AgentMetadata
 			ReturnType = mi.ReturnType;
 			Arguments =
 				mi.GetParameters().Select(
-				                          param =>
-				                          new ArgumentMetadata
-				                          	{
-				                          		DefaultValue = param.RawDefaultValue == DBNull.Value ? null : param.RawDefaultValue, 
-				                          		Name = param.Name, 
-				                          		Order = param.Position, 
-				                          		PropertyType = param.ParameterType
-				                          	}).OrderBy(param => param.Order);
+					param =>
+					new ArgumentMetadata
+						{
+							DefaultValue = param.RawDefaultValue == DBNull.Value ? null : param.RawDefaultValue,
+							Name = param.Name,
+							Order = param.Position,
+							PropertyType = param.ParameterType
+						}).OrderBy(param => param.Order);
 		}
 
 		public IEnumerable<IArgumentMetadata> Arguments { get; set; }

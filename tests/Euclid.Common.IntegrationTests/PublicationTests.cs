@@ -43,7 +43,7 @@ namespace Euclid.Common.IntegrationTests
 
 			var created = DateTime.Now;
 
-			var msg = new FakeMessage {Created = created, CreatedBy = createdById, Identifier = msgId};
+			var msg = new FakeMessage { Created = created, CreatedBy = createdById, Identifier = msgId };
 
 			var record = _publicationRegistry.PublishMessage(msg);
 
@@ -57,7 +57,7 @@ namespace Euclid.Common.IntegrationTests
 
 			var receivedRecord = receivedMsg as FakePublicationRecord;
 
-			Assert.AreEqual(typeof (FakeMessage), receivedRecord.MessageType);
+			Assert.AreEqual(typeof(FakeMessage), receivedRecord.MessageType);
 
 			var blob = _blobStorage.Get(receivedRecord.MessageLocation);
 
@@ -67,7 +67,7 @@ namespace Euclid.Common.IntegrationTests
 
 			Assert.NotNull(storedMessage);
 
-			Assert.AreEqual(typeof (FakeMessage), storedMessage.GetType());
+			Assert.AreEqual(typeof(FakeMessage), storedMessage.GetType());
 
 			_channel.Close();
 		}

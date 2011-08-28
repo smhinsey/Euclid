@@ -12,3 +12,4 @@ nuget/temp
 nuget/Euclid.*.nupkg
 *.dotCover
 *.orig
+*.log

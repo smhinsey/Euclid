@@ -1,7 +1,7 @@
+
+d:\Projects\Euclid\platform>@git.exe %*
 ﻿using System;
 using System.Web.Mvc;
-using Euclid.Composites.Conversion;
-using Euclid.Composites.Mvc.ActionFilters;
 using ForumAgent.Queries;
 using ForumComposite.Models;
 
@@ -10,9 +10,18 @@ namespace ForumComposite.Controllers
 	public class PostController : Controller
 	{
 		private readonly PostQueries _postQueries;
-	    public PostController(PostQueries postQueries)
+
+		private readonly CommentQueries _commentQueries;
+
+		public PostController(PostQueries postQueries, CommentQueries commentQueries)
 		{
 			_postQueries = postQueries;
+			_commentQueries = commentQueries;
+		}
+
+		public ActionResult AddComment()
+		{
+			return View(new CommentOnPostInputModel());
 		}
 
 		public ActionResult Create()
@@ -24,25 +33,19 @@ namespace ForumComposite.Controllers
 		{
 			var posts = _postQueries.FindByCreationDate(DateTime.Now.AddDays(-5), DateTime.Now);
 
-			return View();
+			return View(posts);
 		}
 
 		public ActionResult Thread()
 		{
-			return View();
-		}
+			var comments = _commentQueries.FindCommentsBelongingToPost(Guid.NewGuid());
 
-		public ActionResult AddComment()
-		{
-			return View();
+			return View(comments);
 		}
-
-        [HttpPost]
-        [CommandPublisher]
-        public ActionResult Create(Guid publicationId)
-        {
-            return RedirectToAction("Details", "CommandRegistry",
-                                    new {area = "CompositeInspector", publicationId});
-        }
 	}
 }
+d:\Projects\Euclid\platform>@set ErrorLevel=%ErrorLevel%
+
+d:\Projects\Euclid\platform>@rem Restore the original console codepage.
+
+d:\Projects\Euclid\platform>@chcp %cp_oem% > nul < nul

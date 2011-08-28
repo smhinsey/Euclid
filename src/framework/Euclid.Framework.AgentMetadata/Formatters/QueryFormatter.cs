@@ -20,9 +20,9 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 		protected override string GetAsXml()
 		{
 			var root = new XElement(
-				"Query", 
-				new XElement("AgentSystemName", _agentMetadata.SystemName), 
-				new XElement("Namespace", _partMetadata.Namespace), 
+				"Query",
+				new XElement("AgentSystemName", _agentMetadata.SystemName),
+				new XElement("Namespace", _partMetadata.Namespace),
 				new XElement("Name", _partMetadata.Name));
 
 			var methods = new XElement("Methods");
@@ -37,8 +37,8 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 				foreach (var arg in method.Arguments.OrderBy(a => a.Order))
 				{
 					args.Add(
-					         new XElement(
-					         	"Argument", new XElement("ArgumentType", arg.PropertyType.Name), new XElement("ArgumentName", arg.Name)));
+						new XElement(
+							"Argument", new XElement("ArgumentType", arg.PropertyType.Name), new XElement("ArgumentName", arg.Name)));
 				}
 
 				m.Add(args);
@@ -53,26 +53,20 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			return
 				new
 					{
-						AgentSystemName = _agentMetadata.SystemName, 
-						_partMetadata.Namespace, 
-						_partMetadata.Name, 
+						AgentSystemName = _agentMetadata.SystemName,
+						_partMetadata.Namespace,
+						_partMetadata.Name,
 						Methods =
 							_partMetadata.Methods.Select(
-							                             method =>
-							                             new
-							                             	{
-							                             		Arguments =
-							                             	method.Arguments.OrderBy(a => a.Order).Select(
-							                             	                                              a =>
-							                             	                                              new
-							                             	                                              	{
-							                             	                                              		ArgumentType =
-							                             	                                              	a.PropertyType.Name, 
-							                             	                                              		ArgumentName = a.Name
-							                             	                                              	}), 
-							                             		ReturnType = GetFormattedReturnType(method), 
-							                             		method.Name
-							                             	})
+								method =>
+								new
+									{
+										Arguments =
+									method.Arguments.OrderBy(a => a.Order).Select(
+										a => new { ArgumentType = a.PropertyType.Name, ArgumentName = a.Name }),
+										ReturnType = GetFormattedReturnType(method),
+										method.Name
+									})
 					};
 		}
 

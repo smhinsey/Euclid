@@ -10,7 +10,10 @@ namespace Euclid.Framework.Agent
 
 		public string Namespace
 		{
-			get { return _ns; }
+			get
+			{
+				return _ns;
+			}
 
 			set
 			{
@@ -21,7 +24,10 @@ namespace Euclid.Framework.Agent
 
 		public Type NamespaceOfType
 		{
-			get { return _type; }
+			get
+			{
+				return _type;
+			}
 
 			set
 			{

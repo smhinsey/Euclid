@@ -18,6 +18,14 @@ namespace Euclid.Common.Configuration
 
 		public bool WasOverridden { get; private set; }
 
+		public void ApplyOverride(Type newValue)
+		{
+			Value = newValue;
+			WasOverridden = true;
+
+			Validate();
+		}
+
 		public virtual string GetInvalidReason()
 		{
 			if (!IsValid())
@@ -29,9 +37,9 @@ namespace Euclid.Common.Configuration
 				{
 					message.AppendFormat(" is null");
 				}
-				else if (!typeof (TImplements).IsAssignableFrom(Value))
+				else if (!typeof(TImplements).IsAssignableFrom(Value))
 				{
-					message.AppendFormat(" does not implement {0}", typeof (TImplements).Name);
+					message.AppendFormat(" does not implement {0}", typeof(TImplements).Name);
 				}
 
 				return message.ToString();
@@ -42,7 +50,7 @@ namespace Euclid.Common.Configuration
 
 		public virtual bool IsValid()
 		{
-			return Value != null && typeof (TImplements).IsAssignableFrom(Value);
+			return Value != null && typeof(TImplements).IsAssignableFrom(Value);
 		}
 
 		public virtual void Validate()
@@ -52,18 +60,10 @@ namespace Euclid.Common.Configuration
 				throw new NullSettingException(Name);
 			}
 
-			if (!typeof (TImplements).IsAssignableFrom(Value))
+			if (!typeof(TImplements).IsAssignableFrom(Value))
 			{
-				throw new InvalidTypeSettingException(Name, typeof (TImplements), Value);
+				throw new InvalidTypeSettingException(Name, typeof(TImplements), Value);
 			}
-		}
-
-		public void ApplyOverride(Type newValue)
-		{
-			Value = newValue;
-			WasOverridden = true;
-
-			Validate();
 		}
 
 		public void WithDefault(Type value)

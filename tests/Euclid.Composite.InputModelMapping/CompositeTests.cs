@@ -18,19 +18,16 @@ namespace Euclid.Composite.InputModelMapping
 		{
 			var container = new WindsorContainer();
 
-		    var composite = new BasicCompositeApp(container)
-		                        {
-		                            Name = "Euclid.Composite.InputModelMapping.CompositeTests",
-		                            Description = "A composite used for testing"
-		                        };
+			var composite = new BasicCompositeApp(container)
+				{ Name = "Euclid.Composite.InputModelMapping.CompositeTests", Description = "A composite used for testing" };
 
-			composite.AddAgent(typeof (TestCommand).Assembly);
+			composite.AddAgent(typeof(TestCommand).Assembly);
 
 			composite.RegisterNh(SQLiteConfiguration.Standard.UsingFile("CompositeTestsDb"), true, false);
 
 			var settings = new CompositeAppSettings();
 
-			settings.OutputChannel.ApplyOverride(typeof (InMemoryMessageChannel));
+			settings.OutputChannel.ApplyOverride(typeof(InMemoryMessageChannel));
 
 			composite.Configure(settings);
 

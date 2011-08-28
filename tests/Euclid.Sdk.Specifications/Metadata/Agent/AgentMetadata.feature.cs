@@ -8,6 +8,7 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
 
 using System.Globalization;
@@ -19,8 +20,7 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
 	[NUnit.Framework.TestFixtureAttribute()]
 	[NUnit.Framework.DescriptionAttribute(
-		"In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" +
-		"a in arbitrary formats")]
+		"In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" + "a in arbitrary formats")]
 	[NUnit.Framework.CategoryAttribute("SdkSpecs")]
 	[NUnit.Framework.CategoryAttribute("MetadataService")]
 	[NUnit.Framework.CategoryAttribute("AgentMetadata")]
@@ -35,16 +35,12 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 		public virtual void FeatureSetup()
 		{
 			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-			var featureInfo = new FeatureInfo(new CultureInfo("en-US"), 
-			                                                    "Euclid agents provide metadata", 
-			                                                    "In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" +
-			                                                    "a in arbitrary formats", ProgrammingLanguage.CSharp, 
-			                                                    new[]
-			                                                    	{
-			                                                    		"SdkSpecs", 
-			                                                    		"MetadataService", 
-			                                                    		"AgentMetadata"
-			                                                    	});
+			var featureInfo = new FeatureInfo(
+				new CultureInfo("en-US"),
+				"Euclid agents provide metadata",
+				"In order to satisfy requests for metadata\r\nAs an agent\r\nI need to provide metadat" + "a in arbitrary formats",
+				ProgrammingLanguage.CSharp,
+				new[] { "SdkSpecs", "MetadataService", "AgentMetadata" });
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -82,11 +78,10 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 		[NUnit.Framework.TestCaseAttribute("basic", "json", "application/json", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("full", "xml", "text/xml", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("full", "json", "application/json", new string[0])]
-		public virtual void AgentsHave2TypesOfMetadataRepresentations
-			(string representation_Type, string format_Name, string content_Type, string[] exampleTags)
+		public virtual void AgentsHave2TypesOfMetadataRepresentations(
+			string representation_Type, string format_Name, string content_Type, string[] exampleTags)
 		{
-			var scenarioInfo = new ScenarioInfo(": Agents have 2 types of metadata representations", 
-			                                                      exampleTags);
+			var scenarioInfo = new ScenarioInfo(": Agents have 2 types of metadata representations", exampleTags);
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -111,8 +106,8 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 		[NUnit.Framework.TestCaseAttribute("query", "json", "application/json", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("readmodel", "xml", "text/xml", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("readmodel", "json", "application/json", new string[0])]
-		public virtual void AgentPartsProvideFormattedMetadata
-			(string agent_Part, string format_Name, string content_Type, string[] exampleTags)
+		public virtual void AgentPartsProvideFormattedMetadata(
+			string agent_Part, string format_Name, string content_Type, string[] exampleTags)
 		{
 			var scenarioInfo = new ScenarioInfo("Agent parts provide formatted metadata", exampleTags);
 #line 21
@@ -137,11 +132,10 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 		[NUnit.Framework.TestCaseAttribute("queries", "json", "application/json", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("readmodels", "xml", "text/xml", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("readmodels", "json", "application/json", new string[0])]
-		public virtual void AgentPartCollectionsProvideFormattedMetadata
-			(string descriptive_Name, string format_Name, string content_Type, string[] exampleTags)
+		public virtual void AgentPartCollectionsProvideFormattedMetadata(
+			string descriptive_Name, string format_Name, string content_Type, string[] exampleTags)
 		{
-			var scenarioInfo = new ScenarioInfo("Agent part collections provide formatted metadata", 
-			                                                      exampleTags);
+			var scenarioInfo = new ScenarioInfo("Agent part collections provide formatted metadata", exampleTags);
 #line 39
 			this.ScenarioSetup(scenarioInfo);
 #line 40
@@ -162,12 +156,11 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 		[NUnit.Framework.TestCaseAttribute("basic", "json", "application/json", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("full", "xml", "text/xml", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("full", "json", "application/json", new string[0])]
-		public virtual void CollectionsOfAgentMetadataProvide2TypesOfFormattedMetadata
-			(string representation_Type, string format_Name, string content_Type, string[] exampleTags)
+		public virtual void CollectionsOfAgentMetadataProvide2TypesOfFormattedMetadata(
+			string representation_Type, string format_Name, string content_Type, string[] exampleTags)
 		{
-			var scenarioInfo =
-				new ScenarioInfo("Collections of agent metadata provide 2 types of formatted metadata", 
-				                                   exampleTags);
+			var scenarioInfo = new ScenarioInfo(
+				"Collections of agent metadata provide 2 types of formatted metadata", exampleTags);
 #line 54
 			this.ScenarioSetup(scenarioInfo);
 #line 55

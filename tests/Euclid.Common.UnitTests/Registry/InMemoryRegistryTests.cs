@@ -39,7 +39,7 @@ namespace Euclid.Common.UnitTests.Registry
 		{
 			var start = DateTime.Now;
 			var createdById = new Guid("CBE5D20E-9B5A-46DF-B2FF-93B5F45A3460");
-			var record = _registryTester.CreateRecord(new FakeMessage {Created = start, CreatedBy = createdById});
+			var record = _registryTester.CreateRecord(new FakeMessage { Created = start, CreatedBy = createdById });
 
 			var message = _registryTester.GetMessage(record);
 

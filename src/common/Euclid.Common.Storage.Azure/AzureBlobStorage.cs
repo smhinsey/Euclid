@@ -36,10 +36,7 @@ namespace Euclid.Common.Storage.Azure
 			var target = container.GetBlobReference(uri.ToString());
 
 			target.Delete(
-			              new BlobRequestOptions
-			              	{
-                     DeleteSnapshotsOption = DeleteSnapshotsOption.IncludeSnapshots, UseFlatBlobListing = true
-                  });
+				new BlobRequestOptions { DeleteSnapshotsOption = DeleteSnapshotsOption.IncludeSnapshots, UseFlatBlobListing = true });
 		}
 
 		public bool Exists(Uri uri)
@@ -66,7 +63,7 @@ namespace Euclid.Common.Storage.Azure
 		{
 			IBlob blob = null;
 
-			var options = new BlobRequestOptions {BlobListingDetails = BlobListingDetails.Metadata};
+			var options = new BlobRequestOptions { BlobListingDetails = BlobListingDetails.Metadata };
 
 			var container = getContainer();
 			var target = container.GetBlobReference(uri.ToString());
@@ -75,10 +72,7 @@ namespace Euclid.Common.Storage.Azure
 			{
 				target.FetchAttributes();
 				blob = new Blob(target.Properties.ContentMD5, target.Properties.ETag)
-				       	{
-				       		Content = target.DownloadByteArray(), 
-				       		ContentType = target.Properties.ContentType, 
-				       	};
+					{ Content = target.DownloadByteArray(), ContentType = target.Properties.ContentType, };
 
 				foreach (var key in target.Metadata.AllKeys)
 				{
@@ -101,8 +95,7 @@ namespace Euclid.Common.Storage.Azure
 			try
 			{
 				var blobName = string.Format(
-				                             "{2}.{0}.{1}", name, MimeTypes.GetExtensionFromContentType(blob.ContentType), 
-				                             Guid.NewGuid());
+					"{2}.{0}.{1}", name, MimeTypes.GetExtensionFromContentType(blob.ContentType), Guid.NewGuid());
 
 				var azureBlob = container.GetBlobReference(blobName);
 
@@ -136,7 +129,7 @@ namespace Euclid.Common.Storage.Azure
 			if (!_init)
 			{
 				container.CreateIfNotExist();
-				container.SetPermissions(new BlobContainerPermissions {PublicAccess = BlobContainerPublicAccessType.Container});
+				container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
 				_init = true;
 			}
 

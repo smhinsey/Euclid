@@ -37,7 +37,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 		public bool IsMatch(Type modelType)
 		{
-			return typeof (IAgentPart).IsAssignableFrom(modelType);
+			return typeof(IAgentPart).IsAssignableFrom(modelType);
 		}
 	}
 }

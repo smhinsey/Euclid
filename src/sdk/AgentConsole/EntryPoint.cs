@@ -12,8 +12,8 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using Euclid.Sdk.TestAgent.Commands;
 using FluentNHibernate.Cfg.Db;
-using log4net.Config;
 using Microsoft.WindowsAzure;
+using log4net.Config;
 
 namespace AgentConsole
 {
@@ -29,19 +29,15 @@ namespace AgentConsole
 
 			var fabric = new ConsoleFabric(container);
 
-		    var composite = new BasicCompositeApp(container)
-		                        {
-		                            Name = "AgentConsole Composite",
-		                            Description = "The composite app used by the agent console"
-		                        };
+			var composite = new BasicCompositeApp(container)
+				{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
 
 			try
 			{
 				composite.RegisterNh(
-				                     MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), 
-				                     true, false);
+					MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
 
-				composite.AddAgent(typeof (TestCommand).Assembly);
+				composite.AddAgent(typeof(TestCommand).Assembly);
 
 				composite.Configure(getCompositeSettings());
 
@@ -66,11 +62,11 @@ namespace AgentConsole
 		{
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
+			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
 
-			compositeAppSettings.OutputChannel.WithDefault(typeof (AzureMessageChannel));
+			compositeAppSettings.OutputChannel.WithDefault(typeof(AzureMessageChannel));
 
-			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
 
 			return compositeAppSettings;
 		}
@@ -79,8 +75,8 @@ namespace AgentConsole
 		{
 			var fabricSettings = new FabricRuntimeSettings();
 
-			fabricSettings.ServiceHost.WithDefault(typeof (MultitaskingServiceHost));
-			fabricSettings.HostedServices.WithDefault(new List<Type> {typeof (CommandHost)});
+			fabricSettings.ServiceHost.WithDefault(typeof(MultitaskingServiceHost));
+			fabricSettings.HostedServices.WithDefault(new List<Type> { typeof(CommandHost) });
 
 			var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
 
@@ -99,9 +95,9 @@ namespace AgentConsole
 		private static void setAzureCredentials(IWindsorContainer container)
 		{
 			var storageAccount = new CloudStorageAccount(
-				CloudStorageAccount.DevelopmentStorageAccount.Credentials, 
-				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint, 
-				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint, 
+				CloudStorageAccount.DevelopmentStorageAccount.Credentials,
+				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
+				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
 				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));

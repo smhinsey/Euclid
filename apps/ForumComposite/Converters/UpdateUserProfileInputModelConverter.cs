@@ -11,12 +11,18 @@ namespace ForumComposite.Converters
 	{
 		public Type CommandType
 		{
-			get { return typeof(UpdateUserProfile); }
+			get
+			{
+				return typeof(UpdateUserProfile);
+			}
 		}
 
 		public Type InputModelType
 		{
-			get { return typeof(UpdateUserProfileInputModel); }
+			get
+			{
+				return typeof(UpdateUserProfileInputModel);
+			}
 		}
 
 		public ICommand Convert(ResolutionContext context)
@@ -37,6 +43,6 @@ namespace ForumComposite.Converters
 			command.UserIdentifier = model.UserIdentifier;
 
 			return command;
-		} 
+		}
 	}
 }

@@ -25,29 +25,16 @@ namespace Euclid.Common.IntegrationTests.Transport
 		public void Setup()
 		{
 			CloudStorageAccount.SetConfigurationSettingPublisher(
-			                                                     (configurationKey, publishConfigurationValue) =>
-			                                                     	{
-			                                                     		var connectionString = RoleEnvironment.IsAvailable
-			                                                     		                       	? RoleEnvironment.
-			                                                     		                       	  	GetConfigurationSettingValue(
-			                                                     		                       	  	                             configurationKey)
-			                                                     		                       	: ConfigurationManager.AppSettings[
-			                                                     		                       	                                   configurationKey
-			                                                     		                       	  	];
+				(configurationKey, publishConfigurationValue) =>
+					{
+						var connectionString = RoleEnvironment.IsAvailable
+						                       	? RoleEnvironment.GetConfigurationSettingValue(configurationKey)
+						                       	: ConfigurationManager.AppSettings[configurationKey];
 
-			                                                     		publishConfigurationValue(connectionString);
-			                                                     	});
+						publishConfigurationValue(connectionString);
+					});
 
 			_serializer = new JsonMessageSerializer();
-		}
-
-		private static void SendMessages(IMessageChannel channel, int numberOfMessagesToCreate)
-		{
-			for (var i = 0; i < numberOfMessagesToCreate; i++)
-			{
-				var msg = TestTransport.GetNewMessage();
-				channel.Send(msg);
-			}
 		}
 
 		[Test]
@@ -60,8 +47,7 @@ namespace Euclid.Common.IntegrationTests.Transport
 		public void TestScaleAsynchronously()
 		{
 			TestTransport.TestThroughputAsynchronously(
-			                                           new AzureMessageChannel(_serializer), LargeNumber, NumberOfThreads, 
-			                                           AzureMaxReceiveAmount);
+				new AzureMessageChannel(_serializer), LargeNumber, NumberOfThreads, AzureMaxReceiveAmount);
 		}
 
 		[Test]
@@ -92,6 +78,15 @@ namespace Euclid.Common.IntegrationTests.Transport
 		public void TestTimeout()
 		{
 			TestTransport.ReceiveTimeout(new AzureMessageChannel(_serializer));
+		}
+
+		private static void SendMessages(IMessageChannel channel, int numberOfMessagesToCreate)
+		{
+			for (var i = 0; i < numberOfMessagesToCreate; i++)
+			{
+				var msg = TestTransport.GetNewMessage();
+				channel.Send(msg);
+			}
 		}
 	}
 }

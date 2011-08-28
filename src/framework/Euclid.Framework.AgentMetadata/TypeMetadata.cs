@@ -38,4 +38,5 @@ namespace Euclid.Framework.AgentMetadata
 			return FormattableMetadataFactory.GetFormatter(this);
 		}
 	}
+
 }

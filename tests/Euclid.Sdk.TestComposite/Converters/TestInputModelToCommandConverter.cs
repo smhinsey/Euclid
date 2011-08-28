@@ -11,12 +11,18 @@ namespace Euclid.Sdk.TestComposite.Converters
 	{
 		public Type CommandType
 		{
-			get { return typeof (TestCommand); }
+			get
+			{
+				return typeof(TestCommand);
+			}
 		}
 
 		public Type InputModelType
 		{
-			get { return typeof (TestInputModel); }
+			get
+			{
+				return typeof(TestInputModel);
+			}
 		}
 
 		public ICommand Convert(ResolutionContext context)

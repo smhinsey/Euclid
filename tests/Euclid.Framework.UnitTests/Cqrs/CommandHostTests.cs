@@ -13,8 +13,8 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.Cqrs.Settings;
 using Euclid.Framework.TestingFakes.Cqrs;
 using Euclid.TestingSupport;
-using log4net.Config;
 using NUnit.Framework;
+using log4net.Config;
 
 namespace Euclid.Framework.UnitTests.Cqrs
 {
@@ -22,72 +22,11 @@ namespace Euclid.Framework.UnitTests.Cqrs
 	[Category(TestCategories.Unit)]
 	public class CommandHostTests
 	{
-		#region Setup/Teardown
-
-		[SetUp]
-		public void Setup()
-		{
-			BasicConfigurator.Configure();
-
-			ConfigureContainer();
-
-			_dispatcherSettings = new MessageDispatcherSettings();
-
-			_dispatcherSettings.InvalidChannel.WithDefault(_container.Resolve<IMessageChannel>("invalid"));
-			_dispatcherSettings.InputChannel.WithDefault(_container.Resolve<IMessageChannel>("input"));
-			_dispatcherSettings.NumberOfMessagesToDispatchPerSlice.WithDefault(20);
-			_dispatcherSettings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 500));
-			_dispatcherSettings.MessageProcessorTypes.WithDefault(new List<Type> {typeof (FakeCommandProcessor)});
-
-			_locator = new WindsorServiceLocator(_container);
-		}
-
-		#endregion
-
 		private IWindsorContainer _container;
 
 		private IMessageDispatcherSettings _dispatcherSettings;
 
 		private WindsorServiceLocator _locator;
-
-		private void ConfigureContainer()
-		{
-			_container = new WindsorContainer();
-			_container.Register(
-			                    Component.For<IRecordMapper<CommandPublicationRecord>>().Instance(
-			                                                                                      new InMemoryRecordMapper<CommandPublicationRecord>()));
-
-			_container.Register(Component.For<IBlobStorage>().Instance(new InMemoryBlobStorage()));
-
-			_container.Register(Component.For<IMessageSerializer>().Instance(new JsonMessageSerializer()));
-
-			_container.Register(Component.For<IMessageChannel>().Instance(new InMemoryMessageChannel()).Named("input"));
-
-			_container.Register(Component.For<IMessageChannel>().Instance(new InMemoryMessageChannel()).Named("invalid"));
-
-			_container.Register(Component.For<FakeCommandProcessor>().ImplementedBy(typeof (FakeCommandProcessor)));
-		}
-
-		private CommandHost GetCommandHost()
-		{
-			var dispatchers = new List<ICommandDispatcher>();
-			var dispatcher = new CommandDispatcher(_locator, GetRegistry());
-
-			dispatcher.Configure(_dispatcherSettings);
-
-			dispatchers.Add(dispatcher);
-
-			return new CommandHost(dispatchers);
-		}
-
-		private ICommandRegistry GetRegistry()
-		{
-			var repo = _locator.GetInstance<IRecordMapper<CommandPublicationRecord>>();
-			var blob = _locator.GetInstance<IBlobStorage>();
-			var serializer = _locator.GetInstance<IMessageSerializer>();
-
-			return new CommandRegistry(repo, blob, serializer);
-		}
 
 		// private IList<ICommandDispatcher> _dispatchers = new List<ICommandDispatcher>();
 		[Test]
@@ -161,22 +100,37 @@ namespace Euclid.Framework.UnitTests.Cqrs
 			// container.Register<
 		}
 
+		[SetUp]
+		public void Setup()
+		{
+			BasicConfigurator.Configure();
+
+			ConfigureContainer();
+
+			_dispatcherSettings = new MessageDispatcherSettings();
+
+			_dispatcherSettings.InvalidChannel.WithDefault(_container.Resolve<IMessageChannel>("invalid"));
+			_dispatcherSettings.InputChannel.WithDefault(_container.Resolve<IMessageChannel>("input"));
+			_dispatcherSettings.NumberOfMessagesToDispatchPerSlice.WithDefault(20);
+			_dispatcherSettings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 500));
+			_dispatcherSettings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeCommandProcessor) });
+
+			_locator = new WindsorServiceLocator(_container);
+		}
+
 		[Test]
 		public void TestFluentConfiguration()
 		{
 			var c =
 				CommandHostService.Configure().AddDispatcher(
-				                                             Dispatcher.Configure().AddCommandProcessor<FakeCommandProcessor>().
-				                                             	InputChannelAs<InMemoryMessageChannel>().
-				                                             	InvalidChannelAs<InMemoryMessageChannel>().BlobStorageAs
-				                                             	<InMemoryBlobStorage>().RecordRepositoryAs
-				                                             	<InMemoryRecordMapper<CommandPublicationRecord>>().CommandSerializerAs
-				                                             	<JsonMessageSerializer>().PollingInterval().
-				                                             	Milliseconds(50).ProcessMessageInBatchesOf(25)).GetCommandHost();
+					Dispatcher.Configure().AddCommandProcessor<FakeCommandProcessor>().InputChannelAs<InMemoryMessageChannel>().
+						InvalidChannelAs<InMemoryMessageChannel>().BlobStorageAs<InMemoryBlobStorage>().RecordRepositoryAs
+						<InMemoryRecordMapper<CommandPublicationRecord>>().CommandSerializerAs<JsonMessageSerializer>().PollingInterval().
+						Milliseconds(50).ProcessMessageInBatchesOf(25)).GetCommandHost();
 
 			Assert.NotNull(c);
 
-			Assert.AreEqual(typeof (CommandHost), c.GetType());
+			Assert.AreEqual(typeof(CommandHost), c.GetType());
 
 			c.Start();
 
@@ -185,6 +139,45 @@ namespace Euclid.Framework.UnitTests.Cqrs
 			c.Cancel();
 
 			Assert.AreEqual(HostedServiceState.Stopped, c.State);
+		}
+
+		private void ConfigureContainer()
+		{
+			_container = new WindsorContainer();
+			_container.Register(
+				Component.For<IRecordMapper<CommandPublicationRecord>>().Instance(
+					new InMemoryRecordMapper<CommandPublicationRecord>()));
+
+			_container.Register(Component.For<IBlobStorage>().Instance(new InMemoryBlobStorage()));
+
+			_container.Register(Component.For<IMessageSerializer>().Instance(new JsonMessageSerializer()));
+
+			_container.Register(Component.For<IMessageChannel>().Instance(new InMemoryMessageChannel()).Named("input"));
+
+			_container.Register(Component.For<IMessageChannel>().Instance(new InMemoryMessageChannel()).Named("invalid"));
+
+			_container.Register(Component.For<FakeCommandProcessor>().ImplementedBy(typeof(FakeCommandProcessor)));
+		}
+
+		private CommandHost GetCommandHost()
+		{
+			var dispatchers = new List<ICommandDispatcher>();
+			var dispatcher = new CommandDispatcher(_locator, GetRegistry());
+
+			dispatcher.Configure(_dispatcherSettings);
+
+			dispatchers.Add(dispatcher);
+
+			return new CommandHost(dispatchers);
+		}
+
+		private ICommandRegistry GetRegistry()
+		{
+			var repo = _locator.GetInstance<IRecordMapper<CommandPublicationRecord>>();
+			var blob = _locator.GetInstance<IBlobStorage>();
+			var serializer = _locator.GetInstance<IMessageSerializer>();
+
+			return new CommandRegistry(repo, blob, serializer);
 		}
 	}
 }

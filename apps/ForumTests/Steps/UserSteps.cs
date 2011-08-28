@@ -56,7 +56,7 @@ namespace ForumTests.Steps
 			var publisher = GetContainer().Resolve<IPublisher>();
 
 			PubIdOfLastMessage =
-				publisher.PublishMessage(new RegisterUser {Username = Username, PasswordHash = Password, PasswordSalt = Password});
+				publisher.PublishMessage(new RegisterUser { Username = Username, PasswordHash = Password, PasswordSalt = Password });
 		}
 
 		[When(@"I publish the command UpdateUserProfile")]
@@ -68,7 +68,7 @@ namespace ForumTests.Steps
 			var user = query.FindByUsername(Username);
 
 			PubIdOfLastMessage =
-				publisher.PublishMessage(new UpdateUserProfile {Email = Email, UserIdentifier = user.Identifier});
+				publisher.PublishMessage(new UpdateUserProfile { Email = Email, UserIdentifier = user.Identifier });
 		}
 	}
 }

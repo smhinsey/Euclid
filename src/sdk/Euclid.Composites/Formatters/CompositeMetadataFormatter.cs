@@ -17,15 +17,13 @@ namespace Euclid.Composites.Formatters
 
 		protected override string GetAsXml()
 		{
-			var root = new XElement("Composite", 
-			                        XElement.Parse(_compositeApp.Agents.GetBasicMetadataFormatter().GetRepresentation("xml")));
+			var root = new XElement(
+				"Composite", XElement.Parse(_compositeApp.Agents.GetBasicMetadataFormatter().GetRepresentation("xml")));
 
 			var inputModels = new XElement("InputModels");
 			foreach (var m in _compositeApp.InputModels)
 			{
-				inputModels.Add(new XElement("Model"), 
-				                new XElement("Name", m.Name), 
-				                new XElement("Namespace", m.Namespace));
+				inputModels.Add(new XElement("Model"), new XElement("Name", m.Name), new XElement("Namespace", m.Namespace));
 			}
 
 			root.Add(inputModels);
@@ -38,26 +36,18 @@ namespace Euclid.Composites.Formatters
 
 			root.Add(configurationErrors);
 
-
 			return root.ToString();
 		}
 
 		protected override object GetJsonObject(JsonSerializer serializer)
 		{
-			return new
-			       	{
-			       		Agents = _compositeApp.Agents.Select(a => new
-			       		                                          	{
-			       		                                          		a.DescriptiveName, 
-			       		                                          		a.SystemName
-			       		                                          	}), 
-			       		InputModels = _compositeApp.InputModels.Select(im => new
-			       		                                                     	{
-			       		                                                     		im.Name, 
-			       		                                                     		im.Namespace
-			       		                                                     	}), 
-			       		ConfigurationErrors = _compositeApp.GetConfigurationErrors()
-			       	};
+			return
+				new
+					{
+						Agents = _compositeApp.Agents.Select(a => new { a.DescriptiveName, a.SystemName }),
+						InputModels = _compositeApp.InputModels.Select(im => new { im.Name, im.Namespace }),
+						ConfigurationErrors = _compositeApp.GetConfigurationErrors()
+					};
 		}
 	}
 }

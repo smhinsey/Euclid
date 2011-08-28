@@ -20,7 +20,7 @@ namespace Euclid.Common.UnitTests.Pipeline
 
 			// Act
 			var pipeline = new Pipeline<int>();
-			pipeline.Configure(new[] {mockStep.Object});
+			pipeline.Configure(new[] { mockStep.Object });
 			var results = pipeline.Process(0);
 
 			// Assert
@@ -28,15 +28,15 @@ namespace Euclid.Common.UnitTests.Pipeline
 		}
 
 		[Test]
-		[ExpectedException(typeof (StepConfigurationException))]
+		[ExpectedException(typeof(StepConfigurationException))]
 		public void TestStepConfigurationExceptionWithListContainingNullElement()
 		{
 			var pipeline = new Pipeline<int>();
-			pipeline.Configure(new IPipelineStep<int>[] {null});
+			pipeline.Configure(new IPipelineStep<int>[] { null });
 		}
 
 		[Test]
-		[ExpectedException(typeof (StepConfigurationException))]
+		[ExpectedException(typeof(StepConfigurationException))]
 		public void TestStepConfigurationExceptionWithNullList()
 		{
 			// Act
@@ -49,11 +49,11 @@ namespace Euclid.Common.UnitTests.Pipeline
 		{
 			var mockStep = new Mock<IPipelineStep<int>>();
 
-			mockStep.Setup(x => x.Execute(0)).Throws(new StepExecutionException(0, typeof (int), null));
+			mockStep.Setup(x => x.Execute(0)).Throws(new StepExecutionException(0, typeof(int), null));
 
 			// Act
 			var pipeline = new Pipeline<int>();
-			pipeline.Configure(new[] {mockStep.Object});
+			pipeline.Configure(new[] { mockStep.Object });
 
 			Assert.Throws<StepExecutionException>(() => pipeline.Process(0));
 		}

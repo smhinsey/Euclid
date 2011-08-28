@@ -20,7 +20,19 @@ namespace Euclid.Common.IntegrationTests.Storage
 	[Category(TestCategories.Integration)]
 	public class NhRecordMapperTests
 	{
-		#region Setup/Teardown
+		private ISession _session;
+
+		private RecordMapperTester<NhRecordMapper<FakePublicationRecord>> _tester;
+
+		public void ConfigureDatabase()
+		{
+			var cfg = new AutoMapperConfiguration(typeof(FakeMessage), typeof(FakePublicationRecord));
+
+			_session =
+				Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("NhRecordMapperTests")).Mappings(
+					map => map.AutoMappings.Add(AutoMap.AssemblyOf<FakeMessage>(cfg))).ExposeConfiguration(buildSchema).
+					BuildSessionFactory().OpenSession();
+		}
 
 		[SetUp]
 		public void Setup()
@@ -37,42 +49,12 @@ namespace Euclid.Common.IntegrationTests.Storage
 			_tester = new RecordMapperTester<NhRecordMapper<FakePublicationRecord>>(repo);
 		}
 
-		#endregion
-
-		private ISession _session;
-
-		private RecordMapperTester<NhRecordMapper<FakePublicationRecord>> _tester;
-
-		public void ConfigureDatabase()
-		{
-			var cfg = new AutoMapperConfiguration(typeof (FakeMessage), typeof (FakePublicationRecord));
-
-			_session =
-				Fluently.Configure().Database(SQLiteConfiguration.Standard.UsingFile("NhRecordMapperTests")).Mappings(
-				                                                                                                      map =>
-				                                                                                                      map.
-				                                                                                                      	AutoMappings.
-				                                                                                                      	Add(
-				                                                                                                      	    AutoMap.
-				                                                                                                      	    	AssemblyOf
-				                                                                                                      	    	<
-				                                                                                                      	    	FakeMessage
-				                                                                                                      	    	>(cfg)))
-					.ExposeConfiguration(buildSchema).
-					BuildSessionFactory().OpenSession();
-		}
-
-		private static void buildSchema(NHibernate.Cfg.Configuration cfg)
-		{
-			new SchemaExport(cfg).Create(false, true);
-		}
-
 		[Test]
 		public void TestAutoMap()
 		{
 			Assert.Null(_session.Query<FakeMessage>().FirstOrDefault());
 
-			var primaryKey = (Guid) _session.Save(new FakeMessage {Created = DateTime.Now, CreatedBy = Guid.NewGuid()});
+			var primaryKey = (Guid)_session.Save(new FakeMessage { Created = DateTime.Now, CreatedBy = Guid.NewGuid() });
 			Assert.NotNull(primaryKey);
 			_session.Flush();
 
@@ -115,6 +97,11 @@ namespace Euclid.Common.IntegrationTests.Storage
 		public void TestUpdate()
 		{
 			_tester.TestUpdate();
+		}
+
+		private static void buildSchema(NHibernate.Cfg.Configuration cfg)
+		{
+			new SchemaExport(cfg).Create(false, true);
 		}
 	}
 }

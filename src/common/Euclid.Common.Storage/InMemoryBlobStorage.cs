@@ -54,11 +54,11 @@ namespace Euclid.Common.Storage
 			var uri =
 				new Uri(
 					string.Format(
-					              "http://in-memory/{0}/{1}/{2}.{3}", 
-					              _containerName, 
-					              Guid.NewGuid(), 
-					              name, 
-					              MimeTypes.GetExtensionFromContentType(blob.ContentType)));
+						"http://in-memory/{0}/{1}/{2}.{3}",
+						_containerName,
+						Guid.NewGuid(),
+						name,
+						MimeTypes.GetExtensionFromContentType(blob.ContentType)));
 
 			_blobs.TryAdd(uri, upload);
 

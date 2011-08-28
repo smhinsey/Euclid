@@ -8,6 +8,7 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
 
 using System.Globalization;
@@ -19,8 +20,8 @@ namespace Euclid.Sdk.Specifications.Metadata.Composite
 	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
 	[NUnit.Framework.TestFixtureAttribute()]
 	[NUnit.Framework.DescriptionAttribute(
-		"In order to satisfy requests for metadata\r\nAs a composite\r\nI need to provide meta" +
-		"data in arbitrary formats")]
+		"In order to satisfy requests for metadata\r\nAs a composite\r\nI need to provide meta" + "data in arbitrary formats")
+	]
 	[NUnit.Framework.CategoryAttribute("SdkSpecs")]
 	[NUnit.Framework.CategoryAttribute("MetadataService")]
 	[NUnit.Framework.CategoryAttribute("CompositeMetadata")]
@@ -35,16 +36,13 @@ namespace Euclid.Sdk.Specifications.Metadata.Composite
 		public virtual void FeatureSetup()
 		{
 			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-			var featureInfo = new FeatureInfo(new CultureInfo("en-US"), 
-			                                                    "Composite provides configuration metadata", 
-			                                                    "In order to satisfy requests for metadata\r\nAs a composite\r\nI need to provide meta" +
-			                                                    "data in arbitrary formats", ProgrammingLanguage.CSharp, 
-			                                                    new[]
-			                                                    	{
-			                                                    		"SdkSpecs", 
-			                                                    		"MetadataService", 
-			                                                    		"CompositeMetadata"
-			                                                    	});
+			var featureInfo = new FeatureInfo(
+				new CultureInfo("en-US"),
+				"Composite provides configuration metadata",
+				"In order to satisfy requests for metadata\r\nAs a composite\r\nI need to provide meta"
+				+ "data in arbitrary formats",
+				ProgrammingLanguage.CSharp,
+				new[] { "SdkSpecs", "MetadataService", "CompositeMetadata" });
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -80,11 +78,10 @@ namespace Euclid.Sdk.Specifications.Metadata.Composite
 		[NUnit.Framework.DescriptionAttribute("Composite can provide metadata about it\'s configuration")]
 		[NUnit.Framework.TestCaseAttribute("is", "true", "0", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("isn\'t", "false", "1", new string[0])]
-		public virtual void CompositeCanProvideMetadataAboutItSConfiguration
-			(string is_Or_IsnT, string true_Or_False, string item_Count, string[] exampleTags)
+		public virtual void CompositeCanProvideMetadataAboutItSConfiguration(
+			string is_Or_IsnT, string true_Or_False, string item_Count, string[] exampleTags)
 		{
-			var scenarioInfo = new ScenarioInfo("Composite can provide metadata about it\'s configuration", 
-			                                                      exampleTags);
+			var scenarioInfo = new ScenarioInfo("Composite can provide metadata about it\'s configuration", exampleTags);
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -94,8 +91,9 @@ namespace Euclid.Sdk.Specifications.Metadata.Composite
 #line 10
 			testRunner.Then(string.Format("the result should be {0}", true_Or_False));
 #line 11
-			testRunner.And(string.Format("the call to GetConfigurationErrors returns an enumerable list that contains {0} i" +
-			                             "tems", item_Count));
+			testRunner.And(
+				string.Format(
+					"the call to GetConfigurationErrors returns an enumerable list that contains {0} i" + "tems", item_Count));
 #line hidden
 			this.ScenarioCleanup();
 		}
@@ -106,8 +104,8 @@ namespace Euclid.Sdk.Specifications.Metadata.Composite
 		[NUnit.Framework.TestCaseAttribute("is", "json", "application/json", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("isn\'t", "xml", "text/xml", new string[0])]
 		[NUnit.Framework.TestCaseAttribute("isn\'t", "json", "application/json", new string[0])]
-		public virtual void CompositeProvidesFormattedMetadata
-			(string is_Or_IsnT, string format_Name, string content_Type, string[] exampleTags)
+		public virtual void CompositeProvidesFormattedMetadata(
+			string is_Or_IsnT, string format_Name, string content_Type, string[] exampleTags)
 		{
 			var scenarioInfo = new ScenarioInfo("Composite provides formatted metadata", exampleTags);
 #line 19

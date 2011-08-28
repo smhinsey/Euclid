@@ -9,12 +9,15 @@ namespace Euclid.Composites.Mvc.Models
 		[HiddenInput(DisplayValue = false)]
 		public string AgentSystemName { get; set; }
 
+		public Type CommandType { get; set; }
+
 		[HiddenInput(DisplayValue = false)]
 		public string PartName
 		{
-			get { return CommandType != null ? CommandType.Name : string.Empty; }
+			get
+			{
+				return CommandType != null ? CommandType.Name : string.Empty;
+			}
 		}
-
-		public Type CommandType { get; set; }
 	}
 }

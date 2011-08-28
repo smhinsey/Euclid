@@ -11,7 +11,7 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 		[Given("a part collection (.*)")]
 		public void ThePartCollection(string descriptiveName)
 		{
-			Agent = typeof (TestCommand).Assembly.GetAgentMetadata();
+			Agent = typeof(TestCommand).Assembly.GetAgentMetadata();
 
 			var partCollection = Agent.GetPartCollectionByDescriptiveName(descriptiveName);
 

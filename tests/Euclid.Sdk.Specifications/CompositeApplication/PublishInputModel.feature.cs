@@ -8,6 +8,7 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
 
 using System.Globalization;
@@ -19,8 +20,7 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
 	[NUnit.Framework.TestFixtureAttribute()]
 	[NUnit.Framework.DescriptionAttribute(
-		"In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-		"wo numbers")]
+		"In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" + "wo numbers")]
 	[NUnit.Framework.CategoryAttribute("SdkSpecs")]
 	[NUnit.Framework.CategoryAttribute("AgentPanel")]
 	public partial class PublishInputModelsAsCommandsFeature
@@ -34,14 +34,12 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 		public virtual void FeatureSetup()
 		{
 			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-			var featureInfo = new FeatureInfo(new CultureInfo("en-US"), 
-			                                                    "Publish input models as commands", 
-			                                                    "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-			                                                    "wo numbers", ProgrammingLanguage.CSharp, new[]
-			                                                                                              	{
-			                                                                                              		"SdkSpecs", 
-			                                                                                              		"AgentPanel"
-			                                                                                              	});
+			var featureInfo = new FeatureInfo(
+				new CultureInfo("en-US"),
+				"Publish input models as commands",
+				"In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" + "wo numbers",
+				ProgrammingLanguage.CSharp,
+				new[] { "SdkSpecs", "AgentPanel" });
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -77,8 +75,7 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 		[NUnit.Framework.DescriptionAttribute("Publish an input model via the AgentPanel")]
 		public virtual void PublishAnInputModelViaTheAgentPanel()
 		{
-			var scenarioInfo = new ScenarioInfo("Publish an input model via the AgentPanel", 
-			                                                      (string[]) (null));
+			var scenarioInfo = new ScenarioInfo("Publish an input model via the AgentPanel", (string[])(null));
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 9

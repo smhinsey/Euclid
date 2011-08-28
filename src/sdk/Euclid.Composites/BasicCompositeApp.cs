@@ -49,17 +49,15 @@ namespace Euclid.Composites
 			Container = container;
 		}
 
-	    public string Name { get; set; }
-
-        public string Description { get; set; }
-
-	    public IEnumerable<IAgentMetadata> Agents
+		public IEnumerable<IAgentMetadata> Agents
 		{
 			get
 			{
 				return _agents;
 			}
 		}
+
+		public string Description { get; set; }
 
 		public IEnumerable<ITypeMetadata> InputModels
 		{
@@ -68,6 +66,8 @@ namespace Euclid.Composites
 				return _inputModels;
 			}
 		}
+
+		public string Name { get; set; }
 
 		public CompositeAppSettings Settings { get; set; }
 
@@ -95,7 +95,8 @@ namespace Euclid.Composites
 			_agents.Add(agent);
 
 			// SELF the Where call below changes the meaning of the rest of the registration so it had to be removed
-			Container.Register(AllTypes.FromAssembly(agent.AgentAssembly)
+			Container.Register(
+				AllTypes.FromAssembly(agent.AgentAssembly)
 					// .Where(Component.IsInNamespace(agent.Queries.Namespace))
 					.BasedOn(typeof(IQuery)).WithService.Self().Configure(component => component.LifeStyle.Transient));
 		}
@@ -120,23 +121,23 @@ namespace Euclid.Composites
 
 		public IEnumerable<string> GetConfigurationErrors()
 		{
-		    var allErrors = new List<string>();
+			var allErrors = new List<string>();
 
-            if (string.IsNullOrEmpty(Name))
-            {
-                allErrors.Add("The composite is not named");
-            }
+			if (string.IsNullOrEmpty(Name))
+			{
+				allErrors.Add("The composite is not named");
+			}
 
-            if (string.IsNullOrEmpty(Description))
-            {
-                allErrors.Add("The composite has no description");
-            }
+			if (string.IsNullOrEmpty(Description))
+			{
+				allErrors.Add("The composite has no description");
+			}
 
 			var settingErrors = Settings.GetInvalidSettingReasons();
 
-            allErrors.AddRange(settingErrors);
+			allErrors.AddRange(settingErrors);
 
-		    return allErrors;
+			return allErrors;
 		}
 
 		public IMetadataFormatter GetFormatter()

@@ -11,7 +11,7 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 		[Given("an agent")]
 		public void AnAgent()
 		{
-			Agent = typeof (TestCommand).Assembly.GetAgentMetadata();
+			Agent = typeof(TestCommand).Assembly.GetAgentMetadata();
 		}
 
 		[When("the (.*) is requested")]
@@ -23,7 +23,7 @@ namespace Euclid.Sdk.Specifications.Metadata.Agent
 					Formatter = Agent.GetFormatter(FormatterType.Basic);
 					break;
 				case "full":
-                    Formatter = Agent.GetFormatter(FormatterType.Full);
+					Formatter = Agent.GetFormatter(FormatterType.Full);
 					break;
 			}
 		}

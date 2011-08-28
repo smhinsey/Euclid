@@ -8,7 +8,7 @@ namespace Euclid.Common.Messaging
 		/// <summary>
 		/// 	The dispatcher is enabled and processing messages.
 		/// </summary>
-		Enabled, 
+		Enabled,
 
 		/// <summary>
 		/// 	The dispatcher is disabled and not currently processing messages.

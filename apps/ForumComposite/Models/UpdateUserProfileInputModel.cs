@@ -16,6 +16,6 @@ namespace ForumComposite.Models
 
 		public string Email { get; set; }
 
-		public Guid UserIdentifier { get; set; } 
+		public Guid UserIdentifier { get; set; }
 	}
 }

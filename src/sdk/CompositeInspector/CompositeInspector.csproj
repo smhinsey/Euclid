@@ -201,6 +201,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Views\Shared\Scripts.cshtml" />
+    <EmbeddedResource Include="Views\Shared\Styles.cshtml" />
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>

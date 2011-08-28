@@ -16,7 +16,7 @@ namespace Euclid.Sdk.Specifications.AppSettings
 
 			Assert.NotNull(setting);
 
-			setting.OutputChannel.ApplyOverride(typeof (InMemoryMessageChannel));
+			setting.OutputChannel.ApplyOverride(typeof(InMemoryMessageChannel));
 		}
 
 		[When(@"CompositeAppSetting\.GetInvalidSettingReasons\(\) returns 0 length enumerable object")]

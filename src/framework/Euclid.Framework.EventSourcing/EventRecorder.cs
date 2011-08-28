@@ -23,7 +23,7 @@ namespace Euclid.Framework.EventSourcing
 		{
 			using (var stream = _eventStore.CreateStream(_streamId))
 			{
-				stream.Add(new EventMessage {Body = message});
+				stream.Add(new EventMessage { Body = message });
 			}
 		}
 	}

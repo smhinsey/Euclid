@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using MvcContrib.PortableAreas;
 
 namespace CompositeInspector
@@ -55,9 +54,9 @@ namespace CompositeInspector
 				new { controller = "Agents", action = "Index" });
 
 			context.MapRoute(
-						"CompositeInspector-PublishCommand",
-						"CompositeInspector/agents/publish",
-						new { controller = "Agents", action = "Publish" });
+				"CompositeInspector-PublishCommand",
+				"CompositeInspector/agents/publish",
+				new { controller = "Agents", action = "Publish" });
 
 			context.MapRoute(
 				"CompositeInspector-Agent",

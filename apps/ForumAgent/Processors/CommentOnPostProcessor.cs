@@ -19,15 +19,15 @@ namespace ForumAgent.Processors
 		{
 			// SELF at some point we'll want to wire up the actual author name there
 			var comment = new Comment
-			              	{
-			              		AuthorIdentifier = message.AuthorIdentifier, 
-												AuthorDisplayName = "Anonymous",
-			              		Body = message.Body, 
-			              		PostIdentifier = message.PostIdentifier, 
-			              		Score = 0, 
-			              		Created = DateTime.Now, 
-			              		Modified = DateTime.Now
-			              	};
+				{
+					AuthorIdentifier = message.AuthorIdentifier,
+					AuthorDisplayName = "Anonymous",
+					Body = message.Body,
+					PostIdentifier = message.PostIdentifier,
+					Score = 0,
+					Created = DateTime.Now,
+					Modified = DateTime.Now
+				};
 
 			_repository.Save(comment);
 		}

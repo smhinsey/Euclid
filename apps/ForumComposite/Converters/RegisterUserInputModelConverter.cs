@@ -11,12 +11,18 @@ namespace ForumComposite.Converters
 	{
 		public Type CommandType
 		{
-			get { return typeof(RegisterUser); }
+			get
+			{
+				return typeof(RegisterUser);
+			}
 		}
 
 		public Type InputModelType
 		{
-			get { return typeof(RegisterUserInputModel); }
+			get
+			{
+				return typeof(RegisterUserInputModel);
+			}
 		}
 
 		public ICommand Convert(ResolutionContext context)
@@ -39,6 +45,6 @@ namespace ForumComposite.Converters
 			command.PasswordSalt = model.Password;
 
 			return command;
-		} 
+		}
 	}
 }

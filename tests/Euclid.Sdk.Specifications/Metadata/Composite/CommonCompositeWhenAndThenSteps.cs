@@ -15,18 +15,18 @@ namespace Euclid.Sdk.Specifications.Metadata.Composite
 			var settings = new CompositeAppSettings();
 			if (isOrIsnt.ToLower() == "is")
 			{
-				settings.OutputChannel.ApplyOverride(typeof (InMemoryMessageChannel));
+				settings.OutputChannel.ApplyOverride(typeof(InMemoryMessageChannel));
 			}
 
 			try
 			{
-			    Composite = new BasicCompositeApp
-			                    {
-			                        Name = "Euclid.Sdk.Specifications.Metadata.Composite",
-			                        Description = "A composite used to test the metadata system"
-			                    };
+				Composite = new BasicCompositeApp
+					{
+						Name = "Euclid.Sdk.Specifications.Metadata.Composite",
+						Description = "A composite used to test the metadata system"
+					};
 
-			    Composite.Configure(settings);
+				Composite.Configure(settings);
 			}
 			catch (NullSettingException)
 			{

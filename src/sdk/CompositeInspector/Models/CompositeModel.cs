@@ -4,18 +4,18 @@ using Euclid.Framework.AgentMetadata;
 
 namespace CompositeInspector.Models
 {
-    public class CompositeModel : InspectorNavigationModel
-    {
-        public string Name { get; set; }
+	public class CompositeModel : InspectorNavigationModel
+	{
+		public IEnumerable<IAgentMetadata> Agents { get; set; }
 
-        public string Description { get; set; }
+		public IEnumerable<string> ConfigurationErrors { get; set; }
 
-        public IEnumerable<IAgentMetadata> Agents { get; set; }
+		public string Description { get; set; }
 
-        public IEnumerable<string> ConfigurationErrors { get; set; }
+		public IEnumerable<ITypeMetadata> InputModels { get; set; }
 
-        public IEnumerable<ITypeMetadata> InputModels { get; set; }
+		public string Name { get; set; }
 
-        public CompositeAppSettings Settings { get; set; }
-    }
+		public CompositeAppSettings Settings { get; set; }
+	}
 }

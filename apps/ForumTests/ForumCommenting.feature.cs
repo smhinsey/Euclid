@@ -8,6 +8,7 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
 
 using System.Globalization;
@@ -33,11 +34,11 @@ namespace ForumTests
 		{
 			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
 			var featureInfo = new FeatureInfo(
-				new CultureInfo("en-US"), 
-				"Forum Commenting", 
-				"In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" + "t Forum", 
-				ProgrammingLanguage.CSharp, 
-				new[] {"ForumAgentSpecs"});
+				new CultureInfo("en-US"),
+				"Forum Commenting",
+				"In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" + "t Forum",
+				ProgrammingLanguage.CSharp,
+				new[] { "ForumAgentSpecs" });
 			testRunner.OnFeatureStart(featureInfo);
 		}
 
@@ -73,7 +74,7 @@ namespace ForumTests
 		[NUnit.Framework.DescriptionAttribute("Comment on Post")]
 		public virtual void CommentOnPost()
 		{
-			var scenarioInfo = new ScenarioInfo("Comment on Post", (string[]) null);
+			var scenarioInfo = new ScenarioInfo("Comment on Post", (string[])null);
 #line 7
 			this.ScenarioSetup(scenarioInfo);
 #line 8

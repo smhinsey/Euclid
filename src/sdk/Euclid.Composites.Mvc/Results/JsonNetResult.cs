@@ -48,7 +48,7 @@ namespace Euclid.Composites.Mvc.Results
 
 			if (Data != null)
 			{
-				var writer = new JsonTextWriter(response.Output) {Formatting = Formatting};
+				var writer = new JsonTextWriter(response.Output) { Formatting = Formatting };
 
 				var serializer = JsonSerializer.Create(SerializerSettings);
 				serializer.Serialize(writer, Data);

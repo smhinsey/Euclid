@@ -30,8 +30,7 @@ namespace Euclid.Common.Logging
 		/// <param name = "message">The message to be written to the log.</param>
 		/// <param name = "exception">The exception associated with the log message.</param>
 		/// <param name = "formatParameters">String formatting parameters.</param>
-		public static void WriteErrorMessage
-			(
+		public static void WriteErrorMessage(
 			this ILoggingSource source, string message, Exception exception, params object[] formatParameters)
 		{
 			var logger = LogManager.GetLogger(source.GetType());
