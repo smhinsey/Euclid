@@ -109,6 +109,7 @@
     <Compile Include="ActionFilters\FormatPartMetadataAttribute.cs" />
     <Compile Include="ActionFilters\MetadataFormatterAttributeBase.cs" />
     <Compile Include="ActionFilters\CommandPublisherAttribute.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\WindsorContainerExtensions.cs" />
     <Compile Include="Binders\AgentMetadataBinder.cs">
       <SubType>Code</SubType>
