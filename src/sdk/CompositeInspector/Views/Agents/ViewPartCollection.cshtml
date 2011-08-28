@@ -7,10 +7,8 @@
 	@foreach (var part in Model.Parts.Collection)
 	{
 		<li>
-			@part.Namespace.@part.Name
-			(
-			<a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = Model.Parts.AgentSystemName, partName = part.Name })">html</a> | 
-			<a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = Model.Parts.AgentSystemName, partName = part.Name, format = "xml" })">xml</a> |
+			<a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = Model.Parts.AgentSystemName, partName = part.Name })">@part.Name</a>
+			(<a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = Model.Parts.AgentSystemName, partName = part.Name, format = "xml" })">xml</a> |
 			<a href="@Url.Action(Model.NextActionName, "Agents", new { agentSystemName = Model.Parts.AgentSystemName, partName = part.Name, format = "json" })">json</a>)
 		</li>
 	}
