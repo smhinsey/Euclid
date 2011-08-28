@@ -1,16 +1,16 @@
 @using CompositeInspector.Models
 @using Euclid.Framework.Models
 @model IInputModel
-
-<h5>@ViewBag.Title</h5>
-
-@using (Html.BeginForm("PublishAndViewDetails", "Agents", FormMethod.Post))
+<h5>Publish a Command</h5>
+@using (Html.BeginForm("PublishAndViewDetails", "Agents", FormMethod.Post, new { @class = "form-stacked" }))
 {
-    @Html.ValidationSummary(true)
+	@Html.ValidationSummary(true)
+	<fieldset>
+		<legend>@ViewBag.Title</legend>
+		@Html.EditorFor(p => Model)
+	</fieldset>
 
-    <fieldset>
-        @Html.EditorFor(p => Model)
-    </fieldset>
-
-    <input type="submit" id="publish-command" value="Publish Command" />
+	<div class="actions">
+		<input type="submit" class="btn primary" id="publish-command" value="Publish Command" />
+	</div>
 }

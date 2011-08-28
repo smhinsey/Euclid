@@ -1,14 +1,29 @@
 @using CompositeInspector.Models
 @model AgentModel
+<div class="row show-grid">
 
-<h5>@Model.DescriptiveName</h5>
-<dl>
-	<dt>@Model.AgentSystemName</dt>
-	<dd>@Model.Description</dd>
-</dl>
+	<div class="span16 columns">
+		<h5>@Model.DescriptiveName <small>(@Model.AgentSystemName)</small></h5>
+		<dl>
+			<dd>@Model.Description</dd>
+		</dl>
+	</div>
 
-<ul>
-	<li>@Html.DisplayFor(x => x.Commands, "IAgentPart", @Model.Commands)</li>
-	<li>@Html.DisplayFor(x => x.Queries, "IAgentPart", @Model.Queries)</li>
-	<li>@Html.DisplayFor(x => x.ReadModels, "IAgentPart", @Model.ReadModels)</li>
-</ul>
+</div>
+
+<div class="row show-grid">
+
+	<div class="span5 columns">
+		@Html.DisplayFor(x => x.Commands, "IAgentPart", @Model.Commands)
+	</div>
+
+	<div class="span6 columns">
+		@Html.DisplayFor(x => x.Queries, "IAgentPart", @Model.Queries)
+	</div>
+
+	<div class="span5 columns">
+		@Html.DisplayFor(x => x.ReadModels, "IAgentPart", @Model.ReadModels)
+	</div>
+
+</div>
+
