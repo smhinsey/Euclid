@@ -4,18 +4,13 @@
 
 <h1>@ViewBag.Title</h1>
 
-@using (Html.BeginForm("Publish", "Agents", FormMethod.Post))
+@using (Html.BeginForm("PublishAndViewDetails", "Agents", FormMethod.Post))
 {
-	@Html.ValidationSummary(true)
+    @Html.ValidationSummary(true)
 
-	<fieldset>
-		@Html.EditorFor(p => Model)
-	</fieldset>
+    <fieldset>
+        @Html.EditorFor(p => Model)
+    </fieldset>
 
-	<input type="submit" id="publish-command" value="Publish Command" />
-}
-
-@{
-	var footer = (InspectorNavigationModel)ViewBag.Navigation;
-	Html.RenderPartial("CompositeInspectorLinks", footer);
+    <input type="submit" id="publish-command" value="Publish Command" />
 }

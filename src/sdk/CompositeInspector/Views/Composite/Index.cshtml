@@ -1,63 +1,64 @@
 ﻿@using CompositeInspector.Models
 @model CompositeModel
     
-<h2>@Model.Name</h2>
-<dl>
-	<dd>@Model.Description</dd>
-</dl>
+<div class="row show-grid">
+		<div class="span5 columns">
+            @if (Model.Agents.Count() > 0)
+            {
+	            <h5>Agents</h5>
+	            <ul>
+		            @foreach (var a in Model.Agents)
+		            {
+			            <li><a href="@Url.Action("ViewAgent", "Agents", new { AgentSystemName = a.SystemName })">@a.DescriptiveName</a></li>
+		            }
+	            </ul>
+            }
+            else
+            {
+	            <h2 style="color: red">No agents installed</h2>
+            }
+        </div>
 
-@if (Model.Agents.Count() > 0)
-{
-	<h2>Agents</h2>
-	<ul>
-		@foreach (var a in Model.Agents)
-		{
-			<li><a href="@Url.Action("ViewAgent", "Agents", new { AgentSystemName = a.SystemName })">@a.DescriptiveName</a></li>
-		}
-	</ul>
-}
-else
-{
-	<h2 style="color: red">No agents installed</h2>
-}
+		<div class="span5 columns">
+            @if (Model.InputModels.Count() > 0)
+            {
+	            <h5>Input Models</h5>
+	            <ul>
+		            @foreach (var m in Model.InputModels)
+		            {
+			            <li>@m.Name</li>
+		            }
+	            </ul>
+            }
+            else
+            {
+	            <h2 style="color: red">No input models for composite</h2>
+            }
+        </div>
 
-@if (Model.InputModels.Count() > 0)
-{
-	<h2>Input Models</h2>
-	<ul>
-		@foreach (var m in Model.InputModels)
-		{
-			<li>@m.Name</li>
-		}
-	</ul>
-}
-else
-{
-	<h2 style="color: red">No input models for composite</h2>
-}
-
-@if (Model.ConfigurationErrors.Count() > 0)
-{
-	<h2>Errors</h2>
-	<ul>
-		@foreach (var e in Model.ConfigurationErrors)
-		{
-			<li>@e</li>
-		}
-	</ul>
-}
-else
-{
-	<h2>Configuration</h2>
-	<ul>
-		<li>Output Channel: @Model.Settings.OutputChannel.Value.Name</li>
-		<li>Publisher: @Model.Settings.Publisher.Value.Name</li>
-		<li>Blob Storage: @Model.Settings.BlobStorage.Value.Name</li>
-		<li>Command Dispatcher: @Model.Settings.CommandDispatcher.Value.Name</li>
-		<li>Command Publication Record Mapper: @Model.Settings.CommandPublicationRecordMapper.Value.Name</li>
-		<li>Message Serializer: @Model.Settings.MessageSerializer.Value.Name</li>
-		<li>Publication Registry: @Model.Settings.PublicationRegistry.Value.Name</li>
-	</ul>
-}
-
-@{ Html.RenderPartial("CompositeInspectorLinks", Model); }
+		<div class="span5 columns">
+            @if (Model.ConfigurationErrors.Count() > 0)
+            {
+	            <h5>Errors</h5>
+	            <ul>
+		            @foreach (var e in Model.ConfigurationErrors)
+              {
+			            <li>@e</li>
+              }
+	            </ul>
+            }
+            else
+            {
+                <h5>Configuration</h5>
+                <ul>
+                    <li>Output Channel: @Model.Settings.OutputChannel.Value.Name</li>
+                    <li>Publisher: @Model.Settings.Publisher.Value.Name</li>
+                    <li>Blob Storage: @Model.Settings.BlobStorage.Value.Name</li>
+                    <li>Command Dispatcher: @Model.Settings.CommandDispatcher.Value.Name</li>
+                    <li>Command Publication Record Mapper: @Model.Settings.CommandPublicationRecordMapper.Value.Name</li>
+                    <li>Message Serializer: @Model.Settings.MessageSerializer.Value.Name</li>
+                    <li>Publication Registry: @Model.Settings.PublicationRegistry.Value.Name</li>
+                </ul>
+            }
+        </div>
+</div>

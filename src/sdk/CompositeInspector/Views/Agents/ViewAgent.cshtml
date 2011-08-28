@@ -3,7 +3,7 @@
 
 <h2>@Model.DescriptiveName</h2>
 <dl>
-	<dt>@Model.AgentSytemName</dt>
+	<dt>@Model.AgentSystemName</dt>
 	<dd>@Model.Description</dd>
 </dl>
 
@@ -12,5 +12,3 @@
 	<li>@Html.DisplayFor(x => x.Queries, "IAgentPart", @Model.Queries)</li>
 	<li>@Html.DisplayFor(x => x.ReadModels, "IAgentPart", @Model.ReadModels)</li>
 </ul>
-
-@{ Html.RenderPartial("CompositeInspectorLinks", Model); }

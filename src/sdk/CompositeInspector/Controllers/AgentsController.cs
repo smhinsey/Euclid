@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using CompositeInspector.Models;
 using Euclid.Common.Messaging;
@@ -25,7 +26,10 @@ namespace CompositeInspector.Controllers
 			_composite = composite;
 			_commandPublisher = commandPublisher;
 			_transformer = transformer;
-		}
+        
+            ViewBag.CompositeName = _composite.Name;
+            ViewBag.CompositeDescription = _composite.Description;
+        }
 
 		[FormatListOfBasicAgentMetadata]
 		public ViewResult Index(string format)
@@ -36,7 +40,7 @@ namespace CompositeInspector.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Publish(IInputModel inputModel)
+		public ActionResult PublishAndViewDetails(IInputModel inputModel)
 		{
 			var command = _transformer.GetCommand(inputModel);
 
@@ -50,6 +54,13 @@ namespace CompositeInspector.Controllers
 			return RedirectToAction("Details", "CommandRegistry", new { publicationId = commandId });
 		}
 
+        [HttpPost]
+        [CommandPublisher]
+        public ActionResult Publish(Guid publicationId)
+        {
+            return Redirect(Request.UrlReferrer.OriginalString);
+        }
+
 		[FormatAgentMetadata]
 		public ViewResult ViewAgent(IAgentMetadata agentMetadata, string format)
 		{
@@ -57,7 +68,7 @@ namespace CompositeInspector.Controllers
 				View(
 					new AgentModel
 						{
-							AgentSytemName = agentMetadata.SystemName,
+                            AgentSystemName = agentMetadata.SystemName,
 							DescriptiveName = agentMetadata.DescriptiveName,
 							Description = agentMetadata.Description,
 							Commands =
@@ -89,13 +100,6 @@ namespace CompositeInspector.Controllers
 
 			ViewBag.Title = typeMetadata.Type.Name;
 
-			ViewBag.Navigation = new InspectorNavigationModel
-				{
-					AgentSytemName = partCollection.AgentSystemName,
-					PartDescriptiveName = partCollection.DescriptiveName,
-					PartType = typeMetadata.Type.Name
-				};
-
 			ActionResult result = View("ViewInputModelForCommand", inputModel);
 
 			return result;
@@ -112,9 +116,6 @@ namespace CompositeInspector.Controllers
 						{
 							TypeMetadata = typeMetadata,
 							NextActionName = (containingCollection.DescriptiveName == "Commands") ? "ViewInputModelForCommand" : "ViewPart",
-							AgentSytemName = containingCollection.AgentSystemName,
-							PartDescriptiveName = containingCollection.DescriptiveName,
-							PartType = typeMetadata.Type.Name
 						});
 		}
 
@@ -129,8 +130,6 @@ namespace CompositeInspector.Controllers
 						{
 							Parts = partCollection,
 							NextActionName = (partCollection.DescriptiveName == "Commands") ? "ViewInputModelForCommand" : "ViewPart",
-							AgentSytemName = partCollection.AgentSystemName,
-							PartDescriptiveName = partCollection.DescriptiveName
 						});
 		}
 	}

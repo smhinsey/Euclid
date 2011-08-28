@@ -13,6 +13,9 @@ namespace CompositeInspector.Controllers
 		public CompositeController(ICompositeApp composite)
 		{
 			_composite = composite;
+
+            ViewBag.CompositeName = _composite.Name;
+            ViewBag.CompositeDescription = _composite.Description;
 		}
 
 		public ViewResult Index()

@@ -1,6 +1,4 @@
-
-d:\Projects\Euclid\platform>@git.exe %*
-﻿using System;
+using System;
 using System.Web.Mvc;
 using ForumAgent.Queries;
 using ForumComposite.Models;
@@ -44,8 +42,3 @@ namespace ForumComposite.Controllers
 		}
 	}
 }
-d:\Projects\Euclid\platform>@set ErrorLevel=%ErrorLevel%
-
-d:\Projects\Euclid\platform>@rem Restore the original console codepage.
-
-d:\Projects\Euclid\platform>@chcp %cp_oem% > nul < nul

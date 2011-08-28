@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using CompositeInspector.Models;
+using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using MvcContrib.Filters;
 
@@ -10,10 +11,15 @@ namespace CompositeInspector.Controllers
 	public class CommandRegistryController : Controller
 	{
 		private readonly ICommandRegistry _registry;
+	    private readonly ICompositeApp _composite;
 
-		public CommandRegistryController(ICommandRegistry registry)
+	    public CommandRegistryController(ICommandRegistry registry, ICompositeApp composite)
 		{
 			_registry = registry;
+		    _composite = composite;
+
+		    ViewBag.CompositeName = _composite.Name;
+            ViewBag.CompositeDescription = _composite.Description;
 		}
 
 		public ActionResult Details(Guid publicationId)

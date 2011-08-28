@@ -277,6 +277,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Web.config" />
+    <Content Include="..\..\src\connectionstring.config">
+      <Link>connectionstring.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\site.chirp.coffee" />
     <None Include="Content\styles.chirp.less" />
     <Content Include="Views\Post\Create.cshtml" />

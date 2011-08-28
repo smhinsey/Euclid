@@ -58,6 +58,11 @@ namespace CompositeInspector
 				"CompositeInspector/agents/publish",
 				new { controller = "Agents", action = "Publish" });
 
+            context.MapRoute(
+                "CompositeInspector-PublishCommandWithView",
+                "CompositeInspector/agents/publishandviewdetails",
+                new { controller = "Agents", action = "PublishAndViewDetails" });
+
 			context.MapRoute(
 				"CompositeInspector-Agent",
 				"CompositeInspector/agents/{agentSystemName}",

@@ -4,7 +4,7 @@ using Euclid.Framework.AgentMetadata;
 
 namespace CompositeInspector.Models
 {
-	public class CompositeModel : InspectorNavigationModel
+	public class CompositeModel
 	{
 		public IEnumerable<IAgentMetadata> Agents { get; set; }
 

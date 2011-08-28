@@ -70,7 +70,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompositeControlAreaRegistration.cs" />
+    <Compile Include="CompositeInspectorAreaRegistration.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\CommandRegistryController.cs" />
     <Compile Include="Controllers\CompositeController.cs" />
@@ -79,7 +79,6 @@
     <Compile Include="Models\AgentPartModel.cs" />
     <Compile Include="Models\PublishedCommandModel.cs" />
     <Compile Include="Models\CompositeModel.cs" />
-    <Compile Include="Models\InspectorNavigationModel.cs" />
     <Compile Include="Models\PartCollectionModel.cs" />
     <Compile Include="Models\PartModel.cs" />
     <Compile Include="Models\PublishedCommandsModel.cs" />
@@ -167,11 +166,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\Shared\Error.cshtml">
       <LastGenOutput>Error.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Shared\CompositeInspectorLinks.cshtml">
-      <LastGenOutput>MetadataLinks.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

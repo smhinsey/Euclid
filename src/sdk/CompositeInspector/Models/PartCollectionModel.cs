@@ -2,7 +2,7 @@ using Euclid.Framework.AgentMetadata;
 
 namespace CompositeInspector.Models
 {
-	public class PartCollectionModel : InspectorNavigationModel
+	public class PartCollectionModel
 	{
 		public string NextActionName { get; set; }
 

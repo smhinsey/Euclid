@@ -3,7 +3,7 @@ using Euclid.Common.Messaging;
 
 namespace CompositeInspector.Models
 {
-	public class PublishedCommandsModel : InspectorNavigationModel
+	public class PublishedCommandsModel
 	{
 		public int CurrentPage { get; set; }
 

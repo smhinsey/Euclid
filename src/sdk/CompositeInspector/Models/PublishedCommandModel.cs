@@ -2,7 +2,7 @@
 
 namespace CompositeInspector.Models
 {
-	public class PublishedCommandModel : InspectorNavigationModel
+	public class PublishedCommandModel
 	{
 		public bool HasValue { get; set; }
 

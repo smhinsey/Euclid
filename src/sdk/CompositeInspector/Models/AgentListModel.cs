@@ -3,7 +3,7 @@ using Euclid.Framework.AgentMetadata;
 
 namespace CompositeInspector.Models
 {
-	public class AgentListModel : InspectorNavigationModel
+	public class AgentListModel
 	{
 		public AgentListModel(IEnumerable<IAgentMetadata> agents)
 		{

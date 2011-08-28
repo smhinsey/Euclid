@@ -2,7 +2,7 @@
 
 namespace CompositeInspector.Models
 {
-	public class PartModel : InspectorNavigationModel
+	public class PartModel
 	{
 		public string NextActionName { get; set; }
 
