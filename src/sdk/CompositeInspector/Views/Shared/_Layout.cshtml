@@ -33,32 +33,34 @@
 
 		</div>
 
-		<div class="span16 columns">
+		<div class="span16 columns" style="min-height: 258px;">
 			@RenderBody()
 		</div>
 
 	</div>
-	<hr />
-	<div class="container">
+	<!-- this can be stuck to the bottom with  position:absolute; bottom: 0; -->
+	<div style="width: 100%; background-color: #F8F8F8; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #CCC;">
 
-		<div class="row show-grid footer">
+		<div class="container">
 
-			<div class="span5 columns">
-				<a href="@Url.Action("Remove", "Frame")" class="btn small" id="remove-frame" target="_parent">
-					Remove Frame</a> <a href="@Url.Action("Index", "Frame")" class="btn" id="show-frame" target="_parent">
-						Show Frame</a>
-			</div>
+			<div class="row show-grid footer">
 
-			<div class="span11 columns" style="text-align: right;">
-				<input type="text" placeholder="Get publication by id" id="publication-record-id"
-					class="guid-input" />&nbsp;<a href="#" class="btn">Go</a>
+				<div class="span5 columns">
+					<a href="@Url.Action("Remove", "Frame")" class="btn small" id="remove-frame" target="_parent">
+						Remove Frame</a> <a href="@Url.Action("Index", "Frame")" class="btn" id="show-frame" target="_parent">
+							Show Frame</a>
+				</div>
+
+				<div class="span11 columns" style="text-align: right;">
+					<input type="text" placeholder="Get publication by id" id="publication-record-id"
+						class="guid-input" />&nbsp;<a href="#" class="btn">Go</a>
+				</div>
+
 			</div>
 
 		</div>
 
 	</div>
-	<br/>
-	<hr />
 
 </body>
 </html>
