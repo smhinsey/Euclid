@@ -1,41 +1,8 @@
 ﻿@using CompositeInspector.Models
+@using Euclid.Framework.AgentMetadata.Extensions
 @model CompositeModel
     
 <div class="row show-grid">
-		<div class="span5 columns">
-            @if (Model.Agents.Count() > 0)
-            {
-	            <h5>Agents</h5>
-	            <ul>
-		            @foreach (var a in Model.Agents)
-		            {
-			            <li><a href="@Url.Action("ViewAgent", "Agents", new { AgentSystemName = a.SystemName })">@a.DescriptiveName</a></li>
-		            }
-	            </ul>
-            }
-            else
-            {
-	            <h2 style="color: red">No agents installed</h2>
-            }
-        </div>
-
-		<div class="span5 columns">
-            @if (Model.InputModels.Count() > 0)
-            {
-	            <h5>Input Models</h5>
-	            <ul>
-		            @foreach (var m in Model.InputModels)
-		            {
-			            <li>@m.Name</li>
-		            }
-	            </ul>
-            }
-            else
-            {
-	            <h2 style="color: red">No input models for composite</h2>
-            }
-        </div>
-
 		<div class="span5 columns">
             @if (Model.ConfigurationErrors.Count() > 0)
             {
@@ -59,6 +26,46 @@
                     <li>Message Serializer: @Model.Settings.MessageSerializer.Value.Name</li>
                     <li>Publication Registry: @Model.Settings.PublicationRegistry.Value.Name</li>
                 </ul>
+            }
+        </div>
+
+		<div class="span5 columns">
+            @if (Model.Agents.Count() > 0)
+            {
+	            <h5>Agents</h5>
+	            <ul>
+		            @foreach (var a in Model.Agents)
+		            {
+			            <li>
+                            <a href="@Url.Action("ViewAgent", "Agents", new { AgentSystemName = a.SystemName })">@a.DescriptiveName</a>
+                         </li>
+		            }
+	            </ul>
+            }
+            else
+            {
+	            <h2 style="color: red">No agents installed</h2>
+            }
+        </div>
+
+		<div class="span5 columns">
+            @if (Model.CommandsAndInputModels.Count() > 0)
+            {
+	            <h5>Input Models</h5>
+	            <ul>
+		            @foreach (var cAndI in Model.CommandsAndInputModels)
+		            {
+			            <li>
+                            <a href="@Url.Action("ViewInputModelForCommand", "Agents", new { AgentSystemName = cAndI.AgentSystemName, PartName = cAndI.Command.Name })">
+                                @cAndI.InputModel.Name
+                            </a>
+                        </li>
+		            }
+	            </ul>
+            }
+            else
+            {
+	            <h2 style="color: red">No input models for composite</h2>
             }
         </div>
 </div>

@@ -31,5 +31,7 @@ namespace Euclid.Composites
 		bool IsValid();
 
 		void RegisterInputModel(IInputToCommandConverter converter);
+
+        IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata);
 	}
 }

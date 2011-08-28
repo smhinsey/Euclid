@@ -29,7 +29,7 @@ namespace Euclid.Composites.Conversion
 			Mapper.CreateMap(converter.InputModelType, partMetadata.Type).ConvertUsing(converter.GetType());
 		}
 
-		public ICommand GetCommand(IInputModel model)
+        public ICommand GetCommand(IInputModel model)
 		{
 			var partName =
 				_inputModelsAndValues.Where(row => row.Value.InputModelType == model.GetType()).Select(row => row.Key).
@@ -65,6 +65,27 @@ namespace Euclid.Composites.Conversion
 			return _inputModelsAndValues[partName].CommandType;
 		}
 
+        public IPartMetadata GetCommand(Type inputModelType)
+        {
+            if (!typeof(IInputModel).IsAssignableFrom(inputModelType))
+            {
+                throw new UnexpectedTypeException(typeof(IInputModel), inputModelType);
+            }
+
+            var commandMetadata =   _inputModelsAndValues.Values
+                                        .Where(converter => inputModelType == converter.InputModelType)
+                                        .Select(partMetadata => partMetadata.CommandType.GetMetadata())
+                                        .Cast<IPartMetadata>()
+                                        .FirstOrDefault();
+
+            if (commandMetadata == null)
+            {
+                throw new CommandNotFoundException(inputModelType.Name);
+            }
+
+            return commandMetadata;
+        }
+
 		public IInputModel GetInputModel(string partName)
 		{
 			GuardPartNameRegistered(partName);
@@ -97,7 +118,14 @@ namespace Euclid.Composites.Conversion
 		}
 	}
 
-	public class InputModelForPartNotRegisteredException : Exception
+    public class CommandNotFoundException : Exception
+    {
+        public CommandNotFoundException(string searchKey) : base(searchKey)
+        {
+        }
+    }
+
+    public class InputModelForPartNotRegisteredException : Exception
 	{
 		public InputModelForPartNotRegisteredException(string partName)
 			: base(string.Format("There are no input models associated with the command '{0}'", partName))

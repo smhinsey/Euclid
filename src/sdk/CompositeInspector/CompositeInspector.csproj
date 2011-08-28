@@ -178,6 +178,10 @@
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\framework\Euclid.Framework.AgentMetadata\Euclid.Framework.AgentMetadata.csproj">
+      <Project>{276664F8-43A3-43E6-AA9A-B9A275B14013}</Project>
+      <Name>Euclid.Framework.AgentMetadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>

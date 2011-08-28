@@ -6,6 +6,11 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 	{
 		public static ITypeMetadata GetMetadata(this Type type)
 		{
+            if (typeof(IAgentPart).IsAssignableFrom(type))
+            {
+                return new PartMetadata(type);
+            }
+
 			return new TypeMetadata(type);
 		}
 	}

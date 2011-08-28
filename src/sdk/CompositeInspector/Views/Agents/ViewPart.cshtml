@@ -6,7 +6,7 @@
 
 @if (Model.TypeMetadata.Properties.Count() > 0)
 {
-	<h3>Properties</h3>
+	<h6>Properties</h6>
 	<ul>
 		@foreach (var p in Model.TypeMetadata.Properties)
 		{
@@ -17,7 +17,7 @@
 
 @if (Model.TypeMetadata.Methods.Count() > 0)
 {
-	<h3>Methods</h3>
+	<h6>Methods</h6>
 	<ul>
 		@foreach (var m in Model.TypeMetadata.Methods)
 		{

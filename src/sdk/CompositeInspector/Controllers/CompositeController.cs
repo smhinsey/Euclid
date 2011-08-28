@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using CompositeInspector.Models;
 using Euclid.Composites;
 using MvcContrib.Filters;
@@ -27,7 +28,14 @@ namespace CompositeInspector.Controllers
 							Name = _composite.Name,
 							Description = _composite.Description,
 							Agents = _composite.Agents,
-							InputModels = _composite.InputModels,
+							CommandsAndInputModels =  _composite
+                                                        .InputModels
+                                                        .Select(model=>new CommandAndInputModel
+                                                                       {
+                                                                           Command = _composite.GetCommandForInputModel(model), 
+                                                                           InputModel = model
+                                                                       })
+                                                        .ToList(),
 							ConfigurationErrors = _composite.GetConfigurationErrors(),
 							Settings = _composite.Settings
 						});

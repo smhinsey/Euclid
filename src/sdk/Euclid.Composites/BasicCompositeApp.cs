@@ -180,7 +180,17 @@ namespace Euclid.Composites
 			}
 		}
 
-		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
+	    public IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata)
+	    {
+            if (!typeof(IInputModel).IsAssignableFrom(typeMetadata.Type))
+            {
+                throw new UnexpectedTypeException(typeof(IInputModel), typeMetadata.Type);
+            }
+
+	        return InputModelTransformers.GetCommand(typeMetadata.Type);
+	    }
+
+	    public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
 		{
 			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
