@@ -1,50 +1,63 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>@ViewBag.Title</title>
-		@RenderPage("Styles.cshtml")
-		@RenderPage("Scripts.cshtml")
-	</head>
-	<body>
-		<div class="container-fluid">
+<head>
+	<title>@ViewBag.Title</title>
+	@RenderPage("Styles.cshtml")
+	@RenderPage("Scripts.cshtml")
+</head>
+<body>
 
-			<div class="row show-grid">
+	<div class="container-fluid">
 
-				<div class="span5 columns">
-                    <h3>Composite Inspector</h3>
-                </div>
+		<div class="row show-grid">
 
-                <div class="span5 columns">
-                    <h4>@ViewBag.CompositeName</h4>
-                    <p>@ViewBag.CompositeDescription</p>
-                </div>
+			<div class="span16 columns">
 
-                <div class="span6 columns" id="alerts-area"></div>
-			</div>
+				<div class="topbar">
 
-			<div>
-				@RenderBody()
-			</div>
+					<div class="fill">
 
-			<div class="row show-grid">
-				<div class="span4 columns">
-			        <a href="@Url.Action("Index", "Composite")" class="metadata-link">
-				        Composite details
-			        </a>
-                </div>
+						<div class="container">
+							<h3><a href="@Url.Action("Index", "Composite")">@ViewBag.CompositeName Inspector</a></h3>
+							<ul>
+								<li><a href="@Url.Action("Index", "Composite")">Composite details</a></li>
+								<li><a  href="@Url.Action("Index", "CommandRegistry")">Command registry</a></li>
+							</ul>
+						</div>
 
-                <div class="span4 columns">
-                    <a class="metadata-link" href="@Url.Action("Index", "CommandRegistry")">
-				        Command registry
-			        </a>                
-                </div>
+					</div>
 
-                <div class="span8 columns">
-			        View publication record: <input type="text" id="publication-record-id" class="guid-input"/>
 				</div>
+
+			</div>
+
+
+
+		</div>
+
+		<div class="span16 columns">
+			@RenderBody()
+		</div>
+
+		<div class="row show-grid">
+
+			<div class="span4 columns">
+				<a href="@Url.Action("Index", "Composite")" class="metadata-link">Composite details</a>
+			</div>
+
+			<div class="span4 columns">
+				<a class="metadata-link" href="@Url.Action("Index", "CommandRegistry")">Command registry</a>
+			</div>
+
+			<div class="span8 columns">
+				View publication record:
+				<input type="text" id="publication-record-id" class="guid-input" />
 			</div>
 
 		</div>
-        <hr/>
-	</body>
+
+	</div>
+
+	<hr />
+</body>
 </html>

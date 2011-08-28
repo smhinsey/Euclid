@@ -1,4 +1,8 @@
-﻿.composite-inspector-body
+﻿body {
+	padding-top: 40px !important;
+}
+
+.composite-inspector-body
 {
     margin: 10px;
 }
