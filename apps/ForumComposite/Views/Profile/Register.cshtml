@@ -1,0 +1,35 @@
+﻿@using Euclid.Composites.Mvc.Extensions
+@using ForumComposite.Models
+@model RegisterUserInputModel
+
+@{
+	ViewBag.Title = "Register An Account";
+}
+
+<div id="DiscussionForm">
+	<h2>Register An Account</h2>
+	@using (Html.BeginFormForInputModel(Model))
+ {
+		<div>
+			@Html.LabelFor(m => m.Username)
+			@Html.TextBoxFor(m => m.Username, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })
+		</div>
+	 
+		<div>
+			@Html.LabelFor(m => m.Password)
+			@Html.PasswordFor(m => m.Password, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })
+		</div>
+	 
+		<div>
+			@Html.LabelFor(m => m.ConfirmationPassword)
+			@Html.PasswordFor(m => m.ConfirmationPassword, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })
+		</div>	 	 
+ 
+
+		<div class="PostFormControlPanel">
+			<input type="submit" id="Form_PostDiscussion" name="Discussion/Post_Discussion" value="Register Account"
+				class="Button DiscussionButton" />
+
+		</div>
+ }
+</div>

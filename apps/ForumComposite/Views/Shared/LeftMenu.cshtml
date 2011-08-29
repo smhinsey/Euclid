@@ -1,7 +1,13 @@
 ﻿<ul>
-	<li><a href="#mydiscussions">Discussions</a><a href="#feed"	id="discussions-rss"></a></li>
-	<li><a href="#">Activity</a></li>
-	<li><a href="#">Inbox</a></li>
-	<li><a href="#">Sign Out</a></li>
-	<!--<li><a href="#" class="SignInPopup">Sign In</a></li>-->
+	<li><a href="#mydiscussions">Discussions</a><a href="#feed" id="discussions-rss"></a></li>
+	@if (Request.IsAuthenticated)
+ {
+		<li><a href="#">Activity</a></li>
+		<li><a href="#">Inbox</a></li>
+		<li>@Html.ActionLink("Sign Out", "SignOut", "Profile")</li>
+ }
+ else
+ {
+		<li>@Html.ActionLink("Sign In", "SignIn", "Profile")</li>
+ }
 </ul>

@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Converters\CommentOnPostInputModelConverter.cs" />
     <Compile Include="Converters\VoteOnPostInputModelConverter.cs" />
     <Compile Include="Converters\VoteOnCommentInputModelConverter.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Models\CommentOnPostInputModel.cs" />
     <Compile Include="Models\PublishPostInputModel.cs" />
     <Compile Include="Models\RegisterUserInputModel.cs" />
+    <Compile Include="Models\SignInInputModel.cs" />
     <Compile Include="Models\UpdateUserProfileInputModel.cs" />
     <Compile Include="Models\VoteOnCommentInputModel.cs" />
     <Compile Include="Models\VoteOnPostInputModel.cs" />
@@ -285,6 +287,8 @@
     <None Include="Content\styles.chirp.less" />
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Post\AddComment.cshtml" />
+    <Content Include="Views\Profile\SignIn.cshtml" />
+    <Content Include="Views\Profile\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
