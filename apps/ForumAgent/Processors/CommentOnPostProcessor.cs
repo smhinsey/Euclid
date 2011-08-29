@@ -12,19 +12,23 @@ namespace ForumAgent.Processors
 
 		private readonly ISimpleRepository<Post> _postRepository;
 
-		public CommentOnPostProcessor(ISimpleRepository<Comment> commentRepository, ISimpleRepository<Post> postRepository)
+		private readonly ISimpleRepository<User> _userRepository;
+
+		public CommentOnPostProcessor(ISimpleRepository<Comment> commentRepository, ISimpleRepository<Post> postRepository, ISimpleRepository<User> userRepository)
 		{
 			_commentRepository = commentRepository;
 			_postRepository = postRepository;
+			_userRepository = userRepository;
 		}
 
 		public override void Process(CommentOnPost message)
 		{
-			// SELF at some point we'll want to wire up the actual author name there
+			var user = _userRepository.FindById(message.AuthorIdentifier);
+
 			var comment = new Comment
 				{
 					AuthorIdentifier = message.AuthorIdentifier,
-					AuthorDisplayName = "Anonymous",
+					AuthorDisplayName = user.Username,
 					Body = message.Body,
 					PostIdentifier = message.PostIdentifier,
 					Score = 0,

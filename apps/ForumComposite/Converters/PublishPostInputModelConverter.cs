@@ -35,11 +35,11 @@ namespace ForumComposite.Converters
 				throw new CannotCreateInputModelException(InputModelType.Name);
 			}
 
-			command.AuthorIdentifier = Guid.Empty;
+			command.AuthorIdentifier = model.AuthorIdentifier;
 			command.Body = model.Body;
 			command.CategoryIdentifier = Guid.Empty;
 			command.Created = DateTime.Now;
-			command.CreatedBy = Guid.Empty;
+			command.CreatedBy = model.AuthorIdentifier;
 			command.Identifier = Guid.NewGuid();
 			command.Title = model.Title;
 

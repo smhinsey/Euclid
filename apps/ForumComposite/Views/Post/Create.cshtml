@@ -9,6 +9,8 @@
 	<h2>Start a New Discussion</h2>
 	@using (Html.BeginFormForInputModel(Model, true, Url.Action("List")))
  {
+		@Html.HiddenFor(m => m.AuthorIdentifier)
+	 
 		<div>
 			@Html.LabelFor(m => m.Title)
 			@Html.TextBoxFor(m => m.Title, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })

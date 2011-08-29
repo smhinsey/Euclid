@@ -10,6 +10,7 @@
 	@using (Html.BeginFormForInputModel(Model, true, Request.UrlReferrer.AbsoluteUri))
  {
 		@Html.HiddenFor(m => m.PostIdentifier)
+		@Html.HiddenFor(m => m.AuthorIdentifier)
 	 
 		<div>
 			<div>

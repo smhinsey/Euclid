@@ -37,10 +37,10 @@ namespace ForumComposite.Converters
 
 			command.PostIdentifier = model.PostIdentifier;
 			command.Title = model.Title;
-			command.AuthorIdentifier = Guid.Empty;
+			command.AuthorIdentifier = model.AuthorIdentifier;
 			command.Body = model.Body;
 			command.Created = DateTime.Now;
-			command.CreatedBy = Guid.Empty;
+			command.CreatedBy = model.AuthorIdentifier;
 			command.Identifier = Guid.NewGuid();
 			command.Title = model.Title;
 

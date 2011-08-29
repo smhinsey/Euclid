@@ -10,18 +10,22 @@ namespace ForumAgent.Processors
 	{
 		private readonly ISimpleRepository<Post> _repository;
 
-		public PublishPostProcessor(ISimpleRepository<Post> repository)
+		private readonly ISimpleRepository<User> _userRepository;
+
+		public PublishPostProcessor(ISimpleRepository<Post> repository, ISimpleRepository<User> userRepository)
 		{
 			_repository = repository;
+			_userRepository = userRepository;
 		}
 
 		public override void Process(PublishPost message)
 		{
-			// SELF at some point we'll want to wire up the actual author name there
+			var user = _userRepository.FindById(message.AuthorIdentifier);
+
 			var post = new Post
 				{
 					AuthorIdentifier = message.AuthorIdentifier,
-					AuthorDisplayName = "Anonymous",
+					AuthorDisplayName = user.Username,
 					Body = message.Body,
 					Score = 0,
 					Title = message.Title,

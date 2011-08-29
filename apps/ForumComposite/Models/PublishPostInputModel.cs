@@ -1,4 +1,5 @@
-﻿using Euclid.Composites.Mvc.Models;
+﻿using System;
+using Euclid.Composites.Mvc.Models;
 using ForumAgent.Commands;
 
 namespace ForumComposite.Models
@@ -10,6 +11,8 @@ namespace ForumComposite.Models
 			AgentSystemName = "NewCo.ForumAgent";
 			CommandType = typeof(PublishPost);
 		}
+
+		public Guid AuthorIdentifier { get; set; }
 
 		public string Body { get; set; }
 

@@ -19,12 +19,17 @@ namespace ForumComposite.Controllers
 
 		public ActionResult AddComment(Guid postId)
 		{
-			return View(new CommentOnPostInputModel(){PostIdentifier = postId});
+			// SELF there's a better way to do this, but i'm lazy
+			var authorId = Guid.Parse(Request.Cookies["ForumUserId"].Value);
+
+			return View(new CommentOnPostInputModel() { PostIdentifier = postId, AuthorIdentifier = authorId});
 		}
 
 		public ActionResult Create()
 		{
-			return View(new PublishPostInputModel());
+			var authorId = Guid.Parse(Request.Cookies["ForumUserId"].Value);
+
+			return View(new PublishPostInputModel(){AuthorIdentifier = authorId});
 		}
 
 		public ActionResult List(int pageSize = 10, int offset = 0)
