@@ -55,6 +55,6 @@
 </div>
 
 <div class="Foot">
-	@Html.ActionLink("Add a Comment", "AddComment", null, new { @class = "TabLink SignInPopup" })
+	@Html.ActionLink("Add a Comment", "AddComment", new { postId = Model.InitialPost.Identifier}, new { @class = "TabLink SignInPopup" })
 </div>
 

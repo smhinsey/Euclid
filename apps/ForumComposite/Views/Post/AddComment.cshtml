@@ -1,27 +1,35 @@
-﻿@{
+﻿@using Euclid.Composites.Mvc.Extensions
+@using ForumComposite.Models
+@model CommentOnPostInputModel
+@{
 	ViewBag.Title = "Add a Comment";
 }
 
-<div class="MessageForm CommentForm">
-
-	<div class="Tabs CommentTabs">
-		<ul>
-			<li class="Active"><a href="#" class="WriteButton">Write Comment</a></li>
-			<li><a href="#" class="PreviewButton">Preview</a></li>
-		</ul>
-	</div>
-
-	<div>
-		<form id="Form_Comment" method="post" action="#">
-			<textarea id="Form_Body" name="Comment/Body" rows="6" cols="100" class="TextBox"></textarea>
-
-			<div class="Buttons">
-				<a href="#" class="Back">Back to Discussions</a>
-				<input type="submit" id="Form_PostComment" name="Comment/Post_Comment" value="Post Comment"
-							 class="Button CommentButton" />
+<div id="DiscussionForm">
+	<h2>Write Comment</h2>
+	@using (Html.BeginFormForInputModel(Model, true, Request.UrlReferrer.AbsoluteUri))
+ {
+		@Html.HiddenFor(m => m.PostIdentifier)
+	 
+		<div>
+			<div>
+				@Html.LabelFor(m => m.Title)
+				@Html.TextBoxFor(m => m.Title, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })
 			</div>
 
-		</form>
-	</div>
+			<div>
+				@Html.LabelFor(m => m.Body)
+				@Html.TextAreaFor(m => m.Body, new { @class = "TextBox", rows = "6", cols = "100", id = "Form_Body" })
+			</div>
 
+			<div class="Buttons">
+				<input type="submit" id="Form_PostComment" name="Comment/Post_Comment" value="Post Comment"
+					class="Button CommentButton" />
+					<a href="#" class="Back">Back to Discussions</a>
+			</div>
+
+		</div>
+
+ }
 </div>
+

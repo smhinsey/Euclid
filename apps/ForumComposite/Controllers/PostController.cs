@@ -17,9 +17,9 @@ namespace ForumComposite.Controllers
 			_commentQueries = commentQueries;
 		}
 
-		public ActionResult AddComment()
+		public ActionResult AddComment(Guid postId)
 		{
-			return View(new CommentOnPostInputModel());
+			return View(new CommentOnPostInputModel(){PostIdentifier = postId});
 		}
 
 		public ActionResult Create()
