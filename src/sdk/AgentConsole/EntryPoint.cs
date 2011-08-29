@@ -12,6 +12,7 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using Euclid.Sdk.TestAgent.Commands;
 using FluentNHibernate.Cfg.Db;
+using ForumAgent.Commands;
 using Microsoft.WindowsAzure;
 using log4net.Config;
 
@@ -35,9 +36,9 @@ namespace AgentConsole
 			try
 			{
 				composite.RegisterNh(
-					MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+					MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), false, false);
 
-				composite.AddAgent(typeof(TestCommand).Assembly);
+				composite.AddAgent(typeof(PublishPost).Assembly);
 
 				composite.Configure(getCompositeSettings());
 

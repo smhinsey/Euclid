@@ -57,9 +57,9 @@ namespace ForumTests.Steps
 
 			var post = postQueries.FindByTitle(PostTitle);
 
-			var comments = commentQueries.FindCommentsBelongingToPost(post.Identifier);
+			var postDetail = commentQueries.FindCommentsBelongingToPost(post.Identifier);
 
-			Assert.AreEqual(1, comments.Count);
+			Assert.AreEqual(1, postDetail.Comments.Count);
 		}
 
 		/// <summary>
@@ -76,9 +76,9 @@ namespace ForumTests.Steps
 
 			var post = postQueries.FindByTitle(PostTitle);
 
-			var comments = commentQueries.FindCommentsBelongingToPost(post.Identifier);
+			var postDetail = commentQueries.FindCommentsBelongingToPost(post.Identifier);
 
-			var comment = commentQueries.FindById(comments[0].Identifier);
+			var comment = commentQueries.FindById(postDetail.Comments[0].Identifier);
 
 			Assert.AreEqual(score, comment.Score);
 		}
@@ -157,10 +157,10 @@ namespace ForumTests.Steps
 
 			var post = postQueries.FindByTitle(PostTitle);
 
-			var comments = commentQueries.FindCommentsBelongingToPost(post.Identifier);
+			var postDetail = commentQueries.FindCommentsBelongingToPost(post.Identifier);
 
 			PubIdOfLastMessage =
-				publisher.PublishMessage(new VoteOnComment { CommentIdentifier = comments[0].Identifier, VoteUp = direction });
+				publisher.PublishMessage(new VoteOnComment { CommentIdentifier = postDetail.Comments[0].Identifier, VoteUp = direction });
 		}
 
 		/// <summary>

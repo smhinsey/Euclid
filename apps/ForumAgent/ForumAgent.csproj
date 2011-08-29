@@ -70,6 +70,8 @@
     <Compile Include="Queries\UserQueries.cs" />
     <Compile Include="ReadModels\Comment.cs" />
     <Compile Include="ReadModels\Post.cs" />
+    <Compile Include="ReadModels\PostDetail.cs" />
+    <Compile Include="ReadModels\PostListing.cs" />
     <Compile Include="ReadModels\User.cs" />
     <Compile Include="ReadModels\UserProfile.cs" />
   </ItemGroup>

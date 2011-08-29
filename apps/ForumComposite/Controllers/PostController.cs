@@ -27,16 +27,16 @@ namespace ForumComposite.Controllers
 			return View(new PublishPostInputModel());
 		}
 
-		public ActionResult List()
+		public ActionResult List(int pageSize = 10, int offset = 0)
 		{
-			var posts = _postQueries.FindByCreationDate(DateTime.Now.AddDays(-5), DateTime.Now);
+			var posts = _postQueries.GetPostListing(pageSize, offset);
 
 			return View(posts);
 		}
 
-		public ActionResult Thread()
+		public ActionResult Thread(Guid postId)
 		{
-			var comments = _commentQueries.FindCommentsBelongingToPost(Guid.NewGuid());
+			var comments = _commentQueries.FindCommentsBelongingToPost(postId);
 
 			return View(comments);
 		}

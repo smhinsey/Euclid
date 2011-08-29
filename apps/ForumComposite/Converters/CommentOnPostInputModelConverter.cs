@@ -35,6 +35,8 @@ namespace ForumComposite.Converters
 				throw new CannotCreateInputModelException(InputModelType.Name);
 			}
 
+			command.PostIdentifier = model.PostIdentifier;
+			command.Title = model.Title;
 			command.AuthorIdentifier = Guid.Empty;
 			command.Body = model.Body;
 			command.Created = DateTime.Now;

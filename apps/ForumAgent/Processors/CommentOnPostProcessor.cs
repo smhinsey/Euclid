@@ -26,7 +26,8 @@ namespace ForumAgent.Processors
 					PostIdentifier = message.PostIdentifier,
 					Score = 0,
 					Created = DateTime.Now,
-					Modified = DateTime.Now
+					Modified = DateTime.Now,
+					Title = message.Title
 				};
 
 			_repository.Save(comment);

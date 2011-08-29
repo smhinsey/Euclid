@@ -1,96 +1,60 @@
-﻿@{
+﻿@using ForumAgent.ReadModels
+@model PostDetail
+@{
 	ViewBag.Title = "Comments";
-
 }
+
 <div class="DiscussionWrapper">
+
 	<div class="Tabs HeadingTabs DiscussionTabs">
-		<div class="SubTab">Lorem Ipsum</div>
+
+		<div class="SubTab">@Model.InitialPost.Title</div>
+
 		<ul>
-			<li><a href="/swiss/discussions">All Discussions</a></li>
+			<li><a href="@Url.Action("List")">All Discussions</a></li>
 		</ul>
+		<p>
+			@Model.InitialPost.Body
+		</p>
 	</div>
 
 	<ul class="MessageList Discussion">
+		@foreach (var comment in Model.Comments)
+	{
+			<li class="Item Comment FirstComment" id="Discussion_48">
 
-		<li class="Item Comment FirstComment" id="Discussion_48">
-			<div class="Comment">
-				<div class="Meta">
-					<span class="Author">
-						<a title="smhinsey" href="#user">
-							<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=140&d=https://gs1.wac.edgecastcdn.net/80460E/assets%2Fimages%2Fgravatars%2Fgravatar-140.png" alt="smhinsey" />
+				<div class="Comment">
+
+					<div class="Meta">
+						<span class="Author"><a title="smhinsey" href="#user">
+							<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=140&d=https://gs1.wac.edgecastcdn.net/80460E/assets%2Fimages%2Fgravatars%2Fgravatar-140.png"
+								alt="smhinsey" />
 						</a>
-						<a href="#user">smhinsey</a>
-					</span>
-					<br />
-					<span class="DateCreated">June 19 </span>
-					<span class="Permalink"><a href="#permalink" class="Permalink" name="Item_1" rel="nofollow">Permalink</a> </span>
-					<div class="CommentInfo"></div>
+							@comment.AuthorDisplayName
+						</span>
+						<br />
+						<span class="DateCreated">@comment.Created.ToString()</span> <span class="Permalink">
+							<a href="#permalink" class="Permalink" name="Item_1" rel="nofollow">Permalink</a>
+						</span>
+
+						<div class="CommentInfo">
+						</div>
+
+					</div>
+
+					<div class="Message">
+						<b>@comment.Title</b><br/>
+							@comment.Body
+					</div>
+
 				</div>
-				<div class="Message">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend facilisis purus id facilisis. Nulla egestas tempus massa id porta. Pellentesque id nibh turpis. Fusce lobortis adipiscing vulputate. Suspendisse viverra turpis eget eros mollis vel scelerisque nibh fringilla.
-				</div>
-			</div>
-		</li>
-		<li class="Item Comment" id="Comment_72">
-			<div class="Comment">
-				<div class="Meta">
-					<span class="Author">
-						<a title="smhinsey" href="#user">
-							<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=140&d=https://gs1.wac.edgecastcdn.net/80460E/assets%2Fimages%2Fgravatars%2Fgravatar-140.png" alt="smhinsey" />
-						</a>
-						<a href="#user">smhinsey</a>
-					</span>
-					<br />
-					<span class="DateCreated">June 19 </span>
-					<span class="Permalink"><a href="#permalink" class="Permalink" name="Item_1" rel="nofollow">Permalink</a> </span>
-					<div class="CommentInfo"></div>
-				</div>
-				<div class="Message">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend facilisis purus id facilisis. Nulla egestas tempus massa id porta. Pellentesque id nibh turpis. Fusce lobortis adipiscing vulputate. Suspendisse viverra turpis eget eros mollis vel scelerisque nibh fringilla.
-				</div>
-			</div>
-		</li>
-		<li class="Item Comment" id="Comment_73">
-			<div class="Comment">
-				<div class="Meta">
-					<span class="Author">
-						<a title="smhinsey" href="#user">
-							<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=140&d=https://gs1.wac.edgecastcdn.net/80460E/assets%2Fimages%2Fgravatars%2Fgravatar-140.png" alt="smhinsey" />
-						</a>
-						<a href="#user">smhinsey</a>
-					</span>
-					<br />
-					<span class="DateCreated">June 19 </span>
-					<span class="Permalink"><a href="#permalink" class="Permalink" name="Item_1" rel="nofollow">Permalink</a> </span>
-					<div class="CommentInfo"></div>
-				</div>
-				<div class="Message">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend facilisis purus id facilisis. Nulla egestas tempus massa id porta. Pellentesque id nibh turpis. Fusce lobortis adipiscing vulputate. Suspendisse viverra turpis eget eros mollis vel scelerisque nibh fringilla.
-				</div>
-			</div>
-		</li>
-		<li class="Item Comment" id="Comment_74">
-			<div class="Comment">
-				<div class="Meta">
-					<span class="Author">
-						<a title="smhinsey" href="#user">
-							<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=140&d=https://gs1.wac.edgecastcdn.net/80460E/assets%2Fimages%2Fgravatars%2Fgravatar-140.png" alt="smhinsey" />
-						</a>
-						<a href="#user">smhinsey</a>
-					</span>
-					<br />
-					<span class="DateCreated">June 19 </span>
-					<span class="Permalink"><a href="#permalink" class="Permalink" name="Item_1" rel="nofollow">Permalink</a> </span>
-					<div class="CommentInfo"></div>
-				</div>
-				<div class="Message">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eleifend facilisis purus id facilisis. Nulla egestas tempus massa id porta. Pellentesque id nibh turpis. Fusce lobortis adipiscing vulputate. Suspendisse viverra turpis eget eros mollis vel scelerisque nibh fringilla.
-				</div>
-			</div>
-		</li>
+
+			</li>
+	}
 	</ul>
 </div>
 
 <div class="Foot">
 	@Html.ActionLink("Add a Comment", "AddComment", null, new { @class = "TabLink SignInPopup" })
 </div>
+

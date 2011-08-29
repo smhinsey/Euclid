@@ -1,9 +1,11 @@
-﻿@{
+﻿@using ForumAgent.ReadModels
+@model PostListing
+@{
 	ViewBag.Title = "Forum Home";
 }
 
 <ul class="DataList Discussions">
-	<li class="Item Alt  Announcement">
+	<!--<li class="Item Alt  Announcement">
 		<div class="Options">
 			<a href="#addbookmark" class="Bookmark" title="Bookmark"><span class="Star"><img src="../../Content/themes/swiss/images/pixel.png" alt="Bookmark" /></span></a>         
 			<ul class="Options"> 
@@ -25,73 +27,20 @@
 				<span>@Html.ActionLink("Nested Category", "Thread", "Post", new { category = "nested-category" }, new { @class = "Category" })</span>
 			</div>
 		</div>
-	</li>
-	<li class="Item Alt ">
-		<div class="ItemContent Discussion">
-			@Html.ActionLink("Lorem ipsum", "Thread", "Post", new { @class = "Title" })
-			<div class="Meta">
-				<span class="CommentCount">1 comment</span> 
-				<span class="LastCommentBy">Started by <a href="#user">smhinsey</a></span>
-				<span class="LastCommentDate">July 14</span>
-				<span>@Html.ActionLink("Nested Category", "Thread", "Post", new { category = "nested-category" }, new { @class = "Category" })</span>
+	</li>-->
+	@foreach (var post in Model.Posts)
+	{
+		<li class="Item Alt ">
+			<div class="ItemContent Discussion">
+				@Html.ActionLink(post.Title, "Thread", "Post", new { postId = post.Identifier }, new { @class = "Title" })
+				<div class="Meta">
+					<span class="CommentCount">1 comment</span> 
+					<span class="LastCommentBy">Started by @post.AuthorDisplayName</span>
+					<span class="LastCommentDate">@post.Created.ToString()</span>
+				</div>
 			</div>
-		</div>
-	</li>
-	<li class="Item">
-		<div class="ItemContent Discussion">
-			@Html.ActionLink("Lorem ipsum", "Thread", "Post", new { @class = "Title" })
-			<div class="Meta">
-				<span class="CommentCount">1 comment</span> 
-				<span class="LastCommentBy">Started by <a href="#user">smhinsey</a></span>
-				<span class="LastCommentDate">July 14</span>
-				<span>@Html.ActionLink("Nested Category", "Thread", "Post", new { category = "nested-category" }, new { @class = "Category" })</span>
-			</div>
-		</div>
-	</li>
-	<li class="Item Alt ">
-		<div class="ItemContent Discussion">
-			@Html.ActionLink("Lorem ipsum", "Thread", "Post", new { @class = "Title" })
-			<div class="Meta">
-				<span class="CommentCount">1 comment</span> 
-				<span class="LastCommentBy">Started by <a href="#user">smhinsey</a></span>
-				<span class="LastCommentDate">July 14</span>
-				<span>@Html.ActionLink("Nested Category", "Thread", "Post", new { category = "nested-category" }, new { @class = "Category" })</span>
-			</div>
-		</div>
-	</li>
-	<li class="Item">
-		<div class="ItemContent Discussion">
-			@Html.ActionLink("Lorem ipsum", "Thread", "Post", new { @class = "Title" })
-			<div class="Meta">
-				<span class="CommentCount">1 comment</span> 
-				<span class="LastCommentBy">Most recent by <a href="#user">smhinsey</a></span>
-				<span class="LastCommentDate">July 14</span>
-				<span>@Html.ActionLink("Nested Category", "Thread", "Post", new { category = "nested-category" }, new { @class = "Category" })</span>
-			</div>
-		</div>
-	</li>
-	<li class="Item Alt ">
-		<div class="ItemContent Discussion">
-			@Html.ActionLink("Lorem ipsum", "Thread", "Post", new { @class = "Title" })
-			<div class="Meta">
-				<span class="CommentCount">1 comment</span> 
-				<span class="LastCommentBy">Started by <a href="#user">smhinsey</a></span>
-				<span class="LastCommentDate">July 14</span>
-				<span>@Html.ActionLink("Nested Category", "Thread", "Post", new { category = "nested-category" }, new { @class = "Category" })</span>
-			</div>
-		</div>
-	</li>
-	<li class="Item">
-		<div class="ItemContent Discussion">
-			@Html.ActionLink("Lorem ipsum", "Thread", "Post", new { @class = "Title" })
-			<div class="Meta">
-				<span class="CommentCount">1 comment</span> 
-				<span class="LastCommentBy">Started by <a href="#user">smhinsey</a></span>
-				<span class="LastCommentDate">July 14</span>
-				<span>@Html.ActionLink("Nested Category", "Thread", "Post", new { category = "nested-category" }, new { @class = "Category" })</span>
-			</div>
-		</div>
-	</li>
+		</li>
+	}
 </ul>
 
 <div id="PagerAfter" class="NumberedPager">

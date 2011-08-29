@@ -14,5 +14,7 @@ namespace ForumAgent.ReadModels
 		public virtual Guid PostIdentifier { get; set; }
 
 		public virtual int Score { get; set; }
+
+		public virtual string Title { get; set; }
 	}
 }

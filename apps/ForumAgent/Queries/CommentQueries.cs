@@ -13,13 +13,20 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public IList<Comment> FindCommentsBelongingToPost(Guid postId)
+		public PostDetail FindCommentsBelongingToPost(Guid postId)
 		{
+			var result = new PostDetail() { Comments = new List<Comment>() };
+
 			var session = GetCurrentSession();
 
-			var categories = session.QueryOver<Comment>().Where(comment => comment.PostIdentifier == postId);
+			var comments = session.QueryOver<Comment>().Where(comment => comment.PostIdentifier == postId);
 
-			return categories.List();
+			var initialPost = session.QueryOver<Post>().Where(post => post.Identifier == postId).SingleOrDefault();
+
+			result.InitialPost = initialPost;
+			result.Comments = comments.List();
+
+			return result;
 		}
 	}
 }

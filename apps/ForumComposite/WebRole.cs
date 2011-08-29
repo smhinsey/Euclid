@@ -41,7 +41,7 @@ namespace ForumComposite
 				{ Name = "NewCo Forum", Description = " A website where ideas and views on issues can be exchanged." };
 
 			composite.RegisterNh(
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), false, false);
 
 			var compositeAppSettings = new CompositeAppSettings();
 
