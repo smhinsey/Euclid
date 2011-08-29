@@ -22,10 +22,17 @@ namespace ForumAgent.Processors
 		{
 			var user = _userRepository.FindById(message.AuthorIdentifier);
 
+			var username = "Anonymous";
+
+			if (user != null)
+			{
+				username = user.Username;
+			}
+
 			var post = new Post
 				{
 					AuthorIdentifier = message.AuthorIdentifier,
-					AuthorDisplayName = user.Username,
+					AuthorDisplayName = username,
 					Body = message.Body,
 					Score = 0,
 					Title = message.Title,
