@@ -21,7 +21,6 @@ namespace CompositeInspector
             *   or the MvcContrib.EmbeddedResourceController won't find them
             ********************************/
 
-
 			context.MapRoute(
 				"CompositeInspector-Images",
 				"CompositeInspector/Images/{resourceName}",
@@ -59,10 +58,10 @@ namespace CompositeInspector
 				"CompositeInspector/agents/publish",
 				new { controller = "Agents", action = "Publish" });
 
-            context.MapRoute(
-                "CompositeInspector-PublishCommandWithView",
-                "CompositeInspector/agents/publishandviewdetails",
-                new { controller = "Agents", action = "PublishAndViewDetails" });
+			context.MapRoute(
+				"CompositeInspector-PublishCommandWithView",
+				"CompositeInspector/agents/publishandviewdetails",
+				new { controller = "Agents", action = "PublishAndViewDetails" });
 
 			context.MapRoute(
 				"CompositeInspector-Agent",

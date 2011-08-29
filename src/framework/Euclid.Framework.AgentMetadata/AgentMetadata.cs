@@ -121,7 +121,7 @@ namespace Euclid.Framework.AgentMetadata
 			throw new PartCollectionNotFound(partType.Name);
 		}
 
-	    private class AgentMetadataFormatter : MetadataFormatter
+		private class AgentMetadataFormatter : MetadataFormatter
 		{
 			private readonly IAgentMetadata _agentMetadata;
 

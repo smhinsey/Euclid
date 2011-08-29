@@ -8,26 +8,26 @@
 <script type="text/javascript">
     $(document).ready(function() {
     	$("#publication-record-id").bind("keypress", function(e) {
-    	    var pubId = $("#publication-record-id").val().toUpperCase();
-    	    if (e.keyCode == 13 && pubId != "") {
-    	        if (!$.Guid.IsValid(pubId)) {
-    	            $("#publication-record-id").addClass("alert-message").addClass("error");
-    	        } else {
-    	            window.location.href = "@Url.Content("~/compositeinspector/commandregistry")/" + pubId;
-    	        }
+    		var pubId = $("#publication-record-id").val().toUpperCase();
+    		if (e.keyCode == 13 && pubId != "") {
+    			if (!$.Guid.IsValid(pubId)) {
+    				$("#publication-record-id").addClass("alert-message").addClass("error");
+    			} else {
+    				window.location.href = "@Url.Content("~/compositeinspector/commandregistry")/" + pubId;
+    			}
 
-    	        return false;
-    	    }
+    			return false;
+    		}
 
-    	    $("#publication-record-id").removeClass("error").removeClass("alert-message");
+    		$("#publication-record-id").removeClass("error").removeClass("alert-message");
     	});
-        
-        if (window.location.href == window.parent.location.href) {
-    	    $("#remove-frame").hide();
-            $("#show-frame").show();
-        }else {
-            $("#remove-frame").show();
-            $("#show-frame").hide();
-        }
+
+    	if (window.location.href == window.parent.location.href) {
+    		$("#remove-frame").hide();
+    		$("#show-frame").show();
+    	} else {
+    		$("#remove-frame").show();
+    		$("#show-frame").hide();
+    	}
     });
 </script>

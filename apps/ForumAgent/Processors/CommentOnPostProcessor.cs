@@ -14,7 +14,10 @@ namespace ForumAgent.Processors
 
 		private readonly ISimpleRepository<User> _userRepository;
 
-		public CommentOnPostProcessor(ISimpleRepository<Comment> commentRepository, ISimpleRepository<Post> postRepository, ISimpleRepository<User> userRepository)
+		public CommentOnPostProcessor(
+			ISimpleRepository<Comment> commentRepository,
+			ISimpleRepository<Post> postRepository,
+			ISimpleRepository<User> userRepository)
 		{
 			_commentRepository = commentRepository;
 			_postRepository = postRepository;
@@ -27,7 +30,7 @@ namespace ForumAgent.Processors
 
 			var username = "Anonymous";
 
-			if(user != null)
+			if (user != null)
 			{
 				username = user.Username;
 			}
@@ -43,7 +46,7 @@ namespace ForumAgent.Processors
 					Modified = DateTime.Now,
 					Title = message.Title
 				};
-			
+
 			_commentRepository.Save(comment);
 
 			var post = _postRepository.FindById(message.PostIdentifier);

@@ -7,9 +7,9 @@ namespace ForumComposite.Controllers
 {
 	public class PostController : Controller
 	{
-		private readonly PostQueries _postQueries;
-
 		private readonly CommentQueries _commentQueries;
+
+		private readonly PostQueries _postQueries;
 
 		public PostController(PostQueries postQueries, CommentQueries commentQueries)
 		{
@@ -22,14 +22,14 @@ namespace ForumComposite.Controllers
 			// SELF there's a better way to do this, but i'm lazy
 			var authorId = Guid.Parse(Request.Cookies["ForumUserId"].Value);
 
-			return View(new CommentOnPostInputModel() { PostIdentifier = postId, AuthorIdentifier = authorId});
+			return View(new CommentOnPostInputModel { PostIdentifier = postId, AuthorIdentifier = authorId });
 		}
 
 		public ActionResult Create()
 		{
 			var authorId = Guid.Parse(Request.Cookies["ForumUserId"].Value);
 
-			return View(new PublishPostInputModel(){AuthorIdentifier = authorId});
+			return View(new PublishPostInputModel { AuthorIdentifier = authorId });
 		}
 
 		public ActionResult List(int pageSize = 10, int offset = 0)

@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>@ViewBag.CompositeName Inspector - @ViewBag.Title</title>
-	@RenderPage("Styles.cshtml")
-	@RenderPage("Scripts.cshtml")
-</head>
-<body>
+	<head>
+		<title>@ViewBag.CompositeName Inspector - @ViewBag.Title</title>
+		@RenderPage("Styles.cshtml")
+		@RenderPage("Scripts.cshtml")
+	</head>
+	<body>
 
-	<div class="container">
+		<div class="container">
 
-		<div class="row show-grid">
+			<div class="row show-grid">
 
-			<div class="span16 columns">
+				<div class="span16 columns">
 
-				<div class="topbar">
+					<div class="topbar">
 
-					<div class="fill">
+						<div class="fill">
 
-						<div class="container">
-							<h3><a href="@Url.Action("Index", "Composite")">@ViewBag.CompositeName Inspector</a></h3>
-							<ul>
-								<li><a href="@Url.Action("Index", "Composite")">Composite details</a></li>
-								<li><a  href="@Url.Action("Index", "CommandRegistry")">Command registry</a></li>
-							</ul>
+							<div class="container">
+								<h3><a href="@Url.Action("Index", "Composite")">@ViewBag.CompositeName Inspector</a></h3>
+								<ul>
+									<li><a href="@Url.Action("Index", "Composite")">Composite details</a></li>
+									<li><a  href="@Url.Action("Index", "CommandRegistry")">Command registry</a></li>
+								</ul>
+							</div>
+
 						</div>
 
 					</div>
@@ -31,36 +33,34 @@
 
 			</div>
 
+			<div class="span16 columns" style="min-height: 258px;">
+				@RenderBody()
+			</div>
+
 		</div>
+		<!-- this can be stuck to the bottom with  position:absolute; bottom: 0; -->
+		<div style="width: 100%; background-color: #F8F8F8; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #CCC;">
 
-		<div class="span16 columns" style="min-height: 258px;">
-			@RenderBody()
-		</div>
+			<div class="container">
 
-	</div>
-	<!-- this can be stuck to the bottom with  position:absolute; bottom: 0; -->
-	<div style="width: 100%; background-color: #F8F8F8; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #CCC;">
+				<div class="row show-grid footer">
 
-		<div class="container">
+					<div class="span5 columns">
+						<a href="@Url.Action("Remove", "Frame")" class="btn small" id="remove-frame" target="_parent">
+							Remove Frame</a> <a href="@Url.Action("Index", "Frame")" class="btn" id="show-frame" target="_parent">
+															 	Show Frame</a>
+					</div>
 
-			<div class="row show-grid footer">
+					<div class="span11 columns" style="text-align: right;">
+						<input type="text" placeholder="Get publication by id" id="publication-record-id"
+									 class="guid-input" />&nbsp;<a href="#" class="btn">Go</a>
+					</div>
 
-				<div class="span5 columns">
-					<a href="@Url.Action("Remove", "Frame")" class="btn small" id="remove-frame" target="_parent">
-						Remove Frame</a> <a href="@Url.Action("Index", "Frame")" class="btn" id="show-frame" target="_parent">
-							Show Frame</a>
-				</div>
-
-				<div class="span11 columns" style="text-align: right;">
-					<input type="text" placeholder="Get publication by id" id="publication-record-id"
-						class="guid-input" />&nbsp;<a href="#" class="btn">Go</a>
 				</div>
 
 			</div>
 
 		</div>
 
-	</div>
-
-</body>
+	</body>
 </html>

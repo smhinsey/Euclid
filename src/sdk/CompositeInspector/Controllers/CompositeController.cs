@@ -15,8 +15,8 @@ namespace CompositeInspector.Controllers
 		{
 			_composite = composite;
 
-            ViewBag.CompositeName = _composite.Name;
-            ViewBag.CompositeDescription = _composite.Description;
+			ViewBag.CompositeName = _composite.Name;
+			ViewBag.CompositeDescription = _composite.Description;
 		}
 
 		public ViewResult Index()
@@ -28,14 +28,10 @@ namespace CompositeInspector.Controllers
 							Name = _composite.Name,
 							Description = _composite.Description,
 							Agents = _composite.Agents,
-							CommandsAndInputModels =  _composite
-                                                        .InputModels
-                                                        .Select(model=>new CommandAndInputModel
-                                                                       {
-                                                                           Command = _composite.GetCommandForInputModel(model), 
-                                                                           InputModel = model
-                                                                       })
-                                                        .ToList(),
+							CommandsAndInputModels =
+								_composite.InputModels.Select(
+									model => new CommandAndInputModel { Command = _composite.GetCommandForInputModel(model), InputModel = model })
+								.ToList(),
 							ConfigurationErrors = _composite.GetConfigurationErrors(),
 							Settings = _composite.Settings
 						});

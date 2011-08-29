@@ -10,7 +10,6 @@ using Euclid.Common.Storage.NHibernate;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
-using Euclid.Sdk.TestAgent.Commands;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
 using Microsoft.WindowsAzure;

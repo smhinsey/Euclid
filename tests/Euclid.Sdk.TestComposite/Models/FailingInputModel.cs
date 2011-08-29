@@ -2,8 +2,7 @@
 
 namespace Euclid.Sdk.TestComposite.Models
 {
-    public class FailingInputModel : InputModelBase
-    {
-         
-    }
+	public class FailingInputModel : InputModelBase
+	{
+	}
 }

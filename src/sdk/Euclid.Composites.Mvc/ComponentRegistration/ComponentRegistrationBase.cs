@@ -30,7 +30,9 @@ namespace Euclid.Composites.Mvc.ComponentRegistration
 				}
 				catch (Exception e)
 				{
-					this.WriteErrorMessage(string.Format("An error occured while inspecting the assembly {0} for component registration.", assembly.FullName), e);
+					this.WriteErrorMessage(
+						string.Format("An error occured while inspecting the assembly {0} for component registration.", assembly.FullName),
+						e);
 				}
 			}
 

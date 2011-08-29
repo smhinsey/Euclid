@@ -21,7 +21,6 @@ using Euclid.Framework.Models;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using FluentNHibernate.Conventions.Instances;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using IQuery = Euclid.Framework.Cqrs.IQuery;
@@ -120,6 +119,16 @@ namespace Euclid.Composites
 			State = CompositeApplicationState.Configured;
 		}
 
+		public IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata)
+		{
+			if (!typeof(IInputModel).IsAssignableFrom(typeMetadata.Type))
+			{
+				throw new UnexpectedTypeException(typeof(IInputModel), typeMetadata.Type);
+			}
+
+			return InputModelTransformers.GetCommand(typeMetadata.Type);
+		}
+
 		public IEnumerable<string> GetConfigurationErrors()
 		{
 			var allErrors = new List<string>();
@@ -180,17 +189,7 @@ namespace Euclid.Composites
 			}
 		}
 
-	    public IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata)
-	    {
-            if (!typeof(IInputModel).IsAssignableFrom(typeMetadata.Type))
-            {
-                throw new UnexpectedTypeException(typeof(IInputModel), typeMetadata.Type);
-            }
-
-	        return InputModelTransformers.GetCommand(typeMetadata.Type);
-	    }
-
-	    public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
+		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
 		{
 			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
@@ -233,11 +232,13 @@ namespace Euclid.Composites
 		{
 			var autoMapperConfiguration = new AutoMapperConfiguration();
 
-            var assembliesToMap = new Dictionary<Assembly, Assembly>();
+			var assembliesToMap = new Dictionary<Assembly, Assembly>();
 
 			if (Settings.CommandPublicationRecordMapper.Value == typeof(NhRecordMapper<CommandPublicationRecord>))
 			{
-                mcfg.AutoMappings.Add(AutoMap.AssemblyOf<CommandPublicationRecord>(autoMapperConfiguration).Conventions.Add<DefaultStringLengthConvention>());
+				mcfg.AutoMappings.Add(
+					AutoMap.AssemblyOf<CommandPublicationRecord>(autoMapperConfiguration).Conventions.Add
+						<DefaultStringLengthConvention>());
 			}
 
 			foreach (var agent in Agents)

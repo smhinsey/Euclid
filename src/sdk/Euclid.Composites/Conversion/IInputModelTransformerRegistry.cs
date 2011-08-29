@@ -12,12 +12,12 @@ namespace Euclid.Composites.Conversion
 
 		ICommand GetCommand(IInputModel model);
 
+		IPartMetadata GetCommand(Type t);
+
 		Type GetCommandType(string commandName);
 
 		IInputModel GetInputModel(string commandName);
 
 		IEnumerable<ITypeMetadata> GetInputModels();
-
-        IPartMetadata GetCommand(Type t);
 	}
 }

@@ -21,12 +21,11 @@ namespace Euclid.Framework.Cqrs.NHibernate
 		}
 	}
 
-    public class DefaultStringLengthConvention: IPropertyConvention
-    {
-        public void Apply(IPropertyInstance instance)
-        {
-            instance.Length(10000);
-        }
-    }
-
+	public class DefaultStringLengthConvention : IPropertyConvention
+	{
+		public void Apply(IPropertyInstance instance)
+		{
+			instance.Length(10000);
+		}
+	}
 }

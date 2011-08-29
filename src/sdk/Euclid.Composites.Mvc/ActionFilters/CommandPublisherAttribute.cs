@@ -7,34 +7,31 @@ using Euclid.Composites.Mvc.Extensions;
 
 namespace Euclid.Composites.Mvc.ActionFilters
 {
-    public class CommandPublisherAttribute : ActionFilterAttribute
-    {
-        public IInputModelTransformerRegistry TransformerRegistry { get; set; }
-        public IPublisher Publisher { get; set; }
+	public class CommandPublisherAttribute : ActionFilterAttribute
+	{
+		public IPublisher Publisher { get; set; }
 
-        public CommandPublisherAttribute()
-        {
-        }
+		public IInputModelTransformerRegistry TransformerRegistry { get; set; }
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
+		public override void OnActionExecuting(ActionExecutingContext filterContext)
+		{
+			var commandName = filterContext.HttpContext.Request.Form["partName"];
 
-            var commandName = filterContext.HttpContext.Request.Form["partName"];
+			if (filterContext.HttpContext.Request.Params == null)
+			{
+				throw new NullReferenceException("filterContext.HttpContext.Request.Params");
+			}
 
-            if (filterContext.HttpContext.Request.Params == null)
-            {
-                throw new NullReferenceException("filterContext.HttpContext.Request.Params");
-            }
+			var valueProvider = new NameValueCollectionValueProvider(
+				filterContext.HttpContext.Request.Params, CultureInfo.CurrentCulture);
 
-            var valueProvider = new NameValueCollectionValueProvider(filterContext.HttpContext.Request.Params, CultureInfo.CurrentCulture);
+			var inputModel = TransformerRegistry.GetInputModel(commandName, valueProvider);
 
-            var inputModel = TransformerRegistry.GetInputModel(commandName, valueProvider);
+			var command = TransformerRegistry.GetCommand(inputModel);
 
-            var command = TransformerRegistry.GetCommand(inputModel);
+			var publicationId = Publisher.PublishMessage(command);
 
-            var publicationId = Publisher.PublishMessage(command);
-
-            filterContext.ActionParameters["publicationId"] = publicationId;
-        }
-    }
+			filterContext.ActionParameters["publicationId"] = publicationId;
+		}
+	}
 }

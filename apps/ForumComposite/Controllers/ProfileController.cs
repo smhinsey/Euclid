@@ -15,18 +15,6 @@ namespace ForumComposite.Controllers
 			_userQueries = userQueries;
 		}
 
-		public ActionResult SignIn()
-		{
-			return View();
-		}
-
-		public ActionResult SignOut()
-		{
-			FormsAuthentication.SignOut();
-
-			return RedirectToAction("List", "Post");
-		}
-
 		[HttpPost]
 		public ActionResult Authenticate(string username, string password)
 		{
@@ -41,13 +29,25 @@ namespace ForumComposite.Controllers
 
 				return RedirectToAction("List", "Post");
 			}
-			
+
 			return RedirectToAction("SignIn");
 		}
 
 		public ActionResult Register()
 		{
 			return View(new RegisterUserInputModel());
+		}
+
+		public ActionResult SignIn()
+		{
+			return View();
+		}
+
+		public ActionResult SignOut()
+		{
+			FormsAuthentication.SignOut();
+
+			return RedirectToAction("List", "Post");
 		}
 	}
 }

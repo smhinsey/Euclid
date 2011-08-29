@@ -15,7 +15,7 @@ namespace ForumAgent.Queries
 
 		public PostDetail FindCommentsBelongingToPost(Guid postId)
 		{
-			var result = new PostDetail() { Comments = new List<Comment>() };
+			var result = new PostDetail { Comments = new List<Comment>() };
 
 			var session = GetCurrentSession();
 

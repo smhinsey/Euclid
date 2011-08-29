@@ -186,21 +186,24 @@ namespace Euclid.Common.Messaging
 									var registry =
 										(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
 										_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
-									
-                                    registry.MarkAsComplete(record.Identifier);
-									
-                                    this.WriteInfoMessage("Dispatched message {0} with id {1}.", message.GetType().Name, message.Identifier);
+
+									registry.MarkAsComplete(record.Identifier);
+
+									this.WriteInfoMessage("Dispatched message {0} with id {1}.", message.GetType().Name, message.Identifier);
 								}
 								catch (Exception e)
 								{
 									this.WriteErrorMessage(
-										"An error occurred processing message {0} with id {1}.", e.InnerException, message.GetType().Name, message.Identifier);
+										"An error occurred processing message {0} with id {1}.",
+										e.InnerException,
+										message.GetType().Name,
+										message.Identifier);
 
 									var registry =
 										(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
 										_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
-                                    
-                                    registry.MarkAsFailed(record.Identifier, e.InnerException.Message, e.InnerException.StackTrace);
+
+									registry.MarkAsFailed(record.Identifier, e.InnerException.Message, e.InnerException.StackTrace);
 								}
 							});
 				}

@@ -160,7 +160,8 @@ namespace ForumTests.Steps
 			var postDetail = commentQueries.FindCommentsBelongingToPost(post.Identifier);
 
 			PubIdOfLastMessage =
-				publisher.PublishMessage(new VoteOnComment { CommentIdentifier = postDetail.Comments[0].Identifier, VoteUp = direction });
+				publisher.PublishMessage(
+					new VoteOnComment { CommentIdentifier = postDetail.Comments[0].Identifier, VoteUp = direction });
 		}
 
 		/// <summary>

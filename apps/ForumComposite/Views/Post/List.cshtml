@@ -6,32 +6,35 @@
 
 <ul class="DataList Discussions">
 	<!--<li class="Item Alt  Announcement">
-		<div class="Options">
-			<a href="#addbookmark" class="Bookmark" title="Bookmark"><span class="Star"><img src="../../Content/themes/swiss/images/pixel.png" alt="Bookmark" /></span></a>         
-			<ul class="Options"> 
-				<li> 
-					<strong>Options</strong> 
-					<ul> 
-						<li><a href="#edit" class="EditDiscussion">Edit</a></li>               
+				<div class="Options">
+					<a href="#addbookmark" class="Bookmark" title="Bookmark"><span class="Star"><img src="../../Content/themes/swiss/images/pixel.png" alt="Bookmark" /></span></a>         
+					<ul class="Options"> 
+						<li> 
+							<strong>Options</strong> 
+							<ul> 
+								<li><a href="#edit" class="EditDiscussion">Edit</a></li>               
+							</ul> 
+						</li> 
 					</ul> 
-				</li> 
-			</ul> 
-		</div>   
-		<div class="ItemContent Discussion">
-			@Html.ActionLink("Forum Etiquette", "Thread", "Post", new { @class = "Title" })
-			<div class="Meta">
-				<span class="Announcement">Pinned</span> 
-				<span class="CommentCount">1 comment</span> 
-				<span class="LastCommentBy">Started by <a href="#user">smhinsey</a></span>
-				<span class="LastCommentDate">July 14</span>
-				<span>@Html.ActionLink("Nested Category", "Thread", "Post", new { category = "nested-category" }, new { @class = "Category" })</span>
-			</div>
-		</div>
-	</li>-->
-	@{var alt = true; }
+				</div>   
+				<div class="ItemContent Discussion">
+					@Html.ActionLink("Forum Etiquette", "Thread", "Post", new { @class = "Title" })
+					<div class="Meta">
+						<span class="Announcement">Pinned</span> 
+						<span class="CommentCount">1 comment</span> 
+						<span class="LastCommentBy">Started by <a href="#user">smhinsey</a></span>
+						<span class="LastCommentDate">July 14</span>
+						<span>@Html.ActionLink("Nested Category", "Thread", "Post", new { category = "nested-category" }, new { @class = "Category" })</span>
+					</div>
+				</div>
+			</li>-->
+	@{ var alt = true; }
 	@foreach (var post in Model.Posts)
 	{
-		<li class="Item @if (alt){<text>Alt</text>}">
+		<li class="Item @if (alt)
+										{
+											<text>Alt</text>
+										}">
 			<div class="ItemContent Discussion">
 				@Html.ActionLink(post.Title, "Thread", "Post", new { postId = post.Identifier }, new { @class = "Title" })
 				<div class="Meta">
@@ -50,9 +53,9 @@
 <div id="PagerAfter" class="NumberedPager">
 	<span class="Previous">‹</span>
 
-	@foreach (var page in Enumerable.Range(1, (Model.TotalPosts%10)))
- {
-	 @Html.ActionLink(page.ToString(), "List", "Post", new { pageSize = 10, offset = page*10-10}, null)
- }
+	@foreach (var page in Enumerable.Range(1, (Model.TotalPosts % 10)))
+	{
+		@Html.ActionLink(page.ToString(), "List", "Post", new { pageSize = 10, offset = page * 10 - 10 }, null)
+	}
 
 </div>

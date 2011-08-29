@@ -22,9 +22,18 @@ namespace ForumAgent.Queries
 			return posts.SingleOrDefault();
 		}
 
+		public IList<Post> FindPostsByCategory(Guid categoryIdentifier)
+		{
+			var session = GetCurrentSession();
+
+			var posts = session.QueryOver<Post>().Where(post => post.CategoryIdentifier == categoryIdentifier);
+
+			return posts.List();
+		}
+
 		public PostListing GetPostListing(int pageSize, int offset)
 		{
-			var result = new PostListing() { Posts = new List<Post>() };
+			var result = new PostListing { Posts = new List<Post>() };
 
 			var session = GetCurrentSession();
 
@@ -37,15 +46,6 @@ namespace ForumAgent.Queries
 			result.Posts = posts.List();
 
 			return result;
-		}
-
-		public IList<Post> FindPostsByCategory(Guid categoryIdentifier)
-		{
-			var session = GetCurrentSession();
-
-			var posts = session.QueryOver<Post>().Where(post => post.CategoryIdentifier == categoryIdentifier);
-
-			return posts.List();
 		}
 	}
 }

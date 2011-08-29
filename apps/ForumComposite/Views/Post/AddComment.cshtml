@@ -8,10 +8,10 @@
 <div id="DiscussionForm">
 	<h2>Write Comment</h2>
 	@using (Html.BeginFormForInputModel(Model, true, Request.UrlReferrer.AbsoluteUri))
- {
+	{
 		@Html.HiddenFor(m => m.PostIdentifier)
 		@Html.HiddenFor(m => m.AuthorIdentifier)
-	 
+
 		<div>
 			<div>
 				@Html.LabelFor(m => m.Title)
@@ -25,12 +25,10 @@
 
 			<div class="Buttons">
 				<input type="submit" id="Form_PostComment" name="Comment/Post_Comment" value="Post Comment"
-					class="Button CommentButton" />
-					<a href="#" class="Back">Back to Discussions</a>
+							 class="Button CommentButton" />
+				<a href="#" class="Back">Back to Discussions</a>
 			</div>
 
 		</div>
-
- }
+	}
 </div>
-

@@ -2,16 +2,16 @@
 
 namespace CompositeInspector.Controllers
 {
-    public class FrameController : Controller
-    {
-        public ActionResult Index()
-        {
-            return View();
-        }
-         
-        public ActionResult Remove()
-        {
-            return RedirectToAction("Index", "Composite");
-        }
-    }
+	public class FrameController : Controller
+	{
+		public ActionResult Index()
+		{
+			return View();
+		}
+
+		public ActionResult Remove()
+		{
+			return RedirectToAction("Index", "Composite");
+		}
+	}
 }

@@ -24,6 +24,8 @@ namespace Euclid.Composites
 
 		void Configure(CompositeAppSettings compositeAppSettings);
 
+		IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata);
+
 		IEnumerable<string> GetConfigurationErrors();
 
 		IMetadataFormatter GetFormatter();
@@ -31,7 +33,5 @@ namespace Euclid.Composites
 		bool IsValid();
 
 		void RegisterInputModel(IInputToCommandConverter converter);
-
-        IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata);
 	}
 }

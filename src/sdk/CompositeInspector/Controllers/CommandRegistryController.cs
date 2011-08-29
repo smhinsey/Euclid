@@ -10,16 +10,17 @@ namespace CompositeInspector.Controllers
 	[Layout("_Layout")]
 	public class CommandRegistryController : Controller
 	{
-		private readonly ICommandRegistry _registry;
-	    private readonly ICompositeApp _composite;
+		private readonly ICompositeApp _composite;
 
-	    public CommandRegistryController(ICommandRegistry registry, ICompositeApp composite)
+		private readonly ICommandRegistry _registry;
+
+		public CommandRegistryController(ICommandRegistry registry, ICompositeApp composite)
 		{
 			_registry = registry;
-		    _composite = composite;
+			_composite = composite;
 
-		    ViewBag.CompositeName = _composite.Name;
-            ViewBag.CompositeDescription = _composite.Description;
+			ViewBag.CompositeName = _composite.Name;
+			ViewBag.CompositeDescription = _composite.Description;
 		}
 
 		public ActionResult Details(Guid publicationId)

@@ -7,8 +7,7 @@
 <div id="DiscussionForm">
 	<h2>Sign In to the Forum</h2>
 	@using (Html.BeginForm("Authenticate", "Profile", FormMethod.Post))
- {
-	 
+	{
 		<div>
 
 			<div>
@@ -23,12 +22,10 @@
 
 			<div class="Buttons">
 				<input type="submit" id="Form_PostComment" name="Comment/Post_Comment" value="Sign In"
-					class="Button CommentButton" />
-					@Html.ActionLink("Register An Account", "Register")
+							 class="Button CommentButton" />
+				@Html.ActionLink("Register An Account", "Register")
 			</div>
 
 		</div>
-
- }
+	}
 </div>
-

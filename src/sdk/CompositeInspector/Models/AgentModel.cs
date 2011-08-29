@@ -2,7 +2,7 @@ namespace CompositeInspector.Models
 {
 	public class AgentModel
 	{
-        public string AgentSystemName { get; set; }
+		public string AgentSystemName { get; set; }
 
 		public AgentPartModel Commands { get; set; }
 

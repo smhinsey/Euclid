@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging;
@@ -21,109 +20,99 @@ using NUnit.Framework;
 
 namespace Euclid.Composite.InputModelMapping
 {
-    [TestFixture]
-    [Category(TestCategories.Unit)]
-    public class TransformerRegistryTests
-    {
-        private IInputModelTransformerRegistry _registry;
+	[TestFixture]
+	[Category(TestCategories.Unit)]
+	public class TransformerRegistryTests
+	{
+		private Dictionary<string, object> _actionParameters;
 
-        private string _commandName;
+		private string _commandName;
 
-        private IValueProvider _valueProvider;
+		private IWindsorContainer _container;
 
-        private Mock<ActionExecutingContext> _filterContext;
+		private Mock<ActionExecutingContext> _filterContext;
 
-        private Mock<IPublisher> _publisher;
+		private Mock<IPublisher> _publisher;
 
-        private Dictionary<string, object> _actionParameters;
+		private IInputModelTransformerRegistry _registry;
 
-        private IWindsorContainer _container;
-        [SetUp]
-        public void Setup()
-        {
-            _commandName = typeof (TestCommand).Name; 
+		private IValueProvider _valueProvider;
 
-            _registry = new InputModelToCommandTransformerRegistry();
+		[SetUp]
+		public void Setup()
+		{
+			_commandName = typeof(TestCommand).Name;
 
-            _registry.Add(_commandName, new TestInputModelToCommandConverter());
+			_registry = new InputModelToCommandTransformerRegistry();
 
-            var nvc = new NameValueCollection() { { "Number", "7" } };
+			_registry.Add(_commandName, new TestInputModelToCommandConverter());
 
-            _valueProvider = new NameValueCollectionValueProvider(nvc, CultureInfo.CurrentCulture);
+			var nvc = new NameValueCollection { { "Number", "7" } };
 
-            _actionParameters = new Dictionary<string, object>();
+			_valueProvider = new NameValueCollectionValueProvider(nvc, CultureInfo.CurrentCulture);
 
-            var request = new Mock<HttpRequestBase>();
-            request.Setup(r => r.HttpMethod).Returns("POST");
-            request.SetupGet(r => r.Form).Returns(new NameValueCollection() {{"partName", _commandName}});
-            request.SetupGet(r => r.Params).Returns(nvc);
+			_actionParameters = new Dictionary<string, object>();
 
-            var httpContext = new Mock<HttpContextBase>();
-            httpContext.SetupGet(c => c.Request).Returns(request.Object);
-            
-            _filterContext = new Mock<ActionExecutingContext>();
-            _filterContext.SetupGet(c => c.HttpContext).Returns(httpContext.Object);
-            _filterContext.SetupGet(c=>c.ActionParameters).Returns(_actionParameters);
-            
-            _publisher = new Mock<IPublisher>();
-            _publisher.Setup(c => c.PublishMessage(It.IsAny<ICommand>())).Returns(Guid.NewGuid());
+			var request = new Mock<HttpRequestBase>();
+			request.Setup(r => r.HttpMethod).Returns("POST");
+			request.SetupGet(r => r.Form).Returns(new NameValueCollection { { "partName", _commandName } });
+			request.SetupGet(r => r.Params).Returns(nvc);
 
-            _container = new WindsorContainer();
+			var httpContext = new Mock<HttpContextBase>();
+			httpContext.SetupGet(c => c.Request).Returns(request.Object);
 
-            _container.Register(
-                Component
-                    .For<IInputModelTransformerRegistry>()
-                    .Instance(_registry)
-                );
+			_filterContext = new Mock<ActionExecutingContext>();
+			_filterContext.SetupGet(c => c.HttpContext).Returns(httpContext.Object);
+			_filterContext.SetupGet(c => c.ActionParameters).Returns(_actionParameters);
 
-            _container.Register(
-                Component
-                    .For<IPublisher>()
-                    .Instance(_publisher.Object));
+			_publisher = new Mock<IPublisher>();
+			_publisher.Setup(c => c.PublishMessage(It.IsAny<ICommand>())).Returns(Guid.NewGuid());
 
-            _container.Register(
-                Component
-                    .For<CommandPublisherAttribute>()
-                    .ImplementedBy<CommandPublisherAttribute>());
-        }
+			_container = new WindsorContainer();
 
-        [Test]
-        public void TestTransformerExtensionMethods()
-        {
-            var inputModel = _registry.GetInputModel(_commandName, _valueProvider);
+			_container.Register(Component.For<IInputModelTransformerRegistry>().Instance(_registry));
 
-            Assert.NotNull(inputModel);
+			_container.Register(Component.For<IPublisher>().Instance(_publisher.Object));
 
-            var testInputModel = inputModel as TestInputModel;
+			_container.Register(Component.For<CommandPublisherAttribute>().ImplementedBy<CommandPublisherAttribute>());
+		}
 
-            Assert.NotNull(testInputModel);
+		[Test]
+		public void TestCommandPublisherActionFilter()
+		{
+			var commandPublisher = _container.Resolve<CommandPublisherAttribute>();
 
-            Assert.AreEqual(7, testInputModel.Number);
-        }
+			Assert.NotNull(commandPublisher.TransformerRegistry);
 
-        [Test]
-        public void TestCommandPublisherActionFilter()
-        {
-            var commandPublisher = _container.Resolve<CommandPublisherAttribute>();
+			Assert.NotNull(commandPublisher.Publisher);
 
-            Assert.NotNull(commandPublisher.TransformerRegistry);
+			commandPublisher.OnActionExecuting(_filterContext.Object);
 
-            Assert.NotNull(commandPublisher.Publisher);
+			Assert.NotNull(_filterContext.Object.ActionParameters);
 
-            commandPublisher.OnActionExecuting(_filterContext.Object);
+			Assert.True(_filterContext.Object.ActionParameters.ContainsKey("publicationId"));
 
-            Assert.NotNull(_filterContext.Object.ActionParameters);
+			var rawPubId = _filterContext.Object.ActionParameters["publicationId"];
 
-            Assert.True(_filterContext.Object.ActionParameters.ContainsKey("publicationId"));
+			Assert.NotNull(rawPubId);
 
-            var rawPubId = _filterContext.Object.ActionParameters["publicationId"];
+			var pubId = Guid.Parse(rawPubId.ToString());
 
-            Assert.NotNull(rawPubId);
+			Assert.AreNotEqual(Guid.Empty, pubId);
+		}
 
-            var pubId = Guid.Parse(rawPubId.ToString());
+		[Test]
+		public void TestTransformerExtensionMethods()
+		{
+			var inputModel = _registry.GetInputModel(_commandName, _valueProvider);
 
-            Assert.AreNotEqual(Guid.Empty, pubId);
-        }
+			Assert.NotNull(inputModel);
 
-    }
+			var testInputModel = inputModel as TestInputModel;
+
+			Assert.NotNull(testInputModel);
+
+			Assert.AreEqual(7, testInputModel.Number);
+		}
+	}
 }

@@ -32,7 +32,7 @@ namespace Euclid.Framework.AgentMetadata
 			{
 				return new InputModelFormatter(metadata);
 			}
-            
+
 			return new DefaultFormatter(metadata);
 		}
 
