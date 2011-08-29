@@ -13,6 +13,8 @@ namespace ForumAgent.ReadModels
 
 		public virtual Guid CategoryIdentifier { get; set; }
 
+		public virtual int CommentCount { get; set; }
+
 		public virtual int Score { get; set; }
 
 		public virtual string Title { get; set; }

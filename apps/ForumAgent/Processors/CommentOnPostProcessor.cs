@@ -8,11 +8,14 @@ namespace ForumAgent.Processors
 {
 	public class CommentOnPostProcessor : DefaultCommandProcessor<CommentOnPost>
 	{
-		private readonly ISimpleRepository<Comment> _repository;
+		private readonly ISimpleRepository<Comment> _commentRepository;
 
-		public CommentOnPostProcessor(ISimpleRepository<Comment> repository)
+		private readonly ISimpleRepository<Post> _postRepository;
+
+		public CommentOnPostProcessor(ISimpleRepository<Comment> commentRepository, ISimpleRepository<Post> postRepository)
 		{
-			_repository = repository;
+			_commentRepository = commentRepository;
+			_postRepository = postRepository;
 		}
 
 		public override void Process(CommentOnPost message)
@@ -29,8 +32,14 @@ namespace ForumAgent.Processors
 					Modified = DateTime.Now,
 					Title = message.Title
 				};
+			
+			_commentRepository.Save(comment);
 
-			_repository.Save(comment);
+			var post = _postRepository.FindById(message.PostIdentifier);
+
+			post.CommentCount++;
+
+			_postRepository.Save(post);
 		}
 	}
 }

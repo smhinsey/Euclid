@@ -28,25 +28,31 @@
 			</div>
 		</div>
 	</li>-->
+	@{var alt = true; }
 	@foreach (var post in Model.Posts)
 	{
-		<li class="Item Alt ">
+		<li class="Item @if (alt){<text>Alt</text>}">
 			<div class="ItemContent Discussion">
 				@Html.ActionLink(post.Title, "Thread", "Post", new { postId = post.Identifier }, new { @class = "Title" })
 				<div class="Meta">
-					<span class="CommentCount">1 comment</span> 
+					<span class="CommentCount">@post.CommentCount comments</span> 
 					<span class="LastCommentBy">Started by @post.AuthorDisplayName</span>
 					<span class="LastCommentDate">@post.Created.ToString()</span>
 				</div>
 			</div>
 		</li>
+		{
+			alt = !alt;
+		}
 	}
 </ul>
 
 <div id="PagerAfter" class="NumberedPager">
 	<span class="Previous">‹</span>
-	<a href="#1" class="Highlight">1</a>
-	<a href="#2">2</a>
-	<a href="#p3">3</a>
-	<a href="#2" class="Next">›</a>
+
+	@foreach (var page in Enumerable.Range(1, (Model.TotalPosts%10)))
+ {
+	 @Html.ActionLink(page.ToString(), "List", "Post", new { pageSize = 10, offset = page*10-10}, null)
+ }
+
 </div>
