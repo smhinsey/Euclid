@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Web.Mvc;
 using CompositeInspector.Models;
 using Euclid.Common.Messaging;
@@ -26,10 +27,10 @@ namespace CompositeInspector.Controllers
 			_composite = composite;
 			_commandPublisher = commandPublisher;
 			_transformer = transformer;
-        
-            ViewBag.CompositeName = _composite.Name;
-            ViewBag.CompositeDescription = _composite.Description;
-        }
+
+			ViewBag.CompositeName = _composite.Name;
+			ViewBag.CompositeDescription = _composite.Description;
+		}
 
 		[FormatListOfBasicAgentMetadata]
 		public ViewResult Index(string format)
@@ -37,6 +38,24 @@ namespace CompositeInspector.Controllers
 			ViewBag.Title = "Agents in composite";
 
 			return View(new AgentListModel(_composite.Agents));
+		}
+
+		[HttpPost]
+		[CommandPublisher]
+		public ActionResult Publish(Guid publicationId)
+		{
+			var redirectUrl = Request.UrlReferrer.OriginalString;
+
+			var potentialAlternateUrl = Request.Params["alternateRedirectUrl"];
+
+			if (potentialAlternateUrl != null && !String.IsNullOrEmpty(potentialAlternateUrl))
+			{
+				redirectUrl = potentialAlternateUrl;
+			}
+
+			Thread.Sleep(500);
+
+			return Redirect(redirectUrl);
 		}
 
 		[HttpPost]
@@ -54,13 +73,6 @@ namespace CompositeInspector.Controllers
 			return RedirectToAction("Details", "CommandRegistry", new { publicationId = commandId });
 		}
 
-        [HttpPost]
-        [CommandPublisher]
-        public ActionResult Publish(Guid publicationId)
-        {
-            return Redirect(Request.UrlReferrer.OriginalString);
-        }
-
 		[FormatAgentMetadata]
 		public ViewResult ViewAgent(IAgentMetadata agentMetadata, string format)
 		{
@@ -68,7 +80,7 @@ namespace CompositeInspector.Controllers
 				View(
 					new AgentModel
 						{
-                            AgentSystemName = agentMetadata.SystemName,
+							AgentSystemName = agentMetadata.SystemName,
 							DescriptiveName = agentMetadata.DescriptiveName,
 							Description = agentMetadata.Description,
 							Commands =
