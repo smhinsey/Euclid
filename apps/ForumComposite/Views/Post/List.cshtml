@@ -53,9 +53,11 @@
 <div id="PagerAfter" class="NumberedPager">
 	<span class="Previous">‹</span>
 
-	@foreach (var page in Enumerable.Range(1, (Model.TotalPosts % 10)))
+	@foreach (var page in Enumerable.Range(1, (Model.TotalPosts / 10 + 1)))
 	{
 		@Html.ActionLink(page.ToString(), "List", "Post", new { pageSize = 10, offset = page * 10 - 10 }, null)
 	}
+	
+	<span class="Next">›</span>
 
 </div>

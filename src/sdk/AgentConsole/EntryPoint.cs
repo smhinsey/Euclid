@@ -21,19 +21,19 @@ namespace AgentConsole
 	{
 		public static void Main(string[] args)
 		{
-			XmlConfigurator.Configure();
-
-			var container = new WindsorContainer();
-
-			setAzureCredentials(container);
-
-			var fabric = new ConsoleFabric(container);
-
-			var composite = new BasicCompositeApp(container)
-				{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
-
 			try
 			{
+				XmlConfigurator.Configure();
+
+				var container = new WindsorContainer();
+
+				setAzureCredentials(container);
+
+				var fabric = new ConsoleFabric(container);
+
+				var composite = new BasicCompositeApp(container)
+					{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
+
 				composite.RegisterNh(
 					MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), false, false);
 

@@ -255,7 +255,10 @@ namespace Euclid.Composites
 
 			foreach (var agent in assembliesToMap.Keys)
 			{
-				mcfg.AutoMappings.Add(AutoMap.Assembly(agent, autoMapperConfiguration).IgnoreBase<DefaultReadModel>());
+				// SELF we need to shift to shipping these with the agents and using classmaps for them so we have better control
+				mcfg.AutoMappings.Add(AutoMap.Assembly(agent, autoMapperConfiguration)
+					.IgnoreBase<DefaultReadModel>()
+					.Conventions.Add<DefaultStringLengthConvention>());
 			}
 
 			return mcfg;
