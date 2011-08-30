@@ -3,7 +3,7 @@ using Euclid.Common.Logging;
 
 namespace Euclid.Common.Messaging
 {
-	public class DefaultPublisher : IPublisher, ILoggingSource
+	public class DefaultPublisher : DefaultLoggingSource, IPublisher
 	{
 		private readonly IMessageChannel _channel;
 

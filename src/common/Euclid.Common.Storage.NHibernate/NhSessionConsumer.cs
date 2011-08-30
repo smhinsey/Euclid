@@ -4,7 +4,7 @@ using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate
 {
-	public abstract class NhSessionConsumer : ILoggingSource
+	public abstract class NhSessionConsumer : DefaultLoggingSource
 	{
 		private readonly ISession _session;
 

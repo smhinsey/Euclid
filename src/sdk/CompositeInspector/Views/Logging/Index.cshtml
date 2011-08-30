@@ -1,0 +1,26 @@
+﻿@model System.Collections.Generic.IEnumerable<LoggingAgent.ReadModels.LogEntry>
+
+@{
+	ViewBag.Title = "title";
+	Layout = "_Layout";
+}
+
+<table class="zebra-striped">
+	<tr>
+		<td>Created</td>
+		<td>Level</td>
+		<td>Message</td>
+		<td>LoggedFrom</td>
+		<td>Exception</td>
+	</tr>
+	@foreach(var m in Model)
+	{
+		<tr>
+			<td>@m.Created</td>
+			<td>@m.Level</td>
+			<td>@m.Message</td>
+			<td>@m.LoggedFrom</td>
+			<td>@m.Exception</td>
+		</tr>
+	}
+</table>

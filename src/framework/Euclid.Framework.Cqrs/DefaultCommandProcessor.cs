@@ -1,8 +1,9 @@
-﻿using Euclid.Common.Messaging;
+﻿using Euclid.Common.Logging;
+using Euclid.Common.Messaging;
 
 namespace Euclid.Framework.Cqrs
 {
-	public abstract class DefaultCommandProcessor<TCommand> : ICommandProcessor<TCommand>
+	public abstract class DefaultCommandProcessor<TCommand> : DefaultLoggingSource, ICommandProcessor<TCommand>
 		where TCommand : ICommand
 	{
 		public bool CanProcessMessage(IMessage message)

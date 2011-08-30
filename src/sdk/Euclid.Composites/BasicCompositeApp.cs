@@ -6,6 +6,7 @@ using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
+using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.NHibernate;
@@ -21,6 +22,8 @@ using Euclid.Framework.Models;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using LoggingAgent.Queries;
+using LoggingAgent.ReadModels;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using IQuery = Euclid.Framework.Cqrs.IQuery;
@@ -112,6 +115,12 @@ namespace Euclid.Composites
 			Container.Register(
 				Component.For<IInputModelTransformerRegistry>().Instance(InputModelTransformers).LifeStyle.Singleton);
 
+			Container.Register(
+				Component.For<IWindsorContainer>().Instance(Container));
+
+			Container.Register(
+				Component.For<ILoggingSource, ICompositeApp>().Instance(this));
+
 			Settings = compositeAppSettings;
 
 			Settings.Validate();
@@ -194,10 +203,16 @@ namespace Euclid.Composites
 			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
 			Container.Register(
-				Component.For<ISessionFactory>().UsingFactoryMethod(
-					() =>
-					Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).ExposeConfiguration(
-						cfg => new SchemaExport(cfg).Create(false, buildSchema)).BuildSessionFactory()).LifeStyle.Singleton);
+				Component
+					.For<ISessionFactory>()
+					.UsingFactoryMethod(() => Fluently
+									.Configure()
+									.Database(databaseConfiguration)
+									.Mappings(map =>mapAllAssemblies(map))
+									.ExposeConfiguration(
+										cfg => new SchemaExport(cfg).Create(false, buildSchema))
+									.BuildSessionFactory())
+					.LifeStyle.Singleton);
 
 			// jt: open session should be read-only
 			Container.Register(
@@ -260,6 +275,8 @@ namespace Euclid.Composites
 					.IgnoreBase<DefaultReadModel>()
 					.Conventions.Add<DefaultStringLengthConvention>());
 			}
+
+			
 
 			return mcfg;
 		}

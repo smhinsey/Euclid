@@ -14,7 +14,7 @@ namespace Euclid.Composites
 
 		IEnumerable<ITypeMetadata> InputModels { get; }
 
-		string Name { get; set; }
+		new string Name { get; set; }
 
 		CompositeAppSettings Settings { get; }
 

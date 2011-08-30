@@ -1,9 +1,10 @@
 using System.Reflection;
+using Euclid.Common.Logging;
 using Euclid.Framework.AgentMetadata.Extensions;
 
 namespace Euclid.Composites.AgentResolution
 {
-	public abstract class AgentResolverBase : IAgentResolver
+	public abstract class AgentResolverBase : DefaultLoggingSource, IAgentResolver
 	{
 		public abstract Assembly GetAgent(string systemName);
 

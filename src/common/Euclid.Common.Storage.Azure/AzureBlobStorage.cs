@@ -9,7 +9,7 @@ using Microsoft.WindowsAzure.StorageClient;
 
 namespace Euclid.Common.Storage.Azure
 {
-	public class AzureBlobStorage : IBlobStorage
+	public class AzureBlobStorage : DefaultLoggingSource, IBlobStorage
 	{
 		private readonly CloudStorageAccount _storageAccount;
 

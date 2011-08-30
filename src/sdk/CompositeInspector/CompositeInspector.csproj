@@ -75,6 +75,8 @@
     <Compile Include="Controllers\CommandRegistryController.cs" />
     <Compile Include="Controllers\CompositeController.cs" />
     <Compile Include="Controllers\FrameController.cs" />
+    <Compile Include="Controllers\LoggingController.cs" />
+    <Compile Include="Messages\ContainerRegistrationMessage.cs" />
     <Compile Include="Models\AgentListModel.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\AgentPartModel.cs" />
@@ -170,6 +172,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\sdk\LoggingAgent\LoggingAgent.csproj">
+      <Project>{1FE538F6-D05D-4849-8741-F827F1B7B34F}</Project>
+      <Name>LoggingAgent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
@@ -181,6 +187,14 @@
     <ProjectReference Include="..\..\framework\Euclid.Framework.AgentMetadata\Euclid.Framework.AgentMetadata.csproj">
       <Project>{276664F8-43A3-43E6-AA9A-B9A275B14013}</Project>
       <Name>Euclid.Framework.AgentMetadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
+      <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
+      <Name>Euclid.Framework.Cqrs.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
+      <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>
+      <Name>Euclid.Framework.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
@@ -203,6 +217,7 @@
     <EmbeddedResource Include="Views\Shared\Scripts.cshtml" />
     <EmbeddedResource Include="Views\Shared\Styles.cshtml" />
     <EmbeddedResource Include="Views\Frame\Index.cshtml" />
+    <None Include="Views\Logging\Index.cshtml" />
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>

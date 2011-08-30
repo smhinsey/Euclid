@@ -8,13 +8,24 @@ namespace Euclid.Common.Logging
 	/// </summary>
 	public static class Log4NetLoggingSourceExtensions
 	{
+		private static void SetCustomLogFields(this ILoggingSource source)
+		{
+			ThreadContext.Properties["Identifier"] = Guid.NewGuid();
+			ThreadContext.Properties["Created"] = DateTime.Now;
+			ThreadContext.Properties["Modified"] = DateTime.Now;
+			ThreadContext.Properties["LoggingSource"] = source.Name;
+		}
+
 		/// <summary>
 		/// 	Writes a debug message to the logging stream.
 		/// </summary>
 		/// <param name = "source">An ILoggingSource implementation.</param>
 		/// <param name = "message">The message to be written to the log.</param>
-		public static void WriteDebugMessage(this ILoggingSource source, string message)
+		/// <param name = "formatParameters">String formatting parameters.</param>
+		public static void WriteDebugMessage(this ILoggingSource source, string message, params object[] formatParameters)
 		{
+			source.SetCustomLogFields();
+
 			var logger = LogManager.GetLogger(source.GetType());
 
 			if (logger.IsDebugEnabled)

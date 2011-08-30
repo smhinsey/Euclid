@@ -6,7 +6,7 @@ using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate
 {
-	public class NhSimpleRepository<TModel> : NhSessionConsumer, ISimpleRepository<TModel>, ILoggingSource
+	public class NhSimpleRepository<TModel> : NhSessionConsumer, ISimpleRepository<TModel>
 		where TModel : class, IModel
 	{
 		public NhSimpleRepository(ISession session)

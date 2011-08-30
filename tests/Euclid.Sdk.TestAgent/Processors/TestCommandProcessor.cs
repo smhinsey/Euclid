@@ -8,7 +8,7 @@ using Euclid.Sdk.TestAgent.ReadModels;
 
 namespace Euclid.Sdk.TestAgent.Processors
 {
-	public class TestCommandProcessor : DefaultCommandProcessor<TestCommand>, ILoggingSource
+	public class TestCommandProcessor : DefaultCommandProcessor<TestCommand>
 	{
 		private readonly TestQuery _query;
 

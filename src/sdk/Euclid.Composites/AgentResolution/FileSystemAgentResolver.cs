@@ -5,7 +5,7 @@ using Euclid.Common.Logging;
 
 namespace Euclid.Composites.AgentResolution
 {
-	public class FileSystemAgentResolver : AgentResolverBase, ILoggingSource
+	public class FileSystemAgentResolver : AgentResolverBase
 	{
 		public override Assembly GetAgent(string systemName)
 		{

@@ -1,5 +1,6 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Euclid.Common.Logging;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
 using Euclid.Common.Storage.NHibernate;
@@ -9,7 +10,9 @@ using Euclid.Framework.Cqrs;
 using Euclid.Sdk.TestAgent.Commands;
 using Euclid.Sdk.TestComposite.Converters;
 using FluentNHibernate.Cfg.Db;
+using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
+using NHibernate.Tool.hbm2ddl;
 
 namespace Euclid.Sdk.TestComposite
 {
@@ -40,10 +43,10 @@ namespace Euclid.Sdk.TestComposite
 			var composite = new MvcCompositeApp(container)
 				{ Name = "Test Composite", Description = "A composite application that is used to validate the Euclid platform" };
 
-			composite.RegisterNh(
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+            composite.RegisterNh(
+                MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, true);
 
-			var compositeAppSettings = new CompositeAppSettings();
+            var compositeAppSettings = new CompositeAppSettings();
 
 			compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
 			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
@@ -52,16 +55,14 @@ namespace Euclid.Sdk.TestComposite
 			composite.Configure(compositeAppSettings);
 
 			composite.AddAgent(typeof(TestCommand).Assembly);
+            composite.AddAgent(typeof(LogQueries).Assembly);
 
 			composite.RegisterInputModel(new TestInputModelToCommandConverter());
+            composite.RegisterInputModel(new FailingInputModelToCommandConverter());
 
-			composite.RegisterInputModel(new FailingInputModelToCommandConverter());
-
-			container.Register(Component.For<ICompositeApp>().Instance(composite));
-
-			setAzureCredentials(container);
-
-			_initialized = true;
+            setAzureCredentials(container);
+            
+            _initialized = true;
 		}
 
 		private void setAzureCredentials(IWindsorContainer container)

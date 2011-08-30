@@ -60,10 +60,6 @@ namespace ForumComposite
 			composite.RegisterInputModel(new VoteOnCommentInputModelConverter());
 			composite.RegisterInputModel(new VoteOnPostInputModelConverter());
 
-			container.Register(Component.For<ICompositeApp>().Instance(composite));
-
-			container.Register(Component.For<IWindsorContainer>().Instance(container));
-
 			setAzureCredentials(container);
 
 			_initialized = true;

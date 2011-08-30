@@ -8,7 +8,7 @@ using Euclid.Common.Logging;
 
 namespace Euclid.Composites.Mvc.ComponentRegistration
 {
-	public abstract class ComponentRegistrationBase : IWindsorInstaller, ILoggingSource
+	public abstract class ComponentRegistrationBase : DefaultLoggingSource, IWindsorInstaller
 	{
 		public abstract void Install(IWindsorContainer container, IConfigurationStore store);
 

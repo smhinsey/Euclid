@@ -16,7 +16,7 @@ using Euclid.Framework.Cqrs;
 
 namespace Euclid.Framework.HostingFabric
 {
-	public class BasicFabric : IFabricRuntime, ILoggingSource
+	public class BasicFabric : DefaultLoggingSource, IFabricRuntime
 	{
 		protected ICompositeApp Composite;
 

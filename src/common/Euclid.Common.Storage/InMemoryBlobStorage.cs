@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using Euclid.Common.Extensions;
+using Euclid.Common.Logging;
 using Euclid.Common.Storage.Binary;
 
 namespace Euclid.Common.Storage
 {
-	public class InMemoryBlobStorage : IBlobStorage
+	public class InMemoryBlobStorage : DefaultLoggingSource, IBlobStorage
 	{
 		private readonly ConcurrentDictionary<Uri, IBlob> _blobs;
 

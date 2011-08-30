@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using log4net.Config;
 
 namespace Euclid.Sdk.TestComposite
 {
@@ -28,7 +29,12 @@ namespace Euclid.Sdk.TestComposite
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
+			// configure log4net
+			XmlConfigurator.Configure();
+
 			WebRole.GetInstance().Init();
+
+
 		}
 	}
 }
