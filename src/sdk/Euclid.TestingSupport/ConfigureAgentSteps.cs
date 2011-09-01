@@ -63,6 +63,9 @@ namespace Euclid.TestingSupport
 
 		private void configure(Assembly agentAssembly)
 		{
+			var compositeDatabaseConnection =
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
+
 			XmlConfigurator.Configure();
 
 			Container = new WindsorContainer();
@@ -74,12 +77,11 @@ namespace Euclid.TestingSupport
 			var composite = new BasicCompositeApp(Container)
 				{ Name = "Euclid.TestingSupport.ConfigureAgentSteps.Composite", Description = "A composite used for testing" };
 
-			composite.RegisterNh(
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
-
 			composite.AddAgent(agentAssembly);
 
 			composite.Configure(getCompositeSettings());
+
+			composite.RegisterNh(compositeDatabaseConnection, true, false);
 
 			Fabric.Initialize(getFabricSettings());
 
@@ -90,7 +92,8 @@ namespace Euclid.TestingSupport
 			_configured = true;
 
 			Container.Register(Component.For<BasicFabric>().Instance(Fabric));
-			Container.Register(Component.For<BasicCompositeApp>().Instance(composite));
+
+			composite.CreateSchema(compositeDatabaseConnection);
 
 			DefaultSpecSteps.SetContainerInScenarioContext(Container);
 		}

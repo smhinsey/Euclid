@@ -36,6 +36,9 @@ namespace Euclid.Sdk.TestComposite
 				return;
 			}
 
+			var compositeDatabaseConnection =
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
+
 			var container = new WindsorContainer();
 
 			var composite = new MvcCompositeApp(container)
@@ -57,9 +60,9 @@ namespace Euclid.Sdk.TestComposite
 
             setAzureCredentials(container);
 
-			// jt: make sure this is the last thing called so all read models are in the container
-			composite.RegisterNh(
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), false, true);
+			composite.RegisterNh(compositeDatabaseConnection, false, true);
+
+			// composite.CreateSchema(compositeDatabaseConnection);
 
             _initialized = true;
 		}

@@ -36,6 +36,10 @@ namespace AgentConsole
 				_instance = new EntryPoint();
 			}
 
+
+			var databaseConfiguration =
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
+
 			try
 			{
 				XmlConfigurator.Configure();
@@ -57,8 +61,7 @@ namespace AgentConsole
 
 				composite.Configure(getCompositeSettings());
 
-				composite.RegisterNh(
-					MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), false, false);
+				composite.RegisterNh(databaseConfiguration, false, false);
 
 				_instance.WriteInfoMessage("Initializing fabric");
 
@@ -66,6 +69,8 @@ namespace AgentConsole
 
 				_instance.WriteInfoMessage("Installing composite: {0}", composite.Name);
 				
+				composite.CreateSchema(databaseConfiguration);
+
 				fabric.InstallComposite(composite);
 
 				fabric.Start();

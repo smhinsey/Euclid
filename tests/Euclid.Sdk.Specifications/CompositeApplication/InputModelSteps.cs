@@ -56,7 +56,7 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 		{
 			Browser = new Browser();
 
-			var composite = GetContainer().Resolve<BasicCompositeApp>();
+			var composite = GetContainer().Resolve<ICompositeApp>();
 
 			Assert.True(composite.IsValid());
 

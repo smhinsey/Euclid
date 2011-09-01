@@ -3,6 +3,7 @@ using System.Reflection;
 using Euclid.Common.Logging;
 using Euclid.Composites.Conversion;
 using Euclid.Framework.AgentMetadata;
+using FluentNHibernate.Cfg.Db;
 
 namespace Euclid.Composites
 {
@@ -33,5 +34,6 @@ namespace Euclid.Composites
 		bool IsValid();
 
 		void RegisterInputModel(IInputToCommandConverter converter);
+		void CreateSchema(IPersistenceConfigurer databaseConfiguration);
 	}
 }

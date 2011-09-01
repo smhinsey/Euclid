@@ -200,11 +200,21 @@ namespace Euclid.Composites
 		{
 			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
+			Container.Register(
+				Component
+					.For<ISessionFactory>()
+					.UsingFactoryMethod<ISessionFactory>(() => Fluently
+					                                           	.Configure()
+					                                           	.Database(databaseConfiguration)
+					                                           	.Mappings(map => mapAllAssemblies(map))
+					                                           	.BuildSessionFactory())
+					.LifeStyle.Singleton);
+
 			// jt: open session should be read-only
 			Container.Register(
 				Component
 					.For<ISession>()
-					.Instance(GetSession(databaseConfiguration, buildSchema))
+					.UsingFactoryMethod<ISession>(() => Container.Resolve<ISessionFactory>().OpenSession())
 					.LifeStyle.Is(lifestyleType));
 		}
 
@@ -269,16 +279,15 @@ namespace Euclid.Composites
 			return mcfg;
 		}
 
-		private ISession GetSession(IPersistenceConfigurer databaseConfiguration, bool buildSchema)
+		public void CreateSchema(IPersistenceConfigurer databaseConfiguration)
 		{
-			return Fluently
-					.Configure()
-					.Database(databaseConfiguration)
-					.Mappings(map => mapAllAssemblies(map))
-					.ExposeConfiguration(
-						cfg => new SchemaExport(cfg).Create(false, buildSchema))
-					.BuildSessionFactory()
-					.OpenSession();
+			Fluently
+				.Configure()
+				.Database(databaseConfiguration)
+				.Mappings(map => mapAllAssemblies(map))
+				.ExposeConfiguration(
+					cfg => new SchemaExport(cfg).Create(false, true))
+				.BuildSessionFactory();
 		}
 	}
 }

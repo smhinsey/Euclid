@@ -16,7 +16,7 @@ using Euclid.Framework.Cqrs;
 
 namespace Euclid.Framework.HostingFabric
 {
-	public class BasicFabric : DefaultLoggingSource, IFabricRuntime
+	public class BasicFabric : ILoggingSource, IFabricRuntime
 	{
 		protected ICompositeApp Composite;
 
@@ -163,10 +163,6 @@ namespace Euclid.Framework.HostingFabric
 				// SELF the Where call below changes the meaning of the rest of the registration so it had to be removed
 				Container.Register(
 					AllTypes.FromAssembly(agent.AgentAssembly)
-            
-						
-						
-				                   	
 						// .Where(Component.IsInNamespace(processorAttribute.Namespace))
 						.BasedOn(typeof(ICommandProcessor)).Configure(c => c.LifeStyle.Transient).WithService.AllInterfaces().WithService.
 						Self());
@@ -191,7 +187,11 @@ namespace Euclid.Framework.HostingFabric
 
 				var commandHost = new CommandHost(new ICommandDispatcher[] { dispatcher });
 
-				Container.Register(Component.For<IHostedService>().Instance(commandHost).Forward<CommandHost>().LifeStyle.Transient);
+				Container.Register(
+					Component
+						.For<IHostedService>()
+						.Instance(commandHost)
+						.Forward<CommandHost>().LifeStyle.Transient);
 			}
 		}
 	}

@@ -36,6 +36,9 @@ namespace Euclid.TestingSupport
 		[SetUp]
 		public void SetUp()
 		{
+			var compositeDatabaseConnection =
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
+
 			XmlConfigurator.Configure();
 
 			Container = new WindsorContainer();
@@ -50,8 +53,7 @@ namespace Euclid.TestingSupport
 					Description = "A composite used in specification tests"
 				};
 
-			composite.RegisterNh(
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, false);
+			composite.RegisterNh(compositeDatabaseConnection, true, false);
 
 			foreach (var agentAssembly in _agentAssemblies)
 			{
@@ -63,6 +65,8 @@ namespace Euclid.TestingSupport
 			Fabric.Initialize(getFabricSettings());
 
 			Fabric.InstallComposite(composite);
+
+			composite.CreateSchema(compositeDatabaseConnection);
 
 			Fabric.Start();
 		}

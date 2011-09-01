@@ -35,13 +35,15 @@ namespace ForumComposite
 				return;
 			}
 
+			var compositeDatabaseConnection =
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
+
 			var container = new WindsorContainer();
 
 			var composite = new MvcCompositeApp(container)
 				{ Name = "NewCo Forum", Description = " A website where ideas and views on issues can be exchanged." };
 
-			composite.RegisterNh(
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), false, true);
+			composite.RegisterNh(compositeDatabaseConnection, false, true);
 
 			var compositeAppSettings = new CompositeAppSettings();
 
@@ -60,6 +62,8 @@ namespace ForumComposite
 			composite.RegisterInputModel(new VoteOnCommentInputModelConverter());
 			composite.RegisterInputModel(new VoteOnPostInputModelConverter());
 
+			composite.CreateSchema(compositeDatabaseConnection);
+		
 			setAzureCredentials(container);
 
 			_initialized = true;
