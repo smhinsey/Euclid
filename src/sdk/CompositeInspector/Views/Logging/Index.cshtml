@@ -13,9 +13,9 @@
 
 
 @model LogEntryModel
-<div class="row" style="margin-top: 7px; margin-bottom: 5px;">
+<div class="row" style="margin-top: 7px;">
 	<div class="span16 columns">
-		<ul class="pills">
+		<ul class="pills" style="margin-bottom: 7px;">
 			@{ var css = string.IsNullOrEmpty(Model.SelectedSource) ? "active" : string.Empty; }
 
 			<li class="@css">
@@ -32,7 +32,7 @@
 	</div>
 </div>
 
-<table class="zebra-striped">
+<table class="zebra-striped" style="margin-top: 0px">
 	<tr>
 		<td>Created</td>
 		<td>Level</td>
