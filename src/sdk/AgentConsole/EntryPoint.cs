@@ -68,8 +68,8 @@ namespace AgentConsole
 				fabric.Initialize(getFabricSettings());
 
 				_instance.WriteInfoMessage("Installing composite: {0}", composite.Name);
-				
-				composite.CreateSchema(databaseConfiguration);
+
+				//composite.CreateSchema(databaseConfiguration);
 
 				fabric.InstallComposite(composite);
 

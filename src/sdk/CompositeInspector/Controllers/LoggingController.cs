@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
 using System.Web.Mvc;
 using CompositeInspector.Models;
+using Euclid.Composites;
 using Euclid.Composites.Mvc.Extensions;
 using LoggingAgent.Queries;
 using MvcContrib.Filters;
@@ -10,13 +10,16 @@ using MvcContrib.Filters;
 namespace CompositeInspector.Controllers
 {
 	[Layout("_Layout")]
- 	public class LoggingController : Controller
+	public class LoggingController : Controller
 	{
 		private readonly LogQueries _logQueries;
 
-		public LoggingController(LogQueries logQueries)
+		public LoggingController(LogQueries logQueries, ICompositeApp composite)
 		{
 			_logQueries = logQueries;
+
+			ViewBag.CompositeName = composite.Name;
+			ViewBag.CompositeDescription = composite.Description;
 		}
 
 		public ActionResult Index(int pageSize = 100, int offset = 0, string filterBy = null)
@@ -35,12 +38,14 @@ namespace CompositeInspector.Controllers
 
 			ViewBag.Title = "Log Entries";
 
-			return View(new LogEntryModel
-			            	{
-			            		Entries = entries.Skip(offset * pageSize).Take(pageSize).OrderByDescending(e=>e.Created),
-								AvailableSources = sources,
-								SelectedSource = filterBy
-			            	});
+			return
+				View(
+					new LogEntryModel
+						{
+							Entries = entries.Skip(offset * pageSize).Take(pageSize).OrderByDescending(e => e.Created),
+							AvailableSources = sources,
+							SelectedSource = filterBy
+						});
 		}
 	}
 }

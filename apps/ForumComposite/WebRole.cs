@@ -11,6 +11,7 @@ using ForumAgent.Commands;
 using ForumComposite.Converters;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
+using log4net.Config;
 
 namespace ForumComposite
 {
@@ -35,6 +36,8 @@ namespace ForumComposite
 			{
 				return;
 			}
+
+			XmlConfigurator.Configure();
 
 			var compositeDatabaseConnection =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
@@ -64,7 +67,7 @@ namespace ForumComposite
 			composite.RegisterInputModel(new VoteOnCommentInputModelConverter());
 			composite.RegisterInputModel(new VoteOnPostInputModelConverter());
 
-			// composite.CreateSchema(compositeDatabaseConnection);
+			//composite.CreateSchema(compositeDatabaseConnection);
 		
 			setAzureCredentials(container);
 

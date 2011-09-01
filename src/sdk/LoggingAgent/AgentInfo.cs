@@ -2,9 +2,9 @@
 using LoggingAgent.Queries;
 using LoggingAgent.ReadModels;
 
-[assembly: AgentSystemName(Value = "LoggingAgent")]
-[assembly: AgentName(Value = "Logging Agent")]
-[assembly: AgentDescription(Value = "An agent that reads log4Net logs")]
+[assembly: AgentSystemName(Value = "Euclid.CompositeInspectorAgent")]
+[assembly: AgentName(Value = "Composite Inspector Agent")]
+[assembly: AgentDescription(Value = "Supports the operation of the Composite Inspector.")]
 [assembly: LocationOfCommands(Namespace = "")]
 [assembly: LocationOfQueries(NamespaceOfType = typeof(LogQueries))]
 [assembly: LocationOfProcessors(Namespace = "")]
