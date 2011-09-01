@@ -116,8 +116,7 @@ namespace Euclid.Composites
 			Container.Register(
 				Component.For<IWindsorContainer>().Instance(Container));
 
-			Container.Register(
-				Component.For<ILoggingSource, ICompositeApp>().Instance(this));
+			Container.Register(Component.For<ICompositeApp>().Instance(this));
 
 			Settings = compositeAppSettings;
 

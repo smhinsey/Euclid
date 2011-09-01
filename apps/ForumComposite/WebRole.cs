@@ -39,15 +39,14 @@ namespace ForumComposite
 
 			XmlConfigurator.Configure();
 
-			var compositeDatabaseConnection =
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
+			var databaseConfiguration = MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
 
 			var container = new WindsorContainer();
 
 			var composite = new MvcCompositeApp(container)
 				{ Name = "NewCo Forum", Description = " A website where ideas and views on issues can be exchanged." };
 
-			composite.RegisterNh(compositeDatabaseConnection, true);
+			composite.RegisterNh(databaseConfiguration, true);
 
 			var compositeAppSettings = new CompositeAppSettings();
 

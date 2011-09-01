@@ -4,13 +4,10 @@ using Euclid.Common.Logging;
 
 namespace Euclid.Sdk.TestComposite.Controllers
 {
-	public class HomeController : Controller
+	public class HomeController : Controller, ILoggingSource
 	{
-		private readonly ILoggingSource _logger;
-
-		public HomeController(ILoggingSource logger)
+		public HomeController()
 		{
-			_logger = logger;
 		}
 
 		public ActionResult Index()
@@ -22,12 +19,10 @@ namespace Euclid.Sdk.TestComposite.Controllers
 			}
 			catch (Exception e)
 			{
-				_logger.WriteErrorMessage("An error occurred", e);
+				this.WriteErrorMessage("An error occurred", e);
 			}
 
-			_logger.WriteDebugMessage("Test debug message");
-
-			
+			this.WriteDebugMessage("Test debug message");
 
 			return View();
 		}
