@@ -9,6 +9,7 @@ using Euclid.Framework.Cqrs;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
 using ForumComposite.Converters;
+using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
 
 namespace ForumComposite
@@ -43,7 +44,7 @@ namespace ForumComposite
 			var composite = new MvcCompositeApp(container)
 				{ Name = "NewCo Forum", Description = " A website where ideas and views on issues can be exchanged." };
 
-			composite.RegisterNh(compositeDatabaseConnection, false, true);
+			composite.RegisterNh(compositeDatabaseConnection, true);
 
 			var compositeAppSettings = new CompositeAppSettings();
 
@@ -54,6 +55,7 @@ namespace ForumComposite
 			composite.Configure(compositeAppSettings);
 
 			composite.AddAgent(typeof(PublishPost).Assembly);
+			composite.AddAgent(typeof(LogQueries).Assembly);
 
 			composite.RegisterInputModel(new CommentOnPostInputModelConverter());
 			composite.RegisterInputModel(new PublishPostInputModelConverter());
@@ -62,7 +64,7 @@ namespace ForumComposite
 			composite.RegisterInputModel(new VoteOnCommentInputModelConverter());
 			composite.RegisterInputModel(new VoteOnPostInputModelConverter());
 
-			composite.CreateSchema(compositeDatabaseConnection);
+			// composite.CreateSchema(compositeDatabaseConnection);
 		
 			setAzureCredentials(container);
 

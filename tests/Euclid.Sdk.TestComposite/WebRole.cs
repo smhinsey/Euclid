@@ -60,7 +60,7 @@ namespace Euclid.Sdk.TestComposite
 
             setAzureCredentials(container);
 
-			composite.RegisterNh(compositeDatabaseConnection, false, true);
+			composite.RegisterNh(compositeDatabaseConnection, true);
 
 			// composite.CreateSchema(compositeDatabaseConnection);
 

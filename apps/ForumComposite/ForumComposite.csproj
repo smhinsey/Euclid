@@ -343,6 +343,10 @@
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\LoggingAgent\LoggingAgent.csproj">
+      <Project>{1FE538F6-D05D-4849-8741-F827F1B7B34F}</Project>
+      <Name>LoggingAgent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ForumAgent\ForumAgent.csproj">
       <Project>{7C5DC02C-5E2E-46A2-8343-ADE8035F141B}</Project>
       <Name>ForumAgent</Name>

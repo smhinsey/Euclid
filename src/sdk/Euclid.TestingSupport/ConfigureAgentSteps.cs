@@ -81,7 +81,7 @@ namespace Euclid.TestingSupport
 
 			composite.Configure(getCompositeSettings());
 
-			composite.RegisterNh(compositeDatabaseConnection, true, false);
+			composite.RegisterNh(compositeDatabaseConnection, false);
 
 			Fabric.Initialize(getFabricSettings());
 

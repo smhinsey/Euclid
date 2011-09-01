@@ -196,7 +196,7 @@ namespace Euclid.Composites
 			}
 		}
 
-		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool buildSchema, bool isWeb)
+		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool isWeb)
 		{
 			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 

@@ -55,13 +55,13 @@ namespace AgentConsole
 				var composite = new BasicCompositeApp(container)
 					{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
 
-				// composite.AddAgent(typeof(PublishPost).Assembly);
+				composite.AddAgent(typeof(PublishPost).Assembly);
 
-				composite.AddAgent(typeof(TestCommand).Assembly);
+				// composite.AddAgent(typeof(TestCommand).Assembly);
 
 				composite.Configure(getCompositeSettings());
 
-				composite.RegisterNh(databaseConfiguration, false, false);
+				composite.RegisterNh(databaseConfiguration, false);
 
 				_instance.WriteInfoMessage("Initializing fabric");
 

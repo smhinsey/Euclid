@@ -53,7 +53,7 @@ namespace Euclid.TestingSupport
 					Description = "A composite used in specification tests"
 				};
 
-			composite.RegisterNh(compositeDatabaseConnection, true, false);
+			composite.RegisterNh(compositeDatabaseConnection, false);
 
 			foreach (var agentAssembly in _agentAssemblies)
 			{

@@ -1,5 +1,6 @@
 using System;
 using System.Web.Mvc;
+using Euclid.Common.Logging;
 using ForumAgent.Queries;
 using ForumComposite.Models;
 
@@ -8,13 +9,17 @@ namespace ForumComposite.Controllers
 	public class PostController : Controller
 	{
 		private readonly CommentQueries _commentQueries;
+		private readonly ILoggingSource _loggingSource;
 
 		private readonly PostQueries _postQueries;
 
-		public PostController(PostQueries postQueries, CommentQueries commentQueries)
+		public PostController(PostQueries postQueries, CommentQueries commentQueries, ILoggingSource loggingSource)
 		{
 			_postQueries = postQueries;
 			_commentQueries = commentQueries;
+			_loggingSource = loggingSource;
+
+			_loggingSource.WriteDebugMessage("PostController");
 		}
 
 		public ActionResult AddComment(Guid postId)
