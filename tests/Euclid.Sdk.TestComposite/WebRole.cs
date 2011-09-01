@@ -1,6 +1,5 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using Euclid.Common.Logging;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
 using Euclid.Common.Storage.NHibernate;
@@ -12,7 +11,6 @@ using Euclid.Sdk.TestComposite.Converters;
 using FluentNHibernate.Cfg.Db;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
-using NHibernate.Tool.hbm2ddl;
 
 namespace Euclid.Sdk.TestComposite
 {
@@ -43,9 +41,6 @@ namespace Euclid.Sdk.TestComposite
 			var composite = new MvcCompositeApp(container)
 				{ Name = "Test Composite", Description = "A composite application that is used to validate the Euclid platform" };
 
-            composite.RegisterNh(
-                MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), true, true);
-
             var compositeAppSettings = new CompositeAppSettings();
 
 			compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
@@ -61,7 +56,11 @@ namespace Euclid.Sdk.TestComposite
             composite.RegisterInputModel(new FailingInputModelToCommandConverter());
 
             setAzureCredentials(container);
-            
+
+			// jt: make sure this is the last thing called so all read models are in the container
+			composite.RegisterNh(
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), false, true);
+
             _initialized = true;
 		}
 

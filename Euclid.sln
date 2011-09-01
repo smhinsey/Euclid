@@ -97,7 +97,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{B1A8F5A1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeInspector", "src\sdk\CompositeInspector\CompositeInspector.csproj", "{D1B6455D-9E83-423F-A8E0-82073D066846}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingAgent", "sdk\LoggingAgent\LoggingAgent.csproj", "{1FE538F6-D05D-4849-8741-F827F1B7B34F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingAgent", "src\sdk\LoggingAgent\LoggingAgent.csproj", "{1FE538F6-D05D-4849-8741-F827F1B7B34F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

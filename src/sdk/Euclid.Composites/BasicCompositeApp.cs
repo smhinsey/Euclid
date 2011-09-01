@@ -22,8 +22,6 @@ using Euclid.Framework.Models;
 using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using LoggingAgent.Queries;
-using LoggingAgent.ReadModels;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using IQuery = Euclid.Framework.Cqrs.IQuery;
@@ -202,22 +200,12 @@ namespace Euclid.Composites
 		{
 			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
-			Container.Register(
-				Component
-					.For<ISessionFactory>()
-					.UsingFactoryMethod(() => Fluently
-									.Configure()
-									.Database(databaseConfiguration)
-									.Mappings(map =>mapAllAssemblies(map))
-									.ExposeConfiguration(
-										cfg => new SchemaExport(cfg).Create(false, buildSchema))
-									.BuildSessionFactory())
-					.LifeStyle.Singleton);
-
 			// jt: open session should be read-only
 			Container.Register(
-				Component.For<ISession>().UsingFactoryMethod(() => Container.Resolve<ISessionFactory>().OpenSession()).LifeStyle.Is(
-					lifestyleType));
+				Component
+					.For<ISession>()
+					.Instance(GetSession(databaseConfiguration, buildSchema))
+					.LifeStyle.Is(lifestyleType));
 		}
 
 		protected void RegisterConfiguredTypes(CompositeAppSettings compositeAppSettings)
@@ -279,6 +267,18 @@ namespace Euclid.Composites
 			
 
 			return mcfg;
+		}
+
+		private ISession GetSession(IPersistenceConfigurer databaseConfiguration, bool buildSchema)
+		{
+			return Fluently
+					.Configure()
+					.Database(databaseConfiguration)
+					.Mappings(map => mapAllAssemblies(map))
+					.ExposeConfiguration(
+						cfg => new SchemaExport(cfg).Create(false, buildSchema))
+					.BuildSessionFactory()
+					.OpenSession();
 		}
 	}
 }

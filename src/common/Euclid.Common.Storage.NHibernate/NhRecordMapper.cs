@@ -7,7 +7,7 @@ using NHibernate;
 
 namespace Euclid.Common.Storage.NHibernate
 {
-	public class NhRecordMapper<TRecord> : DefaultLoggingSource, IRecordMapper<TRecord>
+	public class NhRecordMapper<TRecord> : ILoggingSource, IRecordMapper<TRecord>
 		where TRecord : class, IPublicationRecord, new()
 	{
 		private readonly ISession _session;

@@ -10,10 +10,9 @@ namespace Euclid.Common.Logging
 	{
 		private static void SetCustomLogFields(this ILoggingSource source)
 		{
-			ThreadContext.Properties["Identifier"] = Guid.NewGuid();
 			ThreadContext.Properties["Created"] = DateTime.Now;
 			ThreadContext.Properties["Modified"] = DateTime.Now;
-			ThreadContext.Properties["LoggingSource"] = source.Name;
+			ThreadContext.Properties["Id"] = 0;
 		}
 
 		/// <summary>
@@ -44,6 +43,8 @@ namespace Euclid.Common.Logging
 		public static void WriteErrorMessage(
 			this ILoggingSource source, string message, Exception exception, params object[] formatParameters)
 		{
+			source.SetCustomLogFields();
+
 			var logger = LogManager.GetLogger(source.GetType());
 
 			if (logger.IsErrorEnabled)
@@ -62,6 +63,8 @@ namespace Euclid.Common.Logging
 		/// <param name = "exception">The exception associated with the log message.</param>
 		public static void WriteFatalMessage(this ILoggingSource source, string message, Exception exception)
 		{
+			source.SetCustomLogFields();
+
 			var logger = LogManager.GetLogger(source.GetType());
 
 			if (logger.IsFatalEnabled)
@@ -78,6 +81,8 @@ namespace Euclid.Common.Logging
 		/// <param name = "formatParameters">String formatting parameters.</param>
 		public static void WriteInfoMessage(this ILoggingSource source, string message, params object[] formatParameters)
 		{
+			source.SetCustomLogFields();
+
 			var logger = LogManager.GetLogger(source.GetType());
 
 			if (logger.IsInfoEnabled)
@@ -93,6 +98,8 @@ namespace Euclid.Common.Logging
 		/// <param name = "message">The message to be written to the log.</param>
 		public static void WriteWarnMessage(this ILoggingSource source, string message)
 		{
+			source.SetCustomLogFields();
+
 			var logger = LogManager.GetLogger(source.GetType());
 
 			if (logger.IsWarnEnabled)

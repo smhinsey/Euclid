@@ -1,26 +1,63 @@
-﻿@model System.Collections.Generic.IEnumerable<LoggingAgent.ReadModels.LogEntry>
+﻿@using CompositeInspector.Models
 
-@{
-	ViewBag.Title = "title";
-	Layout = "_Layout";
-}
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#exception").dialog({ autoOpen: false, modal: true, title: "Exception" });
+		$(".exception").click(function() {
+			var msg = $(this).attr("message");
+			$("#exception-text").html(msg);
+			$("#exception").dialog('open');
+		});
+	});
+</script>
+
+
+@model LogEntryModel
+<div class="row">
+	<div class="span16 columns">
+		<ul class="pills">
+			@{ var css = string.IsNullOrEmpty(Model.SelectedSource) ? "active" : string.Empty; }
+
+			<li class="@css">
+				<a href="@Url.Action("Index", "Logging", new { pageSize = ViewBag.Pagesize, offset = 0})">All</a>
+			</li>
+			@foreach (var source in Model.AvailableSources)
+			{
+				css = (source == Model.SelectedSource) ? "active" : string.Empty;
+	   			<li class="@css">
+					<a href="@Url.Action("Index", "Logging", new { pageSize = ViewBag.Pagesize, offset = 0, filterBy = source })">@source</a>
+				</li>
+			}
+		</ul>
+	</div>
+</div>
 
 <table class="zebra-striped">
 	<tr>
 		<td>Created</td>
 		<td>Level</td>
 		<td>Message</td>
-		<td>LoggedFrom</td>
+		<td>Source</td>
 		<td>Exception</td>
 	</tr>
-	@foreach(var m in Model)
-	{
+	@foreach (var m in Model.Entries)
+ {
 		<tr>
 			<td>@m.Created</td>
 			<td>@m.Level</td>
 			<td>@m.Message</td>
-			<td>@m.LoggedFrom</td>
-			<td>@m.Exception</td>
-		</tr>
+			<td>@m.LoggingSource</td>
+			<td>
+				@if (!string.IsNullOrEmpty(m.Exception))
+	{
+					<a href="#" message="@m.Exception" class="exception">Show</a>
 	}
+			</td>
+		</tr>
+ }
 </table>
+
+<div id="exception" style="display:none">
+	<p id="exception-text"></p>
+</div>
+@{ Html.RenderPartial("Paging"); }

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using CompositeInspector.Models;
 using Euclid.Composites;
+using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.Cqrs;
 using MvcContrib.Filters;
 
@@ -29,14 +30,16 @@ namespace CompositeInspector.Controllers
 
 			return
 				View(
-					new PublishedCommandModel { HasValue = record != null, Record = record, PublicationId = publicationId.ToString() });
+					new PublishedCommandModel { Record = record, PublicationId = publicationId.ToString() });
 		}
 
 		public ActionResult Index(int pageSize = 100, int offset = 0)
 		{
 			var records = _registry.GetRecords(pageSize, offset);
 
-			return View(new PublishedCommandsModel { CurrentPage = offset, RowsPerPage = pageSize, Records = records });
+			records.SetupPaging(this, pageSize, offset);
+
+			return View(records);
 		}
 	}
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.ServiceHost;
@@ -10,20 +11,36 @@ using Euclid.Common.Storage.NHibernate;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
+using Euclid.Sdk.TestAgent.Commands;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
+using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
 using log4net.Config;
 
 namespace AgentConsole
 {
-	public class EntryPoint
+	public class EntryPoint : ILoggingSource
 	{
+		private static EntryPoint _instance;
+
+		private EntryPoint()
+		{
+			
+		}
+
 		public static void Main(string[] args)
 		{
+			if (_instance == null)
+			{
+				_instance = new EntryPoint();
+			}
+
 			try
 			{
 				XmlConfigurator.Configure();
+
+				_instance.WriteInfoMessage("Starting agent console");
 
 				var container = new WindsorContainer();
 
@@ -34,20 +51,24 @@ namespace AgentConsole
 				var composite = new BasicCompositeApp(container)
 					{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
 
-				composite.RegisterNh(
-					MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), false, false);
+				// composite.AddAgent(typeof(PublishPost).Assembly);
 
-				composite.AddAgent(typeof(PublishPost).Assembly);
+				composite.AddAgent(typeof(TestCommand).Assembly);
 
 				composite.Configure(getCompositeSettings());
 
+				composite.RegisterNh(
+					MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db")), false, false);
+
+				_instance.WriteInfoMessage("Initializing fabric");
+
 				fabric.Initialize(getFabricSettings());
 
+				_instance.WriteInfoMessage("Installing composite: {0}", composite.Name);
+				
 				fabric.InstallComposite(composite);
 
 				fabric.Start();
-
-				Console.WriteLine("Press enter to exit console");
 
 				Console.ReadLine();
 			}
@@ -101,6 +122,11 @@ namespace AgentConsole
 				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
+		}
+
+		public string Name
+		{
+			get { return "AgentConsole"; }
 		}
 	}
 }

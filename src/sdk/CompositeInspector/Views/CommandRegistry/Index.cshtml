@@ -1,45 +1,46 @@
 ﻿@using CompositeInspector.Models
-@model PublishedCommandsModel
+@using Euclid.Common.Messaging
+@model IEnumerable<IPublicationRecord>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+	$(document).ready(function () {
 
 
-    	$(".error").click(function() {
+		$(".error").click(function () {
 
-    		if ($("#error-row").is(":visible")) {
-    			$(this).html("Show");
-    			hideRow();
-    		} else {
-    			$(this).html("Hide");
+			if ($("#error-row").is(":visible")) {
+				$(this).html("Show");
+				hideRow();
+			} else {
+				$(this).html("Hide");
 
-    			var msg = $(this).attr("message");
-    			var stack = $(this).attr("callstack");
+				var msg = $(this).attr("message");
+				var stack = $(this).attr("callstack");
 
 
-    			showRow($(this).parent().parent(), msg, stack);
-    		}
-    	});
-    });
+				showRow($(this).parent().parent(), msg, stack);
+			}
+		});
+	});
 
-    function hideRow() {
-    	$("#error-row").hide();
-    }
+	function hideRow() {
+		$("#error-row").hide();
+	}
 
-    function showRow(parentRow, msg, stack) {
-    	hideRow();
+	function showRow(parentRow, msg, stack) {
+		hideRow();
 
-    	$("#error-message").html(msg);
-    	$("#call-stack").html(stack);
+		$("#error-message").html(msg);
+		$("#call-stack").html(stack);
 
-    	$("#error-row").insertAfter($(parentRow));
-    	$("#error-row").show(164);
-    }
+		$("#error-row").insertAfter($(parentRow));
+		$("#error-row").show(164);
+	}
 </script>
-				 
+
 <h5>Publication Records</h5>
 
-@if (Model.RecordCount == 0)
+@if (Model.Count() == 0)
 {
 	<div>
 		No commands have been published through this composite
@@ -56,7 +57,7 @@ else
 			<th>Type</th>
 			<th>Location</th>
 		</tr>
-		@foreach (var pub in Model.Records)
+		@foreach (var pub in Model)
 		{
 			<tr>
 				<td><a href='@Url.Action("Details", "CommandRegistry", new { publicationId = pub.Identifier })'>@pub.Identifier</a></td>
@@ -78,38 +79,7 @@ else
 		}
 	</table>
 
-	<div class="row">
-		<div class="span4 columns offset6">
-			<div class="pagination">
-				@{
-					var prev = "prev";
-					var prevUrl = Url.Action("Index", "CommandRegistry", new { pageSize = Model.RowsPerPage, offSet = Model.CurrentPage - 1 });
-					if (!Model.HasPreviousPage)
-					{
-						prev = "prev disabled";
-						prevUrl = "#";
-					}
-
-					var next = "next";
-					var nextUrl = Url.Action("Index", "CommandRegistry", new { pageSize = Model.RowsPerPage, offSet = Model.CurrentPage + 1 });
-					if (!Model.HasNextPage)
-					{
-						next = "next disabled";
-						nextUrl = "#";
-					}
-				}
-				<ul>
-					<li class="@prev">
-						<a href="@prevUrl">← Prev</a>
-					</li>
-					<li class="active"><a href="#">@(Model.CurrentPage + 1) of @(Model.TotalPages + 1)</a></li>
-					<li class="@next">
-						<a href="@nextUrl">Next →</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	Html.RenderPartial("Paging");
 }
 
 <table>

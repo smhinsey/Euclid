@@ -6,7 +6,7 @@ using Euclid.Common.Storage.Binary;
 
 namespace Euclid.Common.Storage
 {
-	public class InMemoryBlobStorage : DefaultLoggingSource, IBlobStorage
+	public class InMemoryBlobStorage : ILoggingSource, IBlobStorage
 	{
 		private readonly ConcurrentDictionary<Uri, IBlob> _blobs;
 

@@ -10,7 +10,7 @@ using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Conversion
 {
-	public class InputModelToCommandTransformerRegistry : DefaultLoggingSource, IInputModelTransformerRegistry
+	public class InputModelToCommandTransformerRegistry : ILoggingSource, IInputModelTransformerRegistry
 	{
 		private readonly Dictionary<string, IInputToCommandConverter> _inputModelsAndValues =
 			new Dictionary<string, IInputToCommandConverter>();

@@ -3,7 +3,7 @@ using Euclid.Common.Messaging;
 
 namespace Euclid.Framework.Cqrs
 {
-	public abstract class DefaultCommandProcessor<TCommand> : DefaultLoggingSource, ICommandProcessor<TCommand>
+	public abstract class DefaultCommandProcessor<TCommand> : ILoggingSource, ICommandProcessor<TCommand>
 		where TCommand : ICommand
 	{
 		public bool CanProcessMessage(IMessage message)

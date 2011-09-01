@@ -129,10 +129,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\sdk\LoggingAgent\LoggingAgent.csproj">
-      <Project>{1FE538F6-D05D-4849-8741-F827F1B7B34F}</Project>
-      <Name>LoggingAgent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
       <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
       <Name>Euclid.Common.Storage.NHibernate</Name>

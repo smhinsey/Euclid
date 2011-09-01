@@ -1,7 +1,7 @@
 ﻿@using CompositeInspector.Models
 @model PublishedCommandModel
 
-@if (!Model.HasValue)
+@if (Model.Record == null)
 {
 	<div>
 		No publication record exists with Id @Model.PublicationId

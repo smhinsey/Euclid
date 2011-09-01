@@ -10,7 +10,7 @@ namespace Euclid.Common.ServiceHost
 	/// <summary>
 	/// 	A basic concurrent service host using the Task Parallel Library.
 	/// </summary>
-	public class MultitaskingServiceHost : DefaultLoggingSource, IServiceHost
+	public class MultitaskingServiceHost : ILoggingSource, IServiceHost
 	{
 		private readonly IList<Exception> _serviceExceptions;
 

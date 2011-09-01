@@ -8,7 +8,7 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace Euclid.Common.Messaging
 {
-	public class MultitaskingMessageDispatcher<TRegistry> : DefaultLoggingSource, IMessageDispatcher
+	public class MultitaskingMessageDispatcher<TRegistry> : ILoggingSource, IMessageDispatcher
 		where TRegistry : IPublicationRegistry<IPublicationRecord, IPublicationRecord>
 	{
 		private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();

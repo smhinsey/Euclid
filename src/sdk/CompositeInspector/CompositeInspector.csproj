@@ -80,11 +80,11 @@
     <Compile Include="Models\AgentListModel.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\AgentPartModel.cs" />
+    <Compile Include="Models\LogEntryModel.cs" />
     <Compile Include="Models\PublishedCommandModel.cs" />
     <Compile Include="Models\CompositeModel.cs" />
     <Compile Include="Models\PartCollectionModel.cs" />
     <Compile Include="Models\PartModel.cs" />
-    <Compile Include="Models\PublishedCommandsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -172,10 +172,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\sdk\LoggingAgent\LoggingAgent.csproj">
-      <Project>{1FE538F6-D05D-4849-8741-F827F1B7B34F}</Project>
-      <Name>LoggingAgent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
       <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
       <Name>Euclid.Common.Configuration</Name>
@@ -208,6 +204,10 @@
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LoggingAgent\LoggingAgent.csproj">
+      <Project>{1FE538F6-D05D-4849-8741-F827F1B7B34F}</Project>
+      <Name>LoggingAgent</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Agents\ViewPartCollection.cshtml" />
@@ -217,7 +217,8 @@
     <EmbeddedResource Include="Views\Shared\Scripts.cshtml" />
     <EmbeddedResource Include="Views\Shared\Styles.cshtml" />
     <EmbeddedResource Include="Views\Frame\Index.cshtml" />
-    <None Include="Views\Logging\Index.cshtml" />
+    <EmbeddedResource Include="Views\Logging\Index.cshtml" />
+    <EmbeddedResource Include="Views\Shared\Paging.cshtml" />
     <None Include="web.config" />
   </ItemGroup>
   <ItemGroup>

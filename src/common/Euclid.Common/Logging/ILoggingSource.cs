@@ -5,14 +5,5 @@
 	/// </summary>
 	public interface ILoggingSource
 	{
-		string Name { get; }
-	}
-
-	public class DefaultLoggingSource : ILoggingSource
-	{
-		public string Name
-		{
-			get { return GetType().Name; }
-		}
 	}
 }
