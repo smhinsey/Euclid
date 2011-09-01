@@ -11,7 +11,7 @@ namespace CompositeInspector.Controllers
 
 		public ActionResult Remove()
 		{
-			return RedirectToAction("Index", "Composite");
+			return Redirect(Url.Content("~"));
 		}
 	}
 }
