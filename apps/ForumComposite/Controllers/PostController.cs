@@ -16,14 +16,14 @@ namespace ForumComposite.Controllers
 		{
 			_postQueries = postQueries;
 			_commentQueries = commentQueries;
-
-			this.WriteInfoMessage("Hello.");
 		}
 
 		public ActionResult AddComment(Guid postId)
 		{
 			// SELF there's a better way to do this, but i'm lazy
 			var authorId = Guid.Parse(Request.Cookies["ForumUserId"].Value);
+
+			this.WriteInfoMessage("Loading add comment screen for user {0}({1}).", User.Identity.Name, authorId);
 
 			return View(new CommentOnPostInputModel { PostIdentifier = postId, AuthorIdentifier = authorId });
 		}

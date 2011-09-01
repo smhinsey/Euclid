@@ -47,6 +47,8 @@ namespace ForumComposite.Controllers
 		{
 			FormsAuthentication.SignOut();
 
+			Response.Cookies.Remove("ForumUserId");
+
 			return RedirectToAction("List", "Post");
 		}
 	}

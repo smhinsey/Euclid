@@ -1,63 +1,62 @@
 ﻿@using CompositeInspector.Models
-
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#exception").dialog({ autoOpen: false, modal: true, title: "Exception" });
-		$(".exception").click(function() {
+		$(".exception").click(function () {
 			var msg = $(this).attr("message");
 			$("#exception-text").html(msg);
 			$("#exception").dialog('open');
 		});
 	});
 </script>
-
-
 @model LogEntryModel
 <div class="row" style="margin-top: 7px;">
-	<div class="span16 columns">
-		<ul class="pills" style="margin-bottom: 7px;">
-			@{ var css = string.IsNullOrEmpty(Model.SelectedSource) ? "active" : string.Empty; }
 
-			<li class="@css">
-				<a href="@Url.Action("Index", "Logging", new { pageSize = ViewBag.Pagesize, offset = 0})">All</a>
-			</li>
+	<div class="span16 columns">
+		<ul class="pills" style="margin-bottom: 5px;">
+			@{ var css = string.IsNullOrEmpty(Model.SelectedSource) ? "active" : string.Empty; }
+			<li class="@css"><a href="@Url.Action("Index", "Logging", new { pageSize = ViewBag.Pagesize, offset = 0 })">
+				All</a> </li>
 			@foreach (var source in Model.AvailableSources)
-			{
-				css = (source == Model.SelectedSource) ? "active" : string.Empty;
-	   			<li class="@css">
-					<a href="@Url.Action("Index", "Logging", new { pageSize = ViewBag.Pagesize, offset = 0, filterBy = source })">@source</a>
+	 {
+		 css = (source == Model.SelectedSource) ? "active" : string.Empty;
+				<li class="@css"><a href="@Url.Action("Index", "Logging", new { pageSize = ViewBag.Pagesize, offset = 0, filterBy = source })">@source</a>
 				</li>
-			}
+	 }
 		</ul>
 	</div>
+
 </div>
 
 <table class="zebra-striped" style="margin-top: 0px">
-	<tr>
-		<td>Created</td>
-		<td>Level</td>
-		<td>Message</td>
-		<td>Source</td>
-		<td>Exception</td>
-	</tr>
+	<thead>
+		<tr>
+			<th>Created</th>
+			<th>Level</th>
+			<th>Message</th>
+			<th>Source</th>
+			<th>Exception</th>
+		</tr>
+	</thead>
 	@foreach (var m in Model.Entries)
  {
 		<tr>
-			<td>@m.Created</td>
+			<td style="width: 125px;">@m.Created</td>
 			<td>@m.Level</td>
 			<td>@m.Message</td>
 			<td>@m.LoggingSource</td>
 			<td>
 				@if (!string.IsNullOrEmpty(m.Exception))
-	{
+		{
 					<a href="#" message="@m.Exception" class="exception">Show</a>
-	}
+		}
 			</td>
 		</tr>
  }
 </table>
 
-<div id="exception" style="display:none">
+<div id="exception" style="display: none">
 	<p id="exception-text"></p>
 </div>
+
 @{ Html.RenderPartial("Paging"); }
