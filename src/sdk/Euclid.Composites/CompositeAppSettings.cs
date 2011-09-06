@@ -18,6 +18,8 @@ namespace Euclid.Composites
 
 		public readonly OverridableTypeSetting<IMessageSerializer> MessageSerializer;
 
+		public readonly OverridableSetting<string> OutputChannelName;
+
 		public readonly OverridableTypeSetting<IMessageChannel> OutputChannel;
 
 		public readonly OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>
@@ -27,6 +29,7 @@ namespace Euclid.Composites
 
 		public CompositeAppSettings()
 		{
+			OutputChannelName = new OverridableSetting<string>();
 			OutputChannel = new OverridableTypeSetting<IMessageChannel>("OutputChannel");
 			BlobStorage = new OverridableTypeSetting<IBlobStorage>("BlobStorage");
 			CommandDispatcher = new OverridableTypeSetting<ICommandDispatcher>("CommandDispatcher");
@@ -37,7 +40,7 @@ namespace Euclid.Composites
 				new OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>("PublicationRegistry");
 			Publisher = new OverridableTypeSetting<IPublisher>("Publisher");
 
-			// OutputChannel.WithDefault(typeof (InMemoryMessageChannel));
+			OutputChannelName.WithDefault("OutputChannelName");
 			BlobStorage.WithDefault(typeof(InMemoryBlobStorage));
 			CommandDispatcher.WithDefault(typeof(CommandDispatcher));
 			CommandPublicationRecordMapper.WithDefault(typeof(InMemoryCommandPublicationRecordMapper));

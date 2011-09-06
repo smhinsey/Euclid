@@ -6,6 +6,7 @@ using ForumComposite.Models;
 
 namespace ForumComposite.Controllers
 {
+	[AddUserSpecificData()]
 	public class PostController : Controller, ILoggingSource
 	{
 		private readonly CommentQueries _commentQueries;

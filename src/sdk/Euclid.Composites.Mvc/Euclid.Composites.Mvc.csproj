@@ -99,7 +99,7 @@
     <Compile Include="ActionFilters\AgentPartMetdataNotFoundException.cs" />
     <Compile Include="ActionFilters\ApplicationNotPartResolverException.cs" />
     <Compile Include="ActionFilters\CannotRetrieveInputModelException.cs" />
-    <Compile Include="ActionFilters\EuclidActionInvoker.cs" />
+    <Compile Include="ActionFilters\CompositeActionInvoker.cs" />
     <Compile Include="ActionFilters\TypeMetadataNotFoundException.cs" />
     <Compile Include="ActionFilters\FormatAgentMetadata.cs" />
     <Compile Include="ActionFilters\FormatListOfBasicAgentMetadata.cs" />

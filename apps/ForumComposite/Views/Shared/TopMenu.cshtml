@@ -3,13 +3,12 @@
 		<li class="Active">@Html.ActionLink("All Discussions", "List", "Post")</li>
 		@if (Request.IsAuthenticated)
 		{
-			<li><a href="#mybookmarks" class="MyBookmarks">My Bookmarks<span>10</span></a></li>
-			<li><a href="#mydiscussions" class="MyDiscussions">My Discussions<span>27</span></a></li>
+			<li><a href="@Url.Action("MyDiscussions", "Profile")" class="MyDiscussions">My Discussions<span>@ViewBag.PostCount</span></a></li>
 			<li class="add-discussion">@Html.ActionLink("Start a new discussion", "Create", "Post")</li>
 		}
 		else
 		{
-			<li class="add-discussion">@Html.ActionLink("Sign in", "SignIn", "Profile", null, new { @class = "SignInPopup" })</li>
+			<li class="add-discussion">@Html.ActionLink("Sign in", "SignIn", "Authentication", null, new { @class = "SignInPopup" })</li>
 		}
 	</ul>
 	<!--

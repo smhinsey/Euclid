@@ -24,6 +24,9 @@
 									<li><a  href="@Url.Action("Index", "CommandRegistry")">Command registry</a></li>
 									<li><a href="@Url.Action("Index", "Logging")">Logs</a></li>
 								</ul>
+								<ul class="nav secondary-nav">
+									<li><a href="@Url.Action("Remove", "Frame")" target="_parent">Hide Inspector</a></li>
+								</ul>
 							</div>
 
 						</div>
@@ -47,9 +50,7 @@
 				<div class="row show-grid footer">
 
 					<div class="span5 columns">
-						<a href="@Url.Action("Remove", "Frame")" class="btn small" id="remove-frame" target="_parent">
-							Remove Frame</a> <a href="@Url.Action("Index", "Frame")" class="btn" id="show-frame" target="_parent">
-															 	Show Frame</a>
+						<a href="@Url.Action("Remove", "Frame")" class="btn small" id="remove-frame" target="_parent">Hide Inspector</a>
 					</div>
 
 					<div class="span11 columns" style="text-align: right;">

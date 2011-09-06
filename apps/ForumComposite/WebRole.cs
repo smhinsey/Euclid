@@ -1,5 +1,7 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System.Web.Mvc;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
 using Euclid.Common.Storage.NHibernate;
@@ -71,6 +73,8 @@ namespace ForumComposite
 			setAzureCredentials(container);
 
 			_initialized = true;
+
+			DependencyResolver.SetResolver(new WindsorServiceLocator(container));
 		}
 
 		private void setAzureCredentials(IWindsorContainer container)

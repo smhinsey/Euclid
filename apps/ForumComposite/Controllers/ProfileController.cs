@@ -1,55 +1,26 @@
-﻿using System.Web;
+﻿using System;
 using System.Web.Mvc;
-using System.Web.Security;
 using ForumAgent.Queries;
-using ForumComposite.Models;
 
 namespace ForumComposite.Controllers
 {
+	[AddUserSpecificData]
 	public class ProfileController : Controller
 	{
-		private readonly UserQueries _userQueries;
+		private readonly PostQueries _postQueries;
 
-		public ProfileController(UserQueries userQueries)
+		public ProfileController(PostQueries postQueries)
 		{
-			_userQueries = userQueries;
+			_postQueries = postQueries;
 		}
 
-		[HttpPost]
-		public ActionResult Authenticate(string username, string password)
+		public ActionResult MyDiscussions(int pageSize = 10, int offset = 0)
 		{
-			if (_userQueries.Authenticate(username, password))
-			{
-				var user = _userQueries.FindByUsername(username);
+			var authorId = Guid.Parse(Request.Cookies["ForumUserId"].Value);
 
-				// SELF need to do something better here
-				Response.Cookies.Add(new HttpCookie("ForumUserId", user.Identifier.ToString()));
+			var posts = _postQueries.FindByAuthorIdentifier(authorId, pageSize, offset);
 
-				FormsAuthentication.SetAuthCookie(username, false);
-
-				return RedirectToAction("List", "Post");
-			}
-
-			return RedirectToAction("SignIn");
-		}
-
-		public ActionResult Register()
-		{
-			return View(new RegisterUserInputModel());
-		}
-
-		public ActionResult SignIn()
-		{
-			return View();
-		}
-
-		public ActionResult SignOut()
-		{
-			FormsAuthentication.SignOut();
-
-			Response.Cookies.Remove("ForumUserId");
-
-			return RedirectToAction("List", "Post");
+			return View(posts);
 		}
 	}
 }

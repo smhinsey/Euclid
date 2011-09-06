@@ -5,11 +5,11 @@ using Euclid.Composites.Mvc.Extensions;
 
 namespace Euclid.Composites.Mvc.ActionFilters
 {
-	public class EuclidActionInvoker : ControllerActionInvoker
+	public class CompositeActionInvoker : ControllerActionInvoker
 	{
 		private readonly IWindsorContainer _container;
 
-		public EuclidActionInvoker(IWindsorContainer container)
+		public CompositeActionInvoker(IWindsorContainer container)
 		{
 			_container = container;
 		}

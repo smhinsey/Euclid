@@ -45,7 +45,7 @@ namespace Euclid.Composites.Mvc
 
 			Container.Install(new ControllerContainerInstaller());
 
-			Container.Register(Component.For<IActionInvoker>().ImplementedBy<EuclidActionInvoker>());
+			Container.Register(Component.For<IActionInvoker>().ImplementedBy<CompositeActionInvoker>());
 
 			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
 
