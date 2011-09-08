@@ -6,7 +6,6 @@ using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
-using Euclid.Common.Logging;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.NHibernate;
@@ -90,7 +89,6 @@ namespace Euclid.Composites
 				throw new AssemblyNotAgentException(assembly);
 			}
 
-			// enumerate queries, commands & read models
 			var agent = assembly.GetAgentMetadata();
 
 			_agents.Add(agent);
@@ -113,8 +111,7 @@ namespace Euclid.Composites
 			Container.Register(
 				Component.For<IInputModelTransformerRegistry>().Instance(InputModelTransformers).LifeStyle.Singleton);
 
-			Container.Register(
-				Component.For<IWindsorContainer>().Instance(Container));
+			Container.Register(Component.For<IWindsorContainer>().Instance(Container));
 
 			Container.Register(Component.For<ICompositeApp>().Instance(this));
 
@@ -123,6 +120,12 @@ namespace Euclid.Composites
 			Settings.Validate();
 
 			State = CompositeApplicationState.Configured;
+		}
+
+		public void CreateSchema(IPersistenceConfigurer databaseConfiguration)
+		{
+			Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).ExposeConfiguration(
+				cfg => new SchemaExport(cfg).Create(false, true)).BuildSessionFactory();
 		}
 
 		public IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata)
@@ -200,21 +203,15 @@ namespace Euclid.Composites
 			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
 
 			Container.Register(
-				Component
-					.For<ISessionFactory>()
-					.UsingFactoryMethod<ISessionFactory>(() => Fluently
-					                                           	.Configure()
-					                                           	.Database(databaseConfiguration)
-					                                           	.Mappings(map => mapAllAssemblies(map))
-					                                           	.BuildSessionFactory())
-					.LifeStyle.Singleton);
+				Component.For<ISessionFactory>().UsingFactoryMethod<ISessionFactory>(
+					() =>
+					Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).BuildSessionFactory()).
+					LifeStyle.Singleton);
 
 			// jt: open session should be read-only
 			Container.Register(
-				Component
-					.For<ISession>()
-					.UsingFactoryMethod<ISession>(() => Container.Resolve<ISessionFactory>().OpenSession())
-					.LifeStyle.Is(lifestyleType));
+				Component.For<ISession>().UsingFactoryMethod<ISession>(() => Container.Resolve<ISessionFactory>().OpenSession()).
+					LifeStyle.Is(lifestyleType));
 		}
 
 		protected void RegisterConfiguredTypes(CompositeAppSettings compositeAppSettings)
@@ -268,25 +265,12 @@ namespace Euclid.Composites
 			foreach (var agent in assembliesToMap.Keys)
 			{
 				// SELF we need to shift to shipping these with the agents and using classmaps for them so we have better control
-				mcfg.AutoMappings.Add(AutoMap.Assembly(agent, autoMapperConfiguration)
-					.IgnoreBase<DefaultReadModel>()
-					.Conventions.Add<DefaultStringLengthConvention>());
+				mcfg.AutoMappings.Add(
+					AutoMap.Assembly(agent, autoMapperConfiguration).IgnoreBase<DefaultReadModel>().Conventions.Add
+						<DefaultStringLengthConvention>());
 			}
 
-			
-
 			return mcfg;
-		}
-
-		public void CreateSchema(IPersistenceConfigurer databaseConfiguration)
-		{
-			Fluently
-				.Configure()
-				.Database(databaseConfiguration)
-				.Mappings(map => mapAllAssemblies(map))
-				.ExposeConfiguration(
-					cfg => new SchemaExport(cfg).Create(false, true))
-				.BuildSessionFactory();
 		}
 	}
 }

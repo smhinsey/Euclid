@@ -16,6 +16,7 @@ namespace ForumComposite.Controllers
 
 		public ActionResult MyDiscussions(int pageSize = 10, int offset = 0)
 		{
+			// SELF there's a better way to do this, but i'm lazy
 			var authorId = Guid.Parse(Request.Cookies["ForumUserId"].Value);
 
 			var posts = _postQueries.FindByAuthorIdentifier(authorId, pageSize, offset);

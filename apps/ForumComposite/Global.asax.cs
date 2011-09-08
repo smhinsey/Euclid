@@ -1,8 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using BoC.Web.Mvc.PrecompiledViews;
-using CompositeInspector.Models;
 
 namespace ForumComposite
 {
@@ -24,8 +22,6 @@ namespace ForumComposite
 
 		protected void Application_Start()
 		{
-			ApplicationPartRegistry.Register(typeof(AgentModel).Assembly);
-
 			AreaRegistration.RegisterAllAreas();
 
 			RegisterGlobalFilters(GlobalFilters.Filters);

@@ -65,6 +65,31 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\packages\Castle.Windsor.2.5.3\lib\NET40\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator.WindsorAdapter">
+      <HintPath>..\..\packages\CommonServiceLocator.WindsorAdapter.1.0\lib\NET35\CommonServiceLocator.WindsorAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\..\packages\FluentNHibernate.1.3.0.717\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="NHibernate">
+      <HintPath>..\..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -90,11 +115,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\SetupController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\chromatron\css\colors.css" />
@@ -299,16 +325,68 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Setup\Start.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
+      <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
+      <Name>Euclid.Common.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging.Azure\Euclid.Common.Messaging.Azure.csproj">
+      <Project>{BB6CE799-54E1-4019-B918-992DCD78480A}</Project>
+      <Name>Euclid.Common.Messaging.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">
+      <Project>{4F499249-B39C-4DD2-A75C-FE768E90579F}</Project>
+      <Name>Euclid.Common.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.Azure\Euclid.Common.Storage.Azure.csproj">
+      <Project>{9190A42E-76B2-4315-9374-DF188D78881B}</Project>
+      <Name>Euclid.Common.Storage.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
+      <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
+      <Name>Euclid.Common.Storage.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
+      <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
+      <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
+      <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
+      <Name>Euclid.Framework.Cqrs.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
+      <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
+      <Name>Euclid.Framework.Cqrs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\CompositeInspector\CompositeInspector.csproj">
+      <Project>{D1B6455D-9E83-423F-A8E0-82073D066846}</Project>
+      <Name>CompositeInspector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
+      <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
+      <Name>Euclid.Composites.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\Euclid.Composites\Euclid.Composites.csproj">
+      <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
+      <Name>Euclid.Composites</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\LoggingAgent\LoggingAgent.csproj">
+      <Project>{1FE538F6-D05D-4849-8741-F827F1B7B34F}</Project>
+      <Name>LoggingAgent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ForumAgent\ForumAgent.csproj">
+      <Project>{7C5DC02C-5E2E-46A2-8343-ADE8035F141B}</Project>
+      <Name>ForumAgent</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\RightRail\SitewideNavigation.cshtml" />
+    <Content Include="Views\Shared\LeftRail\SitewideNavigation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Header\InfoWidgets.cshtml" />
@@ -317,7 +395,7 @@
     <Content Include="Views\Shared\Header\Breadcrumbs.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\RightRail\Badge.cshtml" />
+    <Content Include="Views\Shared\LeftRail\Badge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Footer\Scripts.cshtml" />
@@ -330,6 +408,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Header\Meta.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Web.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -2,10 +2,10 @@
 
 namespace AdminComposite.Controllers
 {
-	public class SetupController : Controller
+	public class HomeController : Controller
 	{
 		// GET: /Setup/
-		public ActionResult Start()
+		public ActionResult Index()
 		{
 			return View();
 		}
