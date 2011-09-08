@@ -209,22 +209,39 @@ $(function() {
 //		});
 
 	// jQuery Data Visualize
-	// Options: 'bar', 'area', 'pie', 'line'
-	$('.data').hide();
-	$('table.sample-graph').each(function() {
-		var chartWidth = $(this).parent().width() * 0.90;
-		var chartType = '';
+	$('table.data').each(function () {
+		var chartWidth = $(this).parent().width() * 0.90; // Set chart width to 90% of its parent
+		var chartType = ''; // Set chart type
 
-		if ($(this).attr('data-chart')) {
-			chartType = $(this).attr('data-chart');
+		if ($(this).attr('data-chart')) { // If exists chart-chart attribute
+			chartType = $(this).attr('data-chart'); // Get chart type from data-chart attribute
 		} else {
-			chartType = 'area';
+			chartType = 'area'; // If data-chart attribute is not set, use 'area' type as default. Options: 'bar', 'area', 'pie', 'line'
 		}
 
-		$(this).visualize({
+		if (chartType == 'line' || chartType == 'pie') {
+			$(this).hide().visualize({
+				type: chartType,
+				width: chartWidth,
+				height: '240px',
+				lineDots: 'double',
+				interaction: true,
+				multiHover: 5,
+				tooltip: true,
+				tooltiphtml: function (data) {
+					var html = '';
+					for (var i = 0; i < data.point.length; i++) {
+						html += '<p class="chart_tooltip"><strong>' + data.point[i].value + '</strong> ' + data.point[i].yLabels[0] + '</p>';
+					}
+					return html;
+				}
+			});
+		} else {
+			$(this).hide().visualize({
 				type: chartType,
 				width: chartWidth,
 				height: '240px'
 			});
+		}
 	});
 });

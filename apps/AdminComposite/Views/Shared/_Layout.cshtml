@@ -34,7 +34,7 @@
 		</section>
 		<section role="main">
 			@RenderPage("Header/InfoWidgets.cshtml")
-			@RenderPage("Header/Breadcrumbs.cshtml")
+			@RenderSection("Breadcrumbs", required: false)
 			<article class="clearfix">
 				@RenderBody()
 			</article>
@@ -49,6 +49,7 @@
 		<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.datepicker.js")" type="text/javascript"> </script>
 		<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.fileinput.js")" type="text/javascript"> </script>
 		<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.visualize.js")" type="text/javascript"> </script>
+		<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.visualize.tooltip.js")" type="text/javascript"> </script>
 		<script src="@Url.Content("~/Content/chromatron/js/jquery/excanvas.js")" type="text/javascript"> </script>
 		<script src="@Url.Content("~/Content/chromatron/js/script.js")" type="text/javascript"> </script>
 	</div>
