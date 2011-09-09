@@ -4,7 +4,7 @@ using ForumAgent.Commands;
 
 namespace ForumComposite.Models
 {
-	public class PublishPostInputModel : InputModelBase
+	public class PublishPostInputModel : DefaultInputModel
 	{
 		public PublishPostInputModel()
 		{

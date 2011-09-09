@@ -125,7 +125,7 @@ namespace Euclid.Composites
 		public void CreateSchema(IPersistenceConfigurer databaseConfiguration)
 		{
 			Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).ExposeConfiguration(
-				cfg => new SchemaExport(cfg).Create(false, true)).BuildSessionFactory();
+				cfg => new SchemaUpdate(cfg).Execute(false, true)).BuildSessionFactory();
 		}
 
 		public IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata)

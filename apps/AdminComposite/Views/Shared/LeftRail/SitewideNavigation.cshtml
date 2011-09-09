@@ -1,22 +1,26 @@
-﻿<ul>
-	<li class="current"><a href="/" title="title" class="dashboard no-submenu">Dashboard</a></li>
-	<li><a href="#" title="Forums" class="articles">Forums</a><span title="There are 23 new log entries">23</span>
+﻿@{
+	var controller = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString();
+	var action = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+}
+<ul>
+	<li @if (controller == "Dashboard"){<text>class="current"</text>}><a href="/" title="title" class="dashboard no-submenu">Dashboard</a></li>
+	<li @if (controller == "Forum"){<text>class="current"</text>}><a href="#" title="Forums" class="articles">Forums</a><span title="There are 23 new log entries">23</span>
 		<ul>
-			<li>@Html.ActionLink("Manage Forums", "Manage", "Forum")</li>
-			<li>@Html.ActionLink("Create a Forum", "Create", "Forum")</li>
+			<li @if (action == "Manage"){<text>class="current"</text>}>@Html.ActionLink("Manage Forums", "Manage", "Forum")</li>
+			<li @if (action == "Create"){<text>class="current"</text>}>@Html.ActionLink("Create a Forum", "Create", "Forum")</li>
 		</ul>
 	</li>
-	<li><a href="#" title="Users" class="gallery">Users</a><span title="There are 23 new log entries">23</span>
+	<li @if (controller == "User"){<text>class="current"</text>}><a href="#" title="Users" class="gallery">Users</a><span title="There are 23 new log entries">23</span>
 		<ul>
-			<li>@Html.ActionLink("Manage Users", "Manage", "User")</li>
-			<li>@Html.ActionLink("Invite Users", "Invite", "User")</li>
-			<li>@Html.ActionLink("Create a User", "Create", "User")</li>
+			<li @if (action == "Manage"){<text>class="current"</text>}>@Html.ActionLink("Manage Users", "Manage", "User")</li>
+			<li @if (action == "Invite"){<text>class="current"</text>}>@Html.ActionLink("Invite Users", "Invite", "User")</li>
+			<li @if (action == "Create"){<text>class="current"</text>}>@Html.ActionLink("Create a User", "Create", "User")</li>
 		</ul>
 	</li>
-	<li><a href="#" title="Moderation" class="gallery">Moderation</a><span title="There are 47 new log entries">47</span>
+	<li @if (controller == "Moderation"){<text>class="current"</text>}><a href="#" title="Moderation" class="gallery">Moderation</a><span title="There are 47 new log entries">47</span>
 		<ul>
-			<li>@Html.ActionLink("Moderate Posts", "Posts", "Moderation")</li>
-			<li>@Html.ActionLink("Moderate Comments", "Comments", "Moderation")</li>
+			<li @if (action == "Posts"){<text>class="current"</text>}>@Html.ActionLink("Moderate Posts", "Posts", "Moderation")</li>
+			<li @if (action == "Comments"){<text>class="current"</text>}>@Html.ActionLink("Moderate Comments", "Comments", "Moderation")</li>
 		</ul>	
 	</li>
 </ul>

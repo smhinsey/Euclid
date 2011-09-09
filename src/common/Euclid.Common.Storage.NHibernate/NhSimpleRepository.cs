@@ -111,6 +111,15 @@ namespace Euclid.Common.Storage.NHibernate
 			return query.List();
 		}
 
+		public IList<TModel> List(int offset, int pageSize)
+		{
+			var session = GetCurrentSession();
+
+			var query = session.QueryOver<TModel>().Take(pageSize).Skip(offset);
+
+			return query.List();
+		}
+
 		public TModel Save(TModel model)
 		{
 			var session = GetCurrentSession();

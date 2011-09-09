@@ -4,7 +4,7 @@ using ForumAgent.Commands;
 
 namespace ForumComposite.Models
 {
-	public class UpdateUserProfileInputModel : InputModelBase
+	public class UpdateUserProfileInputModel : DefaultInputModel
 	{
 		public UpdateUserProfileInputModel()
 		{

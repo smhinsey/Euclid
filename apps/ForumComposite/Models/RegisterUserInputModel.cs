@@ -3,7 +3,7 @@ using ForumAgent.Commands;
 
 namespace ForumComposite.Models
 {
-	public class RegisterUserInputModel : InputModelBase
+	public class RegisterUserInputModel : DefaultInputModel
 	{
 		public RegisterUserInputModel()
 		{

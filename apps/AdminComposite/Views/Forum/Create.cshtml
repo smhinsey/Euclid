@@ -1,5 +1,8 @@
-﻿@{
-	ViewBag.Title = "Create A Forum";
+﻿@using AdminComposite.Models
+@using Euclid.Composites.Mvc.Extensions
+@model CreateForumInputModel
+@{
+	ViewBag.Title = "Create a Forum";
 }
 
 <div class="article-container">
@@ -7,20 +10,20 @@
 		<h2>@ViewBag.Title</h2>
 	</header>
 	<section>
-		<h3>Lorem Ipsum</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor euismod ipsum
-			id molestie. Donec consequat nunc et tortor tristique sed mollis justo sodales.
-			Nulla enim nibh, faucibus non ornare in, egestas nec felis. Morbi id sem nunc, eu
-			cursus nibh. Curabitur sem sapien, dignissim sit amet posuere a, condimentum ornare
-			nulla. Ut accumsan tempor tincidunt. Nulla massa est, bibendum sed malesuada vitae,
-			mattis id sem. Nam blandit facilisis sem sit amet rutrum. Ut ac quam bibendum quam
-			elementum cursus id et justo. Maecenas sit amet elementum justo.</p>
-		<p>Suspendisse est sem, eleifend at bibendum tristique, condimentum vitae nibh. Curabitur
-			dapibus, purus a tincidunt ultricies, lorem quam congue justo, quis imperdiet sem
-			ante nec lacus. Donec sem libero, ultricies in dictum eu, sagittis a nisi. Phasellus
-			varius porttitor odio, eget sodales odio faucibus in. Donec convallis sapien velit.
-			Donec porttitor sollicitudin lorem nec vestibulum. Pellentesque habitant morbi tristique
-			senectus et netus et malesuada fames ac turpis egestas.</p>
+			@using (Html.BeginFormForInputModel(Model, true, Url.Action("Manage")))
+	 {
+				<fieldset><legend>Forum Settings</legend>
+					<dl>
+						<dt>Name</dt>
+						<dd>@Html.EditorFor(m => m.Name)</dd>
+						<dt>Host</dt>
+						<dd>@Html.EditorFor(m => m.UrlHostName)</dd>
+						<dt>Slug</dt>
+						<dd>@Html.EditorFor(m => m.UrlSlug)</dd>
+					</dl>
+				</fieldset>
+				<button type="submit">Create Forum</button> <text> or </text> @Html.ActionLink("Cancel", "Manage")
+	 }
 	</section>
 	<footer>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et <a href="#">
@@ -32,6 +35,7 @@
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="/" title="Back to Homepage">Home</a></li>
+		<li>Forums</li>
 		<li>@ViewBag.Title</li>
 	</ul>
 }

@@ -46,6 +46,11 @@ namespace Euclid.Framework.Cqrs.NHibernate
 			return Repository.FindByModificationDate(begin, end);
 		}
 
+		public IList<TReadModel> List(int offset, int pageSize)
+		{
+			return Repository.List(offset, pageSize);
+		}
+
 		protected ISession GetCurrentSession()
 		{
 			return Repository.GetCurrentSession();

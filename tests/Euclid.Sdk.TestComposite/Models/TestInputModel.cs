@@ -2,7 +2,7 @@
 
 namespace Euclid.Sdk.TestComposite.Models
 {
-	public class TestInputModel : InputModelBase
+	public class TestInputModel : DefaultInputModel
 	{
 		public int Number { get; set; }
 	}

@@ -131,7 +131,7 @@
     <Compile Include="MvcCompositeApp.cs" />
     <Compile Include="Extensions\ControllerContextExtensions.cs" />
     <Compile Include="Extensions\RequiredRouteDataMissingException.cs" />
-    <Compile Include="Models\InputModelBase.cs" />
+    <Compile Include="Models\DefaultInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Binders\EuclidDefaultBinder.cs" />
     <Compile Include="Results\JsonNetResult.cs" />

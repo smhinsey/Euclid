@@ -4,7 +4,7 @@ using ForumAgent.Commands;
 
 namespace ForumComposite.Models
 {
-	public class VoteOnPostInputModel : InputModelBase
+	public class VoteOnPostInputModel : DefaultInputModel
 	{
 		public VoteOnPostInputModel()
 		{

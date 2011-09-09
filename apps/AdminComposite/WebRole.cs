@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using AdminComposite.Converters;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
@@ -59,6 +60,8 @@ namespace AdminComposite
 
 			composite.AddAgent(typeof(PublishPost).Assembly);
 			composite.AddAgent(typeof(LogQueries).Assembly);
+
+			composite.RegisterInputModel(new CreateForumInputModelConverter());
 
 			setAzureCredentials(container);
 
