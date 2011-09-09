@@ -6,7 +6,7 @@
 	<li @if (controller == "Dashboard"){<text>class="current"</text>}><a href="/" title="title" class="dashboard no-submenu">Dashboard</a></li>
 	<li @if (controller == "Forum"){<text>class="current"</text>}><a href="#" title="Forums" class="articles">Forums</a><span title="There are 23 new log entries">23</span>
 		<ul>
-			<li @if (action == "Manage" || action == "Details"){<text>class="current"</text>}>@Html.ActionLink("Manage Forums", "List", "Forum")</li>
+			<li @if (action == "List" || action == "Details"){<text>class="current"</text>}>@Html.ActionLink("Manage Forums", "List", "Forum")</li>
 			<li @if (action == "Create"){<text>class="current"</text>}>@Html.ActionLink("Create a Forum", "Create", "Forum")</li>
 		</ul>
 	</li>
