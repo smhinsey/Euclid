@@ -19,7 +19,7 @@ namespace AdminComposite.Controllers
 			return View();
 		}
 
-		public ActionResult Manage()
+		public ActionResult List()
 		{
 			return View();
 		}

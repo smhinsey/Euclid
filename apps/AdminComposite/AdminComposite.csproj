@@ -418,7 +418,7 @@
     <Content Include="Views\User\Invite.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\User\Manage.cshtml" />
+    <Content Include="Views\User\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Moderation\Comments.cshtml" />

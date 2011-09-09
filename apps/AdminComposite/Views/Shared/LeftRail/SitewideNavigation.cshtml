@@ -4,15 +4,15 @@
 }
 <ul>
 	<li @if (controller == "Dashboard"){<text>class="current"</text>}><a href="/" title="title" class="dashboard no-submenu">Dashboard</a></li>
-	<li @if (controller == "Forum"){<text>class="current"</text>}><a href="#" title="Forums" class="articles">Forums</a><span title="There are 23 new log entries">23</span>
+	<li @if (controller == "Forum"){<text>class="current"</text>}><a href="@Url.Action("List", "Forum")" title="Forums" class="articles">Forums</a><span title="There are 23 new log entries">23</span>
 		<ul>
-			<li @if (action == "List" || action == "Details"){<text>class="current"</text>}>@Html.ActionLink("Manage Forums", "List", "Forum")</li>
+			<li @if ((action == "List" && controller == "Forum") || action == "Details"){<text>class="current"</text>}>@Html.ActionLink("Manage Forums", "List", "Forum")</li>
 			<li @if (action == "Create"){<text>class="current"</text>}>@Html.ActionLink("Create a Forum", "Create", "Forum")</li>
 		</ul>
 	</li>
-	<li @if (controller == "User"){<text>class="current"</text>}><a href="#" title="Users" class="gallery">Users</a><span title="There are 23 new log entries">23</span>
+	<li @if (controller == "User"){<text>class="current"</text>}><a href="@Url.Action("List", "User")" title="Users" class="gallery">Users</a><span title="There are 23 new log entries">23</span>
 		<ul>
-			<li @if (action == "Manage"){<text>class="current"</text>}>@Html.ActionLink("Manage Users", "Manage", "User")</li>
+			<li @if (action == "List" && controller == "User"){<text>class="current"</text>}>@Html.ActionLink("Manage Users", "List", "User")</li>
 			<li @if (action == "Invite"){<text>class="current"</text>}>@Html.ActionLink("Invite Users", "Invite", "User")</li>
 			<li @if (action == "Create"){<text>class="current"</text>}>@Html.ActionLink("Create a User", "Create", "User")</li>
 		</ul>
