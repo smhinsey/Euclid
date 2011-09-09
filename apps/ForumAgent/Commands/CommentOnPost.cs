@@ -9,6 +9,8 @@ namespace ForumAgent.Commands
 
 		public string Body { get; set; }
 
+		public Guid ForumIdentifier { get; set; }
+
 		public Guid PostIdentifier { get; set; }
 
 		public string Title { get; set; }

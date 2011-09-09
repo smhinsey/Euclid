@@ -1,3 +1,8 @@
+@{
+	var controller = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString();
+	var action = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+}
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,9 +25,9 @@
 							<div class="container">
 								<h3><a href="@Url.Action("Index", "Composite")">@ViewBag.CompositeName Inspector</a></h3>
 								<ul>
-									<li><a href="@Url.Action("Index", "Composite")">Composite details</a></li>
-									<li><a  href="@Url.Action("Index", "CommandRegistry")">Command registry</a></li>
-									<li><a href="@Url.Action("Index", "Logging")">Logs</a></li>
+									<li @if (controller == "Composite"){<text>class="active"</text>}><a href="@Url.Action("Index", "Composite")">Composite details</a></li>
+									<li @if (controller == "CommandRegistry"){<text>class="active"</text>}><a  href="@Url.Action("Index", "CommandRegistry")">Command registry</a></li>
+									<li @if (controller == "Logging"){<text>class="active"</text>}><a href="@Url.Action("Index", "Logging")">Logs</a></li>
 								</ul>
 								<ul class="nav secondary-nav">
 									<li><a href="@Url.Action("Remove", "Frame")" target="_parent">Hide Inspector</a></li>

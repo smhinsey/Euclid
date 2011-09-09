@@ -11,6 +11,8 @@ namespace ForumAgent.ReadModels
 
 		public virtual string Body { get; set; }
 
+		public virtual Guid ForumIdentifier { get; set; }
+
 		public virtual Guid PostIdentifier { get; set; }
 
 		public virtual int Score { get; set; }

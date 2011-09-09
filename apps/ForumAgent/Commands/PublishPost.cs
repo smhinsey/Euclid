@@ -11,6 +11,8 @@ namespace ForumAgent.Commands
 
 		public Guid CategoryIdentifier { get; set; }
 
+		public Guid ForumIdentifier { get; set; }
+
 		public string Title { get; set; }
 	}
 }
