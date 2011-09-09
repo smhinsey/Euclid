@@ -1,5 +1,7 @@
-﻿@{
-	ViewBag.Title = "Forum Details";
+﻿@using ForumAgent.ReadModels
+@model Forum
+@{
+	ViewBag.Title = "Forum";
 }
 
 <div class="article-container">
@@ -7,20 +9,28 @@
 		<h2>@ViewBag.Title</h2>
 	</header>
 	<section>
-		<h3>Lorem Ipsum</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor euismod ipsum
-			id molestie. Donec consequat nunc et tortor tristique sed mollis justo sodales.
-			Nulla enim nibh, faucibus non ornare in, egestas nec felis. Morbi id sem nunc, eu
-			cursus nibh. Curabitur sem sapien, dignissim sit amet posuere a, condimentum ornare
-			nulla. Ut accumsan tempor tincidunt. Nulla massa est, bibendum sed malesuada vitae,
-			mattis id sem. Nam blandit facilisis sem sit amet rutrum. Ut ac quam bibendum quam
-			elementum cursus id et justo. Maecenas sit amet elementum justo.</p>
-		<p>Suspendisse est sem, eleifend at bibendum tristique, condimentum vitae nibh. Curabitur
-			dapibus, purus a tincidunt ultricies, lorem quam congue justo, quis imperdiet sem
-			ante nec lacus. Donec sem libero, ultricies in dictum eu, sagittis a nisi. Phasellus
-			varius porttitor odio, eget sodales odio faucibus in. Donec convallis sapien velit.
-			Donec porttitor sollicitudin lorem nec vestibulum. Pellentesque habitant morbi tristique
-			senectus et netus et malesuada fames ac turpis egestas.</p>
+		<h3>@Model.Name Details</h3>
+		<form>
+		<fieldset><legend>Forum Settings</legend>
+			<dl>
+				<dt>
+					<label>Name</label></dt>
+				<dd>
+					<p>@Model.Name</p>
+				</dd>
+				<dt>
+					<label>Host</label></dt>
+				<dd>
+					<p>@Model.UrlHostName</p>
+				</dd>
+				<dt>
+					<label>Slug</label></dt>
+				<dd>
+					<p>@Model.UrlSlug</p>
+				</dd>
+			</dl>
+		</fieldset>
+		</form>
 	</section>
 	<footer>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et <a href="#">
@@ -33,5 +43,6 @@
 	<ul id="breadcrumbs">
 		<li><a href="/" title="Back to Homepage">Home</a></li>
 		<li>@ViewBag.Title</li>
+		<li>@Model.Name Details</li>
 	</ul>
 }

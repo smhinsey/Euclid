@@ -403,7 +403,7 @@
     <Content Include="Views\Forum\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Forum\Manage.cshtml" />
+    <Content Include="Views\Forum\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Forum\Details.cshtml" />

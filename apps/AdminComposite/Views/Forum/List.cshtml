@@ -1,8 +1,7 @@
 ﻿@using ForumAgent.ReadModels
 @model IList<Forum>
-
 @{
-	ViewBag.Title = "Manage Forums";
+	ViewBag.Title = "Forums";
 }
 
 <div class="article-container">
@@ -10,7 +9,7 @@
 		<h2>@ViewBag.Title</h2>
 	</header>
 	<section>
-		<h3>Available Forums</h3>
+		<h3>Manage Forums</h3>
 		<table class="datatable">
 			<thead>
 				<tr>
@@ -22,14 +21,14 @@
 			</thead>
 			<tbody>
 				@foreach (var forum in Model)
-				{
+		{
 					<tr>
-						<td>@forum.Name</td>
+						<td>@Html.ActionLink(forum.Name, "Details", new { forumId = forum.Identifier})</td>
 						<td>@forum.UrlHostName</td>
 						<td>@forum.UrlSlug</td>
 						<td></td>
 					</tr>
-				}
+		}
 			</tbody>
 		</table>
 	</section>
@@ -44,5 +43,6 @@
 	<ul id="breadcrumbs">
 		<li><a href="/" title="Back to Homepage">Home</a></li>
 		<li>@ViewBag.Title</li>
+		<li>Manage Forums</li>
 	</ul>
 }
