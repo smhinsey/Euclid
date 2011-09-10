@@ -9,7 +9,7 @@ using Microsoft.WindowsAzure.StorageClient;
 
 namespace Euclid.Common.Messaging.Azure
 {
-	public class AzureMessageChannel : MessageChannelBase
+	public class AzureMessageChannel : DefaultMessageChannel
 	{
 		private const int MaximumNumberOfMessagesThatCanBeFetched = 32;
 

@@ -1,6 +1,6 @@
 ﻿namespace Euclid.Common.Messaging
 {
-	public abstract class MessageProcessorBase<TMessage> : IMessageProcessor<TMessage>
+	public abstract class DefaultMessageProcessor<TMessage> : IMessageProcessor<TMessage>
 		where TMessage : IMessage
 	{
 		public bool CanProcessMessage(IMessage message)

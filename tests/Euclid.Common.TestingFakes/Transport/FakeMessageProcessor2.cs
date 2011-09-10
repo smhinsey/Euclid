@@ -2,7 +2,7 @@ using Euclid.Common.Messaging;
 
 namespace Euclid.Common.TestingFakes.Transport
 {
-	public class FakeMessageProcessor2 : MessageProcessorBase<FakeMessage>
+	public class FakeMessageProcessor2 : DefaultMessageProcessor<FakeMessage>
 	{
 		public static bool ProcessedAnyMessages;
 

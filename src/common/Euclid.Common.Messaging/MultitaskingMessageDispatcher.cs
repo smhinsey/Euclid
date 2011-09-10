@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,97 +7,22 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace Euclid.Common.Messaging
 {
-	public class MultitaskingMessageDispatcher<TRegistry> : ILoggingSource, IMessageDispatcher
+	public class MultitaskingMessageDispatcher<TRegistry> : DefaultMessageDispatcher
 		where TRegistry : IPublicationRegistry<IPublicationRecord, IPublicationRecord>
 	{
 		private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
 
-		private readonly IServiceLocator _container;
-
 		private readonly IPublicationRegistry<IPublicationRecord, IPublicationRecord> _publicationRegistry;
-
-		private bool _configured;
-
-		private IMessageChannel _inputChannel;
-
-		private IMessageChannel _invalidChannel;
 
 		private Task _listenerTask;
 
-		private IList<IMessageProcessor> _messageProcessors;
-
 		public MultitaskingMessageDispatcher(IServiceLocator container, TRegistry publicationRegistry)
 		{
-			_container = container;
+			Container = container;
 			_publicationRegistry = publicationRegistry;
 		}
 
-		public IMessageDispatcherSettings CurrentSettings { get; private set; }
-
-		public MessageDispatcherState State { get; private set; }
-
-		public void Configure(IMessageDispatcherSettings settings)
-		{
-			if (settings.InputChannel.Value == null)
-			{
-				throw new NoInputChannelConfiguredException("You must specify an input channel for a message dispatcher");
-			}
-
-			if (settings.InvalidChannel.Value == null)
-			{
-				throw new NoInputChannelConfiguredException("You must specify an invalid message channel for a message dispatcher");
-			}
-
-			if (settings.MessageProcessorTypes.Value == null || settings.MessageProcessorTypes.Value.Count == 0)
-			{
-				throw new NoMessageProcessorsConfiguredException(
-					"You must specify one or more message processors for a message dispatcher");
-			}
-
-			if (settings.DurationOfDispatchingSlice.Value.TotalMilliseconds == 0)
-			{
-				throw new NoDispatchingSliceDurationConfiguredException(
-					"You must specify a duration for the dispatcher to dispatch messages during.");
-			}
-
-			if (settings.NumberOfMessagesToDispatchPerSlice.Value == 0)
-			{
-				throw new NoNumberOfMessagesPerSliceConfiguredException(
-					"You must specify the maximum number of messages to be dispatched during a slice of time.");
-			}
-
-			CurrentSettings = settings;
-
-			_inputChannel = settings.InputChannel.Value;
-			_invalidChannel = settings.InvalidChannel.Value;
-
-			_messageProcessors = new List<IMessageProcessor>();
-
-			foreach (var type in CurrentSettings.MessageProcessorTypes.Value)
-			{
-				var processor = _container.GetInstance(type) as IMessageProcessor;
-
-				if (processor == null)
-				{
-					continue;
-				}
-
-				this.WriteDebugMessage(string.Format("Adding processor {0} to dispatcher.", processor.GetType().Name));
-
-				(_messageProcessors as List<IMessageProcessor>).Add(processor);
-			}
-
-			this.WriteInfoMessage(
-				string.Format(
-					"Dispatcher configured with input channel {0}({1}) and {2} message processors.",
-					_inputChannel.GetType().Name,
-					_inputChannel.ChannelName,
-					_messageProcessors.Count()));
-
-			_configured = true;
-		}
-
-		public void Disable()
+		public override void Disable()
 		{
 			dispatcherIsConfigured();
 
@@ -116,15 +40,15 @@ namespace Euclid.Common.Messaging
 			this.WriteInfoMessage("Dispatcher disabled.");
 		}
 
-		public void Enable()
+		public override void Enable()
 		{
 			this.WriteDebugMessage("Begining to enable dispatcher.");
 
 			dispatcherIsConfigured();
 
-			_inputChannel.Open();
+			InputChannel.Open();
 
-			_invalidChannel.Open();
+			InvalidChannel.Open();
 
 			State = MessageDispatcherState.Enabled;
 
@@ -135,7 +59,7 @@ namespace Euclid.Common.Messaging
 
 		private void dispatchMessage()
 		{
-			var messages = _inputChannel.ReceiveMany(
+			var messages = InputChannel.ReceiveMany(
 				CurrentSettings.NumberOfMessagesToDispatchPerSlice.Value, CurrentSettings.DurationOfDispatchingSlice.Value);
 
 			foreach (var channelMessage in messages)
@@ -144,13 +68,13 @@ namespace Euclid.Common.Messaging
 
 				if (record == null)
 				{
-					_invalidChannel.Send(channelMessage);
+					InvalidChannel.Send(channelMessage);
 					continue;
 				}
 
 				var message = _publicationRegistry.GetMessage(record.MessageLocation, record.MessageType);
 
-				var processors = _messageProcessors.Where(x => x.CanProcessMessage(message));
+				var processors = MessageProcessors.Where(x => x.CanProcessMessage(message)).ToList();
 
 				if (processors.Count() == 0)
 				{
@@ -168,7 +92,7 @@ namespace Euclid.Common.Messaging
 
 				foreach (var messageProcessor in processors)
 				{
-					var processor = _container.GetInstance(messageProcessor.GetType());
+					var processor = Container.GetInstance(messageProcessor.GetType());
 
 					// SELF if we create these as Tasks that return a value, we can register the results after execution completes
 					// freeing us of the need to resolve the registry inside the task. The task should look something like:
@@ -185,7 +109,7 @@ namespace Euclid.Common.Messaging
 
 									var registry =
 										(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
-										_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
+										Container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
 
 									registry.MarkAsComplete(record.Identifier);
 
@@ -201,7 +125,7 @@ namespace Euclid.Common.Messaging
 
 									var registry =
 										(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
-										_container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
+										Container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
 
 									registry.MarkAsFailed(record.Identifier, e.InnerException.Message, e.InnerException.StackTrace);
 								}
@@ -212,7 +136,7 @@ namespace Euclid.Common.Messaging
 
 		private void dispatcherIsConfigured()
 		{
-			if (!_configured)
+			if (!Configured)
 			{
 				throw new DispatcherNotConfiguredException(
 					string.Format("The dispatcher {0} has not been configured", GetType().FullName));

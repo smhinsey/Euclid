@@ -122,10 +122,18 @@ namespace Euclid.Composites
 			State = CompositeApplicationState.Configured;
 		}
 
-		public void CreateSchema(IPersistenceConfigurer databaseConfiguration)
+		public void CreateSchema(IPersistenceConfigurer databaseConfiguration, bool destructive)
 		{
-			Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).ExposeConfiguration(
-				cfg => new SchemaUpdate(cfg).Execute(false, true)).BuildSessionFactory();
+			if (destructive)
+			{
+				Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).ExposeConfiguration(
+					cfg => new SchemaExport(cfg).Create(false, true)).BuildSessionFactory();
+			}
+			else
+			{
+				Fluently.Configure().Database(databaseConfiguration).Mappings(map => mapAllAssemblies(map)).ExposeConfiguration(
+					cfg => new SchemaUpdate(cfg).Execute(false, true)).BuildSessionFactory();
+			}
 		}
 
 		public IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata)

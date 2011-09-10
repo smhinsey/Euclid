@@ -93,7 +93,7 @@ namespace Euclid.TestingSupport
 
 			Container.Register(Component.For<BasicFabric>().Instance(Fabric));
 
-			composite.CreateSchema(compositeDatabaseConnection);
+			composite.CreateSchema(compositeDatabaseConnection, true);
 
 			DefaultSpecSteps.SetContainerInScenarioContext(Container);
 		}

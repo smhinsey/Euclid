@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Euclid.Common.Messaging
 {
-	public class InMemoryMessageChannel : MessageChannelBase
+	public class InMemoryMessageChannel : DefaultMessageChannel
 	{
 		private static readonly ConcurrentQueue<IMessage> Queue = new ConcurrentQueue<IMessage>();
 

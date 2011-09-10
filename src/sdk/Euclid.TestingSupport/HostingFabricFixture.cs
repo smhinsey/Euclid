@@ -66,7 +66,7 @@ namespace Euclid.TestingSupport
 
 			Fabric.InstallComposite(composite);
 
-			composite.CreateSchema(compositeDatabaseConnection);
+			composite.CreateSchema(compositeDatabaseConnection, true);
 
 			Fabric.Start();
 		}

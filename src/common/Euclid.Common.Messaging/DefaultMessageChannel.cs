@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Euclid.Common.Messaging
 {
-	public abstract class MessageChannelBase : IMessageChannel
+	public abstract class DefaultMessageChannel : IMessageChannel
 	{
-		// SELF we need to take the channel name as a dependency
-		protected MessageChannelBase()
+		// SELF we need to take the channel name as an argument here
+		protected DefaultMessageChannel()
 		{
 			State = ChannelState.NotConfigured;
-			ChannelName = GetType().Name; // Guid.NewGuid().ToString();
+			ChannelName = GetType().Name;
 		}
 
 		public string ChannelName { get; set; }

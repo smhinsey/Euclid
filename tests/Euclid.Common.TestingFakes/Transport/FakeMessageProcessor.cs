@@ -2,7 +2,7 @@
 
 namespace Euclid.Common.TestingFakes.Transport
 {
-	public class FakeMessageProcessor : MessageProcessorBase<FakeMessage>
+	public class FakeMessageProcessor : DefaultMessageProcessor<FakeMessage>
 	{
 		public static bool ProcessedAnyMessages;
 

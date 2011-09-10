@@ -34,6 +34,6 @@ namespace Euclid.Composites
 		bool IsValid();
 
 		void RegisterInputModel(IInputToCommandConverter converter);
-		void CreateSchema(IPersistenceConfigurer databaseConfiguration);
+		void CreateSchema(IPersistenceConfigurer databaseConfiguration, bool destructive);
 	}
 }

@@ -74,7 +74,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageProcessorBase.cs" />
+    <Compile Include="DefaultMessageDispatcher.cs" />
+    <Compile Include="DefaultMessageProcessor.cs" />
     <Compile Include="PublicationRecord.cs" />
     <Compile Include="PublicationRegistry.cs" />
     <Compile Include="Envelope.cs" />
@@ -83,7 +84,7 @@
     <Compile Include="InMemoryMessageChannel.cs" />
     <Compile Include="JsonMessageSerializer.cs" />
     <Compile Include="MessageDispatcherSettings.cs" />
-    <Compile Include="MessageChannelBase.cs" />
+    <Compile Include="DefaultMessageChannel.cs" />
     <Compile Include="MultitaskingMessageDispatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
