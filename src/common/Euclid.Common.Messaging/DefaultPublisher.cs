@@ -18,6 +18,8 @@ namespace Euclid.Common.Messaging
 
 		public Guid PublishMessage(IMessage message)
 		{
+			message.Created = DateTime.Now;
+
 			if (message.Identifier == Guid.Empty)
 			{
 				message.Identifier = Guid.NewGuid();
