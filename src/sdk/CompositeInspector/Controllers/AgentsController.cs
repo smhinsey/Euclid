@@ -1,12 +1,13 @@
 using System;
 using System.Threading;
 using System.Web.Mvc;
+using AutoMapper;
 using CompositeInspector.Models;
 using Euclid.Common.Messaging;
 using Euclid.Composites;
-using Euclid.Composites.Conversion;
 using Euclid.Composites.Mvc.ActionFilters;
 using Euclid.Framework.AgentMetadata;
+using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 using MvcContrib.Filters;
 
@@ -19,14 +20,14 @@ namespace CompositeInspector.Controllers
 
 		private readonly ICompositeApp _composite;
 
-		private readonly IInputModelTransformerRegistry _transformer;
+		// private readonly IInputModelTransformerRegistry _transformer;
 
 		public AgentsController(
-			ICompositeApp composite, IPublisher commandPublisher, IInputModelTransformerRegistry transformer)
+			ICompositeApp composite, IPublisher commandPublisher) //, IInputModelTransformerRegistry transformer)
 		{
 			_composite = composite;
 			_commandPublisher = commandPublisher;
-			_transformer = transformer;
+			// _transformer = transformer;
 
 			ViewBag.CompositeName = _composite.Name;
 			ViewBag.CompositeDescription = _composite.Description;
@@ -61,7 +62,9 @@ namespace CompositeInspector.Controllers
 		[HttpPost]
 		public ActionResult PublishAndViewDetails(IInputModel inputModel)
 		{
-			var command = _transformer.GetCommand(inputModel);
+			var commandMetadata = _composite.GetCommandMetadataForInputModel(inputModel.GetType());
+
+			var command = Mapper.Map(inputModel, inputModel.GetType(), commandMetadata.Type) as ICommand; //_transformer.GetCommand(inputModel);
 
 			if (command == null)
 			{

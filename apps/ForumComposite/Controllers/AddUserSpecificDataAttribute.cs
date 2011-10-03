@@ -6,12 +6,10 @@ namespace ForumComposite.Controllers
 {
 	public class AddUserSpecificDataAttribute : ActionFilterAttribute
 	{
+		public PostQueries PostQueries { get; set; }
+
 		public override void OnActionExecuted(ActionExecutedContext filterContext)
 		{
-			// SELF there's a better way to do this, but i'm lazy
-
-			var postQueries = DependencyResolver.Current.GetService<PostQueries>();
-
 			var viewResult = filterContext.Result as ViewResult;
 
 			var context = filterContext.RequestContext.HttpContext;
@@ -28,7 +26,7 @@ namespace ForumComposite.Controllers
 			if (viewResult != null)
 			{
 				viewResult.ViewBag.UserIdentifier = userId;
-				viewResult.ViewBag.PostCount = postQueries.GetPostCountByAuthor(userId);
+				viewResult.ViewBag.PostCount = PostQueries.GetPostCountByAuthor(userId);
 			}
 		}
 	}

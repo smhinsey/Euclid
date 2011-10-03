@@ -1,8 +1,6 @@
-﻿using System.Web.Mvc;
-using AdminComposite.Converters;
+﻿using AdminComposite.Models;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
 using Euclid.Common.Storage.NHibernate;
@@ -61,13 +59,11 @@ namespace AdminComposite
 			composite.AddAgent(typeof(PublishPost).Assembly);
 			composite.AddAgent(typeof(LogQueries).Assembly);
 
-			composite.RegisterInputModel(new CreateForumInputModelConverter());
+			composite.RegisterInputModelMap<CreateForumInputModel, CreateForum>();
 
 			setAzureCredentials(container);
 
 			_initialized = true;
-
-			DependencyResolver.SetResolver(new WindsorServiceLocator(container));
 		}
 
 		private void setAzureCredentials(IWindsorContainer container)

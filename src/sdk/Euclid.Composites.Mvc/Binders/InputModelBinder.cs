@@ -1,26 +1,27 @@
 using System;
 using System.Web.Mvc;
-using Euclid.Composites.Conversion;
 using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.Models;
+using Euclid.Composites.Mvc.Extensions;
 
 namespace Euclid.Composites.Mvc.Binders
 {
 	public class InputModelBinder : IEuclidModelBinder
 	{
-		private readonly IInputModelTransformerRegistry _transformers;
+		private readonly ICompositeApp _compositeApp;
 
-		public InputModelBinder(IInputModelTransformerRegistry transformers)
+		public InputModelBinder(ICompositeApp compositeApp)
 		{
-			_transformers = transformers;
+			_compositeApp = compositeApp;
 		}
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			var commandName = controllerContext.GetPartName();
+
 			var valueProvider = bindingContext.ValueProvider;
 
-			return _transformers.GetInputModel(commandName, valueProvider);
+			return _compositeApp.GetInputModelFromCommandName(commandName, valueProvider);
 		}
 
 		public bool IsMatch(Type modelType)

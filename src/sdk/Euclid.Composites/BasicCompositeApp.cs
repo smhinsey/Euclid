@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using AutoMapper;
 using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
+using Euclid.Common.Configuration;
 using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.Storage.Record;
-using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Conversion;
 using Euclid.Composites.Formatters;
 using Euclid.Framework.AgentMetadata;
@@ -39,7 +40,6 @@ namespace Euclid.Composites
 			_inputModels = new List<ITypeMetadata>();
 
 			State = CompositeApplicationState.Uninitailized;
-			InputModelTransformers = new InputModelToCommandTransformerRegistry();
 			Container = new WindsorContainer();
 		}
 
@@ -75,8 +75,6 @@ namespace Euclid.Composites
 
 		protected IWindsorContainer Container { get; set; }
 
-		protected IInputModelTransformerRegistry InputModelTransformers { get; private set; }
-
 		public void AddAgent(Assembly assembly)
 		{
 			if (assembly == null)
@@ -108,9 +106,6 @@ namespace Euclid.Composites
 
 			RegisterConfiguredTypes(compositeAppSettings);
 
-			Container.Register(
-				Component.For<IInputModelTransformerRegistry>().Instance(InputModelTransformers).LifeStyle.Singleton);
-
 			Container.Register(Component.For<IWindsorContainer>().Instance(Container));
 
 			Container.Register(Component.For<ICompositeApp>().Instance(this));
@@ -136,14 +131,23 @@ namespace Euclid.Composites
 			}
 		}
 
-		public IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata)
+		public IPartMetadata GetCommandMetadataForInputModel(Type inputModelType)
 		{
-			if (!typeof(IInputModel).IsAssignableFrom(typeMetadata.Type))
+			if (!typeof(IInputModel).IsAssignableFrom(inputModelType))
 			{
-				throw new UnexpectedTypeException(typeof(IInputModel), typeMetadata.Type);
+				throw new InvalidTypeSettingException(inputModelType.FullName, typeof(IInputModel), inputModelType.GetType());
 			}
 
-			return InputModelTransformers.GetCommand(typeMetadata.Type);
+			var map = Mapper.GetAllTypeMaps().Where(m => m.SourceType == inputModelType).FirstOrDefault();
+
+			if (map == null)
+			{
+				throw new InputModelNotRegisteredException(inputModelType);
+			}
+
+			var commandType = map.DestinationType;
+
+			return commandType.GetMetadata() as PartMetadata;
 		}
 
 		public IEnumerable<string> GetConfigurationErrors()
@@ -177,33 +181,38 @@ namespace Euclid.Composites
 			return (GetConfigurationErrors().Count() == 0 && !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Description));
 		}
 
-		public void RegisterInputModel(IInputToCommandConverter converter)
+		public void RegisterInputModelMap<TInputModelSource, TCommandDestination>()
+			where TInputModelSource : IInputModel
+			where TCommandDestination : ICommand
 		{
-			if (converter == null)
+			ValidateMapComponents<TInputModelSource, TCommandDestination>();
+
+			Mapper.CreateMap<TInputModelSource, TCommandDestination>();
+		}
+
+		public void RegisterInputModelMap<TInputModelSource, TCommandDestination>(Func<TInputModelSource, TCommandDestination> customMap)
+			where TInputModelSource : IInputModel
+			where TCommandDestination : ICommand
+		{
+			ValidateMapComponents<TInputModelSource, TCommandDestination>();
+
+			Mapper.CreateMap<TInputModelSource, TCommandDestination>().ConvertUsing(customMap);
+		}
+
+		private void ValidateMapComponents<TSource, TDestination>()
+		{
+			var typeMaps = Mapper.GetAllTypeMaps();
+			if (typeMaps.Any(t => t.SourceType == typeof(TSource)))
 			{
-				throw new ArgumentNullException("converter");
+				throw new InputModelAlreadyRegisteredException(typeof(TSource).FullName);
 			}
 
-			var commandMetadata = converter.CommandType.GetMetadata();
-
-			var agent = Agents.Where(a => a.Commands.Namespace == commandMetadata.Namespace).FirstOrDefault();
-
-			if (agent == null)
+			if (typeMaps.Any(t=>t.DestinationType == typeof(TDestination)))
 			{
-				throw new AgentNotFoundException(commandMetadata.Namespace);
+				throw new CommandAlreadyMappedException(typeof(TDestination).FullName);
 			}
 
-			if (!agent.Commands.Collection.Where(x => x.Name == commandMetadata.Name).Any())
-			{
-				throw new CommandNotPresentInAgentException();
-			}
-
-			InputModelTransformers.Add(commandMetadata.Name, converter);
-
-			if (!_inputModels.Where(x => x.Type == converter.InputModelType).Any())
-			{
-				_inputModels.Add(converter.InputModelType.GetMetadata());
-			}
+			_inputModels.Add(typeof(TSource).GetMetadata());
 		}
 
 		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool isWeb)
@@ -279,6 +288,13 @@ namespace Euclid.Composites
 			}
 
 			return mcfg;
+		}
+	}
+
+	public class InputModelNotRegisteredException : Exception
+	{
+		public InputModelNotRegisteredException(Type type) : base(type.FullName)
+		{
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using Euclid.Composites.Mvc.Models;
+﻿using System;
+using Euclid.Composites.Mvc.Models;
+using Euclid.Framework.Models;
 
 namespace Euclid.Sdk.TestComposite.Models
 {

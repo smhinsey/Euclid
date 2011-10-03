@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Euclid.Common.Logging;
-using Euclid.Composites.Conversion;
 using Euclid.Framework.AgentMetadata;
+using Euclid.Framework.Cqrs;
+using Euclid.Framework.Models;
 using FluentNHibernate.Cfg.Db;
 
 namespace Euclid.Composites
@@ -25,7 +27,7 @@ namespace Euclid.Composites
 
 		void Configure(CompositeAppSettings compositeAppSettings);
 
-		IPartMetadata GetCommandForInputModel(ITypeMetadata typeMetadata);
+		IPartMetadata GetCommandMetadataForInputModel(Type inputModelType);
 
 		IEnumerable<string> GetConfigurationErrors();
 
@@ -33,7 +35,17 @@ namespace Euclid.Composites
 
 		bool IsValid();
 
-		void RegisterInputModel(IInputToCommandConverter converter);
+		// void RegisterInputModel(IInputToCommandConverter converter);
+
+		void RegisterInputModelMap<TInputModelSource, TCommandDestination>()
+			where TInputModelSource : IInputModel
+			where TCommandDestination : ICommand;
+
+		void RegisterInputModelMap<TInputModelSource, TCommandDestination>(
+			Func<TInputModelSource, TCommandDestination> customMap)
+			where TInputModelSource : IInputModel
+			where TCommandDestination : ICommand;
+
 		void CreateSchema(IPersistenceConfigurer databaseConfiguration, bool destructive);
 	}
 }

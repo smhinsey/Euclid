@@ -1,5 +1,5 @@
 ﻿using Euclid.Sdk.TestAgent.Commands;
-using Euclid.Sdk.TestComposite.Converters;
+using Euclid.Sdk.TestComposite.Models;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -21,7 +21,7 @@ namespace Euclid.Sdk.Specifications.Metadata.Composite
 		{
 			Assert.NotNull(Composite);
 
-			Composite.RegisterInputModel(new TestInputModelToCommandConverter());
+			Composite.RegisterInputModelMap<TestInputModel, TestCommand>();
 		}
 	}
 }

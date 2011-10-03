@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.Web.Mvc;
+using AutoMapper;
 using Euclid.Common.Messaging;
-using Euclid.Composites.Conversion;
 using Euclid.Composites.Mvc.Extensions;
+using Euclid.Framework.Cqrs;
+using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Mvc.ActionFilters
 {
@@ -11,7 +13,7 @@ namespace Euclid.Composites.Mvc.ActionFilters
 	{
 		public IPublisher Publisher { get; set; }
 
-		public IInputModelTransformerRegistry TransformerRegistry { get; set; }
+		public ICompositeApp CompositeApp { get; set; }
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
@@ -25,9 +27,11 @@ namespace Euclid.Composites.Mvc.ActionFilters
 			var valueProvider = new NameValueCollectionValueProvider(
 				filterContext.HttpContext.Request.Params, CultureInfo.CurrentCulture);
 
-			var inputModel = TransformerRegistry.GetInputModel(commandName, valueProvider);
+			var inputModel = CompositeApp.GetInputModelFromCommandName(commandName, valueProvider);
 
-			var command = TransformerRegistry.GetCommand(inputModel);
+			var commandMetadata = CompositeApp.GetCommandMetadataForInputModel(inputModel.GetType());
+
+			var command = Mapper.Map(inputModel, inputModel.GetType(), commandMetadata.Type) as ICommand;
 
 			var publicationId = Publisher.PublishMessage(command);
 

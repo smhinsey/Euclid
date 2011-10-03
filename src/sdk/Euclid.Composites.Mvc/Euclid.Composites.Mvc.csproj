@@ -63,8 +63,9 @@
     <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
-      <HintPath>..\..\..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper, Version=2.0.0.232, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\AutoMapper.2.0.0\lib\net40-client\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
@@ -109,6 +110,7 @@
     <Compile Include="ActionFilters\FormatPartMetadataAttribute.cs" />
     <Compile Include="ActionFilters\MetadataFormatterAttributeBase.cs" />
     <Compile Include="ActionFilters\CommandPublisherAttribute.cs" />
+    <Compile Include="Extensions\CompositeAppExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\WindsorContainerExtensions.cs" />
@@ -127,7 +129,6 @@
     <Compile Include="ComponentRegistration\ControllerContainerInstaller.cs" />
     <Compile Include="ComponentRegistration\ModelBinderInstaller.cs" />
     <Compile Include="Extensions\InputModelExtensions.cs" />
-    <Compile Include="Extensions\InputModelTransformerRegistryExtensions.cs" />
     <Compile Include="MvcCompositeApp.cs" />
     <Compile Include="Extensions\ControllerContextExtensions.cs" />
     <Compile Include="Extensions\RequiredRouteDataMissingException.cs" />

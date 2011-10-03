@@ -8,6 +8,7 @@ using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
 using Euclid.Sdk.TestAgent.Commands;
 using Euclid.Sdk.TestComposite.Converters;
+using Euclid.Sdk.TestComposite.Models;
 using FluentNHibernate.Cfg.Db;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
@@ -55,9 +56,13 @@ namespace Euclid.Sdk.TestComposite
 			composite.AddAgent(typeof(TestCommand).Assembly);
             composite.AddAgent(typeof(LogQueries).Assembly);
 
-			composite.RegisterInputModel(new TestInputModelToCommandConverter());
-            composite.RegisterInputModel(new FailingInputModelToCommandConverter());
-
+			composite.RegisterInputModelMap<TestInputModel, TestCommand>(); // (new TestInputModelToCommandConverter());
+			composite.RegisterInputModelMap<FailingInputModel, FailingCommand>();// (new FailingInputModelToCommandConverter());
+			composite.RegisterInputModelMap<ComplexInputModel, ComplexCommand>(i => new ComplexCommand
+			                                                                        	{
+			                                                                        		StringValue = i.StringValue,
+			                                                                        		StringLength = i.StringValue.Length
+			                                                                        	});
             setAzureCredentials(container);
 
 			composite.RegisterNh(compositeDatabaseConnection, true);

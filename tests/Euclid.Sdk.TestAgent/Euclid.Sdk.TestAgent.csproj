@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentInfo.cs" />
+    <Compile Include="Commands\ComplexCommand.cs" />
     <Compile Include="Commands\FailingCommand.cs" />
     <Compile Include="Commands\TestCommand.cs" />
     <Compile Include="Processors\FailingCommandProcessor.cs" />

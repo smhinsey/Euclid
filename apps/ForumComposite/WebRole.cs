@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Configuration;
+using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
@@ -10,7 +11,7 @@ using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
-using ForumComposite.Converters;
+using ForumComposite.Models;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
 using log4net.Config;
@@ -61,20 +62,18 @@ namespace ForumComposite
 			composite.AddAgent(typeof(PublishPost).Assembly);
 			composite.AddAgent(typeof(LogQueries).Assembly);
 
-			composite.RegisterInputModel(new CommentOnPostInputModelConverter());
-			composite.RegisterInputModel(new PublishPostInputModelConverter());
-			composite.RegisterInputModel(new RegisterUserInputModelConverter());
-			composite.RegisterInputModel(new UpdateUserProfileInputModelConverter());
-			composite.RegisterInputModel(new VoteOnCommentInputModelConverter());
-			composite.RegisterInputModel(new VoteOnPostInputModelConverter());
+			composite.RegisterInputModelMap<CommentOnPostInputModel, CommentOnPost>();
+			composite.RegisterInputModelMap<PublishPostInputModel, PublishPost>();
+			composite.RegisterInputModelMap<RegisterUserInputModel, RegisterUser>();
+			composite.RegisterInputModelMap<UpdateUserProfileInputModel, UpdateUserProfile>();
+			composite.RegisterInputModelMap<VoteOnCommentInputModel, VoteOnComment>();
+			composite.RegisterInputModelMap<VoteOnPostInputModel, VoteOnPost>();
 
-			//composite.CreateSchema(compositeDatabaseConnection);
-		
+			// composite.CreateSchema(databaseConfiguration, true);
+
 			setAzureCredentials(container);
 
 			_initialized = true;
-
-			DependencyResolver.SetResolver(new WindsorServiceLocator(container));
 		}
 
 		private void setAzureCredentials(IWindsorContainer container)

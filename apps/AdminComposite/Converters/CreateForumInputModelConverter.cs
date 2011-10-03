@@ -1,7 +1,6 @@
 ﻿using System;
 using AdminComposite.Models;
 using AutoMapper;
-using Euclid.Composites.Conversion;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
 

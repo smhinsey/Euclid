@@ -82,7 +82,6 @@
   <ItemGroup>
     <Compile Include="CompositeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransformerRegistryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
