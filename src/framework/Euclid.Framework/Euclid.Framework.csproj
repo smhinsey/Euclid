@@ -91,6 +91,7 @@
     <Compile Include="Cqrs\InvalidMessageTypeException.cs" />
     <Compile Include="Cqrs\IQuery.cs" />
     <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
+    <Compile Include="EventSourcing\ICanApplyEvent.cs" />
     <Compile Include="HostingFabric\CompositeAlreadyInstalledException.cs" />
     <Compile Include="HostingFabric\CompositeNotConfiguredException.cs" />
     <Compile Include="HostingFabric\FabricRuntimeState.cs" />

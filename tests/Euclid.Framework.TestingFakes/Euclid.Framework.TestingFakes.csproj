@@ -80,6 +80,11 @@
     <Compile Include="Cqrs\FakeCommand4.cs" />
     <Compile Include="Cqrs\FakeCommandProcessor.cs" />
     <Compile Include="Cqrs\FakeReadModel.cs" />
+    <Compile Include="EventSourcing\MyFakeAggregate.cs" />
+    <Compile Include="EventSourcing\MyFakeAggregateDenormalizer.cs" />
+    <Compile Include="EventSourcing\MyFakeEvent.cs" />
+    <Compile Include="EventSourcing\MyFakeReadModelOne.cs" />
+    <Compile Include="EventSourcing\MyFakeReadModelTwo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HostingFabric\FakeHostedService.cs" />
   </ItemGroup>
