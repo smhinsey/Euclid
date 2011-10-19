@@ -1,6 +1,6 @@
 ﻿using Euclid.Framework.EventSourcing;
 
-namespace Euclid.Framework.TestingFakes.EventSourcing.WriteModel
+namespace Euclid.Framework.TestingFakes.EventSourcing
 {
 	// SELF: not yet sure if we want to encourage one handler per class or not 
 	public class PostEventHandlers :
