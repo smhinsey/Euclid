@@ -84,7 +84,9 @@
     <Compile Include="EventSourcing\WriteModel\PostDenormalizer.cs" />
     <Compile Include="EventSourcing\PostCreatedEvent.cs" />
     <Compile Include="EventSourcing\ReadModel\PostListing.cs" />
-    <Compile Include="EventSourcing\ReadModel\TopPosts.cs" />
+    <Compile Include="EventSourcing\ReadModel\UserProfile.cs" />
+    <Compile Include="EventSourcing\PostEventHandlers.cs" />
+    <Compile Include="EventSourcing\WriteModel\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HostingFabric\FakeHostedService.cs" />
   </ItemGroup>
