@@ -90,6 +90,8 @@
     <Compile Include="Cqrs\ICommandRegistry.cs" />
     <Compile Include="Cqrs\InvalidMessageTypeException.cs" />
     <Compile Include="Cqrs\IQuery.cs" />
+    <Compile Include="EventSourcing\DefaultEvent.cs" />
+    <Compile Include="EventSourcing\DefaultEventSourcedAggregate.cs" />
     <Compile Include="EventSourcing\IAggregateDenormalizer.cs" />
     <Compile Include="EventSourcing\ICanApplyEvent.cs" />
     <Compile Include="HostingFabric\CompositeAlreadyInstalledException.cs" />

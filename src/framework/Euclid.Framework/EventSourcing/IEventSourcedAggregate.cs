@@ -1,3 +1,4 @@
+using System;
 using Euclid.Framework.Models;
 
 namespace Euclid.Framework.EventSourcing
@@ -13,5 +14,10 @@ namespace Euclid.Framework.EventSourcing
 		/// 	Gets the last event that updated the aggregate.
 		/// </summary>
 		IEvent CurrentAsOf { get; }
+
+		/// <summary>
+		/// Gets the time of the last modification to the aggregate.
+		/// </summary>
+		DateTime EventLastApplied { get; }
 	}
 }
