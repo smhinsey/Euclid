@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 
-namespace ForumTests.Steps
+namespace Euclid.TestingSupport
 {
 	public interface IValidateListOfReadModels<in TQuery, TReadModel>
 		where TQuery : IQuery<TReadModel> 

@@ -9,12 +9,11 @@ using Euclid.Framework.AgentMetadata;
 using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
-using Euclid.TestingSupport;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
-namespace ForumTests.Steps
+namespace Euclid.TestingSupport
 {
 	[Binding]
 	public abstract class AgentSpecificationTester

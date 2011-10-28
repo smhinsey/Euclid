@@ -1,7 +1,7 @@
 using Euclid.Common.Messaging;
 using Euclid.Framework.Cqrs;
 
-namespace ForumTests.Steps
+namespace Euclid.TestingSupport
 {
 	public interface ICommandCompleteStep<in T>
 		where T : ICommand

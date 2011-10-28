@@ -1,4 +1,5 @@
 using System;
+using Euclid.TestingSupport;
 using ForumAgent.Queries;
 
 namespace ForumTests.Steps

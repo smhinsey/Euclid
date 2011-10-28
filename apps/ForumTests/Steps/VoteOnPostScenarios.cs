@@ -1,5 +1,6 @@
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
+using Euclid.TestingSupport;
 using ForumAgent.Commands;
 using ForumAgent.ReadModels;
 using NUnit.Framework;

@@ -1,5 +1,6 @@
 using System;
 using Euclid.Common.Messaging;
+using Euclid.TestingSupport;
 using ForumAgent.Commands;
 using ForumAgent.Queries;
 using NUnit.Framework;
