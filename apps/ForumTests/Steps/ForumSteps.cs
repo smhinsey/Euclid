@@ -1,8 +1,10 @@
 ﻿using System;
+using Castle.Windsor;
 using Euclid.Common.Messaging;
 using Euclid.TestingSupport;
 using ForumAgent.Commands;
 using ForumAgent.Queries;
+using ForumAgent.ReadModels;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -11,7 +13,6 @@ namespace ForumTests.Steps
 	/// <summary>
 	/// 	The forum steps.
 	/// </summary>
-	[Binding]
 	public class ForumSteps : DefaultSpecSteps
 	{
 		private const string CommentBody = "Lorem ipsum dolor sit amet consecutator.";

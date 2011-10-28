@@ -77,12 +77,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgentSpecificationTester.cs" />
     <Compile Include="AutoMapperConfiguration.cs" />
-    <Compile Include="ConfigureAgentSteps.cs" />
+    <Compile Include="AgentConfigurator.cs" />
+    <Compile Include="DefaultSpecSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="HostingFabricFixture.cs" />
+    <Compile Include="ICommandCompleteStep.cs" />
+    <Compile Include="ICommandPublishStep.cs" />
+    <Compile Include="IValidateListOfReadModels.cs" />
     <Compile Include="NhTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DefaultSpecSteps.cs" />
     <Compile Include="TestCategories.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +119,10 @@
     <ProjectReference Include="..\..\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\framework\Euclid.Framework.AgentMetadata\Euclid.Framework.AgentMetadata.csproj">
+      <Project>{276664F8-43A3-43E6-AA9A-B9A275B14013}</Project>
+      <Name>Euclid.Framework.AgentMetadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
       <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>

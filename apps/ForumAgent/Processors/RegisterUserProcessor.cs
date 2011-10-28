@@ -23,7 +23,8 @@ namespace ForumAgent.Processors
 					PasswordSalt = message.PasswordSalt,
 					Username = message.Username,
 					Created = DateTime.Now,
-					Modified = DateTime.Now
+					Modified = DateTime.Now,
+					ForumIdentifier = message.ForumIdentifier
 				};
 
 			_repository.Save(newUser);

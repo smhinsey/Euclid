@@ -1,4 +1,5 @@
-﻿using Euclid.Common.Messaging;
+﻿using System;
+using Euclid.Common.Messaging;
 using Euclid.TestingSupport;
 using ForumAgent.Commands;
 using ForumAgent.Queries;
@@ -8,67 +9,41 @@ using TechTalk.SpecFlow;
 namespace ForumTests.Steps
 {
 	[Binding]
-	public class UserSteps : DefaultSpecSteps
+	[StepScope(Feature="User Profiles")]
+	public class UserSteps : ForumSpecifications , ICommandCompleteStep<RegisterUser>, ICommandPublishStep<UpdateUserProfile>
 	{
-		private const string Email = "johndoe@email.service";
+		private const string UserIdentifierKey = "UserIdentifier";
 
-		private const string Password = "password";
-
-		private const string Username = "johndoe";
-
-		[Then(@"the query UserQueries can authenticate")]
-		public void ThenTheQueryUserQueriesCanAuthenticate()
+		private Guid UserIdentifier
 		{
-			var query = GetContainer().Resolve<UserQueries>();
-
-			var authenticationResult = query.Authenticate(Username, Password);
-
-			Assert.IsTrue(authenticationResult);
+			get { return (Guid)ScenarioContext.Current[UserIdentifierKey]; }
+			set { ScenarioContext.Current[UserIdentifierKey] = value; }
 		}
 
-		[Then(@"the query UserQueries returns the Profile")]
-		public void ThenTheQueryUserQueriesReturnsTheProfile()
+		public void CommandCompleted(IPublicationRecord record, RegisterUser command)
 		{
-			var query = GetContainer().Resolve<UserQueries>();
+			var query = Container.Resolve<UserQueries>();
 
-			var user = query.FindByUsername(Username);
+			var user = query.FindByUsername("johndoe");
 
-			Assert.IsNotNull(user);
-			Assert.AreEqual(Password, user.PasswordHash);
-			Assert.AreEqual(Password, user.PasswordSalt);
+			Assert.NotNull(user);
+
+			UserIdentifier = user.Identifier;
 		}
 
-		[Then(@"the query UserQueries returns the updated Profile")]
-		public void ThenTheQueryUserQueriesReturnsTheUpdatedProfile()
+		public UpdateUserProfile GetCommand(UpdateUserProfile command)
 		{
-			var userQueries = GetContainer().Resolve<UserQueries>();
+			command.UserIdentifier = UserIdentifier;
 
-			var user = userQueries.FindByUsername(Username);
-			var profile = userQueries.FindByUserIdentifier(user.Identifier);
-
-			Assert.IsNotNull(profile);
-			Assert.AreEqual(Email, profile.Email);
+			return command;
 		}
 
-		[When(@"I publish the command RegisterUser")]
-		public void WhenIPublishTheCommandRegisterUser()
+		[Then(@"running Authenticate on  UserQueries will return true")]
+		public void AuthenticateUser()
 		{
-			var publisher = GetContainer().Resolve<IPublisher>();
+			var query = Container.Resolve<UserQueries>();
 
-			PubIdOfLastMessage =
-				publisher.PublishMessage(new RegisterUser { Username = Username, PasswordHash = Password, PasswordSalt = Password });
-		}
-
-		[When(@"I publish the command UpdateUserProfile")]
-		public void WhenIPublishTheCommandUpdateUserProfile()
-		{
-			var publisher = GetContainer().Resolve<IPublisher>();
-			var query = GetContainer().Resolve<UserQueries>();
-
-			var user = query.FindByUsername(Username);
-
-			PubIdOfLastMessage =
-				publisher.PublishMessage(new UpdateUserProfile { Email = Email, UserIdentifier = user.Identifier });
+			Assert.True(query.Authenticate("jimmyjon", "hash"));
 		}
 	}
 }

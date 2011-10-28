@@ -1,5 +1,6 @@
 using System;
 using Castle.Windsor;
+using Euclid.Common.Messaging;
 using TechTalk.SpecFlow;
 
 namespace Euclid.TestingSupport

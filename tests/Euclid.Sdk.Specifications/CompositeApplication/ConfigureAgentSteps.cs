@@ -4,8 +4,8 @@ using TechTalk.SpecFlow;
 
 namespace Euclid.Sdk.Specifications.CompositeApplication
 {
-	[Binding]
-	public class ConfigureAgentSteps : ConfigureAgentSteps<TestCommand>
-	{
-	}
+	//[Binding]
+	//public class ConfigureAgentSteps : ConfigureAgentSteps<TestCommand>
+	//{
+	//}
 }

@@ -18,8 +18,7 @@ namespace ForumAgent.Queries
 			var session = GetCurrentSession();
 
 			var matchedAccount =
-				session.QueryOver<User>().Where(user => user.PasswordHash == password).Where(user => user.PasswordSalt == password).
-					Where(user => user.Username == username);
+				session.QueryOver<User>().Where(user => user.PasswordHash == password && user.PasswordSalt == password && user.Username == username);
 
 			return matchedAccount != null;
 		}
@@ -40,6 +39,13 @@ namespace ForumAgent.Queries
 			var matchedUser = session.QueryOver<User>().Where(user => user.Username == username);
 
 			return matchedUser.SingleOrDefault();
+		}
+
+		public UserProfile UserProfileByUsername(string username)
+		{
+			var matchedUser = FindByUsername(username);
+
+			return FindByUserIdentifier(matchedUser.Identifier);
 		}
 	}
 }

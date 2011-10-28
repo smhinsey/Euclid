@@ -7,15 +7,31 @@ Feature: Forum Posting
 Scenario: Publish Post
 	Given the agent ForumAgent
 	
-	When I publish the command PublishPost
+	When I publish the command PublishPost:
+	| Title      | Body      | CategoryIdentifier                   | AuthorIdentifier                     | ForumIdentifier                      |
+	| Post Title | Post Body | 11111111-1111-1111-1111-111111111111 | 00000000-0000-0000-0000-000000000000 | 33333333-3333-3333-3333-333333333333 |
 	And the command is complete
 	
-	Then the query ForumQueries returns the Post
+	Then run FindByTitle on PostQueries with:
+	| Title      |
+	| Post Title |
+
+	And the Post has values:
+	| Title      | Body      | CategoryIdentifier                   | AuthorIdentifier                     | ForumIdentifier                      | AuthorDisplayName | CommentCount |
+	| Post Title | Post Body | 11111111-1111-1111-1111-111111111111 | 00000000-0000-0000-0000-000000000000 | 33333333-3333-3333-3333-333333333333 | Anonymous         | 0            |
 
 Scenario: Publish Post in a Category
 	Given the agent ForumAgent
 	
-	When I publish the command PublishPost
+	When I publish the command PublishPost:
+	| Title      | Body      | CategoryIdentifier                   | AuthorIdentifier                     | ForumIdentifier                      |
+	| Post Title | Post Body | 11111111-1111-1111-1111-111111111111 | 00000000-0000-0000-0000-000000000000 | 33333333-3333-3333-3333-333333333333 |
 	And the command is complete
 	
-	Then the query CategoryQueries returns Post
+	Then retrieve a List of Post by running FindPostsByCategory on PostQueries with:
+	| CategoryIdentifier                   |
+	| 11111111-1111-1111-1111-111111111111 |
+
+	And the resulting list contains a Post with values:
+	| Title      | Body      | CategoryIdentifier                   | AuthorIdentifier                     | ForumIdentifier                      | AuthorDisplayName | CommentCount |
+	| Post Title | Post Body | 11111111-1111-1111-1111-111111111111 | 00000000-0000-0000-0000-000000000000 | 33333333-3333-3333-3333-333333333333 | Anonymous         | 0            |

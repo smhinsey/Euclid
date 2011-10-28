@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Threading;
 using AgentConsole;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
@@ -15,66 +14,35 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.WindowsAzure;
-using TechTalk.SpecFlow;
 using log4net.Config;
 
 namespace Euclid.TestingSupport
 {
-	/// <summary>
-	/// 	Implement a single ConfigureAgentSteps subclass per agent being tested by Specflow.
-	/// </summary>
-	/// <typeparam name = "TTypeFromAgent"></typeparam>
-	public abstract class ConfigureAgentSteps<TTypeFromAgent>
+	public class AgentConfigurator
 	{
-		protected WindsorContainer Container;
-
+		private readonly IWindsorContainer _container;
 		private bool _configured;
-
 		public ConsoleFabric Fabric { get; set; }
 
-		[Given(@"the agent (.*)")]
-		public void GivenTheAgent(string assemblyName)
+		public AgentConfigurator(IWindsorContainer container)
 		{
-			if (!_configured)
-			{
-				configure(typeof(TTypeFromAgent).Assembly);
-			}
+			_container = container;
 		}
 
-		[When(@"the command is complete")]
-		public void WhenTheCommandIsComplete()
+		public void Configure(Assembly agentAssembly)
 		{
-			var attempts = 0;
-			while (true & attempts < 8)
-			{
-				var registry = Container.Resolve<ICommandRegistry>();
+			if (_configured) return;
 
-				var record = registry.GetPublicationRecord(DefaultSpecSteps.PubIdOfLastMessage);
-
-				if (record.Completed || record.Error)
-				{
-					break;
-				}
-
-				attempts++;
-				Thread.Sleep(250);
-			}
-		}
-
-		private void configure(Assembly agentAssembly)
-		{
 			var compositeDatabaseConnection =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
 
 			XmlConfigurator.Configure();
 
-			Container = new WindsorContainer();
+			setAzureCredentials(_container);
 
-			setAzureCredentials(Container);
+			Fabric = new ConsoleFabric(_container);
 
-			Fabric = new ConsoleFabric(Container);
-
-			var composite = new BasicCompositeApp(Container)
+			var composite = new BasicCompositeApp(_container)
 				{ Name = "Euclid.TestingSupport.ConfigureAgentSteps.Composite", Description = "A composite used for testing" };
 
 			composite.AddAgent(agentAssembly);
@@ -89,13 +57,11 @@ namespace Euclid.TestingSupport
 
 			Fabric.Start();
 
-			_configured = true;
-
-			Container.Register(Component.For<BasicFabric>().Instance(Fabric));
+			_container.Register(Component.For<BasicFabric>().Instance(Fabric));
 
 			composite.CreateSchema(compositeDatabaseConnection, true);
 
-			DefaultSpecSteps.SetContainerInScenarioContext(Container);
+			_configured = true;
 		}
 
 		private CompositeAppSettings getCompositeSettings()

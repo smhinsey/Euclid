@@ -16,5 +16,10 @@ namespace Euclid.Framework.AgentMetadata
 
 			return agent.GetPartCollectionContainingType(Type);
 		}
+
+		public Type PartInterface
+		{
+			get { return GetContainingPartCollection().CollectionType; }
+		}
 	}
 }
