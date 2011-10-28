@@ -4,7 +4,7 @@ using ForumAgent.Queries;
 
 namespace ForumTests.Steps
 {
-	public class ForumSpecifications : AgentSpecificationTester
+	public class ForumSpecifications : DefaultAgentSteps
 	{
 		public ForumSpecifications()
 		{

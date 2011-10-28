@@ -16,7 +16,7 @@ using TechTalk.SpecFlow.Assist;
 namespace Euclid.TestingSupport
 {
 	[Binding]
-	public abstract class AgentSpecificationTester
+	public abstract class DefaultAgentSteps
 	{
 		private const string LastPublicationKey = "LastPublicationRecord";
 		private const string LastPublicationIdentifierKey = "LastPublicationIdentifier";
@@ -96,7 +96,7 @@ namespace Euclid.TestingSupport
 		[Given(@"the agent (.*)")]
 		public void GivenTheAgent(string assemblyName)
 		{
-			Assert.IsTrue(Initialized, "AgentSpecificationTester.Initialize must be called before steps can run");
+			Assert.IsTrue(Initialized, "DefaultAgentSteps.Initialize must be called before steps can run");
 
 			Assert.IsNotNull(AgentMetadata, "Could not retrieve metadadata for the agent in assembly '{0}'", assemblyName);
 
@@ -110,7 +110,7 @@ namespace Euclid.TestingSupport
 		{
 			var commandType = AgentMetadata.GetPartByTypeName(commandName).Type;
 
-			Assert.IsTrue(Initialized, "AgentSpecificationTester.Initialize must be called before steps can run");
+			Assert.IsTrue(Initialized, "DefaultAgentSteps.Initialize must be called before steps can run");
 
 			var commandInstance = GetInstanceFromTable<ICommand>(commandType, table);
 
@@ -154,7 +154,7 @@ namespace Euclid.TestingSupport
 		[When(@"the command is complete")]
 		public void WhenTheCommandIsComplete()
 		{
-			Assert.IsTrue(Initialized, "AgentSpecificationTester.Initialize must be called before steps can run");
+			Assert.IsTrue(Initialized, "DefaultAgentSteps.Initialize must be called before steps can run");
 
 			var attempts = 0;
 
@@ -200,7 +200,7 @@ namespace Euclid.TestingSupport
 		[Then(@"run (.*) on (.*) with:")]
 		public void RunQuery(string methodName, string queryPartTypeName, Table table)
 		{
-			Assert.IsTrue(Initialized, "AgentSpecificationTester.Initialize must be called before steps can run");
+			Assert.IsTrue(Initialized, "DefaultAgentSteps.Initialize must be called before steps can run");
 
 			var queryPartType = AgentMetadata.GetPartByTypeName(queryPartTypeName).Type;
 
@@ -231,7 +231,7 @@ namespace Euclid.TestingSupport
 		[Then(@"retrieve a List of (.*) by running (.*) on (.*) with:")]
 		public void QueryForListOfResults(string readModelParTypeName, string methodName, string queryPartTypeName, Table table)
 		{
-			Assert.IsTrue(Initialized, "AgentSpecificationTester.Initialize must be called before steps can run");
+			Assert.IsTrue(Initialized, "DefaultAgentSteps.Initialize must be called before steps can run");
 
 			var queryPartType = AgentMetadata.GetPartByTypeName(queryPartTypeName).Type;
 
@@ -280,7 +280,7 @@ namespace Euclid.TestingSupport
 		[Then(@"the (.*) has values:")]
 		public void ReadModelHasValues(string readModelPartTypeName, Table table)
 		{
-			Assert.IsTrue(Initialized, "AgentSpecificationTester.Initialize must be called before steps can run");
+			Assert.IsTrue(Initialized, "DefaultAgentSteps.Initialize must be called before steps can run");
 
 			Assert.NotNull(PreviousReadModel, "Cannot validate the {0} properties, the read model hasn't been saved", readModelPartTypeName);
 
