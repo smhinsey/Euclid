@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace AdminComposite.Controllers
 {
@@ -10,17 +11,17 @@ namespace AdminComposite.Controllers
 			return View();
 		}
 
-		public ActionResult Details()
+		public ActionResult Details(Guid? forumId)
 		{
 			return View();
 		}
 
-		public ActionResult Invite()
+		public ActionResult Invite(Guid? forumId)
 		{
 			return View();
 		}
 
-		public ActionResult List()
+		public ActionResult List(Guid? forumId)
 		{
 			return View();
 		}
