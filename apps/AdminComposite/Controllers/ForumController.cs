@@ -47,5 +47,10 @@ namespace AdminComposite.Controllers
 		{
 			return View();
 		}
+
+		public ActionResult ForumCategories(Guid? forumId)
+		{
+			return View();
+		}
 	}
 }

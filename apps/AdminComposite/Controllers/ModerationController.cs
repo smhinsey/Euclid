@@ -8,14 +8,14 @@ namespace AdminComposite.Controllers
 		public ActionResult Comments(Guid? forumId)
 		{
 			ViewBag.ModerationType = "Comment";
-			ViewBag.Title = "Moderate Comments";
+			ViewBag.Title = "Moderate Forum Comments";
 			return View("Moderation");
 		}
 
 		public ActionResult Posts(Guid? forumId)
 		{
 			ViewBag.ModerationType = "Post";
-			ViewBag.Title = "Moderate Posts";
+			ViewBag.Title = "Moderate Forum Posts";
 			return View("Moderation");
 		}
 	}

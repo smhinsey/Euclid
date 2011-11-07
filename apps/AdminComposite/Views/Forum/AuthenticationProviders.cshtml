@@ -1,17 +1,17 @@
 ﻿@model object
 @{
-	ViewBag.Title = "Authentication Providers";
+	ViewBag.Title = "Select Forum Authentication Providers";
 }
 <article>
 	<header>
-		<h2>Select Authentication Method</h2>
+		<h2>@ViewBag.Title</h2>
 	</header>
 	<p>Lorem ipsum dolor sit consecutator amet.</p>
 	<section>
 		<table>
 			<thead>
 				<tr>
-					<th>Active</th>
+					<th><input type="checkbox" class="check-all"/></th>
 					<th>Name</th>
 				</tr>
 			</thead>
