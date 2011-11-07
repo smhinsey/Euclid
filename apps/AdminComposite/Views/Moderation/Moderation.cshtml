@@ -3,11 +3,8 @@
 		<header>
 			<h2>@ViewBag.Title</h2>
 		</header>
+		@{Html.RenderPartial("_ModeratorPanel");}
 	</article>
-	
-
-	@{Html.RenderPartial("_ModeratorPanel");}
-
 </div>
 
 @section Breadcrumbs {

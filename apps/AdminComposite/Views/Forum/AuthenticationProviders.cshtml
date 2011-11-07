@@ -1,51 +1,57 @@
 ﻿@model object
-
 @{
 	ViewBag.Title = "Authentication Providers";
 }
-
-
 <article>
 	<header>
 		<h2>Select Authentication Method</h2>
 	</header>
-
+	<p>Lorem ipsum dolor sit consecutator amet.</p>
 	<section>
 		<table>
 			<thead>
 				<tr>
-					<th><input type="checkbox" class="check-all" title="select all"/></th>
+					<th>Active</th>
 					<th>Name</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td><input type="checkbox"/></td>
+					<td>
+						<input type="checkbox" /></td>
 					<td>Facebook</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox"/></td>
+					<td>
+						<input type="checkbox" /></td>
 					<td>OAuth</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox"/></td>
+					<td>
+						<input type="checkbox" /></td>
 					<td>Google</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox"/></td>
+					<td>
+						<input type="checkbox" /></td>
 					<td>Twitter</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox"/></td>
+					<td>
+						<input type="checkbox" /></td>
 					<td>Azure ACS</td>
 				</tr>
 				<tr>
-					<td><input type="checkbox"/></td>
+					<td>
+						<input type="checkbox" /></td>
 					<td>Active Directory</td>
 				</tr>
 			</tbody>
 		</table>
-
-		<input type="button" class="button" value="Save" style="float:right"/>
+		<p>Warning: if you disable an authentication provider that users have already used
+			to register with, those users will no longer have access to the forum. </p>
+		<p>
+			<input type="button" class="button" value="Save" style="float: right" />
+		</p>
 	</section>
 </article>

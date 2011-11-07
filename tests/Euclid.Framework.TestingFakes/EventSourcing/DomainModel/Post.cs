@@ -1,9 +1,8 @@
 ﻿using System;
-using Euclid.Framework.CommandSourcing;
 
 namespace Euclid.Framework.TestingFakes.EventSourcing.DomainModel
 {
-	public class Post : DefaultCommandSourcedAggregateRoot<Guid>
+	public class Post
 	{
 		public User Author { get; set; }
 
