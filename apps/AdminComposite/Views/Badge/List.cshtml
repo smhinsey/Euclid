@@ -1,13 +1,11 @@
+
+d:\Projects\Euclid\platform>@git.exe %*
 ﻿@model object
-
 @{
-	ViewBag.Title = string.Format("Badges for {0}", Request.QueryString["forumId"]);
+	ViewBag.Title = "Custom Badges";
 }
-
 <script type="text/javascript">
 	$(document).ready(function () {
-		$("#badge-type-select").tabs();
-
 		$("#create-badge").click(function () {
 			$("#custom-badge-tab").click();
 
@@ -22,108 +20,70 @@
 		});
 	});
 </script>
-
 <article>
 	<header>
-		<h2>@ViewBag.Title</h2>
-		<input type="button" id="create-badge" class="button" value="New Badge" style="float:right"/>
+		<h2>Badges</h2>
+		<input type="button" id="create-badge" class="button" value="New Badge" style="float: right" />
 	</header>
+	<p>Lorem ipsum dolor sit consecutator amet. </p>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Trigger</th>
+				<th>Image</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Lifetime Achievement Award</td>
+				<td>Total Points greater than 100</td>
+				<td>(image)</td>
+				<td><a href="#">Edit</a></td>
+			</tr>
+			<tr>
+				<td>Key Contributor</td>
+				<td>Total Points greater than 100</td>
+				<td>(image)</td>
+				<td><a href="#">Edit</a></td>
+			</tr>
+			<tr>
+				<td>I've Got Something to Say</td>
+				<td>Total Points greater than 100</td>
+				<td>(image)</td>
+				<td><a href="#">Edit</a></td>
+			</tr>
+			<tr>
+				<td>Conversation Starter</td>
+				<td>Total Points greater than 100</td>
+				<td>(image)</td>
+				<td><a href="#">Edit</a></td>
+			</tr>
+			<tr>
+				<td>Well Received Post</td>
+				<td>Total Points greater than 100</td>
+				<td>(image)</td>
+				<td><a href="#">Edit</a></td>
+			</tr>
+			<tr>
+				<td>The Never Ending Thread</td>
+				<td>Total Points greater than 100</td>
+				<td>(image)</td>
+				<td><a href="#">Edit</a></td>
+			</tr>
+		</tbody>
+	</table>
 </article>
-
-<div id="badge-type-select">
-	<ul>
-		<li><a href="#system-badges" id="system-badge-tab" class="active">System</a></li>
-		<li><a href="#custom-badges" id="custom-badge-tab">Custom</a></li>
-	</ul>
-
-	<div id="system-badges">
-		<table>
-			<thead>
-				<tr>
-					<th><input type="checkbox" class="check-all"/></th>
-					<th>Badge</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><input type="checkbox"/></td>
-					<td>Lifetime Achievement Award</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"/></td>
-					<td>Key Contributor</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"/></td>
-					<td>I've Got Something to Say</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"/></td>
-					<td>Conversation Starter</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"/></td>
-					<td>Well Received Post</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"/></td>
-					<td>The Never Ending Thread</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
-	<div id="custom-badges">
-		<table>
-			<thead>
-				<tr>
-					<th>Badge</th>
-					<th>Trigger</th>
-					<th>Criteria</th>
-					<th>Value</th>
-					<th>&nbsp;</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Old Timer</td>
-					<td>User.Created</td>
-					<td>>=</td>
-					<td>[Today] - 365</td>
-					<td>
-						<select multiple="multiple" class="badge-availability">
-							<option>Forum 1</option>
-							<option>Forum 2</option>
-							<option>Forum 3</option>
-						</select>
-
-						<a href="#">Delete</a>
-					</td>
-				</tr>
-				<tr>
-					<td>OCD</td>
-					<td>User.ConsecutiveDays</td>
-					<td>>=</td>
-					<td>200</td>
-					<td>
-						<select multiple="multiple" class="badge-availability">
-							<option>Forum 1</option>
-							<option>Forum 2</option>
-							<option>Forum 3</option>
-						</select>
-
-						<a href="#">Delete</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-
-
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
 		<li>@ViewBag.Title</li>
 	</ul>
 }
+
+d:\Projects\Euclid\platform>@set ErrorLevel=%ErrorLevel%
+
+d:\Projects\Euclid\platform>@rem Restore the original console codepage.
+
+d:\Projects\Euclid\platform>@chcp %cp_oem% > nul < nul
