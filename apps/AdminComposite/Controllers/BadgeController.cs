@@ -1,15 +1,16 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace AdminComposite.Controllers
 {
 	public class BadgeController : Controller
 	{
-		 public ActionResult List()
+		public ActionResult List(Guid? forumId)
 		 {
 		 	return View();
 		 }
 
-		public PartialViewResult NewBadge()
+		public PartialViewResult NewBadge(Guid? forumId)
 		{
 			return PartialView("_NewBadge");
 		}

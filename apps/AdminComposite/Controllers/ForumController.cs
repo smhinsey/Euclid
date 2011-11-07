@@ -38,12 +38,12 @@ namespace AdminComposite.Controllers
 			return PartialView("_NewForum", new CreateForumInputModel { UrlHostName = "socialrally.com" });
 		}
 
-		public ActionResult AuthenticationProviders()
+		public ActionResult AuthenticationProviders(Guid? forumId)
 		{
 			return View();
 		}
 
-		public ActionResult ForumSettings()
+		public ActionResult ForumSettings(Guid? forumId)
 		{
 			return View();
 		}

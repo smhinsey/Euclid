@@ -1,12 +1,4 @@
 ﻿$(document).ready(function () {
-	if (!$("#users-nav-item").parent().hasClass("current")) {
-		$($("#users-nav-item").siblings()[0]).show();
-	}
-
-	if (!$("#forum-nav-item").parent().hasClass("current")) {
-		$($("#forum-nav-item").siblings()[0]).show();
-	}
-
 	$("#forum-name").live("keyup", function () {
 		setForumUrl();
 	});
