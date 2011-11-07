@@ -1,0 +1,104 @@
+﻿@model object
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#add-user").click(function () {
+			$("<div></div>")
+				.load("/Organization/GetNewOrganizationUser")
+				.dialog({
+						modal: true,
+						title: "Add User",
+						width: 650, 
+						height: 800
+					});
+
+			return false;
+		});
+
+		$("#edit-organization-name").click(function() {
+			$("<div><input type='text' value='" + $("#organization-name").text() + "'><br/><input type='button' id='do-edit-organization' style='float:right' class='button' value='Save' /></div>")
+				.dialog({
+						modal: true,
+						title: "Edit Organization Name",
+						width: 650, 
+						height: 200
+					});
+		});
+	});
+
+</script>
+
+<style>
+
+.jeditable button {
+	 border: 1px solid #dddddd; 
+	 background: #f6f6f6; 
+	 font-weight: bold; 
+	 color: #38385c;
+	 margin-left:5px;
+	 margin-right:5px;
+}
+
+section 
+{
+	margin-bottom: 50px;
+}
+</style>
+
+<section>
+	<article>
+		<header>
+			<h2 id="organization-name">Organization Name</h2>
+			<input type="button" class="button" value="Edit" id="edit-organization-name" style="float:right"/>
+		</header>
+	</article>
+</section>
+
+
+<section>
+	<article>
+		<header>
+			<h2>Organization Users</h2>
+			<input type="button" class="button" id="add-user" value="Add User" style="float:right"/>
+		</header>
+	</article>
+
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>Administrator</th>
+					<th>Name</th>
+					<th>Last Login</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="checkbox" checked="checked" disabled="disabled"/></td>
+					<td>(You) Theodore Donald "Donny" Kerabtsos</td>
+					<td>Moments ago</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"/></td>
+					<td>Walter Sobchak</td>
+					<td>Moments ago</td>
+					<td>
+						<a href="#">Remove</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>
+
+<section>
+	@{Html.RenderPartial("_MyForums");}
+</section>
+@section Breadcrumbs {
+	<ul id="breadcrumbs">
+		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
+		<li>@ViewBag.Title</li>
+	</ul>
+}

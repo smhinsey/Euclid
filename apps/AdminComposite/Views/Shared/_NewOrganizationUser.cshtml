@@ -1,0 +1,128 @@
+﻿@using AdminComposite.Models
+@model CreateOrganizationUserModel
+@{
+	var buttonText = @Model.OrganizationIdentifier == Guid.Empty ? "Sign up" : "Add user";
+}
+
+<div style="width:650px">
+	@if (Model.DisplayTitle)
+	{
+		<article>
+			<header>
+				<h2>@ViewBag.Title</h2>
+			</header>
+		</article>
+	 }
+
+	@if (@Model.OrganizationIdentifier == Guid.Empty)
+	{
+		<fieldset>
+			<legend>Organization</legend>
+
+			<div class="input-container">
+				<label for="organization-name">Name*</label>
+				<br />
+				<input type="text" id="organization-name"/>
+			</div>
+
+			<div class="note-container">
+				<p class="note"></p>
+			</div>
+		</fieldset>
+	}
+
+	<fieldset>
+		<legend>User</legend>
+
+		<div class="input-container">
+			<label>First Name*</label>
+			<br />
+			<input type="text" />
+		</div>
+
+		<div class="input-container">
+			<label>Last Name*</label>
+			<br />
+			<input type="text" />
+		</div>
+
+		<div class="input-container">
+			<label>Email*</label>
+			<br />
+			<input type="text" />
+		</div>
+
+		<div class="input-container">
+			<label>Username*</label>
+			<br />
+			<input type="text" />
+		</div>
+
+		@if (Model.OrganizationIdentifier != Guid.Empty)
+		{
+			<div class="input-container">
+				<label>Is Administrator</label>
+				<input type="checkbox" />
+				<img style="margin-left: 25px" src="@Url.Content("~/Content/help_icon.png")" alt="help" class="help-image"/>
+			</div>
+		}
+
+		<div class="note-container">
+			<p class="note">An automatically generated password will be sent to the specified email address</p>
+		</div>
+	</fieldset>
+
+
+	<fieldset>
+		<legend>Contact</legend>
+
+		<div class="input-container">
+			<label>Phone Number@(Model.ContactInfoRequired ? "*" : string.Empty)</label>
+			<br />
+			<input type="text" />
+			<a href="#">type</a>
+		</div>
+
+		<div class="input-container">
+			<label>Address 1@(Model.ContactInfoRequired ? "*" : string.Empty)</label>
+			<br />
+			<input type="text" />
+		</div>
+
+		<div class="input-container">
+			<label>Address 2</label>
+			<br />
+			<input type="text" />
+		</div>
+
+		<div class="input-container">
+			<label>City@(Model.ContactInfoRequired ? "*" : string.Empty)</label>
+			<br />
+			<input type="text" />
+		</div>
+
+		<div class="input-container">
+			<label>State@(Model.ContactInfoRequired ? "*" : string.Empty)</label>
+			<br />
+			<input type="text" />
+		</div>
+
+		<div class="input-container">
+			<label>Postal Code/Zip@(Model.ContactInfoRequired ? "*" : string.Empty)</label>
+			<br />
+			<input type="text" />
+		</div>
+
+		<div class="input-container">
+			<label>Country@(Model.ContactInfoRequired ? "*" : string.Empty)</label>
+			<br />
+			<input type="text" />
+		</div>
+
+		<div class="note-container">
+			<p class="note"></p>
+		</div>
+	</fieldset>
+
+	<input type="button" value="@buttonText" class="button"/>
+</div>

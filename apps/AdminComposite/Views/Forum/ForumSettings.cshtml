@@ -1,0 +1,52 @@
+﻿@{
+	ViewBag.Title = "Manage Forum Settings";
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#forum-environment-select").tabs();
+	});
+
+</script>
+
+<div class="article-container">
+	<article>
+		<header>
+			<h2>@ViewBag.Title</h2>
+		</header>
+	</article>
+
+	<div class="input-container">
+		<label for="forum-select">Select Forum</label>
+		<br/>
+		<select id="forum-select">
+			<option>Forum 1</option>
+			<option>Forum 2</option>
+			<option>Forum 3</option>
+		</select>
+	</div>
+
+
+	<div id="forum-environment-select">
+		<ul>
+			<li><a href="#test" class="active">Test</a></li>
+			<li><a href="#production">Production</a></li>
+		</ul>
+
+		<div id="test">
+			These are the settings for test
+			<br/>
+			<br/>
+			<br/>
+			<input type="button" class="button" value="Copy to Production"/>
+		</div>
+
+		<div id="production">
+			These are the settings for production
+			<br/>
+			<br/>
+			<br/>
+			<input type="button" class="button" value="Copy to Test"/>
+		</div>
+	</div>
+</div>

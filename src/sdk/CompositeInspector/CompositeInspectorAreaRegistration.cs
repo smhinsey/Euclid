@@ -16,10 +16,10 @@ namespace CompositeInspector
 		public override void RegisterArea(AreaRegistrationContext context, IApplicationBus bus)
 		{
 			/********************************
-            * Routes for HTML layout assets
-            *   images, styles, & scripts must exist directly below the listed directories
-            *   or the MvcContrib.EmbeddedResourceController won't find them
-            ********************************/
+			* Routes for HTML layout assets
+			*   images, styles, & scripts must exist directly below the listed directories
+			*   or the MvcContrib.EmbeddedResourceController won't find them
+			********************************/
 
 			context.MapRoute(
 				"CompositeInspector-Images",
@@ -46,8 +46,8 @@ namespace CompositeInspector
 				new[] { "MvcContrib.PortableAreas" });
 
 			/********************************
-            * Routes for controllers
-            ********************************/
+			* Routes for controllers
+			********************************/
 			context.MapRoute(
 				"CompositeInspector-AllAgentsWithFormat",
 				"CompositeInspector/agents/index.{format}",

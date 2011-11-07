@@ -39,7 +39,7 @@ namespace AdminComposite
 
 			XmlConfigurator.Configure();
 
-			var databaseConfiguration = MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
+			var databaseConfiguration = MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
 
 			var container = new WindsorContainer();
 

@@ -1,38 +1,18 @@
 ﻿@using AdminComposite.Models
-@using Euclid.Composites.Mvc.Extensions
 @model CreateForumInputModel
 @{
-	ViewBag.Title = "Forums";
+	ViewBag.Title = "Create Forum";
 }
 
-<div class="article-container">
-	<header>
-		<h2>@ViewBag.Title</h2>
-	</header>
-	<section>
-	<h3>Create a Forum</h3>
-		@using (Html.BeginFormForInputModel(Model, true, Url.Action("List")))
-	{
-			<fieldset><legend>Forum Settings</legend>
-				<dl>
-					<dt>
-						<label>Name</label></dt>
-					<dd>@Html.EditorFor(m => m.Name)</dd>
-					<dt>
-						<label>Host</label></dt>
-					<dd>@Html.EditorFor(m => m.UrlHostName)
-						<p>The host name is the first part of the forum's URL. E.g. http://<b>host.com</b>/</p>
-					</dd>
-					<dt>
-						<label>Slug</label></dt>
-					<dd>@Html.EditorFor(m => m.UrlSlug)
-						<p>The slug is the part of the forum's URL after the host. E.g. http://host.com/<b>my-forum-slug</b></p>
-					</dd>
-				</dl>
-			</fieldset>
-			@:<button type="submit">Create Forum</button> or @Html.ActionLink("Cancel", "List")
-						}
-	</section>
+<div>
+	<article>
+		<header>
+			<h2>Create Forum</h2>
+		</header>
+	</article>
+
+	@{Html.RenderPartial("_NewForum", Model);}
+
 	<footer>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et <a href="#">
 			dignissim metus</a>. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat
@@ -42,8 +22,7 @@
 
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
-		<li><a href="/" title="Back to Homepage">Home</a></li>
+		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
 		<li>@ViewBag.Title</li>
-		<li>Create a Forum</li>
 	</ul>
 }

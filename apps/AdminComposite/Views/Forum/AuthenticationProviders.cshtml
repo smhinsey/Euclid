@@ -1,0 +1,72 @@
+﻿@model object
+
+@{
+	ViewBag.Title = "Authentication Providers";
+}
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#select-forum").multiselect({
+			checkAllText: "Check all",
+			uncheckAllText: "Uncheck all",
+			noneSelectedText: "No forums selected",
+			selectedText: function (numberChecked, numberItems, checkedItems) {
+				return "Authentcation for " + ((numberChecked == numberItems) ? "all forums" : numberChecked + " " + (numberChecked == 1 ? "forum" : "forums"));
+			}
+		});
+	});
+
+</script>
+
+<article>
+	<header>
+		<h2>Select Authentication Method</h2>
+
+		<div style="float:right" >
+			<select multiple="multiple" id="select-forum">
+				<option>forum 1</option>
+				<option>forum 2</option>
+				<option>forum 3</option>
+			</select>
+		</div>
+	</header>
+
+	<section>
+		<table>
+			<thead>
+				<tr>
+					<th><input type="checkbox" class="check-all" title="select all"/></th>
+					<th>Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="checkbox"/></td>
+					<td>Facebook</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"/></td>
+					<td>OAuth</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"/></td>
+					<td>Google</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"/></td>
+					<td>Twitter</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"/></td>
+					<td>Azure ACS</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox"/></td>
+					<td>Active Directory</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<input type="button" class="button" value="Save" style="float:right"/>
+	</section>
+</article>

@@ -3,24 +3,32 @@
 	var action = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
 }
 <ul>
-	<li @if (controller == "Dashboard"){<text>class="current"</text>}><a href="/" title="title" class="dashboard no-submenu">Dashboard</a></li>
-	<li @if (controller == "Forum"){<text>class="current"</text>}><a href="@Url.Action("List", "Forum")" title="Forums" class="articles">Forums</a><span title="There are 23 new log entries">23</span>
+	<li @if (controller == "Dashboard"){<text>class="current"</text>}>
+		<a href="@Url.Action("Index", "Dashboard")" title="Home" class="dashboard no-submenu">Dashboard</a>
+	</li>
+
+	<li @if (controller == "Organization"){<text>class="current"</text>}>
+		<a href="@Url.Action("Index", "Organization")" title="Home" class="dashboard no-submenu">Organization</a>
+	</li>
+
+	<li @if (controller == "Forum"){<text>class="current"</text>}>
+		<a title="Forums" class="articles" id="forum-nav-item">Forums</a>
 		<ul>
-			<li @if ((action == "List" && controller == "Forum") || action == "Details"){<text>class="current"</text>}>@Html.ActionLink("Manage Forums", "List", "Forum")</li>
-			<li @if (action == "Create"){<text>class="current"</text>}>@Html.ActionLink("Create a Forum", "Create", "Forum")</li>
+			<li @if (action == "List" && controller == "Forum"){<text>class="current"</text>}>@Html.ActionLink("Manage", "List", "Forum")</li>
+			<li @if (action == "ForumSettings" && controller == "Forum"){<text>class="current"</text>}>@Html.ActionLink("View Settings", "ForumSettings", "Forum")</li>
+			<li @if (action == "Authentication" && controller == "AuthenticationProviders"){<text>class="current"</text>}>@Html.ActionLink("Authentication Providers", "AuthenticationProviders", "Forum")</li>
 		</ul>
 	</li>
-	<li @if (controller == "User"){<text>class="current"</text>}><a href="@Url.Action("List", "User")" title="Users" class="gallery">Users</a><span title="There are 23 new log entries">23</span>
+
+	<li @if (controller == "User") { <text>class="current"</text>}>
+		<a title="Users" class="users" id="users-nav-item">Users</a>
 		<ul>
-			<li @if (action == "List" && controller == "User"){<text>class="current"</text>}>@Html.ActionLink("Manage Users", "List", "User")</li>
-			<li @if (action == "Invite"){<text>class="current"</text>}>@Html.ActionLink("Invite Users", "Invite", "User")</li>
-			<li @if (action == "Create"){<text>class="current"</text>}>@Html.ActionLink("Create a User", "Create", "User")</li>
+			<li @if (action == "List" && controller == "User"){<text>class="current"</text>}>@Html.ActionLink("Manage", "List", "User")</li>
+			<li @if (action == "Invite"){<text>class="current"</text>}>@Html.ActionLink("Invite", "Invite", "User")</li>
 		</ul>
 	</li>
-	<li @if (controller == "Moderation"){<text>class="current"</text>}><a href="#" title="Moderation" class="gallery">Moderation</a><span title="There are 47 new log entries">47</span>
-		<ul>
-			<li @if (action == "Posts"){<text>class="current"</text>}>@Html.ActionLink("Moderate Posts", "Posts", "Moderation")</li>
-			<li @if (action == "Comments"){<text>class="current"</text>}>@Html.ActionLink("Moderate Comments", "Comments", "Moderation")</li>
-		</ul>	
-	</li>
+
+	<li @if (controller == "Badges"){<text>class="current"</text>}><a href="@Url.Action("List", "Badge")" class="events no-submenu">Badges</a></li>
+
+	<li @if (controller == "Moderation"){<text>class="current"</text>}><a href="@Url.Action("Posts", "Moderation")" title="Moderation" class="gallery no-submenu">Moderation</a></li>
 </ul>

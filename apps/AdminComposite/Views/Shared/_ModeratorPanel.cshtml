@@ -1,0 +1,106 @@
+﻿@model object
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$($(".moderation-item.unread")[0]).addClass("current-unread");
+
+		$(document).keydown(function (event) {
+			var bubble = true;
+
+			var postId = $(".current-unread").attr("data-post-id");
+
+			if (event.which == 40) { // down arrow
+				if (!$(".current-unread").length) {
+
+					console.log("loading next page");
+					return false;
+				};
+
+				approveItem(postId);
+				advanceSelection();
+
+				bubble = false;
+			} else if (event.which == 82) { // R (for remove)
+				removeItem(postId);
+				advanceSelection();
+
+				bubble = false;
+			}
+
+			ensureVisibility();
+
+			return bubble;
+		});
+
+		$("#select-moderation").change(function() {
+			var type = $(this).val();
+			if ( type == "Posts") {
+				window.location.href = "@Url.Action("Posts", "Moderation")";
+			} else if (type == "Comments") {
+				window.location.href = "@Url.Action("Comments", "Moderation")";
+			}
+		});
+	});
+
+	function removeItem(postId) {
+		// TODO: ajax call
+		console.log("removing item: " + postId);
+		$(".last-action[data-post-id='" + postId + "']").text("removed");
+	}
+	
+	function approveItem(postId) {
+		// TODO: ajax call
+		console.log("approving item: " + postId);
+		$(".last-action[data-post-id='" + postId + "']").text("approved");
+	}
+	
+	function advanceSelection() {
+		$(".current-unread").removeClass("unread").removeClass("current-unread").addClass("read");
+
+		$($(".moderation-item.unread")[0]).addClass("current-unread");
+	}
+
+	function ensureVisibility() {
+		if (!$(".current-unread").length) return;
+		
+		var top = parseInt($(".current-unread").position().top);
+		
+		if(!$(".current-unread:in-viewport").length) {
+			console.log("off the screen");
+
+			$(window).scrollTop(top - 25);
+		}
+	}
+</script>
+
+<section>
+	<label for="select-moderation">Moderate</label>
+	<select id="select-moderation">
+		<option @if(ViewBag.ModerationType=="Post"){<text>selected="selected"</text>}>Posts</option>
+		<option @if(ViewBag.ModerationType=="Comment"){<text>selected="selected"</text>}>Comments</option>
+	</select>
+</section>
+
+@{
+	for (var i = 0; i < 15; i++)
+	{
+		var postId = Guid.NewGuid();
+		<fieldset class="moderation-item unread" data-post-id="@postId">
+			<legend>@ViewBag.ModerationType Title</legend>
+
+			<div style="float:left;width:475px">
+				<p>Aliquam placerat posuere neque, at dignissim magna ullamcorper. The Dude abides. In aliquam sagittis massa ac tortor ultrices faucibus. Nihilists! Jesus. Can we just rent it from you? Curabitur eu mi sapien, ut ultricies ipsum morbi. I like your style, Dude. Eget risus nulla nullam vel nisi enim, vel. Little Lebowski Urban Achievers, yes, and proud we are of all of them. Auctor ante morbi id urna vel felis lacinia.</p>
+			</div>
+			<div style="float:left;margin-left:15px;width:110px">
+				<input type="button" class="button" value="Approve"/>
+				<br/>
+				<input type="button" class="button" value="Remove @ViewBag.ModerationType"/>
+				<br/>
+				<input type="button" class="button" value="Block Author"/>
+				<p style="margin-top:25px" class="note last-action" data-post-id="@postId"></p>
+			</div>
+			<div style="clear:both"></div>
+
+		</fieldset>
+	}
+}

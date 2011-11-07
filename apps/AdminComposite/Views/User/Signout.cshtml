@@ -1,0 +1,14 @@
+﻿@{
+	ViewBag.Title = "Logged out";
+}
+<section>
+	<h3>You are now logged out</h3>
+
+	<div style="margin-top:25px">
+		<a href="@Url.Action("Signin", "User")">Sign in</a>
+	</div>
+</section>
+
+@section LeftRail {
+	@{Html.RenderPartial("LeftRail/_AnonymousUserNavigation");}
+}

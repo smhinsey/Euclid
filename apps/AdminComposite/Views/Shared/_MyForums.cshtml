@@ -1,0 +1,52 @@
+﻿@using ForumAgent.ReadModels
+@model IList<Forum>
+
+
+<section style="margin-top:10px">
+		<article>
+			<header>
+				<h2>Forums</h2>
+				<a href="#" id="new-forum-button" class="button" style="float:right">New Forum</a>
+			</header>
+		</article>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Status</th>
+					<th>Posts</th>
+					<th>Last Activity</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>My first forum</td>
+					<td>Public</td>
+					<td>372</td>
+					<td>just now</td>
+					<td>
+						<a href="#">Edit</a> |
+						<a href="#">View</a> |
+						<a href="#">Moderate</a> |
+						<a href="@Url.Action("List", "User")">Manage Users</a>
+					</td>
+				</tr>
+				<tr>
+					<td>Another forum</td>
+					<td>Invite-only</td>
+					<td>23</td>
+					<td>11/01/2011 3:52pm</td>
+					<td>
+						<a href="#">Edit</a> |
+						<a href="#">View</a> |
+						<a href="#">Moderate</a> |
+						<a href="@Url.Action("List", "User")">Manage Users</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		
+	</section>
