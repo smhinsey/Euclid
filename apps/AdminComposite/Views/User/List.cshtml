@@ -2,103 +2,53 @@
 	ViewBag.Title = "Manage Forum Users";
 }
 
-<script type="text/javascript">
-	$(document).ready(function () {
-		$("#user-type-select").tabs();
-	});
-
-</script>
-
 <div class="article-container">
 	<article>
 		<header>
 			<h2>@ViewBag.Title</h2>
 		</header>
+		<p>
+			Lorem ipsum dolor sit consecutator amet.
+		</p>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Username</th>
+					<th># Posts</th>
+					<th># Votes</th>
+					<th>Last Login</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Jeff Dowd</td>
+					<td>thedude</td>
+					<td>7</td>
+					<td>3</td>
+					<td>11/01/11</td>
+					<td><a href="#">Reset vote count</a> | <a href="#">Block</a> </td>
+				</tr>
+				<tr>
+					<td>Peter Exline</td>
+					<td>thestranger</td>
+					<td>898</td>
+					<td>7</td>
+					<td>10/01/11</td>
+					<td><a href="#">Reset vote count</a> | <a href="#">Block</a> </td>
+				</tr>
+				<tr>
+					<td>Walter Hill</td>
+					<td>larry</td>
+					<td>15</td>
+					<td>7</td>
+					<td>09/01/11</td>
+					<td><a href="#">Reset vote count</a> | <a href="#">Block</a> </td>
+				</tr>
+			</tbody>
+		</table>
 	</article>
-
-	<div id="user-type-select">
-		<ul>
-			<li><a href="#forum-member" class="active">Forum Members</a></li>
-			<li><a href="#organization-member">Organization Members</a></li>
-		</ul>
-
-		<div id="forum-member">
-			<table>
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Username</th>
-						<th># Posts</th>
-						<th># Votes</th>
-						<th>Last Login</th>
-						<th>&nbsp;</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Jeff Dowd</td>
-						<td>thedude</td>
-						<td>7</td>
-						<td>3</td>
-						<td>11/01/11</td>
-						<td>
-							<a href="#">Reset vote count</a>
-							|
-							<a href="#">Block</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Peter Exline</td>
-						<td>thestranger</td>
-						<td>898</td>
-						<td>7</td>
-						<td>10/01/11</td>
-						<td>
-							<a href="#">Reset vote count</a>
-							|
-							<a href="#">Block</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Walter Hill</td>
-						<td>larry</td>
-						<td>15</td>
-						<td>7</td>
-						<td>09/01/11</td>
-						<td>
-							<a href="#">Reset vote count</a>
-							|
-							<a href="#">Block</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<div id="organization-member">
-			<table>
-				<thead>
-					<tr>
-						<th>Administrator</th>
-						<th>Moderator</th>
-						<th>Name</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><input type="checkbox" checked="checked" disabled="disabled"/></td>
-						<td><input type="checkbox" checked="checked" disabled="disabled"/></td>
-						<td>(You) Theodore Donald "Donny" Kerabtsos</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"/></td>
-						<td><input type="checkbox"/></td>
-						<td>Walter Sobchak</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
 </div>
 
 @section Breadcrumbs {
