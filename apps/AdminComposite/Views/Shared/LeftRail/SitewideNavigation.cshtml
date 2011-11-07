@@ -31,16 +31,12 @@
 		<li @if (forumId.ToString() == selectedForumId){<text>class="current"</text>}>
 			<a title="Forums" class="articles" id="forum-nav-item">Forum @i</a>
 			<ul class="expanded">
-				<li @if (forumId.ToString() == selectedForumId && controller == "Forum" && action == "ForumSettings")
-				{<text>class="current"</text>}><a href="@Url.Action("ForumSettings", "Forum", new { forumId })">Details</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Forum" && action=="ForumCategores") {<text>class="current"</text>}><a href="@Url.Action("ForumCategories", "Forum", new { forumId })">Categories</a></li>				
-				{<text>class="current"</text>}><a href="@Url.Action("List", "User", new { forumId })">Users</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Badge" && action == "List")
-				{<text>class="current"</text>}><a href="@Url.Action("List", "Badge", new { forumId })">Badges</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Moderation" && (action == "Posts" || action == "Comments"))
-				{<text>class="current"</text>}><a href="@Url.Action("Posts", "Moderation", new { forumId })">Moderate Posts & Comments</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Forum" && action == "AuthenticationProviders")
-				{<text>class="current"</text>}><a href="@Url.Action("AuthenticationProviders", "Forum", new { forumId })">Configure Authentication</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "Forum" && action == "ForumSettings"){<text>class="current"</text>}><a href="@Url.Action("ForumSettings", "Forum", new { forumId })">Details</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "Forum" && action=="ForumCategories") {<text>class="current"</text>}><a href="@Url.Action("ForumCategories", "Forum", new { forumId })">Categories</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "User" && action=="List") {<text>class="current"</text>}><a href="@Url.Action("List", "User", new { forumId })">Users</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "Badge" && action == "List"){<text>class="current"</text>}><a href="@Url.Action("List", "Badge", new { forumId })">Badges</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "Moderation" && (action == "Posts" || action == "Comments")){<text>class="current"</text>}><a href="@Url.Action("Posts", "Moderation", new { forumId })">Moderate Posts & Comments</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "Forum" && action == "AuthenticationProviders"){<text>class="current"</text>}><a href="@Url.Action("AuthenticationProviders", "Forum", new { forumId })">Configure Authentication</a></li>
 			</ul>
 		</li>
 	 }

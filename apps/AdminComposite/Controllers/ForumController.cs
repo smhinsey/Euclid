@@ -52,5 +52,10 @@ namespace AdminComposite.Controllers
 		{
 			return View();
 		}
+
+		public PartialViewResult NewCategory()
+		{
+			return PartialView("_NewCategory");
+		}
 	}
 }

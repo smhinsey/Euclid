@@ -1,7 +1,22 @@
-﻿<article>
+﻿<script type="text/javascript">
+	$(document).ready(function () {
+		$("#create-category").click(function() {
+			$("<div></div>")
+			.load("/Forum//NewCategory")
+			.dialog({
+				modal: true,
+				title: "New Category",
+				width: 650,
+				height: 500
+			});
+		});
+	});
+</script>
+
+<article>
 	<header>
 		<h2>Manage Forum Categories</h2>
-		<input type="button" id="create-category" class="button" value="New Category" style="float: right" />
+		<input type="button" id="create-category" class="button-link" value="New Category" style="float: right" />
 	</header>
 	<p>Lorem ipsum dolor sit consecutator amet. </p>
 	<table>

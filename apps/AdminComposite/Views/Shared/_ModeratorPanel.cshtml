@@ -34,9 +34,9 @@
 		$("#select-moderation").change(function() {
 			var type = $(this).val();
 			if ( type == "Posts") {
-				window.location.href = "@Url.Action("Posts", "Moderation")";
+				window.location.href = "@Url.Action("Posts", "Moderation", new { forumId = Request.QueryString["forumId"]})";
 			} else if (type == "Comments") {
-				window.location.href = "@Url.Action("Comments", "Moderation")";
+				window.location.href = "@Url.Action("Comments", "Moderation", new { forumId = Request.QueryString["forumId"] })";
 			}
 		});
 	});
