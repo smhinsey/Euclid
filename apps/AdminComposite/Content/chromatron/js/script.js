@@ -13,7 +13,7 @@ $(function() {
 
 	// jQuery Facebox Modal
 	$('a[rel*=modal]').facebox();
-
+	
 	// jQuery jWYSIWYG Editor
 	$('.wysiwyg').wysiwyg({ iFrameClass: 'wysiwyg-iframe' });
 
