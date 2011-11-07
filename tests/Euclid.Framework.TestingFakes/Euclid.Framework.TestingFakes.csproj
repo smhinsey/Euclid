@@ -81,6 +81,8 @@
     <Compile Include="Cqrs\FakeCommandProcessor.cs" />
     <Compile Include="Cqrs\FakeReadModel.cs" />
     <Compile Include="EventSourcing\DomainModel\Post.cs" />
+    <Compile Include="EventSourcing\DomainModel\PostListing.cs" />
+    <Compile Include="EventSourcing\DomainModel\UserListing.cs" />
     <Compile Include="EventSourcing\PostDenormalizer.cs" />
     <Compile Include="EventSourcing\PostCreatedEvent.cs" />
     <Compile Include="EventSourcing\ReadModel\PostListing.cs" />

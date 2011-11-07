@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="DefaultMessageDispatcher.cs" />
     <Compile Include="DefaultMessageProcessor.cs" />
+    <Compile Include="MultipleMessageProcessor.cs" />
     <Compile Include="PublicationRecord.cs" />
     <Compile Include="PublicationRegistry.cs" />
     <Compile Include="Envelope.cs" />
