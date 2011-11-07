@@ -6,12 +6,16 @@ namespace AdminComposite.Controllers
 	{
 		public ActionResult Comments()
 		{
-			return View();
+			ViewBag.ModerationType = "Comment";
+			ViewBag.Title = "Moderate Comments";
+			return View("Moderation");
 		}
 
 		public ActionResult Posts()
 		{
-			return View();
+			ViewBag.ModerationType = "Post";
+			ViewBag.Title = "Moderate Posts";
+			return View("Moderation");
 		}
 	}
 }

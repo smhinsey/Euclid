@@ -1,34 +1,157 @@
 ﻿@using Euclid.Composites.Mvc.Extensions
 @using ForumComposite.Models
 @model RegisterUserInputModel
-
 @{
 	ViewBag.Title = "Register An Account";
 }
 
-<div id="DiscussionForm">
-	<h2>Register An Account</h2>
-	@using (Html.BeginFormForInputModel(Model))
+<style type="text/css">
+	.avatar
 	{
-		<div>
-			@Html.LabelFor(m => m.Username)
-			@Html.TextBoxFor(m => m.Username, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })
-		</div>
-
-		<div>
-			@Html.LabelFor(m => m.Password)
-			@Html.PasswordFor(m => m.Password, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })
-		</div>
-
-		<div>
-			@Html.LabelFor(m => m.ConfirmationPassword)
-			@Html.PasswordFor(m => m.ConfirmationPassword, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })
-		</div>
-
-		<div class="PostFormControlPanel">
-			<input type="submit" id="Form_PostDiscussion" name="Discussion/Post_Discussion" value="Register Account"
-						 class="Button DiscussionButton" />
-
-		</div>
+		height:125px;
+		width:125px;
+		margin-top:10px;
+		margin-bottom:20px;
+		margin-left:10px;
 	}
+	
+	.selected
+	{
+		border:3px blue solid;
+	}
+	
+	.hover
+	{
+		border:3px blue dotted;
+	}
+</style>
+
+<script type="text/javascript">
+	jQuery(document).ready(function () {
+		$("#avatar-select").tabs();
+
+		$(".select-image").click(function () {
+
+			var selectedImage = $(this).children()[0];
+
+			$(selectedImage).addClass("ignore");
+
+			$(".avatar").each(function (index, item) {
+				if ($(item).hasClass("ignore")) {
+					$(item).removeClass("ignore");
+				} else {
+					$(item).removeClass("selected");
+				}
+			});
+
+			if ($(selectedImage).hasClass("selected")) {
+				$(selectedImage).removeClass("selected");
+			} else {
+				$(selectedImage).addClass("selected");
+			}
+
+			$(selectedImage).removeClass("hover");
+
+			return false;
+		});
+
+		$(".select-image").mouseenter(function () {
+			var image = $(this).children()[0];
+
+			if (!$(image).hasClass("selected")) {
+				$(image).addClass("hover");
+			}
+
+			return false;
+		});
+
+		$(".select-image").mouseleave(function () {
+			var image = $(this).children()[0];
+			$(image).removeClass("hover");
+
+			return false;
+		});
+
+		$(".ignore").click(function() {
+			return false;
+		});
+	});
+	
+</script>
+
+<div id="DiscussionForm">
+
+@using (Html.BeginFormForInputModel(Model))
+{
+	<fieldset>
+		<legend />
+		<header>
+			<h2>User Information</h2>
+		</header>
+		<dl>
+			<dt><label>First Name*</label></dt>
+			<dd><input type="text"  class="InputBox" /></dd>
+
+			<dt><label>Last Name*</label></dt>
+			<dd><input type="text" class="InputBox" /></dd>
+		
+			<dt>@Html.LabelFor(m => m.Username)*</dt>
+			<dd>@Html.TextBoxFor(m => m.Username, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })</dd>
+
+			<dt><label>Email*</label></dt>
+			<dd><input type="text"  class="InputBox"/></dd>
+
+			<dt>@Html.LabelFor(m => m.Password)*</dt>
+			<dd>@Html.PasswordFor(m => m.Password, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })</dd>
+
+			<dt><label>Re-type Password*</label></dt>
+			<dd><input type="password"  class="InputBox"/></dd>
+		</dl>
+	</fieldset>
+
+	<section>
+		<h2>Pick an Avatar</h2>
+		<div id="avatar-select">
+			<ul>
+				<li><a href="#gravatar" class="active">Gravatar</a></li>
+				<li><a href="#canned">Newco</a></li>
+			</ul>
+
+			<div id="gravatar">
+				<fieldset>
+					<legend />
+					<dl>
+						<dt><label>Gravatar Email*</label></dt>
+						<dd><input type="text"/></dd>
+					</dl>
+				</fieldset>
+			</div>
+
+			<div id="canned">
+				<div>
+					<span class="select-image"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></span>
+					<span class="select-image"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></span>
+					<span class="select-image"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></span>
+					<span class="select-image"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></span>
+				</div>
+
+				<div>
+					<a class="select-image" href="#"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></a>
+					<a class="select-image" href="#"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></a>
+					<a class="select-image" href="#"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></a>
+					<a class="select-image" href="#"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></a>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<div class="PostFormControlPanel">
+		<input type="checkbox"/>I agree to the <a href="#" class="ignore">Terms of Use</a> and <a href="#" class="ignore">Privacy Policy</a>
+		<br/>
+		<input type="submit" id="Form_PostDiscussion" name="RegisterAccount" value="Register Account" class="Button" />
+		<a href="#" class="ignore">Cancel</a>
+	</div> 
+}
+
 </div>

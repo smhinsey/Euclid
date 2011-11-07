@@ -1,37 +1,12 @@
 ﻿@using ForumAgent.ReadModels
 @model IList<Forum>
 @{
-	ViewBag.Title = "Forums";
+	ViewBag.Title = "Manage Forums";
 }
 
 <div class="article-container">
-	<header>
-		<h2>@ViewBag.Title</h2>
-	</header>
-	<section>
-		<h3>Manage Forums</h3>
-		<table class="datatable">
-			<thead>
-				<tr>
-					<th class="sorting">Name</th>
-					<th class="sorting" rel="tooltip" original-title="The part of the URL that includes the domain name">Host</th>
-					<th class="sorting" rel="tooltip" original-title="The part of the URL after the host name">Slug</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var forum in Model)
-		{
-					<tr>
-						<td>@Html.ActionLink(forum.Name, "Details", new { forumId = forum.Identifier})</td>
-						<td>@forum.UrlHostName</td>
-						<td>@forum.UrlSlug</td>
-						<td></td>
-					</tr>
-		}
-			</tbody>
-		</table>
-	</section>
+	@{Html.RenderPartial("_MyForums");}
+
 	<footer>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et <a href="#">
 			dignissim metus</a>. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat
@@ -41,8 +16,7 @@
 
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
-		<li><a href="/" title="Back to Homepage">Home</a></li>
+		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
 		<li>@ViewBag.Title</li>
-		<li>Manage Forums</li>
 	</ul>
 }

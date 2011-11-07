@@ -17,7 +17,7 @@ namespace AdminComposite
 			routes.IgnoreRoute("favicon.ico");
 
 			routes.MapRoute(
-				"Default", "{controller}/{action}/{id}", new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional });
+				"Default", "{controller}/{action}/{id}", new { controller = "User", action = "Signin", id = UrlParameter.Optional });
 		}
 
 		protected void Application_Start()

@@ -1,0 +1,18 @@
+﻿<div class="article-container">
+	<article>
+		<header>
+			<h2>@ViewBag.Title</h2>
+		</header>
+	</article>
+	
+
+	@{Html.RenderPartial("_ModeratorPanel");}
+
+</div>
+
+@section Breadcrumbs {
+	<ul id="breadcrumbs">
+		<li><a href="/" title="Back to Homepage">Home</a></li>
+		<li>@ViewBag.Title</li>
+	</ul>
+}

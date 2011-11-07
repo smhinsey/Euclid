@@ -1,0 +1,25 @@
+﻿.input-container 
+{
+	margin-top:15px;
+}
+
+.note-container
+{
+	margin-top: 15px;
+}
+
+.note
+{
+	color: #999;
+	font-size: 12px;
+}
+
+.help-image:hover {
+	cursor: help;
+}
+
+.current-unread {
+	background-color: honeydew !important;
+}
+
+#main-nav ul li a.users { background-image:url('sample_user_icon.png') ; }

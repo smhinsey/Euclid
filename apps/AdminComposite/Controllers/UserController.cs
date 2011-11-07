@@ -6,6 +6,7 @@ namespace AdminComposite.Controllers
 	{
 		public ActionResult Create()
 		{
+			ViewBag.Title = "New User";
 			return View();
 		}
 
@@ -20,6 +21,16 @@ namespace AdminComposite.Controllers
 		}
 
 		public ActionResult List()
+		{
+			return View();
+		}
+
+		public ActionResult Signin()
+		{
+			return View();
+		}
+
+		public ActionResult Signout()
 		{
 			return View();
 		}

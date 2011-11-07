@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
+    <Content Include="Content\img\image-placeholder.png" />
     <Content Include="Content\site.js">
       <DependentUpon>site.chirp.coffee</DependentUpon>
     </Content>

@@ -2,105 +2,41 @@
 	ViewBag.Title = "Dashboard";
 }
 
-<div class="article-container">
+<article>
 	<header>
-		<h2>@ViewBag.Title</h2>
+		<h2 style="">Hello, *your name here*</h2>
 	</header>
-	<section>
-			<h3>User Activity</h3>
-			<table class="data" data-chart="line">
-				<thead>
-					<tr>
-						<td></td>
-						<th scope="col">12/12/2011</th>
-						<th scope="col">12/12/2011</th>
-						<th scope="col">12/12/2011</th>
-						<th scope="col">12/12/2011</th>
-						<th scope="col">Yesterday</th>
-						<th scope="col">Today</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th scope="row">Posts</th>
-						<td>190</td>
-						<td>160</td>
-						<td>40</td>
-						<td>120</td>
-						<td>30</td>
-						<td>70</td>
-					</tr>
-					<tr>
-						<th scope="row">Comments</th>
-						<td>3</td>
-						<td>40</td>
-						<td>30</td>
-						<td>45</td>
-						<td>35</td>
-						<td>49</td>
-					</tr>
-					<tr>
-						<th scope="row">Upvotes</th>
-						<td>10</td>
-						<td>180</td>
-						<td>10</td>
-						<td>85</td>
-						<td>25</td>
-						<td>79</td>
-					</tr>
-					<tr>
-						<th scope="row">Downvotes</th>
-						<td>40</td>
-						<td>80</td>
-						<td>90</td>
-						<td>25</td>
-						<td>15</td>
-						<td>119</td>
-					</tr>
-				</tbody>
-			</table>
-	</section>
-	<footer>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et <a href="#">
-			dignissim metus</a>. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat
-			est suscipit sagittis.</p>
-	</footer>
-</div>
+</article>
 
-@section Breadcrumbs {
-	<ul id="breadcrumbs">
-		<li><a href="/" title="Back to Homepage">Home</a></li>
-		<li>Dashboard</li>
-	</ul>
-}
+<section>
+	<fieldset>
+		<legend>Today's Stats</legend>
 
-@section SideBar {
-	<section class="sidebar nested">
-		<h2>Nested Sidebar</h2>
-		<p>Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. Maec enas id augue ac
-			metu aliquam.</p>
-		<p>Sed pharetra placerat est suscipit sagittis. Phasellus <a href="#">aliquam</a>
-			males uada blandit. Donec adipiscing sem erat.</p>
-	</section>
-	<section class="sidebar">
-		<h2>Paragraph with Separator</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim
-			metus.</p>
-		<p class="separator">Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat
-			est suscipit sagittis.</p>
-		<p class="separator">Phasellus aliquam malesuada blandit. Donec adipiscing sem erat.</p>
-		<a class="button-link" href="#" title="This is my title!">read more</a> </section>
-	<section class="sidebar separator">
-		<h2>Section with Separator</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim
-			metus. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat est suscipit
-			sagittis.</p>
-		<ul>
-			<li><strong>Sed pharetra placerat</strong></li>
-			<li><em>Phasellus aliquam malesuada</em></li>
-			<li>Maecenas id augue</li>
-			<li>Consectetur <a href="#">adipiscing</a> elit</li>
-			<li>Lorem ipsum dolor</li>
-		</ul>
-	</section>
-}
+		<div class="widget text-only" id="text-widget">
+			<p><strong>Forum Count</strong> +29 Lorem Ipsum</p>
+		</div>
+
+		<div class="widget text-only" id="text-widget">
+			<p><strong>User Count</strong> +29 Lorem Ipsum</p>
+		</div>
+
+		<div class="widget text-only" id="text-widget">
+			<p><strong>Post Count</strong> +29 Lorem Ipsum</p>
+		</div>
+
+		<div class="widget text-only" id="text-widget">
+			<p><strong>Reply Count</strong> +29 Lorem Ipsum</p>
+		</div>
+
+		<div class="widget text-only" id="text-widget">
+			<p><strong>Vote Count</strong> +29 Lorem Ipsum</p>
+		</div>
+		<div style="float:right;text-align:left" class="note-container">
+			<p class="note">Data reflect the last 24 horus of activity across the organization</p>
+		</div>
+	</fieldset>
+</section>
+
+<section>&nbsp;</section>
+
+@{Html.RenderPartial("_MyForums");}

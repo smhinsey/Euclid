@@ -16,7 +16,7 @@ namespace AdminComposite.Controllers
 
 		public ActionResult Create()
 		{
-			return View(new CreateForumInputModel());
+			return View(new CreateForumInputModel {UrlHostName = "socialrally.com"});
 		}
 
 		public ActionResult List()
@@ -31,6 +31,21 @@ namespace AdminComposite.Controllers
 			var forum = _forumQueries.FindById(forumId);
 
 			return View(forum);
+		}
+
+		public PartialViewResult NewForum()
+		{
+			return PartialView("_NewForum", new CreateForumInputModel { UrlHostName = "socialrally.com" });
+		}
+
+		public ActionResult AuthenticationProviders()
+		{
+			return View();
+		}
+
+		public ActionResult ForumSettings()
+		{
+			return View();
 		}
 	}
 }

@@ -1,32 +1,115 @@
 ﻿@{
-	ViewBag.Title = "Manage Users";
+	ViewBag.Title = "Manage Forum Users";
 }
 
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#user-type-select").tabs();
+	});
+
+</script>
+
 <div class="article-container">
-	<header>
-		<h2>@ViewBag.Title</h2>
-	</header>
-	<section>
-		<h3>Lorem Ipsum</h3>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi auctor euismod ipsum
-			id molestie. Donec consequat nunc et tortor tristique sed mollis justo sodales.
-			Nulla enim nibh, faucibus non ornare in, egestas nec felis. Morbi id sem nunc, eu
-			cursus nibh. Curabitur sem sapien, dignissim sit amet posuere a, condimentum ornare
-			nulla. Ut accumsan tempor tincidunt. Nulla massa est, bibendum sed malesuada vitae,
-			mattis id sem. Nam blandit facilisis sem sit amet rutrum. Ut ac quam bibendum quam
-			elementum cursus id et justo. Maecenas sit amet elementum justo.</p>
-		<p>Suspendisse est sem, eleifend at bibendum tristique, condimentum vitae nibh. Curabitur
-			dapibus, purus a tincidunt ultricies, lorem quam congue justo, quis imperdiet sem
-			ante nec lacus. Donec sem libero, ultricies in dictum eu, sagittis a nisi. Phasellus
-			varius porttitor odio, eget sodales odio faucibus in. Donec convallis sapien velit.
-			Donec porttitor sollicitudin lorem nec vestibulum. Pellentesque habitant morbi tristique
-			senectus et netus et malesuada fames ac turpis egestas.</p>
-	</section>
-	<footer>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et <a href="#">
-			dignissim metus</a>. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat
-			est suscipit sagittis.</p>
-	</footer>
+	<article>
+		<header>
+			<h2>@ViewBag.Title</h2>
+		</header>
+	</article>
+
+	<div class="input-container">
+		<label for="forum-select">Select Forum</label>
+		<br/>
+		<select id="forum-select">
+			<option>Forum 1</option>
+			<option>Forum 2</option>
+			<option>Forum 3</option>
+		</select>
+	</div>
+
+
+	<div id="user-type-select">
+		<ul>
+			<li><a href="#forum-member" class="active">Forum Members</a></li>
+			<li><a href="#organization-member">Organization Members</a></li>
+		</ul>
+
+		<div id="forum-member">
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Username</th>
+						<th># Posts</th>
+						<th># Votes</th>
+						<th>Last Login</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Jeff Dowd</td>
+						<td>thedude</td>
+						<td>7</td>
+						<td>3</td>
+						<td>11/01/11</td>
+						<td>
+							<a href="#">Reset vote count</a>
+							|
+							<a href="#">Block</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Peter Exline</td>
+						<td>thestranger</td>
+						<td>898</td>
+						<td>7</td>
+						<td>10/01/11</td>
+						<td>
+							<a href="#">Reset vote count</a>
+							|
+							<a href="#">Block</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Walter Hill</td>
+						<td>larry</td>
+						<td>15</td>
+						<td>7</td>
+						<td>09/01/11</td>
+						<td>
+							<a href="#">Reset vote count</a>
+							|
+							<a href="#">Block</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div id="organization-member">
+			<table>
+				<thead>
+					<tr>
+						<th>Administrator</th>
+						<th>Moderator</th>
+						<th>Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="checkbox" checked="checked" disabled="disabled"/></td>
+						<td><input type="checkbox" checked="checked" disabled="disabled"/></td>
+						<td>(You) Theodore Donald "Donny" Kerabtsos</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox"/></td>
+						<td><input type="checkbox"/></td>
+						<td>Walter Sobchak</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 
 @section Breadcrumbs {

@@ -38,7 +38,7 @@ namespace AgentConsole
 
 
 			var databaseConfiguration =
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
 
 			try
 			{
@@ -55,9 +55,9 @@ namespace AgentConsole
 				var composite = new BasicCompositeApp(container)
 					{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
 
-				// composite.AddAgent(typeof(PublishPost).Assembly);
+				composite.AddAgent(typeof(PublishPost).Assembly);
 
-				composite.AddAgent(typeof(TestCommand).Assembly);
+				// composite.AddAgent(typeof(TestCommand).Assembly);
 
 				composite.Configure(getCompositeSettings());
 
@@ -69,7 +69,7 @@ namespace AgentConsole
 
 				_instance.WriteInfoMessage("Installing composite: {0}", composite.Name);
 
-				composite.CreateSchema(databaseConfiguration, false);
+				composite.CreateSchema(databaseConfiguration, true);
 
 				fabric.InstallComposite(composite);
 

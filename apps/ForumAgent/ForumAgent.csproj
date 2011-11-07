@@ -73,6 +73,7 @@
     <Compile Include="Queries\UserQueries.cs" />
     <Compile Include="ReadModels\Comment.cs" />
     <Compile Include="ReadModels\Forum.cs" />
+    <Compile Include="ReadModels\Organization.cs" />
     <Compile Include="ReadModels\Post.cs" />
     <Compile Include="ReadModels\PostDetail.cs" />
     <Compile Include="ReadModels\PostListing.cs" />
