@@ -55,9 +55,9 @@ namespace AgentConsole
 				var composite = new BasicCompositeApp(container)
 					{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
 
-				// composite.AddAgent(typeof(PublishPost).Assembly);
+				composite.AddAgent(typeof(CreateForum).Assembly);
 
-				composite.AddAgent(typeof(TestCommand).Assembly);
+				//composite.AddAgent(typeof(TestCommand).Assembly);
 
 				composite.Configure(getCompositeSettings());
 

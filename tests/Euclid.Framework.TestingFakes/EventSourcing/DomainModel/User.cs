@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Euclid.Framework.EventSourcing;
 
-namespace Euclid.Framework.TestingFakes.EventSourcing.WriteModel
+namespace Euclid.Framework.TestingFakes.EventSourcing.DomainModel
 {
 	public class User : DefaultEventSourcedAggregate
 	{
