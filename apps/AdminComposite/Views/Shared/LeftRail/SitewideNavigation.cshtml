@@ -35,6 +35,7 @@
 			<a title="Forums" class="articles">Forum @i</a>
 			<ul class="forum-sub-menu">
 				<li @if (forumId.ToString() == selectedForumId && controller == "Forum" && action == "Settings"){<text>class="current"</text>}><a href="@Url.Action("Settings", "Forum", new { forumId })">Details</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "Content" && action == "ForForum"){<text>class="current"</text>}><a href="@Url.Action("ForForum", "Content", new { forumId })">Content</a></li>
 				<li @if (forumId.ToString() == selectedForumId && controller == "Category" && action=="List") {<text>class="current"</text>}><a href="@Url.Action("List", "Category", new { forumId })">Categories</a></li>
 				<li @if (forumId.ToString() == selectedForumId && controller == "User" && action=="List") {<text>class="current"</text>}><a href="@Url.Action("List", "User", new { forumId })">Users</a></li>
 				<li @if (forumId.ToString() == selectedForumId && controller == "Badge" && action == "List"){<text>class="current"</text>}><a href="@Url.Action("List", "Badge", new { forumId })">Badges</a></li>

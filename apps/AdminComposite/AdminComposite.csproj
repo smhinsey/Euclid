@@ -127,6 +127,7 @@
     <Content Include="Content\multiselect\style.css" />
     <Compile Include="Controllers\BadgeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ContentController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\ModerationController.cs" />
@@ -475,6 +476,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Category\_NewCategory.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Content\ForForum.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Content\NewContent.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
