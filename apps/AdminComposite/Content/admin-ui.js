@@ -23,7 +23,7 @@
 
 	$("#new-forum-button").click(function () {
 		$("<div></div>")
-			.load("/Forum/NewForum")
+			.load("/Forum/GetForum")
 			.dialog({
 				modal: true,
 				title: "New Forum",

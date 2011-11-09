@@ -22,7 +22,6 @@
 
 				return value;
 			}, {
-				tooltip: $(this).attr("data-tooltip"),
 				cssclass: inputClass
 			});
 		});
@@ -53,98 +52,96 @@
 	 margin-right:5px;
 }
 
-section 
+.organization-name-form
 {
-	margin-bottom: 50px;
+	height:10px;
 }
 
 .organization-name-form input
 {
 	position:relative;
-	top: -18px;
+	top: -30px;
 }
 
-.organization-detail 
+section 
 {
+	margin-bottom:25px;
 }
 </style>
 
 <section id="organization-details">
-		<article>
-			<header>
-				<h2 id="organization-name" class="organization-detail" data-tooltip="Click to edit">Organization Name</h2>
-			</header>
-		</article>
-
-		<div style="margin-top:29px">
-			<span id="organization-url" class="organization-detail" data-tooltip="Click to edit">Website</span> 
-			<span class="note">(<a href="#" target="_new">launch in new window</a>)</span>
-		</div>
-		
-		<div id="organization-phone" class="organization-detail" data-tooltip="Click to edit">Phone Number</div>
-
-		<div id="organization-address-1" class="organization-detail" data-tooltip="Click to edit">Address</div>
-
-		<div id="organization-address-2" class="organization-detail" data-tooltip="Click to edit">Address 2</div>
-
-		<div id="organization-city" class="organization-detail" data-tooltip="Click to edit">City</div>
-
-		<div id="organization-state" class="organization-detail" data-tooltip="Click to edit">State/Region</div>
-
-		<div id="organization-zip" class="organization-detail" data-tooltip="Click to edit">Zip/Postal Code</div>
-
-</section>
-
-
-<section>
 	<article>
 		<header>
-			<h2>Administrators</h2>
+			<h2 id="organization-name" class="organization-detail" rel="tooltip" original-title="Click to edit">Organization Name</h2>
 		</header>
 	</article>
 
-	<div>
-		<table>
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Last Login</th>
-					<th>&nbsp;</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>(You) Theodore Donald "Donny" Kerabtsos</td>
-					<td>donny@letsgobowling.com</td>
-					<td>Moments ago</td>
-					<td>
-						<ul class="actions">
-							<li><a class="edit" rel="tooltip" href="#" original-title="Edit" data-user-name="Theodore Donald &quot;Donny&quot; Kerabtsos" data-user-id="22222222-2222-2222-2222-222222222222">Edit</a></li>
-						</ul>
-					</td>
-				</tr>
-				<tr>
-					<td>Walter Sobchak</td>
-					<td>walter@letsgobowling.com</td>
-					<td>Moments ago</td>
-					<td>
-						<ul class="actions">
-							<li><a class="edit" rel="tooltip" href="#" original-title="Edit" data-user-name="Walter Sobchak" data-user-id="33333333-3333-3333-3333-333333333333">Edit</a></li>
-							<li><a class="delete" href="#" rel="tooltip" original-title="Delete Item">Delete</a></li>
-						</ul>
-					</td>
-				</tr>
-			</tbody>
-		</table>
 
-		<a href="#" id="add-user" value="Add User" style="float:right">Add User</a>
-	</div>
+			<div>
+				<span id="organization-url" class="organization-detail" rel="tooltip" original-title="Click to edit">Website</span> 
+				<span class="note">(<a href="#" target="_new">launch in new window</a>)</span>
+			</div>
+		
+			<div><span id="organization-phone" class="organization-detail" rel="tooltip" original-title="Click to edit">Phone Number</span></div>
+
+			<div><span id="organization-address-1" class="organization-detail" rel="tooltip" original-title="Click to edit">Address</span></div>
+
+			<div><span id="organization-address-2" class="organization-detail" rel="tooltip" original-title="Click to edit">Address 2</span></div>
+
+			<div><span id="organization-city" class="organization-detail" rel="tooltip" original-title="Click to edit">City</span></div>
+
+			<div><span id="organization-state" class="organization-detail" rel="tooltip" original-title="Click to edit">State/Region</span></div>
+
+			<div><span id="organization-zip" class="organization-detail" rel="tooltip" original-title="Click to edit">Zip/Postal Code</span></div>
+
 </section>
+
+<article>
+	<header>
+		<h2>Administrators</h2>
+	</header>
+</article>
 
 <section>
-	@{Html.RenderPartial("_MyForums");}
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Last Login</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>(You) Theodore Donald "Donny" Kerabtsos</td>
+				<td>donny@letsgobowling.com</td>
+				<td>Moments ago</td>
+				<td>
+					<ul class="actions">
+						<li><a class="edit" rel="tooltip" href="#" original-title="Edit" data-user-name="Theodore Donald &quot;Donny&quot; Kerabtsos" data-user-id="22222222-2222-2222-2222-222222222222">Edit</a></li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>Walter Sobchak</td>
+				<td>walter@letsgobowling.com</td>
+				<td>Moments ago</td>
+				<td>
+					<ul class="actions">
+						<li><a class="edit" rel="tooltip" href="#" original-title="Edit" data-user-name="Walter Sobchak" data-user-id="33333333-3333-3333-3333-333333333333">Edit</a></li>
+						<li><a class="delete" href="#" rel="tooltip" original-title="Delete Item">Delete</a></li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="#" id="add-user" value="Add User" style="float:right">Add User</a>
 </section>
+
+@{Html.RenderPartial("_MyForums");}
+
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>

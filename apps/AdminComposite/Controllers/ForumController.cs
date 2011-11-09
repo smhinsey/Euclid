@@ -33,7 +33,7 @@ namespace AdminComposite.Controllers
 			return View(forum);
 		}
 
-		public PartialViewResult New()
+		public PartialViewResult GetForum()
 		{
 			return PartialView("_NewForum", new CreateForumInputModel { UrlHostName = "socialrally.com" });
 		}
