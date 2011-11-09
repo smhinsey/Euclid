@@ -65,3 +65,8 @@ table .actions .admin-delete { background:url('chromatron/img/icons/list-style/i
 	line-height:100%;
 }
 
+.forum-container {
+	overflow: scroll;
+	width: 750px;
+	height: 800px
+}

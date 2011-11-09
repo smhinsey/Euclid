@@ -24,11 +24,12 @@
 	$("#new-forum-button").click(function () {
 		$("<div></div>")
 			.load("/Forum/GetForum")
-			.dialog({
-				modal: true,
-				title: "New Forum",
-				width: 750,
-				height: 800
+			.modal({
+				autoResize: true,
+				autoPosition: true,
+				position: new Array(25, 300),
+				dataCss: { backgroundColor: "#fff", overflow: "auto", height: 775 },
+				containerCss: {height: 800}
 			});
 
 		return false;
@@ -71,7 +72,7 @@
 						$('.yes', dialog.data[0]).live('click', function () {
 							// call the callback
 							eval(confirmFunction)(itemId);
-						
+
 							// close the dialog
 							modal.close(); // or $.modal.close();
 						});

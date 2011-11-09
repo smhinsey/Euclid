@@ -5,12 +5,14 @@
 		$("#add-content").click(function() {
 			$("<div></div>")
 				.load("@Url.Action("NewContent", "Content", new {forumId = "11111111-1111-1111-1111-111111111111"})")
-				.dialog({
-						modal: true,
-						title: "New Forum",
-						width: 540,
-						height: 600
-					});
+				.modal({
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "auto",  height: 585, width: 525 },
+					containerCss: { height: 600, width: 540}
+				});
+
 
 			return false;
 		});

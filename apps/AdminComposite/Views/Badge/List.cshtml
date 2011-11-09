@@ -7,12 +7,15 @@
 		$("#create-badge").click(function () {
 			$("<div></div>")
 				.load("/Badge/NewBadge")
-				.dialog({
-					modal: true,
-					title: "New Badge",
-					width: 650,
-					height: 250
+				.modal({
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "auto",  height: 235, width: 635 },
+					containerCss: { height: 250, width: 650 }
 				});
+
+			return false;
 		});
 	});
 </script>

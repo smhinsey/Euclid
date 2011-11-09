@@ -2,12 +2,13 @@
 	$(document).ready(function () {
 		$("#create-category").click(function() {
 			$("<div></div>")
-			.load("/Forum//NewCategory")
-			.dialog({
-				modal: true,
-				title: "New Category",
-				width: 650,
-				height: 500
+			.load("/Category/NewCategory")
+			.modal({
+				autoResize: true,
+				autoPosition: true,
+				position: new Array(25, 300),
+				dataCss: { backgroundColor: "#fff", overflow: "auto", height: 485, width: 635 },
+				containerCss: { height: 500, width: 650 }
 			});
 		});
 	});

@@ -2,6 +2,12 @@
 @using Euclid.Composites.Mvc.Extensions
 @model CreateForumInputModel
 
+<article>
+	<header>
+		<h2>Create Forum</h2>
+	</header>
+</article>
+
 <section id="forum-form-section">
 	@using (Html.BeginFormForInputModel(Model, true, Url.Action("List")))
 	{
@@ -12,6 +18,7 @@
 		</fieldset>
 	 
 		@Html.HiddenFor(m => m.UrlSlug, new { id = "forum-slug" })
-		@:<button type="submit">Create Forum</button>
+		
+		<input type="submit" class="button" style="float:right" value="Create Forum" />
 	}
 </section>
