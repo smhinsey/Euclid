@@ -31,14 +31,17 @@
 			$("<div></div>")
 				.load("/Organization/GetUser?organizationId=" + organizationId + "&userId=" + $(this).attr("data-user-id"))
 				.dialog({
-						modal: true,
-						title: $(this).attr("data-user-name"),
-						width: 650,
-						height: 800
-			});
+					modal: true,
+					title: $(this).attr("data-user-name"),
+					width: 650,
+					height: 800
+				});
 		});
 	});
 
+	function deleteUser(userId) {
+		alert("deleteing user: " + userId);
+	}
 </script>
 
 <style>
@@ -76,23 +79,22 @@ section
 		</header>
 	</article>
 
-
-			<div>
-				<span id="organization-url" class="organization-detail" rel="tooltip" original-title="Click to edit">Website</span> 
-				<span class="note">(<a href="#" target="_new">launch in new window</a>)</span>
-			</div>
+	<div>
+		<span id="organization-url" class="organization-detail" rel="tooltip" original-title="Click to edit">Website</span> 
+		<span class="note">(<a href="#" target="_new">launch in new window</a>)</span>
+	</div>
 		
-			<div><span id="organization-phone" class="organization-detail" rel="tooltip" original-title="Click to edit">Phone Number</span></div>
+	<div><span id="organization-phone" class="organization-detail" rel="tooltip" original-title="Click to edit">Phone Number</span></div>
 
-			<div><span id="organization-address-1" class="organization-detail" rel="tooltip" original-title="Click to edit">Address</span></div>
+	<div><span id="organization-address-1" class="organization-detail" rel="tooltip" original-title="Click to edit">Address</span></div>
 
-			<div><span id="organization-address-2" class="organization-detail" rel="tooltip" original-title="Click to edit">Address 2</span></div>
+	<div><span id="organization-address-2" class="organization-detail" rel="tooltip" original-title="Click to edit">Address 2</span></div>
 
-			<div><span id="organization-city" class="organization-detail" rel="tooltip" original-title="Click to edit">City</span></div>
+	<div><span id="organization-city" class="organization-detail" rel="tooltip" original-title="Click to edit">City</span></div>
 
-			<div><span id="organization-state" class="organization-detail" rel="tooltip" original-title="Click to edit">State/Region</span></div>
+	<div><span id="organization-state" class="organization-detail" rel="tooltip" original-title="Click to edit">State/Region</span></div>
 
-			<div><span id="organization-zip" class="organization-detail" rel="tooltip" original-title="Click to edit">Zip/Postal Code</span></div>
+	<div><span id="organization-zip" class="organization-detail" rel="tooltip" original-title="Click to edit">Zip/Postal Code</span></div>
 
 </section>
 
@@ -112,6 +114,7 @@ section
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
+
 		<tbody>
 			<tr>
 				<td>(You) Theodore Donald "Donny" Kerabtsos</td>
@@ -130,7 +133,7 @@ section
 				<td>
 					<ul class="actions">
 						<li><a class="edit" rel="tooltip" href="#" original-title="Edit" data-user-name="Walter Sobchak" data-user-id="33333333-3333-3333-3333-333333333333">Edit</a></li>
-						<li><a class="admin-delete" href="#" rel="tooltip" original-title="Delete Walter Sobchak">Delete</a></li>
+						<li><a class="admin-delete" href="#" rel="tooltip" original-title="Delete Walter Sobchak" data-confirmation-message="Really delete Walter Sobchak?" data-confirm-function="deleteUser" data-item-id="33333333-3333-3333-3333-333333333333">Delete</a></li>
 					</ul>
 				</td>
 			</tr>

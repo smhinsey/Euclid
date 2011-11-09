@@ -119,6 +119,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\block-user-icon.png" />
+    <Content Include="Content\broom.png" />
+    <Content Include="Content\chromatron\css\jquery.nyromodal.css" />
+    <Content Include="Content\chromatron\js\jquery\jquery.nyroModal.custom.js" />
+    <Content Include="Content\chromatron\js\jquery\jquery.nyromodal.js" />
+    <Content Include="Content\clear.gif" />
+    <Content Include="Content\jquery.simplemodal.1.4.1.min.js" />
     <Content Include="Content\multiselect\jquery.multiselect.css" />
     <Content Include="Content\multiselect\jquery.multiselect.min.js" />
     <Content Include="Content\multiselect\prettify.css" />
@@ -248,6 +255,9 @@
     <Content Include="Content\chromatron\js\libs\selectivizr.js" />
     <Content Include="Content\chromatron\js\login.js" />
     <Content Include="Content\chromatron\js\script.js" />
+    <Content Include="Content\sample_user_icon.png" />
+    <Content Include="Content\jquery.simplemodal.1.4.1.css" />
+    <Content Include="Content\jquery.simplemodal.1.4.1-close.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -304,6 +314,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\thumb-down.png" />
+    <Content Include="Content\thumb-up.png" />
+    <Content Include="Content\jquery.url-encode.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.6.3-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.3.js" />
@@ -482,6 +495,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Content\NewContent.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_ForumDetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Dashboard\GetConfirmationMessageAttributesMissingMessage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Dashboard\GetConfirmationMessage.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

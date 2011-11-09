@@ -49,8 +49,48 @@
 	$(".activate-badge").click(function () {
 
 	});
+
+	$(".admin-delete, .block-user").live("click", function () {
+		var msg = $(this).attr("data-confirmation-message");
+		var confirmFunction = $(this).attr("data-confirm-function");
+		var itemId = $(this).attr("data-item-id");
+		var override = $(this).attr("data-override");
+
+		if (override == true) return true;
+
+		if (isNullOrEmpty(msg) || isNullOrEmpty(confirmFunction) || isNullOrEmpty(itemId)) {
+			$("<div></div>").load("/Dashboard/GetConfirmationMessageAttributesMissingMessage").modal();
+		} else {
+			$("<div></div>")
+				.load("/Dashboard/GetConfirmationMessage?message=" + $.URLEncode(msg))
+				.modal({
+					onShow: function (dialog) {
+						var modal = this;
+
+						// if the user clicks "yes"
+						$('.yes', dialog.data[0]).live('click', function () {
+							// call the callback
+							eval(confirmFunction)(itemId);
+						
+							// close the dialog
+							modal.close(); // or $.modal.close();
+						});
+					}
+				});
+		}
+
+		return false;
+	});
 });
-	
+
+function isNullOrEmpty(value) {
+	return value == null || value == "";
+}
+
+function blockUser(userId) {
+	alert("blocking user " + userId);
+}
+
 function setForumUrl() {
 	var forumSlug = getForumSlug();
 

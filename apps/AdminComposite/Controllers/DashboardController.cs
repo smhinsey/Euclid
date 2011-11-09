@@ -11,5 +11,15 @@ namespace AdminComposite.Controllers
 
 			return View();
 		}
+
+		public PartialViewResult GetConfirmationMessageAttributesMissingMessage()
+		{
+			return PartialView();
+		}
+
+		public PartialViewResult GetConfirmationMessage(string message)
+		{
+			return PartialView("GetConfirmationMessage", message);
+		}
 	}
 }
