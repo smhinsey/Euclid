@@ -1,9 +1,9 @@
 ﻿@model object
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$($(".moderation-item.unread")[0]).addClass("current-unread");
 
-		$(document).keydown(function (event) {
+		$(document).keydown(function(event) {
 			var bubble = true;
 
 			var postId = $(".current-unread").attr("data-post-id");
@@ -33,11 +33,37 @@
 
 		$("#select-moderation").change(function() {
 			var type = $(this).val();
-			if ( type == "Posts") {
+			if (type == "Posts") {
 				window.location.href = "@Url.Action("Posts", "Moderation", new { forumId = Request.QueryString["forumId"]})";
 			} else if (type == "Comments") {
 				window.location.href = "@Url.Action("Comments", "Moderation", new { forumId = Request.QueryString["forumId"] })";
 			}
+		});
+
+		$(".approve").click(function() {
+			var postId = $(this).attr("data-post-id");
+			
+			if ($(".moderation-item[data-post-id='" + postId  + "']").hasClass("moderator-removed")) {
+				$(".moderation-item[data-post-id='" + postId + "']").removeClass("moderator-removed");
+			}
+			
+			approveItem(postId);
+
+			$(".moderation-item.unread[data-post-id='" + postId  + "']").removeClass("unread").addClass("read");
+			return false;
+		});
+
+		$(".reject").click(function() {
+			var postId = $(this).attr("data-post-id");
+
+			if ($(".moderation-item[data-post-id='" + postId  + "']").hasClass("moderator-approved")) {
+				$(".moderation-item[data-post-id='" + postId + "']").removeClass("moderator-approved");
+			}
+			
+			removeItem(postId);
+
+			$(".moderation-item[data-post-id='" + postId  + "']").removeClass("unread").addClass("read");
+			return false;
 		});
 	});
 
@@ -55,7 +81,7 @@
 	
 	function updateItem(postId, itemClass, text) {
 		$(".last-action[data-post-id='" + postId + "']").text(text);
-		$(".moderation-item.unread[data-post-id='" + postId + "']").addClass(itemClass);
+		$(".moderation-item[data-post-id='" + postId + "']").addClass(itemClass);
 	}
 	
 	function advanceSelection() {
@@ -94,7 +120,7 @@
 		   {
 		   	var postId = Guid.NewGuid();
 		   	<li class="moderation-item unread" data-post-id="@postId">
-				<div style="float:left;width:90%">
+				<div style="float:left;width:85%">
 					<span class="logs-timestamp">post date</span>
 					<h4>@ViewBag.ModerationType Title</h4>
 
@@ -111,11 +137,11 @@
 				</div>
 
 				<div style="float: left; margin-left: 25px;">
-					<a href="#" class="approve" ><img src="@Url.Content("~/Content/thumb-up.png")" alt="approve" rel="tooltip" original-title="Approve this @ViewBag.ModerationType"/></a>
+					<a href="#" class="approve" data-post-id="@postId"><img src="@Url.Content("~/Content/thumb-up.png")" alt="approve" rel="tooltip" original-title="Approve this @ViewBag.ModerationType"/></a>
 					<br/>
-					<a href="#" class="reject"><img src="@Url.Content("~/Content/thumb-down.png")" alt="reject" rel="tooltip" original-title="Reject this @ViewBag.ModerationType"/></a>
+					<a href="#" class="reject" data-post-id="@postId"><img src="@Url.Content("~/Content/thumb-down.png")" alt="reject" rel="tooltip" original-title="Reject this @ViewBag.ModerationType"/></a>
 					<br/>
-					<a href="#" class="block-user"><img src="@Url.Content("~/Content/chromatron/img/icons/icon_table_delete.png")" alt="block author" rel="tooltip" original-title="Block this author"/></a>
+					<a href="#" class="block-user" data-post-id="@postId"><img src="@Url.Content("~/Content/chromatron/img/icons/icon_table_delete.png")" alt="block author" rel="tooltip" original-title="Block this author"/></a>
 					<br/>
 					<p style="margin-top: 25px" class="note last-action" data-post-id="@postId"></p>
 				</div>
