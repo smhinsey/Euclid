@@ -23,3 +23,39 @@
 }
 
 #main-nav ul li a.users { background-image:url('sample_user_icon.png') ; }
+
+table .actions .moderate { background:url('chromatron/img/icons/icon_notification_attention.png') no-repeat 0 0; }
+table .actions .manage-users { background:url('sample_user_icon.png') no-repeat 0 0; }
+table .actions .settings { background:url('chromatron/img/icons/icon_nav_settings.png') no-repeat 0 0; }
+.moderator-approved {
+	background-position:10px 8px;
+	background-repeat:no-repeat;
+	background-image:url('chromatron/img/icons/icon_success.png') !important;
+	list-style:none;
+	display:block;
+	padding:10px 10px 10px 35px;
+	overflow:hidden;
+	margin-bottom:10px;
+	border:1px solid;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	line-height:100%;
+}
+
+.moderator-removed {
+	background-position:10px 8px;
+	background-repeat:no-repeat;
+	background-image:url('chromatron/img/icons/icon_table_delete.png') !important;
+	list-style:none;
+	display:block;
+	padding:10px 10px 10px 35px;
+	overflow:hidden;
+	margin-bottom:10px;
+	border:1px solid;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	line-height:100%;
+}
+

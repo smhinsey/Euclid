@@ -3,7 +3,68 @@
 	ViewBag.Title = "Create a User";
 }
 
-@{ Html.RenderPartial("_NewOrganizationUser", new CreateOrganizationUserModel { ContactInfoRequired = true, DisplayTitle=true }); }
+
+<article>
+	<header>
+		<h2>Create Account</h2>
+	</header>
+	<section class="note-container">
+		<p class="note">Fields marked with an * are required</p>
+	</section>
+</article>
+
+<fieldset>
+	<legend>Organization</legend>
+	<div class="input-container">
+		<label for="organization-name">
+			Name*</label>
+		<br />
+		<input type="text" id="organization-name" /></div>
+	<div class="input-container">
+		<label for="organization-url">
+			Website</label>
+		<br />
+		<input type="text" id="organization-url" /></div>
+	<div class="input-container">
+		<label for="organization-phone">
+			Phone #*</label>
+		<br />
+		<input type="text" id="organization-phone" /></div>
+	<div class="input-container">
+		<label for="organization-address-1">
+			Address*</label>
+		<br />
+		<input type="text" id="organization-address-1" /></div>
+	<div class="input-container">
+		<label for="organization-address-2">
+			Address 2</label>
+		<br />
+		<input type="text" id="organization-address-2" /></div>
+	<div class="input-container">
+		<label for="organization-city">
+			City*</label>
+		<br />
+		<input type="text" id="organization-city" /></div>
+	<div class="input-container">
+		<label for="organization-state">
+			State/Region*</label>
+		<br />
+		<input type="text" id="organization-state" /></div>
+	<div class="input-container">
+		<label for="organization-state">
+			Zip/Postal Code*</label>
+		<br />
+		<input type="text" id="organization-zip" /></div>
+	<div class="input-container">
+		<label for="organization-country">
+			Country*</label>
+		<br />
+		<input type="text" id="organization-country" /></div>
+	<br />
+	&nbsp;
+</fieldset>
+
+@{ Html.RenderPartial("_OrganizationUserForm", new CreateOrganizationUserModel { ContactInfoRequired = true, DisplayTitle = true }); }
 
 
 @section LeftRail{

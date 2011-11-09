@@ -15,6 +15,7 @@ using Euclid.Sdk.TestAgent.Commands;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
 using LoggingAgent.Queries;
+using LoggingAgent.ReadModels;
 using Microsoft.WindowsAzure;
 using log4net.Config;
 
@@ -38,7 +39,7 @@ namespace AgentConsole
 
 
 			var databaseConfiguration =
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
 
 			try
 			{
@@ -56,6 +57,8 @@ namespace AgentConsole
 					{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
 
 				composite.AddAgent(typeof(CreateForum).Assembly);
+
+				// composite.AddAgent(typeof(LogEntry).Assembly);
 
 				//composite.AddAgent(typeof(TestCommand).Assembly);
 

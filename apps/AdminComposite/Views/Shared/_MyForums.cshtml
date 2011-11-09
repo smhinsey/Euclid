@@ -6,7 +6,6 @@
 		<article>
 			<header>
 				<h2>Forums</h2>
-				<a href="#" id="new-forum-button" class="button-link" style="float:right">New Forum</a>
 			</header>
 		</article>
 
@@ -27,10 +26,12 @@
 					<td>372</td>
 					<td>just now</td>
 					<td>
-						<a href="#">Edit</a> |
-						<a href="#">View</a> |
-						<a href="#">Moderate</a> |
-						<a href="@Url.Action("List", "User")">Manage Users</a>
+						<ul class="actions">
+							<li><a href="#" class="edit" rel="tooltip" original-title="Edit">Edit</a></li>
+							<li><a href="@Url.Action("Settings", "Forum", new {forumId = "11111111-1111-1111-1111-111111111111"})" class="settings" rel="tooltip" original-title="Settings">Settings</a></li>
+							<li><a href="@Url.Action("Posts", "Moderation", new { forumId = new Guid("11111111-1111-1111-1111-111111111111")})" class="moderate" rel="tooltip" original-title="Moderate">Moderate</a></li>
+							<li><a href="@Url.Action("List", "User", new { forumId = new Guid("11111111-1111-1111-1111-111111111111") })" class="manage-users" rel="tooltip" original-title="Manage Users">Manage Users</a></li>
+						</ul>
 					</td>
 				</tr>
 				<tr>
@@ -39,14 +40,16 @@
 					<td>23</td>
 					<td>11/01/2011 3:52pm</td>
 					<td>
-						<a href="#">Edit</a> |
-						<a href="#">View</a> |
-						<a href="#">Moderate</a> |
-						<a href="@Url.Action("List", "User")">Manage Users</a>
+						<ul class="actions">
+							<li><a href="#" class="edit" rel="tooltip" original-title="Edit">Edit</a></li>
+							<li><a href="@Url.Action("Settings", "Forum", new {forumId = "11111111-1111-1111-1111-111111111112"})" class="settings" rel="tooltip" original-title="Setings">Settings</a></li>
+							<li><a href="@Url.Action("Posts", "Moderation", new { forumId = new Guid("11111111-1111-1111-1111-111111111112")})" class="moderate" rel="tooltip" original-title="Moderate">Moderate</a></li>
+							<li><a href="@Url.Action("List", "User", new { forumId = new Guid("11111111-1111-1111-1111-111111111112") })" class="manage-users" rel="tooltip" original-title="Manage Users">Manage Users</a></li>
+						</ul>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 
-		
+		<a href="#" id="new-forum-button" style="float:right">New Forum</a>
 	</section>

@@ -33,7 +33,7 @@ namespace AdminComposite.Controllers
 			return View(forum);
 		}
 
-		public PartialViewResult NewForum()
+		public PartialViewResult New()
 		{
 			return PartialView("_NewForum", new CreateForumInputModel { UrlHostName = "socialrally.com" });
 		}
@@ -43,19 +43,9 @@ namespace AdminComposite.Controllers
 			return View();
 		}
 
-		public ActionResult ForumSettings(Guid? forumId)
+		public ActionResult Settings(Guid? forumId)
 		{
 			return View();
-		}
-
-		public ActionResult ForumCategories(Guid? forumId)
-		{
-			return View();
-		}
-
-		public PartialViewResult NewCategory()
-		{
-			return PartialView("_NewCategory");
 		}
 	}
 }

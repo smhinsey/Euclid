@@ -6,31 +6,70 @@
 
 	$(document).ready(function() {
 		$("#signin").click(function() {
-			window.location.href = "@Url.Action("Index", "Dashboard")";
-
+			var number = 1 + Math.floor(Math.random() * 6);
+			
+			window.location.href = "@Url.Action("Index", "Dashboard")";	
 			return false;
 		});
+
+		$("body").addClass("login");
 	});
 </script>
 
 
-<section>
-	<form action="#">
-		<fieldset>
-			<legend>Sign in</legend>
-			<dl>
-				<dt><label>Username</label></dt>
-				<dd><input type="text" /></dd>
 
-				<dt><label>Password</label></dt>
-				<dd><input type="text" /></dd>
-			</dl>
-		</fieldset>
-
-		<input type="button" id="signin" value="Sign in" />
-	</form>
+<section role="main">
+	
+		<a href="/" title="Back to Homepage"></a>
+	
+		<!-- Login box -->
+		<article id="login-box">
+		
+			<div class="article-container">
+			
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim metus. Maecenas id augue ac metus tempus aliquam. </p>
+				
+				<!-- Notification -->
+				<div class="notification error" style="display:none">
+					<a href="#" class="close-notification" rel="tooltip" original-title="Hide Notification">x</a>
+					<p><strong>Error notification</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate, sapien quis fermentum luctus, libero.</p>
+				</div>
+				<!-- /Notification -->
+			
+				<form action="http://envato.walkingpixels.com/themes/chromatron/index.html">
+					<fieldset>
+						<dl>
+							<dt>
+								<label>Login</label>
+							</dt>
+							<dd>
+								<input type="text" class="large">
+							</dd>
+							<dt>
+								<label>Password</label>
+							</dt>
+							<dd>
+								<input type="password" class="large">
+							</dd>
+							<dt class="checkbox"><label>Remeber me</label></dt>
+							<dd><input type="checkbox"></dd>
+						</dl>
+					</fieldset>
+					<button type="submit" class="right" id="signin">Log in</button>
+				</form>
+			
+			</div>
+		
+		</article>
+		<!-- /Login box -->
+		<ul class="login-links">
+			<li><a href="#">Lost Password</a></li>
+			<li><a href="@Url.Action("Create", "User")">Signup</a></li>
+		</ul>
+		
 </section>
 
 @section LeftRail {
-	@{Html.RenderPartial("LeftRail/_AnonymousUserNavigation");}
+	<div></div>
 }
+

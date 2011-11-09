@@ -132,6 +132,10 @@
       <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
       <Name>Euclid.Framework.Cqrs.NHibernate</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
+      <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>
+      <Name>Euclid.Framework.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Composites\Euclid.Composites.csproj">
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
