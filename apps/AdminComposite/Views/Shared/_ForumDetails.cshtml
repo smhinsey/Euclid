@@ -1,9 +1,20 @@
 ﻿@model object
-
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#forum-name").focus();
+	});
+</script>
 <div class="input-container">
 	<label>Name</label>
 	<br/>
 	<input type="text" id="forum-name"/>
+</div>
+
+<div class="input-container">
+	<label>Slug</label> 
+	<br />
+	<input type="text" id="forum-slug"/>
+	<a href="#" id="generate-slug">generate slug</a>
 </div>
 
 <div class="input-container">
@@ -66,37 +77,4 @@
 	</div>
 
 					
-</div>
-
-<div class="input-container">
-	<table>
-		<thead>
-			<tr>
-				<th>Activate</th>
-				<th>Badge</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><input type="checkbox" checked="checked"/></td>
-				<td>Lifetime Achievment Award</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" checked="checked"/></td>
-				<td>Key Contributor</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" checked="checked"/></td>
-				<td>I've Got Something to Say</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" checked="checked"/></td>
-				<td>Conversation Starter</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" checked="checked"/></td>
-				<td>Well Received Post</td>
-			</tr>
-		</tbody>
-	</table>	
 </div>

@@ -1,8 +1,4 @@
 ﻿$(document).ready(function () {
-	$("#forum-name").live("keyup", function () {
-		setForumUrl();
-	});
-
 	$("#forum-host").live("keyup", function () {
 		setForumUrl();
 	});
@@ -29,7 +25,7 @@
 				autoPosition: true,
 				position: new Array(25, 300),
 				dataCss: { backgroundColor: "#fff", overflow: "auto", height: 775 },
-				containerCss: {height: 800}
+				containerCss: { height: 800 }
 			});
 
 		return false;
@@ -82,6 +78,30 @@
 
 		return false;
 	});
+
+	$("#generate-slug").live("click", function () {
+		$("#forum-slug").val(slugify($("#forum-name").val()));
+		setForumUrl();
+	});
+
+	$("#forum-name, #forum-slug").live("blur", function () {
+		var slug = slugify($("#forum-slug").val());
+
+		if (isNullOrEmpty(slug)) {
+			slug = slugify($("#forum-name").val());
+		}
+
+		$("#forum-slug").val(slug);
+		setForumUrl();
+	});
+
+	$("#forum-slug").live("focus", function () {
+		$(this).selectRange(0, $(this).val().length);
+	});
+
+	$("#forum-slug").live("mouseup", function () {
+		return false;
+	});
 });
 
 function isNullOrEmpty(value) {
@@ -93,8 +113,9 @@ function blockUser(userId) {
 }
 
 function setForumUrl() {
-	var forumSlug = getForumSlug();
-
+	var forumSlug = slugify($("#forum-slug").val());
+	$("#forum-slug").val(forumSlug);
+	
 	var host = slugify($("#forum-host").val());
 	$("#host-example").html(host);
 
@@ -102,24 +123,10 @@ function setForumUrl() {
 	if (host == "@Model.UrlHostName") {
 		url = "http://" + host + "/{organization name}/forums/" + forumSlug;
 	} else {
-		url = "http://" + host + "/forums/" + getForumSlug();
+		url = "http://" + host + "/forums/" + forumSlug;
 	}
 
 	$("#forum-url").html(url);
-}
-
-function getForumSlug() {
-	var forumSlug = $("#forum-name").val();
-
-	if (forumSlug == "" || forumSlug == null) {
-		forumSlug = "{forum-name}";
-	}
-	else {
-		forumSlug = slugify($("#forum-name").val());
-		$("#forum-slug").val(forumSlug);
-	}
-
-	return forumSlug;
 }
 
 function getPreviewImage(id) {
@@ -137,3 +144,18 @@ function getPreviewImage(id) {
 function slugify(value) {
 	return value.replace(/ /g, "-").toLowerCase();
 }
+
+$.fn.selectRange = function (start, end) {
+	return this.each(function () {
+		if (this.setSelectionRange) {
+			this.focus();
+			this.setSelectionRange(start, end);
+		} else if (this.createTextRange) {
+			var range = this.createTextRange();
+			range.collapse(true);
+			range.moveEnd('character', end);
+			range.moveStart('character', start);
+			range.select();
+		}
+	});
+};
