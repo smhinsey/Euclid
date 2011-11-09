@@ -23,12 +23,14 @@
 }
 
 #main-nav ul li a.users { background-image:url('sample_user_icon.png') ; }
-
-table .actions .moderate { background:url('chromatron/img/icons/icon_notification_attention.png') no-repeat 0 0; }
-table .actions .manage-users { background:url('sample_user_icon.png') no-repeat 0 0; }
+table .actions .moderate { background:url('thumb-up.png') no-repeat 0 0; }
 table .actions .settings { background:url('chromatron/img/icons/icon_nav_settings.png') no-repeat 0 0; }
 table .actions .preview { background:url('chromatron/img/icons/icon_nav_gallery.png') no-repeat 0 0; }
-
+table .actions .manage-users { background:url('sample_user_icon.png') no-repeat 0 0; }
+table .actions .reset-votes { background:url('broom.png') no-repeat 0 0; }
+table .actions .reject { background:url('thumb-down.png') no-repeat 0 0; }
+table .actions .approve { background:url('thumb-up.png') no-repeat 0 0; }
+table .actions .block-user { background:url('block-user-icon.png') no-repeat 0 0; }
 
 .moderator-approved {
 	background-position:10px 8px;

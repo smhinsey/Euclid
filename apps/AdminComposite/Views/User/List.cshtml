@@ -1,5 +1,6 @@
 ﻿@{
 	ViewBag.Title = "Manage Forum Users";
+	var forumId = ViewContext.RouteData.Values["forumId"];
 }
 
 <div class="article-container">
@@ -24,25 +25,55 @@
 					<td>Jeff Dowd</td>
 					<td>thedude</td>
 					<td>7</td>
-					<td>3</td>
+					<td>
+						<ul class="actions">
+							<li>3</li>
+							<li><a href="#" class="reset-votes" rel="tooltip" original-title="Reset Vote Count">Reset Vote Count</a></li>
+						</ul>
+					</td>
 					<td>11/01/11</td>
-					<td><a href="#">Reset vote count</a> | <a href="#">Block</a> </td>
+					<td>
+						<ul class="actions">
+							<li><a href="#" class="block-user" rel="tooltip" original-title="Block Jeff Dowd">Block User</a></li>
+							<li><a href="#" class="view" rel="tooltip" original-title="View Forum">@Url.Action("Settings", "Forum", new {forumId})</a></li>
+						</ul>
+					</td>
 				</tr>
 				<tr>
 					<td>Peter Exline</td>
 					<td>thestranger</td>
 					<td>898</td>
-					<td>7</td>
+					<td>
+						<ul class="actions">
+							<li>7</li>
+							<li><a href="#" class="reset-votes" rel="tooltip" original-title="Reset Vote Count">Reset Vote Count</a></li>
+						</ul>
+					</td>
 					<td>10/01/11</td>
-					<td><a href="#">Reset vote count</a> | <a href="#">Block</a> </td>
+					<td>
+						<ul class="actions">
+							<li><a href="#" class="block-user" rel="tooltip" original-title="Block Peter Exline">Block User</a></li>
+							<li><a href="#" class="view" rel="tooltip" original-title="View Forum">@Url.Action("Settings", "Forum", new {forumId})</a></li>
+						</ul>
+					</td>
 				</tr>
 				<tr>
 					<td>Walter Hill</td>
 					<td>larry</td>
 					<td>15</td>
-					<td>7</td>
+					<td>
+						<ul class="actions">
+							<li>12</li>
+							<li><a href="#" class="reset-votes" rel="tooltip" original-title="Reset Vote Count">Reset Vote Count</a></li>
+						</ul>
+					</td>
 					<td>09/01/11</td>
-					<td><a href="#">Reset vote count</a> | <a href="#">Block</a> </td>
+					<td>
+						<ul class="actions">
+							<li><a href="#" class="block-user" rel="tooltip" original-title="Block Walter Hill">Block User</a></li>
+							<li><a href="#" class="view" rel="tooltip" original-title="View Forum">@Url.Action("Settings", "Forum", new {forumId})</a></li>
+						</ul>
+					</td>
 				</tr>
 			</tbody>
 		</table>

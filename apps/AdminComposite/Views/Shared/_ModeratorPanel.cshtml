@@ -111,9 +111,12 @@
 				</div>
 
 				<div style="float: left; margin-left: 25px;">
-					<input type="button" class="button-link" value="Approve" style="margin-bottom:15px;display:block"/>
-					<input type="button" class="button-link" value="Remove @ViewBag.ModerationType"  style="margin-bottom:15px;display:block"/>
-					<input type="button" class="button-link" value="Block Author"   style="margin-bottom:15px;display:block"/>
+					<a href="#" class="approve" ><img src="@Url.Content("~/Content/thumb-up.png")" alt="approve" rel="tooltip" original-title="Approve this @ViewBag.ModerationType"/></a>
+					<br/>
+					<a href="#" class="reject"><img src="@Url.Content("~/Content/thumb-down.png")" alt="reject" rel="tooltip" original-title="Reject this @ViewBag.ModerationType"/></a>
+					<br/>
+					<a href="#" class="block-user"><img src="@Url.Content("~/Content/block-user-icon.png")" alt="block author" rel="tooltip" original-title="Block this author"/></a>
+					<br/>
 					<p style="margin-top: 25px" class="note last-action" data-post-id="@postId"></p>
 				</div>
 			</li>

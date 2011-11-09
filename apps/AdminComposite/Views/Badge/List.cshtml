@@ -5,8 +5,6 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#create-badge").click(function () {
-			$("#custom-badge-tab").click();
-
 			$("<div></div>")
 				.load("/Badge/NewBadge")
 				.dialog({
@@ -21,7 +19,6 @@
 <article>
 	<header>
 		<h2>Manage Forum Badges</h2>
-		<input type="button" id="create-badge" class="button" value="New Badge" style="float: right" />
 	</header>
 	<p>Setting a forum to active means it will be awarded to users when the trigger threshold is satisfied.</p>
 	<table>
@@ -40,48 +37,70 @@
 				<td>Lifetime Achievement Award</td>
 				<td>Total Points greater than 100</td>
 				<td>(image)</td>
-				<td><a href="#">Edit</a></td>
+				<td>
+					<ul class="actions">
+						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td><input type="checkbox"/></td>
 				<td>Key Contributor</td>
 				<td>Total Points greater than 100</td>
 				<td>(image)</td>
-				<td><a href="#">Edit</a></td>
+				<td>
+					<ul class="actions">
+						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td><input type="checkbox"/></td>
 				<td>I've Got Something to Say</td>
 				<td>Total Points greater than 100</td>
 				<td>(image)</td>
-				<td><a href="#">Edit</a></td>
+				<td>
+					<ul class="actions">
+						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td><input type="checkbox"/></td>
 				<td>Conversation Starter</td>
 				<td>Total Points greater than 100</td>
 				<td>(image)</td>
-				<td><a href="#">Edit</a></td>
+				<td>
+					<ul class="actions">
+						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td><input type="checkbox"/></td>
 				<td>Well Received Post</td>
 				<td>Total Points greater than 100</td>
 				<td>(image)</td>
-				<td><a href="#">Edit</a></td>
+				<td>
+					<ul class="actions">
+						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
+					</ul>
+				</td>
 			</tr>
 			<tr>
 				<td><input type="checkbox"/></td>
 				<td>The Never Ending Thread</td>
 				<td>Total Points greater than 100</td>
 				<td>(image)</td>
-				<td><a href="#">Edit</a></td>
+				<td>
+					<ul class="actions">
+						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
+					</ul>
+				</td>
 			</tr>
 		</tbody>
 	</table>
-	<p>
-		<button>Save</button>
-	</p>
+	<a href="#" style="float:right" id="create-badge">Add Badge</a>
 </article>
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
