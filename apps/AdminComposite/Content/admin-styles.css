@@ -30,7 +30,8 @@ table .actions .manage-users { background:url('sample_user_icon.png') no-repeat 
 table .actions .reset-votes { background:url('broom.png') no-repeat 0 0; }
 table .actions .reject { background:url('thumb-down.png') no-repeat 0 0; }
 table .actions .approve { background:url('thumb-up.png') no-repeat 0 0; }
-table .actions .block-user { background:url('block-user-icon.png') no-repeat 0 0; }
+table .actions .block-user { background:url('chromatron/img/icons/icon_table_delete.png') no-repeat 0 0; }
+table .actions .admin-delete { background:url('chromatron/img/icons/list-style/icon_list_style_cross.png') no-repeat 0 0; }
 
 .moderator-approved {
 	background-position:10px 8px;
