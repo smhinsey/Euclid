@@ -7,29 +7,30 @@
 		<header>
 			<h2>@ViewBag.Title</h2>
 		</header>
-		<nav class="sidetab-switch">
-			<ul>
-				<li><a href="#test" class="default-sidetab current">Test</a></li>
-				<li><a href="#production">Production</a></li>
-			</ul>
-		</nav>
+		<div class="sidetabs">
+			<nav class="sidetab-switch">
+				<ul>
+					<li><a href="#test" class="default-sidetab current">Test</a></li>
+					<li><a href="#production">Production</a></li>
+				</ul>
+			</nav>
 
-		<div id="test" class="sidetab default-sidetab">
-			Items from the new forum modal go here. This is the version of them used for the test site.
-			<br />
-			<br />
-			<br />
-			<input type="button" class="button" value="Copy to Production" />
+			<div id="test" class="sidetab default-sidetab">
+				Items from the new forum modal go here. This is the version of them used for the test site.
+				<br />
+				<br />
+				<br />
+				<input type="button" class="button" value="Copy to Production" />
+			</div>
+
+			<div id="production" class="sidetab" style="display: none">
+				Items from the new forum modal go here. This is the version of them used for the production site.
+				<br />
+				<br />
+				<br />
+				<input type="button" class="button" value="Copy to Test" />
+			</div>
 		</div>
-
-		<div id="production" class="sidetab" style="display: none">
-			Items from the new forum modal go here. This is the version of them used for the production site.
-			<br />
-			<br />
-			<br />
-			<input type="button" class="button" value="Copy to Test" />
-		</div>
-
 	</article>
 </div>
 
