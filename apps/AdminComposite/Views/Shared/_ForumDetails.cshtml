@@ -4,61 +4,63 @@
 		$("#forum-name").focus();
 	});
 </script>
+<form>
+
 <div class="input-container">
 	<label>Name</label>
-	<br/>
-	<input type="text" id="forum-name"/>
+	<br />
+	<input type="text" id="forum-name" />
 </div>
 
 <div class="input-container">
-	<label>Slug</label> 
+	<label>Slug</label>
 	<br />
-	<input type="text" id="forum-slug"/>
+	<input type="text" id="forum-slug" />
 	<a href="#" id="generate-slug">generate slug</a>
 </div>
 
 <div class="input-container">
 	<label>Host</label>
 	<br />
-	<input type="text" id="forum-host" value="socialrally.com"/>
+	<input type="text" id="forum-host" value="socialrally.com" />
 	<p>Forum url: <b><span id="forum-url">http//socialrally.com/{organization-name}/forums/{forum-name}</span></b></p>
 </div>
 
 <div class="input-container">
 	<label>Description</label>
-	<br/>
+	<br />
 	<textarea rows="10" cols="65"></textarea>
 </div>
 
 <div class="input-container">
-	<fieldset>
-		<legend>Voting</legend>
-		<div style="float:left">
-			<input type="radio" class="vote-scheme" name="voting" value="00000000-0000-0000-0000-000000000000"/>None
-			<br/>
-			<input type="radio" class="vote-scheme" name="voting" value="9A52AFD8-196B-475D-94DE-EC15F9C8E367"/>Up / Down
-		</div>
-		<div style="float:left;margin-left:5px;">
-			<p class="note" id="vote-scheme-description"></p>
-		</div>
+	<fieldset><legend>Voting</legend>
+		<dl>
+			<dt class="radio">
+				<label>None</label></dt>
+			<dd>
+				<input type="radio" name="voting" value="00000000-0000-0000-0000-000000000000" /></dd>
+			<dt class="radio">
+				<label>Up/Down</label></dt>
+			<dd>
+				<input type="radio" name="voting" value="00000000-0000-0000-0000-000000000000" /></dd>
+		</dl>
 	</fieldset>
 </div>
 
 <div class="input-container">
-	<fieldset>
-		<legend>Categories</legend>
+	<fieldset><legend>Categories</legend>
 
 		<div>
-			<a href="#">Category 1</a>
-			<a href="#">Category 1</a>
-			<a href="#">Category 1</a>
+			<a href="#">Category 1</a> <a href="#">Category 1</a> <a href="#">Category 1</a>
 		</div>
-		<input type="text"/><input type="button" class="button" value="Select"/>
+
+		<input type="text" /><input type="button" class="button" value="Select" />
 	</fieldset>
 </div>
 
 <div class="input-container">
-	<div style="float:left">
+
+	<div style="float: left">
 		<select id="theme-selector">
 			<option>-- Select Theme --</option>
 			<option value="58B560E0-EFE6-400C-A882-A7A4B18C4FCC">default</option>
@@ -66,15 +68,18 @@
 		</select>
 	</div>
 
-	<div style="width:250px;height:200px;border:solid black 1px;background-color:#cccccc;float:left;margin-left:25px">
-		<span style="font-style: italic;margin-left:80px" id="unselected-preview">
-			<br /><br />
-			<br /><br />
+	<div style="width: 250px; height: 200px; border: solid black 1px; background-color: #cccccc;
+		float: left; margin-left: 25px">
+		<span style="font-style: italic; margin-left: 80px" id="unselected-preview">
 			<br />
-			preview image
-		</span>
-		<img id="theme-preview" alt="theme-preview" src="#" style="display:none"/>
+			<br />
+			<br />
+			<br />
+			<br />
+			preview image </span>
+		<img id="theme-preview" alt="theme-preview" src="#" style="display: none" />
 	</div>
 
-					
 </div>
+
+</form>

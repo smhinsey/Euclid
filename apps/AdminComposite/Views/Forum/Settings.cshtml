@@ -20,11 +20,13 @@
 
 			
 			<div id="test" class="sidetab default-sidetab">
+				<h2>Test Settings</h2>
 				@{Html.RenderPartial("_ForumDetails");}
 				<input type="button" class="button" value="Copy to Production" />
 			</div>
 
 			<div id="production" class="sidetab" style="display: none">
+				<h3>Production Settings</h3>
 				@{Html.RenderPartial("_ForumDetails");}
 				<input type="button" class="button" value="Copy to Test" />
 			</div>
