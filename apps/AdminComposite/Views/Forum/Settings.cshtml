@@ -21,12 +21,46 @@
 			
 			<div id="test" class="sidetab default-sidetab">
 				@{Html.RenderPartial("_ForumDetails");}
-				<input type="button" class="button" value="Copy to Production" />
+				
+				<fieldset>
+					<legend>Other Settings to Copy</legend>
+
+					<article style="margin-top:10px">
+						<section>
+							<ul class="list-style-arrow">
+								<li><input type="checkbox" id="copy-badges"/> <label for="copy-badges">Badges</label></li>
+								<li><input type="checkbox" id="copy-categories"/> <label for="copy-categories">Categories</label> </li>
+								<li><input type="checkbox" id="copy-voting"/> <label for="copy-voting">Voting</label> </li>
+								<li><input type="checkbox" id="copy-content"/> <label for="copy-content">Content</label> </li>
+								<li><input type="checkbox" id="copy-theme"/> <label for="copy-theme">Theme Selection</label> </li>
+							</ul>
+						</section>
+					</article>
+				</fieldset>
+
+				<input type="button" class="button" value="Copy to Production"  style="float:right"/>
 			</div>
 
 			<div id="production" class="sidetab" style="display: none">
 				@{Html.RenderPartial("_ForumDetails");}
-				<input type="button" class="button" value="Copy to Test" />
+
+				<fieldset>
+					<legend>Other Settings to Copy</legend>
+
+					<article style="margin-top:10px">
+						<section>
+							<ul class="list-style-arrow">
+								<li><input type="checkbox" id="copy-badges"/> <label for="copy-badges">Badges</label></li>
+								<li><input type="checkbox" id="copy-categories"/> <label for="copy-categories">Categories</label> </li>
+								<li><input type="checkbox" id="copy-voting"/> <label for="copy-voting">Voting</label> </li>
+								<li><input type="checkbox" id="copy-content"/> <label for="copy-content">Content</label> </li>
+								<li><input type="checkbox" id="copy-theme"/> <label for="copy-theme">Theme Selection</label> </li>
+							</ul>
+						</section>
+					</article>
+				</fieldset>
+
+				<input type="button" class="button" value="Copy to Test"  style="float:right"/>
 			</div>
 		</div>
 	</section>

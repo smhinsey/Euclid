@@ -5,7 +5,7 @@ namespace AdminComposite.Controllers
 {
 	public class CategoryController : Controller
 	{
-		public ActionResult List(Guid? forumId)
+		public ActionResult List(Guid forumId)
 		{
 			return View();
 		}
