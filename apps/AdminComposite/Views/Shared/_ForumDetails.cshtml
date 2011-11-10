@@ -6,11 +6,11 @@
 </script>
 <form>
 
-<div class="input-container">
+	<fieldset><legend>General Details</legend>
+
 	<label>Name</label>
 	<br />
 	<input type="text" id="forum-name" />
-</div>
 
 <div class="input-container">
 	<label>Slug</label>
@@ -31,6 +31,7 @@
 	<br />
 	<textarea rows="10" cols="65"></textarea>
 </div>
+	</fieldset>
 
 <div class="input-container">
 	<fieldset><legend>Voting</legend>
@@ -48,38 +49,31 @@
 </div>
 
 <div class="input-container">
-	<fieldset><legend>Categories</legend>
+	<fieldset><legend>Theme</legend>
 
-		<div>
-			<a href="#">Category 1</a> <a href="#">Category 1</a> <a href="#">Category 1</a>
+		<div style="float: left">
+			<select id="theme-selector">
+				<option>-- Choose a theme --</option>
+				<option value="58B560E0-EFE6-400C-A882-A7A4B18C4FCC">default</option>
+				<option value="794B96E8-83C9-4F2F-A02A-45E8BCF1D765">theme 2</option>
+			</select>
 		</div>
 
-		<input type="text" /><input type="button" class="button" value="Select" />
+		<div style="width: 250px; height: 200px; border: solid black 1px; background-color: #cccccc;
+			float: left; margin-left: 25px">
+			<span style="font-style: italic; margin-left: 80px" id="unselected-preview">
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				preview image </span>
+			<img id="theme-preview" alt="theme-preview" src="#" style="display: none" />
+		</div>
+
 	</fieldset>
-</div>
 
-<div class="input-container">
-
-	<div style="float: left">
-		<select id="theme-selector">
-			<option>-- Select Theme --</option>
-			<option value="58B560E0-EFE6-400C-A882-A7A4B18C4FCC">default</option>
-			<option value="794B96E8-83C9-4F2F-A02A-45E8BCF1D765">theme 2</option>
-		</select>
-	</div>
-
-	<div style="width: 250px; height: 200px; border: solid black 1px; background-color: #cccccc;
-		float: left; margin-left: 25px">
-		<span style="font-style: italic; margin-left: 80px" id="unselected-preview">
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			preview image </span>
-		<img id="theme-preview" alt="theme-preview" src="#" style="display: none" />
-	</div>
-
+	<button>Save Details</button>
 </div>
 
 </form>
