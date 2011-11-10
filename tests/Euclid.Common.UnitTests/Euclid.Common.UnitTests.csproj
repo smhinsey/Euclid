@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\OverridableObjectsTests.cs" />
+    <Compile Include="Messaging\MultipleMessageProcessorTests.cs" />
     <Compile Include="Pipeline\PipelineTests.cs" />
     <Compile Include="Publishing\PublisherTests.cs" />
     <Compile Include="Registry\InMemoryRegistryTests.cs" />

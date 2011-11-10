@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Configuration\FakeSettingModes.cs" />
     <Compile Include="Configuration\FakeSettings.cs" />
+    <Compile Include="Messaging\FakeMultipleMessageProcessor.cs" />
     <Compile Include="Registry\FakeMessage.cs" />
     <Compile Include="Registry\FakePublicationRecord.cs" />
     <Compile Include="Registry\FakeRegistry.cs" />

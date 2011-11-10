@@ -4,9 +4,21 @@
 	{
 		public bool CanProcessMessage(IMessage message)
 		{
-			// check for any method with a single argument of the same type as message
+			var currentType = GetType();
 
-			return true;
+			var methods = currentType.GetMethods();
+
+			foreach (var method in methods)
+			{
+				var parameters = method.GetParameters();
+
+				if (parameters.Length == 1 && parameters[0].ParameterType == message.GetType())
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 	}
 }
