@@ -23,6 +23,7 @@
 }
 
 #main-nav ul li a.users { background-image:url('sample_user_icon.png') ; }
+#main-nav ul li a.new-forum { background-image:url('chromatron/img/icons/icon_event.png'); }
 table .actions .moderate { background:url('thumb-up.png') no-repeat 0 0; }
 table .actions .settings { background:url('chromatron/img/icons/icon_nav_settings.png') no-repeat 0 0; }
 table .actions .preview { background:url('chromatron/img/icons/icon_nav_gallery.png') no-repeat 0 0; }

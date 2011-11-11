@@ -17,15 +17,15 @@
 		}
 	});
 
-	$("#new-forum-button").click(function () {
+	$(".new-forum-button").click(function () {
 		$("<div></div>")
 			.load("/Forum/GetForum")
 			.modal({
 				autoResize: true,
 				autoPosition: true,
 				position: new Array(25, 300),
-				dataCss: { backgroundColor: "#fff", overflow: "auto", height: 775 },
-				containerCss: { height: 800 }
+				dataCss: { backgroundColor: "#fff", overflow: "auto", height: 835 },
+				containerCss: { height: 850 }
 			});
 
 		return false;
@@ -131,9 +131,9 @@ function setForumUrl() {
 
 function getPreviewImage(id) {
 	var imageUrl;
-	if (id == "794B96E8-83C9-4F2F-A02A-45E8BCF1D765") {
+	if (id == "44444444-4444-4444-4444-444444444444") {
 		imageUrl = "http://www.vbstyles.com/vbulletin_styles/l_RedFox-4x-vBulletin-Theme-Forum-Home1.png";
-	} else if (id == "58B560E0-EFE6-400C-A882-A7A4B18C4FCC") {
+	} else if (id == "55555555-5555-5555-5555-555555555555") {
 		imageUrl = "http://themes.wordpress-deutschland.org/demoblog/wp-content/themes/insomniac/screenshot.png";
 	} else {
 		imageUrl = "";

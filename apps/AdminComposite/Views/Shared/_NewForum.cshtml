@@ -8,6 +8,32 @@
 	</header>
 </article>
 
+<section>
+	<h3>
+		After your forum is create you can customize
+	</h3>
+
+	<div class="notification success">
+		<p><strong>Theming</strong> choose and customize the forum's look &amp; feel</p>
+	</div>
+
+	<div class="notification success">
+		<p><strong>Voting</strong> specify how users vote on posts and comments</p>
+	</div>
+
+	<div class="notification success">
+		<p><strong>Badges</strong> create &amp; manage how your users are rewarded for participation</p>
+	</div>
+
+	<div class="notification success">
+		<p><strong>Categories</strong> manage your forum's taxonomy/ontology</p>
+	</div>
+
+	<div class="notification success">
+		<p><strong>Content</strong> create and embed custom content on forum pages</p>
+	</div>
+</section>
+
 <section id="forum-form-section">
 	@using (Html.BeginFormForInputModel(Model, true, Url.Action("List")))
 	{
@@ -22,3 +48,4 @@
 		<input type="submit" class="button" style="float:right" value="Create Forum" />
 	}
 </section>
+
