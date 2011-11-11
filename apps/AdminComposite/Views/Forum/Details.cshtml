@@ -22,7 +22,7 @@
 			<div id="test" class="sidetab default-sidetab">
 				<form action="#">
 					<fieldset>
-						<legend>Forum Settings</legend>
+						<legend>Forum Details</legend>
 						
 						@{Html.RenderPartial("_ForumDetails");}
 					</fieldset>
@@ -30,17 +30,22 @@
 					<fieldset>
 						<legend>Other Settings to Copy</legend>
 
-						<article style="margin-top:10px">
-							<section>
-								<ul class="list-style-arrow">
-									<li><input type="checkbox" id="copy-badges"/> <label for="copy-badges">Badges</label></li>
-									<li><input type="checkbox" id="copy-categories"/> <label for="copy-categories">Categories</label> </li>
-									<li><input type="checkbox" id="copy-voting"/> <label for="copy-voting">Voting</label> </li>
-									<li><input type="checkbox" id="copy-content"/> <label for="copy-content">Content</label> </li>
-									<li><input type="checkbox" id="copy-theme"/> <label for="copy-theme">Theme Selection</label> </li>
-								</ul>
-							</section>
-						</article>
+						<dl>
+							<dt><label for="copy-badges">Badges</label></dt>
+							<dd><input type="checkbox" id="copy-badges"/></dd>
+
+							<dt><label for="copy-categories">Categories</label> </dt>
+							<dd><input type="checkbox" id="copy-categories"/> </dd>
+
+							<dt><label for="copy-voting">Voting</label></dt>
+							<dd><input type="checkbox" id="copy-voting"/></dd>
+
+							<dt><label for="copy-content">Content</label></dt>
+							<dd><input type="checkbox" id="copy-content"/></dd>
+
+							<dt><label for="copy-theme">Theme Selection</label></dt>
+							<dd><input type="checkbox" id="copy-theme"/></dd>
+						</dl>
 					</fieldset>
 
 					<button type="submit">Copy to Production</button>
@@ -52,7 +57,7 @@
 			<div id="production" class="sidetab" style="display: none">
 								<form action="#">
 					<fieldset>
-						<legend>Forum Settings</legend>
+						<legend>Forum Details</legend>
 						
 						@{Html.RenderPartial("_ForumDetails");}
 					</fieldset>
@@ -60,17 +65,22 @@
 					<fieldset>
 						<legend>Other Settings to Copy</legend>
 
-						<article style="margin-top:10px">
-							<section>
-								<ul class="list-style-arrow">
-									<li><input type="checkbox" id="copy-badges"/> <label for="copy-badges">Badges</label></li>
-									<li><input type="checkbox" id="copy-categories"/> <label for="copy-categories">Categories</label> </li>
-									<li><input type="checkbox" id="copy-voting"/> <label for="copy-voting">Voting</label> </li>
-									<li><input type="checkbox" id="copy-content"/> <label for="copy-content">Content</label> </li>
-									<li><input type="checkbox" id="copy-theme"/> <label for="copy-theme">Theme Selection</label> </li>
-								</ul>
-							</section>
-						</article>
+						<dl>
+							<dt><label for="copy-badges">Badges</label></dt>
+							<dd><input type="checkbox" id="copy-badges"/></dd>
+
+							<dt><label for="copy-categories">Categories</label> </dt>
+							<dd><input type="checkbox" id="copy-categories"/> </dd>
+
+							<dt><label for="copy-voting">Voting</label></dt>
+							<dd><input type="checkbox" id="copy-voting"/></dd>
+
+							<dt><label for="copy-content">Content</label></dt>
+							<dd><input type="checkbox" id="copy-content"/></dd>
+
+							<dt><label for="copy-theme">Theme Selection</label></dt>
+							<dd><input type="checkbox" id="copy-theme"/></dd>
+						</dl>
 					</fieldset>
 
 					<button type="submit">Copy to Test</button>

@@ -435,9 +435,6 @@
     <Content Include="Views\Forum\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Forum\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\User\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -480,7 +477,7 @@
     <Content Include="Views\Forum\AuthenticationProviders.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Forum\Settings.cshtml" />
+    <Content Include="Views\Forum\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Category\List.cshtml" />
