@@ -1,28 +1,39 @@
 ﻿@using AdminComposite.Models
+@using Euclid.Composites.Mvc.Extensions
 @model CreateForumInputModel
-@{
-	ViewBag.Title = "Create Forum";
-}
 
-<div>
-	<article>
-		<header>
-			<h2>Create Forum</h2>
-		</header>
-	</article>
+<article>
+	<header>
+		<h2>Create Forum</h2>
+	</header>
 
-	@{Html.RenderPartial("_NewForum", Model);}
+	<section>
+		<h3>
+			After your forum is create you can customize
+		</h3>
 
-	<footer>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et <a href="#">
-			dignissim metus</a>. Maecenas id augue ac metus tempus aliquam. Sed pharetra placerat
-			est suscipit sagittis.</p>
-	</footer>
-</div>
+		<ul class="list-style-checkmark">
+			<li><strong>Themes</strong> choose and customize the forum's look &amp; feel</li>
+			<li><strong>Voting</strong> specify how users vote on posts and comments</li>
+			<li><strong>Badges</strong> create &amp; manage how your users are rewarded for participation</li>
+			<li><strong>Categories</strong> manage your forum's taxonomy/ontology</li>
+			<li><strong>Content</strong> create and embed custom content on forum pages</li>
+		</ul>
+	</section>
+</article>
 
-@section Breadcrumbs {
-	<ul id="breadcrumbs">
-		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
-		<li>@ViewBag.Title</li>
-	</ul>
-}
+<section id="forum-form-section">
+	@using (Html.BeginFormForInputModel(Model, true, Url.Action("List")))
+	{
+		<form action="#">
+			<fieldset>
+				<legend>Settings</legend>
+
+				@{Html.RenderPartial("_ForumDetails");}
+	 		</fieldset>
+
+			<button type="submit" style="float:right">Create Forum</button>
+		</form>
+	}
+</section>
+

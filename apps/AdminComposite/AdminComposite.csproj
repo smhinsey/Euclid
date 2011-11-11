@@ -333,6 +333,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
+    <Content Include="Views\Shared\_NewForum.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -467,9 +470,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_MyForums.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_NewForum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_ModeratorPanel.cshtml" />

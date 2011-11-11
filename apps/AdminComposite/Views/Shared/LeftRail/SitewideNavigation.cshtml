@@ -1,6 +1,6 @@
 ﻿@{
-	var controller = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString();
-	var action = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+	var controller = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString().ToLower();
+	var action = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString().ToLower();
 	var selectedForumId = (string)ViewContext.RouteData.Values["forumId"];
 }
 <script type="text/javascript">
@@ -16,18 +16,16 @@
 </script>
 
 <ul>
-	<li @if (controller == "Dashboard")
-	 {<text>class="current"</text>}>
+	<li @if (controller == "dashboard") {<text>class="current"</text>}>
 		<a href="@Url.Action("Index", "Dashboard")" title="Home" class="dashboard no-submenu">Dashboard</a>
 	</li>
 
-	<li @if (controller == "Organization")
-	 {<text>class="current"</text>}>
+	<li @if (controller == "organization") {<text>class="current"</text>}>
 		<a href="@Url.Action("Index", "Organization")" title="Home" class="dashboard no-submenu">Organization</a>
 	</li>
 
-	 <li>
-		<a href="#" class="new-forum-button new-forum">Add Forum</a>
+	 <li @if (controller == "forum" && action == "create"){<text>class="current"</text>}>
+		<a href="@Url.Action("Create", "Forum")" class="new-forum no-submenu">Add Forum</a>
 	 </li>
 
 	@for (int i = 1; i <= 3; i++)
@@ -38,15 +36,15 @@
 		<li class="@forumHeaderClass">
 			<a title="Forums" class="articles">Forum @i</a>
 			<ul class="forum-sub-menu">
-				<li @if (forumId.ToString() == selectedForumId && controller == "Forum" && action == "Settings"){<text>class="current"</text>}><a href="@Url.Action("Settings", "Forum", new { forumId })">Details</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Content" && action == "ForForum"){<text>class="current"</text>}><a href="@Url.Action("ForForum", "Content", new { forumId })">Content</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Category" && action=="List") {<text>class="current"</text>}><a href="@Url.Action("List", "Category", new { forumId })">Categories</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "User" && action=="List") {<text>class="current"</text>}><a href="@Url.Action("List", "User", new { forumId })">Users</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Badge" && action == "List"){<text>class="current"</text>}><a href="@Url.Action("List", "Badge", new { forumId })">Badges</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Voting" && action == "List"){<text>class="current"</text>}><a href="@Url.Action("List", "VotingScheme", new { forumId })">Voting</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Theme" && action == "List"){<text>class="current"</text>}><a href="@Url.Action("List", "Theme", new {forumId})">Themes</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Moderation" && (action == "Posts" || action == "Comments")){<text>class="current"</text>}><a href="@Url.Action("Posts", "Moderation", new { forumId })">Moderate Posts & Comments</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "Forum" && action == "AuthenticationProviders"){<text>class="current"</text>}><a href="@Url.Action("AuthenticationProviders", "Forum", new { forumId })">Configure Authentication</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "forum" && action == "settings"){<text>class="current"</text>}><a href="@Url.Action("Settings", "Forum", new { forumId })">Details</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "content" && action == "forforum"){<text>class="current"</text>}><a href="@Url.Action("ForForum", "Content", new { forumId })">Content</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "category" && action=="list") {<text>class="current"</text>}><a href="@Url.Action("List", "Category", new { forumId })">Categories</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "user" && action=="list") {<text>class="current"</text>}><a href="@Url.Action("List", "User", new { forumId })">Users</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "badge" && action == "list"){<text>class="current"</text>}><a href="@Url.Action("List", "Badge", new { forumId })">Badges</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "voting" && action == "list"){<text>class="current"</text>}><a href="@Url.Action("List", "VotingScheme", new { forumId })">Voting</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "theme" && action == "list"){<text>class="current"</text>}><a href="@Url.Action("List", "Theme", new {forumId})">Themes</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "moderation" && (action == "posts" || action == "comments")){<text>class="current"</text>}><a href="@Url.Action("Posts", "Moderation", new { forumId })">Moderate Posts & Comments</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "forum" && action == "authenticationproviders"){<text>class="current"</text>}><a href="@Url.Action("AuthenticationProviders", "Forum", new { forumId })">Configure Authentication</a></li>
 			</ul>
 		</li>
 	 }

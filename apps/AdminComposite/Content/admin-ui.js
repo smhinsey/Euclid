@@ -19,7 +19,7 @@
 
 	$(".new-forum-button").click(function () {
 		$("<div></div>")
-			.load("/Forum/GetForum")
+			.load("/Forum/Create")
 			.modal({
 				autoResize: true,
 				autoPosition: true,
