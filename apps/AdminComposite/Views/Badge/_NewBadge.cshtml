@@ -1,25 +1,39 @@
 ﻿@model object
 
-<section>
-	<p>Award the badge <input type="text" /></p>
-</section>
 
 <section>
-	<input type="text" value="field"/>
+	<form action="#">
+		<fieldset>
+			<legend>New Badge</legend>
 
-	<select id="badge-trigger-operator">
-		<option>&gt;</option>
-		<option>&gt;=</option>
-		<option>&lt;</option>
-		<option>&lt;=</option>
-		<option>==</option>
-		<option>!=</option>
-	</select>
+			<dl>
+				<dt><label for="badge-name">Badge Name</label></dt>
+				<dd><input type="text" id="badge-name"/></dd>
 
-	<input type="text" value="type specific input" />
-</section>
+				<dt><label for="badge-field">Field</label></dt>
+				<dd><input type="text" value="field"/></dd>
 
-<section>
-	<button type="submit">Save</button>
+				<dt><label for="badge-trigger-operator"></label></dt>
+				<dd>
+					<select id="badge-trigger-operator">
+						<option>&gt;</option>
+						<option>&gt;=</option>
+						<option>&lt;</option>
+						<option>&lt;=</option>
+						<option>==</option>
+						<option>!=</option>
+					</select>
+				</dd>
+
+				<dt><label for="award-value">Value</label></dt>
+				<dd><input type="text" id="award-value" value="type specific input" /></dd>
+
+				<td><label for="badge-description">Description</label></td>
+				<dd><textarea id="badge-description"></textarea></dd>
+			</dl>
+		</fieldset>
+
+		<button type="submit">Save</button>
+	</form>
 </section>
 
