@@ -10,6 +10,7 @@ using Euclid.Common.Messaging;
 using Euclid.Common.Storage;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.Record;
+using Euclid.Common.TestingFakes.Messaging;
 using Euclid.Common.TestingFakes.Registry;
 using Euclid.Common.TestingFakes.Transport;
 using Euclid.TestingSupport;
@@ -52,6 +53,42 @@ namespace Euclid.Common.UnitTests.Transport
 			Thread.Sleep(5000); // wait for message to be processed
 
 			Assert.IsTrue(FakeMessageProcessor.ProcessedAnyMessages);
+
+			_dispatcher.Disable();
+
+			Assert.AreEqual(MessageDispatcherState.Disabled, _dispatcher.State);
+
+			Assert.NotNull(_dispatcher);
+		}
+
+		[Test]
+		public void DispatchesMessagesToSameProcessor()
+		{
+			var settings = new MessageDispatcherSettings();
+
+			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
+			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
+			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMultipleMessageProcessor) });
+			settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 200));
+			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
+
+			_dispatcher.Configure(settings);
+
+			_dispatcher.Enable();
+
+			_transport.Open();
+
+			var fakeMessage = new FakeMessage();
+			var differentFakeMessage = new DifferentFakeMessage();
+
+			_transport.Send(_registry.PublishMessage(fakeMessage));
+			_transport.Send(_registry.PublishMessage(differentFakeMessage));
+
+			Assert.AreEqual(MessageDispatcherState.Enabled, _dispatcher.State);
+
+			Thread.Sleep(5000); // wait for message to be processed
+
+			Assert.AreEqual(2, FakeMultipleMessageProcessor.ProcessedMessages);
 
 			_dispatcher.Disable();
 
@@ -271,6 +308,7 @@ namespace Euclid.Common.UnitTests.Transport
 			container.Register(Component.For<IMessageSerializer>().ImplementedBy<JsonMessageSerializer>());
 
 			container.Register(Component.For<FakeMessageProcessor2>().Instance(new FakeMessageProcessor2()));
+			container.Register(Component.For<FakeMultipleMessageProcessor>().Instance(new FakeMultipleMessageProcessor()));
 
 			_registry = new FakeRegistry(
 				new InMemoryRecordMapper<FakePublicationRecord>(), new InMemoryBlobStorage(), new JsonMessageSerializer());
