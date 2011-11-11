@@ -6,7 +6,7 @@
 	$(document).ready(function () {
 		$("#create-badge").click(function () {
 			$("<div></div>")
-				.load("/Badge/NewBadge")
+				.load("/Badge/NewBadge/@ViewContext.RouteData.Values["forumId"]")
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -104,7 +104,7 @@
 			</tr>
 		</tbody>
 	</table>
-	<a href="#" style="float:right" class="button" id="create-badge">Add Badge</a>
+	<button type="submit" id="create-badge">Add Badge</button>
 </article>
 @section Breadcrumbs {
 	<ul id="breadcrumbs">

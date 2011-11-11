@@ -333,9 +333,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
-    <Content Include="Views\Shared\_NewForum.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -439,9 +436,6 @@
     <Content Include="Views\Forum\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Forum\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\User\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -460,16 +454,13 @@
     <Content Include="Views\User\Signout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Organization\Index.cshtml" />
+    <Content Include="Views\Organization\ListUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_OrganizationUserForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\LeftRail\_AnonymousUserNavigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_MyForums.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_ModeratorPanel.cshtml" />
@@ -515,6 +506,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Theme\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Organization\Details.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

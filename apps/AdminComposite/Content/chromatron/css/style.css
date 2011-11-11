@@ -1071,6 +1071,7 @@ fieldset {
 	-moz-border-radius:3px;
 	border-radius:3px;
 	padding: 25px 25px 0;
+	margin-bottom: 25px;
 	border:1px solid;
 }
 legend {

@@ -11,9 +11,14 @@ namespace AdminComposite.Controllers
 	{
 		//
 		// GET: /Organization/
-		public ActionResult Index()
+		public ActionResult Details(Guid organizationId)
 		{
-			ViewBag.Title = string.Format("Manage Organization {0}", Guid.NewGuid());
+			ViewBag.Title = string.Format("Manage Organization {0}", organizationId);
+			return View();
+		}
+
+		public ActionResult ListUsers(Guid organizationId)
+		{
 			return View();
 		}
 
@@ -39,5 +44,7 @@ namespace AdminComposite.Controllers
 															DisplayTitle = false,
 			                                           	});
 		}
+
+
 	}
 }
