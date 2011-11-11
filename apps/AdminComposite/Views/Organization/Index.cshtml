@@ -9,22 +9,11 @@
 					autoResize: true,
 					autoPosition: true,
 					position: new Array(25, 300),
-					dataCss: { backgroundColor: "#fff", overflow: "auto",  height: 385, width: 635 },
+					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
 					containerCss: { height: 400, width: 650 }
 				});
 
 			return false;
-		});
-
-		$("#organization-details .organization-detail").each(function (index, item) {
-			var inputClass = $(item).attr("id") == "organization-name" ? "organization-name-form" : "";
-			$(item).editable(function (value, settings) {
-				console.log($(this).attr("id") + ".value = " + value);
-
-				return value;
-			}, {
-				cssclass: inputClass
-			});
 		});
 
 		$(".edit.user").click(function () {
@@ -40,7 +29,51 @@
 				});
 
 		});
+
+		$("#trigger-edit").click(function () {
+			$("#organization-details .organization-detail").each(function (index, item) {
+				var inputClass = $(item).attr("id") == "organization-name" ? "organization-name-form" : "jeditable";
+				$(item).editable("enable");
+				$(item).editable(null, {
+					cssclass: inputClass,
+					onblur: "ignore"
+				});
+
+				$(item).click();
+				$("#trigger-edit").hide();
+				$("#save-edit").show();
+				$("#cancel-edit").show();
+				$("#cancel-edit").focus();
+			});
+		});
+
+		$("#save-edit").click(function () {
+			$("#organization-details .organization-detail").each(function (index, item) {
+				var id = item.id;
+				var inputSelector = "#" + id + " input";
+				var value = $(inputSelector).val();
+
+				console.log(id + " = " + value);
+			});
+			resetEditableFields();
+		});
+
+
+		$("#cancel-edit").click(function () {
+			resetEditableFields();
+		});
 	});
+	
+	function resetEditableFields() {
+		$("#organization-details .organization-detail").each(function (index, item) {
+			item.reset();
+			$(item).editable("disable");
+		});
+
+		$("#trigger-edit").show();
+		$("#save-edit").hide();
+		$("#cancel-edit").hide();
+	}
 
 	function deleteUser(userId) {
 		alert("deleteing user: " + userId);
@@ -48,14 +81,11 @@
 </script>
 
 <style>
-
-.jeditable button {
-	 border: 1px solid #dddddd; 
-	 background: #f6f6f6; 
-	 font-weight: bold; 
-	 color: #38385c;
-	 margin-left:5px;
-	 margin-right:5px;
+.jeditable 
+{
+	margin: 0;
+	padding: 0;
+	display: inline;
 }
 
 .organization-name-form
@@ -73,32 +103,89 @@ section
 {
 	margin-bottom:25px;
 }
+
+#organization-details .input-container
+{
+	float:left;
+	margin-right:15px;
+	margin-bottom:10px;
+}
+
+.organization-detail
+{
+	width: 200px;
+	display:inline-block;
+}
+
+#trigger-edit.button,
+#save-edit.button,
+#cancel-edit.button 
+{
+	float:right;
+	margin-left: 15px;
+}
 </style>
 
 <section id="organization-details">
 	<article>
 		<header>
-			<h2 id="organization-name" class="organization-detail" rel="tooltip" original-title="Click to edit">Organization Name</h2>
+			<h2 id="organization-name" class="organization-detail" brel="tooltip" boriginal-title="Click to edit">Organization Name</h2>
 		</header>
 	</article>
 
-	<div>
-		<span id="organization-url" class="organization-detail" rel="tooltip" original-title="Click to edit">Website</span> 
-		<span class="note">(<a href="#" target="_new">launch in new window</a>)</span>
+	<div class="input-container">
+		<label for="organization-url">Website Url</label>
+		<br/>
+		<span id="organization-url" class="organization-detail">http://google.com</span>
 	</div>
-		
-	<div><span id="organization-phone" class="organization-detail" rel="tooltip" original-title="Click to edit">Phone Number</span></div>
+	<div class="input-container">
+		<label for="organization-phone">Phone Number</label>
+		<br/>
+		<span id="organization-phone" class="organization-detail">(123)456-7890</span>
+	</div>
+	<div style="clear:both"></div>
 
-	<div><span id="organization-address-1" class="organization-detail" rel="tooltip" original-title="Click to edit">Address</span></div>
+	<div class="input-container">
+		<label for="organization-address-1">Address</label>
+		<br/>
+		<span id="organization-address-1" class="organization-detail">Address</span>
+	</div>
+	<div class="input-container">
+		<label for="organization-address-2">Address 2</label>
+		<br/>
+		<span id="organization-address-2" class="organization-detail">Address 2</span>
+	</div>
+	<div style="clear:both"></div>
 
-	<div><span id="organization-address-2" class="organization-detail" rel="tooltip" original-title="Click to edit">Address 2</span></div>
+	<div class="input-container">
+		<label for="organizaiton-city">City</label>
+		<br/>
+		<span id="organization-city" class="organization-detail">City</span>
+	</div>
+	<div class="input-container">
+		<label for="organization-state">State / Region</label>
+		<br />
+		<span id="organization-state" class="organization-detail">State/Region</span>
+	</div>
+	<div class="input-container">
+		<label for="organization-zip">Zip / Postal Code</label>
+		<br/>
+		<span id="organization-zip" class="organization-detail">22314</span>
+	</div>
+	<div style="clear:both"></div>
 
-	<div><span id="organization-city" class="organization-detail" rel="tooltip" original-title="Click to edit">City</span></div>
 
-	<div><span id="organization-state" class="organization-detail" rel="tooltip" original-title="Click to edit">State/Region</span></div>
+	<div class="input-container">
+		<label for="organization-country">Country</label>
+		<br/>
+		<span id="organization-country" class="organization-detail">U.S.A</span>
+	</div>
+	<div style="clear:both"></div>
 
-	<div><span id="organization-zip" class="organization-detail" rel="tooltip" original-title="Click to edit">Zip/Postal Code</span></div>
 
+	<input type="button" class="button" id="trigger-edit" value="Edit"/>
+	<input type="button" class="button" id="save-edit" value="Save" style="display:none"/>
+	<input type="button" class="button" id="cancel-edit" value="Cancel"  style="display:none"/>
 </section>
 
 <article>
@@ -143,7 +230,7 @@ section
 		</tbody>
 	</table>
 
-	<a href="#" id="add-user" value="Add User" style="float:right">Add User</a>
+	<a href="#" id="add-user" value="Add User" style="float:right" class="button">Add User</a>
 </section>
 
 @{Html.RenderPartial("_MyForums");}
