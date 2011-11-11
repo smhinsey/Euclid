@@ -117,6 +117,13 @@ section
 	display:inline-block;
 }
 
+#trigger-edit.button,
+#save-edit.button,
+#cancel-edit.button 
+{
+	float:right;
+	margin-left: 15px;
+}
 </style>
 
 <section id="organization-details">
@@ -129,41 +136,41 @@ section
 	<div class="input-container">
 		<label for="organization-url">Website Url</label>
 		<br/>
-		<span id="organization-url" class="organization-detail" brel="tooltip" boriginal-title="Click to edit">http://google.com</span>
+		<span id="organization-url" class="organization-detail">http://google.com</span>
 	</div>
 	<div class="input-container">
 		<label for="organization-phone">Phone Number</label>
 		<br/>
-		<span id="organization-phone" class="organization-detail" brel="tooltip" boriginal-title="Click to edit">(123)456-7890</span>
+		<span id="organization-phone" class="organization-detail">(123)456-7890</span>
 	</div>
 	<div style="clear:both"></div>
 
 	<div class="input-container">
 		<label for="organization-address-1">Address</label>
 		<br/>
-		<span id="organization-address-1" class="organization-detail" brel="tooltip" boriginal-title="Click to edit">Address</span>
+		<span id="organization-address-1" class="organization-detail">Address</span>
 	</div>
 	<div class="input-container">
 		<label for="organization-address-2">Address 2</label>
 		<br/>
-		<span id="organization-address-2" class="organization-detail" brel="tooltip" boriginal-title="Click to edit">Address 2</span>
+		<span id="organization-address-2" class="organization-detail">Address 2</span>
 	</div>
 	<div style="clear:both"></div>
 
 	<div class="input-container">
 		<label for="organizaiton-city">City</label>
 		<br/>
-		<span id="organization-city" class="organization-detail" brel="tooltip" boriginal-title="Click to edit">City</span>
+		<span id="organization-city" class="organization-detail">City</span>
 	</div>
 	<div class="input-container">
 		<label for="organization-state">State / Region</label>
 		<br />
-		<span id="organization-state" class="organization-detail" brel="tooltip" boriginal-title="Click to edit">State/Region</span>
+		<span id="organization-state" class="organization-detail">State/Region</span>
 	</div>
 	<div class="input-container">
 		<label for="organization-zip">Zip / Postal Code</label>
 		<br/>
-		<span id="organization-zip" class="organization-detail" brel="tooltip" boriginal-title="Click to edit">22314</span>
+		<span id="organization-zip" class="organization-detail">22314</span>
 	</div>
 	<div style="clear:both"></div>
 
@@ -171,7 +178,7 @@ section
 	<div class="input-container">
 		<label for="organization-country">Country</label>
 		<br/>
-		<span id="organization-country" class="organization-detail" brel="tooltip" boriginal-title="Click to edit">U.S.A</span>
+		<span id="organization-country" class="organization-detail">U.S.A</span>
 	</div>
 	<div style="clear:both"></div>
 
@@ -223,7 +230,7 @@ section
 		</tbody>
 	</table>
 
-	<a href="#" id="add-user" value="Add User" style="float:right">Add User</a>
+	<a href="#" id="add-user" value="Add User" style="float:right" class="button">Add User</a>
 </section>
 
 @{Html.RenderPartial("_MyForums");}
