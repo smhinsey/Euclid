@@ -69,3 +69,10 @@
 
 	<button type="button" id="create-category">New Category</button>
 </article>
+
+@section Breadcrumbs{
+	<ul id="breadcrumbs">
+		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
+		<li>Categories</li>
+	</ul>
+}

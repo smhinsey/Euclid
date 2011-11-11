@@ -59,3 +59,10 @@
 		<button type="button">Save</button>
 	</section>
 </article>
+
+@section Breadcrumbs{
+	<ul id="breadcrumbs">
+		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
+		<li>Authentication Providers</li>
+	</ul>
+}

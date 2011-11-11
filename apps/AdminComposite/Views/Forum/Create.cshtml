@@ -7,11 +7,13 @@
 		<h2>Create Forum</h2>
 	</header>
 
+	<!--
 	<section>
 		<h3>
 			After your forum is create you can customize
 		</h3>
 
+		
 		<ul class="list-style-checkmark">
 			<li><strong>Themes</strong> choose and customize the forum's look &amp; feel</li>
 			<li><strong>Voting</strong> specify how users vote on posts and comments</li>
@@ -20,6 +22,7 @@
 			<li><strong>Content</strong> create and embed custom content on forum pages</li>
 		</ul>
 	</section>
+	-->
 </article>
 
 <section id="forum-form-section">
@@ -37,3 +40,9 @@
 	}
 </section>
 
+@section Breadcrumbs{
+	<ul id="breadcrumbs">
+		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
+		<li>Create Forum</li>
+	</ul>
+}

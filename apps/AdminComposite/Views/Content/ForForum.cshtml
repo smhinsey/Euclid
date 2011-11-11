@@ -67,3 +67,10 @@
 
 	<button type="submit" id="add-content">Add Content</button>
 </section>
+
+@section Breadcrumbs{
+	<ul id="breadcrumbs">
+		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
+		<li>Custom Content</li>
+	</ul>
+}

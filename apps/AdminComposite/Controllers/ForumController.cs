@@ -16,26 +16,7 @@ namespace AdminComposite.Controllers
 
 		public ActionResult Create()
 		{
-			if (Request.IsAjaxRequest())
-			{
-				return PartialView("_NewForum", new CreateForumInputModel { UrlHostName = "socialrally.com" });
-			}
-
 			return View(new CreateForumInputModel {UrlHostName = "socialrally.com"});
-		}
-
-		public ActionResult List()
-		{
-			var forums = _forumQueries.List(0, 100);
-
-			return View(forums);
-		}
-
-		public ActionResult Details(Guid forumId)
-		{
-			var forum = _forumQueries.FindById(forumId);
-
-			return View(forum);
 		}
 
 		public ActionResult AuthenticationProviders(Guid forumId)
@@ -43,9 +24,11 @@ namespace AdminComposite.Controllers
 			return View();
 		}
 
-		public ActionResult Settings(Guid forumId)
+		public ActionResult Details(Guid forumId)
 		{
-			return View();
+			var forum = _forumQueries.FindById(forumId);
+
+			return View(forum);
 		}
 	}
 }

@@ -38,7 +38,7 @@
 		<li class="@forumHeaderClass">
 			<a title="Forums" class="articles">Forum @i</a>
 			<ul class="expand">
-				<li @if (forumId.ToString() == selectedForumId && controller == "forum" && action == "settings"){<text>class="current"</text>}><a href="@Url.Action("settings", "Forum", new { forumId })">Details</a></li>
+				<li @if (forumId.ToString() == selectedForumId && controller == "forum" && action == "details"){<text>class="current"</text>}><a href="@Url.Action("Details", "Forum", new { forumId })">Details</a></li>
 				<li @if (forumId.ToString() == selectedForumId && controller == "content" && action == "forforum"){<text>class="current"</text>}><a href="@Url.Action("ForForum", "Content", new { forumId })">Content</a></li>
 				<li @if (forumId.ToString() == selectedForumId && controller == "category" && action == "list"){<text>class="current"</text>}><a href="@Url.Action("List", "Category", new { forumId })">Categories</a></li>
 				<li @if (forumId.ToString() == selectedForumId && controller == "user" && action == "list"){<text>class="current"</text>}><a href="@Url.Action("List", "User", new { forumId })">Users</a></li>
