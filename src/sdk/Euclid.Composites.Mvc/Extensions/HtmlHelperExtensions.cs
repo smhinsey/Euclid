@@ -24,6 +24,7 @@ namespace Euclid.Composites.Mvc.Extensions
 			tagBuilder.Attributes.Add("value", inputModel.AgentSystemName);
 			tagBuilder.Attributes.Add("id", "inputmodel-agentsystemname");
 			helper.ViewContext.Writer.Write(tagBuilder.ToString(TagRenderMode.SelfClosing));
+			helper.ViewContext.Writer.Write(Environment.NewLine);
 
 			tagBuilder = new TagBuilder("input");
 			tagBuilder.Attributes.Add("type", "hidden");
@@ -31,6 +32,7 @@ namespace Euclid.Composites.Mvc.Extensions
 			tagBuilder.Attributes.Add("value", inputModel.PartName);
 			tagBuilder.Attributes.Add("id", "inputmodel-partname");
 			helper.ViewContext.Writer.Write(tagBuilder.ToString(TagRenderMode.SelfClosing));
+			helper.ViewContext.Writer.Write(Environment.NewLine);
 
 			if (overrideRedirect)
 			{
@@ -40,6 +42,7 @@ namespace Euclid.Composites.Mvc.Extensions
 				tagBuilder.Attributes.Add("value", alternateRedirectUrl);
 				tagBuilder.Attributes.Add("id", "inputmodel-alternateRedirectUrl");
 				helper.ViewContext.Writer.Write(tagBuilder.ToString(TagRenderMode.SelfClosing));
+				helper.ViewContext.Writer.Write(Environment.NewLine);
 			}
 
 			return form;

@@ -20,7 +20,8 @@
 
 			
 			<div id="test" class="sidetab default-sidetab">
-				<form action="#">
+				@using (Html.BeginForm("Publish", "Agents", FormMethod.Post))
+				{
 					<fieldset>
 						<legend>Forum Details</legend>
 						
@@ -50,8 +51,7 @@
 
 					<button type="submit">Copy to Production</button>
 					<button type="submit">Save Settings</button>
-				</form>
-				
+				}
 			</div>
 
 			<div id="production" class="sidetab" style="display: none">

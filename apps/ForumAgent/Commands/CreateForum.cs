@@ -1,4 +1,5 @@
-﻿using Euclid.Framework.Cqrs;
+﻿using System;
+using Euclid.Framework.Cqrs;
 
 namespace ForumAgent.Commands
 {
@@ -9,5 +10,9 @@ namespace ForumAgent.Commands
 		public string UrlHostName { get; set; }
 
 		public string UrlSlug { get; set; }
+
+		public string Description { get; set; }
+
+		public Guid OrganizationId { get; set; }
 	}
 }

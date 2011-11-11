@@ -472,9 +472,6 @@
     <Content Include="Views\Forum\AuthenticationProviders.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Forum\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Category\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
