@@ -1,6 +1,6 @@
-﻿.input-container 
+﻿.input-container
 {
-	margin-top:15px;
+	margin-top: 15px;
 }
 
 .note-container
@@ -14,60 +14,115 @@
 	font-size: 12px;
 }
 
-.help-image:hover {
+.help-image:hover
+{
 	cursor: help;
 }
 
-.current-unread {
+.current-unread
+{
 	background-color: honeydew !important;
 }
 
-#main-nav ul li a.users { background-image:url('sample_user_icon.png') ; }
-#main-nav ul li a.new-forum { background-image:url('chromatron/img/icons/icon_event.png'); }
-table .actions .moderate { background:url('thumb-up.png') no-repeat 0 0; }
-table .actions .settings { background:url('chromatron/img/icons/icon_nav_settings.png') no-repeat 0 0; }
-table .actions .preview { background:url('chromatron/img/icons/icon_nav_gallery.png') no-repeat 0 0; }
-table .actions .manage-users { background:url('sample_user_icon.png') no-repeat 0 0; }
-table .actions .reset-votes { background:url('broom.png') no-repeat 0 0; }
-table .actions .reject { background:url('thumb-down.png') no-repeat 0 0; }
-table .actions .approve { background:url('thumb-up.png') no-repeat 0 0; }
-table .actions .block-user { background:url('chromatron/img/icons/icon_table_delete.png') no-repeat 0 0; }
-table .actions .admin-delete { background:url('chromatron/img/icons/list-style/icon_list_style_cross.png') no-repeat 0 0; }
-
-.moderator-approved {
-	background-position:10px 8px;
-	background-repeat:no-repeat;
-	background-image:url('chromatron/img/icons/icon_success.png') !important;
-	list-style:none;
-	display:block;
-	padding:10px 10px 10px 35px;
-	overflow:hidden;
-	margin-bottom:10px;
-	border:1px solid;
-	-webkit-border-radius:3px;
-	-moz-border-radius:3px;
-	border-radius:3px;
-	line-height:100%;
+#main-nav ul li a.users
+{
+	background-image: url('sample_user_icon.png');
+}
+#main-nav ul li a.new-forum
+{
+	background-image: url('chromatron/img/icons/icon_event.png');
+}
+table .actions .moderate
+{
+	background: url('thumb-up.png') no-repeat 0 0;
+}
+table .actions .settings
+{
+	background: url('chromatron/img/icons/icon_nav_settings.png') no-repeat 0 0;
+}
+table .actions .preview
+{
+	background: url('chromatron/img/icons/icon_nav_gallery.png') no-repeat 0 0;
+}
+table .actions .manage-users
+{
+	background: url('sample_user_icon.png') no-repeat 0 0;
+}
+table .actions .reset-votes
+{
+	background: url('broom.png') no-repeat 0 0;
+}
+table .actions .reject
+{
+	background: url('thumb-down.png') no-repeat 0 0;
+}
+table .actions .approve
+{
+	background: url('thumb-up.png') no-repeat 0 0;
+}
+table .actions .block-user
+{
+	background: url('chromatron/img/icons/icon_table_delete.png') no-repeat 0 0;
+}
+table .actions .admin-delete
+{
+	background: url('chromatron/img/icons/list-style/icon_list_style_cross.png') no-repeat 0 0;
 }
 
-.moderator-removed {
-	background-position:10px 8px;
-	background-repeat:no-repeat;
-	background-image:url('chromatron/img/icons/icon_table_delete.png') !important;
-	list-style:none;
-	display:block;
-	padding:10px 10px 10px 35px;
-	overflow:hidden;
-	margin-bottom:10px;
-	border:1px solid;
-	-webkit-border-radius:3px;
-	-moz-border-radius:3px;
-	border-radius:3px;
-	line-height:100%;
+.moderator-approved
+{
+	background-position: 10px 8px;
+	background-repeat: no-repeat;
+	background-image: url('chromatron/img/icons/icon_success.png') !important;
+	list-style: none;
+	display: block;
+	padding: 10px 10px 10px 35px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	border: 1px solid;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	line-height: 100%;
 }
 
-.forum-container {
+.moderator-removed
+{
+	background-position: 10px 8px;
+	background-repeat: no-repeat;
+	background-image: url('chromatron/img/icons/icon_table_delete.png') !important;
+	list-style: none;
+	display: block;
+	padding: 10px 10px 10px 35px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	border: 1px solid;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	line-height: 100%;
+}
+
+.forum-container
+{
 	overflow: scroll;
 	width: 750px;
-	height: 800px
+	height: 800px;
 }
+
+.increase span
+{
+	background-image: url('chromatron/img/widgets/widget_increase.png');
+	text-indent: -9999em;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.decrease span
+{
+	background-image: url('chromatron/img/widgets/widget_decrease.png');
+	text-indent: -9999em;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+
+
