@@ -1,4 +1,5 @@
 ﻿@using AdminComposite.Models
+@model CreateForumInputModel
 @{
 	ViewBag.Title = "Forum Details";
 }
@@ -25,7 +26,7 @@
 					<fieldset>
 						<legend>Forum Details</legend>
 						
-						@{Html.RenderPartial("_ForumDetails");}
+						@{Html.RenderPartial("_ForumDetails", Model);}
 					</fieldset>
 				
 					<fieldset>

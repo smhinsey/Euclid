@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AdminComposite.Models;
 using ForumAgent.Queries;
+using ForumAgent.ReadModels;
 
 namespace AdminComposite.Controllers
 {
@@ -12,6 +13,7 @@ namespace AdminComposite.Controllers
 		public ForumController(ForumQueries forumQueries)
 		{
 			_forumQueries = forumQueries;
+			AutoMapper.Mapper.CreateMap<Forum, CreateForumInputModel>();
 		}
 
 		public ActionResult Create()
@@ -27,8 +29,9 @@ namespace AdminComposite.Controllers
 		public ActionResult Details(Guid forumId)
 		{
 			var forum = _forumQueries.FindById(forumId);
+			var model = AutoMapper.Mapper.Map<CreateForumInputModel>(forum);
 
-			return View(forum);
+			return View(model);
 		}
 	}
 }

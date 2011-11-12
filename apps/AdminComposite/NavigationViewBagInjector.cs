@@ -26,7 +26,7 @@ namespace AdminComposite
 		{
 			if (string.IsNullOrEmpty(key)) return string.Empty;
 
-			var result = filterContext.Controller.ControllerContext.RouteData.Values[key].ToString();
+			var result = (string)filterContext.Controller.ControllerContext.RouteData.Values[key];
 
 			if (string.IsNullOrEmpty(key))
 			{
