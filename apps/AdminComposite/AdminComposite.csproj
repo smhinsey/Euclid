@@ -456,9 +456,6 @@
     <Content Include="Views\Shared\_OrganizationUserForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\LeftRail\_AnonymousUserNavigation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Shared\_ModeratorPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -514,6 +511,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Content\_default.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\Created.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_AnonymousLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\LeftRail\_AnonymousUserNavigation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\User\ForgotPassword.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

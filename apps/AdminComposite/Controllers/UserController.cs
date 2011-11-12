@@ -11,6 +11,11 @@ namespace AdminComposite.Controllers
 			return View();
 		}
 
+		public ActionResult Created()
+		{
+			return View();
+		}
+
 		public ActionResult Details(Guid? forumId)
 		{
 			return View();
@@ -32,6 +37,11 @@ namespace AdminComposite.Controllers
 		}
 
 		public ActionResult Signout()
+		{
+			return View();
+		}
+
+		public ActionResult ForgotPassword()
 		{
 			return View();
 		}
