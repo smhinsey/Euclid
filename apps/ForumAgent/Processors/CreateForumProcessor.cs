@@ -22,7 +22,9 @@ namespace ForumAgent.Processors
 					UrlHostName = message.UrlHostName,
 					UrlSlug = message.UrlSlug,
 					Created = message.Created,
-					Modified = message.Created
+					Modified = message.Created,
+					Description = message.Description,
+					OrganizationId = message.OrganizationId
 				};
 
 			_forumRepository.Save(forum);

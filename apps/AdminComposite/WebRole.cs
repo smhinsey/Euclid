@@ -1,4 +1,5 @@
-﻿using AdminComposite.Models;
+﻿using System.Web.Mvc;
+using AdminComposite.Models;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging.Azure;

@@ -1,16 +1,18 @@
 ﻿@model object
 
 <section>
-	<fieldset>
-		<legend style="display:none"></legend>
+	<form action="#">
+		<fieldset>
+			<legend>New Category</legend>
 			
-		<dl>
-			<dt><label for="category-name">Name</label></dt>
-			<dd><input type="text" id="category-name" /></dd>
+			<dl>
+				<dt><label for="category-name">Name</label></dt>
+				<dd><input type="text" id="category-name" /></dd>
 
-			<dt><label for="category-description">Description</label></dt>
-			<dd><textarea id="category-name" cols="60" rows="10"></textarea></dd>
-		</dl>
-	</fieldset>
-	<button type="submit">Save</button>
+				<dt><label for="category-description">Description</label></dt>
+				<dd><textarea id="category-description" cols="60" rows="10"></textarea></dd>
+			</dl>
+		</fieldset>
+		<button type="submit">Save</button>
+	</form>
 </section>

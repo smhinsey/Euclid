@@ -24,6 +24,8 @@ namespace AdminComposite
 		{
 			AreaRegistration.RegisterAllAreas();
 
+			GlobalFilters.Filters.Add(new NavigationViewBagInjector());
+
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 

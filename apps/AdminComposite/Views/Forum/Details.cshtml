@@ -1,4 +1,5 @@
 ﻿@using AdminComposite.Models
+@model CreateForumInputModel
 @{
 	ViewBag.Title = "Forum Details";
 }
@@ -20,11 +21,12 @@
 
 			
 			<div id="test" class="sidetab default-sidetab">
-				<form action="#">
+				@using (Html.BeginForm("Publish", "Agents", FormMethod.Post))
+				{
 					<fieldset>
 						<legend>Forum Details</legend>
 						
-						@{Html.RenderPartial("_ForumDetails");}
+						@{Html.RenderPartial("_ForumDetails", Model);}
 					</fieldset>
 				
 					<fieldset>
@@ -50,8 +52,7 @@
 
 					<button type="submit">Copy to Production</button>
 					<button type="submit">Save Settings</button>
-				</form>
-				
+				}
 			</div>
 
 			<div id="production" class="sidetab" style="display: none">

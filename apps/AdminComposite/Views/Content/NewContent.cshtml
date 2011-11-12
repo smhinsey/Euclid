@@ -1,36 +1,57 @@
-﻿
-<article>
-	<header>
-		<h2>New Content for Forum</h2>
-	</header>
-</article>
+﻿<script type="text/javascript">
+	$(document).ready(function () {
+	});
+</script>
 
+
+<style>
+	#default-input-type
+	{
+		position: relative;
+		top: 7px;
+		font-weight:normal;
+		width:100%;
+		display: inline-block;
+		background: #ccc;
+		width:200px;
+	}
+</style>
 <section>
-	<div style="float:left;margin-right:10px">
-		<select style="width:250px">
-			<option> -- Content Location -- </option>
-			<option>Home - Header</option>
-			<option>Home - Content Area</option>
-			<option>User's Profile - Header</option>
-			<option>Category - Content Area</option>
-		</select>
-	</div>
+	<form action="#">
+		<fieldset>
+			<legend>New Content for Forum</legend>
+		
+			<dl>
+				<dt><label for="content-location">Location</label></dt>
+				<dd>
+					<select id="content-location">
+						<option> -- Content Location -- </option>
+						<option>Home - Header</option>
+						<option>Home - Content Area</option>
+						<option>User's Profile - Header</option>
+						<option>Category - Content Area</option>
+					</select>
+				</dd>
 
-	<div style="float:right;margin-bottom:25px">
-		<select style="width:250px">
-			<option> -- Content Type -- </option>
-			<option>Rich Text</option>
-			<option>Embedded Youtube</option>
-			<option>Embedded Vimeo</option>
-			<option>Embedded Twitter Search</option>
-		</select>
-	</div>
-	
-	<div style="clear:both" />
+				<dt><label for="content-type">Type</label></dt>
+				<dd>
+					<select id="content-type">
+						<option> -- Content Type -- </option>
+						<option value="richtext">Rich Text</option>
+						<option value="url">Embedded Youtube</option>
+						<option value="url">Embedded Vimeo</option>
+						<option value="twittersearch">Embedded Twitter Search</option>
+					</select>
+				</dd>
 
-	<div style="background-color: #D3D3D3;text-align:center;height:250px;padding-top:125px;border:1px dotted black">
-		type specific input mechanism
-	</div>
+				<dt><label for="content-input">Value</label></dt>
+				<dd>
+					<span id="content-specific-input" style="display:none"></span>
+					<span id="default-input-type">select type</span>
+				</dd>
+			</dl>
 
-	<button type="submit">Save</button>
+			<button type="submit">Create</button>
+		</fieldset>
+	</form>
 </section>

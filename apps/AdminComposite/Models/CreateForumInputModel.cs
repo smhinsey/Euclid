@@ -1,4 +1,5 @@
-﻿using Euclid.Composites.Mvc.Models;
+﻿using System;
+using Euclid.Composites.Mvc.Models;
 using ForumAgent.Commands;
 
 namespace AdminComposite.Models
@@ -16,5 +17,9 @@ namespace AdminComposite.Models
 		public string UrlHostName { get; set; }
 
 		public string UrlSlug { get; set; }
+
+		public string Description { get; set; }
+
+		public Guid OrganizationId { get; set; }
 	}
 }

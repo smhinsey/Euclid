@@ -1,4 +1,5 @@
-﻿using Euclid.Framework.Cqrs.NHibernate;
+﻿using System.Collections.Generic;
+using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.ReadModels;
 using NHibernate;
 
@@ -10,5 +11,13 @@ namespace ForumAgent.Queries
 			: base(session)
 		{
 		}
+
+		public IList<Forum> GetForums()
+		{
+			var session = GetCurrentSession();
+
+			return session.QueryOver<Forum>().List();
+		}
+
 	}
 }

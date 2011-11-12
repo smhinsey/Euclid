@@ -1,42 +1,56 @@
 ﻿@using AdminComposite.Models
 @using Euclid.Composites.Mvc.Extensions
 @model CreateForumInputModel
+		   
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("sumbit-create-command").click(function () {
+			alert($("#forum-description").val());
+			return false;
+		});
+	});
+</script>
 
+@{
+	// note: remove this when organizations get wired up
+	Model.OrganizationId = Guid.NewGuid();
+	Model.Description = " ";
+}
 <article>
 	<header>
 		<h2>Create Forum</h2>
 	</header>
 
 	<!--
-	<section>
-		<h3>
-			After your forum is create you can customize
-		</h3>
+		<section>
+			<h3>
+				After your forum is create you can customize
+			</h3>
 
 		
-		<ul class="list-style-checkmark">
-			<li><strong>Themes</strong> choose and customize the forum's look &amp; feel</li>
-			<li><strong>Voting</strong> specify how users vote on posts and comments</li>
-			<li><strong>Badges</strong> create &amp; manage how your users are rewarded for participation</li>
-			<li><strong>Categories</strong> manage your forum's taxonomy/ontology</li>
-			<li><strong>Content</strong> create and embed custom content on forum pages</li>
-		</ul>
-	</section>
-	-->
+			<ul class="list-style-checkmark">
+				<li><strong>Themes</strong> choose and customize the forum's look &amp; feel</li>
+				<li><strong>Voting</strong> specify how users vote on posts and comments</li>
+				<li><strong>Badges</strong> create &amp; manage how your users are rewarded for participation</li>
+				<li><strong>Categories</strong> manage your forum's taxonomy/ontology</li>
+				<li><strong>Content</strong> create and embed custom content on forum pages</li>
+			</ul>
+		</section>
+		-->
 </article>
 
 <section id="forum-form-section">
-	@using (Html.BeginFormForInputModel(Model, true, Url.Action("Details")))
+@using (Html.BeginFormForInputModel(Model, true, Url.Action("Index", "Dashboard")))
 	{
-		<form action="#">
-			<fieldset>
-				<legend>Settings</legend>
+		@Html.HiddenFor(m=>m.OrganizationId)
 
-				@{Html.RenderPartial("_ForumDetails");}
-	 		</fieldset>
+		<fieldset>
+			<legend>Settings</legend>
 
-			<button type="submit">Create Forum</button>
-		</form>
+			@{Html.RenderPartial("_ForumDetails", Model);}
+	 	</fieldset>
+
+		<input type="submit" class="button" value="Create Forum" id="sumbit-create-command"/>
 	}
 </section>
 

@@ -43,6 +43,7 @@ namespace CompositeInspector.Controllers
 
 		[HttpPost]
 		[CommandPublisher]
+		[ValidateInput(false)]
 		public ActionResult Publish(Guid publicationId)
 		{
 			var redirectUrl = Request.UrlReferrer.OriginalString;
