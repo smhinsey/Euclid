@@ -1,8 +1,5 @@
-﻿@{
-	var controller = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString().ToLower();
-	var action = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString().ToLower();
-	var selectedForumId = (string)ViewContext.RouteData.Values["forumId"];
-}
+﻿@using AdminComposite.HtmlHelpers
+@using ForumAgent.ReadModels
 <script type="text/javascript">
 	$(document).ready(function () {
 		$(".expand").show();
@@ -13,66 +10,70 @@
 	});
 </script>
 <ul>
-	<li @if (controller == "dashboard")
-		 {<text>class="current"</text>}><a href="@Url.Action("Index", "Dashboard")" title="Home" class="dashboard no-submenu">
+	<li @Html.GetClassWhenControllerIsCurrent("dashboard", "current")><a href="@Url.Action("Index", "Dashboard")" title="Home" class="dashboard no-submenu">
 		Dashboard</a> </li>
-	<li @if (controller == "organization")
-		 {<text>class="current"</text>}><a title="Home"
-		class="dashboard">Organization</a>
+	<li @Html.GetClassWhenControllerIsCurrent("organization", "current")><a title="Home" class="dashboard">Organization</a>
 		<ul class="expand">
-			<li @if (controller == "organization" && action == "details")
-			 {<text>class="current"</text>}>
+			<li @Html.GetClassWhenControllerAndActionAreCurrent("organization", "details", "current")>
 				<a href="@Url.Action("Details", "Organization", new { organizationId = Guid.Empty })">
-					Details</a></li>
-			<li @if (controller == "organization" && action == "listusers")
-			 {<text>class="current"</text>}>
+					Details</a> </li>
+			<li @Html.GetClassWhenControllerAndActionAreCurrent("organization", "listusers", "current")>
 				<a href="@Url.Action("ListUsers", "Organization", new { organizationId = Guid.Empty })">
-					Users</a></li>
+					Users</a> </li>
 		</ul>
 	</li>
-	<li @if (controller == "forum" && action == "create")
-		 {<text>class="current"</text>}>
-		<a href="@Url.Action("Create", "Forum")" class="new-forum no-submenu">Add Forum</a>
-	</li>
-	@for (int i = 1; i <= 3; i++)
- {
-	 var forumId = Guid.Parse("11111111-1111-1111-1111-11111111111" + i);
-	 var forumHeaderClass = (forumId.ToString() == selectedForumId) ? "current" : "";
-	 
-		<li class="@forumHeaderClass"><a title="Forums" class="articles">Forum @i</a>
+	<li @Html.GetClassWhenControllerAndActionAreCurrent("forum", "create", "current")><a href="@Url.Action("Create", "Forum")" class="new-forum no-submenu">
+		Add Forum</a> </li>
+	@{
+		IList<Forum> forums = ViewBag.Forums;
+		string selectedForumId = ViewBag.CurrentForumId;
+
+		foreach (var forum in forums)
+		{
+			var forumId = forum.Identifier;
+			var isCurrentForum = (forumId.ToString() == selectedForumId);
+			bool moderatingPosts = isCurrentForum && (Html.AreControllerAndActionAreCurrent("moderation", "comments")
+														|| Html.AreControllerAndActionAreCurrent("moderation", "posts"));
+	 	
+		<li @if (isCurrentForum) {<text>class="current"</text>}>
+			<a title="Forums" class="articles">@forum.Name</a>
+			
 			<section class="sidebar nested" style="padding: 10px; text-align: center; margin-bottom: 5px;">
-				<p class="sidebar" style="margin: 0px; display: inline; padding: 0px;"><a href="#" class="sidebar" style="margin: 0px; display: inline; padding: 0px;">Test Forum</a> | <a href="#" class="sidebar" style="margin: 0px; display: inline; padding: 0px;">Public Forum</a> </p>
+				<p class="sidebar" style="margin: 0px; display: inline; padding: 0px;">
+					<a href="#" class="sidebar" style="margin: 0px; display: inline; padding: 0px;">Test Forum</a> 
+					| 
+					<a href="#" class="sidebar" style="margin: 0px; display: inline; padding: 0px;">Public Forum</a>
+				</p>
 			</section>
 			<ul class="expand">
-				<li @if (forumId.ToString() == selectedForumId && controller == "forum" && action == "details")
-				{<text>class="current"</text>}>
-					<a href="@Url.Action("Details", "Forum", new { forumId })">Details</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "content" && action == "forforum")
-				{<text>class="current"</text>}>
-					<a href="@Url.Action("ForForum", "Content", new { forumId })">Content</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "category" && action == "list")
-				{<text>class="current"</text>}>
-					<a href="@Url.Action("List", "Category", new { forumId })">Categories</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "user" && action == "list")
-				{<text>class="current"</text>}>
-					<a href="@Url.Action("List", "User", new { forumId })">Users</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "badge" && action == "list")
-				{<text>class="current"</text>}>
-					<a href="@Url.Action("List", "Badge", new { forumId })">Badges</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "votingscheme" && action == "list")
-				{<text>class="current"</text>}>
-					<a href="@Url.Action("List", "VotingScheme", new { forumId })">Voting</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "theme" && action == "list")
-				{<text>class="current"</text>}>
-					<a href="@Url.Action("List", "Theme", new { forumId })">Themes</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "moderation" && (action == "posts" || action == "comments"))
-				{<text>class="current"</text>}>
-					<a href="@Url.Action("Posts", "Moderation", new { forumId })">Moderate Posts & Comments</a></li>
-				<li @if (forumId.ToString() == selectedForumId && controller == "forum" && action == "authenticationproviders")
-				{<text>class="current"</text>}>
-					<a href="@Url.Action("AuthenticationProviders", "Forum", new { forumId })">Configure
-						Authentication</a></li>
+				<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "forum", "details", "current")>
+					<a href="@Url.Action("Details", "Forum", new { forumId })">Details</a> </li>
+				
+				<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "content", "forforum", "current")>
+					<a href="@Url.Action("ForForum", "Content", new { forumId })">Content</a> </li>
+				
+				<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "category", "list", "current")>
+					<a href="@Url.Action("List", "Category", new { forumId })">Categories</a> </li>
+				
+				<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "user", "list", "current")>
+					<a href="@Url.Action("List", "User", new { forumId })">Users</a> </li>
+				
+				<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "badge", "list", "current")>
+					<a href="@Url.Action("List", "Badge", new { forumId })">Badges</a> </li>
+				
+				<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "votingscheme", "list", "current")>
+					<a href="@Url.Action("List", "VotingScheme", new { forumId })">Voting</a> </li>
+				
+				<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "theme", "list", "current")>
+					<a href="@Url.Action("List", "Theme", new { forumId })">Themes</a> </li>
+				
+				<li @if (moderatingPosts) { <text>class="current"</text>}>
+					<a href="@Url.Action("Posts", "Moderation", new { forumId })">Moderate Posts & Comments</a> </li>
+
+				<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "forum", "list", "authenticationproviders")>
+					<a href="@Url.Action("AuthenticationProviders", "Forum", new { forumId })">Configure Authentication</a> </li>
 			</ul>
 		</li>
- }
+		}
+	}
 </ul>
