@@ -6,18 +6,18 @@ using ForumAgent.ReadModels;
 
 namespace ForumAgent.Processors
 {
-	public class RegisterUserProcessor : DefaultCommandProcessor<RegisterUser>
+	public class RegisterForumUserProcessor : DefaultCommandProcessor<RegisterForumUser>
 	{
-		private readonly ISimpleRepository<User> _repository;
+		private readonly ISimpleRepository<ForumUser> _repository;
 
-		public RegisterUserProcessor(ISimpleRepository<User> repository)
+		public RegisterForumUserProcessor(ISimpleRepository<ForumUser> repository)
 		{
 			_repository = repository;
 		}
 
-		public override void Process(RegisterUser message)
+		public override void Process(RegisterForumUser message)
 		{
-			var newUser = new User
+			var newUser = new ForumUser
 				{
 					PasswordHash = message.PasswordHash,
 					PasswordSalt = message.PasswordSalt,

@@ -143,7 +143,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlHelpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Models\AddOrganizationUserInputModel.cs" />
     <Compile Include="Models\CreateForumInputModel.cs" />
+    <Compile Include="Models\CreateOrganizationAndUserInputModel.cs" />
     <Compile Include="Models\CreateOrganizationUserModel.cs" />
     <Compile Include="NavigationViewBagInjector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

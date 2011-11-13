@@ -80,6 +80,7 @@
     <Compile Include="Cqrs\FakeCommand4.cs" />
     <Compile Include="Cqrs\FakeCommandProcessor.cs" />
     <Compile Include="Cqrs\FakeReadModel.cs" />
+    <Compile Include="EventSourcing\CreatePostCommand.cs" />
     <Compile Include="EventSourcing\DomainModel\Post.cs" />
     <Compile Include="EventSourcing\DomainModel\PostListing.cs" />
     <Compile Include="EventSourcing\DomainModel\UserListing.cs" />
@@ -107,6 +108,10 @@
     <ProjectReference Include="..\..\src\framework\Euclid.Framework.Agent\Euclid.Framework.Agent.csproj">
       <Project>{272059FF-3EF6-49A1-9DA5-D8649A17AA0C}</Project>
       <Name>Euclid.Framework.Agent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
+      <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
+      <Name>Euclid.Framework.Cqrs</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
       <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>

@@ -10,7 +10,7 @@ namespace ForumTests.Steps
 {
 	[Binding]
 	[StepScope(Feature="User Profiles")]
-	public class UserSteps : ForumSpecifications , ICommandCompleteStep<RegisterUser>, ICommandPublishStep<UpdateUserProfile>
+	public class UserSteps : ForumSpecifications , ICommandCompleteStep<RegisterForumUser>, ICommandPublishStep<UpdateUserProfile>
 	{
 		private const string UserIdentifierKey = "UserIdentifier";
 
@@ -20,7 +20,7 @@ namespace ForumTests.Steps
 			set { ScenarioContext.Current[UserIdentifierKey] = value; }
 		}
 
-		public void CommandCompleted(IPublicationRecord record, RegisterUser command)
+		public void CommandCompleted(IPublicationRecord record, RegisterForumUser command)
 		{
 			var query = Container.Resolve<UserQueries>();
 

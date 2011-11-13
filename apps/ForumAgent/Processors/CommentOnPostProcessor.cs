@@ -12,12 +12,12 @@ namespace ForumAgent.Processors
 
 		private readonly ISimpleRepository<Post> _postRepository;
 
-		private readonly ISimpleRepository<User> _userRepository;
+		private readonly ISimpleRepository<ForumUser> _userRepository;
 
 		public CommentOnPostProcessor(
 			ISimpleRepository<Comment> commentRepository,
 			ISimpleRepository<Post> postRepository,
-			ISimpleRepository<User> userRepository)
+			ISimpleRepository<ForumUser> userRepository)
 		{
 			_commentRepository = commentRepository;
 			_postRepository = postRepository;

@@ -1,4 +1,7 @@
 ﻿@using AdminComposite.Models
+@using Euclid.Composites.Mvc.Extensions
+@model CreateOrganizationAndUserInputModel
+		   
 @{
 	ViewBag.Title = "Create a User";
 	Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
@@ -7,6 +10,24 @@
 @section mainNav {
 	@{Html.RenderPartial("LeftRail/_AnonymousUserNavigation");}
 }
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#submit-form").click(function () {
+			var processForm = true;
+			if ($("#password").val() != $("#confirm-password").val()) {
+				$("#confirm-error").show();
+				processForm = false;
+			}
+
+			return processForm;
+		});
+
+		$("#password", "#confirm-password").focus(function () {
+			$("#confirm-error").hide();
+		});
+	});
+</script>
 
 <article>
 	<header>
@@ -17,55 +38,70 @@
 	</section>
 </article>
 
-<fieldset>
-	<legend>Organization</legend>
-	<div class="input-container">
-		<label for="organization-name">
-			Name*</label>
-		<br />
-		<input type="text" id="organization-name" /></div>
-	<div class="input-container">
-		<label for="organization-url">
-			Website</label>
-		<br />
-		<input type="text" id="organization-url" /></div>
-	<div class="input-container">
-		<label for="organization-phone">
-			Phone #*</label>
-		<br />
-		<input type="text" id="organization-phone" /></div>
-	<div class="input-container">
-		<label for="organization-address-1">
-			Address*</label>
-		<br />
-		<input type="text" id="organization-address-1" /></div>
-	<div class="input-container">
-		<label for="organization-address-2">
-			Address 2</label>
-		<br />
-		<input type="text" id="organization-address-2" /></div>
-	<div class="input-container">
-		<label for="organization-city">
-			City*</label>
-		<br />
-		<input type="text" id="organization-city" /></div>
-	<div class="input-container">
-		<label for="organization-state">
-			State/Region*</label>
-		<br />
-		<input type="text" id="organization-state" /></div>
-	<div class="input-container">
-		<label for="organization-state">
-			Zip/Postal Code*</label>
-		<br />
-		<input type="text" id="organization-zip" /></div>
-	<div class="input-container">
-		<label for="organization-country">
-			Country*</label>
-		<br />
-		<input type="text" id="organization-country" /></div>
-	<br />
-	&nbsp;
-</fieldset>
+@using (Html.BeginFormForInputModel(Model, true, Url.Action("Signin", "User")))
+{
+	<fieldset>
+		<legend>Organization</legend>
 
-@{Html.RenderPartial("_OrganizationUserForm", new CreateOrganizationUserModel{OrganizationIdentifier=Guid.Empty});}
+		<dl>
+			<dt><label for="organization-name">Name*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.OrganizationName, new {id="organization-name"})</dd>
+		
+			<dt><label for="organization-url">Website</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.OrganizationUrl, new {id="organization-url"})</dd>
+
+			<dt><label for="organization-phone">Phone #*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.PhoneNumber, new {id="organization-phone"})</dd>
+
+			<dt><label for="organization-address-1">Address*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.Address, new {id="organization-address-1"})</dd>
+
+			<dt><label for="organization-address-2">Address 2</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.Address2, new {id="organization-address-2"})</dd>
+
+			<dt><label for="organization-city">City*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.City, new {id="organization-city"})</dd>
+
+			<dt><label for="organization-state">State/Region*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.City, new {id="organization-state"})</dd>
+
+			<dt><label for="organization-zip">Zip/Postal Code*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.Zip, new {id="organization-zip"})</dd>
+
+			<dt><label for="organization-country">Country*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.Country, new {id="organization-country"})</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
+	<legend>User</legend>
+		<dl>
+			<dt><label for="first-name">First Name*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.FirstName, new {id="first-name"})</dd>
+
+			<dt><label for="last-name">First Name*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.LastName, new {id="last-name"})</dd>
+
+			<dt><label for="email">Email*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.Email, new {id="email"})</dd>
+
+			<dt><label for="username">Username*</label></dt>
+			<dd>@Html.TextBoxFor(m => Model.Username, new { id = "username" })</dd>
+
+			<dt><label for="password">Password</label></dt>
+			<dd>@Html.PasswordFor(m=>Model.Password, new { id= "password" })</dd>
+
+			<dt><label for="confirm-password">Confirm Password</label></dt>
+			<dd><input type="password" id="confirm-password"/></dd>
+		</dl>
+	</fieldset>
+	
+	<input type="submit" value="Sign up" class="button" />
+	
+	<div class="notification error" style="display:none" id="confirm-error">
+		<p><strong>Error</strong>Passwords don't match</p>
+	</div>
+	
+}
+
+

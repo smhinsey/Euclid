@@ -283,8 +283,14 @@ namespace Euclid.Composites
 			{
 				// SELF we need to shift to shipping these with the agents and using classmaps for them so we have better control
 				mcfg.AutoMappings.Add(
-					AutoMap.Assembly(agent, autoMapperConfiguration).IgnoreBase<DefaultReadModel>().Conventions.Add
-						<DefaultStringLengthConvention>());
+					AutoMap
+						.Assembly(agent, autoMapperConfiguration)
+						.IgnoreBase<DefaultReadModel>()
+						.IgnoreBase<UnpersistedReadModel>()
+						.Conventions
+						.Add<DefaultStringLengthConvention>());
+
+				mcfg.FluentMappings.AddFromAssembly(agent);
 			}
 
 			return mcfg;

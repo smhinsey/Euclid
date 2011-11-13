@@ -8,16 +8,6 @@
 	login
 }
 
-<script type="text/javascript">
-
-	$(document).ready(function() {
-		$("#signin").click(function() {
-			window.location.href = "@Url.Action("Index", "Dashboard")";	
-			return false;
-		});
-	});
-</script>
-
 <a href="/" title="Back to Homepage"></a>
 
 <!-- Login box -->
@@ -28,34 +18,39 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim metus. Maecenas id augue ac metus tempus aliquam. </p>
 				
 		<!-- Notification -->
-		<div class="notification error" style="display:none">
+		@if (!string.IsNullOrEmpty(ViewBag.Error))
+		{
+		<div class="notification error">
 			<a href="#" class="close-notification" rel="tooltip" original-title="Hide Notification">x</a>
-			<p><strong>Error notification</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate, sapien quis fermentum luctus, libero.</p>
+			<p><strong>Error</strong> @ViewBag.Error</p>
 		</div>
+		}
 		<!-- /Notification -->
 			
-		<form action="#">
-			<fieldset>
-				<dl>
-					<dt>
-						<label>Login</label>
-					</dt>
-					<dd>
-						<input type="text" class="large">
-					</dd>
-					<dt>
-						<label>Password</label>
-					</dt>
-					<dd>
-						<input type="password" class="large">
-					</dd>
-					<dt class="checkbox"><label>Remeber me</label></dt>
-					<dd><input type="checkbox"></dd>
-				</dl>
-			</fieldset>
-			<button type="button" class="right" id="signin">Log in</button>
-		</form>
-			
+		@using (Html.BeginForm())
+		{
+			<form action="#">
+				<fieldset>
+					<dl>
+						<dt>
+							<label>Username</label>
+						</dt>
+						<dd>
+							<input type="text" class="large" name="username">
+						</dd>
+						<dt>
+							<label>Password</label>
+						</dt>
+						<dd>
+							<input type="password" class="large" name="password">
+						</dd>
+						<dt class="checkbox"><label>Remeber me</label></dt>
+						<dd><input type="checkbox"></dd>
+					</dl>
+				</fieldset>
+				<input type="submit" class="right" id="signin" value="Log in" />
+			</form>
+		}
 	</div>
 		
 </article>
