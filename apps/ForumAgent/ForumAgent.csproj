@@ -61,10 +61,12 @@
     <Compile Include="Commands\CommentOnPost.cs" />
     <Compile Include="Commands\CreateForum.cs" />
     <Compile Include="Commands\PublishPost.cs" />
+    <Compile Include="Commands\UpdateLastLogin.cs" />
     <Compile Include="Processors\CreateForumProcessor.cs" />
     <Compile Include="Processors\CreateOrganizationAndRegisterUserProcessor.cs" />
     <Compile Include="Processors\RegisterForumUserProcessor.cs" />
     <Compile Include="Commands\UpdateUserProfile.cs" />
+    <Compile Include="Processors\UpdateLastLoginProcessor.cs" />
     <Compile Include="Processors\UpdateUserProfileProcessor.cs" />
     <Compile Include="Commands\VoteOnComment.cs" />
     <Compile Include="Commands\VoteOnPost.cs" />

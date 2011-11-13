@@ -16,6 +16,7 @@ namespace ForumAgent.WriteModels
 			Map(x => x.Created);
 			Map(x => x.Modified);
 			Map(x => x.Username);
+			Map(x => x.LastLogin);
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿@model object
+﻿@using AdminComposite.HtmlHelpers
+@using ForumAgent.ReadModels
+@model IList<OrganizationUser>
 
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -49,27 +51,22 @@
 			</thead>
 
 			<tbody>
-				<tr>
-					<td>(You) Theodore Donald "Donny" Kerabtsos</td>
-					<td>donny@letsgobowling.com</td>
-					<td>Moments ago</td>
-					<td>
-						<ul class="actions">
-							<li><a class="edit user" rel="tooltip" href="#" original-title="Edit" data-user-name="Theodore Donald &quot;Donny&quot; Kerabtsos" data-user-id="22222222-2222-2222-2222-222222222222">Edit</a></li>
-						</ul>
-					</td>
-				</tr>
-				<tr>
-					<td>Walter Sobchak</td>
-					<td>walter@letsgobowling.com</td>
-					<td>Moments ago</td>
-					<td>
-						<ul class="actions">
-							<li><a class="edit user" rel="tooltip" href="#" original-title="Edit" data-user-name="Walter Sobchak" data-user-id="33333333-3333-3333-3333-333333333333">Edit</a></li>
-							<li><a class="admin-delete" href="#" rel="tooltip" original-title="Delete Walter Sobchak" data-confirmation-message="Really delete Walter Sobchak?" data-confirm-function="deleteUser" data-item-id="33333333-3333-3333-3333-333333333333">Delete</a></li>
-						</ul>
-					</td>
-				</tr>
+				@foreach (var user in Model)
+				{
+					<tr>
+						<td>
+							@if (HttpContext.Current.User.Identity.Name == user.Username){<span>(You)</span>} 
+							@user.FirstName @user.LastName
+						</td>
+						<td><a href="mailto:@user.Email">@user.Email</a></td>
+						<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
+						<td>
+							<ul class="actions">
+								<li><a class="edit user" rel="tooltip" href="#" original-title="Edit" data-user-name="@user.FirstName @user.LastName" data-user-id="@user.Identifier">Edit</a></li>
+							</ul>
+						</td>
+					</tr>
+				}
 			</tbody>
 		</table>
 

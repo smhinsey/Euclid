@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlTypes;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
@@ -27,6 +28,7 @@ namespace ForumAgent.Processors
 			var organizationUserWriteModel = AutoMapper.Mapper.Map<DomainOrganizationUser>(message);
 			organizationUserWriteModel.Created = created;
 			organizationUserWriteModel.Modified = created;
+			organizationUserWriteModel.LastLogin = (DateTime)SqlDateTime.MinValue;
 
 			var organizationWriteModel = AutoMapper.Mapper.Map<DomainOrganization>(message);
 			organizationWriteModel.Created = created;

@@ -8,6 +8,7 @@ namespace ForumAgent.WriteModels
 		public virtual DateTime Created { get; set; }
 		public virtual Guid Identifier { get; set; }
 		public virtual DateTime Modified { get; set; }
+		public virtual DateTime LastLogin { get; set; }
 		public virtual string FirstName { get; set; }
 		public virtual string LastName { get; set; }
 		public virtual string Email { get; set; }

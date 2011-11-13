@@ -1,6 +1,9 @@
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Security;
+using ForumAgent.Processors;
 using ForumAgent.Queries;
 
 namespace AdminComposite.ActionFilters
@@ -27,11 +30,23 @@ namespace AdminComposite.ActionFilters
 
 			var currentUser = userQueries.FindByUsername(HttpContext.Current.User.Identity.Name);
 
-			filterContext.Controller.ViewBag.Forums = forumQueries.GetForums();
-			filterContext.Controller.ViewBag.CurrentForumId = filterContext.GetRequestValue("forumId");
-			filterContext.Controller.ViewBag.OrganizationId = currentUser.OrganizationIdentifier;
-			filterContext.Controller.ViewBag.FirstName = currentUser.FirstName;
-			filterContext.Controller.ViewBag.LastName = currentUser.LastName;
+			if (currentUser == null)
+			{
+				filterContext.Result = new RedirectToRouteResult(
+												new RouteValueDictionary
+													{
+														{"action", "SignOut"},
+														{"controller", "User"}
+													});
+			}
+			else
+			{
+				filterContext.Controller.ViewBag.Forums = forumQueries.GetForums();
+				filterContext.Controller.ViewBag.CurrentForumId = filterContext.GetRequestValue("forumId");
+				filterContext.Controller.ViewBag.OrganizationId = currentUser.OrganizationIdentifier;
+				filterContext.Controller.ViewBag.FirstName = currentUser.FirstName;
+				filterContext.Controller.ViewBag.LastName = currentUser.LastName;
+			}
 		}
 	}
 
