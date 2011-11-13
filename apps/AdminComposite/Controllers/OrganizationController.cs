@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using AdminComposite.Models;
 
 namespace AdminComposite.Controllers
 {
+	[Authorize]
 	public class OrganizationController : Controller
 	{
 		//

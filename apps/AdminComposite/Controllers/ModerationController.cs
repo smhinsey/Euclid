@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace AdminComposite.Controllers
 {
+	[Authorize]
 	public class ModerationController : Controller
 	{
 		public ActionResult Comments(Guid? forumId)

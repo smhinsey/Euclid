@@ -147,7 +147,7 @@
     <Compile Include="Models\CreateForumInputModel.cs" />
     <Compile Include="Models\CreateOrganizationAndUserInputModel.cs" />
     <Compile Include="Models\CreateOrganizationUserModel.cs" />
-    <Compile Include="NavigationViewBagInjector.cs" />
+    <Compile Include="ActionFilters\NavigationViewBagInjector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>

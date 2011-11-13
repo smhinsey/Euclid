@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace AdminComposite.Controllers
 {
+	[Authorize]
 	public class CategoryController : Controller
 	{
 		public ActionResult List(Guid forumId)

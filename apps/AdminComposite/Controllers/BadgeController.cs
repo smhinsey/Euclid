@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 namespace AdminComposite.Controllers
 {
+	[Authorize]
 	public class BadgeController : Controller
 	{
 		public ActionResult List(Guid forumId)

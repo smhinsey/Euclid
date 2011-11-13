@@ -1,14 +1,14 @@
 using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using System.Web.WebPages;
 using ForumAgent.Queries;
 
-namespace AdminComposite
+namespace AdminComposite.ActionFilters
 {
 	public class NavigationViewBagInjector : IActionFilter
 	{
-		public ForumQueries queries { get; set; }
+		public ForumQueries forumQueries { get; set; }
+		public OrganizationUserQueries userQueries { get; set; }
 		private readonly Assembly _currentAssembly;
 		public NavigationViewBagInjector()
 		{
@@ -23,11 +23,15 @@ namespace AdminComposite
 		{
 			if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly != _currentAssembly) return;
 
-			if (filterContext.HttpContext.Request.Cookies["OrganizationUserId"] == null) return;
+			if (!HttpContext.Current.User.Identity.IsAuthenticated) return;
 
-			filterContext.Controller.ViewBag.Forums = queries.GetForums();
+			var currentUser = userQueries.FindByUsername(HttpContext.Current.User.Identity.Name);
+
+			filterContext.Controller.ViewBag.Forums = forumQueries.GetForums();
 			filterContext.Controller.ViewBag.CurrentForumId = filterContext.GetRequestValue("forumId");
-			filterContext.Controller.ViewBag.CurrentOrganizationId = filterContext.GetRequestValue("organizationId");
+			filterContext.Controller.ViewBag.OrganizationId = currentUser.OrganizationIdentifier;
+			filterContext.Controller.ViewBag.FirstName = currentUser.FirstName;
+			filterContext.Controller.ViewBag.LastName = currentUser.LastName;
 		}
 	}
 

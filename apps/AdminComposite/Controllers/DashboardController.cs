@@ -3,6 +3,7 @@ using Euclid.Common.Logging;
 
 namespace AdminComposite.Controllers
 {
+	[Authorize]
 	public class DashboardController : Controller, ILoggingSource
 	{
 		public ActionResult Index()

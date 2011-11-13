@@ -27,16 +27,19 @@ namespace AdminComposite.Controllers
 			return View();
 		}
 
+		[Authorize]
 		public ActionResult Details(Guid? forumId)
 		{
 			return View();
 		}
 
+		[Authorize]
 		public ActionResult Invite(Guid? forumId)
 		{
 			return View();
 		}
 
+		[Authorize]
 		public ActionResult List(Guid? forumId)
 		{
 			return View();
@@ -58,7 +61,6 @@ namespace AdminComposite.Controllers
 				Response.Cookies.Add(new HttpCookie("OrganizationUserId", user.Identifier.ToString()));
 
 				FormsAuthentication.SetAuthCookie(username, false);
-
 				return RedirectToAction("Index", "Dashboard");
 			}
 
@@ -66,8 +68,10 @@ namespace AdminComposite.Controllers
 			return View("SignIn");
 		}
 
+		[Authorize]
 		public ActionResult Signout()
 		{
+			Session.Abandon();
 			Response.Cookies.Remove("OrganizationUserId");
 			FormsAuthentication.SignOut();
 			return View();
