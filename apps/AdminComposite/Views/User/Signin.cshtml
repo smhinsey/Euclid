@@ -1,117 +1,62 @@
 ﻿@using AdminComposite.Models
 @{
 	ViewBag.Title = "Signin to the admin";
-	Layout = null;
+	Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
 }
-<!doctype html>
-<html lang="en">
-<head>
-	<title>NewCo Forum Admin - @ViewBag.Title</title>
-	<meta charset="UTF-8">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta content="text/html; charset=utf-8" http-equiv="content-type">
 
-	<link rel="shortcut icon" href="@Url.Content("~/Content/chromatron/img/favicon.ico")">
-	<link rel="apple-touch-icon" href="@Url.Content("~/Content/chromatron/img/apple-touch-icon.png")">
+@section bodyClass {
+	login
+}
 
-	<link href="@Url.Content("~/Content/chromatron/css/style.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/colors.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.datatables.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.datepicker.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.facebox.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.fileinput.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.fullcalendar.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.tipsy.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.visualize.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.wysiwyg.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/admin-styles.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/simplemodal/jquery.simplemodal.1.4.1.css")" rel="stylesheet" type="text/css"/>
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'> 
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" >
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"> </script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.fullcalendar.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.facebox.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.tipsy.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.wysiwyg.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.datatables.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.datepicker.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.fileinput.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.visualize.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.visualize.tooltip.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/excanvas.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/libs/selectivizr.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/script.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/admin-ui.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content/simplemodal/jquery.simplemodal.1.4.1.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content/jquery.url-encode.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content/jeditable/jquery.jeditable.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content//viewport/jquery.viewport.js")" type="text/javascript"></script>
+<a href="/" title="Back to Homepage"></a>
 
-	<script type="text/javascript">
-
-		$(document).ready(function() {
-			$("#signin").click(function() {
-				window.location.href = "@Url.Action("Index", "Dashboard")";	
-				return false;
-			});
-		});
-	</script>
-</head>
-
-<body class="login">
-	<section role="main">
-	
-		<a href="/" title="Back to Homepage"></a>
-	
-		<!-- Login box -->
-		<article id="login-box">
+<!-- Login box -->
+<article id="login-box">
 		
-			<div class="article-container">
+	<div class="article-container">
 			
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim metus. Maecenas id augue ac metus tempus aliquam. </p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et dignissim metus. Maecenas id augue ac metus tempus aliquam. </p>
 				
-				<!-- Notification -->
-				<div class="notification error" style="display:none">
-					<a href="#" class="close-notification" rel="tooltip" original-title="Hide Notification">x</a>
-					<p><strong>Error notification</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate, sapien quis fermentum luctus, libero.</p>
-				</div>
-				<!-- /Notification -->
+		<!-- Notification -->
+		@if (!string.IsNullOrEmpty(ViewBag.Error))
+		{
+		<div class="notification error">
+			<a href="#" class="close-notification" rel="tooltip" original-title="Hide Notification">x</a>
+			<p><strong>Error</strong> @ViewBag.Error</p>
+		</div>
+		}
+		<!-- /Notification -->
 			
-				<form action="#">
-					<fieldset>
-						<dl>
-							<dt>
-								<label>Login</label>
-							</dt>
-							<dd>
-								<input type="text" class="large">
-							</dd>
-							<dt>
-								<label>Password</label>
-							</dt>
-							<dd>
-								<input type="password" class="large">
-							</dd>
-							<dt class="checkbox"><label>Remeber me</label></dt>
-							<dd><input type="checkbox"></dd>
-						</dl>
-					</fieldset>
-					<button type="button" class="right" id="signin">Log in</button>
-				</form>
-			
-			</div>
+		@using (Html.BeginForm())
+		{
+			<form action="#">
+				<fieldset>
+					<dl>
+						<dt>
+							<label>Username</label>
+						</dt>
+						<dd>
+							<input type="text" class="large" name="username">
+						</dd>
+						<dt>
+							<label>Password</label>
+						</dt>
+						<dd>
+							<input type="password" class="large" name="password">
+						</dd>
+						<dt class="checkbox"><label>Remeber me</label></dt>
+						<dd><input type="checkbox"></dd>
+					</dl>
+				</fieldset>
+				<input type="submit" class="right" id="signin" value="Log in" />
+			</form>
+		}
+	</div>
 		
-		</article>
-		<!-- /Login box -->
-		<ul class="login-links">
-			<li><a href="#">Lost Password</a></li>
-			<li><a href="@Url.Action("Create", "User")">Signup</a></li>
-		</ul>
-	</section>
-</body>
+</article>
+<!-- /Login box -->
 
-</html>
+<ul class="login-links">
+	<li><a href="@Url.Action("ForgotPassword", "User")">Lost Password</a></li>
+	<li><a href="@Url.Action("Create", "User")">Signup</a></li>
+</ul>

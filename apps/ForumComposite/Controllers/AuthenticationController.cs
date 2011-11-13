@@ -35,7 +35,7 @@ namespace ForumComposite.Controllers
 
 		public ActionResult Register()
 		{
-			return View(new RegisterUserInputModel());
+			return View(new RegisterForumUserInputModel());
 		}
 
 		public ActionResult SignIn()

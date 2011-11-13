@@ -5,7 +5,7 @@ using NHibernate;
 
 namespace ForumAgent.Queries
 {
-	public class UserQueries : NhQuery<User>
+	public class UserQueries : NhQuery<ForumUser>
 	{
 		public UserQueries(ISession session)
 			: base(session)
@@ -18,7 +18,7 @@ namespace ForumAgent.Queries
 			var session = GetCurrentSession();
 
 			var matchedAccount =
-				session.QueryOver<User>().Where(user => user.PasswordHash == password && user.PasswordSalt == password && user.Username == username);
+				session.QueryOver<ForumUser>().Where(user => user.PasswordHash == password && user.PasswordSalt == password && user.Username == username);
 
 			return matchedAccount != null;
 		}
@@ -32,11 +32,11 @@ namespace ForumAgent.Queries
 			return matchedUser.SingleOrDefault();
 		}
 
-		public User FindByUsername(string username)
+		public ForumUser FindByUsername(string username)
 		{
 			var session = GetCurrentSession();
 
-			var matchedUser = session.QueryOver<User>().Where(user => user.Username == username);
+			var matchedUser = session.QueryOver<ForumUser>().Where(user => user.Username == username);
 
 			return matchedUser.SingleOrDefault();
 		}

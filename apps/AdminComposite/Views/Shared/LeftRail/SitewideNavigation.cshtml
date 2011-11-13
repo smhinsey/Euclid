@@ -15,10 +15,10 @@
 	<li @Html.GetClassWhenControllerIsCurrent("organization", "current")><a title="Home" class="dashboard">Organization</a>
 		<ul class="expand">
 			<li @Html.GetClassWhenControllerAndActionAreCurrent("organization", "details", "current")>
-				<a href="@Url.Action("Details", "Organization", new { organizationId = Guid.Empty })">
+				<a href="@Url.Action("Details", "Organization", new { organizationId = ViewBag.OrganizationId })">
 					Details</a> </li>
 			<li @Html.GetClassWhenControllerAndActionAreCurrent("organization", "listusers", "current")>
-				<a href="@Url.Action("ListUsers", "Organization", new { organizationId = Guid.Empty })">
+				<a href="@Url.Action("ListUsers", "Organization", new { organizationId = ViewBag.OrganizationId })">
 					Users</a> </li>
 		</ul>
 	</li>

@@ -1,73 +1,15 @@
 ﻿@{
 	ViewBag.Title = "Logged out";
-	Layout = null;
+	Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
 }
-<!doctype html>
-<html lang="en">
-<head>
-	<title>NewCo Forum Admin - @ViewBag.Title</title>
-	<meta charset="UTF-8">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta content="text/html; charset=utf-8" http-equiv="content-type">
 
-	<link rel="shortcut icon" href="@Url.Content("~/Content/chromatron/img/favicon.ico")">
-	<link rel="apple-touch-icon" href="@Url.Content("~/Content/chromatron/img/apple-touch-icon.png")">
+@section mainNav {
+	@{Html.RenderPartial("LeftRail/_AnonymousUserNavigation");}
+}
 
-	<link href="@Url.Content("~/Content/chromatron/css/style.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/colors.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.datatables.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.datepicker.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.facebox.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.fileinput.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.fullcalendar.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.tipsy.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.visualize.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/chromatron/css/jquery.wysiwyg.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/admin-styles.css")" rel="stylesheet" type="text/css"/>
-	<link href="@Url.Content("~/Content/simplemodal/jquery.simplemodal.1.4.1.css")" rel="stylesheet" type="text/css"/>
-	<link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic' rel='stylesheet' type='text/css'> 
-	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" >
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"> </script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.fullcalendar.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.facebox.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.tipsy.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.wysiwyg.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.datatables.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.datepicker.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.fileinput.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.visualize.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/jquery.visualize.tooltip.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/jquery/excanvas.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/libs/selectivizr.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/chromatron/js/script.js")" type="text/javascript"> </script>
-	<script src="@Url.Content("~/Content/admin-ui.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content/simplemodal/jquery.simplemodal.1.4.1.min.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content/jquery.url-encode.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content/jeditable/jquery.jeditable.js")" type="text/javascript"></script>
-	<script src="@Url.Content("~/Content//viewport/jquery.viewport.js")" type="text/javascript"></script>
-</head>
-<body>
+<article>
+	<header>
+		<h2>You have been signed out of the forum admin</h2>
+	</header>
+</article>
 
-
-	<div>
-		
-		<section role="navigation">
-			<nav id="main-nav">
-				@{Html.RenderPartial("LeftRail/_AnonymousUserNavigation");}
-			</nav>
-		</section>
-
-		<section role="main">
-			<article>
-				<header>
-					<h2>You have been signed out of the forum admin</h2>
-				</header>
-			</article>
-		</section>
-	</div>
-</body>
-</html>

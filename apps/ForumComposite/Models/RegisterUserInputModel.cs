@@ -3,12 +3,12 @@ using ForumAgent.Commands;
 
 namespace ForumComposite.Models
 {
-	public class RegisterUserInputModel : DefaultInputModel
+	public class RegisterForumUserInputModel : DefaultInputModel
 	{
-		public RegisterUserInputModel()
+		public RegisterForumUserInputModel()
 		{
 			AgentSystemName = "NewCo.ForumAgent";
-			CommandType = typeof(RegisterUser);
+			CommandType = typeof(RegisterForumUser);
 		}
 
 		public string ConfirmationPassword { get; set; }

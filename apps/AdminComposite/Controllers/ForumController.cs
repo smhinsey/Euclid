@@ -6,6 +6,7 @@ using ForumAgent.ReadModels;
 
 namespace AdminComposite.Controllers
 {
+	[Authorize]
 	public class ForumController : Controller
 	{
 		private readonly ForumQueries _forumQueries;

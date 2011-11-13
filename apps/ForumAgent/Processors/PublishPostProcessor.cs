@@ -10,9 +10,9 @@ namespace ForumAgent.Processors
 	{
 		private readonly ISimpleRepository<Post> _repository;
 
-		private readonly ISimpleRepository<User> _userRepository;
+		private readonly ISimpleRepository<ForumUser> _userRepository;
 
-		public PublishPostProcessor(ISimpleRepository<Post> repository, ISimpleRepository<User> userRepository)
+		public PublishPostProcessor(ISimpleRepository<Post> repository, ISimpleRepository<ForumUser> userRepository)
 		{
 			_repository = repository;
 			_userRepository = userRepository;
