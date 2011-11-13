@@ -62,6 +62,7 @@
     <Compile Include="Commands\CreateForum.cs" />
     <Compile Include="Commands\PublishPost.cs" />
     <Compile Include="Commands\UpdateLastLogin.cs" />
+    <Compile Include="Domain\MyAggregateRoot.cs" />
     <Compile Include="Processors\CreateForumProcessor.cs" />
     <Compile Include="Processors\CreateOrganizationAndRegisterUserProcessor.cs" />
     <Compile Include="Processors\RegisterForumUserProcessor.cs" />
@@ -89,10 +90,10 @@
     <Compile Include="ReadModels\PostListing.cs" />
     <Compile Include="ReadModels\ForumUser.cs" />
     <Compile Include="ReadModels\UserProfile.cs" />
-    <Compile Include="WriteModels\DomainOrganizationUser.cs" />
-    <Compile Include="WriteModels\DomainOrganization.cs" />
-    <Compile Include="WriteModels\OrganizationMap.cs" />
-    <Compile Include="WriteModels\OrganizationUserMap.cs" />
+    <Compile Include="Domain\Entities\DomainOrganizationUser.cs" />
+    <Compile Include="Domain\Entities\DomainOrganization.cs" />
+    <Compile Include="Domain\Entities\Maps\OrganizationMap.cs" />
+    <Compile Include="Domain\Entities\Maps\OrganizationUserMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">

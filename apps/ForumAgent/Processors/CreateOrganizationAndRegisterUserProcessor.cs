@@ -3,7 +3,7 @@ using System.Data.SqlTypes;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
-using ForumAgent.WriteModels;
+using ForumAgent.Domain.Entities;
 
 namespace ForumAgent.Processors
 {

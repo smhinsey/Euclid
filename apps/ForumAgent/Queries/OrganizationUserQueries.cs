@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Euclid.Common.Storage.NHibernate;
+using ForumAgent.Domain.Entities;
 using ForumAgent.ReadModels;
-using ForumAgent.WriteModels;
 using NHibernate;
 
 namespace ForumAgent.Queries

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Euclid.Common.Storage;
 
-namespace ForumAgent.WriteModels
+namespace ForumAgent.Domain.Entities
 {
 	public class DomainOrganization : IModel
 	{
