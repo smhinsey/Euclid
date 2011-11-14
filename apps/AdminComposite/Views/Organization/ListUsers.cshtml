@@ -1,4 +1,4 @@
-﻿@using AdminComposite.HtmlHelpers
+﻿@using AdminComposite.Extensions
 @using ForumAgent.ReadModels
 @model IList<OrganizationUser>
 
@@ -6,7 +6,7 @@
 	$(document).ready(function () {
 		$("#add-user").click(function() {
 			$("<div></div>")
-				.load("/Organization/GetUser")
+				.load("/Organization/RegisterUser?organizationId=@ViewBag.OrganizationId&currentUserId=@ViewBag.UserId")
 				.modal({
 						autoResize: true,
 						autoPosition: true,
@@ -19,9 +19,9 @@
 		});
 
 		$(".edit.user").click(function() {
-			var organizationId = "11111111-1111-1111-1111-111111111111";
+			var organizationId = "@ViewBag.OrganizationId";
 			$("<div></div>")
-				.load("/Organization/GetUser?organizationId=" + organizationId + "&userId=" + $(this).attr("data-user-id"))
+				.load("/Organization/UpdateUser?organizationId=@ViewBag.OrganizationId&userId=" + $(this).attr("data-user-id"))
 				.modal({
 						autoResize: true,
 						autoPosition: true,

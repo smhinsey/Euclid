@@ -1,6 +1,8 @@
+using Euclid.Framework.Cqrs;
+
 namespace ForumAgent.Commands
 {
-	public class CreateOrganizationAndRegisterUser : RegisterOrganizationUser
+	public class CreateOrganizationAndRegisterUser : DefaultCommand
 	{
 		public string OrganizationName { get; set; }
 		public string OrganizationUrl { get; set; }
@@ -11,5 +13,11 @@ namespace ForumAgent.Commands
 		public string State { get; set; }
 		public string Zip { get; set; }
 		public string Country { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public string Email { get; set; }
+		public string Username { get; set; }
+		public string PasswordSalt { get; set; }
+		public string PasswordHash { get; set; }
 	}
 }
