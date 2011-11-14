@@ -4,7 +4,7 @@ using Euclid.Common.Storage;
 
 namespace ForumAgent.Domain.Entities
 {
-	public class DomainOrganization : IModel
+	public class OrganizationEntity : IModel
 	{
 		public virtual DateTime Created { get; set; }
 		public virtual Guid Identifier { get; set; }
@@ -19,11 +19,11 @@ namespace ForumAgent.Domain.Entities
 		public virtual string Zip { get; set; }
 		public virtual string Country { get; set; }
 
-		public virtual IList<DomainOrganizationUser> Users { get; protected set; }
+		public virtual IList<OrganizationUserEntity> Users { get; protected set; }
 
-		public DomainOrganization()
+		public OrganizationEntity()
 		{
-			Users = new List<DomainOrganizationUser>();
+			Users = new List<OrganizationUserEntity>();
 		}
 	}
 }

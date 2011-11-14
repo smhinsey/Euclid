@@ -2,12 +2,12 @@ using FluentNHibernate.Mapping;
 
 namespace ForumAgent.Domain.Entities.Maps
 {
-	public class OrganizationUserMap : ClassMap<DomainOrganizationUser>
+	public class OrganizationUserMap : ClassMap<OrganizationUserEntity>
 	{
 		public OrganizationUserMap()
 		{
 			Id(x => x.Identifier);
-			References(x => x.Organization, "DomainOrganizationIdentifier");
+			References(x => x.OrganizationEntity, "DomainOrganizationIdentifier");
 			Map(x => x.Email);
 			Map(x => x.FirstName);
 			Map(x => x.LastName);

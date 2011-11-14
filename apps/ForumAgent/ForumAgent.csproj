@@ -90,8 +90,8 @@
     <Compile Include="ReadModels\PostListing.cs" />
     <Compile Include="ReadModels\ForumUser.cs" />
     <Compile Include="ReadModels\UserProfile.cs" />
-    <Compile Include="Domain\Entities\DomainOrganizationUser.cs" />
-    <Compile Include="Domain\Entities\DomainOrganization.cs" />
+    <Compile Include="Domain\Entities\OrganizationUserEntity.cs" />
+    <Compile Include="Domain\Entities\OrganizationEntity.cs" />
     <Compile Include="Domain\Entities\Maps\OrganizationMap.cs" />
     <Compile Include="Domain\Entities\Maps\OrganizationUserMap.cs" />
   </ItemGroup>

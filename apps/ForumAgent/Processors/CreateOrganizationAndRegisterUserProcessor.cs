@@ -10,10 +10,10 @@ namespace ForumAgent.Processors
 	public class CreateOrganizationAndRegisterUserProcessor : DefaultCommandProcessor<CreateOrganizationAndRegisterUser>
 	{
 
-		private readonly ISimpleRepository<DomainOrganization> _organizationRepository;
-		private readonly ISimpleRepository<DomainOrganizationUser> _organizationUserRepository;
+		private readonly ISimpleRepository<OrganizationEntity> _organizationRepository;
+		private readonly ISimpleRepository<OrganizationUserEntity> _organizationUserRepository;
 
-		public CreateOrganizationAndRegisterUserProcessor(ISimpleRepository<DomainOrganization> organizationRepository, ISimpleRepository<DomainOrganizationUser> organizationUserRepository)
+		public CreateOrganizationAndRegisterUserProcessor(ISimpleRepository<OrganizationEntity> organizationRepository, ISimpleRepository<OrganizationUserEntity> organizationUserRepository)
 		{
 			_organizationRepository = organizationRepository;
 			_organizationUserRepository = organizationUserRepository;
@@ -21,20 +21,20 @@ namespace ForumAgent.Processors
 
 		public override void Process(CreateOrganizationAndRegisterUser message)
 		{
-			AutoMapper.Mapper.CreateMap<CreateOrganizationAndRegisterUser, DomainOrganization>();
-			AutoMapper.Mapper.CreateMap<CreateOrganizationAndRegisterUser, DomainOrganizationUser>();
+			AutoMapper.Mapper.CreateMap<CreateOrganizationAndRegisterUser, OrganizationEntity>();
+			AutoMapper.Mapper.CreateMap<CreateOrganizationAndRegisterUser, OrganizationUserEntity>();
 			DateTime created = DateTime.Now;
 
-			var organizationUserWriteModel = AutoMapper.Mapper.Map<DomainOrganizationUser>(message);
+			var organizationUserWriteModel = AutoMapper.Mapper.Map<OrganizationUserEntity>(message);
 			organizationUserWriteModel.Created = created;
 			organizationUserWriteModel.Modified = created;
 			organizationUserWriteModel.LastLogin = (DateTime)SqlDateTime.MinValue;
 
-			var organizationWriteModel = AutoMapper.Mapper.Map<DomainOrganization>(message);
+			var organizationWriteModel = AutoMapper.Mapper.Map<OrganizationEntity>(message);
 			organizationWriteModel.Created = created;
 			organizationWriteModel.Modified = created;
 
-			organizationUserWriteModel.Organization = _organizationRepository.Save(organizationWriteModel);
+			organizationUserWriteModel.OrganizationEntity = _organizationRepository.Save(organizationWriteModel);
 			_organizationUserRepository.Save(organizationUserWriteModel);
 		}
 	}

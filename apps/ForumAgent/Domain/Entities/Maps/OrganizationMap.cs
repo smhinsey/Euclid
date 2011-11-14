@@ -2,7 +2,7 @@ using FluentNHibernate.Mapping;
 
 namespace ForumAgent.Domain.Entities.Maps
 {
-	public class OrganizationMap : ClassMap<DomainOrganization>
+	public class OrganizationMap : ClassMap<OrganizationEntity>
 	{
 		public OrganizationMap()
 		{

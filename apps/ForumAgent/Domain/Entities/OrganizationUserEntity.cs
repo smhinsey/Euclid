@@ -3,7 +3,7 @@ using Euclid.Common.Storage;
 
 namespace ForumAgent.Domain.Entities
 {
-	public class DomainOrganizationUser : IModel
+	public class OrganizationUserEntity : IModel
 	{
 		public virtual DateTime Created { get; set; }
 		public virtual Guid Identifier { get; set; }
@@ -15,6 +15,6 @@ namespace ForumAgent.Domain.Entities
 		public virtual string Username { get; set; }
 		public virtual string PasswordSalt { get; set; }
 		public virtual string PasswordHash { get; set; }
-		public virtual DomainOrganization Organization { get; set; }
+		public virtual OrganizationEntity OrganizationEntity { get; set; }
 	}
 }

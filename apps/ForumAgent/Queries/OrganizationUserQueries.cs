@@ -10,19 +10,19 @@ namespace ForumAgent.Queries
 	public class OrganizationUserQueries
 	{
 		private readonly ISession _session;
-		private readonly NhSimpleRepository<DomainOrganizationUser> _repository;
+		private readonly NhSimpleRepository<OrganizationUserEntity> _repository;
 
 		public OrganizationUserQueries(ISession session)
 		{
 			_session = session;
-			_repository = new NhSimpleRepository<DomainOrganizationUser>(session);
-			AutoMapper.Mapper.CreateMap<DomainOrganizationUser, OrganizationUser>();
+			_repository = new NhSimpleRepository<OrganizationUserEntity>(session);
+			AutoMapper.Mapper.CreateMap<OrganizationUserEntity, OrganizationUser>();
 		}
 
 		public bool AutenticateOrganizationUser(string username, string password)
 		{
 			// TODO: implement safe hashing/salting and all that noise
-			var matchedAccount = _session.QueryOver<DomainOrganizationUser>()
+			var matchedAccount = _session.QueryOver<OrganizationUserEntity>()
 				.Where(
 					user => user.PasswordHash == password &&
 					        user.PasswordSalt == password &&
@@ -33,7 +33,7 @@ namespace ForumAgent.Queries
 
 		public IList<OrganizationUser> List(int offset, int pageSize)
 		{
-			var domainUsers = _session.QueryOver<DomainOrganizationUser>().Skip(offset).Take(pageSize).List();
+			var domainUsers = _session.QueryOver<OrganizationUserEntity>().Skip(offset).Take(pageSize).List();
 
 			return AutoMapper.Mapper.Map<IList<OrganizationUser>>(domainUsers);
 		}
@@ -41,7 +41,7 @@ namespace ForumAgent.Queries
 		public OrganizationUser FindByUsername(string username)
 		{
 			var user = _session
-				.QueryOver<DomainOrganizationUser>()
+				.QueryOver<OrganizationUserEntity>()
 				.Where(u => u.Username == username)
 				.SingleOrDefault();
 
@@ -50,7 +50,7 @@ namespace ForumAgent.Queries
 
 		public OrganizationUser FindByIdentifier(Guid identifier)
 		{
-			var user = _session.QueryOver<DomainOrganizationUser>().Where(u => u.Identifier == identifier).SingleOrDefault();
+			var user = _session.QueryOver<OrganizationUserEntity>().Where(u => u.Identifier == identifier).SingleOrDefault();
 
 			return (user == null) ? null : AutoMapper.Mapper.Map<OrganizationUser>(user);
 		}

@@ -10,17 +10,17 @@ namespace ForumAgent.Processors
 	public class UpdateLastLoginProcessor : DefaultCommandProcessor<UpdateLastLogin>
 	{
 		private readonly ISession _session;
-		private readonly NhSimpleRepository<DomainOrganizationUser> _repository;
+		private readonly NhSimpleRepository<OrganizationUserEntity> _repository;
 
 		public UpdateLastLoginProcessor(ISession session)
 		{
 			_session = session;
-			_repository = new NhSimpleRepository<DomainOrganizationUser>(_session);
+			_repository = new NhSimpleRepository<OrganizationUserEntity>(_session);
 		}
 
 		public override void Process(UpdateLastLogin message)
 		{
-			var user = _session.QueryOver<DomainOrganizationUser>().Where(u => u.Identifier == message.UserIdentifier).SingleOrDefault();
+			var user = _session.QueryOver<OrganizationUserEntity>().Where(u => u.Identifier == message.UserIdentifier).SingleOrDefault();
 			if (user == null)
 			{
 				throw new UserNotFoundException(message.UserIdentifier);
