@@ -5,6 +5,7 @@
 @using (Html.BeginFormForInputModel(Model))
 {
 	@Html.HiddenFor(m=>m.OrganizationId)
+	@Html.HiddenFor(m=>m.CreatedBy)
 	<fieldset>
 		<legend>User</legend>
 

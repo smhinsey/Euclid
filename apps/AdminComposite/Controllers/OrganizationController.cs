@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Models;
+using ForumAgent.Processors;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
@@ -14,7 +15,7 @@ namespace AdminComposite.Controllers
 		public OrganizationController(OrganizationUserQueries userQueries)
 		{
 			_userQueries = userQueries;
-			AutoMapper.Mapper.CreateMap<OrganizationUser, RegisterOrganizationUserInputModel>();
+			AutoMapper.Mapper.CreateMap<OrganizationUser, UpdateOrganizationUserInputModel>();
 		}
 
 		//
@@ -31,26 +32,28 @@ namespace AdminComposite.Controllers
 		}
 
 		[HttpGet]
-		public PartialViewResult RegisterUser(Guid organizationId, Guid? userId)
+		public PartialViewResult RegisterUser(Guid organizationId, Guid currentUserId)
 		{
-			ViewBag.Title = "Add a user";
+			return PartialView("_RegisterOrganizationUser", new RegisterOrganizationUserInputModel
+			                                                	{
+			                                                		OrganizationId = organizationId,
+																	CreatedBy = currentUserId
+			                                                	});
+		}
 
-			RegisterOrganizationUserInputModel model;
+		[HttpGet]
+		public PartialViewResult UpdateUser(Guid organizationId, Guid userId)
+		{
+			var user = _userQueries.FindByIdentifier(userId);
 
-			if (!userId.HasValue)
+			if (user == null)
 			{
-				model = new RegisterOrganizationUserInputModel
-				        	{
-				        		OrganizationId = organizationId
-				        	};
-			}
-			else
-			{
-				model = AutoMapper.Mapper.Map<RegisterOrganizationUserInputModel>(_userQueries.FindByIdentifier(userId.Value));
+				throw new UserNotFoundException(userId);
 			}
 
-
-			return PartialView("_OrganizationUserForm", model);
+			var model = AutoMapper.Mapper.Map<UpdateOrganizationUserInputModel>(user);
+			
+			return PartialView("_UpdateOrganizationUser", model);
 		}
 	}
 }

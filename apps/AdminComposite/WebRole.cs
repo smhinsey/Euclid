@@ -85,7 +85,18 @@ namespace AdminComposite
 			                                                                                                               	});
 
 			//the processor will handle generating passwords for users registered by an admin
-			composite.RegisterInputModelMap<RegisterOrganizationUserInputModel, RegisterOrganizationUser>(); 
+			composite.RegisterInputModelMap<RegisterOrganizationUserInputModel, RegisterOrganizationUser>();
+			composite.RegisterInputModelMap<UpdateOrganizationUserInputModel, UpdateOrganizationUser>(
+				input => new UpdateOrganizationUser
+				         	{
+				         		Created = DateTime.Now,
+				         		Email = input.Email,
+				         		FirstName = input.FirstName,
+				         		LastName = input.LastName,
+				         		OrganizationId = input.OrganizationId,
+				         		UserId = input.UserId,
+				         		Username = input.Username
+				         	});
 
 			setAzureCredentials(container);
 
