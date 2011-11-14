@@ -1,6 +1,6 @@
 using FluentNHibernate.Mapping;
 
-namespace ForumAgent.WriteModels
+namespace ForumAgent.Domain.Entities.Maps
 {
 	public class OrganizationUserMap : ClassMap<DomainOrganizationUser>
 	{

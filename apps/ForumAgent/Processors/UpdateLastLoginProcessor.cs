@@ -2,7 +2,7 @@
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
-using ForumAgent.WriteModels;
+using ForumAgent.Domain.Entities;
 using NHibernate;
 
 namespace ForumAgent.Processors
