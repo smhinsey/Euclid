@@ -3,17 +3,18 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using Euclid.Common.Extensions;
 using ForumAgent.Processors;
 using ForumAgent.Queries;
 
 namespace AdminComposite.ActionFilters
 {
-	public class NavigationViewBagInjector : IActionFilter
+	public class PopulateAdminWideViewBag : IActionFilter
 	{
 		public ForumQueries forumQueries { get; set; }
 		public OrganizationUserQueries userQueries { get; set; }
 		private readonly Assembly _currentAssembly;
-		public NavigationViewBagInjector()
+		public PopulateAdminWideViewBag()
 		{
 			_currentAssembly = GetType().Assembly;
 		}
@@ -47,6 +48,7 @@ namespace AdminComposite.ActionFilters
 				filterContext.Controller.ViewBag.UserId = currentUser.Identifier;
 				filterContext.Controller.ViewBag.FirstName = currentUser.FirstName;
 				filterContext.Controller.ViewBag.LastName = currentUser.LastName;
+				filterContext.Controller.ViewBag.Gravatar = string.Format("http://www.gravatar.com/avatar/{0}?s=45", currentUser.Email.GetMd5());
 			}
 		}
 	}

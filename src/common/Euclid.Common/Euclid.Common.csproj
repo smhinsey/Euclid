@@ -83,6 +83,7 @@
     <Compile Include="Configuration\IOverridableSetting.cs" />
     <Compile Include="Configuration\IOverridableSettingList.cs" />
     <Compile Include="Configuration\IOverridableSettings.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Logging\Log4NetLoggingSourceExtensions.cs" />
     <Compile Include="Messaging\DispatcherNotConfiguredException.cs" />
     <Compile Include="Extensions\MimeTypes.cs" />

@@ -9,17 +9,17 @@ namespace ForumAgent.Processors
 {
 	public class RegisterOrganizationUserProcessor : DefaultCommandProcessor<RegisterOrganizationUser>
 	{
-		private readonly ISimpleRepository<DomainOrganizationUser> _userRepository;
+		private readonly ISimpleRepository<OrganizationUserEntity> _userRepository;
 
-		public RegisterOrganizationUserProcessor(ISimpleRepository<DomainOrganizationUser> userRepository)
+		public RegisterOrganizationUserProcessor(ISimpleRepository<OrganizationUserEntity> userRepository)
 		{
 			_userRepository = userRepository;
-			AutoMapper.Mapper.CreateMap<RegisterOrganizationUser, DomainOrganizationUser>();
+			AutoMapper.Mapper.CreateMap<RegisterOrganizationUser, OrganizationUserEntity>();
 		}
 
 		public override void Process(RegisterOrganizationUser message)
 		{
-			var domainUser = AutoMapper.Mapper.Map<DomainOrganizationUser>(message);
+			var domainUser = AutoMapper.Mapper.Map<OrganizationUserEntity>(message);
 
 			// we will generate a password - salt it & hash it & send a notification ot the new user
 			domainUser.PasswordHash = "password";
@@ -35,16 +35,16 @@ namespace ForumAgent.Processors
 
 	public class UpdateOrganizationUserProcessor : DefaultCommandProcessor<UpdateOrganizationUser>
 	{
-		private readonly ISimpleRepository<DomainOrganizationUser> _userRepository;
+		private readonly ISimpleRepository<OrganizationUserEntity> _userRepository;
 
-		public UpdateOrganizationUserProcessor(ISimpleRepository<DomainOrganizationUser> userRepository)
+		public UpdateOrganizationUserProcessor(ISimpleRepository<OrganizationUserEntity> userRepository)
 		{
 			_userRepository = userRepository;
-			AutoMapper.Mapper.CreateMap<UpdateOrganizationUser, DomainOrganizationUser>()
+			AutoMapper.Mapper.CreateMap<UpdateOrganizationUser, OrganizationUserEntity>()
 				.ForMember(
 					p => p.Identifier,
 					o => o.MapFrom(u => u.UserId))
-				.ForMember(p => p.Organization, o => o.Ignore());
+				.ForMember(p => p.OrganizationEntity, o => o.Ignore());
 		}
 
 		public override void Process(UpdateOrganizationUser message)
