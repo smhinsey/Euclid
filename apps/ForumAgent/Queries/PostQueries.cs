@@ -59,15 +59,19 @@ namespace ForumAgent.Queries
 			return totalPosts;
 		}
 
-		public PostListing GetPostListing(int pageSize, int offset)
+		public PostListing GetPostListing(Guid forumId, int pageSize, int offset)
 		{
 			var result = new PostListing { Posts = new List<Post>() };
 
 			var session = GetCurrentSession();
 
-			var posts = session.QueryOver<Post>().OrderBy(p => p.Created).Desc.Skip(offset).Take(pageSize);
+			var posts = session.QueryOver<Post>()
+				.Where(p => p.ForumIdentifier == forumId)
+				.OrderBy(p => p.Created).Desc.Skip(offset).Take(pageSize);
 
-			var totalPosts = session.QueryOver<Post>().RowCount();
+			var totalPosts = session.QueryOver<Post>()
+				.Where(p => p.ForumIdentifier == forumId)
+				.RowCount();
 
 			result.TotalPosts = totalPosts;
 
