@@ -3,7 +3,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using AdminComposite.Extensions;
 using Euclid.Common.Extensions;
+using ForumAgent;
 using ForumAgent.Processors;
 using ForumAgent.Queries;
 
@@ -13,6 +15,8 @@ namespace AdminComposite.ActionFilters
 	{
 		public ForumQueries forumQueries { get; set; }
 		public OrganizationUserQueries userQueries { get; set; }
+		public OrganizationQueries OrganizationQueries { get; set; }
+
 		private readonly Assembly _currentAssembly;
 		public PopulateAdminWideViewBag()
 		{
@@ -42,31 +46,22 @@ namespace AdminComposite.ActionFilters
 			}
 			else
 			{
+				var organization = OrganizationQueries.FindByIdentifier(currentUser.OrganizationIdentifier);
+
+				if (organization == null)
+				{
+					throw new OrganizationNotFoundException(currentUser.OrganizationIdentifier);
+				}
+
 				filterContext.Controller.ViewBag.Forums = forumQueries.GetForums();
 				filterContext.Controller.ViewBag.CurrentForumId = filterContext.GetRequestValue("forumId");
-				filterContext.Controller.ViewBag.OrganizationId = currentUser.OrganizationIdentifier;
+				filterContext.Controller.ViewBag.OrganizationId = organization.Identifier;
+				filterContext.Controller.ViewBag.OrganizationName = organization.Name;
 				filterContext.Controller.ViewBag.UserId = currentUser.Identifier;
 				filterContext.Controller.ViewBag.FirstName = currentUser.FirstName;
 				filterContext.Controller.ViewBag.LastName = currentUser.LastName;
 				filterContext.Controller.ViewBag.Gravatar = string.Format("http://www.gravatar.com/avatar/{0}?s=45", currentUser.Email.GetMd5());
 			}
-		}
-	}
-
-	public static class FilterContextExtensions
-	{
-		public static string GetRequestValue(this ActionExecutedContext filterContext, string key)
-		{
-			if (string.IsNullOrEmpty(key)) return string.Empty;
-
-			var result = (string)filterContext.Controller.ControllerContext.RouteData.Values[key];
-
-			if (string.IsNullOrEmpty(key))
-			{
-				result = filterContext.Controller.ControllerContext.HttpContext.Request[key];
-			}
-
-			return result;
 		}
 	}
 } 

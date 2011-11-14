@@ -1,5 +1,6 @@
-﻿@model object
-
+﻿@using AdminComposite.Models
+@using Euclid.Composites.Mvc.Extensions
+@model UpdateOrganizationInputModel
 
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -54,8 +55,13 @@
 				var inputSelector = "#" + id + " input";
 				var value = $(inputSelector).val();
 
+				var updateSelector = "#update-" + id;
+				$(updateSelector).val(value);
+				$(item).attr("data-original-value", value);
 				console.log(id + " = " + value);
 			});
+
+			$("#update-form").submit();
 			resetEditableFields();
 		});
 
@@ -69,6 +75,7 @@
 		$("#organization-details .organization-detail").each(function (index, item) {
 			item.reset();
 			$(item).editable("disable");
+			$(item).text($(item).attr('data-original-value'));
 		});
 
 		$("#trigger-edit").show();
@@ -92,7 +99,7 @@
 	.organization-detail 
 	{
 		width:200px;
-		display:inline block;
+		/* display:inline block; */
 	}
 </style>
 
@@ -107,28 +114,31 @@
 
 			<dl id="organization-details">
 				<dt><label for="organization-name">Organization Name</label></dt>
-				<dd class="text"><p id="organization-name" class="organization-detail">Organization Name</p></dd>
+				<dd class="text"><p id="organization-name" class="organization-detail" data-original-value="@Model.OrganizationName">@Model.OrganizationName</p></dd>
 
 				<dt><label for="organization-url">Website Url</label></dt>
-				<dd class="text"><p id="organization-url" class="organization-detail">http://google.com</p></dd>
+				<dd class="text"><p id="organization-url" class="organization-detail" data-original-value="@Model.OrganizationUrl">@Model.OrganizationUrl</p></dd>
 
 				<dt><label for="organization-phone">Phone Number</label></dt>
-				<dd class="text"><p id="organization-phone" class="organization-detail">(123)456-7890</p></dd>
+				<dd class="text"><p id="organization-phone" class="organization-detail"  data-original-value="@Model.PhoneNumber">@Model.PhoneNumber</p></dd>
 
-				<dt><label for="organization-address-1">Address</label></dt>
-				<dd class="text"><p id="organization-address-1" class="organization-detail">Address</p></dd>
+				<dt><label for="organization-address">Address</label></dt>
+				<dd class="text"><p id="organization-address" class="organization-detail"  data-original-value="@Model.Address">@Model.Address</p></dd>
+
+				<dt><label for="organization-address-1">Address 2</label></dt>
+				<dd class="text"><p id="organization-address-2" class="organization-detail"  data-original-value="@Model.Address2">@Model.Address2</p></dd>
 
 				<dt><label for="organizaiton-city">City</label></dt>
-				<dd class="text"><p id="organization-city" class="organization-detail">City</p></dd>
+				<dd class="text"><p id="organization-city" class="organization-detail"  data-original-value="@Model.City">@Model.City</p></dd>
 
 				<dt><label for="organization-state">State / Region</label></dt>
-				<dd class="text"><p id="organization-state" class="organization-detail">State/Region</p></dd>
+				<dd class="text"><p id="organization-state" class="organization-detail"  data-original-value="@Model.State">@Model.State</p></dd>
 
 				<dt><label for="organization-zip">Zip / Postal Code</label></dt>
-				<dd class="text"><p id="organization-zip" class="organization-detail">22314</p></dd>
+				<dd class="text"><p id="organization-zip" class="organization-detail"  data-original-value="@Model.Zip">@Model.Zip</p></dd>
 
 				<dt><label for="organization-country">Country</label></dt>
-				<dd class="text"><p id="organization-country" class="organization-detail">U.S.A</p></dd>
+				<dd class="text"><p id="organization-country" class="organization-detail"  data-original-value="@Model.Country">@Model.Country</p></dd>
 			</dl>
 		</fieldset>
 
@@ -137,11 +147,25 @@
 		<button type="button" id="save-edit" style="display:none">Save</button>
 	</form>
 
+	@using (Html.BeginFormForInputModel(Model, false, string.Empty, "update-form"))
+	{
+		@Html.HiddenFor(m => m.OrganizationIdentifier)
+		@Html.HiddenFor(m=>m.Address, new { id="update-organization-address" })
+		@Html.HiddenFor(m => m.Address2, new { id = "update-organization-address2" })
+		@Html.HiddenFor(m => m.City, new { id = "update-organization-city" })
+		@Html.HiddenFor(m => m.Country, new { id = "update-organization-country" })
+		@Html.HiddenFor(m => m.OrganizationName, new { id = "update-organization-name" })
+		@Html.HiddenFor(m => m.OrganizationUrl, new { id = "update-organization-url" })
+		@Html.HiddenFor(m => m.PhoneNumber, new { id = "update-organization-phone" })
+		@Html.HiddenFor(m => m.State, new { id = "update-organization-state" })
+		@Html.HiddenFor(m => m.Zip, new { id = "update-organization-zip" })
+	}
+
 </article>
 
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
-		<li>@ViewBag.Title</li>
+		<li>Manage @ViewBag.OrganizationName</li>
 	</ul>
 }

@@ -62,13 +62,16 @@
     <Compile Include="Commands\CreateForum.cs" />
     <Compile Include="Commands\PublishPost.cs" />
     <Compile Include="Commands\UpdateLastLogin.cs" />
+    <Compile Include="Commands\UpdateOrganization.cs" />
     <Compile Include="Domain\MyAggregateRoot.cs" />
+    <Compile Include="OrganizationNotFoundException.cs" />
     <Compile Include="Processors\CreateForumProcessor.cs" />
     <Compile Include="Processors\CreateOrganizationAndRegisterUserProcessor.cs" />
     <Compile Include="Processors\RegisterForumUserProcessor.cs" />
     <Compile Include="Commands\UpdateUserProfile.cs" />
     <Compile Include="Processors\RegisterOrganizationUserProcessor.cs" />
     <Compile Include="Processors\UpdateLastLoginProcessor.cs" />
+    <Compile Include="Processors\UpdateOrganizationProcessor.cs" />
     <Compile Include="Processors\UpdateUserProfileProcessor.cs" />
     <Compile Include="Commands\VoteOnComment.cs" />
     <Compile Include="Commands\VoteOnPost.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\CommentQueries.cs" />
     <Compile Include="Queries\ForumQueries.cs" />
+    <Compile Include="Queries\OrganizationQueries.cs" />
     <Compile Include="Queries\OrganizationUserQueries.cs" />
     <Compile Include="Queries\PostQueries.cs" />
     <Compile Include="Queries\UserQueries.cs" />

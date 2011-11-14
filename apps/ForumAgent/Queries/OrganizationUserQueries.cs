@@ -16,7 +16,11 @@ namespace ForumAgent.Queries
 		{
 			_session = session;
 			_repository = new NhSimpleRepository<OrganizationUserEntity>(session);
-			AutoMapper.Mapper.CreateMap<OrganizationUserEntity, OrganizationUser>();
+			AutoMapper.Mapper.CreateMap<OrganizationUserEntity, OrganizationUser>().ForMember(u => u.OrganizationIdentifier,
+			                                                                                  o =>
+			                                                                                  o.MapFrom(
+			                                                                                  	e =>
+			                                                                                  	e.OrganizationEntity.Identifier));
 		}
 
 		public bool AutenticateOrganizationUser(string username, string password)
@@ -50,7 +54,7 @@ namespace ForumAgent.Queries
 
 		public OrganizationUser FindByIdentifier(Guid identifier)
 		{
-			var user = _session.QueryOver<OrganizationUserEntity>().Where(u => u.Identifier == identifier).SingleOrDefault();
+			var user = _repository.FindById(identifier);
 
 			return (user == null) ? null : AutoMapper.Mapper.Map<OrganizationUser>(user);
 		}

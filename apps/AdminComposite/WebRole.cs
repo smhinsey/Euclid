@@ -98,10 +98,15 @@ namespace AdminComposite
 				         		Username = input.Username
 				         	});
 
+			composite.RegisterInputModelMap<UpdateOrganizationInputModel, UpdateOrganization>();
+
 			setAzureCredentials(container);
 
 			container.Register(
 				Component.For<OrganizationUserQueries>().ImplementedBy<OrganizationUserQueries>().LifeStyle.PerWebRequest);
+
+			container.Register(
+				Component.For<OrganizationQueries>().ImplementedBy<OrganizationQueries>().LifeStyle.PerWebRequest);
 
 			_initialized = true;
 		}

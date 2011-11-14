@@ -60,7 +60,31 @@
 					<fieldset>
 						<legend>Forum Details</legend>
 						
-						@{Html.RenderPartial("_ForumDetails");}
+						<dl>
+							<dt><label for="forum-name">Name</label></dt>
+							<dd class="text">@Model.Name</dd>
+
+							<dt><label for="forum-slug">Slug</label></dt>
+							<dd class="text">
+								@Model.UrlSlug
+							</dd>
+
+							<dt><label for="forum-host">Host</label></dt>
+							<dd  class="text">
+								@Model.UrlHostName
+							</dd>
+
+							<dt><label>Description</label></dt>
+							<dd class="text">
+								@Html.Raw(Model.Description)
+							</dd>
+						</dl>
+						
+						@{
+							var forumUrl = string.Format("http//{0}/{1}/forums/{2}", Model.UrlHostName, @ViewBag.OrganizationName, @Model.Name);
+						}
+						<p class="notification information"><a href="@forumUrl" title="forum-url">@forumUrl</a></p>
+
 					</fieldset>
 				
 					<fieldset>
@@ -68,24 +92,21 @@
 
 						<dl>
 							<dt><label for="copy-badges">Badges</label></dt>
-							<dd><input type="checkbox" id="copy-badges"/></dd>
+							<dd><input type="checkbox" id="copy-badges" readonly="readonly" disabled="disabled"/></dd>
 
 							<dt><label for="copy-categories">Categories</label> </dt>
-							<dd><input type="checkbox" id="copy-categories"/> </dd>
+							<dd><input type="checkbox" id="copy-categories" readonly="readonly" disabled="disabled"/> </dd>
 
 							<dt><label for="copy-voting">Voting</label></dt>
-							<dd><input type="checkbox" id="copy-voting"/></dd>
+							<dd><input type="checkbox" id="copy-voting" readonly="readonly" disabled="disabled"/></dd>
 
 							<dt><label for="copy-content">Content</label></dt>
-							<dd><input type="checkbox" id="copy-content"/></dd>
+							<dd><input type="checkbox" id="copy-content" readonly="readonly" disabled="disabled"/></dd>
 
 							<dt><label for="copy-theme">Theme Selection</label></dt>
-							<dd><input type="checkbox" id="copy-theme"/></dd>
+							<dd><input type="checkbox" id="copy-theme" readonly="readonly" disabled="disabled"/></dd>
 						</dl>
 					</fieldset>
-
-					<button type="submit">Copy to Test</button>
-					<button type="submit">Save Settings</button>
 				</form>
 			</div>
 		</div>

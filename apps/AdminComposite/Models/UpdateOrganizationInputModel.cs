@@ -1,16 +1,18 @@
-﻿using Euclid.Composites.Mvc.Models;
+using System;
+using Euclid.Composites.Mvc.Models;
 using ForumAgent.Commands;
 
 namespace AdminComposite.Models
 {
-	public class CreateOrganizationAndUserInputModel : DefaultInputModel
+	public class UpdateOrganizationInputModel : DefaultInputModel
 	{
-		public CreateOrganizationAndUserInputModel()
+		public UpdateOrganizationInputModel()
 		{
 			AgentSystemName = "NewCo.ForumAgent";
 			CommandType = typeof(UpdateOrganization);
 		}
 
+		public Guid OrganizationIdentifier { get; set; }
 		public string OrganizationName { get; set; }
 		public string OrganizationUrl { get; set; }
 		public string PhoneNumber { get; set; }
@@ -20,10 +22,5 @@ namespace AdminComposite.Models
 		public string State { get; set; }
 		public string Zip { get; set; }
 		public string Country { get; set; }
-		public string FirstName { get; set; }
-		public string LastName { get; set; }
-		public string Email { get; set; }
-		public string Username { get; set; }
-		public string Password { get; set; }
 	}
 }

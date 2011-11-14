@@ -11,11 +11,17 @@ namespace AdminComposite.Controllers
 	public class OrganizationController : Controller
 	{
 		private readonly OrganizationUserQueries _userQueries;
+		private readonly OrganizationQueries _organizationQueries;
 
-		public OrganizationController(OrganizationUserQueries userQueries)
+		public OrganizationController(OrganizationUserQueries userQueries, OrganizationQueries organizationQueries)
 		{
 			_userQueries = userQueries;
+			_organizationQueries = organizationQueries;
 			AutoMapper.Mapper.CreateMap<OrganizationUser, UpdateOrganizationUserInputModel>();
+			AutoMapper.Mapper.CreateMap<Organization, UpdateOrganizationInputModel>()
+				.ForMember(input => input.OrganizationName, o => o.MapFrom(org => org.Name))
+				.ForMember(input => input.OrganizationUrl, o => o.MapFrom(org => org.WebsiteUrl))
+				.ForMember(input=>input.OrganizationIdentifier, o=>o.MapFrom(org=>org.Identifier));
 		}
 
 		//
@@ -23,7 +29,9 @@ namespace AdminComposite.Controllers
 		public ActionResult Details(Guid organizationId)
 		{
 			ViewBag.Title = string.Format("Manage Organization {0}", organizationId);
-			return View();
+			var org = _organizationQueries.FindByIdentifier(organizationId);
+
+			return View(AutoMapper.Mapper.Map<UpdateOrganizationInputModel>(org));
 		}
 
 		public ActionResult ListUsers(Guid organizationId, int pageNumber = 0, int pageSize = 25)

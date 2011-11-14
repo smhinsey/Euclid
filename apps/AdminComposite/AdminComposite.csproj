@@ -129,6 +129,7 @@
     <Content Include="Content\jeditable\jquery.jeditable.mini.js" />
     <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.min.js" />
     <Content Include="Content\admin-ui.js" />
+    <Compile Include="Extensions\FilterContextExtensions.cs" />
     <Compile Include="Controllers\BadgeController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ContentController.cs" />
@@ -148,6 +149,8 @@
     <Compile Include="Models\CreateOrganizationAndUserInputModel.cs" />
     <Compile Include="ActionFilters\PopulateAdminWideViewBag.cs" />
     <Compile Include="Models\RegisterOrganizationUserInputModel.cs" />
+    <Compile Include="Models\UpdateOrganizationInputModel.cs" />
+    <Compile Include="Models\UpdateOrganizationUserInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>

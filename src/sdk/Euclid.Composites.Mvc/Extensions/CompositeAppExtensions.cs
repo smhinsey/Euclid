@@ -16,7 +16,7 @@ namespace Euclid.Composites.Mvc.Extensions
 
 			if (map == null)
 			{
-				throw new CannotMapCommandException();
+				throw new CannotMapCommandException(commandName, app.InputModels.Select(m=>m.Type.FullName));
 			}
 
 			var inputModelType = map.SourceType;
