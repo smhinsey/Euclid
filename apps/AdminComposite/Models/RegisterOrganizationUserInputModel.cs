@@ -1,12 +1,12 @@
-using System;
+﻿using System;
 using Euclid.Composites.Mvc.Models;
 using ForumAgent.Commands;
 
 namespace AdminComposite.Models
 {
-	public class AddOrganizationUserInputModel : DefaultInputModel
+	public class RegisterOrganizationUserInputModel : DefaultInputModel
 	{
-		public AddOrganizationUserInputModel()
+		public RegisterOrganizationUserInputModel()
 		{
 			AgentSystemName = "NewCo.ForumAgent";
 			CommandType = typeof(RegisterOrganizationUser);
@@ -17,5 +17,6 @@ namespace AdminComposite.Models
 		public string LastName { get; set; }
 		public string Email { get; set; }
 		public string Username { get; set; }
+		public string Password { get; set; }
 	}
 }

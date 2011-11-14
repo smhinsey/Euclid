@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AdminComposite.Models;
 using ForumAgent.Queries;
+using ForumAgent.ReadModels;
 
 namespace AdminComposite.Controllers
 {
@@ -13,6 +14,7 @@ namespace AdminComposite.Controllers
 		public OrganizationController(OrganizationUserQueries userQueries)
 		{
 			_userQueries = userQueries;
+			AutoMapper.Mapper.CreateMap<OrganizationUser, RegisterOrganizationUserInputModel>();
 		}
 
 		//
@@ -29,28 +31,26 @@ namespace AdminComposite.Controllers
 		}
 
 		[HttpGet]
-		public PartialViewResult GetUser(Guid? organizationId, Guid? userId)
+		public PartialViewResult RegisterUser(Guid organizationId, Guid? userId)
 		{
 			ViewBag.Title = "Add a user";
 
-			if (!organizationId.HasValue)
-			{
-				organizationId = Guid.Empty;
-			}
+			RegisterOrganizationUserInputModel model;
 
 			if (!userId.HasValue)
 			{
-				userId = Guid.Empty;
+				model = new RegisterOrganizationUserInputModel
+				        	{
+				        		OrganizationId = organizationId
+				        	};
+			}
+			else
+			{
+				model = AutoMapper.Mapper.Map<RegisterOrganizationUserInputModel>(_userQueries.FindByIdentifier(userId.Value));
 			}
 
-			return PartialView("_OrganizationUserForm", new CreateOrganizationUserModel
-			                                           	{
-			                                           		ContactInfoRequired = false,
-															OrganizationIdentifier = organizationId.Value,
-															DisplayTitle = false,
-			                                           	});
+
+			return PartialView("_OrganizationUserForm", model);
 		}
-
-
 	}
 }

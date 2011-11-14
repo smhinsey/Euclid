@@ -66,6 +66,7 @@
     <Compile Include="Processors\CreateOrganizationAndRegisterUserProcessor.cs" />
     <Compile Include="Processors\RegisterForumUserProcessor.cs" />
     <Compile Include="Commands\UpdateUserProfile.cs" />
+    <Compile Include="Processors\RegisterOrganizationUserProcessor.cs" />
     <Compile Include="Processors\UpdateLastLoginProcessor.cs" />
     <Compile Include="Processors\UpdateUserProfileProcessor.cs" />
     <Compile Include="Commands\VoteOnComment.cs" />

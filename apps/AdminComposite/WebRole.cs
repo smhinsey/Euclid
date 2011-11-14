@@ -64,7 +64,6 @@ namespace AdminComposite
 			composite.AddAgent(typeof(LogQueries).Assembly);
 
 			composite.RegisterInputModelMap<CreateForumInputModel, CreateForum>();
-			composite.RegisterInputModelMap<AddOrganizationUserInputModel, RegisterOrganizationUser>();
 			composite.RegisterInputModelMap<CreateOrganizationAndUserInputModel, CreateOrganizationAndRegisterUser>(input=>new CreateOrganizationAndRegisterUser
 			                                                                                                               	{
 			                                                                                                               		Address = input.Address,
@@ -84,6 +83,9 @@ namespace AdminComposite
 																																PasswordHash = input.Password,
 																																PasswordSalt = input.Password
 			                                                                                                               	});
+
+			//the processor will handle generating passwords for users registered by an admin
+			composite.RegisterInputModelMap<RegisterOrganizationUserInputModel, RegisterOrganizationUser>(); 
 
 			setAzureCredentials(container);
 

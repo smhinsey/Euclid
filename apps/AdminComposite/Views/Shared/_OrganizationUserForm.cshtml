@@ -1,43 +1,42 @@
 ﻿@using AdminComposite.Models
-@model CreateOrganizationUserModel
-@{
-	var buttonText = @Model.OrganizationIdentifier == Guid.Empty ? "Sign up" : "Add user";
-}
+@using Euclid.Composites.Mvc.Extensions
+@model RegisterOrganizationUserInputModel
 
+@using (Html.BeginFormForInputModel(Model))
+{
+	@Html.HiddenFor(m=>m.OrganizationId)
+	<fieldset>
+		<legend>User</legend>
 
-<fieldset>
-	<legend>User</legend>
+		<div class="input-container">
+			<label>First Name*</label>
+			<br />
+			@Html.TextBoxFor(m=>m.FirstName)
+		</div>
 
-	<div class="input-container">
-		<label>First Name*</label>
-		<br />
-		<input type="text" />
-	</div>
+		<div class="input-container">
+			<label>Last Name*</label>
+			<br />
+			@Html.TextBoxFor(m=>m.LastName)
+		</div>
 
-	<div class="input-container">
-		<label>Last Name*</label>
-		<br />
-		<input type="text" />
-	</div>
+		<div class="input-container">
+			<label>Email*</label>
+			<br />
+			@Html.TextBoxFor(m=>m.Email)
+		</div>
 
-	<div class="input-container">
-		<label>Email*</label>
-		<br />
-		<input type="text" />
-	</div>
+		<div class="input-container">
+			<label>Username*</label>
+			<br />
+			@Html.TextBoxFor(m=>m.Username)
+		</div>
 
-	<div class="input-container">
-		<label>Username*</label>
-		<br />
-		<input type="text" />
-	</div>
-
-	@if (Model.OrganizationIdentifier == Guid.Empty)
-	{
 		<div class="note-container">
 			<p class="note">An automatically generated password will be sent to the specified email address</p>
 		</div>
-	}
-</fieldset>
+	</fieldset>
 
-<button type="submit">@buttonText</button>
+	<button type="submit">Add User</button>
+}
+
