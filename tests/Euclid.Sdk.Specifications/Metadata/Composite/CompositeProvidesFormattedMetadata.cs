@@ -6,6 +6,7 @@ using TechTalk.SpecFlow;
 namespace Euclid.Sdk.Specifications.Metadata.Composite
 {
 	[Binding]
+	[StepScope(Feature = "Composite provides configuration metadata")]
 	public class CompositeProvidesFormattedMetadata : CompositeTestProperties
 	{
 		[Given("it contains the TestAgent")]

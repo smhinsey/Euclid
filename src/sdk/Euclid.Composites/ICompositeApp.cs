@@ -27,7 +27,7 @@ namespace Euclid.Composites
 
 		void Configure(CompositeAppSettings compositeAppSettings);
 
-		IPartMetadata GetCommandMetadataForInputModel(Type inputModelType);
+		//IPartMetadata GetCommandMetadataForInputModel(Type inputModelType);
 
 		IEnumerable<string> GetConfigurationErrors();
 

@@ -103,6 +103,7 @@
     <Compile Include="AgentResolution\AppDomainAgentResolver.cs" />
     <Compile Include="AgentResolution\FileSystemAgentResolver.cs" />
     <Compile Include="AgentResolution\IAgentResolver.cs" />
+    <Compile Include="AutoMapperInputModelCollection.cs" />
     <Compile Include="Conversion\CommandAlreadyMappedException.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,8 +122,10 @@
     </Compile>
     <Compile Include="Formatters\CompositeMetadataFormatter.cs" />
     <Compile Include="ICompositeApp.cs" />
+    <Compile Include="IInputModelMapCollection.cs" />
     <Compile Include="InMemoryCommandPublicationRecordMapper.cs" />
     <Compile Include="Conversion\InputModelAlreadyRegisteredException.cs" />
+    <Compile Include="InputModelNotRegisteredException.cs" />
     <Compile Include="InvalidCompositeApplicationStateException.cs" />
     <Compile Include="Extensions\AgentResolversExtensions.cs" />
     <Compile Include="InvalidConfigurationException.cs" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using Castle.Windsor;
+using Euclid.Common.Messaging;
 using Euclid.Composites;
 using Euclid.Composites.Conversion;
 using Euclid.Framework.AgentMetadata;
@@ -22,9 +23,22 @@ namespace Euclid.Sdk.Specifications.InputModelConversion
 			set { ScenarioContext.Current["ca"] = value; }
 		}
 
+		IInputModelMapCollection InputModelMaps
+		{
+			get { return ScenarioContext.Current["imm"] as IInputModelMapCollection; }
+			set { ScenarioContext.Current["imm"] = value; }
+		}
+
 		public InputModelSteps()
 		{
-			Composite = new BasicCompositeApp(new WindsorContainer());
+			var container = new WindsorContainer();
+			Composite = new BasicCompositeApp(container);
+
+			var settings = new CompositeAppSettings();
+			settings.OutputChannel.ApplyOverride(typeof(InMemoryMessageChannel));
+			Composite.Configure(settings);
+
+			InputModelMaps = container.Resolve<IInputModelMapCollection>();
 		}
 
 		[Given(@"a registered inputmodel and command")]
@@ -58,7 +72,7 @@ namespace Euclid.Sdk.Specifications.InputModelConversion
 
 			try
 			{
-				ScenarioContext.Current["command"] = Composite.GetCommandMetadataForInputModel(typeof(TestInputModel));
+				ScenarioContext.Current["command"] = InputModelMaps.GetCommandMetadataForInputModel(typeof(TestInputModel));
 			}
 			catch (AutoMapperMappingException ex)
 			{

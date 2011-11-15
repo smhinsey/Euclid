@@ -8,11 +8,11 @@ namespace Euclid.Composites.Mvc.Binders
 {
 	public class InputModelBinder : IEuclidModelBinder
 	{
-		private readonly ICompositeApp _compositeApp;
+		private readonly IInputModelMapCollection _inputModelMaps;
 
-		public InputModelBinder(ICompositeApp compositeApp)
+		public InputModelBinder(IInputModelMapCollection inputModelMaps)
 		{
-			_compositeApp = compositeApp;
+			_inputModelMaps = inputModelMaps;
 		}
 
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
@@ -21,7 +21,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 			var valueProvider = bindingContext.ValueProvider;
 
-			return _compositeApp.GetInputModelFromCommandName(commandName, valueProvider);
+			return _inputModelMaps.GetInputModelFromCommandName(commandName, valueProvider);
 		}
 
 		public bool IsMatch(Type modelType)

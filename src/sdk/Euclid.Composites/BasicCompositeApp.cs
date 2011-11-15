@@ -12,7 +12,6 @@ using Euclid.Common.Messaging;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.Storage.Record;
-using Euclid.Composites.Conversion;
 using Euclid.Composites.Formatters;
 using Euclid.Framework.AgentMetadata;
 using Euclid.Framework.AgentMetadata.Extensions;
@@ -32,12 +31,11 @@ namespace Euclid.Composites
 	{
 		private readonly IList<IAgentMetadata> _agents;
 
-		private readonly IList<ITypeMetadata> _inputModels;
+		private IInputModelMapCollection _inputModelMap;
 
 		public BasicCompositeApp()
 		{
 			_agents = new List<IAgentMetadata>();
-			_inputModels = new List<ITypeMetadata>();
 
 			State = CompositeApplicationState.Uninitailized;
 			Container = new WindsorContainer();
@@ -51,10 +49,7 @@ namespace Euclid.Composites
 
 		public IEnumerable<IAgentMetadata> Agents
 		{
-			get
-			{
-				return _agents;
-			}
+			get { return _agents; }
 		}
 
 		public string Description { get; set; }
@@ -62,9 +57,7 @@ namespace Euclid.Composites
 		public IEnumerable<ITypeMetadata> InputModels
 		{
 			get
-			{
-				return _inputModels;
-			}
+			{ return _inputModelMap.InputModels; }
 		}
 
 		public string Name { get; set; }
@@ -95,7 +88,7 @@ namespace Euclid.Composites
 			Container.Register(
 				AllTypes.FromAssembly(agent.AgentAssembly)
 					// .Where(Component.IsInNamespace(agent.Queries.Namespace))
-					.BasedOn(typeof(IQuery)).WithService.Self().Configure(component => component.LifeStyle.Transient));
+					.BasedOn(typeof (IQuery)).WithService.Self().Configure(component => component.LifeStyle.Transient));
 		}
 
 		public virtual void Configure(CompositeAppSettings compositeAppSettings)
@@ -111,6 +104,8 @@ namespace Euclid.Composites
 			Container.Register(Component.For<ICompositeApp>().Instance(this));
 
 			Settings = compositeAppSettings;
+
+			_inputModelMap = Container.Resolve<IInputModelMapCollection>();
 
 			Settings.Validate();
 
@@ -133,9 +128,9 @@ namespace Euclid.Composites
 
 		public IPartMetadata GetCommandMetadataForInputModel(Type inputModelType)
 		{
-			if (!typeof(IInputModel).IsAssignableFrom(inputModelType))
+			if (!typeof (IInputModel).IsAssignableFrom(inputModelType))
 			{
-				throw new InvalidTypeSettingException(inputModelType.FullName, typeof(IInputModel), inputModelType.GetType());
+				throw new InvalidTypeSettingException(inputModelType.FullName, typeof (IInputModel), inputModelType.GetType());
 			}
 
 			var map = Mapper.GetAllTypeMaps().Where(m => m.SourceType == inputModelType).FirstOrDefault();
@@ -185,34 +180,15 @@ namespace Euclid.Composites
 			where TInputModelSource : IInputModel
 			where TCommandDestination : ICommand
 		{
-			ValidateMapComponents<TInputModelSource, TCommandDestination>();
-
-			Mapper.CreateMap<TInputModelSource, TCommandDestination>();
+			_inputModelMap.RegisterInputModel<TInputModelSource, TCommandDestination>();
 		}
 
-		public void RegisterInputModelMap<TInputModelSource, TCommandDestination>(Func<TInputModelSource, TCommandDestination> customMap)
+		public void RegisterInputModelMap<TInputModelSource, TCommandDestination>(
+			Func<TInputModelSource, TCommandDestination> customMap)
 			where TInputModelSource : IInputModel
 			where TCommandDestination : ICommand
 		{
-			ValidateMapComponents<TInputModelSource, TCommandDestination>();
-
-			Mapper.CreateMap<TInputModelSource, TCommandDestination>().ConvertUsing(customMap);
-		}
-
-		private void ValidateMapComponents<TSource, TDestination>()
-		{
-			var typeMaps = Mapper.GetAllTypeMaps();
-			if (typeMaps.Any(t => t.SourceType == typeof(TSource)))
-			{
-				throw new InputModelAlreadyRegisteredException(typeof(TSource).FullName);
-			}
-
-			if (typeMaps.Any(t=>t.DestinationType == typeof(TDestination)))
-			{
-				throw new CommandAlreadyMappedException(typeof(TDestination).FullName);
-			}
-
-			_inputModels.Add(typeof(TSource).GetMetadata());
+			_inputModelMap.RegisterInputModel(customMap);
 		}
 
 		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool isWeb)
@@ -252,6 +228,10 @@ namespace Euclid.Composites
 			Container.Register(
 				Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().Forward<ICommandRegistry>().
 					ImplementedBy(compositeAppSettings.PublicationRegistry.Value).LifeStyle.Transient);
+
+			Container.Register(
+				Component.For<IInputModelMapCollection>().ImplementedBy(compositeAppSettings.InputModelCollection.Value).LifeStyle.
+					Transient);
 		}
 
 		private MappingConfiguration mapAllAssemblies(MappingConfiguration mcfg)
@@ -260,7 +240,7 @@ namespace Euclid.Composites
 
 			var assembliesToMap = new Dictionary<Assembly, Assembly>();
 
-			if (Settings.CommandPublicationRecordMapper.Value == typeof(NhRecordMapper<CommandPublicationRecord>))
+			if (Settings.CommandPublicationRecordMapper.Value == typeof (NhRecordMapper<CommandPublicationRecord>))
 			{
 				mcfg.AutoMappings.Add(
 					AutoMap.AssemblyOf<CommandPublicationRecord>(autoMapperConfiguration).Conventions.Add
@@ -294,13 +274,6 @@ namespace Euclid.Composites
 			}
 
 			return mcfg;
-		}
-	}
-
-	public class InputModelNotRegisteredException : Exception
-	{
-		public InputModelNotRegisteredException(Type type) : base(type.FullName)
-		{
 		}
 	}
 }

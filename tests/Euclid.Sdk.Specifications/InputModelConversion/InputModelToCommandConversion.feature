@@ -12,7 +12,7 @@ Then the command is returned
 Scenario: Register a single input model for multiple commands
 Given a registered inputmodel and command
 When the same inputmodel is registered for a new command
-Then a InputModelAlreadRegisteredException exception is thrown
+Then a InputModelAlreadyRegisteredException exception is thrown
 
 Scenario: Register multiple input models for a command
 Given a registered inputmodel and command

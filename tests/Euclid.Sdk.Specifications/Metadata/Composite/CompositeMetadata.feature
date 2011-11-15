@@ -11,22 +11,22 @@ Scenario Outline: Composite can provide metadata about it's configuration
 	And the call to GetConfigurationErrors returns an enumerable list that contains <item-count> items
 
 Examples: 
-    | is-or-isn't | true-or-false | item-count |
-    | is          | true          | 0          |
-    | isn't       | false         | 1          |
+	| is-or-isn't | true-or-false | item-count |
+	| is          | true          | 0          |
+	| isn't       | false         | 1          |
 
 
 Scenario Outline: Composite provides formatted metadata
-    Given a composite that <is-or-isn't> configured
-    And it contains the TestAgent
-    And it contains the TestInputModel
-    When metadata is requested as <format-name>
-    Then it can be represented as <content-type>
-    And has been independently validated
+	Given a composite that <is-or-isn't> configured
+	And it contains the TestAgent
+	And it contains the TestInputModel
+	When metadata is requested as <format-name>
+	Then it can be represented as <content-type>
+	And has been independently validated
 
  Examples:
-    | is-or-isn't | format-name | content-type     |
-    | is          | xml         | text/xml         |
-    | is          | json        | application/json |
-    | isn't       | xml         | text/xml         |
-    | isn't       | json        | application/json |
+	| is-or-isn't | format-name | content-type     |
+	| is          | xml         | text/xml         |
+	| is          | json        | application/json |
+	| isn't       | xml         | text/xml         |
+	| isn't       | json        | application/json |

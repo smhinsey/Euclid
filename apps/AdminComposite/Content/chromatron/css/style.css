@@ -115,7 +115,7 @@ section[role=navigation] header {
 	padding-left:25px;
 }
 section[role=navigation] header a {
-	background:url('../img/sample_logo.png') no-repeat;
+	background:url('../img/sample_logo2.png') no-repeat;
 	width:148px;
 	height:31px;
 	text-indent:-9999em;
@@ -1423,7 +1423,7 @@ table .actions .delete { background:url('../img/icons/icon_table_delete.png') no
 	background:none;
 }
 .login section[role=main] > a {
-	background:url('../img/sample_logo.png') no-repeat;
+	background:url('../img/sample_logo2.png') no-repeat;
 	width:148px;
 	height:31px;
 	text-indent:-9999em;

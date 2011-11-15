@@ -122,6 +122,7 @@
     <Content Include="Content\block-user-icon.png" />
     <Content Include="Content\broom.png" />
     <Content Include="Content\chromatron\css\jquery.nyromodal.css" />
+    <Content Include="Content\chromatron\img\sample_logo2.png" />
     <Content Include="Content\chromatron\js\jquery\jquery.nyroModal.custom.js" />
     <Content Include="Content\chromatron\js\jquery\jquery.nyromodal.js" />
     <Content Include="Content\clear.gif" />

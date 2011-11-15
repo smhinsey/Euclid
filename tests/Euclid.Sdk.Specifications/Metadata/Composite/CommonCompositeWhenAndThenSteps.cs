@@ -7,6 +7,7 @@ using TechTalk.SpecFlow;
 namespace Euclid.Sdk.Specifications.Metadata.Composite
 {
 	[Binding]
+	[StepScope(Feature = "Composite provides configuration metadata")]
 	public class CommonCompositeWhenAndThenSteps : CompositeTestProperties
 	{
 		[Given("a composite that (.*) configured")]

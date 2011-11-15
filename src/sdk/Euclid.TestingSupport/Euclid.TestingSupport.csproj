@@ -80,9 +80,6 @@
     <Compile Include="DefaultAgentSteps.cs" />
     <Compile Include="AutoMapperConfiguration.cs" />
     <Compile Include="AgentConfigurator.cs" />
-    <Compile Include="DefaultSpecSteps.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="HostingFabricFixture.cs" />
     <Compile Include="ICommandCompleteStep.cs" />
     <Compile Include="ICommandPublishStep.cs" />
