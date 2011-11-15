@@ -33,7 +33,7 @@ namespace ForumComposite.Controllers
 		{
 			var authorId = Guid.Parse(Request.Cookies["ForumUserId"].Value);
 
-			return View(new PublishPostInputModel { AuthorIdentifier = authorId });
+			return View(new PublishPostInputModel { AuthorIdentifier = authorId, ForumIdentifier = ViewBag.ForumIdentifier });
 		}
 
 		public ActionResult List(int pageSize = 10, int offset = 0)

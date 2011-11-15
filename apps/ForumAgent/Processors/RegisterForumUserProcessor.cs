@@ -19,6 +19,9 @@ namespace ForumAgent.Processors
 		{
 			var newUser = new ForumUser
 				{
+					FirstName = message.FirstName,
+					LastName = message.	LastName,
+					Email = message.Email,
 					PasswordHash = message.PasswordHash,
 					PasswordSalt = message.PasswordSalt,
 					Username = message.Username,

@@ -64,7 +64,16 @@ namespace ForumComposite
 
 			composite.RegisterInputModelMap<CommentOnPostInputModel, CommentOnPost>();
 			composite.RegisterInputModelMap<PublishPostInputModel, PublishPost>();
-			composite.RegisterInputModelMap<RegisterForumUserInputModel, RegisterForumUser>();
+			composite.RegisterInputModelMap<RegisterForumUserInputModel, RegisterForumUser>(m => new RegisterForumUser()
+				{
+					ForumIdentifier = m.ForumIdentifier,
+					FirstName = m.FirstName,
+					LastName = m.LastName,
+					PasswordHash = m.Password,
+					PasswordSalt = m.Password,
+					Username = m.Username,
+					Email = m.Email
+				});
 			composite.RegisterInputModelMap<UpdateUserProfileInputModel, UpdateUserProfile>();
 			composite.RegisterInputModelMap<VoteOnCommentInputModel, VoteOnComment>();
 			composite.RegisterInputModelMap<VoteOnPostInputModel, VoteOnPost>();
