@@ -65,29 +65,28 @@ namespace AdminComposite
 			composite.AddAgent(typeof(LogQueries).Assembly);
 
 			composite.RegisterInputModelMap<CreateForumInputModel, CreateForum>();
-			composite.RegisterInputModelMap<CreateOrganizationAndRegisterUserInputModel, CreateOrganizationAndRegisterUser>(input=>new CreateOrganizationAndRegisterUser
-				input =>
-				new CreateOrganizationAndRegisterUser
-					{
-						Address = input.Address,
-						Address2 = input.Address2,
-						City = input.City,
-						Country = input.Country,
-						Email = input.Email,
-						FirstName = input.FirstName,
-						LastName = input.LastName,
-						Username = input.Username,
-						OrganizationName = input.OrganizationName,
-						OrganizationSlug = input.OrganizationSlug,
-						OrganizationUrl = input.OrganizationUrl,
-						PhoneNumber = input.PhoneNumber,
-						State = input.State,
-						Zip = input.Zip,
-																																OrganizationSlug = input.OrganizationSlug,
-						// TODO: salt & hash password
-						PasswordHash = input.Password,
-						PasswordSalt = input.Password
-					});
+			composite.RegisterInputModelMap<CreateOrganizationAndRegisterUserInputModel, CreateOrganizationAndRegisterUser>(
+				input => new CreateOrganizationAndRegisterUser
+				         	{
+				         		Address = input.Address,
+				         		Address2 = input.Address2,
+				         		City = input.City,
+				         		Country = input.Country,
+				         		Email = input.Email,
+				         		FirstName = input.FirstName,
+				         		LastName = input.LastName,
+				         		Username = input.Username,
+				         		OrganizationName = input.OrganizationName,
+				         		OrganizationSlug = input.OrganizationSlug,
+				         		OrganizationUrl = input.OrganizationUrl,
+				         		PhoneNumber = input.PhoneNumber,
+				         		State = input.State,
+				         		Zip = input.Zip,
+
+				         		// TODO: salt & hash password
+				         		PasswordHash = input.Password,
+				         		PasswordSalt = input.Password
+				         	});
 
 			//the processor will handle generating passwords for users registered by an admin
 			composite.RegisterInputModelMap<RegisterOrganizationUserInputModel, RegisterOrganizationUser>();

@@ -21,7 +21,8 @@ namespace AdminComposite.Controllers
 			AutoMapper.Mapper.CreateMap<Organization, UpdateOrganizationInputModel>()
 				.ForMember(input => input.OrganizationName, o => o.MapFrom(org => org.Name))
 				.ForMember(input => input.OrganizationUrl, o => o.MapFrom(org => org.WebsiteUrl))
-				.ForMember(input=>input.OrganizationIdentifier, o=>o.MapFrom(org=>org.Identifier));
+				.ForMember(input => input.OrganizationSlug, o=>o.MapFrom(org=>org.Slug))
+				.ForMember(input => input.OrganizationIdentifier, o=>o.MapFrom(org=>org.Identifier));
 		}
 
 		//
@@ -29,7 +30,7 @@ namespace AdminComposite.Controllers
 		public ActionResult Details(Guid organizationId)
 		{
 			ViewBag.Title = string.Format("Manage Organization {0}", organizationId);
-			var org = _organizationQueries.FindByIdentifier(organizationId);
+			var org = _organizationQueries.FindById(organizationId);
 
 			return View(AutoMapper.Mapper.Map<UpdateOrganizationInputModel>(org));
 		}

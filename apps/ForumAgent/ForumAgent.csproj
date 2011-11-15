@@ -63,6 +63,7 @@
     <Compile Include="Commands\PublishPost.cs" />
     <Compile Include="Commands\UpdateLastLogin.cs" />
     <Compile Include="Commands\UpdateOrganization.cs" />
+    <Compile Include="Commands\UpdateOrganizationUser.cs" />
     <Compile Include="Domain\MyAggregateRoot.cs" />
     <Compile Include="OrganizationNotFoundException.cs" />
     <Compile Include="Processors\CreateForumProcessor.cs" />

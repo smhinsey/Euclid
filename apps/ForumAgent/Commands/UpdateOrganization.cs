@@ -15,5 +15,6 @@ namespace ForumAgent.Commands
 		public string State { get; set; }
 		public string Zip { get; set; }
 		public string Country { get; set; }
+		public string OrganizationSlug { get; set; }
 	}
 }

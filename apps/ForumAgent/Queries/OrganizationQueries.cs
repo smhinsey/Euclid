@@ -33,7 +33,7 @@ namespace ForumAgent.Queries
 			       	  		Address2 = org.Address2,
 			       	  		City = org.City,
 			       	  		Country = org.Country,
-			       	  		Identifier = identifier,
+			       	  		Identifier = id,
 			       	  		Modified = org.Modified,
 			       	  		Name = org.OrganizationName,
 			       	  		PhoneNumber = org.PhoneNumber,

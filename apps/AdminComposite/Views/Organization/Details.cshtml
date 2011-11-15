@@ -117,7 +117,7 @@
 				<dd class="text"><p id="organization-name" class="organization-detail" data-original-value="@Model.OrganizationName">@Model.OrganizationName</p></dd>
 
 				<dt><label for="organization-slug">Slug</label></dt>
-				<dd class="text"><p id="organization-slug" class="organization-detail">slug</p></dd>
+				<dd class="text"><p id="organization-slug" class="organization-detail">@Model.OrganizationSlug</p></dd>
 
 				<dt><label for="organization-url">Website Url</label></dt>
 				<dd class="text"><p id="organization-url" class="organization-detail" data-original-value="@Model.OrganizationUrl">@Model.OrganizationUrl</p></dd>
@@ -162,6 +162,7 @@
 		@Html.HiddenFor(m => m.PhoneNumber, new { id = "update-organization-phone" })
 		@Html.HiddenFor(m => m.State, new { id = "update-organization-state" })
 		@Html.HiddenFor(m => m.Zip, new { id = "update-organization-zip" })
+		@Html.HiddenFor(m=> m.OrganizationSlug, new { id = "update-organization-slug" })
 	}
 
 </article>

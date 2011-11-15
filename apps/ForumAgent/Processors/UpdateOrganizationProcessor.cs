@@ -37,6 +37,7 @@ namespace ForumAgent.Processors
 			entity.PhoneNumber = organizationInfo.PhoneNumber;
 			entity.State = organizationInfo.State;
 			entity.Zip = organizationInfo.Zip;
+			entity.OrganizationSlug = organizationInfo.OrganizationSlug;
 
 			_repository.Save(entity);
 		}

@@ -20,7 +20,6 @@ namespace AdminComposite.ActionFilters
 			_currentAssembly = GetType().Assembly;
 		}
 
-		public OrganizationQueries OrganizationQueries { get; set; }
 		public void OnActionExecuted(ActionExecutedContext filterContext)
 		{
 			if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly != _currentAssembly)
@@ -46,7 +45,7 @@ namespace AdminComposite.ActionFilters
 			}
 			else
 			{
-				var organization = OrganizationQueries.FindByIdentifier(currentUser.OrganizationIdentifier);
+				var organization = OrganizationQueries.FindById(currentUser.OrganizationIdentifier);
 
 				if (organization == null)
 				{

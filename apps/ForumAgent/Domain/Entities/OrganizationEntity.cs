@@ -20,7 +20,6 @@ namespace ForumAgent.Domain.Entities
 		public virtual string State { get; set; }
 		public virtual string Zip { get; set; }
 		public virtual string Country { get; set; }
-		public virtual string OrganizationSlug { get; set; }
 
 		public virtual IList<OrganizationUserEntity> Users { get; protected set; }
 
