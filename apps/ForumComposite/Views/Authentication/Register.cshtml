@@ -1,6 +1,6 @@
 ﻿@using Euclid.Composites.Mvc.Extensions
 @using ForumComposite.Models
-@model RegisterUserInputModel
+@model RegisterForumUserInputModel
 @{
 	ViewBag.Title = "Register An Account";
 }
@@ -83,6 +83,7 @@
 
 @using (Html.BeginFormForInputModel(Model))
 {
+		@Html.HiddenFor(m => m.ForumIdentifier)
 	<fieldset>
 		<legend />
 		<header>
@@ -108,43 +109,6 @@
 			<dd><input type="password"  class="InputBox"/></dd>
 		</dl>
 	</fieldset>
-
-	<section>
-		<h2>Pick an Avatar</h2>
-		<div id="avatar-select">
-			<ul>
-				<li><a href="#gravatar" class="active">Gravatar</a></li>
-				<li><a href="#canned">Newco</a></li>
-			</ul>
-
-			<div id="gravatar">
-				<fieldset>
-					<legend />
-					<dl>
-						<dt><label>Gravatar Email*</label></dt>
-						<dd><input type="text"/></dd>
-					</dl>
-				</fieldset>
-			</div>
-
-			<div id="canned">
-				<div>
-					<span class="select-image"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></span>
-					<span class="select-image"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></span>
-					<span class="select-image"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></span>
-					<span class="select-image"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></span>
-				</div>
-
-				<div>
-					<a class="select-image" href="#"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></a>
-					<a class="select-image" href="#"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></a>
-					<a class="select-image" href="#"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></a>
-					<a class="select-image" href="#"><img src="@Url.Content("~/Content/img/image-placeholder.png")" alt="avatar placeholder" class="avatar" /></a>
-				</div>
-			</div>
-
-		</div>
-	</section>
 
 	<div class="PostFormControlPanel">
 		<input type="checkbox"/>I agree to the <a href="#" class="ignore">Terms of Use</a> and <a href="#" class="ignore">Privacy Policy</a>

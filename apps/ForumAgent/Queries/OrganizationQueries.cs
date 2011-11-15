@@ -7,19 +7,22 @@ using NHibernate;
 
 namespace ForumAgent.Queries
 {
+	// queries need session management from NhQuery, even though the generic type isn't used currently
+	// TODO: generic type should be an appropriate read model
 	public class OrganizationQueries : NhQuery<Organization>
 	{
-		public OrganizationQueries(ISession session) : base(session)
+		public OrganizationQueries(ISession session)
+			: base(session)
 		{
 		}
 
-		public Organization FindByIdentifier(Guid identifier)
+		public override Organization FindById(Guid id)
 		{
 			var session = GetCurrentSession();
 
 			var repository = new NhSimpleRepository<OrganizationEntity>(session);
 
-			var org = repository.FindById(identifier);
+			var org = repository.FindById(id);
 
 			return (org == null)
 			       	? null

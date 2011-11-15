@@ -13,6 +13,7 @@ namespace ForumComposite.Models
 		}
 
 		public Guid AuthorIdentifier { get; set; }
+		public Guid ForumIdentifier { get; set; }
 
 		public string Body { get; set; }
 

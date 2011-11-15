@@ -13,7 +13,7 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public PostDetail FindCommentsBelongingToPost(Guid postId)
+		public PostDetail FindCommentsBelongingToPost(Guid forumId, Guid postId)
 		{
 			var result = new PostDetail { Comments = new List<Comment>() };
 

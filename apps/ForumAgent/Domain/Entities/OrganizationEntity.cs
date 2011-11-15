@@ -11,6 +11,7 @@ namespace ForumAgent.Domain.Entities
 		public virtual Guid CreatedBy { get; set; }
 		public virtual DateTime Modified { get; set; }
 		public virtual string OrganizationName { get; set; }
+		public virtual string OrganizationSlug { get; set; }
 		public virtual string OrganizationUrl { get; set; }
 		public virtual string PhoneNumber { get; set; }
 		public virtual string Address { get; set; }

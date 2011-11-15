@@ -1,6 +1,8 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using ForumComposite.ActionFilters;
 
 namespace ForumComposite
 {
@@ -17,12 +19,14 @@ namespace ForumComposite
 			routes.IgnoreRoute("favicon.ico");
 
 			routes.MapRoute(
-				"Default", "{controller}/{action}/{id}", new { controller = "Post", action = "List", id = UrlParameter.Optional });
+				"Default", "org/{orgSlug}/forum/{forumSlug}/{controller}/{action}/{id}", new { controller = "Post", action = "List", id = UrlParameter.Optional, orgSlug = Guid.NewGuid(), forumSlug = Guid.NewGuid() });
 		}
 
 		protected void Application_Start()
 		{
 			AreaRegistration.RegisterAllAreas();
+
+			GlobalFilters.Filters.Add(new PopulateForumWideViewBag());
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);

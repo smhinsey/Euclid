@@ -18,9 +18,9 @@ namespace ForumComposite.Controllers
 		[HttpPost]
 		public ActionResult Authenticate(string username, string password)
 		{
-			if (_userQueries.Authenticate(username, password))
+			if (_userQueries.Authenticate(ViewBag.ForumIdentifier, username, password))
 			{
-				var user = _userQueries.FindByUsername(username);
+				var user = _userQueries.FindByUsername(ViewBag.ForumIdentifier, username);
 
 				// SELF need to do something better here
 				Response.Cookies.Add(new HttpCookie("ForumUserId", user.Identifier.ToString()));
@@ -35,7 +35,7 @@ namespace ForumComposite.Controllers
 
 		public ActionResult Register()
 		{
-			return View(new RegisterForumUserInputModel());
+			return View(new RegisterForumUserInputModel() { ForumIdentifier = ViewBag.ForumIdentifier });
 		}
 
 		public ActionResult SignIn()

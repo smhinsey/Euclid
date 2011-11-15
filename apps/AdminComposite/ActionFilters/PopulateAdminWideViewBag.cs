@@ -20,6 +20,7 @@ namespace AdminComposite.ActionFilters
 			_currentAssembly = GetType().Assembly;
 		}
 
+		public OrganizationQueries OrganizationQueries { get; set; }
 		public void OnActionExecuted(ActionExecutedContext filterContext)
 		{
 			if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly != _currentAssembly)
@@ -55,7 +56,7 @@ namespace AdminComposite.ActionFilters
 				filterContext.Controller.ViewBag.Forums = ForumQueries.GetForums();
 				filterContext.Controller.ViewBag.CurrentForumId = filterContext.GetRequestValue("forumId");
 				filterContext.Controller.ViewBag.OrganizationId = organization.Identifier;
-				filterContext.Controller.ViewBag.OrganizationName = organization.Name;
+				filterContext.Controller.ViewBag.OrganizationSlug = organization.Slug;
 				filterContext.Controller.ViewBag.UserId = currentUser.Identifier;
 				filterContext.Controller.ViewBag.FirstName = currentUser.FirstName;
 				filterContext.Controller.ViewBag.LastName = currentUser.LastName;

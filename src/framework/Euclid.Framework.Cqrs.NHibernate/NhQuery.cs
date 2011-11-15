@@ -31,7 +31,7 @@ namespace Euclid.Framework.Cqrs.NHibernate
 			return Repository.FindByCreationDate(begin, end);
 		}
 
-		public TReadModel FindById(Guid id)
+		public virtual TReadModel FindById(Guid id)
 		{
 			return Repository.FindById(id);
 		}

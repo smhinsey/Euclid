@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.ReadModels;
 using NHibernate;
@@ -19,5 +20,13 @@ namespace ForumAgent.Queries
 			return session.QueryOver<Forum>().List();
 		}
 
+		public Guid GetIdentifierBySlug(string slug)
+		{
+			var session = GetCurrentSession();
+
+			var org = session.QueryOver<Forum>().Where(u => u.UrlSlug == slug).SingleOrDefault();
+
+			return org.Identifier;
+		}
 	}
 }

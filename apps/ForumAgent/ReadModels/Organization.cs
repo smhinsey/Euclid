@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Euclid.Composites;
-using Euclid.Framework.Models;
+﻿using Euclid.Framework.Models;
 
 namespace ForumAgent.ReadModels
 {

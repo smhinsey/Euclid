@@ -10,6 +10,7 @@
 	@using (Html.BeginFormForInputModel(Model, true, Url.Action("List")))
 	{
 		@Html.HiddenFor(m => m.AuthorIdentifier)
+		@Html.HiddenFor(m => m.ForumIdentifier)
 
 		<div>
 			@Html.LabelFor(m => m.Title)

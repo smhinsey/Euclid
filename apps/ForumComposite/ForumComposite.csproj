@@ -120,6 +120,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\PopulateForumWideViewBag.cs" />
     <Compile Include="Controllers\AddUserSpecificDataAttribute.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />

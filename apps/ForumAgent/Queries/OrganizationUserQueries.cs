@@ -38,22 +38,25 @@ namespace ForumAgent.Queries
 						.Where(u => u.Username == username)
 						.SingleOrDefault();
 
-			return (user == null)
-			       	? null
-			       	: new OrganizationUser
-			       	  	{
-			       	  		Created = user.Created,
-			       	  		Email = user.Email,
-			       	  		FirstName = user.FirstName,
-			       	  		LastName = user.LastName,
-			       	  		Identifier = user.Identifier,
-			       	  		LastLogin = user.LastLogin,
-			       	  		Modified = user.Modified,
-			       	  		OrganizationIdentifier = user.OrganizationEntity.Identifier,
-			       	  		PasswordHash = user.PasswordHash,
-			       	  		PasswordSalt = user.PasswordSalt,
-			       	  		Username = user.Username
-			       	  	};
+			if (user == null)
+			{
+				return null;
+			}
+			else
+			{
+				var orgUser = AutoMapper.Mapper.Map<OrganizationUser>(user);
+
+				orgUser.OrganizationIdentifier = user.OrganizationEntity.Identifier;
+
+				return orgUser;
+			}
+		}
+
+		public OrganizationUser FindByIdentifier(Guid identifier)
+		{
+			var user = _session.QueryOver<OrganizationUserEntity>().Where(u => u.Identifier == identifier).SingleOrDefault();
+
+			return (user == null) ? null : AutoMapper.Mapper.Map<OrganizationUser>(user);
 		}
 	}
 }
