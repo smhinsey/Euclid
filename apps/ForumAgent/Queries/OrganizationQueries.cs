@@ -1,19 +1,46 @@
-﻿using Euclid.Common.Storage.NHibernate;
+﻿using System;
+using Euclid.Common.Storage.NHibernate;
+using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.Domain.Entities;
+using ForumAgent.ReadModels;
 using NHibernate;
 
 namespace ForumAgent.Queries
 {
-	public class OrganizationQueries
+	// queries need session management from NhQuery, even though the generic type isn't used currently
+	// TODO: generic type should be an appropriate read model
+	public class OrganizationQueries : NhQuery<Organization>
 	{
-		private readonly NhSimpleRepository<OrganizationEntity> _repository;
-
-		private readonly ISession _session;
-
 		public OrganizationQueries(ISession session)
+			: base(session)
 		{
-			_session = session;
-			_repository = new NhSimpleRepository<OrganizationEntity>(session);
+		}
+
+		public override Organization FindById(Guid id)
+		{
+			var session = GetCurrentSession();
+
+			var repository = new NhSimpleRepository<OrganizationEntity>(session);
+
+			var org = repository.FindById(id);
+
+			return new Organization()
+				{
+					Created = org.Created,
+					Identifier = org.Identifier,
+					Modified = org.Modified,
+					Name = org.OrganizationName,
+					Slug = org.OrganizationSlug
+				};
+		}
+
+		public Guid GetIdentifierBySlug(string slug)
+		{
+			var session = GetCurrentSession();
+
+			var org = session.QueryOver<OrganizationEntity>().Where(u => u.OrganizationSlug == slug).SingleOrDefault();
+
+			return org.Identifier;
 		}
 	}
 }

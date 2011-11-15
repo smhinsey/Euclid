@@ -8,7 +8,8 @@ namespace ForumAgent.Domain.Entities.Maps
 		{
 			Id(x => x.Identifier);
 			HasMany(x => x.Users);
-			Map(x=>x.OrganizationName);
+			Map(x => x.OrganizationName);
+			Map(x => x.OrganizationSlug);
 			Map(x=>x.OrganizationUrl);
 			Map(x=>x.PhoneNumber);
 			Map(x=>x.Address);

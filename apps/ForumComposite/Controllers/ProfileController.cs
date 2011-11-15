@@ -19,7 +19,7 @@ namespace ForumComposite.Controllers
 			// SELF there's a better way to do this, but i'm lazy
 			var authorId = Guid.Parse(Request.Cookies["ForumUserId"].Value);
 
-			var posts = _postQueries.FindByAuthorIdentifier(authorId, pageSize, offset);
+			var posts = _postQueries.FindByAuthorIdentifier(ViewBag.ForumIdentifier, authorId, pageSize, offset);
 
 			return View(posts);
 		}

@@ -12,18 +12,19 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public bool Authenticate(string username, string password)
+		public bool Authenticate(Guid forumId, string username, string password)
 		{
 			// TODO: implement safe hashing/salting and all that noise
 			var session = GetCurrentSession();
 
 			var matchedAccount =
-				session.QueryOver<ForumUser>().Where(user => user.PasswordHash == password && user.PasswordSalt == password && user.Username == username);
+				session.QueryOver<ForumUser>()
+				.Where(user => user.PasswordHash == password && user.PasswordSalt == password && user.Username == username && user.ForumIdentifier == forumId).SingleOrDefault();
 
 			return matchedAccount != null;
 		}
 
-		public UserProfile FindByUserIdentifier(Guid identifier)
+		public UserProfile FindByUserIdentifier(Guid forumId, Guid identifier)
 		{
 			var session = GetCurrentSession();
 
@@ -32,7 +33,7 @@ namespace ForumAgent.Queries
 			return matchedUser.SingleOrDefault();
 		}
 
-		public ForumUser FindByUsername(string username)
+		public ForumUser FindByUsername(Guid forumId, string username)
 		{
 			var session = GetCurrentSession();
 
@@ -41,11 +42,11 @@ namespace ForumAgent.Queries
 			return matchedUser.SingleOrDefault();
 		}
 
-		public UserProfile UserProfileByUsername(string username)
+		public UserProfile UserProfileByUsername(Guid forumId, string username)
 		{
-			var matchedUser = FindByUsername(username);
+			var matchedUser = FindByUsername(forumId, username);
 
-			return FindByUserIdentifier(matchedUser.Identifier);
+			return FindByUserIdentifier(forumId, matchedUser.Identifier);
 		}
 	}
 }

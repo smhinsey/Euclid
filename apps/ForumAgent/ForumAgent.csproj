@@ -79,6 +79,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\CommentQueries.cs" />
     <Compile Include="Queries\ForumQueries.cs" />
+    <Compile Include="Queries\OrganizationQueries.cs" />
     <Compile Include="Queries\OrganizationUserQueries.cs" />
     <Compile Include="Queries\PostQueries.cs" />
     <Compile Include="Queries\UserQueries.cs" />

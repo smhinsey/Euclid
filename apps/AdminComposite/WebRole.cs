@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
 using AdminComposite.Models;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
@@ -43,12 +41,12 @@ namespace AdminComposite
 
 			XmlConfigurator.Configure();
 
-			var databaseConfiguration = MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
+			var databaseConfiguration =
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
 
 			var container = new WindsorContainer();
 
-			var composite = new MvcCompositeApp(container)
-				{ Name = "Admin", Description = "Create and manage custom forums." };
+			var composite = new MvcCompositeApp(container) { Name = "Admin", Description = "Create and manage custom forums." };
 
 			composite.RegisterNh(databaseConfiguration, true);
 
@@ -60,43 +58,50 @@ namespace AdminComposite
 
 			composite.Configure(compositeAppSettings);
 
+				composite.CreateSchema(databaseConfiguration, true);
+
+
 			composite.AddAgent(typeof(PublishPost).Assembly);
 			composite.AddAgent(typeof(LogQueries).Assembly);
 
 			composite.RegisterInputModelMap<CreateForumInputModel, CreateForum>();
-			composite.RegisterInputModelMap<CreateOrganizationAndUserInputModel, CreateOrganizationAndRegisterUser>(input=>new CreateOrganizationAndRegisterUser
-			                                                                                                               	{
-			                                                                                                               		Address = input.Address,
-																																Address2 = input.Address2,
-																																City = input.City,
-																																Country = input.Country,
-																																Email = input.Email,
-																																FirstName = input.FirstName,
-																																LastName = input.LastName,
-																																Username = input.Username,
-																																OrganizationName = input.OrganizationName,
-																																OrganizationUrl = input.OrganizationUrl,
-																																PhoneNumber = input.PhoneNumber,
-																																State = input.State,
-																																Zip = input.Zip,
-																																// TODO: salt & hash password
-																																PasswordHash = input.Password,
-																																PasswordSalt = input.Password
-			                                                                                                               	});
+			composite.RegisterInputModelMap<CreateOrganizationAndUserInputModel, CreateOrganizationAndRegisterUser>(
+				input =>
+				new CreateOrganizationAndRegisterUser
+					{
+						Address = input.Address,
+						Address2 = input.Address2,
+						City = input.City,
+						Country = input.Country,
+						Email = input.Email,
+						FirstName = input.FirstName,
+						LastName = input.LastName,
+						Username = input.Username,
+						OrganizationName = input.OrganizationName,
+						OrganizationSlug = input.OrganizationSlug,
+						OrganizationUrl = input.OrganizationUrl,
+						PhoneNumber = input.PhoneNumber,
+						State = input.State,
+						Zip = input.Zip,
+						// TODO: salt & hash password
+						PasswordHash = input.Password,
+						PasswordSalt = input.Password
+					});
 
 			//the processor will handle generating passwords for users registered by an admin
 			composite.RegisterInputModelMap<RegisterOrganizationUserInputModel, RegisterOrganizationUser>();
 			composite.RegisterInputModelMap<UpdateOrganizationUserInputModel, UpdateOrganizationUser>(
-				input => new UpdateOrganizationUser
-				         	{
-				         		Created = DateTime.Now,
-				         		Email = input.Email,
-				         		FirstName = input.FirstName,
-				         		LastName = input.LastName,
-				         		OrganizationId = input.OrganizationId,
-				         		UserId = input.UserId,
-				         		Username = input.Username
-				         	});
+				input =>
+				new UpdateOrganizationUser
+					{
+						Created = DateTime.Now,
+						Email = input.Email,
+						FirstName = input.FirstName,
+						LastName = input.LastName,
+						OrganizationId = input.OrganizationId,
+						UserId = input.UserId,
+						Username = input.Username
+					});
 
 			setAzureCredentials(container);
 

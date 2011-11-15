@@ -1,3 +1,4 @@
+using System;
 using Euclid.Common.Messaging;
 using Euclid.TestingSupport;
 using ForumAgent.Commands;
@@ -18,6 +19,7 @@ namespace ForumTests.Steps
 		}
 
 		private Post PublishedPost { get; set; }
+		private readonly Guid _userForumIdentifier = Guid.Empty;
 
 		public void CommandCompleted(IPublicationRecord record, PublishPost command)
 		{
@@ -26,8 +28,8 @@ namespace ForumTests.Steps
 			Assert.IsFalse(record.Error, record.ErrorMessage);
 
 			var postQueries = Container.Resolve<PostQueries>();
-			
-			PublishedPost = postQueries.FindByTitle("Post Title");
+
+			PublishedPost = postQueries.FindByTitle(_userForumIdentifier, "Post Title");
 		}
 
 		public CommentOnPost GetCommand(CommentOnPost command)

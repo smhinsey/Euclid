@@ -13,7 +13,7 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public PostListing FindByAuthorIdentifier(Guid authorId, int pageSize, int offset)
+		public PostListing FindByAuthorIdentifier(Guid forumId, Guid authorId, int pageSize, int offset)
 		{
 			var result = new PostListing { Posts = new List<Post>() };
 
@@ -32,7 +32,7 @@ namespace ForumAgent.Queries
 			return result;
 		}
 
-		public Post FindByTitle(string title)
+		public Post FindByTitle(Guid forumId, string title)
 		{
 			var session = GetCurrentSession();
 
@@ -41,7 +41,7 @@ namespace ForumAgent.Queries
 			return posts.SingleOrDefault();
 		}
 
-		public IList<Post> FindPostsByCategory(Guid categoryIdentifier)
+		public IList<Post> FindPostsByCategory(Guid forumId, Guid categoryIdentifier)
 		{
 			var session = GetCurrentSession();
 
@@ -50,7 +50,7 @@ namespace ForumAgent.Queries
 			return posts.List();
 		}
 
-		public int GetPostCountByAuthor(Guid authorId)
+		public int GetPostCountByAuthor(Guid forumId, Guid authorId)
 		{
 			var session = GetCurrentSession();
 

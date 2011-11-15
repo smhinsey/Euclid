@@ -17,6 +17,7 @@ namespace ForumTests.Steps
 	public class PostingSpecification : ForumSpecifications, ICommandCompleteStep<PublishPost>, ICommandPublishStep<CommentOnPost>, IValidateListOfReadModels<PostQueries, Post>
 	{
 		private Post PublishedPost { get; set; }
+		private readonly Guid _userForumIdentifier = Guid.Empty;
 
 		public void CommandCompleted(IPublicationRecord record, PublishPost command)
 		{
@@ -26,7 +27,7 @@ namespace ForumTests.Steps
 
 			var postQueries = Container.Resolve<PostQueries>();
 
-			PublishedPost = postQueries.FindByTitle("Post Title");
+			PublishedPost = postQueries.FindByTitle(_userForumIdentifier, "Post Title");
 		}
 
 		public CommentOnPost GetCommand(CommentOnPost command)

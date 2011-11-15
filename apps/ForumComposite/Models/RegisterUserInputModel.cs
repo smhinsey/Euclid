@@ -1,4 +1,5 @@
-﻿using Euclid.Composites.Mvc.Models;
+﻿using System;
+using Euclid.Composites.Mvc.Models;
 using ForumAgent.Commands;
 
 namespace ForumComposite.Models
@@ -16,5 +17,7 @@ namespace ForumComposite.Models
 		public string Password { get; set; }
 
 		public string Username { get; set; }
+
+		public Guid ForumIdentifier { get; set; }
 	}
 }

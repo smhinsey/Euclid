@@ -12,6 +12,7 @@ namespace AdminComposite.Models
 		}
 
 		public string OrganizationName { get; set; }
+		public string OrganizationSlug { get; set; }
 		public string OrganizationUrl { get; set; }
 		public string PhoneNumber { get; set; }
 		public string Address { get; set; }

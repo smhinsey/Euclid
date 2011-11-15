@@ -38,14 +38,14 @@ namespace ForumComposite.Controllers
 
 		public ActionResult List(int pageSize = 10, int offset = 0)
 		{
-			var posts = _postQueries.GetPostListing(pageSize, offset);
+			var posts = _postQueries.GetPostListing(ViewBag.ForumIdentifier, pageSize, offset);
 
 			return View(posts);
 		}
 
 		public ActionResult Thread(Guid postId)
 		{
-			var comments = _commentQueries.FindCommentsBelongingToPost(postId);
+			var comments = _commentQueries.FindCommentsBelongingToPost(ViewBag.ForumIdentifier, postId);
 
 			return View(comments);
 		}

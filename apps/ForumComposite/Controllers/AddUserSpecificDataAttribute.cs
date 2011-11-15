@@ -26,7 +26,7 @@ namespace ForumComposite.Controllers
 			if (viewResult != null)
 			{
 				viewResult.ViewBag.UserIdentifier = userId;
-				viewResult.ViewBag.PostCount = PostQueries.GetPostCountByAuthor(userId);
+				viewResult.ViewBag.PostCount = PostQueries.GetPostCountByAuthor(filterContext.Controller.ViewBag.ForumIdentifier, userId);
 			}
 		}
 	}

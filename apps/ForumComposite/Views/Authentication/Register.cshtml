@@ -1,6 +1,6 @@
 ﻿@using Euclid.Composites.Mvc.Extensions
 @using ForumComposite.Models
-@model RegisterUserInputModel
+@model RegisterForumUserInputModel
 @{
 	ViewBag.Title = "Register An Account";
 }
@@ -83,6 +83,7 @@
 
 @using (Html.BeginFormForInputModel(Model))
 {
+		@Html.HiddenFor(m => m.ForumIdentifier)
 	<fieldset>
 		<legend />
 		<header>

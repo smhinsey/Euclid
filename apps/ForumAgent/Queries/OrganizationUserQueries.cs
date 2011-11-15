@@ -45,7 +45,18 @@ namespace ForumAgent.Queries
 				.Where(u => u.Username == username)
 				.SingleOrDefault();
 
-			return (user == null) ? null : AutoMapper.Mapper.Map<OrganizationUser>(user);
+			if (user == null)
+			{
+				return null;
+			}
+			else
+			{
+				var orgUser = AutoMapper.Mapper.Map<OrganizationUser>(user);
+
+				orgUser.OrganizationIdentifier = user.OrganizationEntity.Identifier;
+
+				return orgUser;
+			}
 		}
 
 		public OrganizationUser FindByIdentifier(Guid identifier)

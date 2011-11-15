@@ -11,10 +11,11 @@ namespace ForumTests.Steps
 	public class PublishPostSpecification : ForumSpecifications, ICommandCompleteStep<PublishPost>
 	{
 		private const string PostIdentifierKey = "PostIdentifier";
+		private readonly Guid _userForumIdentifier = Guid.Empty;
 
 		public void CommandCompleted(IPublicationRecord record, PublishPost command)
 		{
-			var post = PostQueries.FindByTitle(command.Title);
+			var post = PostQueries.FindByTitle(_userForumIdentifier, command.Title);
 
 			Assert.NotNull(post);
 

@@ -19,6 +19,7 @@ namespace AdminComposite.ActionFilters
 		public ForumQueries ForumQueries { get; set; }
 
 		public OrganizationUserQueries UserQueries { get; set; }
+		public OrganizationQueries OrganizationQueries { get; set; }
 
 		public void OnActionExecuted(ActionExecutedContext filterContext)
 		{
@@ -44,6 +45,7 @@ namespace AdminComposite.ActionFilters
 				filterContext.Controller.ViewBag.Forums = ForumQueries.GetForums();
 				filterContext.Controller.ViewBag.CurrentForumId = filterContext.GetRequestValue("forumId");
 				filterContext.Controller.ViewBag.OrganizationId = currentUser.OrganizationIdentifier;
+				filterContext.Controller.ViewBag.OrganizationSlug = OrganizationQueries.FindById(currentUser.OrganizationIdentifier).Slug;
 				filterContext.Controller.ViewBag.UserId = currentUser.Identifier;
 				filterContext.Controller.ViewBag.FirstName = currentUser.FirstName;
 				filterContext.Controller.ViewBag.LastName = currentUser.LastName;

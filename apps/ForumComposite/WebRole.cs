@@ -42,7 +42,7 @@ namespace ForumComposite
 
 			XmlConfigurator.Configure();
 
-			var databaseConfiguration = MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
+			var databaseConfiguration = MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
 
 			var container = new WindsorContainer();
 
@@ -69,7 +69,7 @@ namespace ForumComposite
 			composite.RegisterInputModelMap<VoteOnCommentInputModel, VoteOnComment>();
 			composite.RegisterInputModelMap<VoteOnPostInputModel, VoteOnPost>();
 
-			// composite.CreateSchema(databaseConfiguration, true);
+			composite.CreateSchema(databaseConfiguration, false);
 
 			setAzureCredentials(container);
 

@@ -18,6 +18,7 @@ namespace ForumTests.Steps
 	                                      ICommandCompleteStep<CommentOnPost>
 	{
 		private const string CommentIdentifierKey = "CommentIdentifier";
+		private readonly Guid _userForumIdentifier = Guid.Empty;
 
 		private Guid CommentIdentifier
 		{
@@ -57,7 +58,7 @@ namespace ForumTests.Steps
 		{
 			var query = Container.Resolve<CommentQueries>();
 
-			var postDetails = query.FindCommentsBelongingToPost(PostIdentifier);
+			var postDetails = query.FindCommentsBelongingToPost(_userForumIdentifier, PostIdentifier);
 
 			var comment = postDetails.Comments.Where(c => c.Title == command.Title).FirstOrDefault();
 

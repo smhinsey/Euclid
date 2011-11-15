@@ -14,6 +14,8 @@ namespace ForumTests.Steps
 	{
 		private const string UserIdentifierKey = "UserIdentifier";
 
+		private readonly Guid _userForumIdentifier = Guid.Empty;
+
 		private Guid UserIdentifier
 		{
 			get { return (Guid)ScenarioContext.Current[UserIdentifierKey]; }
@@ -24,7 +26,7 @@ namespace ForumTests.Steps
 		{
 			var query = Container.Resolve<UserQueries>();
 
-			var user = query.FindByUsername("johndoe");
+			var user = query.FindByUsername(_userForumIdentifier, "johndoe");
 
 			Assert.NotNull(user);
 
@@ -43,7 +45,7 @@ namespace ForumTests.Steps
 		{
 			var query = Container.Resolve<UserQueries>();
 
-			Assert.True(query.Authenticate("jimmyjon", "hash"));
+			Assert.True(query.Authenticate(_userForumIdentifier, "jimmyjon", "hash"));
 		}
 	}
 }
