@@ -3,17 +3,17 @@
 	ViewBag.Title = "Custom Badges";
 }
 <script type="text/javascript">
-	$(document).ready(function () {
-		$("#create-badge").click(function () {
+	$(document).ready(function() {
+		$("#create-badge").click(function() {
 			$("<div></div>")
 				.load("/Badge/NewBadge/@ViewContext.RouteData.Values["forumId"]")
 				.modal({
-					autoResize: true,
-					autoPosition: true,
-					position: new Array(25, 250),
-					dataCss: { backgroundColor: "#fff", overflow: "hidden",  height: 535, width: 585 },
-					containerCss: { height: 550, width: 600 }
-				});
+						autoResize: true,
+						autoPosition: true,
+						position: new Array(25, 250),
+						dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 535, width: 585 },
+						containerCss: { height: 550, width: 600 }
+					});
 
 			return false;
 		});

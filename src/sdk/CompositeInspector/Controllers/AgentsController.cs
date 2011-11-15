@@ -64,7 +64,8 @@ namespace CompositeInspector.Controllers
 		{
 			var commandMetadata = _inputModelMaps.GetCommandMetadataForInputModel(inputModel.GetType());
 
-			var command = Mapper.Map(inputModel, inputModel.GetType(), commandMetadata.Type) as ICommand; //_transformer.GetCommand(inputModel);
+			var command = Mapper.Map(inputModel, inputModel.GetType(), commandMetadata.Type) as ICommand;
+				//_transformer.GetCommand(inputModel);
 
 			if (command == null)
 			{

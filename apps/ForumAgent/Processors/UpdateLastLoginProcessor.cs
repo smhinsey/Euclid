@@ -9,8 +9,9 @@ namespace ForumAgent.Processors
 {
 	public class UpdateLastLoginProcessor : DefaultCommandProcessor<UpdateLastLogin>
 	{
-		private readonly ISession _session;
 		private readonly NhSimpleRepository<OrganizationUserEntity> _repository;
+
+		private readonly ISession _session;
 
 		public UpdateLastLoginProcessor(ISession session)
 		{
@@ -20,7 +21,8 @@ namespace ForumAgent.Processors
 
 		public override void Process(UpdateLastLogin message)
 		{
-			var user = _session.QueryOver<OrganizationUserEntity>().Where(u => u.Identifier == message.UserIdentifier).SingleOrDefault();
+			var user =
+				_session.QueryOver<OrganizationUserEntity>().Where(u => u.Identifier == message.UserIdentifier).SingleOrDefault();
 			if (user == null)
 			{
 				throw new UserNotFoundException(message.UserIdentifier);
@@ -33,14 +35,14 @@ namespace ForumAgent.Processors
 
 	public class UserNotFoundException : Exception
 	{
-		public UserNotFoundException (string name) : base(name)
+		public UserNotFoundException(string name)
+			: base(name)
 		{
-			
 		}
 
-		public UserNotFoundException (Guid id) : base(id.ToString())
+		public UserNotFoundException(Guid id)
+			: base(id.ToString())
 		{
-			
 		}
 	}
 }

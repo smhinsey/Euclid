@@ -18,7 +18,9 @@ namespace AdminComposite
 			routes.IgnoreRoute("favicon.ico");
 
 			routes.MapRoute(
-				"Default", "{controller}/{action}/{forumId}", new { controller = "User", action = "Signin", forumId = UrlParameter.Optional });
+				"Default",
+				"{controller}/{action}/{forumId}",
+				new { controller = "User", action = "Signin", forumId = UrlParameter.Optional });
 		}
 
 		protected void Application_Start()

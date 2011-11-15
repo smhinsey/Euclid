@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Models;
+using AutoMapper;
 using ForumAgent.Processors;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;
@@ -10,19 +11,20 @@ namespace AdminComposite.Controllers
 	[Authorize]
 	public class OrganizationController : Controller
 	{
-		private readonly OrganizationUserQueries _userQueries;
 		private readonly OrganizationQueries _organizationQueries;
+
+		private readonly OrganizationUserQueries _userQueries;
 
 		public OrganizationController(OrganizationUserQueries userQueries, OrganizationQueries organizationQueries)
 		{
 			_userQueries = userQueries;
 			_organizationQueries = organizationQueries;
-			AutoMapper.Mapper.CreateMap<OrganizationUser, UpdateOrganizationUserInputModel>();
-			AutoMapper.Mapper.CreateMap<Organization, UpdateOrganizationInputModel>()
-				.ForMember(input => input.OrganizationName, o => o.MapFrom(org => org.Name))
-				.ForMember(input => input.OrganizationUrl, o => o.MapFrom(org => org.WebsiteUrl))
-				.ForMember(input => input.OrganizationSlug, o=>o.MapFrom(org=>org.Slug))
-				.ForMember(input => input.OrganizationIdentifier, o=>o.MapFrom(org=>org.Identifier));
+			Mapper.CreateMap<OrganizationUser, UpdateOrganizationUserInputModel>();
+			Mapper.CreateMap<Organization, UpdateOrganizationInputModel>().ForMember(
+				input => input.OrganizationName, o => o.MapFrom(org => org.Name)).ForMember(
+					input => input.OrganizationUrl, o => o.MapFrom(org => org.WebsiteUrl)).ForMember(
+						input => input.OrganizationSlug, o => o.MapFrom(org => org.Slug)).ForMember(
+							input => input.OrganizationIdentifier, o => o.MapFrom(org => org.Identifier));
 		}
 
 		//
@@ -32,7 +34,7 @@ namespace AdminComposite.Controllers
 			ViewBag.Title = string.Format("Manage Organization {0}", organizationId);
 			var org = _organizationQueries.FindById(organizationId);
 
-			return View(AutoMapper.Mapper.Map<UpdateOrganizationInputModel>(org));
+			return View(Mapper.Map<UpdateOrganizationInputModel>(org));
 		}
 
 		public ActionResult ListUsers(Guid organizationId, int pageNumber = 0, int pageSize = 25)
@@ -43,11 +45,9 @@ namespace AdminComposite.Controllers
 		[HttpGet]
 		public PartialViewResult RegisterUser(Guid organizationId, Guid currentUserId)
 		{
-			return PartialView("_RegisterOrganizationUser", new RegisterOrganizationUserInputModel
-			                                                	{
-			                                                		OrganizationId = organizationId,
-																	CreatedBy = currentUserId
-			                                                	});
+			return PartialView(
+				"_RegisterOrganizationUser",
+				new RegisterOrganizationUserInputModel { OrganizationId = organizationId, CreatedBy = currentUserId });
 		}
 
 		[HttpGet]
@@ -60,8 +60,8 @@ namespace AdminComposite.Controllers
 				throw new UserNotFoundException(userId);
 			}
 
-			var model = AutoMapper.Mapper.Map<UpdateOrganizationUserInputModel>(user);
-			
+			var model = Mapper.Map<UpdateOrganizationUserInputModel>(user);
+
 			return PartialView("_UpdateOrganizationUser", model);
 		}
 	}

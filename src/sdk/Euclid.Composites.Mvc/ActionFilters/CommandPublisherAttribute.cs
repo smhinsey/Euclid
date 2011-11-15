@@ -5,17 +5,16 @@ using AutoMapper;
 using Euclid.Common.Messaging;
 using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Mvc.ActionFilters
 {
 	public class CommandPublisherAttribute : ActionFilterAttribute
 	{
-		public IPublisher Publisher { get; set; }
-
 		//public ICompositeApp CompositeApp { get; set; }
 
 		public IInputModelMapCollection InputModelMaps { get; set; }
+
+		public IPublisher Publisher { get; set; }
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{

@@ -10,7 +10,6 @@ using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
-using ForumAgent.Queries;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
 using log4net.Config;
@@ -58,35 +57,34 @@ namespace AdminComposite
 
 			composite.Configure(compositeAppSettings);
 
-				composite.CreateSchema(databaseConfiguration, true);
-
+			composite.CreateSchema(databaseConfiguration, true);
 
 			composite.AddAgent(typeof(PublishPost).Assembly);
 			composite.AddAgent(typeof(LogQueries).Assembly);
 
 			composite.RegisterInputModelMap<CreateForumInputModel, CreateForum>();
 			composite.RegisterInputModelMap<CreateOrganizationAndRegisterUserInputModel, CreateOrganizationAndRegisterUser>(
-				input => new CreateOrganizationAndRegisterUser
-				         	{
-				         		Address = input.Address,
-				         		Address2 = input.Address2,
-				         		City = input.City,
-				         		Country = input.Country,
-				         		Email = input.Email,
-				         		FirstName = input.FirstName,
-				         		LastName = input.LastName,
-				         		Username = input.Username,
-				         		OrganizationName = input.OrganizationName,
-				         		OrganizationSlug = input.OrganizationSlug,
-				         		OrganizationUrl = input.OrganizationUrl,
-				         		PhoneNumber = input.PhoneNumber,
-				         		State = input.State,
-				         		Zip = input.Zip,
-
-				         		// TODO: salt & hash password
-				         		PasswordHash = input.Password,
-				         		PasswordSalt = input.Password
-				         	});
+				input =>
+				new CreateOrganizationAndRegisterUser
+					{
+						Address = input.Address,
+						Address2 = input.Address2,
+						City = input.City,
+						Country = input.Country,
+						Email = input.Email,
+						FirstName = input.FirstName,
+						LastName = input.LastName,
+						Username = input.Username,
+						OrganizationName = input.OrganizationName,
+						OrganizationSlug = input.OrganizationSlug,
+						OrganizationUrl = input.OrganizationUrl,
+						PhoneNumber = input.PhoneNumber,
+						State = input.State,
+						Zip = input.Zip,
+						// TODO: salt & hash password
+						PasswordHash = input.Password,
+						PasswordSalt = input.Password
+					});
 
 			//the processor will handle generating passwords for users registered by an admin
 			composite.RegisterInputModelMap<RegisterOrganizationUserInputModel, RegisterOrganizationUser>();

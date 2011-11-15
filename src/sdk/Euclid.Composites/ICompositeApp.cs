@@ -17,7 +17,7 @@ namespace Euclid.Composites
 
 		IEnumerable<ITypeMetadata> InputModels { get; }
 
-		new string Name { get; set; }
+		 string Name { get; set; }
 
 		CompositeAppSettings Settings { get; }
 
@@ -26,6 +26,8 @@ namespace Euclid.Composites
 		void AddAgent(Assembly assembly);
 
 		void Configure(CompositeAppSettings compositeAppSettings);
+
+		void CreateSchema(IPersistenceConfigurer databaseConfiguration, bool destructive);
 
 		//IPartMetadata GetCommandMetadataForInputModel(Type inputModelType);
 
@@ -37,15 +39,11 @@ namespace Euclid.Composites
 
 		// void RegisterInputModel(IInputToCommandConverter converter);
 
-		void RegisterInputModelMap<TInputModelSource, TCommandDestination>()
-			where TInputModelSource : IInputModel
+		void RegisterInputModelMap<TInputModelSource, TCommandDestination>() where TInputModelSource : IInputModel
 			where TCommandDestination : ICommand;
 
 		void RegisterInputModelMap<TInputModelSource, TCommandDestination>(
-			Func<TInputModelSource, TCommandDestination> customMap)
-			where TInputModelSource : IInputModel
+			Func<TInputModelSource, TCommandDestination> customMap) where TInputModelSource : IInputModel
 			where TCommandDestination : ICommand;
-
-		void CreateSchema(IPersistenceConfigurer databaseConfiguration, bool destructive);
 	}
 }

@@ -10,7 +10,9 @@ namespace CompositeInspector.Controllers
 	public class CompositeController : Controller
 	{
 		private readonly ICompositeApp _composite;
+
 		private readonly IInputModelMapCollection _inputModelMaps;
+
 		public CompositeController(ICompositeApp composite, IInputModelMapCollection inputModelMaps)
 		{
 			_composite = composite;
@@ -31,8 +33,9 @@ namespace CompositeInspector.Controllers
 							Agents = _composite.Agents,
 							CommandsAndInputModels =
 								_composite.InputModels.Select(
-									model => new CommandAndInputModel { Command = _inputModelMaps.GetCommandMetadataForInputModel(model.Type), InputModel = model })
-								.ToList(),
+									model =>
+									new CommandAndInputModel
+										{ Command = _inputModelMaps.GetCommandMetadataForInputModel(model.Type), InputModel = model }).ToList(),
 							ConfigurationErrors = _composite.GetConfigurationErrors(),
 							Settings = _composite.Settings
 						});

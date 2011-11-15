@@ -8,35 +8,35 @@
 <style type="text/css">
 	.avatar
 	{
-		height:125px;
-		width:125px;
-		margin-top:10px;
-		margin-bottom:20px;
-		margin-left:10px;
+		height: 125px;
+		width: 125px;
+		margin-top: 10px;
+		margin-bottom: 20px;
+		margin-left: 10px;
 	}
-	
+
 	.selected
 	{
-		border:3px blue solid;
+		border: 3px blue solid;
 	}
-	
+
 	.hover
 	{
-		border:3px blue dotted;
+		border: 3px blue dotted;
 	}
 </style>
 
 <script type="text/javascript">
-	jQuery(document).ready(function () {
+	jQuery(document).ready(function() {
 		$("#avatar-select").tabs();
 
-		$(".select-image").click(function () {
+		$(".select-image").click(function() {
 
 			var selectedImage = $(this).children()[0];
 
 			$(selectedImage).addClass("ignore");
 
-			$(".avatar").each(function (index, item) {
+			$(".avatar").each(function(index, item) {
 				if ($(item).hasClass("ignore")) {
 					$(item).removeClass("ignore");
 				} else {
@@ -55,7 +55,7 @@
 			return false;
 		});
 
-		$(".select-image").mouseenter(function () {
+		$(".select-image").mouseenter(function() {
 			var image = $(this).children()[0];
 
 			if (!$(image).hasClass("selected")) {
@@ -65,7 +65,7 @@
 			return false;
 		});
 
-		$(".select-image").mouseleave(function () {
+		$(".select-image").mouseleave(function() {
 			var image = $(this).children()[0];
 			$(image).removeClass("hover");
 
@@ -81,41 +81,41 @@
 
 <div id="DiscussionForm">
 
-@using (Html.BeginFormForInputModel(Model))
-{
+	@using (Html.BeginFormForInputModel(Model))
+	{
 		@Html.HiddenFor(m => m.ForumIdentifier)
-	<fieldset>
-		<legend />
-		<header>
-			<h2>User Information</h2>
-		</header>
-		<dl>
-			<dt><label>First Name*</label></dt>
-			<dd><input type="text"  class="InputBox" /></dd>
+		<fieldset>
+			<legend />
+			<header>
+				<h2>User Information</h2>
+			</header>
+			<dl>
+				<dt><label>First Name*</label></dt>
+				<dd><input type="text"  class="InputBox" /></dd>
 
-			<dt><label>Last Name*</label></dt>
-			<dd><input type="text" class="InputBox" /></dd>
+				<dt><label>Last Name*</label></dt>
+				<dd><input type="text" class="InputBox" /></dd>
 		
-			<dt>@Html.LabelFor(m => m.Username)*</dt>
-			<dd>@Html.TextBoxFor(m => m.Username, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })</dd>
+				<dt>@Html.LabelFor(m => m.Username)*</dt>
+				<dd>@Html.TextBoxFor(m => m.Username, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })</dd>
 
-			<dt><label>Email*</label></dt>
-			<dd><input type="text"  class="InputBox"/></dd>
+				<dt><label>Email*</label></dt>
+				<dd><input type="text"  class="InputBox"/></dd>
 
-			<dt>@Html.LabelFor(m => m.Password)*</dt>
-			<dd>@Html.PasswordFor(m => m.Password, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })</dd>
+				<dt>@Html.LabelFor(m => m.Password)*</dt>
+				<dd>@Html.PasswordFor(m => m.Password, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })</dd>
 
-			<dt><label>Re-type Password*</label></dt>
-			<dd><input type="password"  class="InputBox"/></dd>
-		</dl>
-	</fieldset>
+				<dt><label>Re-type Password*</label></dt>
+				<dd><input type="password"  class="InputBox"/></dd>
+			</dl>
+		</fieldset>
 
-	<div class="PostFormControlPanel">
-		<input type="checkbox"/>I agree to the <a href="#" class="ignore">Terms of Use</a> and <a href="#" class="ignore">Privacy Policy</a>
-		<br/>
-		<input type="submit" id="Form_PostDiscussion" name="RegisterAccount" value="Register Account" class="Button" />
-		<a href="#" class="ignore">Cancel</a>
-	</div> 
-}
+		<div class="PostFormControlPanel">
+			<input type="checkbox"/>I agree to the <a href="#" class="ignore">Terms of Use</a> and <a href="#" class="ignore">Privacy Policy</a>
+			<br/>
+			<input type="submit" id="Form_PostDiscussion" name="RegisterAccount" value="Register Account" class="Button" />
+			<a href="#" class="ignore">Cancel</a>
+		</div>
+	}
 
 </div>

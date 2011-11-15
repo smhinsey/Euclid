@@ -13,7 +13,10 @@ namespace ForumTests.Steps
 
 		protected override Type TypeFromAgent
 		{
-			get { return typeof (PostQueries); }
+			get
+			{
+				return typeof(PostQueries);
+			}
 		}
 	}
 }

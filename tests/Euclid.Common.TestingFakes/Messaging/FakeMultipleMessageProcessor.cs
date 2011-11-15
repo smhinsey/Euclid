@@ -7,14 +7,14 @@ namespace Euclid.Common.TestingFakes.Messaging
 	{
 		public static int ProcessedMessages;
 
-		 public void Process(FakeMessage message)
-		 {
-		 	ProcessedMessages++;
-		 }
+		public void Process(FakeMessage message)
+		{
+			ProcessedMessages++;
+		}
 
-		 public void Process(DifferentFakeMessage message)
-		 {
-			 ProcessedMessages++;
-		 }
+		public void Process(DifferentFakeMessage message)
+		{
+			ProcessedMessages++;
+		}
 	}
 }

@@ -7,13 +7,14 @@ namespace LoggingAgent.Queries
 {
 	public class LogQueries : NhQuery<LogEntry>
 	{
-		public LogQueries(ISession session) : base(session)
+		public LogQueries(ISession session)
+			: base(session)
 		{
 		}
 
 		public IEnumerable<LogEntry> GetLogEntries(int pageSize, int offset)
 		{
-			return GetCurrentSession().QueryOver<LogEntry>().Skip(offset*pageSize).Take(pageSize).List();
+			return GetCurrentSession().QueryOver<LogEntry>().Skip(offset * pageSize).Take(pageSize).List();
 		}
 	}
 }

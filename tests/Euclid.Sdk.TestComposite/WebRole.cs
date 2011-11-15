@@ -7,7 +7,6 @@ using Euclid.Composites;
 using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
 using Euclid.Sdk.TestAgent.Commands;
-using Euclid.Sdk.TestComposite.Converters;
 using Euclid.Sdk.TestComposite.Models;
 using FluentNHibernate.Cfg.Db;
 using LoggingAgent.Queries;
@@ -45,7 +44,7 @@ namespace Euclid.Sdk.TestComposite
 			var composite = new MvcCompositeApp(container)
 				{ Name = "Test Composite", Description = "A composite application that is used to validate the Euclid platform" };
 
-            var compositeAppSettings = new CompositeAppSettings();
+			var compositeAppSettings = new CompositeAppSettings();
 
 			compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
 			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
@@ -54,22 +53,19 @@ namespace Euclid.Sdk.TestComposite
 			composite.Configure(compositeAppSettings);
 
 			composite.AddAgent(typeof(TestCommand).Assembly);
-            composite.AddAgent(typeof(LogQueries).Assembly);
+			composite.AddAgent(typeof(LogQueries).Assembly);
 
 			composite.RegisterInputModelMap<TestInputModel, TestCommand>(); // (new TestInputModelToCommandConverter());
-			composite.RegisterInputModelMap<FailingInputModel, FailingCommand>();// (new FailingInputModelToCommandConverter());
-			composite.RegisterInputModelMap<ComplexInputModel, ComplexCommand>(i => new ComplexCommand
-			                                                                        	{
-			                                                                        		StringValue = i.StringValue,
-			                                                                        		StringLength = i.StringValue.Length
-			                                                                        	});
-            setAzureCredentials(container);
+			composite.RegisterInputModelMap<FailingInputModel, FailingCommand>(); // (new FailingInputModelToCommandConverter());
+			composite.RegisterInputModelMap<ComplexInputModel, ComplexCommand>(
+				i => new ComplexCommand { StringValue = i.StringValue, StringLength = i.StringValue.Length });
+			setAzureCredentials(container);
 
 			composite.RegisterNh(compositeDatabaseConnection, true);
 
 			// composite.CreateSchema(compositeDatabaseConnection);
 
-            _initialized = true;
+			_initialized = true;
 		}
 
 		private void setAzureCredentials(IWindsorContainer container)

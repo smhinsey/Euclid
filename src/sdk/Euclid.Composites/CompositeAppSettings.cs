@@ -16,18 +16,18 @@ namespace Euclid.Composites
 
 		public readonly OverridableTypeSetting<IRecordMapper<CommandPublicationRecord>> CommandPublicationRecordMapper;
 
+		public readonly OverridableTypeSetting<IInputModelMapCollection> InputModelCollection;
+
 		public readonly OverridableTypeSetting<IMessageSerializer> MessageSerializer;
 
-		public readonly OverridableSetting<string> OutputChannelName;
-
 		public readonly OverridableTypeSetting<IMessageChannel> OutputChannel;
+
+		public readonly OverridableSetting<string> OutputChannelName;
 
 		public readonly OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>
 			PublicationRegistry;
 
 		public readonly OverridableTypeSetting<IPublisher> Publisher;
-
-		public readonly OverridableTypeSetting<IInputModelMapCollection> InputModelCollection;
 
 		public CompositeAppSettings()
 		{

@@ -7,9 +7,9 @@ namespace AdminComposite.Controllers
 	public class BadgeController : Controller
 	{
 		public ActionResult List(Guid forumId)
-		 {
-		 	return View();
-		 }
+		{
+			return View();
+		}
 
 		public PartialViewResult NewBadge(Guid forumId)
 		{

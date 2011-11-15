@@ -187,11 +187,7 @@ namespace Euclid.Framework.HostingFabric
 
 				var commandHost = new CommandHost(new ICommandDispatcher[] { dispatcher });
 
-				Container.Register(
-					Component
-						.For<IHostedService>()
-						.Instance(commandHost)
-						.Forward<CommandHost>().LifeStyle.Transient);
+				Container.Register(Component.For<IHostedService>().Instance(commandHost).Forward<CommandHost>().LifeStyle.Transient);
 			}
 		}
 	}

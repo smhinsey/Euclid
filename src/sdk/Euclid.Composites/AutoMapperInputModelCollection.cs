@@ -18,28 +18,36 @@ namespace Euclid.Composites
 			Mapper.Reset();
 		}
 
-		public void RegisterInputModel<TSourceInputModel, TDestinationCommand>() where TSourceInputModel : IInputModel where TDestinationCommand : ICommand
+		public IEnumerable<IPartMetadata> Commands
 		{
-			RegisterInputModel<TSourceInputModel, TDestinationCommand>(null);
+			get
+			{
+				return
+					Mapper.GetAllTypeMaps().Where(m => typeof(ICommand).IsAssignableFrom(m.DestinationType)).Select(
+						m => m.DestinationType.GetPartMetadata());
+			}
 		}
 
-		public void RegisterInputModel<TSourceInputModel, TDestinationCommand>(Func<TSourceInputModel, TDestinationCommand> customMap) where TSourceInputModel : IInputModel where TDestinationCommand : ICommand
+		public IEnumerable<ITypeMetadata> InputModels
 		{
-			if (InputModelIsMapped<TSourceInputModel>())
+			get
 			{
-				throw new InputModelAlreadyRegisteredException(typeof(TSourceInputModel).FullName);
+				return
+					Mapper.GetAllTypeMaps().Where(m => typeof(IInputModel).IsAssignableFrom(m.SourceType)).Select(
+						m => m.SourceType.GetMetadata());
 			}
+		}
 
-			if (CommandIsMapped<TDestinationCommand>())
-			{
-				throw new CommandAlreadyMappedException(typeof(TDestinationCommand).FullName);
-			}
+		public bool CommandIsMapped<TCommand>() where TCommand : ICommand
+		{
+			return Mapper.GetAllTypeMaps().Any(m => m.DestinationType == typeof(TCommand));
+		}
 
-			var expression = Mapper.CreateMap<TSourceInputModel, TDestinationCommand>();
-			if (customMap != null)
-			{
-				expression.ConvertUsing(customMap);
-			}
+		public ICommand GetCommand<TSourceInputModel>(TSourceInputModel inputModel) where TSourceInputModel : IInputModel
+		{
+			var commandMetadata = GetCommandMetadataForInputModel<TSourceInputModel>();
+
+			return Mapper.Map(inputModel, inputModel.GetType(), commandMetadata.Type) as ICommand;
 		}
 
 		public IPartMetadata GetCommandMetadataForInputModel(Type inputModelType)
@@ -68,39 +76,13 @@ namespace Euclid.Composites
 
 		public IPartMetadata GetCommandMetadataForInputModel<TInputModel>() where TInputModel : IInputModel
 		{
-			return GetCommandMetadataForInputModel(typeof (TInputModel));
-		}
-
-		public ICommand GetCommand<TSourceInputModel>(TSourceInputModel inputModel) where TSourceInputModel : IInputModel
-		{
-			var commandMetadata = GetCommandMetadataForInputModel<TSourceInputModel>();
-
-			return Mapper.Map(inputModel, inputModel.GetType(), commandMetadata.Type) as ICommand;
-		}
-
-		public bool InputModelIsMapped<TInputModel>() where TInputModel : IInputModel
-		{
-			return Mapper.GetAllTypeMaps().Any(m => m.SourceType== typeof(TInputModel));
-		}
-
-		public bool CommandIsMapped<TCommand>() where TCommand : ICommand
-		{
-			return Mapper.GetAllTypeMaps().Any(m => m.DestinationType == typeof (TCommand));
-		}
-
-		public IEnumerable<ITypeMetadata> InputModels
-		{
-			get { return Mapper.GetAllTypeMaps().Where(m => typeof(IInputModel).IsAssignableFrom(m.SourceType)).Select(m=>m.SourceType.GetMetadata()); }
-		}
-
-		public IEnumerable<IPartMetadata> Commands
-		{
-			get { return Mapper.GetAllTypeMaps().Where(m => typeof(ICommand).IsAssignableFrom(m.DestinationType)).Select(m => m.DestinationType.GetPartMetadata()); }
+			return GetCommandMetadataForInputModel(typeof(TInputModel));
 		}
 
 		public Type GetInputModelTypeForCommandName(string commandName)
 		{
-			var type = Mapper.GetAllTypeMaps().Where(t => t.DestinationType.Name == commandName).Select(t=>t.SourceType).FirstOrDefault();
+			var type =
+				Mapper.GetAllTypeMaps().Where(t => t.DestinationType.Name == commandName).Select(t => t.SourceType).FirstOrDefault();
 
 			if (type == null)
 			{
@@ -108,6 +90,38 @@ namespace Euclid.Composites
 			}
 
 			return type;
+		}
+
+		public bool InputModelIsMapped<TInputModel>() where TInputModel : IInputModel
+		{
+			return Mapper.GetAllTypeMaps().Any(m => m.SourceType == typeof(TInputModel));
+		}
+
+		public void RegisterInputModel<TSourceInputModel, TDestinationCommand>() where TSourceInputModel : IInputModel
+			where TDestinationCommand : ICommand
+		{
+			RegisterInputModel<TSourceInputModel, TDestinationCommand>(null);
+		}
+
+		public void RegisterInputModel<TSourceInputModel, TDestinationCommand>(
+			Func<TSourceInputModel, TDestinationCommand> customMap) where TSourceInputModel : IInputModel
+			where TDestinationCommand : ICommand
+		{
+			if (InputModelIsMapped<TSourceInputModel>())
+			{
+				throw new InputModelAlreadyRegisteredException(typeof(TSourceInputModel).FullName);
+			}
+
+			if (CommandIsMapped<TDestinationCommand>())
+			{
+				throw new CommandAlreadyMappedException(typeof(TDestinationCommand).FullName);
+			}
+
+			var expression = Mapper.CreateMap<TSourceInputModel, TDestinationCommand>();
+			if (customMap != null)
+			{
+				expression.ConvertUsing(customMap);
+			}
 		}
 	}
 }

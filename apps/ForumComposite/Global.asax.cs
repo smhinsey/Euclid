@@ -19,7 +19,16 @@ namespace ForumComposite
 			routes.IgnoreRoute("favicon.ico");
 
 			routes.MapRoute(
-				"Default", "org/{orgSlug}/forum/{forumSlug}/{controller}/{action}/{id}", new { controller = "Post", action = "List", id = UrlParameter.Optional, orgSlug = Guid.NewGuid(), forumSlug = Guid.NewGuid() });
+				"Default",
+				"org/{orgSlug}/forum/{forumSlug}/{controller}/{action}/{id}",
+				new
+					{
+						controller = "Post",
+						action = "List",
+						id = UrlParameter.Optional,
+						orgSlug = Guid.NewGuid(),
+						forumSlug = Guid.NewGuid()
+					});
 		}
 
 		protected void Application_Start()

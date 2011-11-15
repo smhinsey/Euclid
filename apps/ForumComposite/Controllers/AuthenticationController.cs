@@ -27,7 +27,7 @@ namespace ForumComposite.Controllers
 
 				FormsAuthentication.SetAuthCookie(username, false);
 
-				return RedirectToAction("List", "Post", new { forumId = user.ForumIdentifier});
+				return RedirectToAction("List", "Post", new { forumId = user.ForumIdentifier });
 			}
 
 			return RedirectToAction("SignIn");
@@ -35,7 +35,7 @@ namespace ForumComposite.Controllers
 
 		public ActionResult Register()
 		{
-			return View(new RegisterForumUserInputModel() { ForumIdentifier = ViewBag.ForumIdentifier });
+			return View(new RegisterForumUserInputModel { ForumIdentifier = ViewBag.ForumIdentifier });
 		}
 
 		public ActionResult SignIn()

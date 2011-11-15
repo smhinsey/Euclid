@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
 using Euclid.Composites.Conversion;
 using Euclid.Composites.Mvc.Binders;
 using Euclid.Framework.Models;
@@ -10,7 +9,8 @@ namespace Euclid.Composites.Mvc.Extensions
 {
 	public static class CompositeAppExtensions
 	{
-		public static IInputModel GetInputModelFromCommandName(this IInputModelMapCollection inputModelMaps, string commandName, IValueProvider valueProvider)
+		public static IInputModel GetInputModelFromCommandName(
+			this IInputModelMapCollection inputModelMaps, string commandName, IValueProvider valueProvider)
 		{
 			var inputModelType = inputModelMaps.GetInputModelTypeForCommandName(commandName);
 
@@ -29,8 +29,8 @@ namespace Euclid.Composites.Mvc.Extensions
 				try
 				{
 					var value = (property.Name == "CommandType")
-									? commandType
-									: (propValue == null) ? null : propValue.ConvertTo(property.PropertyType);
+					            	? commandType
+					            	: (propValue == null) ? null : propValue.ConvertTo(property.PropertyType);
 
 					if (property.CanWrite)
 					{

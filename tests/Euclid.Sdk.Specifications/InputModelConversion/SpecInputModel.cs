@@ -4,6 +4,5 @@ namespace Euclid.Sdk.Specifications.InputModelConversion
 {
 	public class SpecInputModel : DefaultInputModel
 	{
-		
 	}
 }

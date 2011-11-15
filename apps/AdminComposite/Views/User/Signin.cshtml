@@ -1,5 +1,4 @@
-﻿@using AdminComposite.Models
-@{
+﻿@{
 	ViewBag.Title = "Signin to the admin";
 	Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
 }
@@ -20,10 +19,10 @@
 		<!-- Notification -->
 		@if (!string.IsNullOrEmpty(ViewBag.Error))
 		{
-		<div class="notification error">
-			<a href="#" class="close-notification" rel="tooltip" original-title="Hide Notification">x</a>
-			<p><strong>Error</strong> @ViewBag.Error</p>
-		</div>
+			<div class="notification error">
+				<a href="#" class="close-notification" rel="tooltip" original-title="Hide Notification">x</a>
+				<p><strong>Error</strong> @ViewBag.Error</p>
+			</div>
 		}
 		<!-- /Notification -->
 			

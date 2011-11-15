@@ -1,5 +1,6 @@
 using System;
 using System.Data.SqlTypes;
+using AutoMapper;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
@@ -14,12 +15,12 @@ namespace ForumAgent.Processors
 		public RegisterOrganizationUserProcessor(ISimpleRepository<OrganizationUserEntity> userRepository)
 		{
 			_userRepository = userRepository;
-			AutoMapper.Mapper.CreateMap<RegisterOrganizationUser, OrganizationUserEntity>();
+			Mapper.CreateMap<RegisterOrganizationUser, OrganizationUserEntity>();
 		}
 
 		public override void Process(RegisterOrganizationUser message)
 		{
-			var domainUser = AutoMapper.Mapper.Map<OrganizationUserEntity>(message);
+			var domainUser = Mapper.Map<OrganizationUserEntity>(message);
 
 			// we will generate a password - salt it & hash it & send a notification ot the new user
 			domainUser.PasswordHash = "password";
@@ -27,7 +28,7 @@ namespace ForumAgent.Processors
 
 			domainUser.Created = DateTime.Now;
 			domainUser.Modified = domainUser.Created;
-			domainUser.LastLogin = (DateTime) SqlDateTime.MinValue;
+			domainUser.LastLogin = (DateTime)SqlDateTime.MinValue;
 
 			_userRepository.Save(domainUser);
 		}
@@ -40,17 +41,14 @@ namespace ForumAgent.Processors
 		public UpdateOrganizationUserProcessor(ISimpleRepository<OrganizationUserEntity> userRepository)
 		{
 			_userRepository = userRepository;
-			AutoMapper.Mapper.CreateMap<UpdateOrganizationUser, OrganizationUserEntity>()
-				.ForMember(
-					p => p.Identifier,
-					o => o.MapFrom(u => u.UserId))
-				.ForMember(p => p.OrganizationEntity, o => o.Ignore());
+			Mapper.CreateMap<UpdateOrganizationUser, OrganizationUserEntity>().ForMember(
+				p => p.Identifier, o => o.MapFrom(u => u.UserId)).ForMember(p => p.OrganizationEntity, o => o.Ignore());
 		}
 
 		public override void Process(UpdateOrganizationUser message)
 		{
 			var domainUser = _userRepository.FindById(message.UserId);
-			domainUser = AutoMapper.Mapper.Map(message, domainUser);
+			domainUser = Mapper.Map(message, domainUser);
 			domainUser.CreatedBy = message.CreatedBy;
 
 			domainUser.Modified = DateTime.Now;

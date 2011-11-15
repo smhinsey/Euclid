@@ -10,7 +10,7 @@ using TechTalk.SpecFlow;
 namespace Euclid.Sdk.Specifications.CompositeApplication
 {
 	[Binding]
-	[StepScope(Feature="Publish input models as commands")]
+	[StepScope(Feature = "Publish input models as commands")]
 	public class InputModelSteps : DefaultAgentSteps, IValidateListOfReadModels<TestQuery, TestReadModel>
 	{
 		public InputModelSteps()
@@ -20,7 +20,10 @@ namespace Euclid.Sdk.Specifications.CompositeApplication
 
 		protected override Type TypeFromAgent
 		{
-			get { return typeof (TestCommand); }
+			get
+			{
+				return typeof(TestCommand);
+			}
 		}
 
 		public void ValidateList(TestQuery query, IList<TestReadModel> readModels)

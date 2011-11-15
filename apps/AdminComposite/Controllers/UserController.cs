@@ -11,8 +11,9 @@ namespace AdminComposite.Controllers
 {
 	public class UserController : Controller
 	{
-		private readonly OrganizationUserQueries _userQueries;
 		private readonly IPublisher _commandPublisher;
+
+		private readonly OrganizationUserQueries _userQueries;
 
 		public UserController(OrganizationUserQueries userQueries, IPublisher publisher)
 		{
@@ -33,6 +34,19 @@ namespace AdminComposite.Controllers
 
 		[Authorize]
 		public ActionResult Details(Guid? forumId)
+		{
+			return View();
+		}
+
+		public ActionResult DoSignout()
+		{
+			Response.Cookies.Remove("OrganizationUserId");
+			FormsAuthentication.SignOut();
+
+			return RedirectToAction("Signout");
+		}
+
+		public ActionResult ForgotPassword()
 		{
 			return View();
 		}
@@ -60,14 +74,15 @@ namespace AdminComposite.Controllers
 			if (_userQueries.AutenticateOrganizationUser(username, password))
 			{
 				var user = _userQueries.FindByUsername(username);
-				_commandPublisher.PublishMessage(new UpdateLastLogin
-				                                 	{
-				                                 		Created = DateTime.Now,
-				                                 		CreatedBy = Guid.Empty,
-				                                 		Identifier = Guid.NewGuid(),
-				                                 		LoginTime = DateTime.Now,
-				                                 		UserIdentifier = user.Identifier
-				                                 	});
+				_commandPublisher.PublishMessage(
+					new UpdateLastLogin
+						{
+							Created = DateTime.Now,
+							CreatedBy = Guid.Empty,
+							Identifier = Guid.NewGuid(),
+							LoginTime = DateTime.Now,
+							UserIdentifier = user.Identifier
+						});
 
 				// SELF need to do something better here
 				Response.Cookies.Add(new HttpCookie("OrganizationUserId", user.Identifier.ToString()));
@@ -80,24 +95,11 @@ namespace AdminComposite.Controllers
 			return View("SignIn");
 		}
 
-		public ActionResult DoSignout()
-		{
-			Response.Cookies.Remove("OrganizationUserId");
-			FormsAuthentication.SignOut();
-
-			return RedirectToAction("Signout");
-		}
-
 		public ActionResult Signout()
 		{
 			Response.Cookies.Remove("OrganizationUserId");
 			FormsAuthentication.SignOut();
 
-			return View();
-		}
-
-		public ActionResult ForgotPassword()
-		{
 			return View();
 		}
 	}

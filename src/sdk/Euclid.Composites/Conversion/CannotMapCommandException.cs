@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Euclid.Framework.AgentMetadata;
 
 namespace Euclid.Composites.Conversion
 {
 	public class CannotMapCommandException : Exception
 	{
 		private readonly string _commandName;
+
 		private readonly IEnumerable<string> _inputModels;
 
 		public CannotMapCommandException(string commandName, IEnumerable<string> inputModels)
@@ -39,7 +39,6 @@ namespace Euclid.Composites.Conversion
 					message.AppendFormat("\t{0}", inputModel);
 					message.AppendLine();
 				}
-
 
 				return message.ToString();
 			}

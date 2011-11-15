@@ -5,14 +5,14 @@ namespace ForumAgent.Commands
 {
 	public class CreateForum : DefaultCommand
 	{
+		public string Description { get; set; }
+
 		public string Name { get; set; }
+
+		public Guid OrganizationId { get; set; }
 
 		public string UrlHostName { get; set; }
 
 		public string UrlSlug { get; set; }
-
-		public string Description { get; set; }
-
-		public Guid OrganizationId { get; set; }
 	}
 }

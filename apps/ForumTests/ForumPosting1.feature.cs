@@ -9,175 +9,164 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
+
+using TechTalk.SpecFlow;
+
 namespace ForumTests
 {
-    using TechTalk.SpecFlow;
-    
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" +
-        "t Forum")]
-    [NUnit.Framework.CategoryAttribute("ForumAgentSpecs")]
-    public partial class ForumPostingFeature
-    {
-        
-        private static TechTalk.SpecFlow.ITestRunner testRunner;
-        
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
+	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+	[NUnit.Framework.TestFixtureAttribute()]
+	[NUnit.Framework.DescriptionAttribute(
+		"In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" + "t Forum")]
+	[NUnit.Framework.CategoryAttribute("ForumAgentSpecs")]
+	public partial class ForumPostingFeature
+	{
+		private static TechTalk.SpecFlow.ITestRunner testRunner;
+
 #line 1 "ForumPosting.feature"
 #line hidden
-        
-        [NUnit.Framework.TestFixtureSetUpAttribute()]
-        public virtual void FeatureSetup()
-        {
-            testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Forum Posting", "In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" +
-                    "t Forum", ProgrammingLanguage.CSharp, new string[] {
-                        "ForumAgentSpecs"});
-            testRunner.OnFeatureStart(featureInfo);
-        }
-        
-        [NUnit.Framework.TestFixtureTearDownAttribute()]
-        public virtual void FeatureTearDown()
-        {
-            testRunner.OnFeatureEnd();
-            testRunner = null;
-        }
-        
-        [NUnit.Framework.SetUpAttribute()]
-        public virtual void TestInitialize()
-        {
-        }
-        
-        [NUnit.Framework.TearDownAttribute()]
-        public virtual void ScenarioTearDown()
-        {
-            testRunner.OnScenarioEnd();
-        }
-        
-        public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
-        {
-            testRunner.OnScenarioStart(scenarioInfo);
-        }
-        
-        public virtual void ScenarioCleanup()
-        {
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publish Post")]
-        public virtual void PublishPost()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish Post", ((string[])(null)));
+
+		[NUnit.Framework.TestFixtureSetUpAttribute()]
+		public virtual void FeatureSetup()
+		{
+			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
+			var featureInfo = new TechTalk.SpecFlow.FeatureInfo(
+				new System.Globalization.CultureInfo("en-US"),
+				"Forum Posting",
+				"In order to interact with a Forum\r\nAs a Forum User\r\nI want to create Posts in tha" + "t Forum",
+				ProgrammingLanguage.CSharp,
+				new string[] { "ForumAgentSpecs" });
+			testRunner.OnFeatureStart(featureInfo);
+		}
+
+		[NUnit.Framework.TestFixtureTearDownAttribute()]
+		public virtual void FeatureTearDown()
+		{
+			testRunner.OnFeatureEnd();
+			testRunner = null;
+		}
+
+		[NUnit.Framework.SetUpAttribute()]
+		public virtual void TestInitialize()
+		{
+		}
+
+		[NUnit.Framework.TearDownAttribute()]
+		public virtual void ScenarioTearDown()
+		{
+			testRunner.OnScenarioEnd();
+		}
+
+		public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+		{
+			testRunner.OnScenarioStart(scenarioInfo);
+		}
+
+		public virtual void ScenarioCleanup()
+		{
+			testRunner.CollectScenarioErrors();
+		}
+
+		[NUnit.Framework.TestAttribute()]
+		[NUnit.Framework.DescriptionAttribute("Publish Post")]
+		public virtual void PublishPost()
+		{
+			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish Post", ((string[])(null)));
 #line 7
-this.ScenarioSetup(scenarioInfo);
+			this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("the agent ForumAgent");
+			testRunner.Given("the agent ForumAgent");
 #line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Body",
-                        "CategoryIdentifier",
-                        "AuthorIdentifier",
-                        "ForumIdentifier"});
-            table1.AddRow(new string[] {
-                        "Post Title",
-                        "Post Body",
-                        "11111111-1111-1111-1111-111111111111",
-                        "00000000-0000-0000-0000-000000000000",
-                        "33333333-3333-3333-3333-333333333333"});
+			var table1 =
+				new TechTalk.SpecFlow.Table(
+					new string[] { "Title", "Body", "CategoryIdentifier", "AuthorIdentifier", "ForumIdentifier" });
+			table1.AddRow(
+				new string[]
+					{
+						"Post Title", "Post Body", "11111111-1111-1111-1111-111111111111", "00000000-0000-0000-0000-000000000000",
+						"33333333-3333-3333-3333-333333333333"
+					});
 #line 10
- testRunner.When("I publish the command PublishPost:", ((string)(null)), table1);
+			testRunner.When("I publish the command PublishPost:", ((string)(null)), table1);
 #line 13
- testRunner.And("the command is complete");
+			testRunner.And("the command is complete");
 #line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table2.AddRow(new string[] {
-                        "Post Title"});
+			var table2 = new TechTalk.SpecFlow.Table(new string[] { "Title" });
+			table2.AddRow(new string[] { "Post Title" });
 #line 15
- testRunner.Then("run FindByTitle on PostQueries with:", ((string)(null)), table2);
+			testRunner.Then("run FindByTitle on PostQueries with:", ((string)(null)), table2);
 #line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Body",
-                        "CategoryIdentifier",
-                        "AuthorIdentifier",
-                        "ForumIdentifier",
-                        "AuthorDisplayName",
-                        "CommentCount"});
-            table3.AddRow(new string[] {
-                        "Post Title",
-                        "Post Body",
-                        "11111111-1111-1111-1111-111111111111",
-                        "00000000-0000-0000-0000-000000000000",
-                        "33333333-3333-3333-3333-333333333333",
-                        "Anonymous",
-                        "0"});
+			var table3 =
+				new TechTalk.SpecFlow.Table(
+					new string[]
+						{
+							"Title", "Body", "CategoryIdentifier", "AuthorIdentifier", "ForumIdentifier", "AuthorDisplayName",
+							"CommentCount"
+						});
+			table3.AddRow(
+				new string[]
+					{
+						"Post Title", "Post Body", "11111111-1111-1111-1111-111111111111", "00000000-0000-0000-0000-000000000000",
+						"33333333-3333-3333-3333-333333333333", "Anonymous", "0"
+					});
 #line 19
- testRunner.And("the Post has values:", ((string)(null)), table3);
+			testRunner.And("the Post has values:", ((string)(null)), table3);
 #line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publish Post in a Category")]
-        public virtual void PublishPostInACategory()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish Post in a Category", ((string[])(null)));
+			this.ScenarioCleanup();
+		}
+
+		[NUnit.Framework.TestAttribute()]
+		[NUnit.Framework.DescriptionAttribute("Publish Post in a Category")]
+		public virtual void PublishPostInACategory()
+		{
+			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish Post in a Category", ((string[])(null)));
 #line 23
-this.ScenarioSetup(scenarioInfo);
+			this.ScenarioSetup(scenarioInfo);
 #line 24
- testRunner.Given("the agent ForumAgent");
+			testRunner.Given("the agent ForumAgent");
 #line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Body",
-                        "CategoryIdentifier",
-                        "AuthorIdentifier",
-                        "ForumIdentifier"});
-            table4.AddRow(new string[] {
-                        "Post Title",
-                        "Post Body",
-                        "11111111-1111-1111-1111-111111111111",
-                        "00000000-0000-0000-0000-000000000000",
-                        "33333333-3333-3333-3333-333333333333"});
+			var table4 =
+				new TechTalk.SpecFlow.Table(
+					new string[] { "Title", "Body", "CategoryIdentifier", "AuthorIdentifier", "ForumIdentifier" });
+			table4.AddRow(
+				new string[]
+					{
+						"Post Title", "Post Body", "11111111-1111-1111-1111-111111111111", "00000000-0000-0000-0000-000000000000",
+						"33333333-3333-3333-3333-333333333333"
+					});
 #line 26
- testRunner.When("I publish the command PublishPost:", ((string)(null)), table4);
+			testRunner.When("I publish the command PublishPost:", ((string)(null)), table4);
 #line 29
- testRunner.And("the command is complete");
+			testRunner.And("the command is complete");
 #line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "CategoryIdentifier"});
-            table5.AddRow(new string[] {
-                        "11111111-1111-1111-1111-111111111111"});
+			var table5 = new TechTalk.SpecFlow.Table(new string[] { "CategoryIdentifier" });
+			table5.AddRow(new string[] { "11111111-1111-1111-1111-111111111111" });
 #line 31
- testRunner.Then("retrieve a List of Post by running FindPostsByCategory on PostQueries with:", ((string)(null)), table5);
+			testRunner.Then(
+				"retrieve a List of Post by running FindPostsByCategory on PostQueries with:", ((string)(null)), table5);
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Body",
-                        "CategoryIdentifier",
-                        "AuthorIdentifier",
-                        "ForumIdentifier",
-                        "AuthorDisplayName",
-                        "CommentCount"});
-            table6.AddRow(new string[] {
-                        "Post Title",
-                        "Post Body",
-                        "11111111-1111-1111-1111-111111111111",
-                        "00000000-0000-0000-0000-000000000000",
-                        "33333333-3333-3333-3333-333333333333",
-                        "Anonymous",
-                        "0"});
+			var table6 =
+				new TechTalk.SpecFlow.Table(
+					new string[]
+						{
+							"Title", "Body", "CategoryIdentifier", "AuthorIdentifier", "ForumIdentifier", "AuthorDisplayName",
+							"CommentCount"
+						});
+			table6.AddRow(
+				new string[]
+					{
+						"Post Title", "Post Body", "11111111-1111-1111-1111-111111111111", "00000000-0000-0000-0000-000000000000",
+						"33333333-3333-3333-3333-333333333333", "Anonymous", "0"
+					});
 #line 35
- testRunner.And("the resulting list contains a Post with values:", ((string)(null)), table6);
+			testRunner.And("the resulting list contains a Post with values:", ((string)(null)), table6);
 #line hidden
-            this.ScenarioCleanup();
-        }
-    }
+			this.ScenarioCleanup();
+		}
+	}
 }
+
 #endregion

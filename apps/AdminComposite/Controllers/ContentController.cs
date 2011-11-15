@@ -19,7 +19,7 @@ namespace AdminComposite.Controllers
 		public PartialViewResult TypeSpecificInput(string contentType)
 		{
 			PartialViewResult result;
-			switch(contentType.ToLower())
+			switch (contentType.ToLower())
 			{
 				case "richtext":
 					result = PartialView("_wysiwg");

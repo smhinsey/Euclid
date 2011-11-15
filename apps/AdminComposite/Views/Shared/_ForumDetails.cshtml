@@ -1,7 +1,7 @@
 ﻿@using AdminComposite.Models
 @model CreateForumInputModel
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$("#forum-name").focus();
 	});
 </script>
@@ -12,7 +12,7 @@
 
 	<dt><label for="forum-slug">Slug</label></dt>
 	<dd>
-		@Html.TextBoxFor(m=>m.UrlSlug, new {id="forum-slug"})
+		@Html.TextBoxFor(m => m.UrlSlug, new { id = "forum-slug" })
 		<p><a href="#" id="generate-slug">generate slug</a></p>
 	</dd>
 

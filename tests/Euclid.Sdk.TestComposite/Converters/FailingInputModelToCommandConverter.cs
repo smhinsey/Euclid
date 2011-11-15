@@ -1,9 +1,3 @@
-using System;
-using AutoMapper;
-using Euclid.Framework.Cqrs;
-using Euclid.Sdk.TestAgent.Commands;
-using Euclid.Sdk.TestComposite.Models;
-
 namespace Euclid.Sdk.TestComposite.Converters
 {
 	//public class FailingInputModelToCommandConverter : IInputToCommandConverter

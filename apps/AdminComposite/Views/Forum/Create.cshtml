@@ -3,8 +3,8 @@
 @model CreateForumInputModel
 		   
 <script type="text/javascript">
-	$(document).ready(function () {
-		$("sumbit-create-command").click(function () {
+	$(document).ready(function() {
+		$("sumbit-create-command").click(function() {
 			alert($("#forum-description").val());
 			return false;
 		});
@@ -40,15 +40,15 @@
 </article>
 
 <section id="forum-form-section">
-@using (Html.BeginFormForInputModel(Model, true, Url.Action("Index", "Dashboard")))
+	@using (Html.BeginFormForInputModel(Model, true, Url.Action("Index", "Dashboard")))
 	{
-		@Html.HiddenFor(m=>m.OrganizationId)
+		@Html.HiddenFor(m => m.OrganizationId)
 
 		<fieldset>
 			<legend>Settings</legend>
 
-			@{Html.RenderPartial("_ForumDetails", Model);}
-	 	</fieldset>
+			@{ Html.RenderPartial("_ForumDetails", Model); }
+		</fieldset>
 
 		<input type="submit" class="button" value="Create Forum" id="sumbit-create-command"/>
 	}

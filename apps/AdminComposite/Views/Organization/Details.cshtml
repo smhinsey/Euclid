@@ -3,37 +3,37 @@
 @model UpdateOrganizationInputModel
 
 <script type="text/javascript">
-	$(document).ready(function () {
-		$("#add-user").click(function () {
+	$(document).ready(function() {
+		$("#add-user").click(function() {
 			$("<div></div>")
 				.load("/Organization/GetUser")
 				.modal({
-					autoResize: true,
-					autoPosition: true,
-					position: new Array(25, 300),
-					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
-					containerCss: { height: 400, width: 650 }
-				});
+						autoResize: true,
+						autoPosition: true,
+						position: new Array(25, 300),
+						dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
+						containerCss: { height: 400, width: 650 }
+					});
 
 			return false;
 		});
 
-		$(".edit.user").click(function () {
+		$(".edit.user").click(function() {
 			var organizationId = "11111111-1111-1111-1111-111111111111";
 			$("<div></div>")
 				.load("/Organization/GetUser?organizationId=" + organizationId + "&userId=" + $(this).attr("data-user-id"))
 				.modal({
-					autoResize: true,
-					autoPosition: true,
-					position: new Array(25, 300),
-					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
-					containerCss: { height: 400, width: 650 }
-				});
+						autoResize: true,
+						autoPosition: true,
+						position: new Array(25, 300),
+						dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
+						containerCss: { height: 400, width: 650 }
+					});
 
 		});
 
-		$("#trigger-edit").click(function () {
-			$("#organization-details .organization-detail").each(function (index, item) {
+		$("#trigger-edit").click(function() {
+			$("#organization-details .organization-detail").each(function(index, item) {
 				var inputClass = "jeditable";
 				$(item).editable("enable");
 				$(item).editable(null, {
@@ -49,8 +49,8 @@
 			});
 		});
 
-		$("#save-edit").click(function () {
-			$("#organization-details .organization-detail").each(function (index, item) {
+		$("#save-edit").click(function() {
+			$("#organization-details .organization-detail").each(function(index, item) {
 				var id = item.id;
 				var inputSelector = "#" + id + " input";
 				var value = $(inputSelector).val();
@@ -66,13 +66,13 @@
 		});
 
 
-		$("#cancel-edit").click(function () {
+		$("#cancel-edit").click(function() {
 			resetEditableFields();
 		});
 	});
 
 	function resetEditableFields() {
-		$("#organization-details .organization-detail").each(function (index, item) {
+		$("#organization-details .organization-detail").each(function(index, item) {
 			item.reset();
 			$(item).editable("disable");
 			$(item).text($(item).attr('data-original-value'));
@@ -89,16 +89,16 @@
 </script>
 
 <style>
-	.jeditable 
+	.jeditable
 	{
 		margin: 0;
 		padding: 0;
 		display: inline;
 	}
-	
-	.organization-detail 
+
+	.organization-detail
 	{
-		width:200px;
+		width: 200px;
 		/* display:inline block; */
 	}
 </style>
@@ -146,14 +146,14 @@
 		</fieldset>
 
 		<button type="button" id="trigger-edit">Edit</button>
-		<button type="button" id="cancel-edit" style="display:none">Cancel</button>
-		<button type="button" id="save-edit" style="display:none">Save</button>
+		<button type="button" id="cancel-edit" style="display: none">Cancel</button>
+		<button type="button" id="save-edit" style="display: none">Save</button>
 	</form>
 
 	@using (Html.BeginFormForInputModel(Model, false, string.Empty, "update-form"))
 	{
 		@Html.HiddenFor(m => m.OrganizationIdentifier)
-		@Html.HiddenFor(m=>m.Address, new { id="update-organization-address" })
+		@Html.HiddenFor(m => m.Address, new { id = "update-organization-address" })
 		@Html.HiddenFor(m => m.Address2, new { id = "update-organization-address2" })
 		@Html.HiddenFor(m => m.City, new { id = "update-organization-city" })
 		@Html.HiddenFor(m => m.Country, new { id = "update-organization-country" })
@@ -162,7 +162,7 @@
 		@Html.HiddenFor(m => m.PhoneNumber, new { id = "update-organization-phone" })
 		@Html.HiddenFor(m => m.State, new { id = "update-organization-state" })
 		@Html.HiddenFor(m => m.Zip, new { id = "update-organization-zip" })
-		@Html.HiddenFor(m=> m.OrganizationSlug, new { id = "update-organization-slug" })
+		@Html.HiddenFor(m => m.OrganizationSlug, new { id = "update-organization-slug" })
 	}
 
 </article>

@@ -17,20 +17,22 @@ namespace Euclid.Composites.Mvc.Extensions
 			controller.ViewBag.Offset = offset;
 
 			controller.ViewBag.TotalPages = (count / pageSize) + 1;
-			
+
 			controller.ViewBag.CurrentPage = offset + 1;
-			
+
 			controller.ViewBag.HasPreviousPage = (offset > 0);
-			
-			controller.ViewBag.HasNextPage = count > (offset +1) * pageSize;
-			
+
+			controller.ViewBag.HasNextPage = count > (offset + 1) * pageSize;
+
 			controller.ViewBag.NextPageUrl = (!controller.ViewBag.HasNextPage)
 			                                 	? "#"
-			                                 	: controller.Url.Action(actionName, controllerName, new { pageSize, offset = offset + 1 });
+			                                 	: controller.Url.Action(
+			                                 		actionName, controllerName, new { pageSize, offset = offset + 1 });
 
 			controller.ViewBag.PreviousPageUrl = (!controller.ViewBag.HasPreviousPage)
 			                                     	? "#"
-			                                     	: controller.Url.Action(actionName, controllerName, new { pageSize, offset = offset - 1 });
+			                                     	: controller.Url.Action(
+			                                     		actionName, controllerName, new { pageSize, offset = offset - 1 });
 		}
 	}
 }

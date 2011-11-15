@@ -8,13 +8,6 @@ namespace Euclid.Common.Logging
 	/// </summary>
 	public static class Log4NetLoggingSourceExtensions
 	{
-		private static void SetCustomLogFields(this ILoggingSource source)
-		{
-			ThreadContext.Properties["Created"] = DateTime.Now;
-			ThreadContext.Properties["Modified"] = DateTime.Now;
-			ThreadContext.Properties["Id"] = 0;
-		}
-
 		/// <summary>
 		/// 	Writes a debug message to the logging stream.
 		/// </summary>
@@ -106,6 +99,13 @@ namespace Euclid.Common.Logging
 			{
 				logger.Warn(message);
 			}
+		}
+
+		private static void SetCustomLogFields(this ILoggingSource source)
+		{
+			ThreadContext.Properties["Created"] = DateTime.Now;
+			ThreadContext.Properties["Modified"] = DateTime.Now;
+			ThreadContext.Properties["Id"] = 0;
 		}
 	}
 }

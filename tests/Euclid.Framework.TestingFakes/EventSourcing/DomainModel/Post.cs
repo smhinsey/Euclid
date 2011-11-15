@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Euclid.Framework.TestingFakes.EventSourcing.DomainModel
+﻿namespace Euclid.Framework.TestingFakes.EventSourcing.DomainModel
 {
 	public class Post
 	{

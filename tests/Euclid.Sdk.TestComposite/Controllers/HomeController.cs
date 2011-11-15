@@ -6,16 +6,12 @@ namespace Euclid.Sdk.TestComposite.Controllers
 {
 	public class HomeController : Controller, ILoggingSource
 	{
-		public HomeController()
-		{
-		}
-
 		public ActionResult Index()
 		{
 			try
 			{
 				var zero = 0;
-				var dumb = 9/zero;
+				var dumb = 9 / zero;
 			}
 			catch (Exception e)
 			{

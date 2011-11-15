@@ -29,21 +29,21 @@ namespace ForumAgent.Queries
 			return (org == null)
 			       	? null
 			       	: new Organization
-			       	  	{
-			       	  		Created = org.Created,
-			       	  		Address = org.Address,
-			       	  		Address2 = org.Address2,
-			       	  		City = org.City,
-			       	  		Country = org.Country,
-			       	  		Identifier = id,
-			       	  		Modified = org.Modified,
-			       	  		Name = org.OrganizationName,
-			       	  		PhoneNumber = org.PhoneNumber,
-			       	  		State = org.State,
-			       	  		WebsiteUrl = org.OrganizationUrl,
-			       	  		Zip = org.Zip,
-							Slug = org.OrganizationSlug
-			       	  	};
+			       		{
+			       			Created = org.Created,
+			       			Address = org.Address,
+			       			Address2 = org.Address2,
+			       			City = org.City,
+			       			Country = org.Country,
+			       			Identifier = id,
+			       			Modified = org.Modified,
+			       			Name = org.OrganizationName,
+			       			PhoneNumber = org.PhoneNumber,
+			       			State = org.State,
+			       			WebsiteUrl = org.OrganizationUrl,
+			       			Zip = org.Zip,
+			       			Slug = org.OrganizationSlug
+			       		};
 		}
 
 		public Guid GetIdentifierBySlug(string slug)
@@ -55,28 +55,31 @@ namespace ForumAgent.Queries
 			return org.Identifier;
 		}
 
-		new public IList<Organization> List(int offset, int pageSize)
+		public new IList<Organization> List(int offset, int pageSize)
 		{
 			var session = GetCurrentSession();
 
 			var orgs = session.QueryOver<OrganizationEntity>().Skip(offset).Take(pageSize);
 
-			return orgs.List().Select(org => new Organization
-			                                 	{
-													Created = org.Created,
-													Address = org.Address,
-													Address2 = org.Address2,
-													City = org.City,
-													Country = org.Country,
-													Identifier = org.Identifier,
-													Modified = org.Modified,
-													Name = org.OrganizationName,
-													PhoneNumber = org.PhoneNumber,
-													State = org.State,
-													WebsiteUrl = org.OrganizationUrl,
-													Zip = org.Zip,
-													Slug = org.OrganizationSlug
-												}).ToList();
+			return
+				orgs.List().Select(
+					org =>
+					new Organization
+						{
+							Created = org.Created,
+							Address = org.Address,
+							Address2 = org.Address2,
+							City = org.City,
+							Country = org.Country,
+							Identifier = org.Identifier,
+							Modified = org.Modified,
+							Name = org.OrganizationName,
+							PhoneNumber = org.PhoneNumber,
+							State = org.State,
+							WebsiteUrl = org.OrganizationUrl,
+							Zip = org.Zip,
+							Slug = org.OrganizationSlug
+						}).ToList();
 		}
 	}
 }

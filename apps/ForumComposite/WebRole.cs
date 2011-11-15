@@ -1,8 +1,5 @@
-﻿using System.Configuration;
-using System.Web.Mvc;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
 using Euclid.Common.Storage.NHibernate;
@@ -42,7 +39,8 @@ namespace ForumComposite
 
 			XmlConfigurator.Configure();
 
-			var databaseConfiguration = MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
+			var databaseConfiguration =
+				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
 
 			var container = new WindsorContainer();
 
@@ -64,16 +62,18 @@ namespace ForumComposite
 
 			composite.RegisterInputModelMap<CommentOnPostInputModel, CommentOnPost>();
 			composite.RegisterInputModelMap<PublishPostInputModel, PublishPost>();
-			composite.RegisterInputModelMap<RegisterForumUserInputModel, RegisterForumUser>(m => new RegisterForumUser()
-				{
-					ForumIdentifier = m.ForumIdentifier,
-					FirstName = m.FirstName,
-					LastName = m.LastName,
-					PasswordHash = m.Password,
-					PasswordSalt = m.Password,
-					Username = m.Username,
-					Email = m.Email
-				});
+			composite.RegisterInputModelMap<RegisterForumUserInputModel, RegisterForumUser>(
+				m =>
+				new RegisterForumUser
+					{
+						ForumIdentifier = m.ForumIdentifier,
+						FirstName = m.FirstName,
+						LastName = m.LastName,
+						PasswordHash = m.Password,
+						PasswordSalt = m.Password,
+						Username = m.Username,
+						Email = m.Email
+					});
 			composite.RegisterInputModelMap<UpdateUserProfileInputModel, UpdateUserProfile>();
 			composite.RegisterInputModelMap<VoteOnCommentInputModel, VoteOnComment>();
 			composite.RegisterInputModelMap<VoteOnPostInputModel, VoteOnPost>();

@@ -18,8 +18,10 @@ namespace ForumAgent.Queries
 			var session = GetCurrentSession();
 
 			var matchedAccount =
-				session.QueryOver<ForumUser>()
-				.Where(user => user.PasswordHash == password && user.PasswordSalt == password && user.Username == username && user.ForumIdentifier == forumId).SingleOrDefault();
+				session.QueryOver<ForumUser>().Where(
+					user =>
+					user.PasswordHash == password && user.PasswordSalt == password && user.Username == username
+					&& user.ForumIdentifier == forumId).SingleOrDefault();
 
 			return matchedAccount != null;
 		}

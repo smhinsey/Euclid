@@ -2,7 +2,6 @@ using System;
 using System.Web.Mvc;
 using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.Models;
-using Euclid.Composites.Mvc.Extensions;
 
 namespace Euclid.Composites.Mvc.Binders
 {
