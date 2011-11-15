@@ -1,25 +1,25 @@
 ﻿using System;
 using Euclid.Common.Storage.NHibernate;
+using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.Domain.Entities;
 using ForumAgent.ReadModels;
 using NHibernate;
 
 namespace ForumAgent.Queries
 {
-	public class OrganizationQueries
+	public class OrganizationQueries : NhQuery<Organization>
 	{
-		private readonly ISession _session;
-		private readonly NhSimpleRepository<OrganizationEntity> _repository;
-
-		public OrganizationQueries(ISession session)
+		public OrganizationQueries(ISession session) : base(session)
 		{
-			_session = session;
-			_repository = new NhSimpleRepository<OrganizationEntity>(_session);
 		}
 
 		public Organization FindByIdentifier(Guid identifier)
 		{
-			var org = _repository.FindById(identifier);
+			var session = GetCurrentSession();
+
+			var repository = new NhSimpleRepository<OrganizationEntity>(session);
+
+			var org = repository.FindById(identifier);
 
 			return (org == null)
 			       	? null
@@ -36,8 +36,18 @@ namespace ForumAgent.Queries
 			       	  		PhoneNumber = org.PhoneNumber,
 			       	  		State = org.State,
 			       	  		WebsiteUrl = org.OrganizationUrl,
-			       	  		Zip = org.Zip
+			       	  		Zip = org.Zip,
+							Slug = org.OrganizationSlug
 			       	  	};
+		}
+
+		public Guid GetIdentifierBySlug(string slug)
+		{
+			var session = GetCurrentSession();
+
+			var org = session.QueryOver<OrganizationEntity>().Where(u => u.OrganizationSlug == slug).SingleOrDefault();
+
+			return org.Identifier;
 		}
 	}
 }

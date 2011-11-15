@@ -64,7 +64,7 @@ namespace AdminComposite
 			composite.AddAgent(typeof(LogQueries).Assembly);
 
 			composite.RegisterInputModelMap<CreateForumInputModel, CreateForum>();
-			composite.RegisterInputModelMap<CreateOrganizationAndUserInputModel, CreateOrganizationAndRegisterUser>(input=>new CreateOrganizationAndRegisterUser
+			composite.RegisterInputModelMap<CreateOrganizationAndRegisterUserInputModel, CreateOrganizationAndRegisterUser>(input=>new CreateOrganizationAndRegisterUser
 			                                                                                                               	{
 			                                                                                                               		Address = input.Address,
 																																Address2 = input.Address2,
@@ -79,6 +79,7 @@ namespace AdminComposite
 																																PhoneNumber = input.PhoneNumber,
 																																State = input.State,
 																																Zip = input.Zip,
+																																OrganizationSlug = input.OrganizationSlug,
 																																// TODO: salt & hash password
 																																PasswordHash = input.Password,
 																																PasswordSalt = input.Password
@@ -86,6 +87,7 @@ namespace AdminComposite
 
 			//the processor will handle generating passwords for users registered by an admin
 			composite.RegisterInputModelMap<RegisterOrganizationUserInputModel, RegisterOrganizationUser>();
+
 			composite.RegisterInputModelMap<UpdateOrganizationUserInputModel, UpdateOrganizationUser>(
 				input => new UpdateOrganizationUser
 				         	{
@@ -101,12 +103,6 @@ namespace AdminComposite
 			composite.RegisterInputModelMap<UpdateOrganizationInputModel, UpdateOrganization>();
 
 			setAzureCredentials(container);
-
-			container.Register(
-				Component.For<OrganizationUserQueries>().ImplementedBy<OrganizationUserQueries>().LifeStyle.PerWebRequest);
-
-			container.Register(
-				Component.For<OrganizationQueries>().ImplementedBy<OrganizationQueries>().LifeStyle.PerWebRequest);
 
 			_initialized = true;
 		}

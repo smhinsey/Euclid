@@ -19,6 +19,7 @@ namespace ForumAgent.Domain.Entities.Maps
 			Map(x=>x.Country);
 			Map(x => x.Created);
 			Map(x => x.Modified);
+			Map(x => x.CreatedBy);
 		}
 	}
 }

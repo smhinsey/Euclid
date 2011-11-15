@@ -3,12 +3,12 @@ using ForumAgent.Commands;
 
 namespace AdminComposite.Models
 {
-	public class CreateOrganizationAndUserInputModel : DefaultInputModel
+	public class CreateOrganizationAndRegisterUserInputModel : DefaultInputModel
 	{
-		public CreateOrganizationAndUserInputModel()
+		public CreateOrganizationAndRegisterUserInputModel()
 		{
 			AgentSystemName = "NewCo.ForumAgent";
-			CommandType = typeof(UpdateOrganization);
+			CommandType = typeof(CreateOrganizationAndRegisterUser);
 		}
 
 		public string OrganizationName { get; set; }
@@ -25,5 +25,6 @@ namespace AdminComposite.Models
 		public string Email { get; set; }
 		public string Username { get; set; }
 		public string Password { get; set; }
+		public string OrganizationSlug { get; set; }
 	}
 }

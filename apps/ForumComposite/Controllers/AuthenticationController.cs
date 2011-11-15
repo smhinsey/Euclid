@@ -27,7 +27,7 @@ namespace ForumComposite.Controllers
 
 				FormsAuthentication.SetAuthCookie(username, false);
 
-				return RedirectToAction("List", "Post");
+				return RedirectToAction("List", "Post", new { forumId = user.ForumIdentifier});
 			}
 
 			return RedirectToAction("SignIn");

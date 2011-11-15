@@ -36,9 +36,9 @@ namespace ForumComposite.Controllers
 			return View(new PublishPostInputModel { AuthorIdentifier = authorId });
 		}
 
-		public ActionResult List(int pageSize = 10, int offset = 0)
+		public ActionResult List(Guid forumId, int pageSize = 10, int offset = 0)
 		{
-			var posts = _postQueries.GetPostListing(pageSize, offset);
+			var posts = _postQueries.GetPostListing(forumId, pageSize, offset);
 
 			return View(posts);
 		}

@@ -23,7 +23,7 @@ namespace AdminComposite.Controllers
 		public ActionResult Create()
 		{
 			ViewBag.Title = "New User";
-			return View(new CreateOrganizationAndUserInputModel());
+			return View(new CreateOrganizationAndRegisterUserInputModel());
 		}
 
 		public ActionResult Created()

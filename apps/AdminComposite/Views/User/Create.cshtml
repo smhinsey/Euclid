@@ -1,6 +1,6 @@
 ﻿@using AdminComposite.Models
 @using Euclid.Composites.Mvc.Extensions
-@model CreateOrganizationAndUserInputModel
+@model CreateOrganizationAndRegisterUserInputModel
 		   
 @{
 	ViewBag.Title = "Create a User";
@@ -23,8 +23,15 @@
 			return processForm;
 		});
 
-		$("#password", "#confirm-password").focus(function () {
+		$("#password, #confirm-password").focus(function () {
 			$("#confirm-error").hide();
+		});
+
+		$("#organization-name").blur(function () {
+			if ($("#organization-slug").val() == "") {
+				var slug = slugify($("#organization-name").val());
+				$("#organization-slug").val(slug);
+			}
 		});
 	});
 </script>
@@ -47,6 +54,9 @@
 			<dt><label for="organization-name">Name*</label></dt>
 			<dd>@Html.TextBoxFor(m=>Model.OrganizationName, new {id="organization-name"})</dd>
 		
+			<dt><label for="organization-slug">Slug*</label></dt>
+			<dd>@Html.TextBoxFor(m=>Model.OrganizationSlug, new {id= "organization-slug"})</dd>
+
 			<dt><label for="organization-url">Website</label></dt>
 			<dd>@Html.TextBoxFor(m=>Model.OrganizationUrl, new {id="organization-url"})</dd>
 
@@ -63,7 +73,7 @@
 			<dd>@Html.TextBoxFor(m=>Model.City, new {id="organization-city"})</dd>
 
 			<dt><label for="organization-state">State/Region*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.City, new {id="organization-state"})</dd>
+			<dd>@Html.TextBoxFor(m=>Model.State, new {id="organization-state"})</dd>
 
 			<dt><label for="organization-zip">Zip/Postal Code*</label></dt>
 			<dd>@Html.TextBoxFor(m=>Model.Zip, new {id="organization-zip"})</dd>
@@ -79,7 +89,7 @@
 			<dt><label for="first-name">First Name*</label></dt>
 			<dd>@Html.TextBoxFor(m=>Model.FirstName, new {id="first-name"})</dd>
 
-			<dt><label for="last-name">First Name*</label></dt>
+			<dt><label for="last-name">Last Name*</label></dt>
 			<dd>@Html.TextBoxFor(m=>Model.LastName, new {id="last-name"})</dd>
 
 			<dt><label for="email">Email*</label></dt>
@@ -96,10 +106,11 @@
 		</dl>
 	</fieldset>
 	
-	<input type="submit" value="Sign up" class="button" />
+	<input type="submit" value="Sign up" class="button" id="submit-form"/>
 	
 	<div class="notification error" style="display:none" id="confirm-error">
-		<p><strong>Error</strong>Passwords don't match</p>
+		<a href="#" class="close-notification" title="Dismiss" rel="tooltip">x</a>
+		<p><strong>Error</strong> Passwords don't match</p>
 	</div>
 	
 }

@@ -52,7 +52,7 @@ namespace AdminComposite.Controllers
 		[HttpGet]
 		public PartialViewResult UpdateUser(Guid organizationId, Guid userId)
 		{
-			var user = _userQueries.FindByIdentifier(userId);
+			var user = _userQueries.FindById(userId);
 
 			if (user == null)
 			{

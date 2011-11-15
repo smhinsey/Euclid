@@ -1,32 +1,26 @@
 using System;
 using System.Collections.Generic;
 using Euclid.Common.Storage.NHibernate;
+using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.Domain.Entities;
 using ForumAgent.ReadModels;
 using NHibernate;
 
 namespace ForumAgent.Queries
 {
-	public class OrganizationUserQueries
+	public class OrganizationUserQueries : NhQuery<OrganizationUser>
 	{
-		private readonly ISession _session;
-		private readonly NhSimpleRepository<OrganizationUserEntity> _repository;
 
-		public OrganizationUserQueries(ISession session)
+		public OrganizationUserQueries(ISession session) : base(session)
 		{
-			_session = session;
-			_repository = new NhSimpleRepository<OrganizationUserEntity>(session);
-			AutoMapper.Mapper.CreateMap<OrganizationUserEntity, OrganizationUser>().ForMember(u => u.OrganizationIdentifier,
-			                                                                                  o =>
-			                                                                                  o.MapFrom(
-			                                                                                  	e =>
-			                                                                                  	e.OrganizationEntity.Identifier));
 		}
 
 		public bool AutenticateOrganizationUser(string username, string password)
 		{
+			var session = GetCurrentSession();
+
 			// TODO: implement safe hashing/salting and all that noise
-			var matchedAccount = _session.QueryOver<OrganizationUserEntity>()
+			var matchedAccount = session.QueryOver<OrganizationUserEntity>()
 				.Where(
 					user => user.PasswordHash == password &&
 					        user.PasswordSalt == password &&
@@ -35,28 +29,31 @@ namespace ForumAgent.Queries
 			return matchedAccount != null;
 		}
 
-		public IList<OrganizationUser> List(int offset, int pageSize)
-		{
-			var domainUsers = _session.QueryOver<OrganizationUserEntity>().Skip(offset).Take(pageSize).List();
-
-			return AutoMapper.Mapper.Map<IList<OrganizationUser>>(domainUsers);
-		}
-
 		public OrganizationUser FindByUsername(string username)
 		{
-			var user = _session
-				.QueryOver<OrganizationUserEntity>()
-				.Where(u => u.Username == username)
-				.SingleOrDefault();
+			var session = GetCurrentSession();
 
-			return (user == null) ? null : AutoMapper.Mapper.Map<OrganizationUser>(user);
-		}
+			var user = session
+						.QueryOver<OrganizationUserEntity>()
+						.Where(u => u.Username == username)
+						.SingleOrDefault();
 
-		public OrganizationUser FindByIdentifier(Guid identifier)
-		{
-			var user = _repository.FindById(identifier);
-
-			return (user == null) ? null : AutoMapper.Mapper.Map<OrganizationUser>(user);
+			return (user == null)
+			       	? null
+			       	: new OrganizationUser
+			       	  	{
+			       	  		Created = user.Created,
+			       	  		Email = user.Email,
+			       	  		FirstName = user.FirstName,
+			       	  		LastName = user.LastName,
+			       	  		Identifier = user.Identifier,
+			       	  		LastLogin = user.LastLogin,
+			       	  		Modified = user.Modified,
+			       	  		OrganizationIdentifier = user.OrganizationEntity.Identifier,
+			       	  		PasswordHash = user.PasswordHash,
+			       	  		PasswordSalt = user.PasswordSalt,
+			       	  		Username = user.Username
+			       	  	};
 		}
 	}
 }

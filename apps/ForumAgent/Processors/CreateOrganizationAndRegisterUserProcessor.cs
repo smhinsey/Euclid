@@ -29,13 +29,17 @@ namespace ForumAgent.Processors
 			organizationUserWriteModel.Created = created;
 			organizationUserWriteModel.Modified = created;
 			organizationUserWriteModel.LastLogin = (DateTime)SqlDateTime.MinValue;
+			organizationUserWriteModel.CreatedBy = Guid.Empty;
 
 			var organizationWriteModel = AutoMapper.Mapper.Map<OrganizationEntity>(message);
 			organizationWriteModel.Created = created;
 			organizationWriteModel.Modified = created;
 
 			organizationUserWriteModel.OrganizationEntity = _organizationRepository.Save(organizationWriteModel);
-			_organizationUserRepository.Save(organizationUserWriteModel);
+			var user = _organizationUserRepository.Save(organizationUserWriteModel);
+
+			organizationWriteModel.CreatedBy = user.Identifier;
+			_organizationRepository.Update(organizationWriteModel);
 		}
 	}
 }

@@ -51,6 +51,7 @@ namespace ForumAgent.Processors
 		{
 			var domainUser = _userRepository.FindById(message.UserId);
 			domainUser = AutoMapper.Mapper.Map(message, domainUser);
+			domainUser.CreatedBy = message.CreatedBy;
 
 			domainUser.Modified = DateTime.Now;
 			_userRepository.Update(domainUser);

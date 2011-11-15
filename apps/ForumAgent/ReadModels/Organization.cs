@@ -16,6 +16,6 @@ namespace ForumAgent.ReadModels
 		public virtual string State { get; set; }
 		public virtual string Zip { get; set; }
 		public virtual string Country { get; set; }
-		
+		public virtual string Slug { get; set; }
 	}
 }

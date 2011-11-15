@@ -19,5 +19,6 @@ namespace ForumAgent.Commands
 		public string Username { get; set; }
 		public string PasswordSalt { get; set; }
 		public string PasswordHash { get; set; }
+		public string OrganizationSlug { get; set; }
 	}
 }

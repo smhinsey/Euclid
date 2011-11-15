@@ -8,6 +8,7 @@ namespace ForumAgent.Domain.Entities
 	{
 		public virtual DateTime Created { get; set; }
 		public virtual Guid Identifier { get; set; }
+		public virtual Guid CreatedBy { get; set; }
 		public virtual DateTime Modified { get; set; }
 		public virtual string OrganizationName { get; set; }
 		public virtual string OrganizationUrl { get; set; }
@@ -18,6 +19,7 @@ namespace ForumAgent.Domain.Entities
 		public virtual string State { get; set; }
 		public virtual string Zip { get; set; }
 		public virtual string Country { get; set; }
+		public virtual string OrganizationSlug { get; set; }
 
 		public virtual IList<OrganizationUserEntity> Users { get; protected set; }
 
