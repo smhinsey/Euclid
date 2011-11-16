@@ -49,10 +49,7 @@ namespace Euclid.Composites
 
 		public IEnumerable<IAgentMetadata> Agents
 		{
-			get
-			{
-				return _agents;
-			}
+			get { return _agents; }
 		}
 
 		public string Description { get; set; }
@@ -60,9 +57,7 @@ namespace Euclid.Composites
 		public IEnumerable<ITypeMetadata> InputModels
 		{
 			get
-			{
-				return _inputModelMap.InputModels;
-			}
+			{ return _inputModelMap.InputModels; }
 		}
 
 		public IEnumerable<IPartMetadata> Commands
@@ -97,7 +92,7 @@ namespace Euclid.Composites
 			// SELF the Where call below changes the meaning of the rest of the registration so it had to be removed
 			Container.Register(
 				AllTypes.FromAssembly(agent.AgentAssembly)
-					// .Where(Component.IsInNamespace(agent.Queries.Namespace))
+				// .Where(Component.IsInNamespace(agent.Queries.Namespace))
 					.BasedOn(typeof(IQuery)).WithService.Self().Configure(component => component.LifeStyle.Transient));
 		}
 
@@ -115,9 +110,9 @@ namespace Euclid.Composites
 
 			Settings = compositeAppSettings;
 
-			Settings.Validate();
-
 			_inputModelMap = Settings.InputModelMaps.Value;
+
+			Settings.Validate();
 
 			State = CompositeApplicationState.Configured;
 		}
@@ -191,14 +186,16 @@ namespace Euclid.Composites
 			return (GetConfigurationErrors().Count() == 0 && !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Description));
 		}
 
-		public void RegisterInputModelMap<TInputModelSource, TCommandDestination>() where TInputModelSource : IInputModel
+		public void RegisterInputModelMap<TInputModelSource, TCommandDestination>()
+			where TInputModelSource : IInputModel
 			where TCommandDestination : ICommand
 		{
 			_inputModelMap.RegisterInputModel<TInputModelSource, TCommandDestination>();
 		}
 
 		public void RegisterInputModelMap<TInputModelSource, TCommandDestination>(
-			Func<TInputModelSource, TCommandDestination> customMap) where TInputModelSource : IInputModel
+			Func<TInputModelSource, TCommandDestination> customMap)
+			where TInputModelSource : IInputModel
 			where TCommandDestination : ICommand
 		{
 			_inputModelMap.RegisterInputModel(customMap);
@@ -272,8 +269,12 @@ namespace Euclid.Composites
 			{
 				// SELF we need to shift to shipping these with the agents and using classmaps for them so we have better control
 				mcfg.AutoMappings.Add(
-					AutoMap.Assembly(agent, autoMapperConfiguration).IgnoreBase<DefaultReadModel>().IgnoreBase<UnpersistedReadModel>().
-						Conventions.Add<DefaultStringLengthConvention>());
+					AutoMap
+						.Assembly(agent, autoMapperConfiguration)
+						.IgnoreBase<DefaultReadModel>()
+						.IgnoreBase<UnpersistedReadModel>()
+						.Conventions
+						.Add<DefaultStringLengthConvention>());
 
 				mcfg.FluentMappings.AddFromAssembly(agent);
 			}

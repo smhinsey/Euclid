@@ -24,7 +24,6 @@ namespace Euclid.Sdk.Specifications.InputModelConversion
 			settings.OutputChannel.ApplyOverride(typeof(InMemoryMessageChannel));
 			Composite.Configure(settings);
 
-			InputModelMaps = container.Resolve<IInputModelMapCollection>();
 		}
 
 		private ICompositeApp Composite
@@ -36,18 +35,6 @@ namespace Euclid.Sdk.Specifications.InputModelConversion
 			set
 			{
 				ScenarioContext.Current["ca"] = value;
-			}
-		}
-
-		private IInputModelMapCollection InputModelMaps
-		{
-			get
-			{
-				return ScenarioContext.Current["imm"] as IInputModelMapCollection;
-			}
-			set
-			{
-				ScenarioContext.Current["imm"] = value;
 			}
 		}
 
@@ -136,7 +123,7 @@ namespace Euclid.Sdk.Specifications.InputModelConversion
 
 			try
 			{
-				ScenarioContext.Current["command"] = InputModelMaps.GetCommandMetadataForInputModel(typeof(TestInputModel));
+				ScenarioContext.Current["command"] = Composite.GetCommandMetadataForInputModel(typeof(TestInputModel));
 			}
 			catch (AutoMapperMappingException ex)
 			{

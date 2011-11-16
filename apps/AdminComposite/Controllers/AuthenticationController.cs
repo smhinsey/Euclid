@@ -27,14 +27,6 @@ namespace AdminComposite.Controllers
 			return View(new CreateOrganizationAndRegisterUserInputModel());
 		}
 
-		public ActionResult DoSignout()
-		{
-			Response.Cookies.Remove("OrganizationUserId");
-			FormsAuthentication.SignOut();
-
-			return RedirectToAction("Signout");
-		}
-
 		public ActionResult ForgotPassword()
 		{
 			return View();
