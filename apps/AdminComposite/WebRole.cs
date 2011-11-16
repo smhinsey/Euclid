@@ -117,8 +117,8 @@ namespace AdminComposite
 				input => new UpdateForumVotingScheme
 				         	{
 				         		ForumIdentifier = input.ForumIdentifier,
-								UpDownVoting = input.UpDownVoting,
-								NoVoting = input.NoVoting
+								NoVoting = input.SelectedScheme == SetVotingSchemeInputModel.AvailableScheme.NoVoting,
+								UpDownVoting = input.SelectedScheme == SetVotingSchemeInputModel.AvailableScheme.UpDownVoting
 				         	});
 			setAzureCredentials(container);
 

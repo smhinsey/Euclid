@@ -11,12 +11,9 @@ namespace CompositeInspector.Controllers
 	{
 		private readonly ICompositeApp _composite;
 
-//		private readonly IInputModelMapCollection _inputModelMaps;
-
 		public CompositeController(ICompositeApp composite)
 		{
 			_composite = composite;
-//			_inputModelMaps = inputModelMaps;
 
 			ViewBag.CompositeName = _composite.Name;
 			ViewBag.CompositeDescription = _composite.Description;

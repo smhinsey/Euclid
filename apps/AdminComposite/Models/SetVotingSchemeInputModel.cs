@@ -7,6 +7,12 @@ namespace AdminComposite.Models
 {
 	public class SetVotingSchemeInputModel : DefaultInputModel
 	{
+		public enum AvailableScheme
+		{
+			NoVoting,
+			UpDownVoting
+		};
+
 		public SetVotingSchemeInputModel()
 		{
 			CommandType = typeof (UpdateForumVotingScheme);
@@ -14,7 +20,6 @@ namespace AdminComposite.Models
 		}
 
 		public Guid ForumIdentifier { get; set; }
-		public bool NoVoting { get; set; }
-		public bool UpDownVoting { get; set; }
+		public AvailableScheme SelectedScheme { get; set; }
 	}
 }

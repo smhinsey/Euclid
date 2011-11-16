@@ -20,8 +20,7 @@ namespace AdminComposite.Controllers
 			return View(new SetVotingSchemeInputModel
 			            	{
 			            		ForumIdentifier = forum.Identifier,
-								NoVoting = !forum.UpDownVoting,
-								UpDownVoting = forum.UpDownVoting
+								SelectedScheme = forum.NoVoting ? SetVotingSchemeInputModel.AvailableScheme.NoVoting : SetVotingSchemeInputModel.AvailableScheme.UpDownVoting
 			            	});
 		}
 	}

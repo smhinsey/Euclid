@@ -42,14 +42,14 @@
 				<tbody>
 					<tr>
 						<td>
-							@Html.CheckBoxFor(m => m.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
+							@Html.RadioButtonFor(m => m.SelectedScheme, SetVotingSchemeInputModel.AvailableScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
 						</td>
 						<td>None</td>
 						<td>Users cannot vote on posts or comments</td>
 					</tr>
 					<tr>
 						<td>
-							@Html.CheckBoxFor(m => m.UpDownVoting, new { @class= "voting-scheme", id = "forum-voting-updown" })
+							@Html.RadioButtonFor(m => m.SelectedScheme, SetVotingSchemeInputModel.AvailableScheme.UpDownVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
 						</td>
 						<td>Up / Down</td>
 						<td>Users can vote a post or comment up or down.  A user can change their vote, but can only vote on a particular post or comment once</td>
