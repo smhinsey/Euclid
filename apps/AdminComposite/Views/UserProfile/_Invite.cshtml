@@ -1,11 +1,14 @@
 ﻿@using AdminComposite.Models
 @using Euclid.Composites.Mvc.Extensions
-@model RegisterOrganizationUserInputModel
+@model RegisterForumUserInputModel
+@{
+	ViewBag.Title = "Invite Users";
+	Layout = null;
+}
 
-@using (Html.BeginFormForInputModel(Model, true, Url.Action("Users", "Organization", new {organizationId = Model.OrganizationId})))
+@using (Html.BeginFormForInputModel(Model, true, Url.Action("List", "UserProfile", new { forumId = Model.ForumIdentifier })))
 {
-	@Html.HiddenFor(m=>m.OrganizationId)
-	@Html.HiddenFor(m=>m.CreatedBy)
+	@Html.HiddenFor(m=>m.Password)
 	<fieldset>
 		<legend>User</legend>
 
@@ -38,6 +41,5 @@
 		</div>
 	</fieldset>
 
-	<button type="submit">Add User</button>
+	<button type="submit">Invite User</button>
 }
-

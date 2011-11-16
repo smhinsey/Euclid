@@ -58,8 +58,7 @@ namespace AdminComposite
 
 			composite.Configure(compositeAppSettings);
 
-				composite.CreateSchema(databaseConfiguration, true);
-
+			composite.CreateSchema(databaseConfiguration, true);
 
 			composite.AddAgent(typeof(PublishPost).Assembly);
 			composite.AddAgent(typeof(LogQueries).Assembly);
@@ -87,10 +86,8 @@ namespace AdminComposite
 				         		PasswordHash = input.Password,
 				         		PasswordSalt = input.Password
 				         	});
-
 			//the processor will handle generating passwords for users registered by an admin
 			composite.RegisterInputModelMap<RegisterOrganizationUserInputModel, RegisterOrganizationUser>();
-
 			composite.RegisterInputModelMap<UpdateOrganizationUserInputModel, UpdateOrganizationUser>(
 				input =>
 				new UpdateOrganizationUser
@@ -103,8 +100,9 @@ namespace AdminComposite
 						UserId = input.UserId,
 						Username = input.Username
 					});
-
 			composite.RegisterInputModelMap<UpdateOrganizationInputModel, UpdateOrganization>();
+			composite.RegisterInputModelMap<UpdateForumInputModel, UpdateForum>();
+			composite.RegisterInputModelMap<RegisterForumUserInputModel, RegisterForumUser>();
 
 			setAzureCredentials(container);
 

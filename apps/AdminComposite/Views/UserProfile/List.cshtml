@@ -1,0 +1,92 @@
+﻿@using ForumAgent.ReadModels
+@model IList<ForumUser>
+@{
+	ViewBag.Title = "Manage Forum Users";
+	var forumId = ViewContext.RouteData.Values["forumId"];
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#invite-users").click(function () {
+			$("<div></div>")
+				.load("@Url.Action("Invite", "UserProfile", new {forumId = forumId})")
+				.modal({
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
+					containerCss: { height: 400, width: 650 }
+				});
+
+			return false;
+		});
+
+		$(".user-details").click(function() {
+			var userId = $(this).attr("data-user-id");
+			$("<div></div>")
+				.load("@Url.Action("Details", "UserProfile")?userId=" + userId)
+				.modal({
+						autoResize: true,
+						autoPosition: true,
+						position: new Array(25, 300),
+						dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
+						containerCss: { height: 400, width: 650 }
+					});
+		});
+	});
+
+
+</script>
+
+<div class="article-container">
+	<article>
+		<header>
+			<h2>@ViewBag.Title</h2>
+		</header>
+		<p>Manage and Invite users to this forum</p>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Username</th>
+					<th># Posts</th>
+					<th># Votes</th>
+					<th>Last Login</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var user in Model)
+				{
+					<tr>
+						<td>@user.FirstName @user.LastName</td>
+						<td>@user.Username</td>
+						<td>TBD</td>
+						<td>
+							<ul class="actions">
+								<li>TBD</li>
+								<li><a href="#" class="reset-votes" rel="tooltip" original-title="Reset Vote Count">Reset Vote Count</a></li>
+							</ul>
+						</td>
+						<td>TBD</td>
+						<td>
+							<ul class="actions">
+								<li><a href="#" class="block-user" rel="tooltip" original-title="Block @user.FirstName @user.LastName" data-item-id="@user.Identifier" data-confirmation-message="Really @user.FirstName @user.LastName?" data-confirm-function="blockUser">Block User</a></li>
+								<li><a href="#" class="user-details view" rel="tooltip" original-title="View @user.FirstName @user.LastName's Profile" data-user-id="@user.Identifier">View Profile</a></li>
+							</ul>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+
+		<button type="button" id="invite-users">Invite Users</button>
+	</article>
+</div>
+
+@section Breadcrumbs {
+	<ul id="breadcrumbs">
+		<li><a href="/" title="Back to Homepage">Home</a></li>
+		<li>@ViewBag.Title</li>
+	</ul>
+}

@@ -22,6 +22,10 @@ namespace AdminComposite.ActionFilters
 
 		public void OnActionExecuted(ActionExecutedContext filterContext)
 		{
+		}
+
+		public void OnActionExecuting(ActionExecutingContext filterContext)
+		{
 			if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly != _currentAssembly)
 			{
 				return;
@@ -39,8 +43,8 @@ namespace AdminComposite.ActionFilters
 				filterContext.Result = new RedirectToRouteResult(
 												new RouteValueDictionary
 													{
-														{"action", "SignOut"},
-														{"controller", "User"}
+														{"action", "DoSignout"},
+														{"controller", "Authentication"}
 													});
 			}
 			else
@@ -61,10 +65,6 @@ namespace AdminComposite.ActionFilters
 				filterContext.Controller.ViewBag.LastName = currentUser.LastName;
 				filterContext.Controller.ViewBag.Gravatar = string.Format("http://www.gravatar.com/avatar/{0}?s=45", currentUser.Email.GetMd5());
 			}
-		}
-
-		public void OnActionExecuting(ActionExecutingContext filterContext)
-		{
 		}
 	}
 

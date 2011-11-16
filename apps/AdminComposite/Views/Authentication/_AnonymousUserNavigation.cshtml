@@ -13,8 +13,8 @@
 			<li @if (controller == "Forum"){<text>class="current"</text>}>
 			<a href="#" title="Actions" class="articles" id="action-link">Actions</a>
 			<ul style="display:block">
-				<li @if ((action == "List" && controller == "Forum") || action == "Details"){<text>class="current"</text>}>@Html.ActionLink("Sign up", "Create", "User")</li>
-				<li @if ((action == "List" && controller == "Forum") || action == "Details"){<text>class="current"</text>}>@Html.ActionLink("Sign in", "Signin", "User")</li>
+				<li @if ((action == "List" && controller == "Forum") || action == "Details"){<text>class="current"</text>}>@Html.ActionLink("Sign up", "Create", "Authentication")</li>
+				<li @if ((action == "List" && controller == "Forum") || action == "Details"){<text>class="current"</text>}>@Html.ActionLink("Sign in", "Signin", "Authentication")</li>
 			</ul>
 		</li>
 	</ul>

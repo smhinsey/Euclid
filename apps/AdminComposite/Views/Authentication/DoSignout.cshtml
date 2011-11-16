@@ -1,0 +1,12 @@
+﻿@model object
+
+@{
+	ViewBag.Title = "title";
+	Layout = "_AnonymousLayout.cshtml";
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		window.location.href = "@Url.Action("Signout")";
+	})
+</script>

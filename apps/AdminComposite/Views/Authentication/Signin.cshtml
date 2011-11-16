@@ -1,12 +1,32 @@
 ﻿@using AdminComposite.Models
 @{
 	ViewBag.Title = "Signin to the admin";
-	Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
+	Layout = "_AnonymousLayout.cshtml";
 }
 
 @section bodyClass {
 	login
 }
+
+<script type="text/javascript" src="@Url.Content("~/Content/jquery.cookie.js")"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#username").val($.cookie("newco-admin"));
+
+		if ($.cookie("newco-admin") != null) {
+			$("#remember-me").prop("checked", true);
+		}
+
+		$("#signin").click(function () {
+			if ($("#remember-me").is(":checked")) {
+				var username = $("#username").val();
+				$.cookie("newco-admin", username);
+			} else {
+				$.cookie("newco-admin", null);
+			}
+		});
+	});
+</script>
 
 <a href="/" title="Back to Homepage"></a>
 
@@ -36,7 +56,7 @@
 							<label>Username</label>
 						</dt>
 						<dd>
-							<input type="text" class="large" name="username">
+							<input type="text" class="large" id="username" name="username">
 						</dd>
 						<dt>
 							<label>Password</label>
@@ -44,8 +64,8 @@
 						<dd>
 							<input type="password" class="large" name="password">
 						</dd>
-						<dt class="checkbox"><label>Remeber me</label></dt>
-						<dd><input type="checkbox"></dd>
+						<dt class="checkbox"><label for="remember-me">Remember me</label></dt>
+						<dd><input type="checkbox" id="remember-me"></dd>
 					</dl>
 				</fieldset>
 				<input type="submit" class="right" id="signin" value="Log in" />
@@ -57,6 +77,6 @@
 <!-- /Login box -->
 
 <ul class="login-links">
-	<li><a href="@Url.Action("ForgotPassword", "User")">Forgot Password</a></li>
-	<li><a href="@Url.Action("Create", "User")">Signup</a></li>
+	<li><a href="@Url.Action("ForgotPassword", "Authentication")">Forgot Password</a></li>
+	<li><a href="@Url.Action("Create", "Authentication")">Signup</a></li>
 </ul>

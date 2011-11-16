@@ -1,0 +1,12 @@
+using System;
+using Euclid.Framework.Cqrs;
+
+namespace ForumAgent.Commands
+{
+	public class UpdateForumVotingScheme : DefaultCommand
+	{
+		public Guid ForumIdentifier { get; set; }
+		public bool VotingEnabled { get; set; }
+		public bool UpDownVoting { get; set; }
+	}
+}

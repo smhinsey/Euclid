@@ -4,11 +4,11 @@
 		   
 @{
 	ViewBag.Title = "Create a User";
-	Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
+	Layout = "_AnonymousLayout.cshtml";
 }
 
 @section mainNav {
-	@{Html.RenderPartial("LeftRail/_AnonymousUserNavigation");}
+	@{Html.RenderPartial("_AnonymousUserNavigation");}
 }
 
 <script type="text/javascript">
@@ -45,7 +45,7 @@
 	</section>
 </article>
 
-@using (Html.BeginFormForInputModel(Model, true, Url.Action("Signin", "User")))
+@using (Html.BeginFormForInputModel(Model, true, Url.Action("Signin", "Authentication")))
 {
 	<fieldset>
 		<legend>Organization</legend>
@@ -84,7 +84,7 @@
 	</fieldset>
 
 	<fieldset>
-	<legend>User</legend>
+		<legend>User</legend>
 		<dl>
 			<dt><label for="first-name">First Name*</label></dt>
 			<dd>@Html.TextBoxFor(m=>Model.FirstName, new {id="first-name"})</dd>

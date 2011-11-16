@@ -61,6 +61,8 @@
     <Compile Include="Commands\CommentOnPost.cs" />
     <Compile Include="Commands\CreateForum.cs" />
     <Compile Include="Commands\PublishPost.cs" />
+    <Compile Include="Commands\UpdateForum.cs" />
+    <Compile Include="Commands\UpdateForumVotingScheme.cs" />
     <Compile Include="Commands\UpdateLastLogin.cs" />
     <Compile Include="Commands\UpdateOrganization.cs" />
     <Compile Include="Commands\UpdateOrganizationUser.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Processors\RegisterForumUserProcessor.cs" />
     <Compile Include="Commands\UpdateUserProfile.cs" />
     <Compile Include="Processors\RegisterOrganizationUserProcessor.cs" />
+    <Compile Include="Processors\UpdateForumDetails.cs" />
     <Compile Include="Processors\UpdateLastLoginProcessor.cs" />
     <Compile Include="Processors\UpdateOrganizationProcessor.cs" />
     <Compile Include="Processors\UpdateUserProfileProcessor.cs" />

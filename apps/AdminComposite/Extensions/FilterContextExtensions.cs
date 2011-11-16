@@ -4,7 +4,7 @@ namespace AdminComposite.Extensions
 {
 	public static class FilterContextExtensions
 	{
-		public static string GetRequestValue(this ActionExecutedContext filterContext, string key)
+		public static string GetRequestValue(this ActionExecutingContext filterContext, string key)
 		{
 			if (string.IsNullOrEmpty(key)) return string.Empty;
 

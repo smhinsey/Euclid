@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -9,44 +9,21 @@ using ForumAgent.Queries;
 
 namespace AdminComposite.Controllers
 {
-	public class UserController : Controller
+	public class AuthenticationController : Controller
 	{
-		private readonly OrganizationUserQueries _userQueries;
+		private readonly OrganizationUserQueries _organizationUserQueries;
 		private readonly IPublisher _commandPublisher;
 
-		public UserController(OrganizationUserQueries userQueries, IPublisher publisher)
+		public AuthenticationController(OrganizationUserQueries organizationUserQueries, IPublisher commandPublisher)
 		{
-			_userQueries = userQueries;
-			_commandPublisher = publisher;
+			_organizationUserQueries = organizationUserQueries;
+			_commandPublisher = commandPublisher;
 		}
 
 		public ActionResult Create()
 		{
 			ViewBag.Title = "New User";
 			return View(new CreateOrganizationAndRegisterUserInputModel());
-		}
-
-		public ActionResult Created()
-		{
-			return View();
-		}
-
-		[Authorize]
-		public ActionResult Details(Guid? forumId)
-		{
-			return View();
-		}
-
-		[Authorize]
-		public ActionResult Invite(Guid? forumId)
-		{
-			return View();
-		}
-
-		[Authorize]
-		public ActionResult List(Guid? forumId)
-		{
-			return View();
 		}
 
 		public ActionResult Signin()
@@ -57,9 +34,9 @@ namespace AdminComposite.Controllers
 		[HttpPost]
 		public ActionResult Signin(string username, string password)
 		{
-			if (_userQueries.AutenticateOrganizationUser(username, password))
+			if (_organizationUserQueries.AutenticateOrganizationUser(username, password))
 			{
-				var user = _userQueries.FindByUsername(username);
+				var user = _organizationUserQueries.FindByUsername(username);
 				_commandPublisher.PublishMessage(new UpdateLastLogin
 				                                 	{
 				                                 		Created = DateTime.Now,
@@ -85,14 +62,11 @@ namespace AdminComposite.Controllers
 			Response.Cookies.Remove("OrganizationUserId");
 			FormsAuthentication.SignOut();
 
-			return RedirectToAction("Signout");
+			return View();
 		}
 
 		public ActionResult Signout()
 		{
-			Response.Cookies.Remove("OrganizationUserId");
-			FormsAuthentication.SignOut();
-
 			return View();
 		}
 

@@ -35,7 +35,7 @@ namespace AdminComposite.Controllers
 			return View(AutoMapper.Mapper.Map<UpdateOrganizationInputModel>(org));
 		}
 
-		public ActionResult ListUsers(Guid organizationId, int pageNumber = 0, int pageSize = 25)
+		public ActionResult Users(Guid organizationId, int pageNumber = 0, int pageSize = 25)
 		{
 			return View(_userQueries.List(pageNumber * pageSize, pageSize));
 		}

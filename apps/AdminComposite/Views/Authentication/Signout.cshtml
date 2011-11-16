@@ -1,10 +1,10 @@
 ﻿@{
 	ViewBag.Title = "Logged out";
-	Layout = "~/Views/Shared/_AnonymousLayout.cshtml";
+	Layout = "_AnonymousLayout.cshtml";
 }
 
 @section mainNav {
-	@{Html.RenderPartial("LeftRail/_AnonymousUserNavigation");}
+	@{Html.RenderPartial("_AnonymousUserNavigation");}
 }
 
 <article>

@@ -14,12 +14,17 @@ namespace AdminComposite.Controllers
 		public ForumController(ForumQueries forumQueries)
 		{
 			_forumQueries = forumQueries;
-			AutoMapper.Mapper.CreateMap<Forum, CreateForumInputModel>();
+			AutoMapper.Mapper.CreateMap<Forum, UpdateForumInputModel>().ForMember(input=>input.ForumIdentifier, opt=>opt.MapFrom(forum=>forum.Identifier));
 		}
 
 		public ActionResult Create()
 		{
-			return View(new CreateForumInputModel {UrlHostName = "socialrally.com"});
+			return View(new CreateForumInputModel
+			            	{
+			            		UrlHostName = "socialrally.com",
+			            		OrganizationId = ViewBag.OrganizationId,
+			            		Description = string.Empty
+			            	});
 		}
 
 		public ActionResult AuthenticationProviders(Guid forumId)
@@ -30,7 +35,7 @@ namespace AdminComposite.Controllers
 		public ActionResult Details(Guid forumId)
 		{
 			var forum = _forumQueries.FindById(forumId);
-			var model = AutoMapper.Mapper.Map<CreateForumInputModel>(forum);
+			var model = AutoMapper.Mapper.Map<UpdateForumInputModel>(forum);
 
 			return View(model);
 		}

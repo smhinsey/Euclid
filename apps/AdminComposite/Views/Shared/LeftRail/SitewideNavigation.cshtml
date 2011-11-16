@@ -18,7 +18,7 @@
 				<a href="@Url.Action("Details", "Organization", new { organizationId = ViewBag.OrganizationId })">
 					Details</a> </li>
 			<li @Html.GetClassWhenControllerAndActionAreCurrent("organization", "listusers", "current")>
-				<a href="@Url.Action("ListUsers", "Organization", new { organizationId = ViewBag.OrganizationId })">
+				<a href="@Url.Action("Users", "Organization", new { organizationId = ViewBag.OrganizationId })">
 					Users</a> </li>
 		</ul>
 	</li>
@@ -56,7 +56,7 @@
 					<a href="@Url.Action("List", "Category", new { forumId })">Categories</a> </li>
 				
 				<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "user", "list", "current")>
-					<a href="@Url.Action("List", "User", new { forumId })">Users</a> </li>
+					<a href="@Url.Action("List", "UserProfile", new { forumId })">Users</a> </li>
 				
 				<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "badge", "list", "current")>
 					<a href="@Url.Action("List", "Badge", new { forumId })">Badges</a> </li>

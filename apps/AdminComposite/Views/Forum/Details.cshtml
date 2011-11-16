@@ -1,8 +1,15 @@
 ﻿@using AdminComposite.Models
-@model CreateForumInputModel
+@using Euclid.Composites.Mvc.Extensions
+@model UpdateForumInputModel
 @{
-	ViewBag.Title = "Forum Details";
+	ViewBag.Title = Model.Name + " Details";
 }
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#forum-name").focus();
+	});
+</script>
 
 <div class="article-container">
 	<article>
@@ -21,12 +28,33 @@
 
 			
 			<div id="test" class="sidetab default-sidetab">
-				@using (Html.BeginForm("Publish", "Agents", FormMethod.Post))
+				@using (Html.BeginFormForInputModel(Model, true, Url.Action("Details", "Forum", new {forumId = Model.ForumIdentifier})))
 				{
+					@Html.HiddenFor(m => m.ForumIdentifier);
 					<fieldset>
 						<legend>Forum Details</legend>
 						
-						@{Html.RenderPartial("_ForumDetails", Model);}
+						<dl>
+							<dt><label for="forum-name">Name</label></dt>
+							<dd>@Html.TextBoxFor(m => m.Name, new { id = "forum-name" })</dd>
+
+							<dt><label for="forum-slug">Slug</label></dt>
+							<dd>
+								@Html.TextBoxFor(m=>m.UrlSlug, new {id="forum-slug"})
+								<p><a href="#" id="generate-slug">generate slug</a></p>
+							</dd>
+
+							<dt><label for="forum-host">Host</label></dt>
+							<dd>
+								@Html.TextBoxFor(m => m.UrlHostName, new { id = "forum-host", @readonly = "readonly" })
+								<p>Forum url: <b><span id="forum-url">http//socialrally.com/{organization-name}/forums/{forum-name}</span></b></p>
+							</dd>
+
+							<dt><label>Description</label></dt>
+							<dd>
+								@Html.TextAreaFor(m => m.Description, new { id = "forum-description", @class = "wysiwyg", @readonly = "readonly" })
+							</dd>
+						</dl>
 					</fieldset>
 				
 					<fieldset>
