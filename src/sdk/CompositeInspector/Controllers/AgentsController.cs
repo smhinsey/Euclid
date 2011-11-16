@@ -20,13 +20,10 @@ namespace CompositeInspector.Controllers
 
 		private readonly ICompositeApp _composite;
 
-		private readonly IInputModelMapCollection _inputModelMaps;
-
-		public AgentsController(ICompositeApp composite, IPublisher commandPublisher, IInputModelMapCollection inputModelMaps)
+		public AgentsController(ICompositeApp composite, IPublisher commandPublisher)
 		{
 			_composite = composite;
 			_commandPublisher = commandPublisher;
-			_inputModelMaps = inputModelMaps;
 
 			ViewBag.CompositeName = _composite.Name;
 			ViewBag.CompositeDescription = _composite.Description;
@@ -62,7 +59,7 @@ namespace CompositeInspector.Controllers
 		[HttpPost]
 		public ActionResult PublishAndViewDetails(IInputModel inputModel)
 		{
-			var commandMetadata = _inputModelMaps.GetCommandMetadataForInputModel(inputModel.GetType());
+			var commandMetadata = _composite.GetCommandMetadataForInputModel(inputModel.GetType());
 
 			var command = Mapper.Map(inputModel, inputModel.GetType(), commandMetadata.Type) as ICommand;
 				//_transformer.GetCommand(inputModel);

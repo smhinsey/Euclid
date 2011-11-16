@@ -65,6 +65,11 @@ namespace Euclid.Composites
 			}
 		}
 
+		public IEnumerable<IPartMetadata> Commands
+		{
+			get { return _inputModelMap.Commands; }
+		}
+
 		public string Name { get; set; }
 
 		public CompositeAppSettings Settings { get; set; }
@@ -110,9 +115,9 @@ namespace Euclid.Composites
 
 			Settings = compositeAppSettings;
 
-			_inputModelMap = Container.Resolve<IInputModelMapCollection>();
-
 			Settings.Validate();
+
+			_inputModelMap = Settings.InputModelMaps.Value;
 
 			State = CompositeApplicationState.Configured;
 		}
@@ -148,6 +153,11 @@ namespace Euclid.Composites
 			var commandType = map.DestinationType;
 
 			return commandType.GetMetadata() as PartMetadata;
+		}
+
+		public Type GetInputModelTypeForCommandName(string commandName)
+		{
+			return _inputModelMap.GetInputModelTypeForCommandName(commandName);
 		}
 
 		public IEnumerable<string> GetConfigurationErrors()
@@ -231,10 +241,6 @@ namespace Euclid.Composites
 			Container.Register(
 				Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().Forward<ICommandRegistry>().
 					ImplementedBy(compositeAppSettings.PublicationRegistry.Value).LifeStyle.Transient);
-
-			Container.Register(
-				Component.For<IInputModelMapCollection>().ImplementedBy(compositeAppSettings.InputModelCollection.Value).LifeStyle.
-					Transient);
 		}
 
 		private MappingConfiguration mapAllAssemblies(MappingConfiguration mcfg)

@@ -75,5 +75,32 @@ namespace ForumAgent.Queries
 							PasswordHash = user.PasswordSalt
 						}).ToList();
 		}
+
+		public new OrganizationUser FindById(Guid userId)
+		{
+			var session = GetCurrentSession();
+
+			var user = session
+						.QueryOver<OrganizationUserEntity>()
+						.Where(u => u.Identifier == userId)
+						.SingleOrDefault();
+
+			return (user == null)
+					? null
+					: new OrganizationUser
+					{
+						Created = user.Created,
+						Email = user.Email,
+						FirstName = user.FirstName,
+						Identifier = user.Identifier,
+						LastLogin = user.LastLogin,
+						LastName = user.LastName,
+						Modified = user.Modified,
+						OrganizationIdentifier = user.OrganizationEntity.Identifier,
+						Username = user.Username,
+						PasswordSalt = user.PasswordHash,
+						PasswordHash = user.PasswordSalt
+					};
+		}
 	}
 }
