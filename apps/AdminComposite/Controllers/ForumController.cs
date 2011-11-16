@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Models;
+using AutoMapper;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
@@ -17,7 +18,7 @@ namespace AdminComposite.Controllers
 			AutoMapper.Mapper.CreateMap<Forum, UpdateForumInputModel>().ForMember(input=>input.ForumIdentifier, opt=>opt.MapFrom(forum=>forum.Identifier));
 		}
 
-		public ActionResult Create()
+		public ActionResult AuthenticationProviders(Guid forumId)
 		{
 			return View(new CreateForumInputModel
 			            	{
@@ -30,9 +31,9 @@ namespace AdminComposite.Controllers
 			            	});
 		}
 
-		public ActionResult AuthenticationProviders(Guid forumId)
+		public ActionResult Create()
 		{
-			return View();
+			return View(new CreateForumInputModel { UrlHostName = "socialrally.com" });
 		}
 
 		public ActionResult Details(Guid forumId)

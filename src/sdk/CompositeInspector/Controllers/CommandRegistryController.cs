@@ -28,9 +28,7 @@ namespace CompositeInspector.Controllers
 		{
 			var record = _registry.GetPublicationRecord(publicationId);
 
-			return
-				View(
-					new PublishedCommandModel { Record = record, PublicationId = publicationId.ToString() });
+			return View(new PublishedCommandModel { Record = record, PublicationId = publicationId.ToString() });
 		}
 
 		public ActionResult Index(int pageSize = 100, int offset = 0)

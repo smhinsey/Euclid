@@ -4,20 +4,20 @@
 	$(document).ready(function() {
 		$("#add-content").click(function() {
 			$("<div></div>")
-				.load("@Url.Action("NewContent", "Content", new {forumId = "11111111-1111-1111-1111-111111111111"})")
+				.load("@Url.Action("NewContent", "Content", new { forumId = "11111111-1111-1111-1111-111111111111" })")
 				.modal({
-					autoResize: true,
-					autoPosition: true,
-					position: new Array(25, 300),
-					dataCss: { backgroundColor: "#fff", overflow: "hidden",  height: 585, width: 525 },
-					containerCss: { height: 600, width: 540}
-				});
+						autoResize: true,
+						autoPosition: true,
+						position: new Array(25, 300),
+						dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 585, width: 525 },
+						containerCss: { height: 600, width: 540 }
+					});
 
 
 			return false;
 		});
 	});
-	
+
 	function deleteContent(contentId) {
 		alert("deleting: " + contentId);
 	}

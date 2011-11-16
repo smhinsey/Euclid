@@ -4,28 +4,31 @@
 
 @using (Html.BeginFormForInputModel(Model, true, Url.Action("Users", "Organization", new {organizationId = Model.OrganizationId})))
 {
-	@Html.HiddenFor(m=>m.OrganizationId)
-	@Html.HiddenFor(m => m.UserId);
+	@Html.HiddenFor(m => m.OrganizationId)
+	@Html.HiddenFor(m => m.UserId)
+	;
 	<fieldset>
 		<legend>User</legend>
 
 		<dl>
 			<dt><label for="first-name">First Name*</label></dt>
-			<dd>@Html.TextBoxFor(m=>m.FirstName, new {id="first-name"})</dd>
+			<dd>@Html.TextBoxFor(m => m.FirstName, new { id = "first-name" })</dd>
 
 			<dt><label for="last-name">Last Name*</label></dt>
-			<dd>@Html.TextBoxFor(m => m.LastName, new {id="last-name"})</dd>
+			<dd>@Html.TextBoxFor(m => m.LastName, new { id = "last-name" })</dd>
 
 			<dt><label for="email">Email*</label></dt>
 			<dd>@Html.TextBoxFor(m => m.Email, new { id = "email" })</dd>
 		
 
 			<dt><label for="username">Username*</label></dt>
-			<dd>@Html.TextBoxFor(m => m.Username, new {id="username"})</dd>
+			<dd>@Html.TextBoxFor(m => m.Username, new { id = "username" })</dd>
+
+			<dt class="text">Note</dt>
+			<dd class="text">An automatically generated password will be sent to the specified email address</dd>
 		</dl>
 
 	</fieldset>
 
 	<button type="submit">Update User</button>
 }
-

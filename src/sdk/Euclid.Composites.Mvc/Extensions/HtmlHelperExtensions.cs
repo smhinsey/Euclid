@@ -8,9 +8,13 @@ namespace Euclid.Composites.Mvc.Extensions
 	public static class HtmlHelperExtensions
 	{
 		public static MvcForm BeginFormForInputModel(
-			this HtmlHelper helper, IInputModel inputModel, bool overrideRedirect = false, string alternateRedirectUrl = "", string formId = null)
+			this HtmlHelper helper,
+			IInputModel inputModel,
+			bool overrideRedirect = false,
+			string alternateRedirectUrl = "",
+			string formId = null)
 		{
-			if(inputModel == null)
+			if (inputModel == null)
 			{
 				throw new ArgumentNullException("inputModel");
 			}
@@ -21,7 +25,8 @@ namespace Euclid.Composites.Mvc.Extensions
 			}
 
 			// jt: we can deduce the AgentSystemName & PartName w/out requiring them to be explicitly set on the inputmodel
-			var form = helper.BeginForm("Publish", "Agents", new { area = "CompositeInspector" }, FormMethod.Post, new {id=formId});
+			var form = helper.BeginForm(
+				"Publish", "Agents", new { area = "CompositeInspector" }, FormMethod.Post, new { id = formId });
 
 			var tagBuilder = new TagBuilder("input");
 			tagBuilder.Attributes.Add("type", "hidden");

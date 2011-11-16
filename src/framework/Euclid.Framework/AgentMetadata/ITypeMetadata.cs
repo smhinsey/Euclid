@@ -20,8 +20,8 @@ namespace Euclid.Framework.AgentMetadata
 
 	public interface IPartMetadata : ITypeMetadata
 	{
-		IPartCollection GetContainingPartCollection();
-
 		Type PartInterface { get; }
+
+		IPartCollection GetContainingPartCollection();
 	}
 }

@@ -16,18 +16,18 @@ namespace Euclid.Composites
 
 		public readonly OverridableTypeSetting<IRecordMapper<CommandPublicationRecord>> CommandPublicationRecordMapper;
 
+		public readonly OverridableTypeSetting<IInputModelMapCollection> InputModelCollection;
+
 		public readonly OverridableTypeSetting<IMessageSerializer> MessageSerializer;
 
-		public readonly OverridableSetting<string> OutputChannelName;
-
 		public readonly OverridableTypeSetting<IMessageChannel> OutputChannel;
+
+		public readonly OverridableSetting<string> OutputChannelName;
 
 		public readonly OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>
 			PublicationRegistry;
 
 		public readonly OverridableTypeSetting<IPublisher> Publisher;
-
-		public readonly OverridableSetting<IInputModelMapCollection> InputModelMaps;
 
 		public CompositeAppSettings()
 		{
@@ -41,7 +41,7 @@ namespace Euclid.Composites
 			PublicationRegistry =
 				new OverridableTypeSetting<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>("PublicationRegistry");
 			Publisher = new OverridableTypeSetting<IPublisher>("Publisher");
-			InputModelMaps = new OverridableSetting<IInputModelMapCollection>();
+			InputModelCollection = new OverridableTypeSetting<IInputModelMapCollection>("InputModelMapperCollection");
 
 			OutputChannelName.WithDefault("OutputChannelName");
 			BlobStorage.WithDefault(typeof(InMemoryBlobStorage));
@@ -50,7 +50,7 @@ namespace Euclid.Composites
 			MessageSerializer.WithDefault(typeof(JsonMessageSerializer));
 			PublicationRegistry.WithDefault(typeof(CommandRegistry));
 			Publisher.WithDefault(typeof(DefaultPublisher));
-			InputModelMaps.WithDefault(new AutoMapperInputModelCollection());
+			InputModelCollection.WithDefault(typeof(AutoMapperInputModelCollection));
 		}
 
 		public IEnumerable<string> GetInvalidSettingReasons()
@@ -63,6 +63,7 @@ namespace Euclid.Composites
 			GetInvalidSettingReason(MessageSerializer, reasons);
 			GetInvalidSettingReason(PublicationRegistry, reasons);
 			GetInvalidSettingReason(Publisher, reasons);
+			GetInvalidSettingReason(InputModelCollection, reasons);
 
 			return reasons;
 		}
@@ -76,6 +77,7 @@ namespace Euclid.Composites
 			MessageSerializer.Validate();
 			PublicationRegistry.Validate();
 			Publisher.Validate();
+			InputModelCollection.Validate();
 		}
 
 		private void GetInvalidSettingReason<T>(OverridableTypeSetting<T> setting, IList<string> reasons)

@@ -1,12 +1,11 @@
-﻿@using CompositeInspector.Models
-@using Euclid.Common.Messaging
+﻿@using Euclid.Common.Messaging
 @model IEnumerable<IPublicationRecord>
 
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 
 
-		$(".error").click(function () {
+		$(".error").click(function() {
 
 			if ($("#error-row").is(":visible")) {
 				$(this).html("Show");

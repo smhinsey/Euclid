@@ -65,13 +65,11 @@ namespace ForumAgent.Queries
 
 			var session = GetCurrentSession();
 
-			var posts = session.QueryOver<Post>()
-				.Where(p => p.ForumIdentifier == forumId)
-				.OrderBy(p => p.Created).Desc.Skip(offset).Take(pageSize);
+			var posts =
+				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).OrderBy(p => p.Created).Desc.Skip(offset).Take(
+					pageSize);
 
-			var totalPosts = session.QueryOver<Post>()
-				.Where(p => p.ForumIdentifier == forumId)
-				.RowCount();
+			var totalPosts = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).RowCount();
 
 			result.TotalPosts = totalPosts;
 

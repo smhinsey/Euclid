@@ -3,10 +3,10 @@
 @model CreateForumInputModel
 		   
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$("#forum-name").focus();
 
-		$("sumbit-create-command").click(function () {
+		$("sumbit-create-command").click(function() {
 			alert($("#forum-description").val());
 			return false;
 		});
@@ -36,9 +36,9 @@
 </article>
 
 <section id="forum-form-section">
-@using (Html.BeginFormForInputModel(Model, true, Url.Action("Index", "Dashboard")))
+	@using (Html.BeginFormForInputModel(Model, true, Url.Action("Index", "Dashboard")))
 	{
-		@Html.HiddenFor(m=>m.OrganizationId)
+		@Html.HiddenFor(m => m.OrganizationId)
 		@Html.HiddenFor(m=>m.CreatedBy)
 		<fieldset>
 			<legend>Settings</legend>

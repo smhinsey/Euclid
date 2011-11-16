@@ -9,11 +9,12 @@ namespace Euclid.Composites.Mvc.Extensions
 {
 	public static class CompositeAppExtensions
 	{
-		public static IInputModel GetInputModelFromCommandName(this ICompositeApp composite, string commandName, IValueProvider valueProvider)
+		public static IInputModel GetInputModelFromCommandName(
+			this IInputModelMapCollection inputModelMaps, string commandName, IValueProvider valueProvider)
 		{
-			var inputModelType = composite.GetInputModelTypeForCommandName(commandName);
+			var inputModelType = inputModelMaps.GetInputModelTypeForCommandName(commandName);
 
-			var commandType = composite.Commands.Where(x => x.Name == commandName).Select(x => x.Type).FirstOrDefault();
+			var commandType = inputModelMaps.Commands.Where(x => x.Name == commandName).Select(x => x.Type).FirstOrDefault();
 
 			var inputModel = Activator.CreateInstance(inputModelType) as IInputModel;
 
@@ -28,8 +29,8 @@ namespace Euclid.Composites.Mvc.Extensions
 				try
 				{
 					var value = (property.Name == "CommandType")
-									? commandType
-									: (propValue == null) ? null : propValue.ConvertTo(property.PropertyType);
+					            	? commandType
+					            	: (propValue == null) ? null : propValue.ConvertTo(property.PropertyType);
 
 					if (property.CanWrite)
 					{

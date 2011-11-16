@@ -1,15 +1,15 @@
 ﻿<script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$("#create-category").click(function() {
 			$("<div></div>")
-			.load("/Category/NewCategory")
-			.modal({
-				autoResize: true,
-				autoPosition: true,
-				position: new Array(25, 300),
-				dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 485, width: 635 },
-				containerCss: { height: 500, width: 650 }
-			});
+				.load("/Category/NewCategory")
+				.modal({
+						autoResize: true,
+						autoPosition: true,
+						position: new Array(25, 300),
+						dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 485, width: 635 },
+						containerCss: { height: 500, width: 650 }
+					});
 		});
 	});
 </script>

@@ -19,6 +19,8 @@ namespace AdminComposite
 
 			routes.MapRoute(
 				"Default", "{controller}/{action}/{forumId}", new { controller = "Authentication", action = "Signin", forumId = UrlParameter.Optional });
+				"{controller}/{action}/{forumId}",
+				new { controller = "User", action = "Signin", forumId = UrlParameter.Optional });
 		}
 
 		protected void Application_Start()

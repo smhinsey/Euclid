@@ -5,7 +5,8 @@ namespace ForumAgent.Commands
 {
 	public class UpdateLastLogin : DefaultCommand
 	{
-		public Guid UserIdentifier { get; set; }
 		public DateTime LoginTime { get; set; }
+
+		public Guid UserIdentifier { get; set; }
 	}
 }

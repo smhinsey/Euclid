@@ -12,8 +12,8 @@
 }
 
 <script type="text/javascript">
-	$(document).ready(function () {
-		$("#submit-form").click(function () {
+	$(document).ready(function() {
+		$("#submit-form").click(function() {
 			var processForm = true;
 			if ($("#password").val() != $("#confirm-password").val()) {
 				$("#confirm-error").show();
@@ -23,11 +23,11 @@
 			return processForm;
 		});
 
-		$("#password, #confirm-password").focus(function () {
+		$("#password, #confirm-password").focus(function() {
 			$("#confirm-error").hide();
 		});
 
-		$("#organization-name").blur(function () {
+		$("#organization-name").blur(function() {
 			if ($("#organization-slug").val() == "") {
 				var slug = slugify($("#organization-name").val());
 				$("#organization-slug").val(slug);
@@ -52,34 +52,34 @@
 
 		<dl>
 			<dt><label for="organization-name">Name*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.OrganizationName, new {id="organization-name"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.OrganizationName, new { id = "organization-name" })</dd>
 		
 			<dt><label for="organization-slug">Slug*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.OrganizationSlug, new {id= "organization-slug"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.OrganizationSlug, new { id = "organization-slug" })</dd>
 
 			<dt><label for="organization-url">Website</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.OrganizationUrl, new {id="organization-url"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.OrganizationUrl, new { id = "organization-url" })</dd>
 
 			<dt><label for="organization-phone">Phone #*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.PhoneNumber, new {id="organization-phone"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.PhoneNumber, new { id = "organization-phone" })</dd>
 
 			<dt><label for="organization-address-1">Address*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.Address, new {id="organization-address-1"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.Address, new { id = "organization-address-1" })</dd>
 
 			<dt><label for="organization-address-2">Address 2</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.Address2, new {id="organization-address-2"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.Address2, new { id = "organization-address-2" })</dd>
 
 			<dt><label for="organization-city">City*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.City, new {id="organization-city"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.City, new { id = "organization-city" })</dd>
 
 			<dt><label for="organization-state">State/Region*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.State, new {id="organization-state"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.State, new { id = "organization-state" })</dd>
 
 			<dt><label for="organization-zip">Zip/Postal Code*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.Zip, new {id="organization-zip"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.Zip, new { id = "organization-zip" })</dd>
 
 			<dt><label for="organization-country">Country*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.Country, new {id="organization-country"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.Country, new { id = "organization-country" })</dd>
 		</dl>
 	</fieldset>
 
@@ -87,32 +87,29 @@
 		<legend>User</legend>
 		<dl>
 			<dt><label for="first-name">First Name*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.FirstName, new {id="first-name"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.FirstName, new { id = "first-name" })</dd>
 
 			<dt><label for="last-name">Last Name*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.LastName, new {id="last-name"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.LastName, new { id = "last-name" })</dd>
 
 			<dt><label for="email">Email*</label></dt>
-			<dd>@Html.TextBoxFor(m=>Model.Email, new {id="email"})</dd>
+			<dd>@Html.TextBoxFor(m => Model.Email, new { id = "email" })</dd>
 
 			<dt><label for="username">Username*</label></dt>
 			<dd>@Html.TextBoxFor(m => Model.Username, new { id = "username" })</dd>
 
 			<dt><label for="password">Password</label></dt>
-			<dd>@Html.PasswordFor(m=>Model.Password, new { id= "password" })</dd>
+			<dd>@Html.PasswordFor(m => Model.Password, new { id = "password" })</dd>
 
 			<dt><label for="confirm-password">Confirm Password</label></dt>
 			<dd><input type="password" id="confirm-password"/></dd>
 		</dl>
 	</fieldset>
-	
+
 	<input type="submit" value="Sign up" class="button" id="submit-form"/>
-	
-	<div class="notification error" style="display:none" id="confirm-error">
+
+	<div class="notification error" style="display: none" id="confirm-error">
 		<a href="#" class="close-notification" title="Dismiss" rel="tooltip">x</a>
 		<p><strong>Error</strong> Passwords don't match</p>
 	</div>
-	
 }
-
-

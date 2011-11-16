@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using Euclid.Framework.AgentMetadata;
 
 namespace Euclid.Composites.Conversion
 {
 	public class CannotMapCommandException : Exception
 	{
 		private readonly string _commandName;
-		private readonly IList<string> _inputModels;
 
-		public CannotMapCommandException(string commandName, IList<string> inputModels)
+		private readonly IEnumerable<string> _inputModels;
+
+		public CannotMapCommandException(string commandName, IEnumerable<string> inputModels)
 		{
 			_commandName = commandName;
 			_inputModels = inputModels;
@@ -33,19 +32,12 @@ namespace Euclid.Composites.Conversion
 					message.AppendLine();
 				}
 
-				if (_inputModels.Count() == 0)
+				message.AppendFormat("The following input models are registered with the composite:");
+				message.AppendLine();
+				foreach (var inputModel in _inputModels)
 				{
-					message.AppendFormat("There are no input models registered with the composite");
-				}
-				else
-				{
-					message.AppendFormat("The following input models are registered with the composite:");
+					message.AppendFormat("\t{0}", inputModel);
 					message.AppendLine();
-					foreach (var inputModel in _inputModels)
-					{
-						message.AppendFormat("\t{0}", inputModel);
-						message.AppendLine();
-					}
 				}
 
 				return message.ToString();

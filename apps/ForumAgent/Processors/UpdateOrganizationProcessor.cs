@@ -9,8 +9,9 @@ namespace ForumAgent.Processors
 {
 	public class UpdateOrganizationProcessor : DefaultCommandProcessor<UpdateOrganization>
 	{
-		private readonly ISession _session;
 		private readonly NhSimpleRepository<OrganizationEntity> _repository;
+
+		private readonly ISession _session;
 
 		public UpdateOrganizationProcessor(ISession session)
 		{

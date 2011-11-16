@@ -21,17 +21,22 @@ namespace Euclid.TestingSupport
 	public class AgentConfigurator
 	{
 		private readonly IWindsorContainer _container;
+
 		private bool _configured;
-		public ConsoleFabric Fabric { get; set; }
 
 		public AgentConfigurator(IWindsorContainer container)
 		{
 			_container = container;
 		}
 
+		public ConsoleFabric Fabric { get; set; }
+
 		public void Configure(Assembly agentAssembly)
 		{
-			if (_configured) return;
+			if (_configured)
+			{
+				return;
+			}
 
 			var compositeDatabaseConnection =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));

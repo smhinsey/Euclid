@@ -9,8 +9,10 @@ using TechTalk.SpecFlow;
 namespace ForumTests.Steps
 {
 	[Binding]
-	[StepScope(Feature="User Profiles")]
-	public class UserSteps : ForumSpecifications , ICommandCompleteStep<RegisterForumUser>, ICommandPublishStep<UpdateUserProfile>
+	[StepScope(Feature = "User Profiles")]
+	public class UserSteps : ForumSpecifications,
+	                         ICommandCompleteStep<RegisterForumUser>,
+	                         ICommandPublishStep<UpdateUserProfile>
 	{
 		private const string UserIdentifierKey = "UserIdentifier";
 
@@ -18,8 +20,22 @@ namespace ForumTests.Steps
 
 		private Guid UserIdentifier
 		{
-			get { return (Guid)ScenarioContext.Current[UserIdentifierKey]; }
-			set { ScenarioContext.Current[UserIdentifierKey] = value; }
+			get
+			{
+				return (Guid)ScenarioContext.Current[UserIdentifierKey];
+			}
+			set
+			{
+				ScenarioContext.Current[UserIdentifierKey] = value;
+			}
+		}
+
+		[Then(@"running Authenticate on  UserQueries will return true")]
+		public void AuthenticateUser()
+		{
+			var query = Container.Resolve<UserQueries>();
+
+			Assert.True(query.Authenticate(_userForumIdentifier, "jimmyjon", "hash"));
 		}
 
 		public void CommandCompleted(IPublicationRecord record, RegisterForumUser command)
@@ -38,14 +54,6 @@ namespace ForumTests.Steps
 			command.UserIdentifier = UserIdentifier;
 
 			return command;
-		}
-
-		[Then(@"running Authenticate on  UserQueries will return true")]
-		public void AuthenticateUser()
-		{
-			var query = Container.Resolve<UserQueries>();
-
-			Assert.True(query.Authenticate(_userForumIdentifier, "jimmyjon", "hash"));
 		}
 	}
 }

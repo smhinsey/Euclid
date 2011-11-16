@@ -9,120 +9,126 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
+
+using TechTalk.SpecFlow;
+
 namespace Euclid.Sdk.Specifications.InputModelConversion
 {
-    using TechTalk.SpecFlow;
-    
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("In order to decouple user input from commands\r\nAs a developer\r\nI want the composi" +
-        "te app to be able to convert an object of type IInputModel to an object of type " +
-        "ICommand")]
-    [NUnit.Framework.CategoryAttribute("conversion")]
-    [NUnit.Framework.CategoryAttribute("inputmodel")]
-    [NUnit.Framework.CategoryAttribute("command")]
-    public partial class InputModelsAreConvertedToCommandsFeature
-    {
-        
-        private static TechTalk.SpecFlow.ITestRunner testRunner;
-        
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
+	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+	[NUnit.Framework.TestFixtureAttribute()]
+	[NUnit.Framework.DescriptionAttribute(
+		"In order to decouple user input from commands\r\nAs a developer\r\nI want the composi"
+		+ "te app to be able to convert an object of type IInputModel to an object of type " + "ICommand")]
+	[NUnit.Framework.CategoryAttribute("SdkSpecs")]
+	public partial class InputModelsAreConvertedToCommandsFeature
+	{
+		private static TechTalk.SpecFlow.ITestRunner testRunner;
+
 #line 1 "InputModelToCommandConversion.feature"
 #line hidden
-        
-        [NUnit.Framework.TestFixtureSetUpAttribute()]
-        public virtual void FeatureSetup()
-        {
-            testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Input models are converted to commands", "In order to decouple user input from commands\r\nAs a developer\r\nI want the composi" +
-                    "te app to be able to convert an object of type IInputModel to an object of type " +
-                    "ICommand", ProgrammingLanguage.CSharp, new string[] {
-                        "conversion",
-                        "inputmodel",
-                        "command"});
-            testRunner.OnFeatureStart(featureInfo);
-        }
-        
-        [NUnit.Framework.TestFixtureTearDownAttribute()]
-        public virtual void FeatureTearDown()
-        {
-            testRunner.OnFeatureEnd();
-            testRunner = null;
-        }
-        
-        [NUnit.Framework.SetUpAttribute()]
-        public virtual void TestInitialize()
-        {
-        }
-        
-        [NUnit.Framework.TearDownAttribute()]
-        public virtual void ScenarioTearDown()
-        {
-            testRunner.OnScenarioEnd();
-        }
-        
-        public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
-        {
-            testRunner.OnScenarioStart(scenarioInfo);
-        }
-        
-        public virtual void ScenarioCleanup()
-        {
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Register an input model and command")]
-        public virtual void RegisterAnInputModelAndCommand()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register an input model and command", ((string[])(null)));
-#line 7
-this.ScenarioSetup(scenarioInfo);
+
+		[NUnit.Framework.TestFixtureSetUpAttribute()]
+		public virtual void FeatureSetup()
+		{
+			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
+			var featureInfo = new TechTalk.SpecFlow.FeatureInfo(
+				new System.Globalization.CultureInfo("en-US"),
+				"Input models are converted to commands",
+				"In order to decouple user input from commands\r\nAs a developer\r\nI want the composi"
+				+ "te app to be able to convert an object of type IInputModel to an object of type " + "ICommand",
+				ProgrammingLanguage.CSharp,
+				new string[] { "SdkSpecs" });
+			testRunner.OnFeatureStart(featureInfo);
+		}
+
+		[NUnit.Framework.TestFixtureTearDownAttribute()]
+		public virtual void FeatureTearDown()
+		{
+			testRunner.OnFeatureEnd();
+			testRunner = null;
+		}
+
+		[NUnit.Framework.SetUpAttribute()]
+		public virtual void TestInitialize()
+		{
+		}
+
+		[NUnit.Framework.TearDownAttribute()]
+		public virtual void ScenarioTearDown()
+		{
+			testRunner.OnScenarioEnd();
+		}
+
+		public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+		{
+			testRunner.OnScenarioStart(scenarioInfo);
+		}
+
+		public virtual void ScenarioCleanup()
+		{
+			testRunner.CollectScenarioErrors();
+		}
+
+		[NUnit.Framework.TestAttribute()]
+		[NUnit.Framework.DescriptionAttribute("Register an input model and command")]
+		[NUnit.Framework.CategoryAttribute("SdkSpecs")]
+		public virtual void RegisterAnInputModelAndCommand()
+		{
+			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(
+				"Register an input model and command", new string[] { "SdkSpecs" });
 #line 8
-testRunner.Given("a registered inputmodel and command");
+			this.ScenarioSetup(scenarioInfo);
 #line 9
-testRunner.When("GetCommandMetadataForInputModel is called");
+			testRunner.Given("a registered inputmodel and command");
 #line 10
-testRunner.Then("the command is returned");
+			testRunner.When("GetCommandMetadataForInputModel is called");
+#line 11
+			testRunner.Then("the command is returned");
 #line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Register a single input model for multiple commands")]
-        public virtual void RegisterASingleInputModelForMultipleCommands()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register a single input model for multiple commands", ((string[])(null)));
-#line 12
-this.ScenarioSetup(scenarioInfo);
-#line 13
-testRunner.Given("a registered inputmodel and command");
+			this.ScenarioCleanup();
+		}
+
+		[NUnit.Framework.TestAttribute()]
+		[NUnit.Framework.DescriptionAttribute("Register a single input model for multiple commands")]
+		[NUnit.Framework.CategoryAttribute("SdkSpecs")]
+		public virtual void RegisterASingleInputModelForMultipleCommands()
+		{
+			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(
+				"Register a single input model for multiple commands", new string[] { "SdkSpecs" });
 #line 14
-testRunner.When("the same inputmodel is registered for a new command");
+			this.ScenarioSetup(scenarioInfo);
 #line 15
-testRunner.Then("a InputModelAlreadyRegisteredException exception is thrown");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Register multiple input models for a command")]
-        public virtual void RegisterMultipleInputModelsForACommand()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register multiple input models for a command", ((string[])(null)));
+			testRunner.Given("a registered inputmodel and command");
+#line 16
+			testRunner.When("the same inputmodel is registered for a new command");
 #line 17
-this.ScenarioSetup(scenarioInfo);
-#line 18
-testRunner.Given("a registered inputmodel and command");
-#line 19
-testRunner.When("a new inputmodel is registered for an existing command");
-#line 20
-testRunner.Then("a CommandAlreadyMappedException exception is thrown");
+			testRunner.Then("a InputModelAlreadyRegisteredException exception is thrown");
 #line hidden
-            this.ScenarioCleanup();
-        }
-    }
+			this.ScenarioCleanup();
+		}
+
+		[NUnit.Framework.TestAttribute()]
+		[NUnit.Framework.DescriptionAttribute("Register multiple input models for a command")]
+		[NUnit.Framework.CategoryAttribute("SdkSpecs")]
+		public virtual void RegisterMultipleInputModelsForACommand()
+		{
+			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(
+				"Register multiple input models for a command", new string[] { "SdkSpecs" });
+#line 20
+			this.ScenarioSetup(scenarioInfo);
+#line 21
+			testRunner.Given("a registered inputmodel and command");
+#line 22
+			testRunner.When("a new inputmodel is registered for an existing command");
+#line 23
+			testRunner.Then("a CommandAlreadyMappedException exception is thrown");
+#line hidden
+			this.ScenarioCleanup();
+		}
+	}
 }
+
 #endregion

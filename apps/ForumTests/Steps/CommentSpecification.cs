@@ -11,15 +11,18 @@ namespace ForumTests.Steps
 {
 	[Binding]
 	[StepScope(Feature = "Forum Commenting")]
-	public class CommentSpecification : ForumSpecifications, ICommandCompleteStep<PublishPost>, ICommandPublishStep<CommentOnPost>
+	public class CommentSpecification : ForumSpecifications,
+	                                    ICommandCompleteStep<PublishPost>,
+	                                    ICommandPublishStep<CommentOnPost>
 	{
+		private readonly Guid _userForumIdentifier = Guid.Empty;
+
 		public CommentSpecification()
 		{
 			Initialize();
 		}
 
 		private Post PublishedPost { get; set; }
-		private readonly Guid _userForumIdentifier = Guid.Empty;
 
 		public void CommandCompleted(IPublicationRecord record, PublishPost command)
 		{

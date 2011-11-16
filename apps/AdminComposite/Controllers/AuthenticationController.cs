@@ -15,6 +15,7 @@ namespace AdminComposite.Controllers
 		private readonly IPublisher _commandPublisher;
 
 		public AuthenticationController(OrganizationUserQueries organizationUserQueries, IPublisher commandPublisher)
+
 		{
 			_organizationUserQueries = organizationUserQueries;
 			_commandPublisher = commandPublisher;
@@ -24,6 +25,19 @@ namespace AdminComposite.Controllers
 		{
 			ViewBag.Title = "New User";
 			return View(new CreateOrganizationAndRegisterUserInputModel());
+		}
+
+		public ActionResult DoSignout()
+		{
+			Response.Cookies.Remove("OrganizationUserId");
+			FormsAuthentication.SignOut();
+
+			return RedirectToAction("Signout");
+		}
+
+		public ActionResult ForgotPassword()
+		{
+			return View();
 		}
 
 		public ActionResult Signin()
@@ -37,14 +51,15 @@ namespace AdminComposite.Controllers
 			if (_organizationUserQueries.AutenticateOrganizationUser(username, password))
 			{
 				var user = _organizationUserQueries.FindByUsername(username);
-				_commandPublisher.PublishMessage(new UpdateLastLogin
-				                                 	{
-				                                 		Created = DateTime.Now,
-				                                 		CreatedBy = Guid.Empty,
-				                                 		Identifier = Guid.NewGuid(),
-				                                 		LoginTime = DateTime.Now,
-				                                 		UserIdentifier = user.Identifier
-				                                 	});
+				_commandPublisher.PublishMessage(
+					new UpdateLastLogin
+						{
+							Created = DateTime.Now,
+							CreatedBy = Guid.Empty,
+							Identifier = Guid.NewGuid(),
+							LoginTime = DateTime.Now,
+							UserIdentifier = user.Identifier
+						});
 
 				// SELF need to do something better here
 				Response.Cookies.Add(new HttpCookie("OrganizationUserId", user.Identifier.ToString()));
@@ -66,11 +81,6 @@ namespace AdminComposite.Controllers
 		}
 
 		public ActionResult Signout()
-		{
-			return View();
-		}
-
-		public ActionResult ForgotPassword()
 		{
 			return View();
 		}

@@ -6,7 +6,10 @@ namespace AdminComposite.Extensions
 	{
 		public static string GetRequestValue(this ActionExecutingContext filterContext, string key)
 		{
-			if (string.IsNullOrEmpty(key)) return string.Empty;
+			if (string.IsNullOrEmpty(key))
+			{
+				return string.Empty;
+			}
 
 			var result = (string)filterContext.Controller.ControllerContext.RouteData.Values[key];
 

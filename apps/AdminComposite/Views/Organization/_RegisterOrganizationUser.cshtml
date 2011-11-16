@@ -4,33 +4,33 @@
 
 @using (Html.BeginFormForInputModel(Model, true, Url.Action("Users", "Organization", new {organizationId = Model.OrganizationId})))
 {
-	@Html.HiddenFor(m=>m.OrganizationId)
-	@Html.HiddenFor(m=>m.CreatedBy)
+	@Html.HiddenFor(m => m.OrganizationId)
+	@Html.HiddenFor(m => m.CreatedBy)
 	<fieldset>
 		<legend>User</legend>
 
 		<div class="input-container">
 			<label>First Name*</label>
 			<br />
-			@Html.TextBoxFor(m=>m.FirstName)
+			@Html.TextBoxFor(m => m.FirstName)
 		</div>
 
 		<div class="input-container">
 			<label>Last Name*</label>
 			<br />
-			@Html.TextBoxFor(m=>m.LastName)
+			@Html.TextBoxFor(m => m.LastName)
 		</div>
 
 		<div class="input-container">
 			<label>Email*</label>
 			<br />
-			@Html.TextBoxFor(m=>m.Email)
+			@Html.TextBoxFor(m => m.Email)
 		</div>
 
 		<div class="input-container">
 			<label>Username*</label>
 			<br />
-			@Html.TextBoxFor(m=>m.Username)
+			@Html.TextBoxFor(m => m.Username)
 		</div>
 
 		<div class="note-container">
@@ -40,4 +40,3 @@
 
 	<button type="submit">Add User</button>
 }
-

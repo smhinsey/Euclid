@@ -1,14 +1,14 @@
-﻿@using CompositeInspector.Models
-<script type="text/javascript">
-	$(document).ready(function () {
+﻿<script type="text/javascript">
+	$(document).ready(function() {
 		$("#exception").dialog({ autoOpen: false, modal: true, title: "Exception" });
-		$(".exception").click(function () {
+		$(".exception").click(function() {
 			var msg = $(this).attr("message");
 			$("#exception-text").html(msg);
 			$("#exception").dialog('open');
 		});
 	});
 </script>
+@using CompositeInspector.Models
 @model LogEntryModel
 <div class="row" style="margin-top: 7px;">
 
@@ -16,13 +16,13 @@
 		<ul class="pills" style="margin-bottom: 5px;">
 			@{ var css = string.IsNullOrEmpty(Model.SelectedSource) ? "active" : string.Empty; }
 			<li class="@css"><a href="@Url.Action("Index", "Logging", new { pageSize = ViewBag.Pagesize, offset = 0 })">
-				All</a> </li>
+											 	All</a> </li>
 			@foreach (var source in Model.AvailableSources)
-	 {
-		 css = (source == Model.SelectedSource) ? "active" : string.Empty;
+			{
+				css = (source == Model.SelectedSource) ? "active" : string.Empty;
 				<li class="@css"><a href="@Url.Action("Index", "Logging", new { pageSize = ViewBag.Pagesize, offset = 0, filterBy = source })">@source</a>
 				</li>
-	 }
+			}
 		</ul>
 	</div>
 
@@ -39,7 +39,7 @@
 		</tr>
 	</thead>
 	@foreach (var m in Model.Entries)
- {
+	{
 		<tr>
 			<td style="width: 125px;">@m.Created</td>
 			<td>@m.Level</td>
@@ -47,12 +47,12 @@
 			<td>@m.LoggingSource</td>
 			<td>
 				@if (!string.IsNullOrEmpty(m.Exception))
-		{
+				{
 					<a href="#" message="@m.Exception" class="exception">Show</a>
-		}
+				}
 			</td>
 		</tr>
- }
+	}
 </table>
 
 <div id="exception" style="display: none">

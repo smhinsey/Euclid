@@ -33,8 +33,6 @@ namespace Euclid.Sdk.TestComposite
 			XmlConfigurator.Configure();
 
 			WebRole.GetInstance().Init();
-
-
 		}
 	}
 }

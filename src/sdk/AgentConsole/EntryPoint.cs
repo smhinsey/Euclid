@@ -11,11 +11,8 @@ using Euclid.Common.Storage.NHibernate;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
-using Euclid.Sdk.TestAgent.Commands;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
-using LoggingAgent.Queries;
-using LoggingAgent.ReadModels;
 using Microsoft.WindowsAzure;
 using log4net.Config;
 
@@ -27,7 +24,14 @@ namespace AgentConsole
 
 		private EntryPoint()
 		{
-			
+		}
+
+		public string Name
+		{
+			get
+			{
+				return "AgentConsole";
+			}
 		}
 
 		public static void Main(string[] args)
@@ -36,7 +40,6 @@ namespace AgentConsole
 			{
 				_instance = new EntryPoint();
 			}
-
 
 			var databaseConfiguration =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
@@ -130,11 +133,6 @@ namespace AgentConsole
 				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
-		}
-
-		public string Name
-		{
-			get { return "AgentConsole"; }
 		}
 	}
 }

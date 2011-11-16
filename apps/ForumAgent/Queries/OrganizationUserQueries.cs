@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Euclid.Common.Storage.NHibernate;
 using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.Domain.Entities;
 using ForumAgent.ReadModels;
@@ -11,8 +9,8 @@ namespace ForumAgent.Queries
 {
 	public class OrganizationUserQueries : NhQuery<OrganizationUser>
 	{
-
-		public OrganizationUserQueries(ISession session) : base(session)
+		public OrganizationUserQueries(ISession session)
+			: base(session)
 		{
 		}
 
@@ -21,11 +19,10 @@ namespace ForumAgent.Queries
 			var session = GetCurrentSession();
 
 			// TODO: implement safe hashing/salting and all that noise
-			var matchedAccount = session.QueryOver<OrganizationUserEntity>()
-				.Where(
-					user => user.PasswordHash == password &&
-					        user.PasswordSalt == password &&
-					        user.Username == username).SingleOrDefault();
+			var matchedAccount =
+				session.QueryOver<OrganizationUserEntity>().Where(
+					user => user.PasswordHash == password && user.PasswordSalt == password && user.Username == username).
+					SingleOrDefault();
 
 			return matchedAccount != null;
 		}
@@ -34,27 +31,24 @@ namespace ForumAgent.Queries
 		{
 			var session = GetCurrentSession();
 
-			var user = session
-						.QueryOver<OrganizationUserEntity>()
-						.Where(u => u.Username == username)
-						.SingleOrDefault();
+			var user = session.QueryOver<OrganizationUserEntity>().Where(u => u.Username == username).SingleOrDefault();
 
 			return (user == null)
 			       	? null
 			       	: new OrganizationUser
-			       	  	{
-			       	  		Created = user.Created,
-			       	  		Email = user.Email,
-			       	  		FirstName = user.FirstName,
-			       	  		Identifier = user.Identifier,
-			       	  		LastLogin = user.LastLogin,
-			       	  		LastName = user.LastName,
-			       	  		Modified = user.Modified,
-			       	  		OrganizationIdentifier = user.OrganizationEntity.Identifier,
-			       	  		Username = user.Username,
-			       	  		PasswordSalt = user.PasswordHash,
-			       	  		PasswordHash = user.PasswordSalt
-			       	  	};
+			       		{
+			       			Created = user.Created,
+			       			Email = user.Email,
+			       			FirstName = user.FirstName,
+			       			Identifier = user.Identifier,
+			       			LastLogin = user.LastLogin,
+			       			LastName = user.LastName,
+			       			Modified = user.Modified,
+			       			OrganizationIdentifier = user.OrganizationEntity.Identifier,
+			       			Username = user.Username,
+			       			PasswordSalt = user.PasswordHash,
+			       			PasswordHash = user.PasswordSalt
+			       		};
 		}
 
 		public new IList<OrganizationUser> List(int offset, int pageSize)
@@ -63,20 +57,23 @@ namespace ForumAgent.Queries
 
 			var users = session.QueryOver<OrganizationUserEntity>().Skip(offset).Take(pageSize).List();
 
-			return users.Select(user => new OrganizationUser
-			                         	{
-											Created = user.Created,
-											Email = user.Email,
-											FirstName = user.FirstName,
-											Identifier = user.Identifier,
-											LastLogin = user.LastLogin,
-											LastName = user.LastName,
-											Modified = user.Modified,
-											OrganizationIdentifier = user.OrganizationEntity.Identifier,
-											Username = user.Username,
-											PasswordSalt = user.PasswordHash,
-											PasswordHash = user.PasswordSalt
-										}).ToList();
+			return
+				users.Select(
+					user =>
+					new OrganizationUser
+						{
+							Created = user.Created,
+							Email = user.Email,
+							FirstName = user.FirstName,
+							Identifier = user.Identifier,
+							LastLogin = user.LastLogin,
+							LastName = user.LastName,
+							Modified = user.Modified,
+							OrganizationIdentifier = user.OrganizationEntity.Identifier,
+							Username = user.Username,
+							PasswordSalt = user.PasswordHash,
+							PasswordHash = user.PasswordSalt
+						}).ToList();
 		}
 
 		public new OrganizationUser FindById(Guid userId)

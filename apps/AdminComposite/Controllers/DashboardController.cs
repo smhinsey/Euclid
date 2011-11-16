@@ -6,11 +6,9 @@ namespace AdminComposite.Controllers
 	[Authorize]
 	public class DashboardController : Controller, ILoggingSource
 	{
-		public ActionResult Index()
+		public PartialViewResult GetConfirmationMessage(string message)
 		{
-			this.WriteInfoMessage("Loaded dashboard.");
-
-			return View();
+			return PartialView("GetConfirmationMessage", message);
 		}
 
 		public PartialViewResult GetConfirmationMessageAttributesMissingMessage()
@@ -18,9 +16,11 @@ namespace AdminComposite.Controllers
 			return PartialView();
 		}
 
-		public PartialViewResult GetConfirmationMessage(string message)
+		public ActionResult Index()
 		{
-			return PartialView("GetConfirmationMessage", message);
+			this.WriteInfoMessage("Loaded dashboard.");
+
+			return View();
 		}
 	}
 }

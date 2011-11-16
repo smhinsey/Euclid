@@ -6,6 +6,5 @@
 	// read models.
 	public class PostDenormalizer
 	{
-		 
 	}
 }

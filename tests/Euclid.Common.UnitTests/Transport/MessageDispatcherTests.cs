@@ -62,42 +62,6 @@ namespace Euclid.Common.UnitTests.Transport
 		}
 
 		[Test]
-		public void DispatchesMessagesToSameProcessor()
-		{
-			var settings = new MessageDispatcherSettings();
-
-			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
-			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
-			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMultipleMessageProcessor) });
-			settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 200));
-			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
-
-			_dispatcher.Configure(settings);
-
-			_dispatcher.Enable();
-
-			_transport.Open();
-
-			var fakeMessage = new FakeMessage();
-			var differentFakeMessage = new DifferentFakeMessage();
-
-			_transport.Send(_registry.PublishMessage(fakeMessage));
-			_transport.Send(_registry.PublishMessage(differentFakeMessage));
-
-			Assert.AreEqual(MessageDispatcherState.Enabled, _dispatcher.State);
-
-			Thread.Sleep(5000); // wait for message to be processed
-
-			Assert.AreEqual(2, FakeMultipleMessageProcessor.ProcessedMessages);
-
-			_dispatcher.Disable();
-
-			Assert.AreEqual(MessageDispatcherState.Disabled, _dispatcher.State);
-
-			Assert.NotNull(_dispatcher);
-		}
-
-		[Test]
 		public void DispatchesMessages()
 		{
 			const int numberOfMessages = 1000;
@@ -156,6 +120,42 @@ namespace Euclid.Common.UnitTests.Transport
 			Assert.AreEqual(MessageDispatcherState.Disabled, _dispatcher.State);
 
 			Assert.IsTrue(FakeMessageProcessor.ProcessedAnyMessages);
+		}
+
+		[Test]
+		public void DispatchesMessagesToSameProcessor()
+		{
+			var settings = new MessageDispatcherSettings();
+
+			settings.InputChannel.WithDefault(new InMemoryMessageChannel());
+			settings.InvalidChannel.WithDefault(new InMemoryMessageChannel());
+			settings.MessageProcessorTypes.WithDefault(new List<Type> { typeof(FakeMultipleMessageProcessor) });
+			settings.DurationOfDispatchingSlice.WithDefault(new TimeSpan(0, 0, 0, 0, 200));
+			settings.NumberOfMessagesToDispatchPerSlice.WithDefault(30);
+
+			_dispatcher.Configure(settings);
+
+			_dispatcher.Enable();
+
+			_transport.Open();
+
+			var fakeMessage = new FakeMessage();
+			var differentFakeMessage = new DifferentFakeMessage();
+
+			_transport.Send(_registry.PublishMessage(fakeMessage));
+			_transport.Send(_registry.PublishMessage(differentFakeMessage));
+
+			Assert.AreEqual(MessageDispatcherState.Enabled, _dispatcher.State);
+
+			Thread.Sleep(5000); // wait for message to be processed
+
+			Assert.AreEqual(2, FakeMultipleMessageProcessor.ProcessedMessages);
+
+			_dispatcher.Disable();
+
+			Assert.AreEqual(MessageDispatcherState.Disabled, _dispatcher.State);
+
+			Assert.NotNull(_dispatcher);
 		}
 
 		[Test]

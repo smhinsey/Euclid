@@ -4,6 +4,5 @@ namespace ForumAgent.Domain
 {
 	public class MyAggregateRoot : MultipleMessageProcessor
 	{
-		 
 	}
 }

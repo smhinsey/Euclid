@@ -12,13 +12,17 @@ namespace AdminComposite.ActionFilters
 	public class PopulateAdminWideViewBag : IActionFilter
 	{
 		private readonly Assembly _currentAssembly;
-		public ForumQueries ForumQueries { get; set; }
-		public OrganizationUserQueries UserQueries { get; set; }
-		public OrganizationQueries OrganizationQueries { get; set; }
+
 		public PopulateAdminWideViewBag()
 		{
 			_currentAssembly = GetType().Assembly;
 		}
+
+		public ForumQueries ForumQueries { get; set; }
+
+		public OrganizationQueries OrganizationQueries { get; set; }
+
+		public OrganizationUserQueries UserQueries { get; set; }
 
 		public void OnActionExecuted(ActionExecutedContext filterContext)
 		{
@@ -45,12 +49,10 @@ namespace AdminComposite.ActionFilters
 
 			if (currentUser == null)
 			{
-				filterContext.Result = new RedirectToRouteResult(
-												new RouteValueDictionary
-													{
+				filterContext.Result =
+					new RedirectToRouteResult(new RouteValueDictionary { { "action", "SignOut" }, { "controller", "User" } });
 														{"action", "DoSignout"},
 														{"controller", "Authentication"}
-													});
 			}
 			else
 			{
@@ -68,9 +70,9 @@ namespace AdminComposite.ActionFilters
 				filterContext.Controller.ViewBag.UserId = currentUser.Identifier;
 				filterContext.Controller.ViewBag.FirstName = currentUser.FirstName;
 				filterContext.Controller.ViewBag.LastName = currentUser.LastName;
-				filterContext.Controller.ViewBag.Gravatar = string.Format("http://www.gravatar.com/avatar/{0}?s=45", currentUser.Email.GetMd5());
+				filterContext.Controller.ViewBag.Gravatar = string.Format(
+					"http://www.gravatar.com/avatar/{0}?s=45", currentUser.Email.GetMd5());
 			}
 		}
 	}
-
 }

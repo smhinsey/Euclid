@@ -3,7 +3,7 @@
 @model IList<OrganizationUser>
 
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$("#add-user").click(function() {
 			$("<div></div>")
 				.load("/Organization/RegisterUser?organizationId=@ViewBag.OrganizationId&currentUserId=@ViewBag.UserId")
@@ -55,7 +55,10 @@
 				{
 					<tr>
 						<td>
-							@if (HttpContext.Current.User.Identity.Name == user.Username){<span>(You)</span>} 
+							@if (HttpContext.Current.User.Identity.Name == user.Username)
+							{
+								<span>(You)</span>
+							} 
 							@user.FirstName @user.LastName
 						</td>
 						<td><a href="mailto:@user.Email">@user.Email</a></td>

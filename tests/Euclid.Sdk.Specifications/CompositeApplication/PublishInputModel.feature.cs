@@ -9,94 +9,95 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
+
+using TechTalk.SpecFlow;
+
 namespace Euclid.Sdk.Specifications.CompositeApplication
 {
-    using TechTalk.SpecFlow;
-    
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-        "wo numbers")]
-    [NUnit.Framework.CategoryAttribute("SdkSpecs")]
-    [NUnit.Framework.CategoryAttribute("AgentPanel")]
-    public partial class PublishInputModelsAsCommandsFeature
-    {
-        
-        private static TechTalk.SpecFlow.ITestRunner testRunner;
-        
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.7.0.0")]
+	[System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+	[NUnit.Framework.TestFixtureAttribute()]
+	[NUnit.Framework.DescriptionAttribute(
+		"In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" + "wo numbers")]
+	[NUnit.Framework.CategoryAttribute("SdkSpecs")]
+	[NUnit.Framework.CategoryAttribute("AgentPanel")]
+	public partial class PublishInputModelsAsCommandsFeature
+	{
+		private static TechTalk.SpecFlow.ITestRunner testRunner;
+
 #line 1 "PublishInputModel.feature"
 #line hidden
-        
-        [NUnit.Framework.TestFixtureSetUpAttribute()]
-        public virtual void FeatureSetup()
-        {
-            testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Publish input models as commands", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
-                    "wo numbers", ProgrammingLanguage.CSharp, new string[] {
-                        "SdkSpecs",
-                        "AgentPanel"});
-            testRunner.OnFeatureStart(featureInfo);
-        }
-        
-        [NUnit.Framework.TestFixtureTearDownAttribute()]
-        public virtual void FeatureTearDown()
-        {
-            testRunner.OnFeatureEnd();
-            testRunner = null;
-        }
-        
-        [NUnit.Framework.SetUpAttribute()]
-        public virtual void TestInitialize()
-        {
-        }
-        
-        [NUnit.Framework.TearDownAttribute()]
-        public virtual void ScenarioTearDown()
-        {
-            testRunner.OnScenarioEnd();
-        }
-        
-        public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
-        {
-            testRunner.OnScenarioStart(scenarioInfo);
-        }
-        
-        public virtual void ScenarioCleanup()
-        {
-            testRunner.CollectScenarioErrors();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publish an input model via the AgentPanel")]
-        public virtual void PublishAnInputModelViaTheAgentPanel()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publish an input model via the AgentPanel", ((string[])(null)));
+
+		[NUnit.Framework.TestFixtureSetUpAttribute()]
+		public virtual void FeatureSetup()
+		{
+			testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
+			var featureInfo = new TechTalk.SpecFlow.FeatureInfo(
+				new System.Globalization.CultureInfo("en-US"),
+				"Publish input models as commands",
+				"In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" + "wo numbers",
+				ProgrammingLanguage.CSharp,
+				new string[] { "SdkSpecs", "AgentPanel" });
+			testRunner.OnFeatureStart(featureInfo);
+		}
+
+		[NUnit.Framework.TestFixtureTearDownAttribute()]
+		public virtual void FeatureTearDown()
+		{
+			testRunner.OnFeatureEnd();
+			testRunner = null;
+		}
+
+		[NUnit.Framework.SetUpAttribute()]
+		public virtual void TestInitialize()
+		{
+		}
+
+		[NUnit.Framework.TearDownAttribute()]
+		public virtual void ScenarioTearDown()
+		{
+			testRunner.OnScenarioEnd();
+		}
+
+		public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
+		{
+			testRunner.OnScenarioStart(scenarioInfo);
+		}
+
+		public virtual void ScenarioCleanup()
+		{
+			testRunner.CollectScenarioErrors();
+		}
+
+		[NUnit.Framework.TestAttribute()]
+		[NUnit.Framework.DescriptionAttribute("Publish an input model via the AgentPanel")]
+		public virtual void PublishAnInputModelViaTheAgentPanel()
+		{
+			var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(
+				"Publish an input model via the AgentPanel", ((string[])(null)));
 #line 7
-this.ScenarioSetup(scenarioInfo);
+			this.ScenarioSetup(scenarioInfo);
 #line 9
- testRunner.Given("the agent SDKTests.FakeAgent");
+			testRunner.Given("the agent SDKTests.FakeAgent");
 #line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Number"});
-            table1.AddRow(new string[] {
-                        "7"});
+			var table1 = new TechTalk.SpecFlow.Table(new string[] { "Number" });
+			table1.AddRow(new string[] { "7" });
 #line 14
- testRunner.When("I publish the command TestCommand:", ((string)(null)), table1);
+			testRunner.When("I publish the command TestCommand:", ((string)(null)), table1);
 #line 17
- testRunner.And("the command is complete");
+			testRunner.And("the command is complete");
 #line hidden
-            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Number"});
-            table2.AddRow(new string[] {
-                        "7"});
+			var table2 = new TechTalk.SpecFlow.Table(new string[] { "Number" });
+			table2.AddRow(new string[] { "7" });
 #line 19
- testRunner.Then("retrieve a List of TestReadModel by running FindByNumber on TestQuery with:", ((string)(null)), table2);
+			testRunner.Then(
+				"retrieve a List of TestReadModel by running FindByNumber on TestQuery with:", ((string)(null)), table2);
 #line hidden
-            this.ScenarioCleanup();
-        }
-    }
+			this.ScenarioCleanup();
+		}
+	}
 }
+
 #endregion

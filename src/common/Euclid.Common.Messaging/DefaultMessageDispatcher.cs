@@ -7,9 +7,9 @@ namespace Euclid.Common.Messaging
 {
 	public abstract class DefaultMessageDispatcher : IMessageDispatcher, ILoggingSource
 	{
-		protected IServiceLocator Container;
-
 		protected bool Configured;
+
+		protected IServiceLocator Container;
 
 		protected IMessageChannel InputChannel;
 
@@ -20,10 +20,6 @@ namespace Euclid.Common.Messaging
 		public IMessageDispatcherSettings CurrentSettings { get; protected set; }
 
 		public MessageDispatcherState State { get; protected set; }
-
-		public abstract void Disable();
-
-		public abstract void Enable();
 
 		public virtual void Configure(IMessageDispatcherSettings settings)
 		{
@@ -76,13 +72,18 @@ namespace Euclid.Common.Messaging
 				MessageProcessors.Add(processor);
 			}
 
-			this.WriteInfoMessage(string.Format(
-				"Dispatcher configured with input channel {0}({1}) and {2} message processors.",
-				InputChannel.GetType().Name,
-				InputChannel.ChannelName,
-				MessageProcessors.Count()));
+			this.WriteInfoMessage(
+				string.Format(
+					"Dispatcher configured with input channel {0}({1}) and {2} message processors.",
+					InputChannel.GetType().Name,
+					InputChannel.ChannelName,
+					MessageProcessors.Count()));
 
 			Configured = true;
 		}
+
+		public abstract void Disable();
+
+		public abstract void Enable();
 	}
 }

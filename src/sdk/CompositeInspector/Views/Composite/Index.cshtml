@@ -4,17 +4,17 @@
 
 	<div class="span5 columns">
 		@if (Model.ConfigurationErrors.Count() > 0)
-	{
+		{
 			<h5>Errors</h5>
 			<ul>
 				@foreach (var e in Model.ConfigurationErrors)
-		{
+				{
 					<li>@e</li>
-		}
+				}
 			</ul>
-	}
-	else
-	{
+		}
+		else
+		{
 			<h5>Configuration</h5>
 			<ul>
 				<li>Output Channel: @Model.Settings.OutputChannel.Value.Name</li>
@@ -25,45 +25,44 @@
 				<li>Message Serializer: @Model.Settings.MessageSerializer.Value.Name</li>
 				<li>Publication Registry: @Model.Settings.PublicationRegistry.Value.Name</li>
 			</ul>
-	}
+		}
 	</div>
 
 	<div class="span5 columns">
 		@if (Model.Agents.Count() > 0)
-	{
+		{
 			<h5>Agents</h5>
 			<ul>
 				@foreach (var a in Model.Agents)
-		{
+				{
 					<li><a href="@Url.Action("ViewAgent", "Agents", new { AgentSystemName = a.SystemName })">@a.DescriptiveName</a>
 					</li>
-		}
+				}
 			</ul>
-	}
-	else
-	{
+		}
+		else
+		{
 			<h2 style="color: red">No agents installed</h2>
-	}
+		}
 	</div>
 
 	<div class="span5 columns">
 		<h5>Input Models</h5>
 		@if (Model.CommandsAndInputModels.Count() > 0)
-	{
+		{
 			<ul>
 				@foreach (var cAndI in Model.CommandsAndInputModels)
-		{
+				{
 					<li><a href="@Url.Action("ViewInputModelForCommand", "Agents", new { cAndI.AgentSystemName, PartName = cAndI.Command.Name })">
-						@cAndI.InputModel.Name
-					</a></li>
-		}
+								@cAndI.InputModel.Name
+							</a></li>
+				}
 			</ul>
-	}
-	else
-	{
+		}
+		else
+		{
 			<span class="error">No input models were found in this composite.</span>
-	}
+		}
 	</div>
 
 </div>
-
