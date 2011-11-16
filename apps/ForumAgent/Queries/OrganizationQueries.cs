@@ -9,8 +9,6 @@ using NHibernate;
 
 namespace ForumAgent.Queries
 {
-	// queries need session management from NhQuery, even though the generic type isn't used currently
-	// TODO: generic type should be an appropriate read model
 	public class OrganizationQueries : NhQuery<Organization>
 	{
 		public OrganizationQueries(ISession session)
