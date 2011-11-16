@@ -5,7 +5,6 @@ using AutoMapper;
 using Euclid.Common.Messaging;
 using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.Cqrs;
-using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Mvc.ActionFilters
 {
@@ -13,9 +12,9 @@ namespace Euclid.Composites.Mvc.ActionFilters
 	{
 		public IPublisher Publisher { get; set; }
 
-		//public ICompositeApp CompositeApp { get; set; }
+		public ICompositeApp CompositeApp { get; set; }
 
-		public IInputModelMapCollection InputModelMaps { get; set; }
+		//public IInputModelMapCollection InputModelMaps { get; set; }
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext)
 		{
@@ -29,9 +28,9 @@ namespace Euclid.Composites.Mvc.ActionFilters
 			var valueProvider = new NameValueCollectionValueProvider(
 				filterContext.HttpContext.Request.Params, CultureInfo.CurrentCulture);
 
-			var inputModel = InputModelMaps.GetInputModelFromCommandName(commandName, valueProvider);
+			var inputModel = CompositeApp.GetInputModelFromCommandName(commandName, valueProvider);
 
-			var commandMetadata = InputModelMaps.GetCommandMetadataForInputModel(inputModel.GetType());
+			var commandMetadata = CompositeApp.GetCommandMetadataForInputModel(inputModel.GetType());
 
 			var command = Mapper.Map(inputModel, inputModel.GetType(), commandMetadata.Type) as ICommand;
 
