@@ -21,6 +21,9 @@ namespace Euclid.Sdk.Specifications.InputModelConversion
     [NUnit.Framework.DescriptionAttribute("In order to decouple user input from commands\r\nAs a developer\r\nI want the composi" +
         "te app to be able to convert an object of type IInputModel to an object of type " +
         "ICommand")]
+    [NUnit.Framework.CategoryAttribute("conversion")]
+    [NUnit.Framework.CategoryAttribute("inputmodel")]
+    [NUnit.Framework.CategoryAttribute("command")]
     public partial class InputModelsAreConvertedToCommandsFeature
     {
         
@@ -35,7 +38,10 @@ namespace Euclid.Sdk.Specifications.InputModelConversion
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Input models are converted to commands", "In order to decouple user input from commands\r\nAs a developer\r\nI want the composi" +
                     "te app to be able to convert an object of type IInputModel to an object of type " +
-                    "ICommand", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "ICommand", ProgrammingLanguage.CSharp, new string[] {
+                        "conversion",
+                        "inputmodel",
+                        "command"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -69,15 +75,9 @@ namespace Euclid.Sdk.Specifications.InputModelConversion
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Register an input model and command")]
-        [NUnit.Framework.CategoryAttribute("conversion")]
-        [NUnit.Framework.CategoryAttribute("inputmodel")]
-        [NUnit.Framework.CategoryAttribute("command")]
         public virtual void RegisterAnInputModelAndCommand()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register an input model and command", new string[] {
-                        "conversion",
-                        "inputmodel",
-                        "command"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Register an input model and command", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8

@@ -1,9 +1,9 @@
-﻿Feature: Input models are converted to commands
+﻿@conversion @inputmodel @command
+Feature: Input models are converted to commands
 	In order to decouple user input from commands
 	As a developer
 	I want the composite app to be able to convert an object of type IInputModel to an object of type ICommand
 
-@conversion @inputmodel @command
 Scenario: Register an input model and command
 Given a registered inputmodel and command
 When GetCommandMetadataForInputModel is called

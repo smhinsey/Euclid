@@ -10,15 +10,24 @@ namespace ForumAgent.Processors
 	public class RegisterOrganizationUserProcessor : DefaultCommandProcessor<RegisterOrganizationUser>
 	{
 		private readonly ISimpleRepository<OrganizationUserEntity> _userRepository;
+		private readonly ISimpleRepository<OrganizationEntity> _organizationRepository;
 
-		public RegisterOrganizationUserProcessor(ISimpleRepository<OrganizationUserEntity> userRepository)
+		public RegisterOrganizationUserProcessor(ISimpleRepository<OrganizationUserEntity> userRepository, ISimpleRepository<OrganizationEntity> organizationRepository)
 		{
 			_userRepository = userRepository;
+			_organizationRepository = organizationRepository;
 			AutoMapper.Mapper.CreateMap<RegisterOrganizationUser, OrganizationUserEntity>();
 		}
 
 		public override void Process(RegisterOrganizationUser message)
 		{
+			var organization = _organizationRepository.FindById(message.OrganizationId);
+
+			if (organization == null)
+			{
+				throw new OrganizationNotFoundException(string.Format("Unable to register the user {0} {1}, could not find an organization with id {2}", message.FirstName, message.LastName, message.OrganizationId));
+			}
+
 			var domainUser = AutoMapper.Mapper.Map<OrganizationUserEntity>(message);
 
 			// we will generate a password - salt it & hash it & send a notification ot the new user
@@ -28,6 +37,7 @@ namespace ForumAgent.Processors
 			domainUser.Created = DateTime.Now;
 			domainUser.Modified = domainUser.Created;
 			domainUser.LastLogin = (DateTime) SqlDateTime.MinValue;
+			domainUser.OrganizationEntity = organization;
 
 			_userRepository.Save(domainUser);
 		}

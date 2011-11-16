@@ -15,7 +15,6 @@ namespace Euclid.Composites
 	{
 		public AutoMapperInputModelCollection()
 		{
-			Mapper.Reset();
 		}
 
 		public void RegisterInputModel<TSourceInputModel, TDestinationCommand>() where TSourceInputModel : IInputModel where TDestinationCommand : ICommand
@@ -25,6 +24,11 @@ namespace Euclid.Composites
 
 		public void RegisterInputModel<TSourceInputModel, TDestinationCommand>(Func<TSourceInputModel, TDestinationCommand> customMap) where TSourceInputModel : IInputModel where TDestinationCommand : ICommand
 		{
+			if ( Mapper.GetAllTypeMaps().Any(map=>map.SourceType == typeof(TSourceInputModel) && map.DestinationType == typeof(TDestinationCommand)))
+			{   // this source and destination is already mapped, ignore
+				return;
+			}
+
 			if (InputModelIsMapped<TSourceInputModel>())
 			{
 				throw new InputModelAlreadyRegisteredException(typeof(TSourceInputModel).FullName);
@@ -104,7 +108,7 @@ namespace Euclid.Composites
 
 			if (type == null)
 			{
-				throw new CannotMapCommandException(commandName, InputModels.Select(m => m.Type.FullName));
+				throw new CannotMapCommandException(commandName, InputModels.Select(m => m.Type.FullName).ToList());
 			}
 
 			return type;
