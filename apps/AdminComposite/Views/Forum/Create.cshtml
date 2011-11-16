@@ -10,6 +10,22 @@
 			alert($("#forum-description").val());
 			return false;
 		});
+
+		$(".voting-scheme").click(function () {
+			var selectedIsChecked = $(this).is(":checked");
+			var selectedId = $(this).attr("id");
+
+			$(".voting-scheme").each(function (index, item) {
+				var currentId = $(this).attr("id");
+				if (selectedId != currentId && selectedIsChecked) {
+					$(item).prop("checked", false);
+				}
+			});
+
+			if (!$(".voting-scheme").is(":checked")) {
+				$("#forum-voting-disabled").prop("checked", true);
+			}
+		});
 	});
 </script>
 
@@ -17,30 +33,13 @@
 	<header>
 		<h2>Add Forum</h2>
 	</header>
-
-	<!--
-		<section>
-			<h3>
-				After your forum is create you can customize
-			</h3>
-
-		
-			<ul class="list-style-checkmark">
-				<li><strong>Themes</strong> choose and customize the forum's look &amp; feel</li>
-				<li><strong>Voting</strong> specify how users vote on posts and comments</li>
-				<li><strong>Badges</strong> create &amp; manage how your users are rewarded for participation</li>
-				<li><strong>Categories</strong> manage your forum's taxonomy/ontology</li>
-				<li><strong>Content</strong> create and embed custom content on forum pages</li>
-			</ul>
-		</section>
-		-->
 </article>
 
 <section id="forum-form-section">
 @using (Html.BeginFormForInputModel(Model, true, Url.Action("Index", "Dashboard")))
 	{
 		@Html.HiddenFor(m=>m.OrganizationId)
-
+		@Html.HiddenFor(m=>m.CreatedBy)
 		<fieldset>
 			<legend>Settings</legend>
 
@@ -60,12 +59,28 @@
 					<p>Forum url: <b><span id="forum-url">http//socialrally.com/{organization-name}/forums/{forum-name}</span></b></p>
 				</dd>
 
-				<dt><label>Description</label></dt>
+				<dt><label for="forum-description">Description</label></dt>
 				<dd>
 					@Html.TextAreaFor(m => m.Description, new { id = "forum-description", @class = "wysiwyg", @readonly = "readonly" })
 				</dd>
 			</dl>
 	 	</fieldset>
+
+		<fieldset>
+			<legend>Voting</legend>
+				
+			<dl>
+				<dt class="checkbox"><label for="forum-voting-enabled">None</label></dt>
+				<dd>
+					@Html.CheckBoxFor(m => m.DisableVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
+				</dd>
+
+				<dt class="checkbox"><label for="forum-voting-updown">Up/Down</label></dt>
+				<dd>
+					@Html.CheckBoxFor(m => m.UpDownVoting, new { @class= "voting-scheme", id = "forum-voting-updown" })
+				</dd>
+			</dl>
+		</fieldset>
 
 		<input type="submit" class="button" value="Create Forum" id="sumbit-create-command"/>
 	}

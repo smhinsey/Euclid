@@ -36,6 +36,11 @@ namespace AdminComposite.ActionFilters
 				return;
 			}
 
+			if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName == "Authentication")
+			{
+				return;
+			}
+
 			var currentUser = UserQueries.FindByUsername(HttpContext.Current.User.Identity.Name);
 
 			if (currentUser == null)

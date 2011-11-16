@@ -126,6 +126,7 @@
     <Content Include="Content\chromatron\js\jquery\jquery.nyroModal.custom.js" />
     <Content Include="Content\chromatron\js\jquery\jquery.nyromodal.js" />
     <Content Include="Content\clear.gif" />
+    <Content Include="Content\jquery.cookie.js" />
     <Content Include="Content\jeditable\jquery.jeditable.js" />
     <Content Include="Content\jeditable\jquery.jeditable.mini.js" />
     <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.min.js" />
@@ -151,6 +152,7 @@
     <Compile Include="Models\CreateOrganizationAndRegisterUserInputModel.cs" />
     <Compile Include="ActionFilters\PopulateAdminWideViewBag.cs" />
     <Compile Include="Models\RegisterOrganizationUserInputModel.cs" />
+    <Compile Include="Models\SetVotingSchemeInputModel.cs" />
     <Compile Include="Models\UpdateForumInputModel.cs" />
     <Compile Include="Models\UpdateOrganizationInputModel.cs" />
     <Compile Include="Models\UpdateOrganizationUserInputModel.cs" />
@@ -387,6 +389,10 @@
     <ProjectReference Include="..\..\src\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\framework\Euclid.Framework.AgentMetadata\Euclid.Framework.AgentMetadata.csproj">
+      <Project>{276664F8-43A3-43E6-AA9A-B9A275B14013}</Project>
+      <Name>Euclid.Framework.AgentMetadata</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
       <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>

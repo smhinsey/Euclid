@@ -73,7 +73,9 @@
     <Compile Include="Processors\RegisterForumUserProcessor.cs" />
     <Compile Include="Commands\UpdateUserProfile.cs" />
     <Compile Include="Processors\RegisterOrganizationUserProcessor.cs" />
-    <Compile Include="Processors\UpdateForumDetails.cs" />
+    <Compile Include="ForumNotFoundException.cs" />
+    <Compile Include="Processors\UpdateForumDetailsProcessor.cs" />
+    <Compile Include="Processors\UpdateForumVotingSchemeProcessor.cs" />
     <Compile Include="Processors\UpdateLastLoginProcessor.cs" />
     <Compile Include="Processors\UpdateOrganizationProcessor.cs" />
     <Compile Include="Processors\UpdateUserProfileProcessor.cs" />

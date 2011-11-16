@@ -15,8 +15,6 @@ namespace ForumAgent.Commands
 
 		public Guid OrganizationId { get; set; }
 
-		public bool VotingEnabled { get; set; }
-
 		public bool UpDownVoting { get; set; }
 	}
 }

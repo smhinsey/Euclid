@@ -23,7 +23,10 @@ namespace AdminComposite.Controllers
 			            	{
 			            		UrlHostName = "socialrally.com",
 			            		OrganizationId = ViewBag.OrganizationId,
-			            		Description = string.Empty
+			            		Description = " ",
+								CreatedBy = ViewBag.UserId,
+								DisableVoting = false,
+								UpDownVoting = true
 			            	});
 		}
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
@@ -31,13 +31,6 @@ namespace ForumAgent.Processors
 			forum.Modified = DateTime.Now;
 
 			_forumRepository.Save(forum);
-		}
-	}
-
-	public class ForumNotFoundException : Exception
-	{
-		public ForumNotFoundException(string message) : base(message)
-		{
 		}
 	}
 }

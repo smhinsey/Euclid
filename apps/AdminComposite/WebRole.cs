@@ -63,7 +63,18 @@ namespace AdminComposite
 			composite.AddAgent(typeof(PublishPost).Assembly);
 			composite.AddAgent(typeof(LogQueries).Assembly);
 
-			composite.RegisterInputModelMap<CreateForumInputModel, CreateForum>();
+			composite.RegisterInputModelMap<CreateForumInputModel, CreateForum>(
+				input => new CreateForum
+				         	{
+								CreatedBy = input.CreatedBy,
+								Description = input.Description,
+								Name = input.Name,
+								OrganizationId = input.OrganizationId,
+								UpDownVoting = !input.DisableVoting && input.UpDownVoting,
+								UrlHostName = input.UrlHostName,
+								UrlSlug = input.UrlSlug
+				         	}
+				);
 			composite.RegisterInputModelMap<CreateOrganizationAndRegisterUserInputModel, CreateOrganizationAndRegisterUser>(
 				input => new CreateOrganizationAndRegisterUser
 				         	{
@@ -103,7 +114,13 @@ namespace AdminComposite
 			composite.RegisterInputModelMap<UpdateOrganizationInputModel, UpdateOrganization>();
 			composite.RegisterInputModelMap<UpdateForumInputModel, UpdateForum>();
 			composite.RegisterInputModelMap<RegisterForumUserInputModel, RegisterForumUser>();
-
+			composite.RegisterInputModelMap<SetVotingSchemeInputModel, UpdateForumVotingScheme>(
+				input => new UpdateForumVotingScheme
+				         	{
+				         		ForumIdentifier = input.ForumIdentifier,
+								UpDownVoting = input.UpDownVoting,
+								NoVoting = input.NoVoting
+				         	});
 			setAzureCredentials(container);
 
 			_initialized = true;

@@ -24,7 +24,10 @@ namespace ForumAgent.Processors
 					Created = message.Created,
 					Modified = message.Created,
 					Description = message.Description,
-					OrganizationId = message.OrganizationId
+					OrganizationId = message.OrganizationId,
+					NoVoting = !message.UpDownVoting,
+					UpDownVoting = message.UpDownVoting,
+					CreatedBy = message.CreatedBy
 				};
 
 			_forumRepository.Save(forum);

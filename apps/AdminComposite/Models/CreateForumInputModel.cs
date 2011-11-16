@@ -21,5 +21,11 @@ namespace AdminComposite.Models
 		public string Description { get; set; }
 
 		public Guid OrganizationId { get; set; }
+
+		public bool DisableVoting { get; set; }
+
+		public bool UpDownVoting { get; set; }
+
+		public Guid CreatedBy { get; set; }
 	}
 }

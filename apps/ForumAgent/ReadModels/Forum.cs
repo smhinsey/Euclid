@@ -15,8 +15,10 @@ namespace ForumAgent.ReadModels
 
 		public virtual Guid OrganizationId { get; set; }
 
-		public virtual bool VotingEnabled { get; set; }
+		public virtual bool NoVoting { get; set; }
 
 		public virtual bool UpDownVoting { get; set; }
+
+		public virtual Guid CreatedBy { get; set; }
 	}
 }
