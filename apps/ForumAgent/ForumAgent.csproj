@@ -57,7 +57,14 @@
     <Compile Include="AgentInfo.cs" />
     <Compile Include="Commands\BlockUser.cs" />
     <Compile Include="CategoryNotFoundException.cs" />
+    <Compile Include="ContentNotFoundException.cs" />
     <Compile Include="Commands\CreateCategory.cs" />
+    <Compile Include="Processors\CreateForumContentProcessor.cs" />
+    <Compile Include="Commands\CreateForumContent.cs" />
+    <Compile Include="Processors\DeleteForumContentProcessor.cs" />
+    <Compile Include="Commands\DeleteForumContent.cs" />
+    <Compile Include="Processors\UpdateForumContentProcessor.cs" />
+    <Compile Include="Commands\UpdateForumContent.cs" />
     <Compile Include="Processors\CreateCategoryProcessor.cs" />
     <Compile Include="Commands\CreateOrganizationAndRegisterUser.cs" />
     <Compile Include="Commands\RegisterForumUser.cs" />
@@ -95,6 +102,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\CategoryQueries.cs" />
     <Compile Include="Queries\CommentQueries.cs" />
+    <Compile Include="Queries\ContentQueries.cs" />
     <Compile Include="Queries\ForumQueries.cs" />
     <Compile Include="Queries\OrganizationQueries.cs" />
     <Compile Include="Queries\OrganizationUserQueries.cs" />
@@ -102,6 +110,7 @@
     <Compile Include="Queries\UserQueries.cs" />
     <Compile Include="ReadModels\Category.cs" />
     <Compile Include="ReadModels\Comment.cs" />
+    <Compile Include="ReadModels\ForumContent.cs" />
     <Compile Include="ReadModels\Forum.cs" />
     <Compile Include="ReadModels\Organization.cs" />
     <Compile Include="ReadModels\OrganizationUser.cs" />

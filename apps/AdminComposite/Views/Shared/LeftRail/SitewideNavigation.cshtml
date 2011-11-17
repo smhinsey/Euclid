@@ -49,8 +49,8 @@
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "forum", "details", "current")>
 						<a href="@Url.Action("Details", "Forum", new { forumId })">Details</a> </li>
 				
-					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "content", "forforum", "current")>
-						<a href="@Url.Action("ForForum", "Content", new { forumId })">Content</a> </li>
+					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "content", "list", "current")>
+						<a href="@Url.Action("List", "Content", new { forumId })">Content</a> </li>
 				
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "category", "list", "current")>
 						<a href="@Url.Action("List", "Category", new { forumId })">Categories</a> </li>

@@ -128,6 +128,9 @@ namespace AdminComposite
 																									Active = input.Active,
 																									Name = input.Name
 			                                                                                 	});
+
+			composite.RegisterInputModelMap<CreateForumContentInputModel, CreateForumContent>();
+			composite.RegisterInputModelMap<UpdateForumContentInputModel, UpdateForumContent>();
 			setAzureCredentials(container);
 
 			_initialized = true;

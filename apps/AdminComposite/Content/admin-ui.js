@@ -102,20 +102,6 @@
 	$("#forum-slug").live("mouseup", function () {
 		return false;
 	});
-
-	$("#content-type").live("change", function () {
-		var selectedValue = $("#content-type").val();
-
-		if (selectedValue == "" || selectedValue == null) {
-			$("#default-input-type").show();
-			$("#content-specific-input").hide();
-		}
-		else {
-			$("#content-specific-input").load("/content/typespecificinput?contentType=" + selectedValue);
-			$("#default-input-type").hide();
-			$("#content-specific-input").show();
-		}
-	});
 });
 
 function isNullOrEmpty(value) {
