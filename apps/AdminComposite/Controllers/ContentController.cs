@@ -46,26 +46,16 @@ namespace AdminComposite.Controllers
 			                                     		Active = content.Active,
 			                                     		Location = content.ContentLocation,
 			                                     		Type = content.ContentType,
-			                                     		Value = content.Value
+			                                     		Value = content.Value,
+														PartialView = GetPartialViewNameForContentType(content.ContentType)
 			                                     	});
 		}
 
 		public PartialViewResult TypeSpecificInput(AvailableContentType contentType, string value)
 		{
-			PartialViewResult result;
-			switch (contentType)
-			{
-				case AvailableContentType.RichText:
-					result = PartialView("_wysiwg", value);
-					break;
-				case AvailableContentType.EmeddedYouTube:
-					result = PartialView("_default", value);
-					break;
-				default:
-					throw new NotImplementedException("Invalid content type specified");
-			}
+			var name = GetPartialViewNameForContentType(contentType);
 
-			return result;
+			return PartialView(name, value);
 		}
 
 		public JsonResult Delete(Guid contentId)
@@ -80,6 +70,29 @@ namespace AdminComposite.Controllers
 			var content = _contentQueries.FindById(contentId);
 
 			return PartialView("_preview", content);
+		}
+
+		private string GetPartialViewNameForContentType(string contentType)
+		{
+			return GetPartialViewNameForContentType((AvailableContentType)Enum.Parse(typeof (AvailableContentType), contentType));
+		}
+
+		private string GetPartialViewNameForContentType(AvailableContentType contentType)
+		{
+			string viewName;
+			switch (contentType)
+			{
+				case AvailableContentType.RichText:
+					viewName = "_wysiwg";
+					break;
+				case AvailableContentType.EmeddedYouTube:
+					viewName = "_youtube";
+					break;
+				default:
+					throw new NotImplementedException("Invalid content type specified");
+			}
+
+			return viewName;
 		}
 	}
 }

@@ -157,6 +157,7 @@
     <Compile Include="Models\RegisterOrganizationUserInputModel.cs" />
     <Compile Include="Models\SetVotingSchemeInputModel.cs" />
     <Compile Include="Models\UpdateCategoryInputModel.cs" />
+    <Compile Include="Models\UpdateForumContentInputModel.cs" />
     <Compile Include="Models\UpdateForumInputModel.cs" />
     <Compile Include="Models\UpdateOrganizationInputModel.cs" />
     <Compile Include="Models\UpdateOrganizationUserInputModel.cs" />
@@ -523,7 +524,7 @@
     <Content Include="Views\Content\_wysiwg.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Content\_default.cshtml" />
+    <Content Include="Views\Content\_youtube.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Authentication\_AnonymousLayout.cshtml" />

@@ -35,9 +35,9 @@
 </script>
 
 <section>
-	@using (Html.BeginFormForInputModel(Model, true, @Url.Action("List", "Content", new { forumId = Model.ForumIdentifier}), "create-form"))
-	{
-		@Html.HiddenFor(m=>m.ContentIdentifier)
+	@using (Html.BeginFormForInputModel(Model, true, @Url.Action("List", "Content", new { forumId = Model.ForumIdentifier }), "create-form"))
+ {
+		@Html.HiddenFor(m => m.ContentIdentifier)
 		@Html.HiddenFor(m => m.Value, new { id = "content-value" });
 
 		<fieldset>
@@ -68,7 +68,7 @@
 
 				<dt><label for="content-input">Value</label></dt>
 				<dd>
-					<span id="content-specific-input">@{Html.RenderAction("TypeSpecificInput", new { contentType = Model.Type, value = Model.Value });}</span>
+					<span id="content-specific-input">@{ Html.RenderPartial(Model.PartialView, Model.Value); }</span>
 					<span id="default-input-type" style="display: none">select type</span>
 				</dd>
 
