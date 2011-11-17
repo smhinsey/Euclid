@@ -20,20 +20,19 @@ namespace AdminComposite.Controllers
 
 		public ActionResult AuthenticationProviders(Guid forumId)
 		{
+			return View();
+		}
+
+		public ActionResult Create()
+		{
 			return View(new CreateForumInputModel
 			            	{
 			            		UrlHostName = "socialrally.com",
 			            		OrganizationId = ViewBag.OrganizationId,
 			            		Description = " ",
 								CreatedBy = ViewBag.UserId,
-								DisableVoting = false,
-								UpDownVoting = true
+								VotingScheme = VotingScheme.UpDownVoting
 			            	});
-		}
-
-		public ActionResult Create()
-		{
-			return View(new CreateForumInputModel { UrlHostName = "socialrally.com" });
 		}
 
 		public ActionResult Details(Guid forumId)

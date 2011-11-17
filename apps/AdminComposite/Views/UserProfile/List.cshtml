@@ -5,6 +5,7 @@
 	var forumId = ViewContext.RouteData.Values["forumId"];
 }
 
+<script type="text/javascript" src="@Url.Content("~/Content/jquery.timers-1.2.js")"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#invite-users").click(function () {
@@ -35,7 +36,52 @@
 		});
 	});
 
+	function blockUser(userId) {
+		performBlockOperation(userId, function(isBlocked) {
+			if (isBlocked) {
+				$(".block-user[data-item-id='" + userId + "']").parent().addClass("hidden");
+				$(".unblock-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
 
+				return true;
+			}
+
+			return false;
+		});
+	}
+
+	function unblockUser(userId) {
+		performBlockOperation(userId, function(isBlocked) {
+			if (!isBlocked) {
+				$(".block-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
+				$(".unblock-user[data-item-id='" + userId + "']").parent().addClass("hidden");
+
+				return true;
+			}
+
+			return false;
+		});		
+	}
+	
+	function performBlockOperation(userId, pollingCallback) {
+		$.ajax({
+				url: "@Url.Action("PerformBlockOperation", "UserProfile")",
+				type: "POST",
+				data: {userIdentifier: userId},
+				success: function(data)
+					{
+						$(document).everyTime(750, "poll", function() {
+							$.get(
+								"@Url.Action("BlockStatus")",
+								{ userIdentifier: userId },
+								function(user) {
+									if (pollingCallback(user.isBlocked)) {
+										$(document).stopTime("poll");
+									}
+								});
+						}, 10);
+					}
+			});
+	}
 </script>
 
 <div class="article-container">
@@ -71,7 +117,8 @@
 						<td>TBD</td>
 						<td>
 							<ul class="actions">
-								<li><a href="#" class="block-user" rel="tooltip" original-title="Block @user.FirstName @user.LastName" data-item-id="@user.Identifier" data-confirmation-message="Really @user.FirstName @user.LastName?" data-confirm-function="blockUser">Block User</a></li>
+								<li @if (user.IsBlocked) {<text>class="hidden"</text>}><a href="#" class="block-user confirmation-dialog" rel="tooltip" original-title="Block @user.FirstName @user.LastName" data-item-id="@user.Identifier" data-confirmation-message="Really block @user.FirstName @user.LastName?" data-confirm-function="blockUser">Block User</a></li>
+								<li @if (!user.IsBlocked) {<text>class="hidden"</text>}><a href="#" class="unblock-user confirmation-dialog" rel="tooltip" original-title="Unblock @user.FirstName @user.LastName" data-item-id="@user.Identifier" data-confirmation-message="Really unblock @user.FirstName @user.LastName?" data-confirm-function="unblockUser">Unblock User</a></li>
 								<li><a href="#" class="user-details view" rel="tooltip" original-title="View @user.FirstName @user.LastName's Profile" data-user-id="@user.Identifier">View Profile</a></li>
 							</ul>
 						</td>

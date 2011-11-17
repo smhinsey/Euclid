@@ -24,6 +24,11 @@
 	background-color: honeydew !important;
 }
 
+.hidden
+{
+	display: none !important;
+}
+
 #main-nav ul li a.users
 {
 	background-image: url('sample_user_icon.png');
@@ -63,6 +68,10 @@ table .actions .approve
 table .actions .block-user
 {
 	background: url('chromatron/img/icons/icon_table_delete.png') no-repeat 0 0;
+}
+table .actions .unblock-user
+{
+	background-image: url('chromatron/img/icons/icon_success.png');
 }
 table .actions .admin-delete
 {

@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentInfo.cs" />
+    <Compile Include="Commands\BlockUser.cs" />
     <Compile Include="Commands\CreateOrganizationAndRegisterUser.cs" />
     <Compile Include="Commands\RegisterForumUser.cs" />
     <Compile Include="Commands\RegisterOrganizationUser.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Commands\UpdateOrganizationUser.cs" />
     <Compile Include="Domain\MyAggregateRoot.cs" />
     <Compile Include="OrganizationNotFoundException.cs" />
+    <Compile Include="Processors\BlockUserProcessor.cs" />
     <Compile Include="Processors\CreateForumProcessor.cs" />
     <Compile Include="Processors\CreateOrganizationAndRegisterUserProcessor.cs" />
     <Compile Include="Processors\RegisterForumUserProcessor.cs" />

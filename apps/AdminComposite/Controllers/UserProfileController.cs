@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AdminComposite.Models;
 using Euclid.Common.Messaging;
+using ForumAgent.Commands;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Controllers
@@ -9,15 +10,13 @@ namespace AdminComposite.Controllers
 	[Authorize]
 	public class UserProfileController : Controller
 	{
-		private readonly OrganizationUserQueries _organizationUserQueries;
 		private readonly UserQueries _forumUserQueries;
-		private readonly IPublisher _commandPublisher;
+		private readonly IPublisher _publisher;
 
-		public UserProfileController(OrganizationUserQueries organizationUserQueries, IPublisher publisher, UserQueries forumUserQueries)
+		public UserProfileController(UserQueries forumUserQueries, IPublisher publisher)
 		{
-			_organizationUserQueries = organizationUserQueries;
-			_commandPublisher = publisher;
 			_forumUserQueries = forumUserQueries;
+			_publisher = publisher;
 		}
 
 		public ActionResult Details(Guid? forumId)
@@ -37,6 +36,25 @@ namespace AdminComposite.Controllers
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
 			return View(_forumUserQueries.List(offset, pageSize));
+		}
+
+		[HttpPost]
+		public JsonResult PerformBlockOperation(Guid userIdentifier)
+		{
+			var user = _forumUserQueries.FindById(userIdentifier);
+
+			var message = user.IsBlocked
+			              	? (IMessage) new UnblockUser {UserIdentifier = userIdentifier}
+			              	: (IMessage) new BlockUser {UserIdentifier = userIdentifier};
+
+			return Json(new { publicationId = _publisher.PublishMessage(message) });
+		}
+
+		public JsonResult BlockStatus(Guid userIdentifier)
+		{
+			var user = _forumUserQueries.FindById(userIdentifier);
+
+			return Json(new {isBlocked = user.IsBlocked}, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

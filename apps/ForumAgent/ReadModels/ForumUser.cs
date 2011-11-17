@@ -18,5 +18,7 @@ namespace ForumAgent.ReadModels
 		public virtual string PasswordSalt { get; set; }
 
 		public virtual string Username { get; set; }
+
+		public virtual bool IsBlocked { get; set; }
 	}
 }

@@ -47,7 +47,7 @@
 
 	});
 
-	$(".admin-delete, .block-user").live("click", function () {
+	$(".confirmation-dialog").live("click", function () {
 		var msg = $(this).attr("data-confirmation-message");
 		var confirmFunction = $(this).attr("data-confirm-function");
 		var itemId = $(this).attr("data-item-id");
@@ -120,10 +120,6 @@
 
 function isNullOrEmpty(value) {
 	return value == null || value == "";
-}
-
-function blockUser(userId) {
-	alert("blocking user " + userId);
 }
 
 function setForumUrl() {

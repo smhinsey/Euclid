@@ -69,7 +69,7 @@ namespace AdminComposite
 								Description = input.Description,
 								Name = input.Name,
 								OrganizationId = input.OrganizationId,
-								UpDownVoting = !input.DisableVoting && input.UpDownVoting,
+								UpDownVoting = input.VotingScheme == VotingScheme.UpDownVoting,
 								UrlHostName = input.UrlHostName,
 								UrlSlug = input.UrlSlug
 				         	}
@@ -117,8 +117,8 @@ namespace AdminComposite
 				input => new UpdateForumVotingScheme
 				         	{
 				         		ForumIdentifier = input.ForumIdentifier,
-								NoVoting = input.SelectedScheme == SetVotingSchemeInputModel.AvailableScheme.NoVoting,
-								UpDownVoting = input.SelectedScheme == SetVotingSchemeInputModel.AvailableScheme.UpDownVoting
+								NoVoting = input.SelectedScheme == VotingScheme.NoVoting,
+								UpDownVoting = input.SelectedScheme == VotingScheme.UpDownVoting
 				         	});
 			setAzureCredentials(container);
 

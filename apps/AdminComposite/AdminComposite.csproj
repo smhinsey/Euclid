@@ -129,6 +129,7 @@
     <Content Include="Content\jquery.cookie.js" />
     <Content Include="Content\jeditable\jquery.jeditable.js" />
     <Content Include="Content\jeditable\jquery.jeditable.mini.js" />
+    <Content Include="Content\jquery.timers-1.2.js" />
     <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.min.js" />
     <Content Include="Content\admin-ui.js" />
     <Compile Include="Controllers\AuthenticationController.cs" />
@@ -148,6 +149,7 @@
     </Compile>
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Models\BlockUserInputModel.cs" />
     <Compile Include="Models\CreateForumInputModel.cs" />
     <Compile Include="Models\CreateOrganizationAndRegisterUserInputModel.cs" />
     <Compile Include="ActionFilters\PopulateAdminWideViewBag.cs" />

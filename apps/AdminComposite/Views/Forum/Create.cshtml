@@ -70,14 +70,14 @@
 			<legend>Voting</legend>
 				
 			<dl>
-				<dt class="checkbox"><label for="forum-voting-enabled">None</label></dt>
+				<dt class="radio"><label for="forum-voting-enabled">None</label></dt>
 				<dd>
-					@Html.CheckBoxFor(m => m.DisableVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
+					@Html.RadioButtonFor(m => m.VotingScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
 				</dd>
 
-				<dt class="checkbox"><label for="forum-voting-updown">Up/Down</label></dt>
+				<dt class="radio"><label for="forum-voting-updown">Up/Down</label></dt>
 				<dd>
-					@Html.CheckBoxFor(m => m.UpDownVoting, new { @class= "voting-scheme", id = "forum-voting-updown" })
+					@Html.RadioButtonFor(m => m.VotingScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
 				</dd>
 			</dl>
 		</fieldset>

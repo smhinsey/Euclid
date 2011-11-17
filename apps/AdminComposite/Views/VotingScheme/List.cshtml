@@ -2,26 +2,6 @@
 @using Euclid.Composites.Mvc.Extensions
 @model SetVotingSchemeInputModel
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$(".voting-scheme").click(function () {
-			var selectedIsChecked = $(this).is(":checked");
-			var selectedId = $(this).attr("id");
-
-			$(".voting-scheme").each(function (index, item) {
-				var currentId = $(this).attr("id");
-				if (selectedId != currentId && selectedIsChecked) {
-					$(item).prop("checked", false);
-				}
-			});
-
-			if (!$(".voting-scheme").is(":checked")) {
-				$("#forum-voting-disabled").prop("checked", true);
-			}
-		});
-	});
-</script>
-
 <article>
 	<section>
 		<header>
@@ -42,14 +22,14 @@
 				<tbody>
 					<tr>
 						<td>
-							@Html.RadioButtonFor(m => m.SelectedScheme, SetVotingSchemeInputModel.AvailableScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
+							@Html.RadioButtonFor(m => m.SelectedScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
 						</td>
 						<td>None</td>
 						<td>Users cannot vote on posts or comments</td>
 					</tr>
 					<tr>
 						<td>
-							@Html.RadioButtonFor(m => m.SelectedScheme, SetVotingSchemeInputModel.AvailableScheme.UpDownVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
+							@Html.RadioButtonFor(m => m.SelectedScheme, VotingScheme.UpDownVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
 						</td>
 						<td>Up / Down</td>
 						<td>Users can vote a post or comment up or down.  A user can change their vote, but can only vote on a particular post or comment once</td>

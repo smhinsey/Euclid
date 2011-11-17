@@ -22,9 +22,7 @@ namespace AdminComposite.Models
 
 		public string UrlSlug { get; set; }
 
-		public bool DisableVoting { get; set; }
-
-		public bool UpDownVoting { get; set; }
+		public VotingScheme VotingScheme { get; set; }
 
 		public Guid CreatedBy { get; set; }
 	}
