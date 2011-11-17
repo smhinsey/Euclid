@@ -2,43 +2,56 @@
 @using Euclid.Composites.Mvc.Extensions
 @model SetVotingSchemeInputModel
 
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#save-voting-scheme").click(function () {
+			var forumId = "@Model.ForumIdentifier";
+			var selectedScheme = $("input:radio[name='SelectedScheme']:checked").val();
+
+			$.get("@Url.Action("SetVotingScheme")", { forumId: forumId, selectedScheme: selectedScheme });
+
+			return false;
+		});
+	});
+</script>
+
 <article>
-	<section>
-		<header>
-			<h2>Manage Voting Schemes</h2>
-		</header>
-		<p>Select how forum members vote on posts and comments</p>
-		@using (Html.BeginFormForInputModel(Model))
-		{
-			@Html.HiddenFor(m=>m.ForumIdentifier)
-			<table>
-				<thead>
-					<tr>
-						<th>Active</th>
-						<th>Name</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							@Html.RadioButtonFor(m => m.SelectedScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
-						</td>
-						<td>None</td>
-						<td>Users cannot vote on posts or comments</td>
-					</tr>
-					<tr>
-						<td>
-							@Html.RadioButtonFor(m => m.SelectedScheme, VotingScheme.UpDownVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
-						</td>
-						<td>Up / Down</td>
-						<td>Users can vote a post or comment up or down.  A user can change their vote, but can only vote on a particular post or comment once</td>
-					</tr>
-				</tbody>
-			</table>
-			<button type="submit" id="save-voting-scheme">Save</button>
-		}
-	</section>
+	<header>
+		<h2>Manage Voting Schemes</h2>
+	</header>
+	<p>Select how forum members vote on posts and comments</p>
+	<table>
+		<thead>
+			<tr>
+				<th>Active</th>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					@Html.RadioButtonFor(m => m.SelectedScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
+				</td>
+				<td>None</td>
+				<td>Users cannot vote on posts or comments</td>
+			</tr>
+			<tr>
+				<td>
+					@Html.RadioButtonFor(m => m.SelectedScheme, VotingScheme.UpDownVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
+				</td>
+				<td>Up / Down</td>
+				<td>Users can vote a post or comment up or down.  <br />A user can change their vote, but can only vote on a particular post or comment once</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<ul class="button-switch">
+						<li><button type="button" id="save-voting-scheme">Save</button></li>
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </article>
 
 @section Breadcrumbs{
