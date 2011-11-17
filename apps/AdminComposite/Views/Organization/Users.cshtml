@@ -39,42 +39,45 @@
 		<h2>Administrators</h2>
 	</header>
 
-	<section>
-		<table>
-			<thead>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Last Login</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach (var user in Model)
+			{
 				<tr>
-					<th>Name</th>
-					<th>Email</th>
-					<th>Last Login</th>
-					<th>&nbsp;</th>
+					<td>
+						@if (HttpContext.Current.User.Identity.Name == user.Username)
+						{
+							<span>(You)</span>
+						} 
+						@user.FirstName @user.LastName
+					</td>
+					<td><a href="mailto:@user.Email">@user.Email</a></td>
+					<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
+					<td>
+						<ul class="actions">
+							<li><a class="edit user" rel="tooltip" href="#" original-title="Edit" data-user-name="@user.FirstName @user.LastName" data-user-id="@user.Identifier">Edit</a></li>
+						</ul>
+					</td>
 				</tr>
-			</thead>
-
-			<tbody>
-				@foreach (var user in Model)
-				{
-					<tr>
-						<td>
-							@if (HttpContext.Current.User.Identity.Name == user.Username)
-							{
-								<span>(You)</span>
-							} 
-							@user.FirstName @user.LastName
-						</td>
-						<td><a href="mailto:@user.Email">@user.Email</a></td>
-						<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
-						<td>
-							<ul class="actions">
-								<li><a class="edit user" rel="tooltip" href="#" original-title="Edit" data-user-name="@user.FirstName @user.LastName" data-user-id="@user.Identifier">Edit</a></li>
-							</ul>
-						</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-
-		<button type="button" id="add-user">Add User</button>
-	</section>
+			}
+		</tbody>
+		<tr>
+			<td colspan="4">
+				<ul class="button-switch">
+					<li><button type="button" id="add-user">Add User</button></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
 </article>
 
 @section Breadcrumbs {
