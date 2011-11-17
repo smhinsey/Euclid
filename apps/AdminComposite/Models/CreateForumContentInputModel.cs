@@ -29,6 +29,7 @@ namespace AdminComposite.Models
 			AgentSystemName = CommandType.Assembly.GetAgentMetadata().SystemName;
 		}
 
+		public Guid ForumIdentifier { get; set; }
 		public Guid ContentIdentifier { get; set; }
 		public bool Active { get; set; }
 		public string Location { get; set; }

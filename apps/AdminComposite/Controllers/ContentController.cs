@@ -41,6 +41,7 @@ namespace AdminComposite.Controllers
 
 			return PartialView("_UpdateContent", new UpdateForumContentInputModel
 			                                     	{
+														ForumIdentifier =  content.ForumIdentifier,
 			                                     		ContentIdentifier = contentId,
 			                                     		Active = content.Active,
 			                                     		Location = content.ContentLocation,
@@ -49,16 +50,16 @@ namespace AdminComposite.Controllers
 			                                     	});
 		}
 
-		public PartialViewResult TypeSpecificInput(AvailableContentType contentType)
+		public PartialViewResult TypeSpecificInput(AvailableContentType contentType, string value)
 		{
 			PartialViewResult result;
 			switch (contentType)
 			{
 				case AvailableContentType.RichText:
-					result = PartialView("_wysiwg");
+					result = PartialView("_wysiwg", value);
 					break;
 				case AvailableContentType.EmeddedYouTube:
-					result = PartialView("_default");
+					result = PartialView("_default", value);
 					break;
 				default:
 					throw new NotImplementedException("Invalid content type specified");

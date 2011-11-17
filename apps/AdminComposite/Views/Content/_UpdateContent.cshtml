@@ -1,8 +1,89 @@
-﻿@using AdminComposite.Models
+﻿@using AdminComposite.Controllers
+@using Euclid.Composites.Mvc.Extensions
+@using AdminComposite.Models
 @model UpdateForumContentInputModel
+		   
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#content-type").live("change", function () {
+			var selectedValue = $("#content-type").val();
 
-@{
-	Layout = null;
-}
+			if (selectedValue == "" || selectedValue == null) {
+				$("#default-input-type").show();
+				$("#content-specific-input").hide();
+				$("#content-specific-input").html("");
+			}
+			else {
+				$("#content-specific-input").load("@Url.Action("TypeSpecificInput")", { contentType: selectedValue });
+				$("#default-input-type").hide();
+				$("#content-specific-input").show();
+			}
+		});
 
-<h2>title</h2>
+		$("#create-form").live('submit', function() {
+			var submit = true;
+			if ($("#content-input").length == 0) {
+				$("#error").removeClass("hidden");
+				submit = false;
+			} else {
+				$("#content-value").val($("#content-input").val());
+			}
+
+			return submit;
+		});
+	});
+</script>
+
+<section>
+	@using (Html.BeginFormForInputModel(Model, true, @Url.Action("List", "Content", new { forumId = Model.ForumIdentifier}), "create-form"))
+	{
+		@Html.HiddenFor(m=>m.ContentIdentifier)
+		@Html.HiddenFor(m => m.Value, new { id = "content-value" });
+
+		<fieldset>
+			<legend>Update Content for Forum</legend>
+		
+			<dl>
+				<dt><label for="content-location">Location</label></dt>
+				<dd>
+					@Html.DropDownListFor(m => m.Location, new List<SelectListItem>
+											{
+												new SelectListItem {Selected = false, Text = " -- Content Location --", Value = string.Empty},											
+												new SelectListItem {Text = "Home - Header"},
+												new SelectListItem {Text = "Home - Content"},
+												new SelectListItem {Text = "UserProfile - Header"},
+												new SelectListItem {Text = "Category - Content"},
+											}, new { id = "content-location" })
+				</dd>
+
+				<dt><label for="content-type">Type</label></dt>
+				<dd>
+					@Html.DropDownListFor(m => m.Type, new List<SelectListItem>
+											{
+												new SelectListItem { Text = " -- Content Type --", Value = string.Empty},											
+												new SelectListItem { Text = "Rich Text", Value = Enum.GetName(typeof(AvailableContentType), AvailableContentType.RichText)},
+												new SelectListItem { Text = "Embedded Youtube", Value = Enum.GetName(typeof(AvailableContentType), AvailableContentType.EmeddedYouTube)},
+											}, new { id = "content-type" })
+				</dd>
+
+				<dt><label for="content-input">Value</label></dt>
+				<dd>
+					<span id="content-specific-input">@{Html.RenderAction("TypeSpecificInput", new { contentType = Model.Type, value = Model.Value });}</span>
+					<span id="default-input-type" style="display: none">select type</span>
+				</dd>
+
+				<dt class="checkbox"><label for="content-active">Active</label></dt>
+				<dd>@Html.CheckBoxFor(m => m.Active)</dd>
+			</dl>
+
+			<div id="error" class="notification error hidden">
+				<a href="#" class="close-notification" title="Hide Message" rel="tooltip">x</a>
+				<p>
+					<strong>Incomplete Form</strong>
+					Provide a value for this content
+				</p>
+			</div>
+			<button type="submit">Update</button>
+		</fieldset>
+ }
+</section>
