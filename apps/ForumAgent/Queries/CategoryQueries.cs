@@ -13,13 +13,18 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public IList<Category> GetActiveCategories(Guid forumIdentifier)
+		public IList<Category> GetActiveCategories(Guid forumIdentifier, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();
 
-			return session.QueryOver<Category>().Where(c => c.Active == true && c.ForumIdentifier == forumIdentifier).List();
+			return session.QueryOver<Category>().Where(c => c.Active == true && c.ForumIdentifier == forumIdentifier).Skip(offset).Take(pageSize).List();
 		}
 
-		
+		public IList<Category> List(Guid forumId, int offset, int pageSize)
+		{
+			var session = GetCurrentSession();
+
+			return session.QueryOver<Category>().Where(c => c.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List();
+		}
 	}
 }

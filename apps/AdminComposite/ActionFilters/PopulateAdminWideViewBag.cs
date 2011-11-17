@@ -30,17 +30,17 @@ namespace AdminComposite.ActionFilters
 
 		public void OnActionExecuting(ActionExecutingContext filterContext)
 		{
+			if (filterContext.HttpContext.Request.IsAjaxRequest())
+			{
+				return;
+			}
+
 			if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly != _currentAssembly)
 			{
 				return;
 			}
 
 			if (!HttpContext.Current.User.Identity.IsAuthenticated)
-			{
-				return;
-			}
-
-			if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName == "Authentication")
 			{
 				return;
 			}

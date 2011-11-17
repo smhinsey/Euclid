@@ -37,6 +37,18 @@
 				});
 			return false;
 		});
+
+
+		$("#update").click(function() {
+			$(".category-active").each(function(index, item) {
+				var categoryId = $(item).attr("data-item-id");
+				var active = $(item).is(":checked");
+
+				$.get("@Url.Action("ActivateCategory")", { categoryId: categoryId, active: active });
+			});
+
+			return false;
+		});
 	});
 </script>
 
@@ -57,7 +69,7 @@
 			@foreach (var category in Model)
 			{
 			<tr>
-				<td>@if(category.Active){ <text>Yes</text> }else{ <text>No</text> }</td>
+				<td>@Html.CheckBoxFor(m=>category.Active, new {@class="category-active", data_item_id=@category.Identifier})</td>
 				<td><span data-category-id="@category.Identifier">@category.Name</span></td>
 				<td>
 					<ul class="actions">
@@ -66,10 +78,16 @@
 				</td>
 			</tr>
 			}
+			<tr>
+				<td colspan="3">
+					<ul class="button-switch">
+						<li><button type="button" id="create-category">New Category</button></li>
+						<li><button type="button" id="update">Save</button></li>
+					</ul>
+				</td>
+			</tr>
 		</tbody>
 	</table>
-
-	<button type="button" id="create-category">New Category</button>
 </article>
 
 @section Breadcrumbs{

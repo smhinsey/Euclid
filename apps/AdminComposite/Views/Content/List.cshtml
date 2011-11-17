@@ -47,6 +47,17 @@
 
 			return false;
 		});
+
+		$("#update").click(function() {
+			$(".content-active").each(function(index, item) {
+				var contentId = $(item).attr("data-item-id");
+				var active = $(item).is(":checked");
+
+				$.get("@Url.Action("ActivateContent")", { contentId: contentId, active: active });
+			});
+
+			return false;
+		});
 	});
 
 	function deleteContent(contentId) {
@@ -64,40 +75,48 @@
 	<header>
 		<h2>Content for Forum</h2>
 	</header>
-</article>
+	
+	<p>Manage content for this forum</p>
 
-<section>
-	<table>
-		<thead>
-			<tr>
-				<th>Location</th>
-				<th>Type</th>
-				<th>Active</th>
-				<th>&nbsp;</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var content in Model)
-			{
+	<section>
+		<table>
+			<thead>
 				<tr>
-					<td>@content.ContentLocation</td>
-					<td>@content.ContentType</td>
-					<td>@if (content.Active) {<text>Yes</text>}else{<text>No</text>}</td>
-					<td>
-					<ul class="actions">
-						<li><a class="edit" rel="tooltip" href="#" original-title="Edit" data-item-id="@content.Identifier">Edit</a></li>
-						<li><a class="admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete" data-confirmation-message="Do you want to delete this content?" data-confirm-function="deleteContent" data-item-id="@content.Identifier">Delete</a></li>
-						<li><a class="preview" data-item-id="@content.Identifier" href="#" rel="tooltip" original-title="Preview">Delete</a></li>
-					</ul>
-				</td>
+					<th>Active</th>
+					<th>Location</th>
+					<th>Type</th>
+					<th>&nbsp;</th>
 				</tr>
-			}
-		</tbody>
-	</table>
-
-	<button type="submit" id="add-content">Add Content</button>
-</section>
-
+			</thead>
+			<tbody>
+				@foreach (var content in Model)
+				{
+					<tr>
+						<td>@Html.CheckBoxFor(m=>content.Active, new {@class="content-active", data_item_id=@content.Identifier})</td>
+						<td>@content.ContentLocation</td>
+						<td>@content.ContentType</td>
+						<td>
+							<ul class="actions">
+								<li><a class="edit" rel="tooltip" href="#" original-title="Edit" data-item-id="@content.Identifier">Edit</a></li>
+								<li><a class="admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete" data-confirmation-message="Do you want to delete this content?" data-confirm-function="deleteContent" data-item-id="@content.Identifier">Delete</a></li>
+								<li><a class="preview" data-item-id="@content.Identifier" href="#" rel="tooltip" original-title="Preview">Delete</a></li>
+							</ul>
+						</td>
+					</tr>
+				}
+				<tr>
+					<td colspan="4">
+						<ul class="button-switch">
+							<li><button type="submit" id="add-content">Add Content</button></li>
+							<li><button type="button" id="update">Save</button></li>
+						</ul>
+					
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</article>
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>

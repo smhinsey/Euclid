@@ -55,8 +55,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentInfo.cs" />
+    <Compile Include="Commands\ActivateCategory.cs" />
+    <Compile Include="Commands\ActivateContent.cs" />
+    <Compile Include="Processors\ActivateCategoryProcessor.cs" />
+    <Compile Include="Processors\ActivateContentProcessor.cs" />
     <Compile Include="Commands\BlockUser.cs" />
     <Compile Include="CategoryNotFoundException.cs" />
+    <Compile Include="ForumContentNotFoundException.cs" />
     <Compile Include="ContentNotFoundException.cs" />
     <Compile Include="Commands\CreateCategory.cs" />
     <Compile Include="Processors\CreateForumContentProcessor.cs" />

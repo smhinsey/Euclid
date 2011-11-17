@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Models;
+using Euclid.Common.Messaging;
 using ForumAgent;
+using ForumAgent.Commands;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Controllers
@@ -10,23 +12,27 @@ namespace AdminComposite.Controllers
 	public class CategoryController : Controller
 	{
 		private readonly CategoryQueries _categoryQueries;
+		private readonly IPublisher _publisher;
 
-		public CategoryController(CategoryQueries categoryQueries)
+		public CategoryController(CategoryQueries categoryQueries, IPublisher publisher)
 		{
 			_categoryQueries = categoryQueries;
+			_publisher = publisher;
 		}
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
-			return View(_categoryQueries.List(offset, pageSize));
+			return View(_categoryQueries.List(forumId, offset, pageSize));
 		}
 
 		public PartialViewResult NewCategory(Guid forumId)
 		{
+			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
+
 			return PartialView("_NewCategory", new CreateCategoryInputModel
 			                                   	{
 			                                   		ForumIdentifier = forumId, 
-													CreatedBy = ViewBag.UserId
+													CreatedBy = userId
 			                                   	});
 		}
 
@@ -45,6 +51,17 @@ namespace AdminComposite.Controllers
 			                                      		Name = category.Name,
 			                                      		Active = category.Active
 			                                      	});
+		}
+
+		public JsonResult ActivateCategory(Guid categoryId, bool active)
+		{
+			var publicationId = _publisher.PublishMessage(new ActivateCategory
+			                                              	{
+			                                              		CategoryIdentifier = categoryId,
+			                                              		Active = active
+			                                              	});
+
+			return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

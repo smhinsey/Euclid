@@ -23,15 +23,17 @@ namespace AdminComposite.Controllers
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
-			return View(_contentQueries.List(offset, pageSize));
+			return View(_contentQueries.List(forumId, offset, pageSize));
 		}
 
 		public PartialViewResult NewContent(Guid forumId)
 		{
+			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
+
 			return PartialView("_NewContent", new CreateForumContentInputModel
 			                                  	{
 			                                  		ForumIdentifier = forumId,
-													CreatedBy = ViewBag.UserId
+													CreatedBy = userId,
 			                                  	});
 		}
 
@@ -65,12 +67,21 @@ namespace AdminComposite.Controllers
 			return Json(publicationId, JsonRequestBehavior.AllowGet);
 		}
 
+		public JsonResult ActivateContent(Guid contentId, bool active)
+		{
+			var publicationId = _publisher.PublishMessage(new ActivateContent {ContentIdentifier = contentId, Active = active});
+
+			return Json(publicationId, JsonRequestBehavior.AllowGet);
+		}
+
 		public PartialViewResult Preview(Guid contentId)
 		{
 			var content = _contentQueries.FindById(contentId);
 
 			return PartialView("_preview", content);
 		}
+
+
 
 		private string GetPartialViewNameForContentType(string contentType)
 		{

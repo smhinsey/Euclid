@@ -25,12 +25,14 @@ namespace AdminComposite.Controllers
 
 		public ActionResult Create()
 		{
+			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
+
 			return View(new CreateForumInputModel
 			            	{
 			            		UrlHostName = "socialrally.com",
 			            		OrganizationId = ViewBag.OrganizationId,
 			            		Description = " ",
-								CreatedBy = ViewBag.UserId,
+								CreatedBy = userId,
 								VotingScheme = VotingScheme.UpDownVoting
 			            	});
 		}

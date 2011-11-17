@@ -19,11 +19,18 @@ namespace ForumAgent.Queries
 			return session.QueryOver<ForumContent>().Where(c => c.ContentLocation == location && c.ForumIdentifier == forumId).List();
 		}
 
-		public IList<ForumContent>  GetActiveContent(Guid forumId)
+		public IList<ForumContent>  GetActiveContent(Guid forumId, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();
 
-			return session.QueryOver<ForumContent>().Where(c => c.ForumIdentifier == forumId && c.Active).List();
+			return session.QueryOver<ForumContent>().Where(c => c.ForumIdentifier == forumId && c.Active).Skip(offset).Take(pageSize).List();
+		}
+
+		public IList<ForumContent> List(Guid forumId, int offset, int pageSize)
+		{
+			var session = GetCurrentSession();
+
+			return session.QueryOver<ForumContent>().Where(c => c.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List();
 		}
 	}
 }
