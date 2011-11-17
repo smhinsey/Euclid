@@ -120,6 +120,14 @@ namespace AdminComposite
 								NoVoting = input.SelectedScheme == VotingScheme.NoVoting,
 								UpDownVoting = input.SelectedScheme == VotingScheme.UpDownVoting
 				         	});
+
+			composite.RegisterInputModelMap<CreateCategoryInputModel, CreateCategory>();
+			composite.RegisterInputModelMap<UpdateCategoryInputModel, UpdateCategory>(input=>new UpdateCategory
+			                                                                                 	{
+			                                                                                 		CategoryIdentifier = input.Identifier,
+																									Active = input.Active,
+																									Name = input.Name
+			                                                                                 	});
 			setAzureCredentials(container);
 
 			_initialized = true;

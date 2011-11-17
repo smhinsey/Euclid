@@ -1,15 +1,41 @@
-﻿<script type="text/javascript">
-	$(document).ready(function() {
-		$("#create-category").click(function() {
+﻿@using ForumAgent.ReadModels
+@model IList<Category>
+		   
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#create-category").click(function () {
 			$("<div></div>")
-				.load("/Category/NewCategory")
+				.load("@Url.Action("NewCategory")?forumId=@ViewContext.RouteData.Values["forumId"]")
 				.modal({
-						autoResize: true,
-						autoPosition: true,
-						position: new Array(25, 300),
-						dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 485, width: 635 },
-						containerCss: { height: 500, width: 650 }
-					});
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 485, width: 635 },
+					containerCss: { height: 500, width: 650 },
+					onClose: function (dialog) {
+						window.location.href = window.location.href;
+					}
+				});
+
+			return false;
+		});
+
+		$(".edit").click(function() {
+			var categoryId = $(this).attr("data-category-id");
+			
+			$("<div></div>")
+				.load("@Url.Action("UpdateCategory")?categoryId=" + categoryId)
+				.modal({
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 485, width: 635 },
+					containerCss: { height: 500, width: 650 },
+					onClose: function (dialog) {
+						window.location.href = window.location.href;
+					}
+				});
+			return false;
 		});
 	});
 </script>
@@ -18,8 +44,8 @@
 	<header>
 		<h2>Manage Forum Categories</h2>
 	</header>
-	<p>Lorem ipsum dolor sit consecutator amet. </p>
-	<table>
+	<p>View, edit, activate and create categories for this forum</p>
+	<table id="category-table">
 		<thead>
 			<tr>
 				<th>Active</th>
@@ -28,42 +54,18 @@
 			</tr>
 		</thead>
 		<tbody>
+			@foreach (var category in Model)
+			{
 			<tr>
-				<td><input type="checkbox"/></td>
-				<td>Category 1</td>
+				<td>@if(category.Active){ <text>Yes</text> }else{ <text>No</text> }</td>
+				<td><span data-category-id="@category.Identifier">@category.Name</span></td>
 				<td>
 					<ul class="actions">
-						<li><a href="#" class="edit" rel="tooltip" original-title="Edit Category">edit category</a></li>
+						<li><a href="#" class="edit" data-category-id="@category.Identifier" rel="tooltip" original-title="Edit Category">edit category</a></li>
 					</ul>
 				</td>
 			</tr>
-			<tr>
-				<td><input type="checkbox"/></td>
-				<td>Category 2</td>
-				<td>
-					<ul class="actions">
-						<li><a href="#" class="edit" rel="tooltip" original-title="Edit Category">edit category</a></li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"/></td>
-				<td>Category 3</td>
-				<td>
-					<ul class="actions">
-						<li><a href="#" class="edit" rel="tooltip" original-title="Edit Category">edit category</a></li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"/></td>
-				<td>Category 4</td>
-				<td>
-					<ul class="actions">
-						<li><a href="#" class="edit" rel="tooltip" original-title="Edit Category">edit category</a></li>
-					</ul>
-				</td>
-			</tr>
+			}
 		</tbody>
 	</table>
 
