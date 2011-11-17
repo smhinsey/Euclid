@@ -76,7 +76,7 @@
     <Compile Include="Processors\UpdateCategoryProcessor.cs" />
     <Compile Include="Commands\UpdateForum.cs" />
     <Compile Include="Commands\UpdateForumVotingScheme.cs" />
-    <Compile Include="Commands\UpdateLastLogin.cs" />
+    <Compile Include="Commands\UpdateOrganizationUserLastLogin.cs" />
     <Compile Include="Commands\UpdateOrganization.cs" />
     <Compile Include="Commands\UpdateOrganizationUser.cs" />
     <Compile Include="Domain\MyAggregateRoot.cs" />
@@ -90,13 +90,14 @@
     <Compile Include="ForumNotFoundException.cs" />
     <Compile Include="Processors\UpdateForumDetailsProcessor.cs" />
     <Compile Include="Processors\UpdateForumVotingSchemeProcessor.cs" />
-    <Compile Include="Processors\UpdateLastLoginProcessor.cs" />
+    <Compile Include="Processors\UpdateOrganizationUserLastLoginProcessor.cs" />
     <Compile Include="Processors\UpdateOrganizationProcessor.cs" />
     <Compile Include="Processors\UpdateUserProfileProcessor.cs" />
     <Compile Include="Commands\VoteOnComment.cs" />
     <Compile Include="Commands\VoteOnPost.cs" />
     <Compile Include="Processors\CommentOnPostProcessor.cs" />
     <Compile Include="Processors\PublishPostProcessor.cs" />
+    <Compile Include="UserNotFoundException.cs" />
     <Compile Include="Processors\VoteOnCommentProcessor.cs" />
     <Compile Include="Processors\VoteOnPostProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

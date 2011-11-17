@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using AdminComposite.Models;
 using AutoMapper;
+using ForumAgent;
 using ForumAgent.Processors;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;

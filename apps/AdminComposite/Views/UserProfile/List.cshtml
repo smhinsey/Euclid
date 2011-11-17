@@ -1,4 +1,5 @@
-﻿@using ForumAgent.ReadModels
+﻿@using AdminComposite.Extensions
+@using ForumAgent.ReadModels
 @model IList<ForumUser>
 @{
 	ViewBag.Title = "Manage Forum Users";
@@ -107,14 +108,14 @@
 					<tr>
 						<td>@user.FirstName @user.LastName</td>
 						<td>@user.Username</td>
-						<td>TBD</td>
+						<td>@user.NumberPosts</td>
 						<td>
 							<ul class="actions">
-								<li>TBD</li>
+								<li>@user.NumberVotes</li>
 								<li><a href="#" class="reset-votes" rel="tooltip" original-title="Reset Vote Count">Reset Vote Count</a></li>
 							</ul>
 						</td>
-						<td>TBD</td>
+						<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
 						<td>
 							<ul class="actions">
 								<li @if (user.IsBlocked) {<text>class="hidden"</text>}><a href="#" class="block-user confirmation-dialog" rel="tooltip" original-title="Block @user.FirstName @user.LastName" data-item-id="@user.Identifier" data-confirmation-message="Really block @user.FirstName @user.LastName?" data-confirm-function="blockUser">Block User</a></li>

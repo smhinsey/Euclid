@@ -20,5 +20,11 @@ namespace ForumAgent.ReadModels
 		public virtual string Username { get; set; }
 
 		public virtual bool IsBlocked { get; set; }
+
+		public virtual DateTime LastLogin { get; set; }
+
+		public virtual int NumberPosts { get; set; }
+
+		public virtual int NumberVotes { get; set; }
 	}
 }

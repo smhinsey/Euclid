@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlTypes;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
@@ -27,7 +28,8 @@ namespace ForumAgent.Processors
 					Username = message.Username,
 					Created = DateTime.Now,
 					Modified = DateTime.Now,
-					ForumIdentifier = message.ForumIdentifier
+					ForumIdentifier = message.ForumIdentifier,
+					LastLogin = (DateTime)SqlDateTime.MinValue
 				};
 
 			_repository.Save(newUser);

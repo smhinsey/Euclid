@@ -3,7 +3,7 @@ using Euclid.Framework.Cqrs;
 
 namespace ForumAgent.Commands
 {
-	public class UpdateLastLogin : DefaultCommand
+	public class UpdateOrganizationUserLastLogin : DefaultCommand
 	{
 		public DateTime LoginTime { get; set; }
 

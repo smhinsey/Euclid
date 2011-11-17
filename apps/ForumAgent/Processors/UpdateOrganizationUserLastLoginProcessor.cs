@@ -7,42 +7,29 @@ using NHibernate;
 
 namespace ForumAgent.Processors
 {
-	public class UpdateLastLoginProcessor : DefaultCommandProcessor<UpdateLastLogin>
+	public class UpdateOrganizationUserLastLoginProcessor : DefaultCommandProcessor<UpdateOrganizationUserLastLogin>
 	{
 		private readonly NhSimpleRepository<OrganizationUserEntity> _repository;
 
 		private readonly ISession _session;
 
-		public UpdateLastLoginProcessor(ISession session)
+		public UpdateOrganizationUserLastLoginProcessor(ISession session)
 		{
 			_session = session;
 			_repository = new NhSimpleRepository<OrganizationUserEntity>(_session);
 		}
 
-		public override void Process(UpdateLastLogin message)
+		public override void Process(UpdateOrganizationUserLastLogin message)
 		{
-			var user =
-				_session.QueryOver<OrganizationUserEntity>().Where(u => u.Identifier == message.UserIdentifier).SingleOrDefault();
+			var user = _repository.FindById(message.UserIdentifier);
 			if (user == null)
 			{
 				throw new UserNotFoundException(message.UserIdentifier);
 			}
 
 			user.LastLogin = message.LoginTime;
+			user.Modified = DateTime.Now;
 			_repository.Update(user);
-		}
-	}
-
-	public class UserNotFoundException : Exception
-	{
-		public UserNotFoundException(string name)
-			: base(name)
-		{
-		}
-
-		public UserNotFoundException(Guid id)
-			: base(id.ToString())
-		{
 		}
 	}
 }

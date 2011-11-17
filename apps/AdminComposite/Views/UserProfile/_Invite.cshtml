@@ -8,6 +8,7 @@
 
 @using (Html.BeginFormForInputModel(Model, true, Url.Action("List", "UserProfile", new { forumId = Model.ForumIdentifier })))
 {
+	@Html.HiddenFor(m => m.ForumIdentifier);
 	@Html.HiddenFor(m=>m.Password)
 	<fieldset>
 		<legend>User</legend>

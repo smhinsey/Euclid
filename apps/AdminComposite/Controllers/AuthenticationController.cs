@@ -44,7 +44,7 @@ namespace AdminComposite.Controllers
 			{
 				var user = _organizationUserQueries.FindByUsername(username);
 				_commandPublisher.PublishMessage(
-					new UpdateLastLogin
+					new UpdateOrganizationUserLastLogin
 						{
 							Created = DateTime.Now,
 							CreatedBy = Guid.Empty,
