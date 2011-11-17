@@ -7,57 +7,60 @@
 		<h2>@ViewBag.Title</h2>
 	</header>
 	<p>An active authentication provider can be used by new users to register and authenticate accounts with your forum.</p>
-	<section>
-		<table>
-			<thead>
-				<tr>
-					<th>Active</th>
-					<th>Name</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<input type="checkbox" checked="checked" disabled="disabled" /></td>
-					<td>Built-in</td>
-				</tr>
-				@*<tr>
-					<td>
-						<input type="checkbox" /></td>
-					<td>OAuth</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="checkbox" /></td>
-					<td>Google</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="checkbox" /></td>
-					<td>Twitter</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="checkbox" /></td>
-					<td>Azure ACS</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="checkbox" /></td>
-					<td>Active Directory</td>
-				</tr>*@
-			</tbody>
-		</table>
+	<table>
+		<thead>
+			<tr>
+				<th>Active</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<input type="checkbox" checked="checked" disabled="disabled" /></td>
+				<td>Built-in</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<ul class="button-switch">
+						<li><button type="button">Save</button></li>
+					</ul>
+				</td>
+			</tr>
+			@*<tr>
+				<td>
+					<input type="checkbox" /></td>
+				<td>OAuth</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" /></td>
+				<td>Google</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" /></td>
+				<td>Twitter</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" /></td>
+				<td>Azure ACS</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="checkbox" /></td>
+				<td>Active Directory</td>
+			</tr>*@
+		</tbody>
+	</table>
 
-		<div class="notification attention">
-			<p>
-			<strong>Warning</strong> 
-			if you disable an authentication provider that users have already usedto register with, those users will no longer have access to the forum.
-			<p>
-		</div>
-		
-		<button type="button">Save</button>
-	</section>
+	<div class="notification attention">
+		<p>
+		<strong>Warning</strong> 
+		if you disable an authentication provider that users have already usedto register with, those users will no longer have access to the forum.
+		<p>
+	</div>
 </article>
 
 @section Breadcrumbs{

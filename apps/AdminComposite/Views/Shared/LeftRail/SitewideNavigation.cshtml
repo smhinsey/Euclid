@@ -72,7 +72,7 @@
 								<text>class="current"</text>}>
 						<a href="@Url.Action("Posts", "Moderation", new { forumId })">Moderate Posts & Comments</a> </li>
 
-					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "forum", "list", "authenticationproviders")>
+					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "forum", "authenticationproviders", "current")>
 						<a href="@Url.Action("AuthenticationProviders", "Forum", new { forumId })">Configure Authentication</a> </li>
 				</ul>
 			</li>
