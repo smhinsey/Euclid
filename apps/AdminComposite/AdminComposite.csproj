@@ -155,6 +155,7 @@
     <Compile Include="Models\CreateOrganizationAndRegisterUserInputModel.cs" />
     <Compile Include="ActionFilters\PopulateAdminWideViewBag.cs" />
     <Compile Include="Models\RegisterOrganizationUserInputModel.cs" />
+    <Compile Include="Models\SetForumThemeInputModel.cs" />
     <Compile Include="Models\SetVotingSchemeInputModel.cs" />
     <Compile Include="Models\UpdateCategoryInputModel.cs" />
     <Compile Include="Models\UpdateForumContentInputModel.cs" />
@@ -275,6 +276,7 @@
     <Content Include="Content\sample_user_icon.png" />
     <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.css" />
     <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1-close.png" />
+    <Content Include="Content\swiss.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

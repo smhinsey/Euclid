@@ -20,5 +20,7 @@ namespace ForumAgent.ReadModels
 		public virtual bool UpDownVoting { get; set; }
 
 		public virtual Guid CreatedBy { get; set; }
+
+		public virtual string Theme { get; set; }
 	}
 }

@@ -25,5 +25,7 @@ namespace AdminComposite.Models
 		public string Password { get; set; }
 
 		public string Username { get; set; }
+
+		public Guid CreatedBy { get; set; }
 	}
 }

@@ -16,5 +16,7 @@ namespace ForumAgent.Commands
 		public string UrlSlug { get; set; }
 
 		public bool UpDownVoting { get; set; }
+
+		public string Theme { get; set; }
 	}
 }

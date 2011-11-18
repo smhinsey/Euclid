@@ -1,39 +1,50 @@
-﻿<article>
+﻿@using AdminComposite.Models
+@model SetForumThemeInputModel
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#theme-selector").change(function () {
+			var src = $("#theme-selector option:selected").attr("data-preview-image");
+			
+			$("#unselected-preview").hide();
+			$("#theme-preview").show();
+			$("#theme-preview").attr("src", src);
+		});
+
+		$("#save-theme").click(function () {
+			var selectedTheme = $("#theme-selector").val();
+
+			$.get("@Url.Action("SetForumTheme")", { forumId: "@Model.ForumIdentifier" , theme: selectedTheme });
+		});
+	});
+
+</script>
+
+<article>
 	<header>
 		<h2>Manage Forum Themes</h2>
 	</header>
+	<p></p>
 
-	<section>
-		<form action="#">
-			<fieldset>
-				<legend>Theme Selection</legend>
-				<dl>
-					<dt><label for="theme-selector">Theme</label></dt>
-					<dd>
-						<select id="theme-selector">
-							<option>-- Default Theme --</option>
-							<option value="55555555-5555-5555-5555-555555555555">theme 1</option>
-							<option value="44444444-4444-4444-4444-444444444444">theme 2</option>
-						</select>
-					</dd>
+	<fieldset>
+		<legend>Select a theme for your forum.</legend>
+		<dl>
+			<dt><label for="theme-selector">Theme</label></dt>
+			<dd>
+				<select id="theme-selector">
+					@foreach (var theme in Model.AvailableThemes)
+					{
+						<option value="@theme.Item1" data-preview-image="@theme.Item2" @if (Model.CurrentTheme.Item1 == theme.Item1) {<text>selected="selected"</text>}>@theme.Item1</option>
+					}
+				</select>
+			</dd>
 
-					<dt><label>Preview</label></dt>
-					<dd>
-						<div style="width: 250px; height: 200px; border: solid black 1px; background-color: #cccccc;">
-							<span style="font-style: italic; margin-left: 80px" id="unselected-preview">
-								<br /><br />
-								<br /><br />
-								<br />
-								preview image
-							</span>
-							<img id="theme-preview" alt="theme-preview" src="#" style="display: none"/>
-						</div>
-					</dd>
-				</dl>
-			</fieldset>
-			<button type="submit" id="save-theme">Save</button>
-		</form>
-	</section>
+			<dt><label>Preview</label></dt>
+			<dd class="text">
+				<img id="theme-preview" alt="theme-preview" src="@Model.CurrentTheme.Item2"/>
+			</dd>
+		</dl>
+	</fieldset>
+	<button type="submit" id="save-theme">Save</button>
 </article>
 
 

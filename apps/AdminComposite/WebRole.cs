@@ -112,7 +112,19 @@ namespace AdminComposite
 					});
 			composite.RegisterInputModelMap<UpdateOrganizationInputModel, UpdateOrganization>();
 			composite.RegisterInputModelMap<UpdateForumInputModel, UpdateForum>();
-			composite.RegisterInputModelMap<RegisterForumUserInputModel, RegisterForumUser>();
+
+			composite.RegisterInputModelMap<RegisterForumUserInputModel, RegisterForumUser>(input => new RegisterForumUser
+																										{
+																											ForumIdentifier = input.ForumIdentifier,
+																											FirstName = input.FirstName,
+																											LastName = input.LastName,
+																											Email = input.Email,
+																											Username = input.Username,
+																											PasswordHash = input.Password,
+																											PasswordSalt = input.Password,
+																											CreatedBy = input.CreatedBy
+																										});
+
 			composite.RegisterInputModelMap<SetVotingSchemeInputModel, UpdateForumVotingScheme>(
 				input => new UpdateForumVotingScheme
 				         	{

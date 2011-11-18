@@ -26,5 +26,7 @@ namespace ForumAgent.ReadModels
 		public virtual int NumberPosts { get; set; }
 
 		public virtual int NumberVotes { get; set; }
+
+		public virtual Guid CreatedBy { get; set; }
 	}
 }

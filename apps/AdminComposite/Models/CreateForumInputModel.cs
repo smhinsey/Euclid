@@ -25,5 +25,7 @@ namespace AdminComposite.Models
 		public VotingScheme VotingScheme { get; set; }
 
 		public Guid CreatedBy { get; set; }
+
+		public string Theme { get; set; }
 	}
 }

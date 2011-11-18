@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Models;
-using AutoMapper;
+using Euclid.Common.Messaging;
+using ForumAgent.Commands;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
@@ -11,10 +12,12 @@ namespace AdminComposite.Controllers
 	public class ForumController : Controller
 	{
 		private readonly ForumQueries _forumQueries;
+		private readonly IPublisher _publisher;
 
-		public ForumController(ForumQueries forumQueries)
+		public ForumController(ForumQueries forumQueries, IPublisher publisher)
 		{
 			_forumQueries = forumQueries;
+			_publisher = publisher;
 			AutoMapper.Mapper.CreateMap<Forum, UpdateForumInputModel>().ForMember(input=>input.ForumIdentifier, opt=>opt.MapFrom(forum=>forum.Identifier));
 		}
 
@@ -33,7 +36,8 @@ namespace AdminComposite.Controllers
 			            		OrganizationId = ViewBag.OrganizationId,
 			            		Description = " ",
 								CreatedBy = userId,
-								VotingScheme = VotingScheme.UpDownVoting
+								VotingScheme = VotingScheme.UpDownVoting,
+								Theme = "Swiss"
 			            	});
 		}
 
@@ -43,6 +47,17 @@ namespace AdminComposite.Controllers
 			var model = AutoMapper.Mapper.Map<UpdateForumInputModel>(forum);
 
 			return View(model);
+		}
+
+		public JsonResult SetForumTheme(Guid forumId, string theme)
+		{
+			var publicationId = _publisher.PublishMessage(new SetForumTheme
+			                                              	{
+			                                              		ForumIdentifier = forumId,
+			                                              		ThemeName = theme
+			                                              	});
+
+			return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

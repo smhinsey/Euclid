@@ -3,20 +3,6 @@
 		setForumUrl();
 	});
 
-	$("#theme-selector").live("change", function () {
-		var src = getPreviewImage($(this).val());
-
-		if (src == "") {
-			$("#unselected-preview").show();
-			$("#theme-preview").hide();
-		}
-		else {
-			$("#unselected-preview").hide();
-			$("#theme-preview").show();
-			$("#theme-preview").attr("src", src);
-		}
-	});
-
 	$(".new-forum-button").click(function () {
 		$("<div></div>")
 			.load("/Forum/Create")
@@ -123,18 +109,6 @@ function setForumUrl() {
 	}
 
 	$("#forum-url").html(url);
-}
-
-function getPreviewImage(id) {
-	var imageUrl;
-	if (id == "44444444-4444-4444-4444-444444444444") {
-		imageUrl = "http://www.vbstyles.com/vbulletin_styles/l_RedFox-4x-vBulletin-Theme-Forum-Home1.png";
-	} else if (id == "55555555-5555-5555-5555-555555555555") {
-		imageUrl = "http://themes.wordpress-deutschland.org/demoblog/wp-content/themes/insomniac/screenshot.png";
-	} else {
-		imageUrl = "";
-	}
-	return imageUrl;
 }
 
 function slugify(value) {

@@ -26,10 +26,13 @@ namespace AdminComposite.Controllers
 
 		public ActionResult Invite(Guid forumId)
 		{
+			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
+
 			return View("_Invite", new RegisterForumUserInputModel
 			                       	{
 			                       		ForumIdentifier = forumId,
-			                       		Password = "password" //TODO: better password generation required
+			                       		Password = "password", //TODO: better password generation required
+										CreatedBy = userId
 			                       	});
 		}
 

@@ -57,6 +57,8 @@
     <Compile Include="AgentInfo.cs" />
     <Compile Include="Commands\ActivateCategory.cs" />
     <Compile Include="Commands\ActivateContent.cs" />
+    <Compile Include="Commands\SetForumTheme.cs" />
+    <Compile Include="Processors\SetForumThemeProcessor.cs" />
     <Compile Include="Processors\ActivateCategoryProcessor.cs" />
     <Compile Include="Processors\ActivateContentProcessor.cs" />
     <Compile Include="Commands\BlockUser.cs" />
