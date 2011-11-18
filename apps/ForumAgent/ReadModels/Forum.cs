@@ -22,5 +22,9 @@ namespace ForumAgent.ReadModels
 		public virtual Guid CreatedBy { get; set; }
 
 		public virtual string Theme { get; set; }
+
+		public virtual bool Moderated { get; set; }
+
+		public virtual bool Private { get; set; }
 	}
 }

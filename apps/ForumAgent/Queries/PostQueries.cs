@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.ReadModels;
 using NHibernate;
+using NHibernate.Criterion;
 
 namespace ForumAgent.Queries
 {
@@ -36,7 +37,7 @@ namespace ForumAgent.Queries
 		{
 			var session = GetCurrentSession();
 
-			var posts = session.QueryOver<Post>().Where(post => post.Title == title);
+			var posts = session.QueryOver<Post>().WhereRestrictionOn(post => post.Title).IsInsensitiveLike(title, MatchMode.Exact);
 
 			return posts.SingleOrDefault();
 		}

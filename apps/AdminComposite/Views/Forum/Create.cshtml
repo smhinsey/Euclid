@@ -63,6 +63,12 @@
 				<dd>
 					@Html.TextAreaFor(m => m.Description, new { id = "forum-description", @class = "wysiwyg", @readonly = "readonly" })
 				</dd>
+
+				<dt class="checkbox"><label for="forum-moderated">Moderated</label></dt>
+				<dd>@Html.CheckBoxFor(m=>m.Moderated, new {id="forum-moderated"})</dd>
+
+				<dt class="checkbox"><label for="forum-private">Private</label></dt>
+				<dd>@Html.CheckBoxFor(m=>m.Private, new {id="forum-private"})</dd>
 			</dl>
 	 	</fieldset>
 

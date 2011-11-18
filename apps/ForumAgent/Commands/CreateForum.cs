@@ -18,5 +18,9 @@ namespace ForumAgent.Commands
 		public bool UpDownVoting { get; set; }
 
 		public string Theme { get; set; }
+
+		public bool Moderated { get; set; }
+
+		public bool Private { get; set; }
 	}
 }

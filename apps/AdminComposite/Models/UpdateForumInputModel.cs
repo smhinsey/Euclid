@@ -21,5 +21,9 @@ namespace AdminComposite.Models
 		public string UrlSlug { get; set; }
 
 		public string Description { get; set; }
+
+		public bool Private { get; set; }
+
+		public bool Moderated { get; set; }
 	}
 }

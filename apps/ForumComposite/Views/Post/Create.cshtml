@@ -11,7 +11,7 @@
 	{
 		@Html.HiddenFor(m => m.AuthorIdentifier)
 		@Html.HiddenFor(m => m.ForumIdentifier)
-
+		@Html.HiddenFor(m=>m.ModerationRequired)
 		<div>
 			@Html.LabelFor(m => m.Title)
 			@Html.TextBoxFor(m => m.Title, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })

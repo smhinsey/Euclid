@@ -19,5 +19,7 @@ namespace ForumComposite.Models
 		public Guid ForumIdentifier { get; set; }
 
 		public string Title { get; set; }
+
+		public bool ModerationRequired { get; set; }
 	}
 }

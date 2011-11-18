@@ -1,4 +1,6 @@
-﻿using Euclid.Common.Storage.Model;
+﻿using System;
+using System.Data.SqlTypes;
+using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
 using ForumAgent.ReadModels;
@@ -28,7 +30,9 @@ namespace ForumAgent.Processors
 					NoVoting = !message.UpDownVoting,
 					UpDownVoting = message.UpDownVoting,
 					CreatedBy = message.CreatedBy,
-					Theme = message.Theme
+					Theme = message.Theme,
+					Moderated = message.Moderated,
+					Private = message.Private
 				};
 
 			_forumRepository.Save(forum);

@@ -32,9 +32,11 @@ namespace ForumComposite.ActionFilters
 
 			var orgId = OrganizationQueries.GetIdentifierBySlug(filterContext.GetRequestValue("orgSlug"));
 			var forumId = ForumQueries.GetIdentifierBySlug(filterContext.GetRequestValue("forumSlug"));
+			var forum = ForumQueries.FindById(forumId);
 
 			filterContext.Controller.ViewBag.OrganizationIdentifier = orgId;
 			filterContext.Controller.ViewBag.ForumIdentifier = forumId;
+			filterContext.Controller.ViewBag.ForumIsModerated = forum.Moderated;
 		}
 	}
 

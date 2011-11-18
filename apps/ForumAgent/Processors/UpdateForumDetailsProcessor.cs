@@ -26,10 +26,12 @@ namespace ForumAgent.Processors
 			}
 
 			forum.Name = message.Name;
-			forum.UrlSlug = message.Slug;
+			forum.UrlSlug = message.UrlSlug;
 			forum.Description = message.Description;
+			forum.Private = message.Private;
+			forum.Moderated = message.Moderated;
 			forum.Modified = DateTime.Now;
-
+			
 			_forumRepository.Save(forum);
 		}
 	}

@@ -27,5 +27,9 @@ namespace AdminComposite.Models
 		public Guid CreatedBy { get; set; }
 
 		public string Theme { get; set; }
+
+		public bool Moderated { get; set; }
+
+		public bool Private { get; set; }
 	}
 }
