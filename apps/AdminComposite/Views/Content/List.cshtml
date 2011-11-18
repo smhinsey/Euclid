@@ -87,6 +87,16 @@
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="4">
+					<ul class="button-switch">
+						<li><button type="button" id="add-content">Add Content</button></li>
+						<li><button type="button" id="update">Save</button></li>
+					</ul>
+				</td>
+			</tr>
+		</tfoot>
 		<tbody>
 			@foreach (var content in Model)
 			{
@@ -103,14 +113,6 @@
 					</td>
 				</tr>
 			}
-			<tr>
-				<td colspan="4">
-					<ul class="button-switch">
-						<li><button type="button" id="add-content">Add Content</button></li>
-						<li><button type="button" id="update">Save</button></li>
-					</ul>
-				</td>
-			</tr>
 		</tbody>
 	</table>
 </article>

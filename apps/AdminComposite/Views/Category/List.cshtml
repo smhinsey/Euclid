@@ -65,6 +65,16 @@
 				<th></th>
 			</tr>
 		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="3">
+					<ul class="button-switch">
+						<li><button type="button" id="create-category">New Category</button></li>
+						<li><button type="button" id="update">Save</button></li>
+					</ul>
+				</td>
+			</tr>
+		</tfoot>
 		<tbody>
 			@foreach (var category in Model)
 			{
@@ -78,14 +88,6 @@
 				</td>
 			</tr>
 			}
-			<tr>
-				<td colspan="3">
-					<ul class="button-switch">
-						<li><button type="button" id="create-category">New Category</button></li>
-						<li><button type="button" id="update">Save</button></li>
-					</ul>
-				</td>
-			</tr>
 		</tbody>
 	</table>
 </article>

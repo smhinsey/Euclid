@@ -102,6 +102,15 @@
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="6">
+						<ul class="button-switch">
+							<li><button type="button" id="invite-users">Invite Users</button></li>
+						</ul>
+					</td>
+				</tr>
+			</tfoot>
 			<tbody>
 				@foreach (var user in Model)
 				{
@@ -125,13 +134,6 @@
 						</td>
 					</tr>
 				}
-				<tr>
-					<td colspan="6">
-						<ul class="button-switch">
-							<li><button type="button" id="invite-users">Invite Users</button></li>
-						</ul>
-					</td>
-				</tr>
 			</tbody>
 		</table>
 	</article>
