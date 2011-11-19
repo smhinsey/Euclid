@@ -1,0 +1,191 @@
+﻿@using ForumAgent.ReadModels
+@model ModeratedPosts
+@{
+	ViewBag.Title = "Moderate Posts & Comments";
+}
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$($(".moderation-item.unread")[0]).addClass("current-unread");
+
+		$(document).keydown(function(event) {
+			var bubble = true;
+
+			var postId = $(".current-unread").attr("data-post-id");
+
+			if (event.which == 40) { // down arrow
+				if (!$(".current-unread").length) {
+
+					console.log("loading next page");
+					return false;
+				};
+
+				approveItem(postId);
+				advanceSelection();
+
+				bubble = false;
+			} else if (event.which == 82) { // R (for remove)
+				removeItem(postId);
+				advanceSelection();
+
+				bubble = false;
+			}
+
+			ensureVisibility();
+
+			return bubble;
+		});
+
+		$("#select-moderation").change(function() {
+			var type = $(this).val();
+			if (type == "Posts") {
+				window.location.href = "@Url.Action("Posts", "Moderation", new { forumId = Request.QueryString["forumId"] })";
+			} else if (type == "Comments") {
+				window.location.href = "@Url.Action("Comments", "Moderation", new { forumId = Request.QueryString["forumId"] })";
+			}
+		});
+
+		$(".approve").click(function() {
+			var postId = $(this).attr("data-post-id");
+
+			if ($(".moderation-item[data-post-id='" + postId + "']").hasClass("moderator-removed")) {
+				$(".moderation-item[data-post-id='" + postId + "']").removeClass("moderator-removed");
+			}
+
+			approveItem(postId);
+
+			$(".moderation-item.unread[data-post-id='" + postId + "']").removeClass("unread").addClass("read");
+			return false;
+		});
+
+		$(".reject").click(function() {
+			var postId = $(this).attr("data-post-id");
+
+			if ($(".moderation-item[data-post-id='" + postId + "']").hasClass("moderator-approved")) {
+				$(".moderation-item[data-post-id='" + postId + "']").removeClass("moderator-approved");
+			}
+
+			removeItem(postId);
+
+			$(".moderation-item[data-post-id='" + postId + "']").removeClass("unread").addClass("read");
+			return false;
+		});
+
+		$(".tab-selector").click(function() {
+			$("#post-type").text($(this).text().toLowerCase());
+		});
+	});
+
+	function blockUser(userId) {
+		$.ajax({
+				url: "@Url.Action("PerformBlockOperation", "UserProfile")",
+				type: "POST",
+				data: { userIdentifier: userId }
+			});
+	}
+
+
+	function removeItem(postId) {
+		$.get("@Url.Action("RejectPost")", { postId: postId });
+		console.log("removing item: " + postId);
+		updateItem(postId, "moderator-removed", "removed");
+	}
+
+	function approveItem(postId) {
+		$.get("@Url.Action("ApprovePost")", { postId: postId });
+		console.log("approving item: " + postId);
+		updateItem(postId, "moderator-approved", "approved");
+	}
+
+	function updateItem(postId, itemClass, text) {
+		$(".last-action[data-post-id='" + postId + "']").text(text);
+		$(".moderation-item[data-post-id='" + postId + "']").addClass(itemClass);
+	}
+
+	function advanceSelection() {
+		$(".current-unread").removeClass("unread").removeClass("current-unread").addClass("read");
+
+		$($(".moderation-item.unread")[0]).addClass("current-unread");
+	}
+
+	function ensureVisibility() {
+		if (!$(".current-unread").length) return;
+
+		var top = parseInt($(".current-unread").position().top);
+
+		if (!$(".current-unread:in-viewport").length) {
+			console.log("off the screen");
+
+			$(window).scrollTop(top - 25);
+		}
+	}
+</script>
+
+<div class="article-container">
+	<article>
+		<header>
+			<h2>@ViewBag.Title</h2>
+			<nav>
+				<ul class="tab-switch">
+					<li><a href="#posts" class="default-tab tab-selector">Posts</a></li>
+					<li><a href="#comments" class="tab-selector">Comments</a></li>
+				</ul>
+			</nav>
+		</header>
+	</article>
+
+	<article>
+		<section>
+			<p>Approve and reject <span id="post-type">posts</span></p>
+		</section>
+	</article>
+
+	<article>
+		<section>
+			<h3>Latest Activity</h3>
+				@if (Model.TotalPosts == 0)
+				{
+					<p>There are no posts to review</p>
+				}
+				else
+				{
+					<ul class="logs">
+						@foreach (var post in Model.Posts)
+						{
+		   					<li class="moderation-item unread" data-post-id="@post.Identifier">
+								<div style="float:left;width:85%">
+									<span class="logs-timestamp">@post.Created</span>
+									<h4>@post.Title</h4>
+
+									<p>
+										@post.Body
+									</p>
+
+									<em class="logs-meta">posted by @post.AuthorDisplayName</em>
+								</div>
+
+								<div style="float: left; margin-left: 25px;">
+									<a href="#" class="approve" data-post-id="@post.Identifier"><img src="@Url.Content("~/Content/thumb-up.png")" alt="approve" rel="tooltip" original-title="Approve this @ViewBag.ModerationType"/></a>
+									<br/>
+									<a href="#" class="reject" data-post-id="@post.Identifier"><img src="@Url.Content("~/Content/thumb-down.png")" alt="reject" rel="tooltip" original-title="Reject this @ViewBag.ModerationType"/></a>
+									<br/>
+									<a href="#" class="block-user confirmation-dialog" data-confirmation-message="Really Block @post.AuthorDisplayName?" data-confirm-function="blockUser" data-item-id="@post.AuthorIdentifier"><img src="@Url.Content("~/Content/chromatron/img/icons/icon_table_delete.png")" alt="block author" rel="tooltip" original-title="Block this author"/></a>
+									<br/>
+									<p style="margin-top: 25px" class="note last-action" data-post-id="@post.Identifier"></p>
+								</div>
+							</li>
+						} 
+					</ul>
+				}
+		</section>
+
+		@Html.Partial("_pagination")
+	</article>
+</div>
+
+@section Breadcrumbs {
+	<ul id="breadcrumbs">
+		<li><a href="/" title="Back to Homepage">Home</a></li>
+		<li>@ViewBag.Title</li>
+	</ul>
+}
