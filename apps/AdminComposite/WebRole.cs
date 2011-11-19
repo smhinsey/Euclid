@@ -76,7 +76,10 @@ namespace AdminComposite
 								OrganizationId = input.OrganizationId,
 								UpDownVoting = input.VotingScheme == VotingScheme.UpDownVoting,
 								UrlHostName = input.UrlHostName,
-								UrlSlug = input.UrlSlug
+								UrlSlug = input.UrlSlug,
+								Moderated = input.Moderated,
+								Private = input.Private,
+								Theme = input.Theme
 				         	}
 				);
 			composite.RegisterInputModelMap<CreateOrganizationAndRegisterUserInputModel, CreateOrganizationAndRegisterUser>(
