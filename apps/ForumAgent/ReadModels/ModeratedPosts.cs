@@ -11,6 +11,6 @@ namespace ForumAgent.ReadModels
 
 		public int Offset { get; set; }
 
-		public int ItemsPerPage { get; set; }
+		public int PageSize { get; set; }
 	}
 }

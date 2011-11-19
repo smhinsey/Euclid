@@ -33,7 +33,20 @@ namespace AdminComposite.Controllers
 			ViewBag.ModerationType = "Post";
 			ViewBag.Title = "Moderate Forum Posts";
 
-			return View("Moderation", _postQueries.ListUnapprovedPosts(forumId, offset, pageSize));
+			var model = _postQueries.ListUnapprovedPosts(forumId, offset, pageSize);
+
+			ViewBag.Pagination = new PaginationModel
+			                     	{
+			                     		ActionName = "Posts",
+			                     		ControllerName = "Moderation",
+			                     		Offset = model.Offset,
+			                     		TotalPosts = model.TotalPosts,
+			                     		PageSize = model.PageSize,
+			                     		WriteTFoot = true,
+			                     		WriteTable = true
+			                     	};
+
+			return View("Moderation", model);
 		}
 
 		public JsonResult ApprovePost(Guid postId)
@@ -70,7 +83,11 @@ namespace AdminComposite.Controllers
 			{
 				var body = TestPosts[rand.Next(7)];
 
-				if (rand.Next(100) % 5 == 0)
+				if (i == 3 || rand.Next(100) % 24 == 0)
+				{
+					body = string.Format("{0}<br/>{1}<br/>boo-ya", body, body);
+				} 
+				else if (rand.Next(100) % 5 == 0)
 				{
 					body = body.Substring(0, body.Length/(rand.Next(2, 25)));
 				} else if (rand.Next(100) % 17 == 0)
@@ -83,7 +100,7 @@ namespace AdminComposite.Controllers
 				                          		AuthorIdentifier = userId,
 				                          		CreatedBy = userId,
 				                          		Body = body,
-				                          		Title = string.Format("A test post"),
+				                          		Title = string.Format("A test post {0}", i),
 				                          		ForumIdentifier = forumId,
 				                          		ModerationRequired = true,
 				                          		Identifier = Guid.NewGuid(),

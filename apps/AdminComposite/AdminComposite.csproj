@@ -157,6 +157,7 @@
     <Compile Include="Models\CreateForumInputModel.cs" />
     <Compile Include="Models\CreateOrganizationAndRegisterUserInputModel.cs" />
     <Compile Include="ActionFilters\PopulateAdminWideViewBag.cs" />
+    <Compile Include="Models\PaginationModel.cs" />
     <Compile Include="Models\RegisterOrganizationUserInputModel.cs" />
     <Compile Include="Models\SetForumThemeInputModel.cs" />
     <Compile Include="Models\SetVotingSchemeInputModel.cs" />
@@ -571,6 +572,9 @@
     <Content Include="Config\djlancerock.custom.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_pagination.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

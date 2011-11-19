@@ -17,7 +17,7 @@ namespace ForumAgent.Queries
 
 			return new ModeratedPosts
 							{
-								ItemsPerPage = pageSize,
+								PageSize = pageSize,
 								Offset = offset,
 								TotalPosts = session.QueryOver<ModeratedPost>().Where(p => !p.Approved).RowCount(),
 								Posts = session.QueryOver<ModeratedPost>()
