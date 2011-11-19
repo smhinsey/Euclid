@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using AdminComposite.Models;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
@@ -42,7 +43,7 @@ namespace AdminComposite
 			NConfigurator.UsingFile(@"~\Config\custom.config")
 				.SetAsSystemDefault();
 
-			XmlConfigurator.Configure();
+			XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0]))); ;
 
 			var databaseConfiguration =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
@@ -75,7 +76,10 @@ namespace AdminComposite
 								OrganizationId = input.OrganizationId,
 								UpDownVoting = input.VotingScheme == VotingScheme.UpDownVoting,
 								UrlHostName = input.UrlHostName,
-								UrlSlug = input.UrlSlug
+								UrlSlug = input.UrlSlug,
+								Moderated = input.Moderated,
+								Private = input.Private,
+								Theme = input.Theme
 				         	}
 				);
 			composite.RegisterInputModelMap<CreateOrganizationAndRegisterUserInputModel, CreateOrganizationAndRegisterUser>(

@@ -30,6 +30,11 @@ namespace AdminComposite.ActionFilters
 
 		public void OnActionExecuting(ActionExecutingContext filterContext)
 		{
+			if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName == "Authentication")
+			{
+				return;
+			}
+
 			if (filterContext.HttpContext.Request.IsAjaxRequest())
 			{
 				return;
@@ -50,7 +55,7 @@ namespace AdminComposite.ActionFilters
 			if (currentUser == null)
 			{
 				filterContext.Result =
-					new RedirectToRouteResult(new RouteValueDictionary { { "action", "SignOut" }, { "controller", "User" } });
+					new RedirectToRouteResult(new RouteValueDictionary { { "action", "SignOut" }, { "controller", "Authentication" } });
 			}
 			else
 			{

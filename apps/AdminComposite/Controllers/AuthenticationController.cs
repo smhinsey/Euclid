@@ -74,6 +74,9 @@ namespace AdminComposite.Controllers
 
 		public ActionResult Signout()
 		{
+			Response.Cookies.Remove("OrganizationUserId");
+			FormsAuthentication.SignOut();
+
 			return View();
 		}
 	}

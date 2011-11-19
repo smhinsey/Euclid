@@ -286,6 +286,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Config\djlancerock.custom.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Content\site.chirp.coffee" />
     <None Include="Content\styles.chirp.less" />
     <Content Include="Views\Post\Create.cshtml" />

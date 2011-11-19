@@ -40,6 +40,7 @@
 	{
 		@Html.HiddenFor(m => m.OrganizationId)
 		@Html.HiddenFor(m=>m.CreatedBy)
+		@Html.HiddenFor(m=>m.Theme)
 		<fieldset>
 			<legend>Settings</legend>
 
@@ -83,7 +84,7 @@
 
 				<dt class="radio"><label for="forum-voting-updown">Up/Down</label></dt>
 				<dd>
-					@Html.RadioButtonFor(m => m.VotingScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
+					@Html.RadioButtonFor(m => m.VotingScheme, VotingScheme.UpDownVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
 				</dd>
 			</dl>
 		</fieldset>

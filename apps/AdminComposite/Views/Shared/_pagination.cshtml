@@ -1,0 +1,58 @@
+﻿@using AdminComposite.Models
+@{
+	var paginationModel = (PaginationModel) ViewBag.Pagination;
+	
+	var openTable = (paginationModel.WriteTable) ? "<table>" : string.Empty;
+	var closeTable = (paginationModel.WriteTable) ? "</table>" : string.Empty;
+
+	var openTFoot = (paginationModel.WriteTFoot) ? "<tfoot>" : string.Empty;
+	var closeTFoot = (paginationModel.WriteTFoot) ? "</tfoot>" : string.Empty;
+}
+
+@Html.Raw(openTable)
+	@Html.Raw(openTFoot)
+		<tr>
+			<td>
+				<ul class="pagination">
+					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName)" class="button gray"><< first</a></li>
+					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { offset = paginationModel.PreviousPageOffset, pageSize = paginationModel.PageSize })" class="button gray">< prev</a></li>
+
+					@if (paginationModel.ShowLeadingEllipsis)
+					{
+						<li class="hellip">...</li>
+					}
+
+					@for (var i = - 2; i < 0; i++)
+					{
+						var offset = paginationModel.GetOffsetForPage(i);
+
+						if (offset >= 0)
+						{
+							<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new {offset, pageSize = paginationModel.PageSize})" class="button gray">@(paginationModel.CurrentPage + i)</a></li>
+						}
+					}
+
+					<li><a href="@Url.Action("Posts", "Moderation", new { @offset = paginationModel.Offset, pageSize = paginationModel.PageSize })" class="button">@paginationModel.CurrentPage</a></li>
+
+					@for (var i = 1; i < 3; i++)
+					{
+						var offset = paginationModel.GetOffsetForPage(i);
+
+						if (offset >= 0)
+						{
+							<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { offset, pageSize = paginationModel.PageSize })" class="button gray">@(paginationModel.CurrentPage + i)</a></li>
+						}
+					}
+
+					@if (paginationModel.ShowTrailingEllipsis)
+					{
+						<li class="hellip">...</li>
+					}
+							
+					<li><a href="@Url.Action("Posts", "Moderation", new { @offset = paginationModel.NextPageOffset, pageSize = paginationModel.PageSize })" class="button gray">next ></a></li>
+					<li><a href="@Url.Action("Posts", "Moderation", new { @offset = paginationModel.LastPageOffset, pageSize = paginationModel.PageSize })" class="button gray">last >></a></li>
+				</ul>
+			</td>
+		</tr>
+	@Html.Raw(closeTFoot)
+@Html.Raw(closeTable)
