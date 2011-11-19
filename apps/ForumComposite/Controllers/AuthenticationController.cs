@@ -25,7 +25,7 @@ namespace ForumComposite.Controllers
 				// SELF need to do something better here
 				Response.Cookies.Add(new HttpCookie("ForumUserId", user.Identifier.ToString()));
 
-				FormsAuthentication.SetAuthCookie(username, false);
+				FormsAuthentication.SetAuthCookie(username, false, "");
 
 				return RedirectToAction("List", "Post", new { forumId = user.ForumIdentifier });
 			}

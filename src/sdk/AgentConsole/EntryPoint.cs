@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Logging;
@@ -50,7 +51,7 @@ namespace AgentConsole
 
 			try
 			{
-				XmlConfigurator.Configure();
+				XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
 
 				_instance.WriteInfoMessage("Starting agent console");
 
