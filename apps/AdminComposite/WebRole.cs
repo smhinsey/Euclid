@@ -12,6 +12,7 @@ using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
+using NConfig;
 using log4net.Config;
 
 namespace AdminComposite
@@ -37,6 +38,9 @@ namespace AdminComposite
 			{
 				return;
 			}
+
+			NConfigurator.UsingFile(@"~\Config\custom.config")
+				.SetAsSystemDefault();
 
 			XmlConfigurator.Configure();
 
