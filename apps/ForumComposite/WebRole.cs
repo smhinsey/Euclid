@@ -11,6 +11,7 @@ using ForumAgent.Commands;
 using ForumComposite.Models;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
+using NConfig;
 using log4net.Config;
 
 namespace ForumComposite
@@ -37,28 +38,31 @@ namespace ForumComposite
 				return;
 			}
 
+			NConfigurator.UsingFile(@"~\Config\custom.config")
+				.SetAsSystemDefault();
+
 			XmlConfigurator.Configure();
 
-			var databaseConfiguration =
+			MsSqlConfiguration databaseConfiguration =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
 
 			var container = new WindsorContainer();
 
 			var composite = new MvcCompositeApp(container)
-				{ Name = "NewCo Forum", Description = " A website where ideas and views on issues can be exchanged." };
+			                	{Name = "NewCo Forum", Description = " A website where ideas and views on issues can be exchanged."};
 
 			composite.RegisterNh(databaseConfiguration, true);
 
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.OutputChannel.ApplyOverride(typeof(AzureMessageChannel));
-			compositeAppSettings.BlobStorage.WithDefault(typeof(AzureBlobStorage));
-			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof(NhRecordMapper<CommandPublicationRecord>));
+			compositeAppSettings.OutputChannel.ApplyOverride(typeof (AzureMessageChannel));
+			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
+			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
 
 			composite.Configure(compositeAppSettings);
 
-			composite.AddAgent(typeof(PublishPost).Assembly);
-			composite.AddAgent(typeof(LogQueries).Assembly);
+			composite.AddAgent(typeof (PublishPost).Assembly);
+			composite.AddAgent(typeof (LogQueries).Assembly);
 
 			composite.RegisterInputModelMap<CommentOnPostInputModel, CommentOnPost>();
 			composite.RegisterInputModelMap<PublishPostInputModel, PublishPost>();
