@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using ForumComposite.ActionFilters;
@@ -19,15 +18,26 @@ namespace ForumComposite
 			routes.IgnoreRoute("favicon.ico");
 
 			routes.MapRoute(
-				"Default",
+				"Forum",
 				"org/{orgSlug}/forum/{forumSlug}/{controller}/{action}/{id}",
 				new
 					{
 						controller = "Post",
 						action = "List",
-						id = UrlParameter.Optional,
-						orgSlug = Guid.NewGuid(),
-						forumSlug = Guid.NewGuid()
+						orgSlug = "shawn",
+						forumSlug = "test-forum",
+						id = UrlParameter.Optional
+					});
+
+			routes.MapRoute(
+				"Home",
+				"",
+				new
+					{
+						controller = "Post",
+						action = "List",
+						orgSlug = "shawn",
+						forumSlug = "test-forum"
 					});
 		}
 

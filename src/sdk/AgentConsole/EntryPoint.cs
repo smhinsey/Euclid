@@ -14,6 +14,7 @@ using Euclid.Framework.HostingFabric;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
 using Microsoft.WindowsAzure;
+using NConfig;
 using log4net.Config;
 
 namespace AgentConsole
@@ -40,6 +41,9 @@ namespace AgentConsole
 			{
 				_instance = new EntryPoint();
 			}
+
+			NConfigurator.UsingFile(@"Config\custom.config")
+				.SetAsSystemDefault();
 
 			var databaseConfiguration =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
