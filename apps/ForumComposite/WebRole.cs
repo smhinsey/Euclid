@@ -1,4 +1,6 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System;
+using System.IO;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
@@ -41,7 +43,7 @@ namespace ForumComposite
 			NConfigurator.UsingFile(@"~\Config\custom.config")
 				.SetAsSystemDefault();
 
-			XmlConfigurator.Configure();
+			XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0]))); ;
 
 			MsSqlConfiguration databaseConfiguration =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
