@@ -7,7 +7,7 @@
 
 <div id="DiscussionForm">
 	<h2>Start a New Discussion</h2>
-	@using (Html.BeginFormForInputModel(Model, true, Url.Action("List")))
+	@using (Html.BeginFormForInputModel(Model, true, Url.Action("List", "Post", new { forumSlug = ViewBag.ForumSlug, orgSlug = ViewBag.OrganizationSlug })))
 	{
 		@Html.HiddenFor(m => m.AuthorIdentifier)
 		@Html.HiddenFor(m => m.ForumIdentifier)

@@ -27,7 +27,7 @@ namespace ForumComposite.Controllers
 
 				FormsAuthentication.SetAuthCookie(username, false, "");
 
-				return RedirectToAction("List", "Post", new { forumId = user.ForumIdentifier });
+				return RedirectToAction("List", "Post", new { forumSlug = ViewBag.ForumSlug, orgSlug = ViewBag.OrganizationSlug });
 			}
 
 			return RedirectToAction("SignIn");
@@ -49,7 +49,7 @@ namespace ForumComposite.Controllers
 
 			Response.Cookies.Remove("ForumUserId");
 
-			return RedirectToAction("List", "Post");
+			return RedirectToAction("List", "Post", new { forumSlug = ViewBag.ForumSlug, orgSlug = ViewBag.OrganizationSlug });
 		}
 	}
 }

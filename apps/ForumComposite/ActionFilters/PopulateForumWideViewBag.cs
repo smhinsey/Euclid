@@ -36,6 +36,8 @@ namespace ForumComposite.ActionFilters
 
 			filterContext.Controller.ViewBag.OrganizationIdentifier = orgId;
 			filterContext.Controller.ViewBag.ForumIdentifier = forumId;
+			filterContext.Controller.ViewBag.ForumSlug = filterContext.GetRequestValue("forumSlug");
+			filterContext.Controller.ViewBag.OrganizationSlug = filterContext.GetRequestValue("orgSlug");
 			filterContext.Controller.ViewBag.ForumIsModerated = forum.Moderated;
 		}
 	}
