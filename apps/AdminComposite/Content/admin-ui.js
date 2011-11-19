@@ -101,12 +101,9 @@ function setForumUrl() {
 	var host = slugify($("#forum-host").val());
 	$("#host-example").html(host);
 
-	var url;
-	if (host == "@Model.UrlHostName") {
-		url = "http://" + host + "/{organization name}/forums/" + forumSlug;
-	} else {
-		url = "http://" + host + "/forums/" + forumSlug;
-	}
+	var orgSlug = $("#orgSlug").val();
+	
+	var url = host + "/org/" + orgSlug + "/forum/" + forumSlug;
 
 	$("#forum-url").html(url);
 }

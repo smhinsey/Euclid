@@ -26,6 +26,7 @@ namespace ForumAgent.Processors
 			}
 
 			forum.Name = message.Name;
+			forum.UrlHostName = message.UrlHostName;
 			forum.UrlSlug = message.UrlSlug;
 			forum.Description = message.Description;
 			forum.Private = message.Private;
