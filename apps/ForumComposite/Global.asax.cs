@@ -24,20 +24,7 @@ namespace ForumComposite
 					{
 						controller = "Post",
 						action = "List",
-						orgSlug = "shawn",
-						forumSlug = "test-forum",
 						id = UrlParameter.Optional
-					});
-
-			routes.MapRoute(
-				"Home",
-				"",
-				new
-					{
-						controller = "Post",
-						action = "List",
-						orgSlug = "shawn",
-						forumSlug = "test-forum"
 					});
 		}
 
