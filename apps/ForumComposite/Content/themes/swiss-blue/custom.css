@@ -1,0 +1,75 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*
+
+	----------------------------------------
+	------- DEFAULT SWISS THEME COLOUR FILE
+	----------------------------------------
+
+*/
+
+/* -Main Configs- */
+
+
+a:hover {
+	
+   text-decoration: none;
+   color: #15c1e4;
+   
+}
+
+
+
+
+
+/* HEADER */
+
+#Form_Go { background: url(blue/search-arrow.png) no-repeat top center; margin: 0 !important; }
+
+	#Form_Go:hover { background-position: bottom; }
+	
+#categories ul li a:hover, #Form_PostComment { color: #15c1e4; }
+#categories ul li .Count { background: #15c1e4; }
+		
+		#categories .GuestBox a { color: #15c1e4; }
+		
+		.DiscussionsTabs ul li a:hover { background: #ffffff; }
+		
+		.DiscussionsTabs ul li a span { background: #83d9ea; color: #f1f1f1; }
+		.DiscussionsTabs ul li a:hover span { background: #15c1e4; color: #ffffff; }
+			
+		.DiscussionsTabs ul li.add-discussion a { background: #15c1e4; }
+		.DiscussionsTabs ul li.add-discussion a:hover { background: #000; color: #fff; }
+		
+		#permaRSS { background: url(images/rss_thread.png) no-repeat right 3px; }
+		#permaRSS:hover { color: #15c1e4; }
+		.Author a, #Form_PostDiscussion, .ProfileTabs li.Active a { color: #15c1e4 !important; }
+ul.Activities div.Excerpt a:hover,
+ul.Activities div.Meta a:hover {
+   color: #15c1e4;
+}
+
+#Form_User_Register .Buttons input { background: #15c1e4; padding: 8px 20px 7px 20px; color: #fff; }
+#Form_User_Register .Buttons input:hover { background: #eaeaea; padding: 8px 20px 7px 20px; color: #000; }
+
+div.Popup h1,
+div.Popup h2,
+div.Connect h1,
+div.Connect h2 {
+	background: #15c1e4;
+}
+		
+		
+div.MorePager a,
+div.MorePager a:link,
+div.MorePager a:hover,
+div.MorePager a:active,
+div.MorePager a:visited,
+a.TabLink,
+a.TabLink:link,
+a.TabLink:hover,
+a.TabLink:active,
+a.TabLink:visited {
+   background: #15c1e4;
+}

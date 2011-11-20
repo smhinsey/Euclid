@@ -216,6 +216,15 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\swiss-blue\blue\search-arrow.png" />
+    <Content Include="Content\themes\swiss-blue\custom.css" />
+    <Content Include="Content\themes\swiss-blue\favicon.png" />
+    <Content Include="Content\themes\swiss-blue\images\bookmark-off.png" />
+    <Content Include="Content\themes\swiss-blue\images\bookmark-on.png" />
+    <Content Include="Content\themes\swiss-blue\images\logo.gif" />
+    <Content Include="Content\themes\swiss-blue\images\rss.png" />
+    <Content Include="Content\themes\swiss-blue\images\rss_thread.png" />
+    <Content Include="Content\themes\swiss-blue\style.css" />
     <Content Include="Content\themes\swiss\custom.css" />
     <Content Include="Content\themes\swiss\favicon.png" />
     <Content Include="Content\themes\swiss\images\bookmark-off.png" />
