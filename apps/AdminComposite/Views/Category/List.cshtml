@@ -62,12 +62,13 @@
 			<tr>
 				<th>Active</th>
 				<th>Name</th>
+				<th>Slug</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="3">
+				<td colspan="4">
 					<ul class="button-switch">
 						<li><button type="button" id="create-category">New Category</button></li>
 						<li><button type="button" id="update">Save</button></li>
@@ -81,6 +82,7 @@
 			<tr>
 				<td>@Html.CheckBoxFor(m=>category.Active, new {@class="category-active", data_item_id=@category.Identifier})</td>
 				<td><span data-category-id="@category.Identifier">@category.Name</span></td>
+				<td><span data-category-id="@category.Identifier">@category.Slug</span></td>
 				<td>
 					<ul class="actions">
 						<li><a href="#" class="edit" data-category-id="@category.Identifier" rel="tooltip" original-title="Edit Category">edit category</a></li>

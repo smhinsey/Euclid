@@ -8,5 +8,6 @@ namespace ForumAgent.ReadModels
 		public virtual IList<Post> Posts { get; set; }
 
 		public virtual int TotalPosts { get; set; }
+		public virtual string CategoryName { get; set; }
 	}
 }

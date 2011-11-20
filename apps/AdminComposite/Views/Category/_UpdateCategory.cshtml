@@ -5,13 +5,16 @@
 <section>
 	@using (Html.BeginFormForInputModel(Model))
 	{
-		@Html.HiddenFor(m => m.Identifier);
+		@Html.HiddenFor(m => m.CategoryIdentifier);
 		<fieldset>
 			<legend>New Category</legend>
 		
 			<dl>
 				<dt><label for="category-name">Name</label></dt>
 				<dd>@Html.TextBoxFor(m=>m.Name, new {id="category-name"})</dd>
+
+				<dt><label for="category-name">Slug</label></dt>
+				<dd>@Html.TextBoxFor(m => m.Slug, new { id = "category-slug" })</dd>
 
 				<dt class="checkbox"><label for="category-active">Active</label></dt>
 				<dd>@Html.CheckBoxFor(m => m.Active, new { id = "category-active" })</dd>

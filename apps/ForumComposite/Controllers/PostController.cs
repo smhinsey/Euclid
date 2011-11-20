@@ -48,6 +48,13 @@ namespace ForumComposite.Controllers
 			return View(posts);
 		}
 
+		public ActionResult ByCategory(string categorySlug, int pageSize = 10, int offset = 0)
+		{
+			dynamic posts = _postQueries.GetPostListingByCategory(ViewBag.ForumIdentifier, categorySlug, pageSize, offset);
+
+			return View(posts);
+		}
+
 		public ActionResult Thread(Guid postId)
 		{
 			dynamic comments = _commentQueries.FindCommentsBelongingToPost(ViewBag.ForumIdentifier, postId);

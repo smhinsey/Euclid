@@ -47,7 +47,7 @@ namespace AdminComposite.Controllers
 
 			return PartialView("_UpdateCategory", new UpdateCategoryInputModel
 			                                      	{
-			                                      		Identifier = categoryId,
+			                                      		CategoryIdentifier = categoryId,
 			                                      		Name = category.Name,
 			                                      		Active = category.Active
 			                                      	});

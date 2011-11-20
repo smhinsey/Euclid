@@ -25,7 +25,8 @@ namespace ForumAgent.Processors
 			                         		CreatedBy = message.CreatedBy,
 			                         		ForumIdentifier = message.ForumIdentifier,
 			                         		Name = message.Name,
-			                         		Modified = (DateTime)SqlDateTime.MinValue,
+			                         		Slug = message.Slug,
+			                         		Modified = (DateTime) SqlDateTime.MinValue,
 			                         		Identifier = Guid.NewGuid()
 			                         	});
 		}

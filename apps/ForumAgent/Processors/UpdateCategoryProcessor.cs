@@ -25,6 +25,7 @@ namespace ForumAgent.Processors
 			}
 
 			category.Name = message.Name;
+			category.Slug = message.Slug;
 			category.Active = message.Active;
 			category.Modified = DateTime.Now;
 

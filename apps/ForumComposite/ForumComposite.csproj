@@ -296,6 +296,7 @@
     <Content Include="Views\Authentication\SignIn.cshtml" />
     <Content Include="Views\Authentication\Register.cshtml" />
     <Content Include="Views\Profile\MyDiscussions.cshtml" />
+    <Content Include="Views\Post\ByCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
