@@ -40,6 +40,8 @@ namespace AdminComposite.Controllers
 
 		public ActionResult Users(Guid organizationId, int pageNumber = 0, int pageSize = 25)
 		{
+			ViewBag.OrganizationName = _organizationQueries.FindById(organizationId).Name;
+
 			return View(_userQueries.List(pageNumber * pageSize, pageSize));
 		}
 

@@ -42,10 +42,9 @@
 				});
 
 				$(item).click();
-				$("#trigger-edit").hide();
-				$("#save-edit").show();
-				$("#cancel-edit").show();
-				$("#cancel-edit").focus();
+				$("#trigger-edit").attr("disabled", "disabled");
+				$("#save-edit").removeAttr("disabled");
+				$("#cancel-edit").removeAttr("disabled");
 			});
 		});
 
@@ -67,7 +66,7 @@
 
 
 		$("#cancel-edit").click(function() {
-			resetEditableFields();
+			window.location.reload();
 		});
 	});
 
@@ -78,9 +77,9 @@
 			$(item).text($(item).attr('data-original-value'));
 		});
 
-		$("#trigger-edit").show();
-		$("#save-edit").hide();
-		$("#cancel-edit").hide();
+		$("#trigger-edit").removeAttr("disabled");
+		$("#save-edit").attr("disabled", "disabled");
+		$("#cancel-edit").attr("disabled", "disabled");
 	}
 
 	function deleteUser(userId) {
@@ -105,12 +104,12 @@
 
 <article>
 	<header>
-		<h2>Manage Organization</h2>
+		<h2>@Model.OrganizationName Details</h2>
 	</header>
 
 	<form action="#">
 		<fieldset>
-			<legend>Details</legend>
+			<legend>Organization Details</legend>
 
 			<dl id="organization-details">
 				<dt><label for="organization-name">Organization Name</label></dt>
@@ -146,8 +145,8 @@
 		</fieldset>
 
 		<button type="button" id="trigger-edit">Edit</button>
-		<button type="button" id="cancel-edit" style="display: none">Cancel</button>
-		<button type="button" id="save-edit" style="display: none">Save</button>
+		<button type="button" id="save-edit" class="green" disabled="disabled">Save</button>
+		<button type="button" id="cancel-edit" disabled="disabled">Cancel</button>
 	</form>
 
 	@using (Html.BeginFormForInputModel(Model, true, Url.Action("Details", "Organization", new {organizationId = Model.OrganizationIdentifier}), "update-form"))
@@ -170,6 +169,7 @@
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
-		<li>Manage @ViewBag.OrganizationName</li>
+		<li>@Model.OrganizationName</li>
+		<li>Organization Details</li>
 	</ul>
 }

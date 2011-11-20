@@ -36,8 +36,13 @@
 
 <article>
 	<header>
-		<h2>Administrators</h2>
+		<h2>Manage Forum Administrators</h2>
 	</header>
+
+	<section>
+		<p style="float: left">Manage forum administrators</p>
+		<a href="#" style="float:right" class="button-link blue" id="add-user">Add User</a>
+	</section>
 
 	<table>
 		<thead>
@@ -48,15 +53,6 @@
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<td colspan="4">
-					<ul class="button-switch">
-						<li><button type="button" id="add-user">Add User</button></li>
-					</ul>
-				</td>
-			</tr>
-		</tfoot>
 		<tbody>
 			@foreach (var user in Model)
 			{
@@ -84,6 +80,7 @@
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
-		<li>Manage Administrators</li>
+		<li>@ViewBag.OrganizationName</li>
+		<li>Manage Forum Administrators</li>
 	</ul>
 }
