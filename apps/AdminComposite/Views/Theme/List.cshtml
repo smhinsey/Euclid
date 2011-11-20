@@ -9,21 +9,28 @@
 			$("#theme-preview").show();
 			$("#theme-preview").attr("src", src);
 		});
+		
+		$("#edit-theme").click(function () {
+			$(this).attr("disabled", "disabled");
+			$("#save-theme").removeAttr("disabled");
+		});
 
 		$("#save-theme").click(function () {
-			var selectedTheme = $("#theme-selector").val();
+				var selectedTheme = $("#theme-selector").val();
 
-			$.get("@Url.Action("SetForumTheme")", { forumId: "@Model.ForumIdentifier" , theme: selectedTheme });
+				$.get("@Url.Action("SetForumTheme")", { forumId: "@Model.ForumIdentifier", theme: selectedTheme });
+
+				window.location.reload();
 		});
 	});
 
 </script>
-
 <article>
 	<header>
 		<h2>Manage Forum Themes</h2>
 	</header>
 	<p></p>
+	<form>
 	<fieldset>
 		<legend>Select a theme for your forum.</legend>
 		<dl>
@@ -31,9 +38,11 @@
 			<dd>
 				<select id="theme-selector">
 					@foreach (var theme in Model.AvailableThemes)
-					{
-						<option value="@theme.Item1" data-preview-image="@theme.Item2" @if (Model.CurrentTheme.Item1 == theme.Item1) {<text>selected="selected"</text>}>@theme.Item1</option>
-					}
+		 {
+						<option value="@theme.Item1.ToLower()" data-preview-image="@theme.Item2" @if (Model.CurrentTheme.Item1 == theme.Item1)
+																																		 {<text>selected="selected"</text>}>@theme.Item1 @if (Model.CurrentTheme.Item1 == theme.Item1)
+																																		 {<text> -- current theme</text>}</option>
+		 }
 				</select>
 			</dd>
 
@@ -43,10 +52,10 @@
 			</dd>
 		</dl>
 	</fieldset>
-	<button type="submit" id="save-theme">Save</button>
+	<button type="button" id="edit-theme">Edit</button>&nbsp;
+	<button type="button" disabled="disabled" id="save-theme">Save</button>
+	</form>
 </article>
-
-
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
