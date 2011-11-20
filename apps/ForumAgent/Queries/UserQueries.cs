@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.ReadModels;
 using NHibernate;
@@ -49,6 +50,18 @@ namespace ForumAgent.Queries
 			var matchedUser = FindByUsername(forumId, username);
 
 			return FindByUserIdentifier(forumId, matchedUser.Identifier);
+		}
+
+		public IList<ForumUser> FindByForum(Guid forumId, int offset, int pageSize)
+		{
+			var session = GetCurrentSession();
+
+			var users = session.QueryOver<ForumUser>()
+				.Where(user => user.ForumIdentifier == forumId)
+				.Skip(offset)
+				.Take(pageSize);
+
+			return users.List();
 		}
 	}
 }

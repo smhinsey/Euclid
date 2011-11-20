@@ -51,7 +51,7 @@ namespace AgentConsole
 
 			try
 			{
-				XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0]))); 
+				XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
 
 				_instance.WriteInfoMessage("Starting agent console");
 

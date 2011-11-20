@@ -16,7 +16,7 @@ namespace AdminComposite.Controllers
 		public UserProfileController(UserQueries forumUserQueries, IPublisher publisher)
 		{
 			_forumUserQueries = forumUserQueries;
-			_publisher = publisher;
+			_publisher = publisher; 
 		}
 
 		public ActionResult Details(Guid? forumId)
@@ -38,7 +38,7 @@ namespace AdminComposite.Controllers
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
-			return View(_forumUserQueries.List(offset, pageSize));
+			return View(_forumUserQueries.FindByForum(Guid.Parse(ViewBag.CurrentForumId), offset, pageSize));
 		}
 
 		[HttpPost]
