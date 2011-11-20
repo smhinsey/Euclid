@@ -42,6 +42,7 @@ namespace ForumComposite.ActionFilters
 			filterContext.Controller.ViewBag.ForumSlug = filterContext.GetRequestValue("forumSlug");
 			filterContext.Controller.ViewBag.OrganizationSlug = filterContext.GetRequestValue("orgSlug");
 			filterContext.Controller.ViewBag.ForumIsModerated = forum.Moderated;
+			filterContext.Controller.ViewBag.TotalPosts = forum.TotalPosts;
 			filterContext.Controller.ViewBag.Categories = CategoryQueries.List(forumId, 0, 100);
 		}
 	}
