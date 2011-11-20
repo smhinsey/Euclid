@@ -11,10 +11,10 @@
 		});
 		
 		$("#edit-theme").click(function () {
-			$(this).attr("disabled", "disabled", "disabled");
-			$("#save-theme").removeAttr("disabled");
+			$(this).hide();
+			$("#save-theme").show();
 			$("#theme-selector").removeAttr("disabled");
-			$("#cancel-edit").removeAttr("disabled");
+			$("#cancel-edit").show();
 		});
 
 		$("#save-theme").click(function () {
@@ -28,10 +28,10 @@
 			
 			$("#theme-selector option:selected").text(selectedThemeText);
 			
-			$("#save-theme").attr("disabled", "disabled");
-			$("#theme-selector").attr("disabled", "disabled");
-			$("#cancel-edit").attr("disabled", "disabled");
-			$("#edit-theme").removeAttr("disabled");
+			$("#save-theme").hide();
+			$("#theme-selector").hide();
+			$("#cancel-edit").hide();
+			$("#edit-theme").show();
 		});
 
 		$("#cancel-edit").click(function() {
@@ -68,8 +68,8 @@
 	</fieldset>
 
 	<button type="button" id="edit-theme">Edit</button>
-	<button type="button" disabled="disabled" class="green" id="save-theme">Save</button>
-	<button type="button" disabled="disabled" id="cancel-edit">Cancel</button>
+	<button type="button" style="display: none;" class="green" id="save-theme">Save</button>
+	<button type="button" style="display: none;" id="cancel-edit">Cancel</button>
 	</form>
 </article>
 @section Breadcrumbs{

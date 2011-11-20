@@ -3,37 +3,37 @@
 @model UpdateOrganizationInputModel
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#add-user").click(function() {
+	$(document).ready(function () {
+		$("#add-user").click(function () {
 			$("<div></div>")
 				.load("/Organization/GetUser")
 				.modal({
-						autoResize: true,
-						autoPosition: true,
-						position: new Array(25, 300),
-						dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
-						containerCss: { height: 400, width: 650 }
-					});
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
+					containerCss: { height: 400, width: 650 }
+				});
 
 			return false;
 		});
 
-		$(".edit.user").click(function() {
+		$(".edit.user").click(function () {
 			var organizationId = "@ViewBag.OrganizationId";
 			$("<div></div>")
 				.load("/Organization/GetUser?organizationId=" + organizationId + "&userId=" + $(this).attr("data-user-id"))
 				.modal({
-						autoResize: true,
-						autoPosition: true,
-						position: new Array(25, 300),
-						dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
-						containerCss: { height: 400, width: 650 }
-					});
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
+					containerCss: { height: 400, width: 650 }
+				});
 
 		});
 
-		$("#trigger-edit").click(function() {
-			$("#organization-details .organization-detail").each(function(index, item) {
+		$("#trigger-edit").click(function () {
+			$("#organization-details .organization-detail").each(function (index, item) {
 				var inputClass = "jeditable";
 				$(item).editable("enable");
 				$(item).editable(null, {
@@ -42,14 +42,14 @@
 				});
 
 				$(item).click();
-				$("#trigger-edit").attr("disabled", "disabled");
-				$("#save-edit").removeAttr("disabled");
-				$("#cancel-edit").removeAttr("disabled");
+				$("#trigger-edit").hide();
+				$("#save-edit").show();
+				$("#cancel-edit").show();
 			});
 		});
 
-		$("#save-edit").click(function() {
-			$("#organization-details .organization-detail").each(function(index, item) {
+		$("#save-edit").click(function () {
+			$("#organization-details .organization-detail").each(function (index, item) {
 				var id = item.id;
 				var inputSelector = "#" + id + " input";
 				var value = $(inputSelector).val();
@@ -65,7 +65,7 @@
 		});
 
 
-		$("#cancel-edit").click(function() {
+		$("#cancel-edit").click(function () {
 			window.location.reload();
 		});
 	});
@@ -77,9 +77,9 @@
 			$(item).text($(item).attr('data-original-value'));
 		});
 
-		$("#trigger-edit").removeAttr("disabled");
-		$("#save-edit").attr("disabled", "disabled");
-		$("#cancel-edit").attr("disabled", "disabled");
+		$("#trigger-edit").hide();
+		$("#save-edit").show();
+		$("#cancel-edit").show();
 	}
 
 	function deleteUser(userId) {
@@ -145,8 +145,8 @@
 		</fieldset>
 
 		<button type="button" id="trigger-edit">Edit</button>
-		<button type="button" id="save-edit" class="green" disabled="disabled">Save</button>
-		<button type="button" id="cancel-edit" disabled="disabled">Cancel</button>
+		<button type="button" id="save-edit" class="green" style="display: none;">Save</button>
+		<button type="button" id="cancel-edit" style="display: none;">Cancel</button>
 	</form>
 
 	@using (Html.BeginFormForInputModel(Model, true, Url.Action("Details", "Organization", new {organizationId = Model.OrganizationIdentifier}), "update-form"))
