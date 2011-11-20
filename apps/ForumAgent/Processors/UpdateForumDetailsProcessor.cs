@@ -30,6 +30,7 @@ namespace ForumAgent.Processors
 			forum.Description = message.Description;
 			forum.Private = message.Private;
 			forum.Moderated = message.Moderated;
+			forum.UrlHostName = message.UrlHostName;
 			forum.Modified = DateTime.Now;
 			
 			_forumRepository.Save(forum);
