@@ -11,17 +11,24 @@
 		});
 		
 		$("#edit-theme").click(function () {
-			$(this).attr("disabled", "disabled");
-			$("#save-theme").removeAttr("disabled");
-			$("#theme-selector").removeAttr("disabled");
+			$(this).attr("disabled", "disabled", "disabled");
+			$("#save-theme").removeAttr("disabled", "disabled");
+			$("#theme-selector").removeAttr("disabled", "disabled");
 		});
 
 		$("#save-theme").click(function () {
-				var selectedTheme = $("#theme-selector").val();
-
-				$.get("@Url.Action("SetForumTheme")", { forumId: "@Model.ForumIdentifier", theme: selectedTheme });
-
-				window.location.reload();
+			var selectedTheme = $("#theme-selector").val();
+			var selectedThemeText = $("#theme-selector option:selected").text() + " -- current theme";
+			
+			$.get("@Url.Action("SetForumTheme")", { forumId: "@Model.ForumIdentifier", theme: selectedTheme });
+			$("#theme-selector option").each(function(index, item) {
+				$(item).text($(item).attr("data-original-text"));
+			});
+			
+			$("#save-theme").attr("disabled", "disabled");
+			$("#theme-selector").attr("disabled", "disabled");
+			$("#theme-selector option:selected").text(selectedThemeText);
+			$("#edit-theme").removeAttr("disabled", "disabled");
 		});
 	});
 
@@ -39,11 +46,11 @@
 			<dd>
 				<select disabled="disabled" id="theme-selector">
 					@foreach (var theme in Model.AvailableThemes)
-		 {
-						<option value="@theme.Item1.ToLower()" data-preview-image="@theme.Item2" @if (Model.CurrentTheme.Item1 == theme.Item1)
-																																		 {<text>selected="selected"</text>}>@theme.Item1 @if (Model.CurrentTheme.Item1 == theme.Item1)
+					{
+						<option value="@theme.Item1.ToLower()" data-original-text="@theme.Item1" data-preview-image="@theme.Item2" @if (Model.CurrentTheme.Item1.ToLower() == theme.Item1.ToLower())
+																																		 {<text>selected="selected"</text>}>@theme.Item1 @if (Model.CurrentTheme.Item1.ToLower() == theme.Item1.ToLower())
 																																		 {<text> -- current theme</text>}</option>
-		 }
+					}
 				</select>
 			</dd>
 
@@ -60,6 +67,7 @@
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
+		<li>@ViewBag.ForumName</li>
 		<li>Themes</li>
 	</ul>
 }

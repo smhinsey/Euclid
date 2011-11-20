@@ -14,12 +14,15 @@ namespace AdminComposite.Controllers
 	{
 		private readonly ModeratedPostQueries _postQueries;
 		private readonly ModeratedCommentQueries _commentQueries;
+		private readonly ForumQueries _forumQueries;
+
 		private readonly IPublisher _publisher;
 
-		public ModerationController(ModeratedPostQueries postQueries, ModeratedCommentQueries commentQueries, IPublisher publisher)
+		public ModerationController(ModeratedPostQueries postQueries, ModeratedCommentQueries commentQueries, IPublisher publisher, ForumQueries forumQueries)
 		{
 			_postQueries = postQueries;
 			_publisher = publisher;
+			_forumQueries = forumQueries;
 			_commentQueries = commentQueries;
 		}
 
@@ -27,6 +30,7 @@ namespace AdminComposite.Controllers
 		{
 			ViewBag.Title = "Moderate Forum " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(type);
 			ViewBag.ItemType = type;
+			ViewBag.ForumName = _forumQueries.FindById(forumId).Name;
 
 			ModeratedItems model = null;
 			if (type.ToLower() == "posts")

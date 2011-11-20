@@ -23,6 +23,7 @@ namespace AdminComposite.Controllers
 
 		public ActionResult AuthenticationProviders(Guid forumId)
 		{
+			ViewBag.ForumName = _forumQueries.FindById(forumId).Name;
 			return View();
 		}
 

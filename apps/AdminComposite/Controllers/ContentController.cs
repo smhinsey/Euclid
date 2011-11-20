@@ -13,16 +13,20 @@ namespace AdminComposite.Controllers
 	public class ContentController : Controller
 	{
 		private readonly ContentQueries _contentQueries;
+		private readonly ForumQueries _forumQueries;
 		private readonly IPublisher _publisher;
 
-		public ContentController(ContentQueries contentQueries, IPublisher publisher)
+		public ContentController(ContentQueries contentQueries, ForumQueries forumQueries, IPublisher publisher)
 		{
 			_contentQueries = contentQueries;
+			_forumQueries = forumQueries;
 			_publisher = publisher;
 		}
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
+			ViewBag.ForumName = _forumQueries.FindById(forumId).Name;
+
 			return View(_contentQueries.List(forumId, offset, pageSize));
 		}
 

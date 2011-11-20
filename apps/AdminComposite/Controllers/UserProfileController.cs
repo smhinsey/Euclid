@@ -10,13 +10,15 @@ namespace AdminComposite.Controllers
 	[Authorize]
 	public class UserProfileController : Controller
 	{
+		private readonly ForumQueries _forumQueries;
 		private readonly UserQueries _forumUserQueries;
 		private readonly IPublisher _publisher;
 
-		public UserProfileController(UserQueries forumUserQueries, IPublisher publisher)
+		public UserProfileController(UserQueries forumUserQueries, IPublisher publisher, ForumQueries forumQueries)
 		{
 			_forumUserQueries = forumUserQueries;
-			_publisher = publisher; 
+			_publisher = publisher;
+			_forumQueries = forumQueries;
 		}
 
 		public ActionResult Details(Guid? forumId)
@@ -38,7 +40,8 @@ namespace AdminComposite.Controllers
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
-			return View(_forumUserQueries.FindByForum(Guid.Parse(ViewBag.CurrentForumId), offset, pageSize));
+			ViewBag.ForumName = _forumQueries.FindById(forumId).Name;
+			return View(_forumUserQueries.FindByForum(forumId, offset, pageSize));
 		}
 
 		[HttpPost]
