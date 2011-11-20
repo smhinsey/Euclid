@@ -1,6 +1,6 @@
 using System;
 
-namespace ForumAgent.Processors
+namespace ForumAgent
 {
 	public class PostNotFoundException : Exception
 	{

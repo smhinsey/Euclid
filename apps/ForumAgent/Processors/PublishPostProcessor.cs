@@ -71,6 +71,12 @@ namespace ForumAgent.Processors
 
 				_repository.Save(post);
 			}
+
+			if (user != null)
+			{
+				user.NumberPosts++;
+				_userRepository.Update(user);
+			}
 		}
 	}
 }

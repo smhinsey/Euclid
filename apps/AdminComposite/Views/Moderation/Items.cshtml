@@ -1,9 +1,14 @@
 ﻿@using ForumAgent.ReadModels
-@model ModeratedPosts
+@model ModeratedItems
 @{
 	ViewBag.Title = "Moderate Posts & Comments";
+	var action = (string)ViewContext.Controller.ValueProvider.GetValue("action").RawValue;
+	var controller = (string)ViewContext.Controller.ValueProvider.GetValue("controller").RawValue;
+	var rejectAction = (ViewBag.ItemType == "posts") ? Url.Action("RejectPost") : Url.Action("RejectComment");
+	var approveAction = (ViewBag.ItemType == "posts") ? Url.Action("ApprovePost") : Url.Action("ApproveComment");
 }
 
+<script type="text/javascript" src="@Url.Content("~/Content/date.js")"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$($(".moderation-item.unread")[0]).addClass("current-unread");
@@ -17,6 +22,7 @@
 				if (!$(".current-unread").length) {
 
 					console.log("loading next page");
+					window.location.href = "@Url.Action(action, controller, new { offset = Model.Offset + Model.PageSize, pageSize = Model.PageSize })";
 					return false;
 				};
 
@@ -34,15 +40,6 @@
 			ensureVisibility();
 
 			return bubble;
-		});
-
-		$("#select-moderation").change(function() {
-			var type = $(this).val();
-			if (type == "Posts") {
-				window.location.href = "@Url.Action("Posts", "Moderation", new { forumId = Request.QueryString["forumId"] })";
-			} else if (type == "Comments") {
-				window.location.href = "@Url.Action("Comments", "Moderation", new { forumId = Request.QueryString["forumId"] })";
-			}
 		});
 
 		$(".approve").click(function() {
@@ -65,10 +62,15 @@
 				$(".moderation-item[data-post-id='" + postId + "']").removeClass("moderator-approved");
 			}
 
-			removeItem(postId);
+			rejectItem(postId);
 
 			$(".moderation-item[data-post-id='" + postId + "']").removeClass("unread").addClass("read");
 			return false;
+		});
+
+		$(".tab-selector").click(function() {
+			var itemToModerate = $(this).text().toLowerCase();
+			window.location.href = "/Moderation/Items/@Model.ForumIdentifier?type=" + itemToModerate;
 		});
 	});
 
@@ -80,15 +82,14 @@
 			});
 	}
 
-
-	function removeItem(postId) {
-		$.get("@Url.Action("RejectPost")", { postId: postId });
+	function rejectItem(postId) {
+		$.get("@rejectAction", { postId: postId });
 		console.log("removing item: " + postId);
 		updateItem(postId, "moderator-removed", "removed");
 	}
 
 	function approveItem(postId) {
-		$.get("@Url.Action("ApprovePost")", { postId: postId });
+		$.get("@approveAction", { postId: postId });
 		console.log("approving item: " + postId);
 		updateItem(postId, "moderator-approved", "approved");
 	}
@@ -121,65 +122,55 @@
 	<article>
 		<header>
 			<h2>@ViewBag.Title</h2>
+			<nav>
+				<ul class="tab-switch">
+					<li><a href="#posts" class="tab-selector @if(ViewBag.ItemType == "posts") { <text>default-tab</text> }">Posts</a></li>
+					<li><a href="#comments" class="tab-selector  @if(ViewBag.ItemType == "comments") { <text>default-tab</text> }">Comments</a></li>
+				</ul>
+			</nav>
 		</header>
 	</article>
 
 	<article>
 		<section>
-			<p>
-				<label for="select-moderation">Moderate</label>
-				<select id="select-moderation">
-					<option @if (ViewBag.ModerationType == "Post")
-			 {<text>selected="selected"</text>}>Posts</option>
-					<option @if (ViewBag.ModerationType == "Comment")
-			 {<text>selected="selected"</text>}>Comments</option>
-				</select>
-			</p>
+			<p>Approve and reject @ViewBag.ItemType</p>
 		</section>
 	</article>
 
 	<article>
 		<section>
 			<h3>Latest Activity</h3>
-				@if (Model.TotalPosts == 0)
-				{
-					<p>There are no posts to review</p>
-				}
-				else
-				{
-					<ul class="logs">
-						@foreach (var post in Model.Posts)
-						{
-		   					<li class="moderation-item unread" data-post-id="@post.Identifier">
-								<div style="float:left;width:85%">
-									<span class="logs-timestamp">@post.Created</span>
-									<h4>@post.Title</h4>
-
-									<p>
-										@post.Body
-									</p>
-
-									<em class="logs-meta">posted by @post.AuthorDisplayName</em>
-								</div>
-
-								<div style="float: left; margin-left: 25px;">
-									<a href="#" class="approve" data-post-id="@post.Identifier"><img src="@Url.Content("~/Content/thumb-up.png")" alt="approve" rel="tooltip" original-title="Approve this @ViewBag.ModerationType"/></a>
-									<br/>
-									<a href="#" class="reject" data-post-id="@post.Identifier"><img src="@Url.Content("~/Content/thumb-down.png")" alt="reject" rel="tooltip" original-title="Reject this @ViewBag.ModerationType"/></a>
-									<br/>
-									<a href="#" class="block-user confirmation-dialog" data-confirmation-message="Really Block @post.AuthorDisplayName?" data-confirm-function="blockUser" data-item-id="@post.AuthorIdentifier"><img src="@Url.Content("~/Content/chromatron/img/icons/icon_table_delete.png")" alt="block author" rel="tooltip" original-title="Block this author"/></a>
-									<br/>
-									<p style="margin-top: 25px" class="note last-action" data-post-id="@post.Identifier"></p>
-								</div>
-							</li>
-						} 
-					</ul>
-				}
+				<p id="no-results-message" @if (Model.TotalPosts > 0){<text>style="display:none"</text>}>There are no posts to review</p>
+				<ul class="logs" id="item-list" @if(Model.TotalPosts == 0){<text>style="display:none"</text>}>
+					@Html.Partial("_list", Model.Posts)
+				</ul>
 		</section>
 
 		@Html.Partial("_pagination")
 	</article>
 </div>
+
+<li id="item-template" data-post-id="" style="display:none">
+	<div style="float:left;width:85%">
+		<span class="logs-timestamp"></span>
+		<h4 class="item-title"></h4>
+
+		<p class="item-body"></p>
+
+		<em class="logs-meta">posted by </em>
+	</div>
+
+	<div style="float: left; margin-left: 25px;">
+		<a href="#" class="approve" data-post-id=""><img src="@Url.Content("~/Content/thumb-up.png")" alt="approve" rel="tooltip" original-title="Approve this "/></a>
+		<br/>
+		<a href="#" class="reject" data-post-id=""><img src="@Url.Content("~/Content/thumb-down.png")" alt="reject" rel="tooltip" original-title="Reject this "/></a>
+		<br/>
+		<a href="#" class="block-user confirmation-dialog" data-confirmation-message="Really Block ?" data-confirm-function="blockUser" data-item-id=""><img src="@Url.Content("~/Content/chromatron/img/icons/icon_table_delete.png")" alt="block author" rel="tooltip" original-title="Block this author"/></a>
+		<br/>
+		<p style="margin-top: 25px" class="note last-action" data-post-id=""></p>
+	</div>
+</li>
+
 
 @section Breadcrumbs {
 	<ul id="breadcrumbs">

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlTypes;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
@@ -14,14 +15,17 @@ namespace ForumAgent.Processors
 
 		private readonly ISimpleRepository<ForumUser> _userRepository;
 
+		private readonly ISimpleRepository<ModeratedComment> _moderatedCommentRepository;
+
 		public CommentOnPostProcessor(
 			ISimpleRepository<Comment> commentRepository,
 			ISimpleRepository<Post> postRepository,
-			ISimpleRepository<ForumUser> userRepository)
+			ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedComment> moderatedCommentRepository)
 		{
 			_commentRepository = commentRepository;
 			_postRepository = postRepository;
 			_userRepository = userRepository;
+			_moderatedCommentRepository = moderatedCommentRepository;
 		}
 
 		public override void Process(CommentOnPost message)
@@ -35,7 +39,28 @@ namespace ForumAgent.Processors
 				username = user.Username;
 			}
 
-			var comment = new Comment
+			if (message.ModerationRequired)
+			{
+				var comment = new ModeratedComment
+				              	{
+				              		AuthorIdentifier = message.AuthorIdentifier,
+				              		AuthorDisplayName = username,
+				              		Body = message.Body,
+				              		PostIdentifier = message.PostIdentifier,
+				              		Score = 0,
+				              		Created = DateTime.Now,
+				              		Modified = DateTime.Now,
+				              		Title = message.Title,
+				              		Approved = false,
+				              		ApprovedBy = Guid.Empty,
+				              		ApprovedOn = (DateTime) SqlDateTime.MinValue
+				              	};
+
+				_moderatedCommentRepository.Save(comment);
+			}
+			else
+			{
+				var comment = new Comment
 				{
 					AuthorIdentifier = message.AuthorIdentifier,
 					AuthorDisplayName = username,
@@ -47,13 +72,21 @@ namespace ForumAgent.Processors
 					Title = message.Title
 				};
 
-			_commentRepository.Save(comment);
+				_commentRepository.Save(comment);
+			}
 
 			var post = _postRepository.FindById(message.PostIdentifier);
 
 			post.CommentCount++;
 
 			_postRepository.Save(post);
+
+			if (user != null)
+			{
+				user.NumberComments++;
+				_userRepository.Update(user);
+			}
+
 		}
 	}
 }

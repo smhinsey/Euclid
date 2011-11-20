@@ -11,22 +11,25 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public ModeratedPosts ListUnapprovedPosts(Guid forumId, int offset, int pageSize)
+		public ModeratedItems ListUnapprovedPosts(Guid forumId, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();
 
-			return new ModeratedPosts
+			var posts = session.QueryOver<ModeratedPost>()
+									.Where(p => p.ForumIdentifier == forumId && !p.Approved)
+									.OrderBy(p => p.Created)
+									.Desc
+									.Skip(offset)
+									.Take(pageSize)
+									.List<dynamic>();
+
+			return new ModeratedItems
 							{
 								PageSize = pageSize,
 								Offset = offset,
-								TotalPosts = session.QueryOver<ModeratedPost>().Where(p => !p.Approved).RowCount(),
-								Posts = session.QueryOver<ModeratedPost>()
-													.Where(p => p.ForumIdentifier == forumId && !p.Approved)
-													.OrderBy(p => p.Created)
-													.Desc
-													.Skip(offset)
-													.Take(pageSize)
-													.List()
+								ForumIdentifier = forumId,
+								TotalPosts = posts.Count,
+								Posts = posts
 							};
 		}
 	}

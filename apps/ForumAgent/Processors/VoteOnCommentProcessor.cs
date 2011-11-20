@@ -9,9 +9,12 @@ namespace ForumAgent.Processors
 	{
 		private readonly ISimpleRepository<Comment> _repository;
 
-		public VoteOnCommentProcessor(ISimpleRepository<Comment> repository)
+		private readonly ISimpleRepository<ForumUser> _userRepository;
+
+		public VoteOnCommentProcessor(ISimpleRepository<Comment> repository, ISimpleRepository<ForumUser> userRepository)
 		{
 			_repository = repository;
+			_userRepository = userRepository;
 		}
 
 		public override void Process(VoteOnComment message)
@@ -28,6 +31,13 @@ namespace ForumAgent.Processors
 			}
 
 			_repository.Update(comment);
+
+			var user = _userRepository.FindById(message.CreatedBy);
+			if (user != null)
+			{
+				user.NumberVotes++;
+				_userRepository.Update(user);
+			}
 		}
 	}
 }

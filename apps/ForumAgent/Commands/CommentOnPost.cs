@@ -14,5 +14,7 @@ namespace ForumAgent.Commands
 		public Guid PostIdentifier { get; set; }
 
 		public string Title { get; set; }
+
+		public bool ModerationRequired { get; set; }
 	}
 }

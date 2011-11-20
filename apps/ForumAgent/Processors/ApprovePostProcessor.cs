@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlTypes;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
@@ -36,13 +37,13 @@ namespace ForumAgent.Processors
 			var approvedPost = new Post
 			                   	{
 			                   		AuthorDisplayName = post.AuthorDisplayName,
-			                   		Created = post.Created,
+			                   		Created = DateTime.Now,
 			                   		AuthorIdentifier = post.AuthorIdentifier,
 			                   		ForumIdentifier = post.ForumIdentifier,
 			                   		CommentCount = post.CommentCount,
 			                   		Body = post.Body,
 			                   		CategoryIdentifier = post.CategoryIdentifier,
-			                   		Modified = post.Modified,
+			                   		Modified = (DateTime)SqlDateTime.MinValue,
 			                   		Score = post.Score,
 			                   		Title = post.Title
 			                   	};

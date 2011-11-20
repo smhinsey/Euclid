@@ -32,7 +32,7 @@
 		{
 			var forumId = forum.Identifier;
 			var isCurrentForum = (forumId.ToString() == selectedForumId);
-			var moderatingPosts = isCurrentForum && (Html.AreControllerAndActionAreCurrent("moderation", "comments") || Html.AreControllerAndActionAreCurrent("moderation", "posts"));
+			var moderatingPosts = isCurrentForum && Html.AreControllerAndActionAreCurrent("moderation", "items");
 
 			<li @if (isCurrentForum)
 					{<text>class="current"</text>}>
@@ -70,7 +70,7 @@
 					<li @if (moderatingPosts)
 							{
 								<text>class="current"</text>}>
-						<a href="@Url.Action("Posts", "Moderation", new { forumId })">Moderate Posts & Comments</a> </li>
+						<a href="@Url.Action("Items", "Moderation", new { forumId })">Moderate Posts & Comments</a> </li>
 
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "forum", "authenticationproviders", "current")>
 						<a href="@Url.Action("AuthenticationProviders", "Forum", new { forumId })">Configure Authentication</a> </li>
