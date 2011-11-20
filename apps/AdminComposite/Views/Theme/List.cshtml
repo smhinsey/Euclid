@@ -13,6 +13,7 @@
 		$("#edit-theme").click(function () {
 			$(this).attr("disabled", "disabled");
 			$("#save-theme").removeAttr("disabled");
+			$("#theme-selector").removeAttr("disabled");
 		});
 
 		$("#save-theme").click(function () {
@@ -36,7 +37,7 @@
 		<dl>
 			<dt><label for="theme-selector">Theme</label></dt>
 			<dd>
-				<select id="theme-selector">
+				<select disabled="disabled" id="theme-selector">
 					@foreach (var theme in Model.AvailableThemes)
 		 {
 						<option value="@theme.Item1.ToLower()" data-preview-image="@theme.Item2" @if (Model.CurrentTheme.Item1 == theme.Item1)
