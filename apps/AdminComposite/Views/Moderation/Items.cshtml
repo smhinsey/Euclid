@@ -140,7 +140,7 @@
 	<article>
 		<section>
 			<h3>Latest Activity</h3>
-				<p id="no-results-message" @if (Model.TotalPosts > 0){<text>style="display:none"</text>}>There are no posts to review</p>
+				<p id="no-results-message" @if (Model.TotalPosts > 0){<text>style="display:none"</text>}>There are no @ViewBag.ItemType to review</p>
 				<ul class="logs" id="item-list" @if(Model.TotalPosts == 0){<text>style="display:none"</text>}>
 					@Html.Partial("_list", Model.Posts)
 				</ul>
