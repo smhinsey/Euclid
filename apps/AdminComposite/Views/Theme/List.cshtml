@@ -29,9 +29,10 @@
 			$("#theme-selector option:selected").text(selectedThemeText);
 			
 			$("#save-theme").hide();
-			$("#theme-selector").hide();
+			$("#theme-selector").attr("disabled","disabled");
 			$("#cancel-edit").hide();
 			$("#edit-theme").show();
+
 		});
 
 		$("#cancel-edit").click(function() {
