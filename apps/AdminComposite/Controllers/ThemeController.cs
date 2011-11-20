@@ -40,7 +40,11 @@ namespace AdminComposite.Controllers
 			            					new Tuple<string, string>
 			            						("Swiss-Blue", Url.Content(string.Format(ThemePathFormat, "swiss-blue"))),
 			            					new Tuple<string, string>
-			            						("Test-Theme2", Url.Content(string.Format(ThemePathFormat, "test-theme2")))
+			            						("Swiss-Green", Url.Content(string.Format(ThemePathFormat, "swiss-green"))),
+			            					new Tuple<string, string>
+			            						("Swiss-Purple", Url.Content(string.Format(ThemePathFormat, "swiss-purple"))),
+			            					new Tuple<string, string>
+			            						("No-Theme", Url.Content(string.Format(ThemePathFormat, "no-theme")))
 			            				}
 			            	};
 

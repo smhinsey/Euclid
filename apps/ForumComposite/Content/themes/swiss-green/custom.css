@@ -1,0 +1,75 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*
+
+	----------------------------------------
+	------- DEFAULT SWISS THEME COLOUR FILE
+	----------------------------------------
+
+*/
+
+/* -Main Configs- */
+
+
+a:hover {
+	
+   text-decoration: none;
+   color: #89c138;
+   
+}
+
+
+
+
+
+/* HEADER */
+
+#Form_Go { background: url(green/search-arrow.png) no-repeat top center; margin: 0 !important; }
+
+	#Form_Go:hover { background-position: bottom; }
+	
+#categories ul li a:hover, #Form_PostComment { color: #89c138; }
+#categories ul li .Count { background: #89c138; }
+		
+		#categories .GuestBox a { color: #89c138; }
+		
+		.DiscussionsTabs ul li a:hover { background: #ffffff; }
+		
+		.DiscussionsTabs ul li a span { background: #bdd894; color: #f1f1f1; }
+		.DiscussionsTabs ul li a:hover span { background: #89c138; color: #ffffff; }
+			
+		.DiscussionsTabs ul li.add-discussion a { background: #89c138; }
+		.DiscussionsTabs ul li.add-discussion a:hover { background: #000; color: #fff; }
+		
+		#permaRSS { background: url(images/rss_thread.png) no-repeat right 3px; }
+		#permaRSS:hover { color: #89c138; }
+		.Author a, #Form_PostDiscussion, .ProfileTabs li.Active a { color: #89c138 !important; }
+ul.Activities div.Excerpt a:hover,
+ul.Activities div.Meta a:hover {
+   color: #89c138;
+}
+
+#Form_User_Register .Buttons input { background: #89c138; padding: 8px 20px 7px 20px; color: #fff; }
+#Form_User_Register .Buttons input:hover { background: #eaeaea; padding: 8px 20px 7px 20px; color: #000; }
+
+div.Popup h1,
+div.Popup h2,
+div.Connect h1,
+div.Connect h2 {
+	background: #89c138;
+}
+		
+		
+div.MorePager a,
+div.MorePager a:link,
+div.MorePager a:hover,
+div.MorePager a:active,
+div.MorePager a:visited,
+a.TabLink,
+a.TabLink:link,
+a.TabLink:hover,
+a.TabLink:active,
+a.TabLink:visited {
+   background: #89c138;
+}
