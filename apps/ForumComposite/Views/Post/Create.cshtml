@@ -17,21 +17,11 @@
 			@Html.LabelFor(m => m.Title)
 			@Html.TextBoxFor(m => m.Title, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })
 		</div>
-
-@*		<div class="Category">
-			<label for="Form_CategoryID">Category</label>
-			<select id="Form_CategoryID" name="Discussion/CategoryID">
-				<option value="1">General</option>
-				<option value="2">Inspiration</option>
-				<option value="3">Tutorials</option>
-				<option value="4">↳&#160;Illustration</option>
-				<option value="5">↳&#160;Web&#160;Design</option>
-				<option value="6">Others</option>
-			</select>
-		</div>*@
+	 
 		<div>
 			@Html.LabelFor(m => m.Body)
 			@Html.TextAreaFor(m => m.Body, new { @class = "TextBox", rows = "6", cols = "100", id = "Form_Body" })
+			@Html.LabelFor(m => m.CategoryIdentifier, "Category")
 			@Html.DropDownListFor(m => m.CategoryIdentifier, new SelectList(ViewBag.Categories, "Identifier", "Name"))
 		</div>
 

@@ -17,7 +17,7 @@
 		<div id="wrapper">
 			<div id="Head">
 				<div id="logo" class="sidebar-block">
-					<a href="/"><img src="../../Content/themes/swiss/images/logo.gif" alt="" /></a>
+					<a href="@Url.Action("List","Post")"><h1>@ViewBag.ForumName</h1></a>
 				</div>
 				<div id="menu" class="sidebar-block">
 					@RenderPage("LeftMenu.cshtml")
