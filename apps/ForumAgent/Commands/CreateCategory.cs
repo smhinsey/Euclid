@@ -8,5 +8,6 @@ namespace ForumAgent.Commands
 		public Guid ForumIdentifier { get; set; }
 		public bool Active { get; set; }
 		public string Name { get; set; }
+		public string Slug { get; set; }
 	}
 }

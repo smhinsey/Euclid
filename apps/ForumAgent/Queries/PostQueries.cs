@@ -16,15 +16,15 @@ namespace ForumAgent.Queries
 
 		public PostListing FindByAuthorIdentifier(Guid forumId, Guid authorId, int pageSize, int offset)
 		{
-			var result = new PostListing { Posts = new List<Post>() };
+			var result = new PostListing {Posts = new List<Post>()};
 
-			var session = GetCurrentSession();
+			ISession session = GetCurrentSession();
 
-			var posts =
+			IQueryOver<Post> posts =
 				session.QueryOver<Post>().Where(p => p.AuthorIdentifier == authorId).OrderBy(p => p.Created).Desc.Skip(offset).Take(
 					pageSize);
 
-			var totalPosts = session.QueryOver<Post>().Where(p => p.AuthorIdentifier == authorId).RowCount();
+			int totalPosts = session.QueryOver<Post>().Where(p => p.AuthorIdentifier == authorId).RowCount();
 
 			result.TotalPosts = totalPosts;
 
@@ -35,44 +35,69 @@ namespace ForumAgent.Queries
 
 		public Post FindByTitle(Guid forumId, string title)
 		{
-			var session = GetCurrentSession();
+			ISession session = GetCurrentSession();
 
-			var posts = session.QueryOver<Post>().WhereRestrictionOn(post => post.Title).IsInsensitiveLike(title, MatchMode.Exact);
+			IQueryOver<Post, Post> posts =
+				session.QueryOver<Post>().WhereRestrictionOn(post => post.Title).IsInsensitiveLike(title, MatchMode.Exact);
 
 			return posts.SingleOrDefault();
 		}
 
 		public IList<Post> FindPostsByCategory(Guid forumId, Guid categoryIdentifier)
 		{
-			var session = GetCurrentSession();
+			ISession session = GetCurrentSession();
 
-			var posts = session.QueryOver<Post>().Where(post => post.CategoryIdentifier == categoryIdentifier);
+			IQueryOver<Post, Post> posts = session.QueryOver<Post>().Where(post => post.CategoryIdentifier == categoryIdentifier);
 
 			return posts.List();
 		}
 
 		public int GetPostCountByAuthor(Guid forumId, Guid authorId)
 		{
-			var session = GetCurrentSession();
+			ISession session = GetCurrentSession();
 
-			var totalPosts = session.QueryOver<Post>().Where(p => p.AuthorIdentifier == authorId).RowCount();
+			int totalPosts = session.QueryOver<Post>().Where(p => p.AuthorIdentifier == authorId).RowCount();
 
 			return totalPosts;
 		}
 
 		public PostListing GetPostListing(Guid forumId, int pageSize, int offset)
 		{
-			var result = new PostListing { Posts = new List<Post>() };
+			var result = new PostListing {Posts = new List<Post>()};
 
-			var session = GetCurrentSession();
+			ISession session = GetCurrentSession();
 
-			var posts =
+			IQueryOver<Post> posts =
 				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).OrderBy(p => p.Created).Desc.Skip(offset).Take(
 					pageSize);
 
-			var totalPosts = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).RowCount();
+			int totalPosts = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).RowCount();
 
 			result.TotalPosts = totalPosts;
+
+			result.Posts = posts.List();
+
+			return result;
+		}
+
+		public PostListing GetPostListingByCategory(Guid forumId, string categorySlug, int pageSize, int offset)
+		{
+			var result = new PostListing {Posts = new List<Post>()};
+
+			ISession session = GetCurrentSession();
+
+			Category category =
+				session.QueryOver<Category>().Where(c => c.Slug == categorySlug && c.ForumIdentifier == forumId).SingleOrDefault();
+
+			IQueryOver<Post> posts =
+				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId && p.CategoryIdentifier == category.Identifier).
+					OrderBy(p => p.Created).Desc.Skip(offset).Take(
+						pageSize);
+
+			int totalPosts = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).RowCount();
+
+			result.TotalPosts = totalPosts;
+			result.CategoryName = category.Name;
 
 			result.Posts = posts.List();
 

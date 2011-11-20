@@ -55,7 +55,7 @@ body {
 body section[role=navigation] {
 	width:271px;
 	height:auto;
-	padding:25px 0;
+	padding:10px 0;
 	position:absolute;
 	top:0;
 	left:0;
@@ -111,13 +111,13 @@ body.fixed {
 
 /*  Navigation Layout :: Header  */
 section[role=navigation] header {
-	margin:0 2px 25px 0;
+	margin:0 2px 5px 0;
 	padding-left:25px;
 }
 section[role=navigation] header a {
-	background:url('../img/sample_logo2.png') no-repeat;
-	width:148px;
-	height:31px;
+	background:url('../img/logo.jpg') no-repeat;
+	width:200px;
+	height:151px;
 	text-indent:-9999em;
 	display:block;
 }
@@ -1423,9 +1423,9 @@ table .actions .delete { background:url('../img/icons/icon_table_delete.png') no
 	background:none;
 }
 .login section[role=main] > a {
-	background:url('../img/sample_logo2.png') no-repeat;
-	width:148px;
-	height:31px;
+	background:url('../img/logo.jpg') no-repeat;
+	width:200px;
+	height:151px;
 	text-indent:-9999em;
 	display:block;
 }

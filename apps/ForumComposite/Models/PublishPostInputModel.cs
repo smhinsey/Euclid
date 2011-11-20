@@ -9,7 +9,7 @@ namespace ForumComposite.Models
 		public PublishPostInputModel()
 		{
 			AgentSystemName = "NewCo.ForumAgent";
-			CommandType = typeof(PublishPost);
+			CommandType = typeof (PublishPost);
 		}
 
 		public Guid AuthorIdentifier { get; set; }
@@ -17,6 +17,8 @@ namespace ForumComposite.Models
 		public string Body { get; set; }
 
 		public Guid ForumIdentifier { get; set; }
+
+		public Guid CategoryIdentifier { get; set; }
 
 		public string Title { get; set; }
 

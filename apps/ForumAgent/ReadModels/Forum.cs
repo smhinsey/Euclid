@@ -15,6 +15,8 @@ namespace ForumAgent.ReadModels
 
 		public virtual string UrlSlug { get; set; }
 
+		public virtual int TotalPosts { get; set; }
+
 		public virtual bool NoVoting { get; set; }
 
 		public virtual bool UpDownVoting { get; set; }

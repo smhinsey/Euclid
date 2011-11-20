@@ -1,4 +1,5 @@
 ﻿@using Euclid.Composites.Mvc.Extensions
+@using ForumAgent.ReadModels
 @using ForumComposite.Models
 @model PublishPostInputModel
 @{
@@ -31,6 +32,7 @@
 		<div>
 			@Html.LabelFor(m => m.Body)
 			@Html.TextAreaFor(m => m.Body, new { @class = "TextBox", rows = "6", cols = "100", id = "Form_Body" })
+			@Html.DropDownListFor(m => m.CategoryIdentifier, new SelectList(ViewBag.Categories, "Identifier", "Name"))
 		</div>
 
 		<div class="PostFormControlPanel">

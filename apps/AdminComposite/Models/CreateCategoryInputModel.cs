@@ -14,6 +14,7 @@ namespace AdminComposite.Models
 		}
 
 		public string Name { get; set; }
+		public string Slug { get; set; }
 		public Guid ForumIdentifier { get; set; }
 		public bool Active { get; set; }
 		public Guid CreatedBy { get; set; }

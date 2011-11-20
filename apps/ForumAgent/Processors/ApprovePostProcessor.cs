@@ -12,11 +12,15 @@ namespace ForumAgent.Processors
 		private readonly ISimpleRepository<ModeratedPost> _repository;
 
 		private readonly ISimpleRepository<Post> _postRepository;
+		private readonly ISimpleRepository<Forum> _forumRepository;
+		private readonly ISimpleRepository<Category> _categoryRepository;
 
-		public ApprovePostProcessor(ISimpleRepository<ModeratedPost> repository, ISimpleRepository<Post> postRepository)
+		public ApprovePostProcessor(ISimpleRepository<ModeratedPost> repository, ISimpleRepository<Post> postRepository, ISimpleRepository<Forum> forumRepository, ISimpleRepository<Category> categoryRepository)
 		{
 			_repository = repository;
 			_postRepository = postRepository;
+			_forumRepository = forumRepository;
+			_categoryRepository = categoryRepository;
 		}
 
 		public override void Process(ApprovePost message)
@@ -47,6 +51,22 @@ namespace ForumAgent.Processors
 			                   		Score = post.Score,
 			                   		Title = post.Title
 			                   	};
+
+			var forum = _forumRepository.FindById(post.ForumIdentifier);
+
+			forum.TotalPosts++;
+
+			_forumRepository.Save(forum);
+
+			if (post.CategoryIdentifier != Guid.Empty)
+			{
+				var category = _categoryRepository.FindById(post.CategoryIdentifier);
+
+				category.TotalPosts++;
+
+				_categoryRepository.Save(category);
+			}
+
 			_postRepository.Save(approvedPost);
 
 		}

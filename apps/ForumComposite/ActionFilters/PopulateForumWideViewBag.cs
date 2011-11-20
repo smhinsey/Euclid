@@ -19,6 +19,8 @@ namespace ForumComposite.ActionFilters
 
 		public OrganizationUserQueries UserQueries { get; set; }
 
+		public CategoryQueries CategoryQueries { get; set; }
+
 		public void OnActionExecuted(ActionExecutedContext filterContext)
 		{
 		}
@@ -36,9 +38,13 @@ namespace ForumComposite.ActionFilters
 
 			filterContext.Controller.ViewBag.OrganizationIdentifier = orgId;
 			filterContext.Controller.ViewBag.ForumIdentifier = forumId;
+			filterContext.Controller.ViewBag.ForumName = forum.Name;
+			filterContext.Controller.ViewBag.ForumTheme = forum.Theme;
 			filterContext.Controller.ViewBag.ForumSlug = filterContext.GetRequestValue("forumSlug");
 			filterContext.Controller.ViewBag.OrganizationSlug = filterContext.GetRequestValue("orgSlug");
 			filterContext.Controller.ViewBag.ForumIsModerated = forum.Moderated;
+			filterContext.Controller.ViewBag.TotalPosts = forum.TotalPosts;
+			filterContext.Controller.ViewBag.Categories = CategoryQueries.List(forumId, 0, 100);
 		}
 	}
 
