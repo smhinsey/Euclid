@@ -15,117 +15,115 @@
 	<article>
 		<header>
 			<h2>@ViewBag.Title</h2>
-		</header>
-	</article>
-	<section>
-		<div class="sidetabs">
-			<nav class="sidetab-switch">
+
+			<nav class="tab-switch">
 				<ul>
-					<li><a href="#test" class="default-sidetab current">Test</a></li>
+					<li><a href="#test" class="default-tab current">Test</a></li>
 					<li><a href="#production">Production</a></li>
 				</ul>
 			</nav>
-
+		</header>
+	</article>
+	<section>
 			
-			<div id="test" class="sidetab default-sidetab">
-				@using (Html.BeginFormForInputModel(Model, true, Url.Action("Details", "Forum", new {forumId = Model.ForumIdentifier})))
-				{
-					@Html.HiddenFor(m => m.ForumIdentifier);
-					@Html.Hidden("orgSlug", (object)ViewBag.OrganizationSlug, null)
-					<fieldset>
-						<legend>Forum Details</legend>
+		<div id="test" class="tab default-tab">
+			@using (Html.BeginFormForInputModel(Model, true, Url.Action("Details", "Forum", new {forumId = Model.ForumIdentifier})))
+			{
+				@Html.HiddenFor(m => m.ForumIdentifier);
+				@Html.Hidden("orgSlug", (object)ViewBag.OrganizationSlug, null)
+				<fieldset>
+					<legend>Forum Details</legend>
 						
-						<dl>
-							<dt><label for="forum-name">Name</label></dt>
-							<dd>@Html.TextBoxFor(m => m.Name, new { id = "forum-name" })</dd>
+					<dl>
+						<dt><label for="forum-name">Name</label></dt>
+						<dd>@Html.TextBoxFor(m => m.Name, new { id = "forum-name" })</dd>
 
-							<dt><label for="forum-slug">Slug</label></dt>
-							<dd>
-								@Html.TextBoxFor(m => m.UrlSlug, new { id = "forum-slug" })
-								<p><a href="#" id="generate-slug">generate slug</a></p>
-							</dd>
+						<dt><label for="forum-slug">Slug</label></dt>
+						<dd>
+							@Html.TextBoxFor(m => m.UrlSlug, new { id = "forum-slug" })
+							<p><a href="#" id="generate-slug">generate slug</a></p>
+						</dd>
 
-							<dt><label for="forum-host">Host</label></dt>
-							<dd>
-								@Html.TextBoxFor(m => m.UrlHostName, new { id = "forum-host" })
-								<p>Forum url: <b><span id="forum-url">@Model.UrlHostName/org/@ViewBag.OrganizationSlug/forum/@Model.UrlSlug</span></b></p>
-							</dd>
+						<dt><label for="forum-host">Host</label></dt>
+						<dd>
+							@Html.TextBoxFor(m => m.UrlHostName, new { id = "forum-host" })
+							<p>Forum url: <b><span id="forum-url">@Model.UrlHostName/org/@ViewBag.OrganizationSlug/forum/@Model.UrlSlug</span></b></p>
+						</dd>
 
-							<dt><label for="forum-description">Description</label></dt>
-							<dd>
-								@Html.TextAreaFor(m => m.Description, new { id = "forum-description", @class = "wysiwyg", @readonly = "readonly" })
-							</dd>
+						<dt><label for="forum-description">Description</label></dt>
+						<dd>
+							@Html.TextAreaFor(m => m.Description, new { id = "forum-description", @class = "wysiwyg", @readonly = "readonly" })
+						</dd>
 
-							<dt class="checkbox"><label for="forum-private">Private</label></dt>
-							<dd>
-								@Html.CheckBoxFor(m => m.Private, new { id = "forum-private" })
-							</dd>
+						<dt class="checkbox"><label for="forum-private">Private</label></dt>
+						<dd>
+							@Html.CheckBoxFor(m => m.Private, new { id = "forum-private" })
+						</dd>
 
-							<dt class="checkbox"><label for="forum-moderated">Moderated</label></dt>
-							<dd>
-								@Html.CheckBoxFor(m => m.Moderated, new { id = "forum-moderated" })
-							</dd>
-						</dl>
-					</fieldset>
+						<dt class="checkbox"><label for="forum-moderated">Moderated</label></dt>
+						<dd>
+							@Html.CheckBoxFor(m => m.Moderated, new { id = "forum-moderated" })
+						</dd>
+					</dl>
+				</fieldset>
 
-					<fieldset>
-						<legend>Other Settings to Copy</legend>
+				<fieldset>
+					<legend>Other Settings to Copy</legend>
 
-						<dl>
-							<dt><label for="copy-badges">Badges</label></dt>
-							<dd><input type="checkbox" id="copy-badges"/></dd>
+					<dl>
+						<dt><label for="copy-badges">Badges</label></dt>
+						<dd><input type="checkbox" id="copy-badges"/></dd>
 
-							<dt><label for="copy-categories">Categories</label> </dt>
-							<dd><input type="checkbox" id="copy-categories"/> </dd>
+						<dt><label for="copy-categories">Categories</label> </dt>
+						<dd><input type="checkbox" id="copy-categories"/> </dd>
 
-							<dt><label for="copy-voting">Voting</label></dt>
-							<dd><input type="checkbox" id="copy-voting"/></dd>
+						<dt><label for="copy-voting">Voting</label></dt>
+						<dd><input type="checkbox" id="copy-voting"/></dd>
 
-							<dt><label for="copy-content">Content</label></dt>
-							<dd><input type="checkbox" id="copy-content"/></dd>
+						<dt><label for="copy-content">Content</label></dt>
+						<dd><input type="checkbox" id="copy-content"/></dd>
 
-							<dt><label for="copy-theme">Theme Selection</label></dt>
-							<dd><input type="checkbox" id="copy-theme"/></dd>
-						</dl>
-					</fieldset>
+						<dt><label for="copy-theme">Theme Selection</label></dt>
+						<dd><input type="checkbox" id="copy-theme"/></dd>
+					</dl>
+				</fieldset>
 
-					<button type="submit">Copy to Production</button>
-					<button type="submit">Save Settings</button>
-				}
-			</div>
+				<button type="submit">Copy to Production</button>
+				<button type="submit">Save Settings</button>
+			}
+		</div>
 
-			<div id="production" class="sidetab" style="display: none">
-				<form action="#">
-					<fieldset>
-						<legend>Forum Details</legend>
+		<div id="production" class="tab" style="display: none">
+			<form action="#">
+				<fieldset>
+					<legend>Forum Details</legend>
 						
-						<dl>
-							<dt><label for="forum-name">Name</label></dt>
-							<dd class="text">@Model.Name</dd>
+					<dl>
+						<dt><label for="forum-name">Name</label></dt>
+						<dd class="text">@Model.Name</dd>
 
-							<dt><label for="forum-slug">Slug</label></dt>
-							<dd class="text">
-								@Model.UrlSlug
-							</dd>
+						<dt><label for="forum-slug">Slug</label></dt>
+						<dd class="text">
+							@Model.UrlSlug
+						</dd>
 
-							<dt><label for="forum-host">Host</label></dt>
-							<dd  class="text">
-								@Model.UrlHostName
-							</dd>
+						<dt><label for="forum-host">Host</label></dt>
+						<dd  class="text">
+							@Model.UrlHostName
+						</dd>
 
-							<dt><label>Description</label></dt>
-							<dd class="text">
-								@Html.Raw(Model.Description)
-							</dd>
-						</dl>
+						<dt><label>Description</label></dt>
+						<dd class="text">
+							@Html.Raw(Model.Description)
+						</dd>
+					</dl>
 						
-						@{
-							var forumUrl = string.Format("{0}/org/{1}/forum/{2}", Model.UrlHostName, @ViewBag.OrganizationSlug, @Model.UrlSlug);
-						}
-						<p class="notification information"><a href="@forumUrl" title="forum-url">@forumUrl</a></p>
-					</fieldset>
-				</form>
-			</div>
+					@{
+						var forumUrl = string.Format("{0}/org/{1}/forum/{2}", Model.UrlHostName, @ViewBag.OrganizationSlug, @Model.UrlSlug);
+					}
+					<p class="notification information"><a href="@forumUrl" title="forum-url">@forumUrl</a></p>
+				</fieldset>
+			</form>
 		</div>
 	</section>
 </div>
