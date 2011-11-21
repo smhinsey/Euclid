@@ -22,19 +22,13 @@
 			var selectedTheme = $("#theme-selector").val();
 			var selectedThemeText = $("#theme-selector option:selected").text() + " -- current theme";
 			
-			$.get("@Url.Action("SetForumTheme")", { forumId: "@Model.ForumIdentifier", theme: selectedTheme });
-			$("#theme-selector option").each(function(index, item) {
-				$(item).text($(item).attr("data-original-text"));
-			});
-			
-			$("#theme-selector option:selected").text(selectedThemeText);
-			
-			$("#save-theme").removeClass("green");
-			$("#save-theme").attr("disabled","disabled");
-			$("#theme-selector").attr("disabled","disabled");
-			$("#cancel-edit").attr("disabled","disabled");
-			$("#edit-theme").removeAttr("disabled");
-
+			$.get(
+				"@Url.Action("SetForumTheme")", 
+				{ forumId: "@Model.ForumIdentifier", theme: selectedTheme }, 
+				function () {
+					setTimeout("window.location.reload()", 250);
+				}
+			);
 		});
 
 		$("#cancel-edit").click(function() {
