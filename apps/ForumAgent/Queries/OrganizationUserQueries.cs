@@ -52,11 +52,13 @@ namespace ForumAgent.Queries
 			       		};
 		}
 
-		public new IList<OrganizationUser> List(int offset, int pageSize)
+		public new IList<OrganizationUser> FindByOrganization(Guid organizationId, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();
 
-			var users = session.QueryOver<OrganizationUserEntity>().Skip(offset).Take(pageSize).List();
+			var users = session.QueryOver<OrganizationUserEntity>()
+				.Where(u => u.OrganizationEntity.Identifier == organizationId)
+				.Skip(offset).Take(pageSize).List();
 
 			return
 				users.Select(

@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using AdminComposite.Models;
 using AutoMapper;
 using ForumAgent;
-using ForumAgent.Processors;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
@@ -38,13 +37,6 @@ namespace AdminComposite.Controllers
 			return View(Mapper.Map<UpdateOrganizationInputModel>(org));
 		}
 
-		public ActionResult Users(Guid organizationId, int pageNumber = 0, int pageSize = 25)
-		{
-			ViewBag.OrganizationName = _organizationQueries.FindById(organizationId).Name;
-
-			return View(_userQueries.List(pageNumber * pageSize, pageSize));
-		}
-
 		[HttpGet]
 		public PartialViewResult RegisterUser(Guid organizationId, Guid currentUserId)
 		{
@@ -66,6 +58,13 @@ namespace AdminComposite.Controllers
 			var model = Mapper.Map<UpdateOrganizationUserInputModel>(user);
 
 			return PartialView("_UpdateOrganizationUser", model);
+		}
+
+		public ActionResult Users(Guid organizationId, int pageNumber = 0, int pageSize = 25)
+		{
+			ViewBag.OrganizationName = _organizationQueries.FindById(organizationId).Name;
+
+			return View(_userQueries.FindByOrganization(organizationId, pageNumber * pageSize, pageSize));
 		}
 	}
 }

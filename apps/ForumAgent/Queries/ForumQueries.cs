@@ -13,7 +13,16 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public IList<Forum> GetForums()
+		public IList<Forum> FindByOrganization(Guid organizationId)
+		{
+			var session = GetCurrentSession();
+
+			return session.QueryOver<Forum>()
+				.Where(f => f.OrganizationId == organizationId)
+				.List();
+		}
+
+		public IList<Forum> FindForums()
 		{
 			var session = GetCurrentSession();
 
