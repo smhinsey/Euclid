@@ -40,7 +40,7 @@ namespace ForumAgent.Queries
 		{
 			var session = GetCurrentSession();
 
-			var matchedUser = session.QueryOver<ForumUser>().Where(user => user.Username == username);
+			var matchedUser = session.QueryOver<ForumUser>().Where(user => user.Username == username && user.ForumIdentifier == forumId);
 
 			return matchedUser.SingleOrDefault();
 		}

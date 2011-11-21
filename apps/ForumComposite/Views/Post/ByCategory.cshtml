@@ -1,10 +1,12 @@
 ﻿@using ForumAgent.ReadModels
 @model PostListing
 @{
-	ViewBag.Title = "Forum Category";
+	ViewBag.Title = ViewBag.ForumName;
+	ViewBag.Title += ": ";
+	ViewBag.Title += Model.CategoryName;
 }
 <p class="Box BoxCategories">
-<h4>Forum Category</h4>
+<h4>@Model.CategoryName</h4>
 </p>
 <ul class="DataList Discussions">
 	<!--<li class="Item Alt  Announcement">
