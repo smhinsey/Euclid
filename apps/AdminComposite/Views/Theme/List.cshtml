@@ -11,11 +11,13 @@
 		});
 		
 		$("#edit-theme").click(function () {
-			$("#save-theme").removeAttr("disabled");
-			$("#save-theme").addClass("green");
-			$("#theme-selector").removeAttr("disabled");
-			$("#cancel-edit").removeAttr("disabled");
-			$("#edit-theme").attr("disabled", "disabled");
+			$("#edit-theme").hide();
+			$("#save-theme").show();
+			$("#cancel-edit").show();
+//			$("#save-theme").removeAttr("disabled");
+//			$("#theme-selector").removeAttr("disabled");
+//			$("#cancel-edit").removeAttr("disabled");
+//			$("#edit-theme").attr("disabled", "disabled");
 		});
 
 		$("#save-theme").click(function () {
@@ -65,8 +67,8 @@
 	</fieldset>
 
 	<button type="button" id="edit-theme">Edit</button>
-	<button type="button" id="save-theme" disabled="disabled">Save</button>
-	<button type="button" id="cancel-edit" disabled="disabled">Cancel</button>
+	<button type="button" id="save-theme" class="green" style="display:none">Save</button>
+	<button type="button" id="cancel-edit"  style="display:none">Cancel</button>
 	</form>
 </article>
 @section Breadcrumbs{

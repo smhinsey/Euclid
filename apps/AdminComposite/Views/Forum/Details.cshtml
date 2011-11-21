@@ -11,13 +11,18 @@
 		$("#forum-name").focus();
 
 		$("#trigger-edit").click(function () {
-			$("#cancel-edit").removeAttr("disabled");
-			$("#save-settings").removeAttr("disabled");
+			$("#cancel-edit").show();
+			$("#save-settings").show();
+			$("#trigger-edit").hide();
 			$("#forum-moderated").removeAttr("disabled");
 			$("#forum-private").removeAttr("disabled");
-			// $("#deploy-settings").attr("disabled", "disabled");
-			$("#save-settings").addClass("green");
-			$("#trigger-edit").attr("disabled", "disabled");
+
+			//			$("#cancel-edit").removeAttr("disabled");
+			//			$("#save-settings").removeAttr("disabled");
+			//			$("#forum-moderated").removeAttr("disabled");
+			//			$("#forum-private").removeAttr("disabled");
+			//			$("#deploy-settings").attr("disabled", "disabled");
+			//			$("#trigger-edit").attr("disabled", "disabled");
 
 			$("#forum-settings .forum-setting").each(function (index, item) {
 				$(item).editable("enable");
@@ -166,9 +171,9 @@
 				</fieldset>*@
 
 				<button id="trigger-edit" type="button">Edit</button>
-				<button id="save-settings" type="submit" disabled="disabled">Save Settings</button>
-				<button id="cancel-edit" type="button" disabled="disabled">Cancel</button>
-				<button id="deploy-settings" type="submit" disabled="disabled">Deploy to Production</button>
+				<button id="save-settings" type="submit" class="green" style="display: none">Save Settings</button>
+				<button id="cancel-edit" type="button" style="display: none">Cancel</button>
+				<button id="deploy-settings" type="submit" style="display: none">Deploy to Production</button>
 		</div>
 
 		<div id="production" class="tab" style="display: none">

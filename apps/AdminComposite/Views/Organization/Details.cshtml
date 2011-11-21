@@ -42,10 +42,13 @@
 				});
 
 				$(item).click();
-				$("#trigger-edit").attr("disabled", "disabled");
-				$("#save-edit").removeAttr("disabled");
-				$("#save-edit").addClass("green");
-				$("#cancel-edit").removeAttr("disabled");
+				$("#trigger-edit").hide();
+				$("#save-edit").show();
+				$("#cancel-edit").show();
+
+//				$("#trigger-edit").attr("disabled", "disabled");
+//				$("#save-edit").removeAttr("disabled");
+//				$("#cancel-edit").removeAttr("disabled");
 			});
 		});
 
@@ -133,8 +136,8 @@
 		</fieldset>
 
 		<button type="button" id="trigger-edit">Edit</button>
-		<button type="button" id="save-edit" disabled="disabled">Save</button>
-		<button type="button" id="cancel-edit" disabled="disabled">Cancel</button>
+		<button type="button" id="save-edit" class="green" style="display:none">Save</button>
+		<button type="button" id="cancel-edit" style="display:none">Cancel</button>
 	</form>
 
 	@using (Html.BeginFormForInputModel(Model, true, Url.Action("Details", "Organization", new {organizationId = Model.OrganizationIdentifier}), "update-form"))
