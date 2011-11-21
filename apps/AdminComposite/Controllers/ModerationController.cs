@@ -46,7 +46,7 @@ namespace AdminComposite.Controllers
 				throw new ArgumentOutOfRangeException("type");
 			}
 
-			ViewBag.Pagination = GetPagination("Posts", model.Offset, model.TotalPosts, model.PageSize);
+			ViewBag.Pagination = GetPagination(model.Offset, model.TotalPosts, model.PageSize, forumId);
 
 			return View("Items", model);
 		}
@@ -70,7 +70,7 @@ namespace AdminComposite.Controllers
 			var publicationId = _publisher.PublishMessage(new RejectPost
 															{
 																CreatedBy = userId,
-																PostIdentifier = userId
+																PostIdentifier = postId
 															});
 
 			return Json(publicationId, JsonRequestBehavior.AllowGet);
@@ -101,17 +101,18 @@ namespace AdminComposite.Controllers
 			return Json(publicationId, JsonRequestBehavior.AllowGet);
 		}
 
-		private PaginationModel GetPagination(string actionName, int offset, int totalPosts, int pageSize)
+		private PaginationModel GetPagination(int offset, int totalPosts, int pageSize, Guid forumId)
 		{
 			return new PaginationModel
 										{
-											ActionName = actionName,
+											ActionName = "Items",
 											ControllerName = "Moderation",
 											Offset =offset,
 											TotalPosts = totalPosts,
 											PageSize = pageSize,
 											WriteTFoot = true,
-											WriteTable = true
+											WriteTable = true,
+											ForumIdentifier = forumId
 										};
 		}
 

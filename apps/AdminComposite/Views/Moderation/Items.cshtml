@@ -31,7 +31,7 @@
 
 				bubble = false;
 			} else if (event.which == 82) { // R (for remove)
-				removeItem(postId);
+				rejectItem(postId);
 				advanceSelection();
 
 				bubble = false;
@@ -84,8 +84,8 @@
 
 	function rejectItem(postId) {
 		$.get("@rejectAction", { postId: postId });
-		console.log("removing item: " + postId);
-		updateItem(postId, "moderator-removed", "removed");
+		console.log("rejecting item: " + postId);
+		updateItem(postId, "moderator-removed", "rejected");
 	}
 
 	function approveItem(postId) {

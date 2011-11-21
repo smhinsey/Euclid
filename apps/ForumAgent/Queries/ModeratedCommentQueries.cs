@@ -25,10 +25,10 @@ namespace ForumAgent.Queries
 
 			return new ModeratedItems
 			       	{
+						ForumIdentifier = forumId,
 			       		PageSize = pageSize,
 			       		Offset = offset,
-						ForumIdentifier = forumId,
-			       		TotalPosts = posts.Count,
+						TotalPosts = session.QueryOver<ModeratedPost>().Where(p => p.ForumIdentifier == forumId && !p.Approved).RowCount(),
 			       		Posts = posts
 			       	};
 		}

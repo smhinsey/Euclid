@@ -7,9 +7,9 @@ namespace ForumAgent.Processors
 {
 	public class RejectPostProcessor : DefaultCommandProcessor<RejectPost>
 	{
-		private readonly ISimpleRepository<Post> _repository;
+		private readonly ISimpleRepository<ModeratedPost> _repository;
 
-		public RejectPostProcessor(ISimpleRepository<Post> repository)
+		public RejectPostProcessor(ISimpleRepository<ModeratedPost> repository)
 		{
 			_repository = repository;
 		}

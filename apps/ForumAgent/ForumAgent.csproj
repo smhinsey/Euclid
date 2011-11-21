@@ -67,6 +67,7 @@
     <Compile Include="Processors\ApprovePostProcessor.cs" />
     <Compile Include="PostNotFoundException.cs" />
     <Compile Include="CommentNotFoundException.cs" />
+    <Compile Include="Processors\RejectCommentProcessor.cs" />
     <Compile Include="Processors\RejectPostProcessor.cs" />
     <Compile Include="Processors\SetForumThemeProcessor.cs" />
     <Compile Include="Processors\ActivateCategoryProcessor.cs" />

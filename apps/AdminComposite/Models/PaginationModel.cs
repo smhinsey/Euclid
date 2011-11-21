@@ -1,4 +1,6 @@
-﻿namespace AdminComposite.Models
+﻿using System;
+
+namespace AdminComposite.Models
 {
 	public class PaginationModel
 	{
@@ -9,6 +11,7 @@
 		public int TotalPosts { get; set; }
 		public bool WriteTable { get; set; }
 		public bool WriteTFoot { get; set; }
+		public Guid ForumIdentifier { get; set; }
 
 		public int CurrentPage
 		{

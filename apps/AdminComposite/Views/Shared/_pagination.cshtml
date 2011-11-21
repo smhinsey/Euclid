@@ -14,8 +14,8 @@
 		<tr>
 			<td>
 				<ul class="pagination">
-					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName)" class="button gray"><< first</a></li>
-					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { offset = paginationModel.PreviousPageOffset, pageSize = paginationModel.PageSize })" class="button gray">< prev</a></li>
+					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { forumId = paginationModel.ForumIdentifier })" class="button gray"><< first</a></li>
+					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { offset = paginationModel.PreviousPageOffset, pageSize = paginationModel.PageSize, forumId = paginationModel.ForumIdentifier })" class="button gray">< prev</a></li>
 
 					@if (paginationModel.ShowLeadingEllipsis)
 					{
@@ -28,11 +28,11 @@
 
 						if (offset >= 0)
 						{
-							<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new {offset, pageSize = paginationModel.PageSize})" class="button gray">@(paginationModel.CurrentPage + i)</a></li>
+							<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new {offset, pageSize = paginationModel.PageSize, forumId = paginationModel.ForumIdentifier })" class="button gray">@(paginationModel.CurrentPage + i)</a></li>
 						}
 					}
 
-					<li><a href="@Url.Action("Posts", "Moderation", new { @offset = paginationModel.Offset, pageSize = paginationModel.PageSize })" class="button">@paginationModel.CurrentPage</a></li>
+					<li><a href="@Url.Action(paginationModel.ActionName, "Moderation", new { @offset = paginationModel.Offset, pageSize = paginationModel.PageSize, forumId = paginationModel.ForumIdentifier })" class="button">@paginationModel.CurrentPage</a></li>
 
 					@for (var i = 1; i < 3; i++)
 					{
@@ -40,7 +40,7 @@
 
 						if (offset >= 0)
 						{
-							<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { offset, pageSize = paginationModel.PageSize })" class="button gray">@(paginationModel.CurrentPage + i)</a></li>
+							<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { offset, pageSize = paginationModel.PageSize, forumId = paginationModel.ForumIdentifier })" class="button gray">@(paginationModel.CurrentPage + i)</a></li>
 						}
 					}
 
@@ -49,8 +49,8 @@
 						<li class="hellip">...</li>
 					}
 							
-					<li><a href="@Url.Action("Posts", "Moderation", new { @offset = paginationModel.NextPageOffset, pageSize = paginationModel.PageSize })" class="button gray">next ></a></li>
-					<li><a href="@Url.Action("Posts", "Moderation", new { @offset = paginationModel.LastPageOffset, pageSize = paginationModel.PageSize })" class="button gray">last >></a></li>
+					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { @offset = paginationModel.NextPageOffset, pageSize = paginationModel.PageSize, forumId = paginationModel.ForumIdentifier })" class="button gray">next ></a></li>
+					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { @offset = paginationModel.LastPageOffset, pageSize = paginationModel.PageSize, forumId = paginationModel.ForumIdentifier })" class="button gray">last >></a></li>
 				</ul>
 			</td>
 		</tr>
