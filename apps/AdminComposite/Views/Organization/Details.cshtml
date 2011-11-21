@@ -42,9 +42,10 @@
 				});
 
 				$(item).click();
-				$("#trigger-edit").hide();
-				$("#save-edit").show();
-				$("#cancel-edit").show();
+				$("#trigger-edit").attr("disabled", "disabled");
+				$("#save-edit").removeAttr("disabled");
+				$("#save-edit").addClass("green");
+				$("#cancel-edit").removeAttr("disabled");
 			});
 		});
 
@@ -59,9 +60,8 @@
 				$(item).attr("data-original-value", value);
 				console.log(id + " = " + value);
 			});
-
+			
 			$("#update-form").submit();
-			resetEditableFields();
 		});
 
 
@@ -69,18 +69,6 @@
 			window.location.reload();
 		});
 	});
-
-	function resetEditableFields() {
-		$("#organization-details .organization-detail").each(function(index, item) {
-			item.reset();
-			$(item).editable("disable");
-			$(item).text($(item).attr('data-original-value'));
-		});
-
-		$("#trigger-edit").hide();
-		$("#save-edit").show();
-		$("#cancel-edit").show();
-	}
 
 	function deleteUser(userId) {
 		alert("deleteing user: " + userId);
@@ -145,8 +133,8 @@
 		</fieldset>
 
 		<button type="button" id="trigger-edit">Edit</button>
-		<button type="button" id="save-edit" class="green" style="display: none;">Save</button>
-		<button type="button" id="cancel-edit" style="display: none;">Cancel</button>
+		<button type="button" id="save-edit" disabled="disabled">Save</button>
+		<button type="button" id="cancel-edit" disabled="disabled">Cancel</button>
 	</form>
 
 	@using (Html.BeginFormForInputModel(Model, true, Url.Action("Details", "Organization", new {organizationId = Model.OrganizationIdentifier}), "update-form"))

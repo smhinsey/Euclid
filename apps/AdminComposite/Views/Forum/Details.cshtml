@@ -5,11 +5,79 @@
 	ViewBag.Title = Model.Name + " Details";
 }
 
+<script type="text/javascript" src="@Url.Content("~/Content/jeditable/jquery.jeditable.wysiwyg.js")"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#forum-name").focus();
+
+		$("#trigger-edit").click(function () {
+			$("#cancel-edit").removeAttr("disabled");
+			$("#save-settings").removeAttr("disabled");
+			$("#forum-moderated").removeAttr("disabled");
+			$("#forum-private").removeAttr("disabled");
+			// $("#deploy-settings").attr("disabled", "disabled");
+			$("#save-settings").addClass("green");
+			$("#trigger-edit").attr("disabled", "disabled");
+
+			$("#forum-settings .forum-setting").each(function (index, item) {
+				$(item).editable("enable");
+				var type = $(item).attr("id") == "forum-description" ? "wysiwyg" : "text";
+
+				$(item).editable(null, {
+					cssclass: "jeditable",
+					onblur: "ignore",
+					type: type
+				});
+
+				$(item).click();
+			});
+		});
+
+		$("#save-settings").click(function () {
+			$("#forum-settings .forum-setting").each(function (index, item) {
+				var id = item.id;
+				var value = "";
+
+				if (id == "forum-description") {
+					// from jquery.jeditable.wysiwyg.js
+					var iframe = $("iframe", this).get(0);
+					var inner_document = typeof (iframe.contentDocument) == 'undefined' ? iframe.contentWindow.document.body : iframe.contentDocument.body;
+					value = $(inner_document).html();
+				} else {
+					var inputSelector = "#" + id + " input";
+					value = $(inputSelector).val();
+				}
+
+				var updateSelector = "#update-" + id;
+				$(updateSelector).val(value);
+				console.log(id + " = " + value);
+			});
+
+			$("#update-forum-private").val($("#forum-private").is(":checked"));
+			$("#update-forum-moderated").val($("#forum-moderated").is(":checked"));
+			$("#update-form").submit();
+		});
+
+		$("#cancel-edit").click(function () {
+			window.location.reload();
+		});
 	});
 </script>
+
+<style>
+	.jeditable
+	{
+		margin: 0;
+		padding: 0;
+		display: inline;
+	}
+
+	.forum-setting
+	{
+		width: 200px;
+		/* display:inline block; */
+	}
+</style>
 
 <div class="article-container">
 	<article>
@@ -27,45 +95,54 @@
 	<section>
 			
 		<div id="test" class="tab default-tab">
-			@using (Html.BeginFormForInputModel(Model, true, Url.Action("Details", "Forum", new {forumId = Model.ForumIdentifier})))
-			{
-				@Html.HiddenFor(m => m.ForumIdentifier);
-				@Html.Hidden("orgSlug", (object)ViewBag.OrganizationSlug, null)
+			<form action="#">
 				<fieldset>
 					<legend>Forum Details</legend>
 						
-					<dl>
+					<dl id="forum-settings">
 						<dt><label for="forum-name">Name</label></dt>
-						<dd>@Html.TextBoxFor(m => m.Name, new { id = "forum-name" })</dd>
+						<dd class="text"><p class="forum-setting" id="forum-name">@Model.Name</p></dd>
 
 						<dt><label for="forum-slug">Slug</label></dt>
-						<dd>
-							@Html.TextBoxFor(m => m.UrlSlug, new { id = "forum-slug" })
+						<dd class="text">
+							<p class="forum-setting" id="forum-slug">@Model.UrlSlug</p>
 							<p><a href="#" id="generate-slug">generate slug</a></p>
 						</dd>
 
 						<dt><label for="forum-host">Host</label></dt>
-						<dd>
-							@Html.TextBoxFor(m => m.UrlHostName, new { id = "forum-host" })
+						<dd class="text">
+							<p class="forum-setting" id="forum-host">@Model.UrlHostName</p>
 							<p>Forum url: <b><span id="forum-url">@Model.UrlHostName/org/@ViewBag.OrganizationSlug/forum/@Model.UrlSlug</span></b></p>
 						</dd>
 
 						<dt><label for="forum-description">Description</label></dt>
-						<dd>
-							@Html.TextAreaFor(m => m.Description, new { id = "forum-description", @class = "wysiwyg", @readonly = "readonly" })
+						<dd class="text">
+							<span class="forum-setting" id="forum-description">@Html.Raw(Model.Description)</span>
 						</dd>
 
 						<dt class="checkbox"><label for="forum-private">Private</label></dt>
 						<dd>
-							@Html.CheckBoxFor(m => m.Private, new { id = "forum-private" })
+							@Html.CheckBoxFor(m => m.Private, new { id = "forum-private", disabled = "disabled" })
 						</dd>
 
 						<dt class="checkbox"><label for="forum-moderated">Moderated</label></dt>
 						<dd>
-							@Html.CheckBoxFor(m => m.Moderated, new { id = "forum-moderated" })
+							@Html.CheckBoxFor(m => m.Moderated, new { id = "forum-moderated", disabled = "disabled" })
 						</dd>
 					</dl>
 				</fieldset>
+			</form>
+				@using (Html.BeginFormForInputModel(Model, true, Url.Action("Details", "Forum", new { forumId = Model.ForumIdentifier }), "update-form"))
+				{
+					@Html.HiddenFor(m => m.ForumIdentifier);
+					@Html.Hidden("orgSlug", (object)ViewBag.OrganizationSlug, null)
+					@Html.HiddenFor(m => m.Moderated, new { id = "update-forum-moderated"})
+					@Html.HiddenFor(m => m.Private, new { id = "update-forum-private" })
+					@Html.HiddenFor(m => m.Description, new { id = "update-forum-description" })
+					@Html.HiddenFor(m => m.UrlHostName, new { id = "update-forum-host" })
+					@Html.HiddenFor(m => m.UrlSlug, new { id = "update-forum-slug" })
+					@Html.HiddenFor(m => m.Name, new { id = "update-forum-name" })
+				}
 
 @*				<fieldset>
 					<legend>Other Settings to Copy</legend>
@@ -88,9 +165,10 @@
 					</dl>
 				</fieldset>*@
 
-				<button type="submit">Save Settings</button>
-				<button type="submit" disabled="disabled">Deploy to Production</button>
-			}
+				<button id="trigger-edit" type="button">Edit</button>
+				<button id="save-settings" type="submit" disabled="disabled">Save Settings</button>
+				<button id="cancel-edit" type="button" disabled="disabled">Cancel</button>
+				<button id="deploy-settings" type="submit" disabled="disabled">Deploy to Production</button>
 		</div>
 
 		<div id="production" class="tab" style="display: none">

@@ -115,9 +115,9 @@ section[role=navigation] header {
 	padding-left:25px;
 }
 section[role=navigation] header a {
-	background:url('../img/logo.jpg') no-repeat;
+	background:url('../../../content/logo_3.jpg') no-repeat;
 	width:200px;
-	height:151px;
+	height:65px;
 	text-indent:-9999em;
 	display:block;
 }
@@ -1423,9 +1423,9 @@ table .actions .delete { background:url('../img/icons/icon_table_delete.png') no
 	background:none;
 }
 .login section[role=main] > a {
-	background:url('../img/logo.jpg') no-repeat;
+	background:url('../../../content/logo_3.jpg') no-repeat;
 	width:200px;
-	height:151px;
+	height:60px;
 	text-indent:-9999em;
 	display:block;
 }
