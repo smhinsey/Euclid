@@ -33,7 +33,7 @@ namespace AdminComposite.Controllers
 
 			return View(new CreateForumInputModel
 			            	{
-			            		UrlHostName = "socialrally.com",
+			            		UrlHostName = "newco-forums.com",
 			            		OrganizationId = ViewBag.OrganizationId,
 			            		Description = " ",
 								CreatedBy = userId,

@@ -19,11 +19,6 @@ namespace ForumAgent.Processors
 		{
 			var forum = _forumRepository.FindById(message.ForumIdentifier);
 
-			if (forum == null)
-			{
-				throw new ForumNotFoundException(string.Format("Unable to set theme for forum with id {0}", message.ForumIdentifier));
-			}
-
 			forum.Theme = message.ThemeName;
 			forum.Modified = DateTime.Now;
 

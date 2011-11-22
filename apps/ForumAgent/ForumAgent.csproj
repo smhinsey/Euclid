@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentInfo.cs" />
+    <Compile Include="CategoryNotFoundException.cs" />
     <Compile Include="Commands\ActivateCategory.cs" />
     <Compile Include="Commands\ActivateContent.cs" />
     <Compile Include="Commands\ApproveComment.cs" />
@@ -63,19 +64,20 @@
     <Compile Include="Commands\RejectComment.cs" />
     <Compile Include="Commands\RejectPost.cs" />
     <Compile Include="Commands\SetForumTheme.cs" />
+    <Compile Include="CommentNotFoundException.cs" />
+    <Compile Include="ContentNotFoundException.cs" />
+    <Compile Include="ForumContentNotFoundException.cs" />
+    <Compile Include="ForumNotFoundException.cs" />
+    <Compile Include="OrganizationNotFoundException.cs" />
+    <Compile Include="PostNotFoundException.cs" />
     <Compile Include="Processors\ApproveCommentProcessor.cs" />
     <Compile Include="Processors\ApprovePostProcessor.cs" />
-    <Compile Include="PostNotFoundException.cs" />
-    <Compile Include="CommentNotFoundException.cs" />
     <Compile Include="Processors\RejectCommentProcessor.cs" />
     <Compile Include="Processors\RejectPostProcessor.cs" />
     <Compile Include="Processors\SetForumThemeProcessor.cs" />
     <Compile Include="Processors\ActivateCategoryProcessor.cs" />
     <Compile Include="Processors\ActivateContentProcessor.cs" />
     <Compile Include="Commands\BlockUser.cs" />
-    <Compile Include="CategoryNotFoundException.cs" />
-    <Compile Include="ForumContentNotFoundException.cs" />
-    <Compile Include="ContentNotFoundException.cs" />
     <Compile Include="Commands\CreateCategory.cs" />
     <Compile Include="Processors\CreateForumContentProcessor.cs" />
     <Compile Include="Commands\CreateForumContent.cs" />
@@ -98,14 +100,12 @@
     <Compile Include="Commands\UpdateOrganization.cs" />
     <Compile Include="Commands\UpdateOrganizationUser.cs" />
     <Compile Include="Domain\MyAggregateRoot.cs" />
-    <Compile Include="OrganizationNotFoundException.cs" />
     <Compile Include="Processors\BlockUserProcessor.cs" />
     <Compile Include="Processors\CreateForumProcessor.cs" />
     <Compile Include="Processors\CreateOrganizationAndRegisterUserProcessor.cs" />
     <Compile Include="Processors\RegisterForumUserProcessor.cs" />
     <Compile Include="Commands\UpdateUserProfile.cs" />
     <Compile Include="Processors\RegisterOrganizationUserProcessor.cs" />
-    <Compile Include="ForumNotFoundException.cs" />
     <Compile Include="Processors\UpdateForumDetailsProcessor.cs" />
     <Compile Include="Processors\UpdateForumVotingSchemeProcessor.cs" />
     <Compile Include="Processors\UpdateOrganizationUserLastLoginProcessor.cs" />
@@ -117,10 +117,11 @@
     <Compile Include="Processors\PublishPostProcessor.cs" />
     <Compile Include="Queries\ModeratedCommentQueries.cs" />
     <Compile Include="Queries\ModeratedPostQueries.cs" />
+    <Compile Include="Queries\ThemeQueries.cs" />
+    <Compile Include="ReadModels\ForumTheme.cs" />
     <Compile Include="ReadModels\ModeratedComment.cs" />
     <Compile Include="ReadModels\ModeratedItems.cs" />
     <Compile Include="ReadModels\ModeratedPost.cs" />
-    <Compile Include="UserNotFoundException.cs" />
     <Compile Include="Processors\VoteOnCommentProcessor.cs" />
     <Compile Include="Processors\VoteOnPostProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Domain\Entities\OrganizationEntity.cs" />
     <Compile Include="Domain\Entities\Maps\OrganizationMap.cs" />
     <Compile Include="Domain\Entities\Maps\OrganizationUserMap.cs" />
+    <Compile Include="UserNotFoundException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\common\Euclid.Common.Messaging\Euclid.Common.Messaging.csproj">

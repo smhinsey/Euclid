@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AdminComposite.Models;
 using Euclid.Common.Messaging;
@@ -12,14 +12,13 @@ namespace AdminComposite.Controllers
 	[Authorize]
 	public class ThemeController : Controller
 	{
-		private const string ThemePathFormat = "~/Content/chromatron/img/forum-themes/{0}.png";
 		private readonly ForumQueries _forumQueries;
-		private readonly IPublisher _publisher;
-
-		public ThemeController(ForumQueries forumQueries, IPublisher publisher)
+		private readonly ThemeQueries _themeQueries;
+		
+		public ThemeController(ForumQueries forumQueries, ThemeQueries themeQueries)
 		{
 			_forumQueries = forumQueries;
-			_publisher = publisher;
+			_themeQueries = themeQueries;
 		}
 
 		public ActionResult List(Guid forumId)
@@ -27,39 +26,16 @@ namespace AdminComposite.Controllers
 			Forum forum = _forumQueries.FindById(forumId);
 			ViewBag.ForumName = forum.Name;
 
-			var model = new SetForumThemeInputModel
+			var availableThemes = _themeQueries.GetForumThemes(forumId);
+			var currentTheme = availableThemes.Where(t => t.IsCurrent).FirstOrDefault();
+
+			return View(new ForumThemeInputModel
 			            	{
 			            		ForumIdentifier = forumId,
-			            		CurrentTheme =
-			            			new Tuple<string, string>(forum.Theme, Url.Content(string.Format(ThemePathFormat, forum.Theme))),
-			            		AvailableThemes =
-			            			new List<Tuple<string, string>>
-			            				{
-			            					new Tuple<string, string>
-			            						("Swiss", Url.Content(string.Format(ThemePathFormat, "swiss"))),
-			            					new Tuple<string, string>
-			            						("Swiss-Blue", Url.Content(string.Format(ThemePathFormat, "swiss-blue"))),
-			            					new Tuple<string, string>
-			            						("Swiss-Green", Url.Content(string.Format(ThemePathFormat, "swiss-green"))),
-			            					new Tuple<string, string>
-			            						("Swiss-Purple", Url.Content(string.Format(ThemePathFormat, "swiss-purple"))),
-			            					new Tuple<string, string>
-			            						("No-Theme", Url.Content(string.Format(ThemePathFormat, "no-theme")))
-			            				}
-			            	};
-
-			return View(model);
-		}
-
-		public JsonResult SetForumTheme(Guid forumId, string theme)
-		{
-			Guid publicationId = _publisher.PublishMessage(new SetForumTheme
-			                                               	{
-			                                               		ForumIdentifier = forumId,
-			                                               		ThemeName = theme
-			                                               	});
-
-			return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
+								AvailableThemes = availableThemes,
+								SelectedTheme = (currentTheme == null) ? string.Empty : currentTheme.Name,
+								SelectedPreviewUrl = (currentTheme == null) ? string.Empty : currentTheme.PreviewUrl
+			            	});
 		}
 	}
 }

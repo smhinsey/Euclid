@@ -152,6 +152,12 @@ namespace AdminComposite
 
 			composite.RegisterInputModelMap<CreateForumContentInputModel, CreateForumContent>();
 			composite.RegisterInputModelMap<UpdateForumContentInputModel, UpdateForumContent>();
+
+			composite.RegisterInputModelMap<ForumThemeInputModel, SetForumTheme>(input=>new SetForumTheme
+			                                                                            	{
+			                                                                            		ForumIdentifier = input.ForumIdentifier,
+																								ThemeName = input.SelectedTheme
+			                                                                            	});
 			setAzureCredentials(container);
 
 			_initialized = true;

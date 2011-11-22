@@ -164,9 +164,9 @@
     <Compile Include="Models\CreateForumInputModel.cs" />
     <Compile Include="Models\CreateOrganizationAndRegisterUserInputModel.cs" />
     <Compile Include="ActionFilters\PopulateAdminWideViewBag.cs" />
+    <Compile Include="Models\ForumThemeInputModel.cs" />
     <Compile Include="Models\PaginationModel.cs" />
     <Compile Include="Models\RegisterOrganizationUserInputModel.cs" />
-    <Compile Include="Models\SetForumThemeInputModel.cs" />
     <Compile Include="Models\SetVotingSchemeInputModel.cs" />
     <Compile Include="Models\UpdateCategoryInputModel.cs" />
     <Compile Include="Models\UpdateForumContentInputModel.cs" />
