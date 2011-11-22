@@ -66,7 +66,7 @@ namespace AdminComposite.ActionFilters
 					throw new OrganizationNotFoundException(currentUser.OrganizationIdentifier);
 				}
 
-				filterContext.Controller.ViewBag.Forums = ForumQueries.GetForums();
+				filterContext.Controller.ViewBag.Forums = ForumQueries.FindByOrganization(organization.Identifier);
 				filterContext.Controller.ViewBag.CurrentForumId = filterContext.GetRequestValue("forumId");
 				filterContext.Controller.ViewBag.OrganizationId = organization.Identifier;
 				filterContext.Controller.ViewBag.OrganizationSlug = organization.Slug;
