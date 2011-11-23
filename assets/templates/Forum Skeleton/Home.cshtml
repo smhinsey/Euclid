@@ -91,7 +91,7 @@
             <li><a href="#">Example Category</a></li>
           </ul>
           <h2>Tags</h2>
-          <p><small>This should eventually be a tag cloud or something like that.</small></p>
+          <p><small>(Tag cloud here.)</small></p>
           <ul>
             <li><a href="#">Link</a></li>
             <li><a href="#">Link</a></li>
@@ -106,54 +106,75 @@
         
         <div class="alert-message block-message warning fade in" data-alert="alert">
           <a class="close" href="#">×</a>
-          <p class="alert-message-text"><h2>Hello, world!</h2> Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+          <p class="alert-message-text"><h2>Hello, world!</h2> This is something a user only needs to see occasionally and can be closed. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
           <div class="alert-actions">
             <a class="btn medium primary" href="#">Go register!</a>
           </div>
         </div>
+        
+        <div>
+          <p><small>(Sorting, etc. controls here.)</small></p>
+        </div>
 
-        <!-- Example row of columns -->
+        <!-- top posts -->
         <div class="row">
-          <div class="span6">
-            <h2>Heading</h2>
-            <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-          </div>
-          <div class="span5">
-            <h2>Heading</h2>
-             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-         </div>
-          <div class="span5">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-          </div>
+            <div class="span6">
+                <h2>{Post Title}</h2>           
+                <p>This is a listing of the top 6 posts across all forums. This post is the top overall, and they decrease left to right. Lower ranked posts display shorter text excerpts. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+                <div class="row">
+                    <div class="span3"><a class="btn primary" href="#">Post Comment &raquo;</a></div>
+                    <div class="span3" style="padding-top: 7px; text-align: right;"><a href="#">View Comments</a></div>
+                </div>                
+            </div>
+            <div class="span5">
+                <h2>{Post Title}</h2>           
+                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                <div class="row">
+                    <div class="span3"><a class="btn primary" href="#">Post Comment &raquo;</a></div>
+                    <div class="span2" style="padding-top: 7px; text-align: right;"><a href="#">View Comments</a></div>
+                </div>  
+            </div>
+            <div class="span5">
+                <h2>{Post Title}</h2>           
+                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                <div class="row">
+                    <div class="span3"><a class="btn primary" href="#">Post Comment &raquo;</a></div>
+                    <div class="span2" style="padding-top: 7px; text-align: right;"><a href="#">View Comments</a></div>
+                </div>  
+            </div>
         </div>
 
         <hr>
 
-        <!-- Example row of columns -->
         <div class="row">
-          <div class="span6">
-            <h2>Heading</h2>
-            <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-          </div>
-          <div class="span5">
-            <h2>Heading</h2>
-             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-         </div>
-          <div class="span5">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn" href="#">View details &raquo;</a></p>
-          </div>
+            <div class="span6">
+                <h3>{Post Title}</h3>           
+                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                <div class="row">
+                    <div class="span3"><a class="btn small primary" href="#">Post Comment &raquo;</a></div>
+                    <div class="span3" style="padding-top: 7px; text-align: right;"><a href="#">View Comments</a></div>
+                </div>                
+            </div>
+            <div class="span5">
+                <h3>{Post Title}</h3>           
+                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+                <div class="row">
+                    <div class="span3"><a class="btn small primary" href="#">Post Comment &raquo;</a></div>
+                    <div class="span2" style="padding-top: 7px; text-align: right;"><a href="#">View Comments</a></div>
+                </div>  
+            </div>
+            <div class="span5">
+                <h3>{Post Title}</h3>           
+                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+                <div class="row">
+                    <div class="span3"><a class="btn small primary" href="#">Post Comment &raquo;</a></div>
+                    <div class="span2" style="padding-top: 7px; text-align: right;"><a href="#">View Comments</a></div>
+                </div>  
+            </div>
         </div>
 
         <footer>
-          <p>&copy; Company 2011</p>
+          <p>&copy; Newco 2011-12</p>
         </footer>
       </div>
     </div>
