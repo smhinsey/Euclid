@@ -7,12 +7,15 @@
 
 	var openTFoot = (paginationModel.WriteTFoot) ? "<tfoot>" : string.Empty;
 	var closeTFoot = (paginationModel.WriteTFoot) ? "</tfoot>" : string.Empty;
+
+	var openTr = (paginationModel.WriteTr) ? "<tr>" : string.Empty;
+	var closeTr = (paginationModel.WriteTr) ? "</tr>" : string.Empty;
 }
 
 @Html.Raw(openTable)
 	@Html.Raw(openTFoot)
-		<tr>
-			<td>
+		@Html.Raw(openTr)
+			<td @if(paginationModel.ColSpan > 0) { <text>colspan="@paginationModel.ColSpan"</text>}>
 				<ul class="pagination">
 					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { forumId = paginationModel.ForumIdentifier })" class="button gray"><< first</a></li>
 					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { offset = paginationModel.PreviousPageOffset, pageSize = paginationModel.PageSize, forumId = paginationModel.ForumIdentifier })" class="button gray">< prev</a></li>
@@ -32,7 +35,7 @@
 						}
 					}
 
-					<li><a href="@Url.Action(paginationModel.ActionName, "Moderation", new { @offset = paginationModel.Offset, pageSize = paginationModel.PageSize, forumId = paginationModel.ForumIdentifier })" class="button">@paginationModel.CurrentPage</a></li>
+					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { @offset = paginationModel.Offset, pageSize = paginationModel.PageSize, forumId = paginationModel.ForumIdentifier })" class="button">@paginationModel.CurrentPage</a></li>
 
 					@for (var i = 1; i < 3; i++)
 					{
@@ -53,6 +56,6 @@
 					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new { @offset = paginationModel.LastPageOffset, pageSize = paginationModel.PageSize, forumId = paginationModel.ForumIdentifier })" class="button gray">last >></a></li>
 				</ul>
 			</td>
-		</tr>
+		@Html.Raw(closeTr)
 	@Html.Raw(closeTFoot)
 @Html.Raw(closeTable)

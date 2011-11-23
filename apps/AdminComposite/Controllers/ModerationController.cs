@@ -108,10 +108,11 @@ namespace AdminComposite.Controllers
 											ActionName = "Items",
 											ControllerName = "Moderation",
 											Offset =offset,
-											TotalPosts = totalPosts,
+											TotalItems = totalPosts,
 											PageSize = pageSize,
 											WriteTFoot = true,
 											WriteTable = true,
+											WriteTr = true,
 											ForumIdentifier = forumId
 										};
 		}

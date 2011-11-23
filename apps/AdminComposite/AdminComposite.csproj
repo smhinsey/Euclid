@@ -159,6 +159,7 @@
     </Compile>
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Models\CreateBadgeInputModel.cs" />
     <Compile Include="Models\CreateCategoryInputModel.cs" />
     <Compile Include="Models\CreateForumContentInputModel.cs" />
     <Compile Include="Models\CreateForumInputModel.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Models\PaginationModel.cs" />
     <Compile Include="Models\RegisterOrganizationUserInputModel.cs" />
     <Compile Include="Models\SetVotingSchemeInputModel.cs" />
+    <Compile Include="Models\UpdateBadgeInputModel.cs" />
     <Compile Include="Models\UpdateCategoryInputModel.cs" />
     <Compile Include="Models\UpdateForumContentInputModel.cs" />
     <Compile Include="Models\UpdateForumInputModel.cs" />
@@ -588,6 +590,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\bluejay.custom.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Badge\_UpdateBadge.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

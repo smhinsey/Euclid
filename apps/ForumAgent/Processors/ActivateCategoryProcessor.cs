@@ -18,12 +18,6 @@ namespace ForumAgent.Processors
 		public override void Process(ActivateCategory message)
 		{
 			var category = _categoryRepository.FindById(message.CategoryIdentifier);
-
-			if (category == null)
-			{
-				throw new CategoryNotFoundException(string.Format("Unable to activate the category with id '{0}'", message.CategoryIdentifier));
-			}
-
 			category.Modified = DateTime.Now;
 			category.Active = message.Active;
 

@@ -158,6 +158,9 @@ namespace AdminComposite
 			                                                                            		ForumIdentifier = input.ForumIdentifier,
 																								ThemeName = input.SelectedTheme
 			                                                                            	});
+
+			composite.RegisterInputModelMap<CreateBadgeInputModel, CreateBadge>();
+			composite.RegisterInputModelMap<UpdateBadgeInputModel, UpdateBadge>();
 			setAzureCredentials(container);
 
 			_initialized = true;

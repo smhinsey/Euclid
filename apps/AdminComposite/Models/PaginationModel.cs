@@ -8,9 +8,11 @@ namespace AdminComposite.Models
 		public string ActionName { get; set; }
 		public int Offset { get; set; }
 		public int PageSize { get; set; }
-		public int TotalPosts { get; set; }
+		public int TotalItems { get; set; }
 		public bool WriteTable { get; set; }
 		public bool WriteTFoot { get; set; }
+		public bool WriteTr { get; set; }
+		public int ColSpan { get; set; }
 		public Guid ForumIdentifier { get; set; }
 
 		public int CurrentPage
@@ -20,7 +22,7 @@ namespace AdminComposite.Models
 
 		public int TotalPages
 		{
-			get { return TotalPosts/PageSize; }
+			get { return TotalItems/PageSize; }
 		}
 
 		public bool ShowLeadingEllipsis
@@ -40,12 +42,12 @@ namespace AdminComposite.Models
 
 		public int NextPageOffset
 		{
-			get { return Offset + PageSize > TotalPosts - 1 ? TotalPosts - PageSize : Offset + PageSize; }
+			get { return Offset + PageSize > TotalItems - 1 ? TotalItems - PageSize : Offset + PageSize; }
 		}
 
 		public int LastPageOffset
 		{
-			get { return TotalPosts - PageSize; }
+			get { return TotalItems - PageSize; }
 		}
 
 		public int FirstPageOffset

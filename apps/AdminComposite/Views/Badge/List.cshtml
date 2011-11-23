@@ -1,12 +1,16 @@
-﻿@model object
+﻿@using AdminComposite.Models
+@using ForumAgent.ReadModels
+@model IList<ForumBadge>
 @{
 	ViewBag.Title = "Custom Badges";
+	((PaginationModel) ViewBag.Pagination).ColSpan = 4;
 }
 <script type="text/javascript">
+	var forumId = "@ViewContext.RouteData.Values["forumId"]";
 	$(document).ready(function() {
 		$("#create-badge").click(function() {
 			$("<div></div>")
-				.load("/Badge/NewBadge/@ViewContext.RouteData.Values["forumId"]")
+				.load("/Badge/NewBadge/" + forumId)
 				.modal({
 						autoResize: true,
 						autoPosition: true,
@@ -17,7 +21,38 @@
 
 			return false;
 		});
+
+		$("#save").click(function() {
+			$(this).attr("disabled", "disabled");
+			
+			$(".badge-active").each(function(index, item) {
+				var badgeId = $(item).attr("data-item-id");
+				$.get("/Badge/ActivateBadge?badgeId=" + badgeId + "&active=" + $(item).is(":checked"));
+			});
+
+			setTimeout("enableSaveButton()", 750);
+		});
+
+		$(".edit").click(function() {
+			var badgeId = $(this).attr("data-item-id");
+
+			$("<div></div>")
+				.load("@Url.Action("UpdateBadge")?badgeId=" + badgeId)
+				.modal({
+						autoResize: true,
+						autoPosition: true,
+						position: new Array(25, 300),
+						dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 485, width: 635 },
+						containerCss: { height: 500, width: 650 }
+					});
+			return false;
+		});
 	});
+	
+	
+	function enableSaveButton() {
+		$("#save").removeAttr('disabled');
+	}
 </script>
 <article>
 	<header>
@@ -41,80 +76,30 @@
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="5">
+				<td>
 					<ul class="button-switch">
-						<li><button type="submit" id="save">Save</button></li>
+						<li><button type="button" id="save">Save</button></li>
 					</ul>
 				</td>
+				@Html.Partial("_pagination")
 			</tr>
 		</tfoot>
 		<tbody>
-			<tr>
-				<td><input type="checkbox"/></td>
-				<td>Lifetime Achievement Award</td>
-				<td>Total Points greater than 100</td>
-				<td>(image)</td>
-				<td>
-					<ul class="actions">
-						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"/></td>
-				<td>Key Contributor</td>
-				<td>Total Points greater than 100</td>
-				<td>(image)</td>
-				<td>
-					<ul class="actions">
-						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"/></td>
-				<td>I've Got Something to Say</td>
-				<td>Total Points greater than 100</td>
-				<td>(image)</td>
-				<td>
-					<ul class="actions">
-						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"/></td>
-				<td>Conversation Starter</td>
-				<td>Total Points greater than 100</td>
-				<td>(image)</td>
-				<td>
-					<ul class="actions">
-						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"/></td>
-				<td>Well Received Post</td>
-				<td>Total Points greater than 100</td>
-				<td>(image)</td>
-				<td>
-					<ul class="actions">
-						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"/></td>
-				<td>The Never Ending Thread</td>
-				<td>Total Points greater than 100</td>
-				<td>(image)</td>
-				<td>
-					<ul class="actions">
-						<li><a class="edit" rel="tooltip" href="#" original-title="Edit">Edit</a></li>
-					</ul>
-				</td>
-			</tr>
+			@foreach (var badge in Model)
+			{
+				<tr>
+					<td>@Html.CheckBoxFor(m => badge.Active, new { @class = "badge-active", data_item_id = @badge.Identifier })</td>
+					<td>@badge.Name</td>
+					<td>@badge.Field @badge.Operator @badge.Value</td>
+					<td>@if (!string.IsNullOrEmpty(badge.ImageUrl)) { <text><img src="@badge.ImageUrl" alt="badge image" /></text>}else {<text>&nbsp;</text>}</td>
+					<td>
+						<ul class="actions">
+							<li><a class="edit" rel="tooltip" href="#" data-item-id="@badge.Identifier" original-title="Edit">Edit</a></li>
+						</ul>
+					</td>
+				</tr>
+			}
+
 		</tbody>
 	</table>
 </article>

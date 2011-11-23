@@ -40,14 +40,15 @@ namespace ForumAgent.Processors
 
 			var approvedPost = new Post
 			                   	{
+									Identifier = post.Identifier,
 			                   		AuthorDisplayName = post.AuthorDisplayName,
-			                   		Created = DateTime.Now,
+			                   		Created = post.Created,
 			                   		AuthorIdentifier = post.AuthorIdentifier,
 			                   		ForumIdentifier = post.ForumIdentifier,
 			                   		CommentCount = post.CommentCount,
 			                   		Body = post.Body,
 			                   		CategoryIdentifier = post.CategoryIdentifier,
-			                   		Modified = (DateTime)SqlDateTime.MinValue,
+			                   		Modified = post.Modified,
 			                   		Score = post.Score,
 			                   		Title = post.Title
 			                   	};
