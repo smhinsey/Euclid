@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{Forum Name} Home</title>
+    <title>{Forum Name} - Controversial Posts</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -12,16 +12,34 @@
 
     <!-- Le styles -->
     <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="styles/jqcloud.css">
     <link rel="stylesheet" href="styles/custom.css">
 
     <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
     <script src="scripts/bootstrap-alerts.js"></script>
     <script src="scripts/bootstrap-buttons.js"></script>
     <script src="scripts/bootstrap-modal.js"></script>
+    <script src="scripts/jqcloud-0.2.8.js"></script>
         
     <script>
+        var tag_cloud = [
+            {text: "Tag", weight: 1, url: "#tag"},
+            {text: "Another Tag", weight: 2, url: "#another-tag"},
+            {text: "Green", weight: 3, url: "#green"},
+            {text: "Favorites", weight: 4, url: "#favorites"},
+            {text: "Cars", weight: 6, url: "#cars"},
+            {text: "Arbitrary", weight: 4, url: "#favorites"},
+            {text: "Bars", weight: 6, url: "#cars"},
+            {text: "Hoaxes", weight: 5, url: "#hoaxes"},
+            {text: "Bats", weight: 6, url: "#cars"},
+            {text: "Marathon", weight: 2, url: "#another-tag"},
+            {text: "Jokes", weight: 7, url: "#jokes"},
+        ];    
+
         $(document).ready(function() {
-            $(".alert-message").alert()
+            $(".alert-message").alert();
+            
+            $("#tagCloud").jQCloud(tag_cloud);
         });
     </script>
   </head>
@@ -73,15 +91,7 @@
             <li><a href="#">Example Category</a> (10)</li>
           </ul>
           <h3>Tags</h3>
-          <p><small>(Tag cloud here.)</small></p>
-          <ul>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-            <li><a href="#">Link</a></li>
-          </ul>
+          <div id="tagCloud" style="height: 175px; width: 150px; position: relative;"></div>
         </div>
       </div>
       <div class="content">
