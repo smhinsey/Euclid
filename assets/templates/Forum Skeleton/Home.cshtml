@@ -12,27 +12,8 @@
 
     <!-- Le styles -->
     <link rel="stylesheet" href="styles/bootstrap.css">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-      }
-    
-    .badge-labels
-    {
-        vertical-align: top;
-    }
-    
-    .badge-username
-    {
-        line-height: 25px;
-    }
-    
-    .alert-actions
-    {
-        margin-top: 15px !important;
-    }
-    </style>
-        
+    <link rel="stylesheet" href="styles/custom.css">
+
     <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
     <script src="scripts/bootstrap-alerts.js"></script>
     <script src="scripts/bootstrap-buttons.js"></script>
@@ -113,9 +94,11 @@
           </div>
         </div>
         
-        <div>
-          <p><small>(Sorting, etc. controls here.)</small></p>
-        </div>
+        <ul class="tabs">
+            <li class="active"><a href="#">Top Posts</a></li>
+            <li><a href="#">Recent Posts</a></li>
+            <li><a href="#">All Posts</a></li>
+        </ul>
 
         <!-- top posts -->
         <div class="row">
@@ -174,7 +157,23 @@
                 </div>  
             </div>
         </div>
+            
+        <hr>
 
+        <div class="pagination">
+            <ul>
+                <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li class="disabled"><a href="#">...</a></li>
+                <li><a href="#">45</a></li>
+                <li><a href="#">46</a></li>
+                <li><a href="#">47</a></li>
+                <li class="next"><a href="#">Next &rarr;</a></li>
+            </ul>
+        </div>
+            
         <footer>
           <p>&copy; Newco 2011-12</p>
         </footer>
