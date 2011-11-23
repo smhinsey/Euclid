@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{Forum Name} Home</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="styles/bootstrap.css">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    
+    .badge-labels
+    {
+        vertical-align: top;
+    }
+    
+    .badge-username
+    {
+        line-height: 25px;
+    }
+    
+    .alert-actions
+    {
+        margin-top: 15px !important;
+    }
+    </style>
+        
+    <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+    <script src="scripts/bootstrap-alerts.js"></script>
+    <script src="scripts/bootstrap-buttons.js"></script>
+    <script src="scripts/bootstrap-modal.js"></script>
+        
+    <script>
+        $(document).ready(function() {
+            $(".alert-message").alert()
+        });
+    </script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="container-fluid">
+          <a class="brand" href="#">{Forum Name}</a>
+          <ul class="nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="#about">Categories</a></li>
+            <li><a href="#about">Search</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <form action="" class="pull-right">
+            <input class="input-small" type="text" placeholder="Username">
+            <input class="input-small" type="password" placeholder="Password">
+            <button class="btn" type="submit">Sign in</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="sidebar">
+        <div class="well">
+            <div class="row">
+                <div class="span1 badge-avatar">
+                     <img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=50"/> 
+                </div>
+                <div class="span2 badge-labels">
+                    <h3 class="badge-username">{Username}</h3>
+                    <p class="badge-points">25 points</p>
+                </div>
+            </div>                      
+        </div>
+        <div class="well">
+          <h2>Categories</h2>
+          <ul>
+            <li><a href="#">Category</a></li>
+            <li><a href="#">Another Category</a></li>
+            <li><a href="#">Creative Category</a></li>
+            <li><a href="#">Unmoderated Forum</a></li>
+            <li><a href="#">Placeholder Category</a></li>
+            <li><a href="#">Example Category</a></li>
+          </ul>
+          <h2>Tags</h2>
+          <p><small>This should eventually be a tag cloud or something like that.</small></p>
+          <ul>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        
+        <div class="alert-message block-message warning fade in" data-alert="alert">
+          <a class="close" href="#">×</a>
+          <p class="alert-message-text"><h2>Hello, world!</h2> Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+          <div class="alert-actions">
+            <a class="btn medium primary" href="#">Go register!</a>
+          </div>
+        </div>
+
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="span6">
+            <h2>Heading</h2>
+            <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+          </div>
+          <div class="span5">
+            <h2>Heading</h2>
+             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+         </div>
+          <div class="span5">
+            <h2>Heading</h2>
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="span6">
+            <h2>Heading</h2>
+            <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+          </div>
+          <div class="span5">
+            <h2>Heading</h2>
+             <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+         </div>
+          <div class="span5">
+            <h2>Heading</h2>
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <p><a class="btn" href="#">View details &raquo;</a></p>
+          </div>
+        </div>
+
+        <footer>
+          <p>&copy; Company 2011</p>
+        </footer>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -20,12 +20,7 @@ namespace ForumComposite
 			routes.MapRoute(
 				"Forum",
 				"org/{orgSlug}/forum/{forumSlug}/{controller}/{action}/{id}",
-				new
-					{
-						controller = "Post",
-						action = "List",
-						id = UrlParameter.Optional
-					});
+				new { controller = "Post", action = "List", id = UrlParameter.Optional });
 		}
 
 		protected void Application_Start()
