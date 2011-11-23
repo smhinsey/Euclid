@@ -138,6 +138,7 @@
     <Content Include="Content\jquery.timers-1.2.js" />
     <Content Include="Content\logo.jpg" />
     <Content Include="Content\chromatron\img\logo2.jpg" />
+    <Content Include="Content\logo_3.jpg" />
     <Content Include="Content\logo_3.png" />
     <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.min.js" />
     <Content Include="Content\admin-ui.js" />
@@ -163,9 +164,9 @@
     <Compile Include="Models\CreateForumInputModel.cs" />
     <Compile Include="Models\CreateOrganizationAndRegisterUserInputModel.cs" />
     <Compile Include="ActionFilters\PopulateAdminWideViewBag.cs" />
+    <Compile Include="Models\ForumThemeInputModel.cs" />
     <Compile Include="Models\PaginationModel.cs" />
     <Compile Include="Models\RegisterOrganizationUserInputModel.cs" />
-    <Compile Include="Models\SetForumThemeInputModel.cs" />
     <Compile Include="Models\SetVotingSchemeInputModel.cs" />
     <Compile Include="Models\UpdateCategoryInputModel.cs" />
     <Compile Include="Models\UpdateForumContentInputModel.cs" />
@@ -586,10 +587,7 @@
     <Content Include="Views\Moderation\_list.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\bluejay.custom.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Config\bluejay.custom.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

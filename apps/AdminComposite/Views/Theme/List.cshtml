@@ -1,76 +1,70 @@
 ﻿@using AdminComposite.Models
-@model SetForumThemeInputModel
+@using Euclid.Composites.Mvc.Extensions
+@model ForumThemeInputModel
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#theme-selector").change(function () {
-			var src = $("#theme-selector option:selected").attr("data-preview-image");
+			var selected = $("#theme-selector option:selected");
+			var src = selected.attr("data-preview-image");
 			
-			$("#unselected-preview").hide();
-			$("#theme-preview").show();
 			$("#theme-preview").attr("src", src);
+			$("#selected-theme").val(selected.val());
 		});
-		
+
 		$("#edit-theme").click(function () {
+			$("#theme-selector").removeAttr("disabled");
+
 			$("#edit-theme").hide();
 			$("#save-theme").show();
 			$("#cancel-edit").show();
-//			$("#save-theme").removeAttr("disabled");
-//			$("#theme-selector").removeAttr("disabled");
-//			$("#cancel-edit").removeAttr("disabled");
-//			$("#edit-theme").attr("disabled", "disabled");
+			$("#selected-theme").val("");
 		});
 
 		$("#save-theme").click(function () {
-			var selectedTheme = $("#theme-selector").val();
-			var selectedThemeText = $("#theme-selector option:selected").text() + " -- current theme";
-			
-			$.get(
-				"@Url.Action("SetForumTheme")", 
-				{ forumId: "@Model.ForumIdentifier", theme: selectedTheme }, 
-				function () {
-					setTimeout("window.location.reload()", 250);
-				}
-			);
+			return $("#selected-theme").val() != '';
 		});
 
-		$("#cancel-edit").click(function() {
+		$("#cancel-edit").click(function () {
 			window.location.reload();
 		});
 	});
 </script>
 <article>
 	<header>
-		<h2>Manage Forum Themes</h2>
+		<h2>Manage Themes for Forum</h2>
 	</header>
 	<p></p>
-	<form>
-	<fieldset>
-		<legend>Select a theme for your forum.</legend>
-		<dl>
-			<dt><label for="theme-selector">Theme</label></dt>
-			<dd>
-				<select disabled="disabled" id="theme-selector">
-					@foreach (var theme in Model.AvailableThemes)
-					{
-						<option value="@theme.Item1.ToLower()" data-original-text="@theme.Item1" data-preview-image="@theme.Item2" @if (Model.CurrentTheme.Item1.ToLower() == theme.Item1.ToLower())
-																																		 {<text>selected="selected"</text>}>@theme.Item1 @if (Model.CurrentTheme.Item1.ToLower() == theme.Item1.ToLower())
-																																		 {<text> -- current theme</text>}</option>
-					}
-				</select>
-			</dd>
+	@using (Html.BeginFormForInputModel(Model, true, Url.Action("List", "Theme"), "update-form"))
+	{
+		@Html.HiddenFor(m => m.ForumIdentifier);
+		@Html.HiddenFor(m => m.SelectedTheme, new { id = "selected-theme" });
+									   
+		<fieldset>
+			<legend>Select a theme for your forum.</legend>
+			<dl>
+				<dt><label for="theme-selector">Theme</label></dt>
+				<dd>
+					<select id="theme-selector" disabled="disabled">
+						@foreach (var theme in Model.AvailableThemes)
+						{
+							<option data-preview-image="@theme.PreviewUrl"  @if (theme.Name.Equals(Model.SelectedTheme, StringComparison.InvariantCultureIgnoreCase)) { <text>selected="selected"</text> }>@theme.Name</option>
+						}
+					</select>
+				</dd>
 
-			<dt><label>Preview</label></dt>
-			<dd class="text">
-				<img id="theme-preview" alt="theme-preview" src="@Model.CurrentTheme.Item2"/>
-			</dd>
-		</dl>
-	</fieldset>
+				<dt><label>Preview</label></dt>
+				<dd class="text">
+					<img id="theme-preview" alt="theme-preview" src="@Model.SelectedPreviewUrl"/>
+				</dd>
+			</dl>
+		</fieldset>
 
-	<button type="button" id="edit-theme">Edit</button>
-	<button type="button" id="save-theme" class="green" style="display:none">Save</button>
-	<button type="button" id="cancel-edit"  style="display:none">Cancel</button>
-	</form>
+	 		<button type="button" id="edit-theme">Edit</button>
+		<button type="submit" id="save-theme" class="green" style="display:none">Save</button>
+		<button type="button" id="cancel-edit"  style="display:none">Cancel</button>
+	}
 </article>
+
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>

@@ -25,8 +25,12 @@
 			//			$("#trigger-edit").attr("disabled", "disabled");
 
 			$("#forum-settings .forum-setting").each(function (index, item) {
-				$(item).editable("enable");
 				var type = $(item).attr("id") == "forum-description" ? "wysiwyg" : "text";
+				if (type == "wysiwyg") {
+					$(item).addClass("editor");
+				}
+				
+				$(item).editable("enable");
 
 				$(item).editable(null, {
 					cssclass: "jeditable",
@@ -76,11 +80,13 @@
 		padding: 0;
 		display: inline;
 	}
-
-	.forum-setting
+	
+	.editor
 	{
-		width: 200px;
-		/* display:inline block; */
+		width:498px;
+		margin: 0;
+		padding: 0;
+		display: inline;
 	}
 </style>
 
