@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{Forum Name} - All Posts</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="styles/bootstrap.css">
+    <link rel="stylesheet" href="styles/jqcloud.css">
+    <link rel="stylesheet" href="styles/custom.css">
+
+    <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+    <script src="scripts/bootstrap-alerts.js"></script>
+    <script src="scripts/bootstrap-buttons.js"></script>
+    <script src="scripts/bootstrap-modal.js"></script>
+    <script src="scripts/jqcloud-0.2.8.js"></script>
+        
+    <script>
+        var tag_cloud = [
+            {text: "Tag", weight: 1, url: "#tag"},
+            {text: "Another Tag", weight: 2, url: "#another-tag"},
+            {text: "Green", weight: 3, url: "#green"},
+            {text: "Favorites", weight: 4, url: "#favorites"},
+            {text: "Cars", weight: 6, url: "#cars"},
+            {text: "Arbitrary", weight: 4, url: "#favorites"},
+            {text: "Bars", weight: 6, url: "#cars"},
+            {text: "Hoaxes", weight: 5, url: "#hoaxes"},
+            {text: "Bats", weight: 6, url: "#cars"},
+            {text: "Marathon", weight: 2, url: "#another-tag"},
+            {text: "Jokes", weight: 7, url: "#jokes"},
+        ];    
+
+        $(document).ready(function() {
+            $(".alert-message").alert();
+            
+            $("#tagCloud").jQCloud(tag_cloud);
+        });
+    </script>
+  </head>
+
+  <body>
+
+    @RenderPage("~/partials/TopBar.cshtml")
+
+    <div class="container-fluid">
+      <div class="sidebar">
+        <div class="well">
+            @RenderPage("~/partials/Badge.cshtml")       
+        </div>
+        <div class="well">
+            @RenderPage("~/partials/Categories.cshtml")       
+            @RenderPage("~/partials/Tags.cshtml")       
+        </div>
+      </div>
+        
+      <div class="content">
+        
+        <h1>Categories</h1>
+        
+        <hr/>
+        
+        <p><small>(Custom category content here.)</small></p>
+
+        <!-- all posts -->
+
+        <div class="row">
+            <div class="span5">
+                <h2>{Category Name}</h2>
+                <p>A brief description of the category.</p>
+                <dl>
+                    <dt>{Post title}</dt>                    
+                    <dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>     
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
+                </dl>
+                <a href="#">View</a> 33 more posts.
+            </div>
+           <div class="span5">
+                <h2>{Category Name}</h2>
+                <p>A brief description of the category.</p>
+                <dl>
+                    <dt>{Post title}</dt>                    
+                    <dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>     
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
+                </dl>
+                <a href="#">View</a> 33 more posts.
+            </div>
+           <div class="span5">
+                <h2>{Category Name}</h2>
+                <p>A brief description of the category.</p>
+                <dl>
+                    <dt>{Post title}</dt>                    
+                    <dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>     
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
+                </dl>
+                <a href="#">View</a> 33 more posts.
+            </div>
+            
+        </div>
+            
+        <hr>            
+            
+        <div class="row">
+            <div class="span4" style="font-size: smaller;">
+                <h3>{Category Name}</h3>           
+                <p>A brief description of the category.</p>
+                <dl>
+                    <dt>{Post title}</dt>                    
+                    <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
+                </dl>
+                <a href="#">View</a> 33 more posts.                
+            </div>
+            <div class="span4" style="font-size: smaller;">
+                <h3>{Category Name}</h3>           
+                <p style="font-size: smaller;">A brief description of the category.</p>
+                <dl>
+                    <dt>{Post title}</dt>                    
+                    <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
+                </dl>
+                <a href="#">View</a> 33 more posts.                
+            </div>
+            <div class="span4" style="font-size: smaller;">
+                <h3>{Category Name}</h3>           
+                <p style="font-size: smaller;">A brief description of the category.</p>
+                <dl>
+                    <dt>{Post title}</dt>                    
+                    <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
+                </dl>
+                <a href="#">View</a> 33 more posts.                
+            </div>
+            <div class="span4" style="font-size: smaller;">
+                <h3>{Category Name}</h3>           
+                <p style="font-size: smaller;">A brief description of the category.</p>
+                <dl>
+                    <dt>{Post title}</dt>                    
+                    <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
+                    <dt>{Post title}</dt>                    
+                    <dd>Etiam porta sem malesuada magna mollis euismod. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
+                </dl>
+                <a href="#">View</a> 33 more posts.                
+            </div>  
+            
+        </div>
+        
+        <hr/>
+
+        <div class="pagination">
+            <ul>
+                <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+                <li><a href="#">1</a></li>
+                <li class="active"><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li class="disabled"><a href="#">...</a></li>
+                <li><a href="#">45</a></li>
+                <li><a href="#">46</a></li>
+                <li><a href="#">47</a></li>
+                <li class="next"><a href="#">Next &rarr;</a></li>
+            </ul>
+        </div>
+            
+        <footer>
+          <p>&copy; Newco 2011-12</p>
+        </footer>
+      </div>
+    </div>
+
+  </body>
+</html>
