@@ -28,12 +28,12 @@
             {text: "Favorites", weight: 4, url: "Tag.cshtml#favorites"},
             {text: "Cars", weight: 6, url: "Tag.cshtml#cars"},
             {text: "Arbitrary", weight: 4, url: "Tag.cshtml#favorites"},
-            {text: "Bars", weight: 6, url: "Tag.cshtml#cars"},
+            {text: "Bars", weight: 6, url: "Tag.cshtml#bars"},
             {text: "Hoaxes", weight: 5, url: "Tag.cshtml#hoaxes"},
             {text: "Bats", weight: 6, url: "Tag.cshtml#cars"},
             {text: "Marathon", weight: 2, url: "Tag.cshtml#another-tag"},
             {text: "Jokes", weight: 7, url: "Tag.cshtml#jokes"},
-        ];   
+        ];    
 
         $(document).ready(function() {
             $(".alert-message").alert();
@@ -60,126 +60,9 @@
             <li class="active">{Category Name}</li>
         </ul>
         
-        <p><small>(Custom category content here.)</small></p>
-
         <hr />
         
-        <!-- all posts -->
-
-        <div class="row">
-            <div class="span5">
-                <h2><a href="Category.cshtml">{Category Name}</a></h2>
-                <p>A brief description of the category.</p>
-                <dl>
-                    <dt>{Post title}</dt>                    
-                    <dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>     
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
-                </dl>
-                <a href="#">View</a> 33 more posts.
-            </div>
-           <div class="span5">
-                <h2><a href="Category.cshtml">{Category Name}</a></h2>
-                <p>A brief description of the category.</p>
-                <dl>
-                    <dt>{Post title}</dt>                    
-                    <dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>     
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
-                </dl>
-                <a href="#">View</a> 33 more posts.
-            </div>
-           <div class="span5">
-                <h2><a href="Category.cshtml">{Category Name}</a></h2>
-                <p>A brief description of the category.</p>
-                <dl>
-                    <dt>{Post title}</dt>                    
-                    <dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>     
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
-                </dl>
-                <a href="#">View</a> 33 more posts.
-            </div>
-            
-        </div>
-            
-        <hr>            
-            
-        <div class="row">
-            <div class="span4" style="font-size: smaller;">
-                <h3><a href="Category.cshtml">{Category Name}</a></h3>        
-                <p>A brief description of the category.</p>
-                <dl>
-                    <dt>{Post title}</dt>                    
-                    <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
-                </dl>
-                <a href="#">View</a> 33 more posts.                
-            </div>
-            <div class="span4" style="font-size: smaller;">
-                <h3><a href="Category.cshtml">{Category Name}</a></h3>            
-                <p style="font-size: smaller;">A brief description of the category.</p>
-                <dl>
-                    <dt>{Post title}</dt>                    
-                    <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
-                </dl>
-                <a href="#">View</a> 33 more posts.                
-            </div>
-            <div class="span4" style="font-size: smaller;">
-                <h3><a href="Category.cshtml">{Category Name}</a></h3>          
-                <p style="font-size: smaller;">A brief description of the category.</p>
-                <dl>
-                    <dt>{Post title}</dt>                    
-                    <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
-                </dl>
-                <a href="#">View</a> 33 more posts.                
-            </div>
-            <div class="span4" style="font-size: smaller;">
-                <h3><a href="Category.cshtml">{Category Name}</a></h3>     
-                <p style="font-size: smaller;">A brief description of the category.</p>
-                <dl>
-                    <dt>{Post title}</dt>                    
-                    <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
-                    <dt>{Post title}</dt>                    
-                    <dd>Etiam porta sem malesuada magna mollis euismod. <br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>  
-                </dl>
-                <a href="#">View</a> 33 more posts.                
-            </div>  
-            
-        </div>
-        
-        <hr/>
-
-        <div class="pagination">
-            <ul>
-                <li class="prev disabled"><a href="#">&larr; Previous</a></li>
-                <li><a href="#">1</a></li>
-                <li class="active"><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li class="disabled"><a href="#">...</a></li>
-                <li><a href="#">45</a></li>
-                <li><a href="#">46</a></li>
-                <li><a href="#">47</a></li>
-                <li class="next"><a href="#">Next &rarr;</a></li>
-            </ul>
-        </div>
+        <p><small>(Category info here.)</small></p>
             
         <footer>
           <p>&copy; Newco 2011-12</p>

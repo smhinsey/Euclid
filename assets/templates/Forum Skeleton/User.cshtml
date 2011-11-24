@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{Forum Name} - Forum Info</title>
+    <title>{Forum Name} - {Username}'s Profile</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -53,11 +53,16 @@
         
         <div class="content">
         
-        <h1>Forum Info</h1>
+        <h1>{Username}'s Profile</h1>
+        
+        <ul class="breadcrumb">
+            <li><a href="Users.cshtml">Users</a> <span class="divider">/</span></li>
+            <li class="active">{Username}</li>
+        </ul>
         
         <hr />
         
-        <p><small>(Forum info here.)</small></p>
+        <p><small>(User's profile info goes here.)</small></p>
             
         <footer>
           <p>&copy; Newco 2011-12</p>

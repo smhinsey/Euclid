@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{Forum Name} - Forum Info</title>
+    <title>{Forum Name} - {Post Name}</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -53,11 +53,17 @@
         
         <div class="content">
         
-        <h1>Forum Info</h1>
+        <h1>{Post Name}</h1>
+        
+        <ul class="breadcrumb">
+            <li><a href="AllPosts.cshtml">All Posts</a> <span class="divider">/</span></li>
+            <li><a href="Category.cshtml">{Category}</a> <span class="divider">/</span></li>
+            <li class="active">{Post Name}</li>
+        </ul>
         
         <hr />
         
-        <p><small>(Forum info here.)</small></p>
+        <p><small>(Post info goes here.)</small></p>
             
         <footer>
           <p>&copy; Newco 2011-12</p>
