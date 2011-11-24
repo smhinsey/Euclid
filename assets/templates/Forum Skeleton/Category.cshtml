@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{Forum Name} - All Posts</title>
+    <title>{Forum Name} - {Category Name}</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -60,18 +60,23 @@
         
       <div class="content">
         
-        <h1>Categories</h1>
+        <h1>{Category Name}</h1>
         
-        <hr/>
+        <ul class="breadcrumb">
+            <li><a href="Categories.cshtml">Categories</a> <span class="divider">/</span></li>
+            <li class="active">{Category Name}</li>
+        </ul>
         
         <p><small>(Custom category content here.)</small></p>
 
+        <hr />
+        
         <!-- all posts -->
 
         <div class="row">
             <div class="span5">
-                <h2>{Tag Name}</h2>
-                <p>A brief description of the tag.</p>
+                <h2><a href="Category.cshtml">{Category Name}</a></h2>
+                <p>A brief description of the category.</p>
                 <dl>
                     <dt>{Post title}</dt>                    
                     <dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
@@ -85,8 +90,8 @@
                 <a href="#">View</a> 33 more posts.
             </div>
            <div class="span5">
-                <h2>{Tag Name}</h2>
-                <p>A brief description of the tag.</p>
+                <h2><a href="Category.cshtml">{Category Name}</a></h2>
+                <p>A brief description of the category.</p>
                 <dl>
                     <dt>{Post title}</dt>                    
                     <dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
@@ -100,8 +105,8 @@
                 <a href="#">View</a> 33 more posts.
             </div>
            <div class="span5">
-                <h2>{Tag Name}</h2>
-                <p>A brief description of the tag.</p>
+                <h2><a href="Category.cshtml">{Category Name}</a></h2>
+                <p>A brief description of the category.</p>
                 <dl>
                     <dt>{Post title}</dt>                    
                     <dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
@@ -121,8 +126,8 @@
             
         <div class="row">
             <div class="span4" style="font-size: smaller;">
-                <h3>{Tag Name}</h3>           
-                <p>A brief description of the tag.</p>
+                <h3><a href="Category.cshtml">{Category Name}</a></h3>        
+                <p>A brief description of the category.</p>
                 <dl>
                     <dt>{Post title}</dt>                    
                     <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
@@ -132,8 +137,8 @@
                 <a href="#">View</a> 33 more posts.                
             </div>
             <div class="span4" style="font-size: smaller;">
-                <h3>{Tag Name}</h3>           
-                <p style="font-size: smaller;">A brief description of the tag.</p>
+                <h3><a href="Category.cshtml">{Category Name}</a></h3>            
+                <p style="font-size: smaller;">A brief description of the category.</p>
                 <dl>
                     <dt>{Post title}</dt>                    
                     <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
@@ -143,8 +148,8 @@
                 <a href="#">View</a> 33 more posts.                
             </div>
             <div class="span4" style="font-size: smaller;">
-                <h3>{Tag Name}</h3>           
-                <p style="font-size: smaller;">A brief description of the tag.</p>
+                <h3><a href="Category.cshtml">{Category Name}</a></h3>          
+                <p style="font-size: smaller;">A brief description of the category.</p>
                 <dl>
                     <dt>{Post title}</dt>                    
                     <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
@@ -154,8 +159,8 @@
                 <a href="#">View</a> 33 more posts.                
             </div>
             <div class="span4" style="font-size: smaller;">
-                <h3>{Tag Name}</h3>           
-                <p style="font-size: smaller;">A brief description of the tag.</p>
+                <h3><a href="Category.cshtml">{Category Name}</a></h3>     
+                <p style="font-size: smaller;">A brief description of the category.</p>
                 <dl>
                     <dt>{Post title}</dt>                    
                     <dd>A severely truncated post body.<br/> <span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a> with 33 comments.</span></dd>
