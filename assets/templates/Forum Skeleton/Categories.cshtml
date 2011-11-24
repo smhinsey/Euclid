@@ -48,17 +48,10 @@
     @RenderPage("~/partials/TopBar.cshtml")
 
     <div class="container-fluid">
-      <div class="sidebar">
-        <div class="well">
-            @RenderPage("~/partials/Badge.cshtml")       
-        </div>
-        <div class="well">
-            @RenderPage("~/partials/Categories.cshtml")       
-            @RenderPage("~/partials/Tags.cshtml")       
-        </div>
-      </div>
         
-      <div class="content">
+        @RenderPage("~/partials/Sidebar.cshtml")
+        
+        <div class="content">
         
         <h1>Categories</h1>
         

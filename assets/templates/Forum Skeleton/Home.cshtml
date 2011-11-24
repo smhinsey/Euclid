@@ -50,17 +50,9 @@
 
     <div class="container-fluid">
         
-      <div class="sidebar">
-        <div class="well">
-            @RenderPage("~/partials/Badge.cshtml")       
-        </div>
-        <div class="well">
-            @RenderPage("~/partials/Categories.cshtml")       
-            @RenderPage("~/partials/Tags.cshtml")       
-        </div>
-      </div>
+        @RenderPage("~/partials/Sidebar.cshtml")
         
-      <div class="content">
+        <div class="content">
         
         <div class="alert-message block-message warning fade in" data-alert="alert">
           <a class="close" href="#">×</a>
