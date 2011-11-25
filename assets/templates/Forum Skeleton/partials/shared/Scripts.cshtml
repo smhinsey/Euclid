@@ -1,0 +1,25 @@
+﻿<script src="http://code.jquery.com/jquery-1.5.2.min.js"> </script>
+<script src="scripts/bootstrap-alerts.js"> </script>
+<script src="scripts/bootstrap-buttons.js"> </script>
+<script src="scripts/bootstrap-modal.js"> </script>
+<script src="scripts/jqcloud-0.2.8.js"> </script>
+
+<script>
+	var tag_cloud = [
+        	{ text: "Tag", weight: 1, url: "Tag.cshtml#tag" },
+        	{ text: "Another Tag", weight: 2, url: "Tag.cshtml#another-tag" },
+        	{ text: "Green", weight: 3, url: "Tag.cshtml#green" },
+        	{ text: "Favorites", weight: 4, url: "Tag.cshtml#favorites" },
+        	{ text: "Cars", weight: 6, url: "Tag.cshtml#cars" },
+        	{ text: "Arbitrary", weight: 4, url: "Tag.cshtml#favorites" },
+        	{ text: "Bars", weight: 6, url: "Tag.cshtml#bars" },
+        	{ text: "Hoaxes", weight: 5, url: "Tag.cshtml#hoaxes" },
+        	{ text: "Bats", weight: 6, url: "Tag.cshtml#cars" },
+        	{ text: "Marathon", weight: 2, url: "Tag.cshtml#another-tag" },
+        	{ text: "Jokes", weight: 7, url: "Tag.cshtml#jokes" },
+        ];
+
+	$(document).ready(function () {
+		$("#tagCloud").jQCloud(tag_cloud);
+	});
+</script>
