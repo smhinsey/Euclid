@@ -7,6 +7,13 @@
 	<meta name="author" content="">
 	@RenderPage("~/partials/shared/Styles.cshtml")
 	@RenderPage("~/partials/shared/Scripts.cshtml")
+
+	<style>
+		.comment {
+			margin-top: 15px;
+			margin-bottom: 15px;
+		}
+	</style>
 </head>
 <body>
 	@RenderPage("~/partials/TopBar.cshtml")
@@ -50,7 +57,7 @@
 						</div>
 
 						<div class="span6">
-							<ul class="pills"  style="float: right;">
+							<ul class="pills" style="float: right;">
 								<li class="active"><a href="Post.cshtml">Best</a></li>
 								<li><a href="Post.cshtml">Oldest</a></li>
 								<li><a href="Post.cshtml">Newest</a></li>
@@ -58,228 +65,445 @@
 						</div>
 
 					</div>
+
 					<hr style="margin-top: 0px;" />
 
-					<div class="row">
+					<div class="comment">
 
-						<div class="span3">
+						<div class="row">
 
-							<div class="row">
+							<div class="span3">
 
-								<div class="span1" style="margin-top: 4px;">
-									<a href="User.cshtml">
-										<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
-								</div>
+								<div class="row">
 
-								<div class="span2" style="margin-left: 0px;">
-									<a href="User.cshtml">Username</a><br />
-									<small style="font-size: smaller;">About an hour ago</small>
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
 								</div>
 
 							</div>
 
+							<div class="span9">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
+
 						</div>
 
-						<div class="span9">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
-								massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
-								amet volutpat.</p>
+						<div class="row">
+
+							<div class="span8 offset3">
+								<p style="font-size: smaller; text-align: right;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
 						</div>
 
 					</div>
 
-					<div class="row">
+					<div class="comment">
 
-						<div class="span3">
+						<div class="row">
 
-							<div class="row">
+							<div class="span6 offset3">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
 
-								<div class="span1" style="margin-top: 4px;">
-									<a href="User.cshtml">
-										<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
-								</div>
+							<div class="span3">
 
-								<div class="span2" style="margin-left: 0px;">
-									<a href="User.cshtml">Username</a><br />
-									<small style="font-size: smaller;">About an hour ago</small>
+								<div class="row">
+
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
 								</div>
 
 							</div>
 
 						</div>
 
-						<div class="span9">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
-								massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
-								amet volutpat.</p>
+						<div class="row">
+
+							<div class="span8 offset4">
+								<p style="font-size: smaller;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
 						</div>
 
 					</div>
 
-					<div class="row">
+					<div class="comment">
 
-						<div class="span3">
+						<div class="row">
 
-							<div class="row">
+							<div class="span6 offset3">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
 
-								<div class="span1" style="margin-top: 4px;">
-									<a href="User.cshtml">
-										<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
-								</div>
+							<div class="span3">
 
-								<div class="span2" style="margin-left: 0px;">
-									<a href="User.cshtml">Username</a><br />
-									<small style="font-size: smaller;">About an hour ago</small>
+								<div class="row">
+
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
 								</div>
 
 							</div>
 
 						</div>
 
-						<div class="span9">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
-								massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
-								amet volutpat.</p>
+						<div class="row">
+
+							<div class="span8 offset4">
+								<p style="font-size: smaller;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
 						</div>
 
 					</div>
 
-					<div class="row">
+					<div class="comment">
 
-						<div class="span3">
+						<div class="row">
 
-							<div class="row">
+							<div class="span6 offset3">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
 
-								<div class="span1" style="margin-top: 4px;">
-									<a href="User.cshtml">
-										<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
-								</div>
+							<div class="span3">
 
-								<div class="span2" style="margin-left: 0px;">
-									<a href="User.cshtml">Username</a><br />
-									<small style="font-size: smaller;">About an hour ago</small>
+								<div class="row">
+
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
 								</div>
 
 							</div>
 
 						</div>
 
-						<div class="span9">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
-								massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
-								amet volutpat.</p>
+						<div class="row">
+
+							<div class="span8 offset4">
+								<p style="font-size: smaller;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
 						</div>
 
 					</div>
 
-					<div class="row">
+					<div class="comment">
 
-						<div class="span3">
+						<div class="row">
 
-							<div class="row">
+							<div class="span3">
 
-								<div class="span1" style="margin-top: 4px;">
-									<a href="User.cshtml">
-										<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
-								</div>
+								<div class="row">
 
-								<div class="span2" style="margin-left: 0px;">
-									<a href="User.cshtml">Username</a><br />
-									<small style="font-size: smaller;">About an hour ago</small>
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
 								</div>
 
 							</div>
 
+							<div class="span9">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
+
 						</div>
 
-						<div class="span9">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
-								massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
-								amet volutpat.</p>
+						<div class="row">
+
+							<div class="span8 offset3">
+								<p style="font-size: smaller; text-align: right;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
 						</div>
 
 					</div>
 
-					<div class="row">
+					<div class="comment">
 
-						<div class="span3">
+						<div class="row">
 
-							<div class="row">
+							<div class="span3">
 
-								<div class="span1" style="margin-top: 4px;">
-									<a href="User.cshtml">
-										<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
-								</div>
+								<div class="row">
 
-								<div class="span2" style="margin-left: 0px;">
-									<a href="User.cshtml">Username</a><br />
-									<small style="font-size: smaller;">About an hour ago</small>
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
 								</div>
 
 							</div>
 
+							<div class="span9">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
+
 						</div>
 
-						<div class="span9">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
-								massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
-								amet volutpat.</p>
+						<div class="row">
+
+							<div class="span8 offset3">
+								<p style="font-size: smaller; text-align: right;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
 						</div>
 
 					</div>
 
-					<div class="row">
+					<div class="comment">
 
-						<div class="span3">
+						<div class="row">
 
-							<div class="row">
+							<div class="span3">
 
-								<div class="span1" style="margin-top: 4px;">
-									<a href="User.cshtml">
-										<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
-								</div>
+								<div class="row">
 
-								<div class="span2" style="margin-left: 0px;">
-									<a href="User.cshtml">Username</a><br />
-									<small style="font-size: smaller;">About an hour ago</small>
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
 								</div>
 
 							</div>
 
+							<div class="span9">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
+
 						</div>
 
-						<div class="span9">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
-								massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
-								amet volutpat.</p>
+						<div class="row">
+
+							<div class="span8 offset3">
+								<p style="font-size: smaller; text-align: right;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
 						</div>
 
 					</div>
 
-					<div class="row">
+					<div class="comment">
 
-						<div class="span3">
+						<div class="row">
 
-							<div class="row">
+							<div class="span3">
 
-								<div class="span1" style="margin-top: 4px;">
-									<a href="User.cshtml">
-										<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+								<div class="row">
+
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
 								</div>
 
-								<div class="span2" style="margin-left: 0px;">
-									<a href="User.cshtml">Username</a><br />
-									<small style="font-size: smaller;">About an hour ago</small>
+							</div>
+
+							<div class="span9">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
+
+						</div>
+
+						<div class="row">
+
+							<div class="span8 offset3">
+								<p style="font-size: smaller; text-align: right;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="comment">
+
+						<div class="row">
+
+							<div class="span6 offset3">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
+
+							<div class="span3">
+
+								<div class="row">
+
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
 								</div>
 
 							</div>
 
 						</div>
 
-						<div class="span9">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
-								massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
-								amet volutpat.</p>
+						<div class="row">
+
+							<div class="span8 offset4">
+								<p style="font-size: smaller;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="comment">
+
+						<div class="row">
+
+							<div class="span3">
+
+								<div class="row">
+
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
+								</div>
+
+							</div>
+
+							<div class="span9">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
+
+						</div>
+
+						<div class="row">
+
+							<div class="span8 offset3">
+								<p style="font-size: smaller; text-align: right;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="comment">
+
+						<div class="row">
+
+							<div class="span3">
+
+								<div class="row">
+
+									<div class="span1" style="margin-top: 4px;">
+										<a href="User.cshtml">
+											<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+									</div>
+
+									<div class="span2" style="margin-left: 0px;">
+										<a href="User.cshtml">Username</a><br />
+										<small style="font-size: smaller;">About an hour ago</small>
+									</div>
+
+								</div>
+
+							</div>
+
+							<div class="span9">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+									massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+									amet volutpat.</p>
+							</div>
+
+						</div>
+
+						<div class="row">
+
+							<div class="span8 offset3">
+								<p style="font-size: smaller; text-align: right;"><a href="Post.cshtml">Reply</a></p>
+							</div>
+
 						</div>
 
 					</div>
@@ -295,14 +519,13 @@
 
 				</div>
 
-			</div>
-
-			<footer>
-				<p>&copy; Newco 2011-12</p>
-			</footer>
 		</div>
 
+		<footer>
+			<p>&copy; Newco 2011-12</p>
+		</footer>
 	</div>
 
+	</div>
 </body>
 </html>
