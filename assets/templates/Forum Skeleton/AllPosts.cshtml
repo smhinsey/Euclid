@@ -1,277 +1,277 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>{Forum Name} - All Posts</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<head>
+		<meta charset="utf-8">
+		<title>{Forum Name} - All Posts</title>
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"> </script>
+		<![endif]-->
 
-    <!-- Le styles -->
-    <link rel="stylesheet" href="styles/bootstrap.css">
-    <link rel="stylesheet" href="styles/jqcloud.css">
-    <link rel="stylesheet" href="styles/custom.css">
+		<!-- Le styles -->
+		<link rel="stylesheet" href="styles/bootstrap.css">
+		<link rel="stylesheet" href="styles/jqcloud.css">
+		<link rel="stylesheet" href="styles/custom.css">
 
-    <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
-    <script src="scripts/bootstrap-alerts.js"></script>
-    <script src="scripts/bootstrap-buttons.js"></script>
-    <script src="scripts/bootstrap-modal.js"></script>
-    <script src="scripts/jqcloud-0.2.8.js"></script>
+		<script src="http://code.jquery.com/jquery-1.5.2.min.js"> </script>
+		<script src="scripts/bootstrap-alerts.js"> </script>
+		<script src="scripts/bootstrap-buttons.js"> </script>
+		<script src="scripts/bootstrap-modal.js"> </script>
+		<script src="scripts/jqcloud-0.2.8.js"> </script>
         
-    <script>
+		<script>
         var tag_cloud = [
-            {text: "Tag", weight: 1, url: "Tag.cshtml#tag"},
-            {text: "Another Tag", weight: 2, url: "Tag.cshtml#another-tag"},
-            {text: "Green", weight: 3, url: "Tag.cshtml#green"},
-            {text: "Favorites", weight: 4, url: "Tag.cshtml#favorites"},
-            {text: "Cars", weight: 6, url: "Tag.cshtml#cars"},
-            {text: "Arbitrary", weight: 4, url: "Tag.cshtml#favorites"},
-            {text: "Bars", weight: 6, url: "Tag.cshtml#cars"},
-            {text: "Hoaxes", weight: 5, url: "Tag.cshtml#hoaxes"},
-            {text: "Bats", weight: 6, url: "Tag.cshtml#cars"},
-            {text: "Marathon", weight: 2, url: "Tag.cshtml#another-tag"},
-            {text: "Jokes", weight: 7, url: "Tag.cshtml#jokes"},
-        ];    
+        	{ text: "Tag", weight: 1, url: "Tag.cshtml#tag" },
+        	{ text: "Another Tag", weight: 2, url: "Tag.cshtml#another-tag" },
+        	{ text: "Green", weight: 3, url: "Tag.cshtml#green" },
+        	{ text: "Favorites", weight: 4, url: "Tag.cshtml#favorites" },
+        	{ text: "Cars", weight: 6, url: "Tag.cshtml#cars" },
+        	{ text: "Arbitrary", weight: 4, url: "Tag.cshtml#favorites" },
+        	{ text: "Bars", weight: 6, url: "Tag.cshtml#cars" },
+        	{ text: "Hoaxes", weight: 5, url: "Tag.cshtml#hoaxes" },
+        	{ text: "Bats", weight: 6, url: "Tag.cshtml#cars" },
+        	{ text: "Marathon", weight: 2, url: "Tag.cshtml#another-tag" },
+        	{ text: "Jokes", weight: 7, url: "Tag.cshtml#jokes" },
+        ];
 
         $(document).ready(function() {
-            $(".alert-message").alert();
-            
-            $("#tagCloud").jQCloud(tag_cloud);
+        	$(".alert-message").alert();
+
+        	$("#tagCloud").jQCloud(tag_cloud);
         });
     </script>
-  </head>
+	</head>
 
-  <body>
+	<body>
 
-    @RenderPage("~/partials/TopBar.cshtml")
+		@RenderPage("~/partials/TopBar.cshtml")
 
-    <div class="container-fluid">
+		<div class="container-fluid">
         
-        @RenderPage("~/partials/Sidebar.cshtml")
+			@RenderPage("~/partials/Sidebar.cshtml")
         
-        <div class="content">
+			<div class="content">
         
-        <ul class="tabs">
-            <li><a href="Home.cshtml">Popular Posts</a></li>
-            <li><a href="ControversialPosts.cshtml">Controversial Posts</a></li>
-            <li class="active"><a href="AllPosts.cshtml">All Posts</a></li>
-        </ul>
+				<ul class="tabs">
+					<li><a href="Home.cshtml">Popular Posts</a></li>
+					<li><a href="ControversialPosts.cshtml">Controversial Posts</a></li>
+					<li class="active"><a href="AllPosts.cshtml">All Posts</a></li>
+				</ul>
 
-        <!-- all posts -->
+				<!-- all posts -->
 
-        <div class="row">
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h2><a href="Post.cshtml">{Post Title}</a></h2>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Example Category</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h2><a href="Post.cshtml">{Post Title}</a></h2>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Creative Category</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h2><a href="Post.cshtml">{Post Title}</a></h2>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Unmoderated Forum</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h2><a href="Post.cshtml">{Post Title}</a></h2>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Category</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>          
+				<div class="row">
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h2><a href="Post.cshtml">{Post Title}</a></h2>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Example Category</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h2><a href="Post.cshtml">{Post Title}</a></h2>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Creative Category</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h2><a href="Post.cshtml">{Post Title}</a></h2>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Unmoderated Forum</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h2><a href="Post.cshtml">{Post Title}</a></h2>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Category</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>          
             
-        </div>
+				</div>
             
-        <hr>          
+				<hr>          
         
-        <div class="row">
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h2><a href="Post.cshtml">{Post Title}</a></h2>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Example Category</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h2><a href="Post.cshtml">{Post Title}</a></h2>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Creative Category</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h2><a href="Post.cshtml">{Post Title}</a></h2>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Unmoderated Forum</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h2><a href="Post.cshtml">{Post Title}</a></h2>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Category</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>          
+				<div class="row">
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h2><a href="Post.cshtml">{Post Title}</a></h2>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Example Category</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h2><a href="Post.cshtml">{Post Title}</a></h2>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Creative Category</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h2><a href="Post.cshtml">{Post Title}</a></h2>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Unmoderated Forum</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h2><a href="Post.cshtml">{Post Title}</a></h2>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Category</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>          
             
-        </div>
+				</div>
             
-        <hr>            
+				<hr>            
             
-        <div class="row">
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h3><a href="Post.cshtml">{Post Title}</a></h3>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Example Category</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h3><a href="Post.cshtml">{Post Title}</a></h3>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Creative Category</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h3><a href="Post.cshtml">{Post Title}</a></h3>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Unmoderated Forum</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>
-            <div class="span4">
-                <div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-                    <img src="images/thumb-up.png"/><br/>
-                    <img src="images/thumb-down.png"/><br/>
-                    <img src="images/icon_notification_attention.png"/><br/>
-                </div>    
-                <h3><a href="Post.cshtml">{Post Title}</a></h3>           
-                <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
-                    &mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Category</a></p>
-                <div class="row">
-                    <div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
-                    <div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
-                </div>                
-            </div>          
+				<div class="row">
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h3><a href="Post.cshtml">{Post Title}</a></h3>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Example Category</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h3><a href="Post.cshtml">{Post Title}</a></h3>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Creative Category</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h3><a href="Post.cshtml">{Post Title}</a></h3>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Unmoderated Forum</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>
+					<div class="span4">
+						<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
+							<img src="images/thumb-up.png"/><br/>
+							<img src="images/thumb-down.png"/><br/>
+							<img src="images/icon_notification_attention.png"/><br/>
+						</div>    
+						<h3><a href="Post.cshtml">{Post Title}</a></h3>           
+						<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere. 
+							&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="Category.cshtml" class="label">Category</a></p>
+						<div class="row">
+							<div class="span2"><a class="btn small" href="#">Add comment &raquo;</a></div>
+							<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;"><a href="#">999 comments</a></div>
+						</div>                
+					</div>          
             
-        </div>
+				</div>
             
-        <hr>
+				<hr>
             
-                    <ul class="pills">
-            <li class="active"><a href="AllPosts.cshtml">Newest</a></li>
-            <li><a href="AllPosts.cshtml">Oldest</a></li>
-        </ul>    
+				<ul class="pills">
+					<li class="active"><a href="AllPosts.cshtml">Newest</a></li>
+					<li><a href="AllPosts.cshtml">Oldest</a></li>
+				</ul>    
 
-        <div class="pagination">
-            <ul>
-                <li class="prev disabled"><a href="#">&larr; Previous</a></li>
-                <li><a href="#">1</a></li>
-                <li class="active"><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li class="disabled"><a href="#">...</a></li>
-                <li><a href="#">45</a></li>
-                <li><a href="#">46</a></li>
-                <li><a href="#">47</a></li>
-                <li class="next"><a href="#">Next &rarr;</a></li>
-            </ul>
-        </div>
+				<div class="pagination">
+					<ul>
+						<li class="prev disabled"><a href="#">&larr; Previous</a></li>
+						<li><a href="#">1</a></li>
+						<li class="active"><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li class="disabled"><a href="#">...</a></li>
+						<li><a href="#">45</a></li>
+						<li><a href="#">46</a></li>
+						<li><a href="#">47</a></li>
+						<li class="next"><a href="#">Next &rarr;</a></li>
+					</ul>
+				</div>
             
-        <footer>
-          <p>&copy; Newco 2011-12</p>
-        </footer>
-      </div>
-    </div>
+				<footer>
+					<p>&copy; Newco 2011-12</p>
+				</footer>
+			</div>
+		</div>
 
-  </body>
+	</body>
 </html>

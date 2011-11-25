@@ -1,73 +1,73 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>{Forum Name} - All Users</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<head>
+		<meta charset="utf-8">
+		<title>{Forum Name} - All Users</title>
+		<meta name="description" content="">
+		<meta name="author" content="">
 
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"> </script>
+		<![endif]-->
 
-    <link rel="stylesheet" href="styles/bootstrap.css">
-    <link rel="stylesheet" href="styles/jqcloud.css">
-    <link rel="stylesheet" href="styles/custom.css">
+		<link rel="stylesheet" href="styles/bootstrap.css">
+		<link rel="stylesheet" href="styles/jqcloud.css">
+		<link rel="stylesheet" href="styles/custom.css">
 
-    <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
-    <script src="scripts/bootstrap-alerts.js"></script>
-    <script src="scripts/bootstrap-buttons.js"></script>
-    <script src="scripts/bootstrap-modal.js"></script>
-    <script src="scripts/jqcloud-0.2.8.js"></script>
+		<script src="http://code.jquery.com/jquery-1.5.2.min.js"> </script>
+		<script src="scripts/bootstrap-alerts.js"> </script>
+		<script src="scripts/bootstrap-buttons.js"> </script>
+		<script src="scripts/bootstrap-modal.js"> </script>
+		<script src="scripts/jqcloud-0.2.8.js"> </script>
         
-    <script>
+		<script>
         var tag_cloud = [
-            {text: "Tag", weight: 1, url: "Tag.cshtml#tag"},
-            {text: "Another Tag", weight: 2, url: "Tag.cshtml#another-tag"},
-            {text: "Green", weight: 3, url: "Tag.cshtml#green"},
-            {text: "Favorites", weight: 4, url: "Tag.cshtml#favorites"},
-            {text: "Cars", weight: 6, url: "Tag.cshtml#cars"},
-            {text: "Arbitrary", weight: 4, url: "Tag.cshtml#favorites"},
-            {text: "Bars", weight: 6, url: "Tag.cshtml#bars"},
-            {text: "Hoaxes", weight: 5, url: "Tag.cshtml#hoaxes"},
-            {text: "Bats", weight: 6, url: "Tag.cshtml#cars"},
-            {text: "Marathon", weight: 2, url: "Tag.cshtml#another-tag"},
-            {text: "Jokes", weight: 7, url: "Tag.cshtml#jokes"},
-        ];    
+        	{ text: "Tag", weight: 1, url: "Tag.cshtml#tag" },
+        	{ text: "Another Tag", weight: 2, url: "Tag.cshtml#another-tag" },
+        	{ text: "Green", weight: 3, url: "Tag.cshtml#green" },
+        	{ text: "Favorites", weight: 4, url: "Tag.cshtml#favorites" },
+        	{ text: "Cars", weight: 6, url: "Tag.cshtml#cars" },
+        	{ text: "Arbitrary", weight: 4, url: "Tag.cshtml#favorites" },
+        	{ text: "Bars", weight: 6, url: "Tag.cshtml#bars" },
+        	{ text: "Hoaxes", weight: 5, url: "Tag.cshtml#hoaxes" },
+        	{ text: "Bats", weight: 6, url: "Tag.cshtml#cars" },
+        	{ text: "Marathon", weight: 2, url: "Tag.cshtml#another-tag" },
+        	{ text: "Jokes", weight: 7, url: "Tag.cshtml#jokes" },
+        ];
 
         $(document).ready(function() {
-            $(".alert-message").alert();
-            
-            $("#tagCloud").jQCloud(tag_cloud);
+        	$(".alert-message").alert();
+
+        	$("#tagCloud").jQCloud(tag_cloud);
         });
     </script>
-  </head>
+	</head>
 
-  <body>
+	<body>
 
-    @RenderPage("~/partials/TopBar.cshtml")
+		@RenderPage("~/partials/TopBar.cshtml")
 
-    <div class="container-fluid">
+		<div class="container-fluid">
         
-        @RenderPage("~/partials/Sidebar.cshtml")
+			@RenderPage("~/partials/Sidebar.cshtml")
         
-        <div class="content">
+			<div class="content">
         
-        <h1>All Users</h1>
+				<h1>All Users</h1>
         
-        <ul class="breadcrumb">
-            <li class="active">Users</li>
-        </ul>
+				<ul class="breadcrumb">
+					<li class="active">Users</li>
+				</ul>
         
-        <hr />
+				<hr />
         
-        <p><small>(User listing goes here.)</small></p>
+				<p><small>(User listing goes here.)</small></p>
             
-        <footer>
-          <p>&copy; Newco 2011-12</p>
-        </footer>
-      </div>
-    </div>
+				<footer>
+					<p>&copy; Newco 2011-12</p>
+				</footer>
+			</div>
+		</div>
 
-  </body>
+	</body>
 </html>
