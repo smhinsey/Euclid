@@ -10,10 +10,8 @@
 </head>
 <body>
 	@RenderPage("~/partials/TopBar.cshtml")
-
 	<div class="container-fluid">
 		@RenderPage("~/partials/Sidebar.cshtml")
-
 		<div class="content">
 			<ul class="breadcrumb">
 				<li><a href="Home.cshtml">{Forum Name} Home</a> <span class="divider">/</span></li>
@@ -21,16 +19,28 @@
 				<li><a href="User.cshtml">{Username}</a> <span class="divider">/</span></li>
 				<li class="active">Badges</li>
 			</ul>
-			<h1>{Username}'s Badges</h1>
+			<h1>
+				{Username}'s Badges</h1>
 			<hr />
 			@RenderPage("~/partials/UserProfileTabs.cshtml")
-			<p><small>(User info here.)</small></p>
+			<div class="row">
+				<div class="span12">
+					<ul class="media-grid">
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+					</ul>
+				</div>
+			</div>
 			<footer>
 				<p>&copy; Newco 2011-12</p>
 			</footer>
 		</div>
-
 	</div>
-
 </body>
 </html>
