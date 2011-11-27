@@ -37,6 +37,12 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Profiles" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishProfile Include="Profiles\ForumSkeletonProduction.azurePubxml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ForumSkeletonMvc\ForumSkeletonMvc.csproj">
       <Name>ForumSkeletonMvc</Name>
       <Project>{857c01b1-6137-41ba-ba77-45329ec4a630}</Project>
@@ -45,12 +51,6 @@
       <RoleName>ForumSkeletonMvc</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Profiles" />
-  </ItemGroup>
-  <ItemGroup>
-    <PublishProfile Include="Profiles\ForumSkeletonProduction.azurePubxml" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
