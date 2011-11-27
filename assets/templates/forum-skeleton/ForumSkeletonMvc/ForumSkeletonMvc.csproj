@@ -111,7 +111,9 @@
     <Content Include="Themes\default\styles\bootstrap.css" />
     <Content Include="Themes\default\styles\custom.css" />
     <Content Include="Themes\default\styles\jqcloud.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

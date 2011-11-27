@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{Forum Name} - {Tag Name}</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	@RenderPage("~/Views/RoughDraft/partials/shared/Styles.cshtml")
+	@RenderPage("~/Views/RoughDraft/partials/shared/Scripts.cshtml")
+</head>
+<body>
+	@RenderPage("~/Views/RoughDraft/partials/TopBar.cshtml")
+
+	<div class="container-fluid">
+		@RenderPage("~/Views/RoughDraft/partials/Sidebar.cshtml")
+
+		<div class="content">
+			<ul class="breadcrumb">
+				<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+				<li><a href="@Url.Action("Tags")">Tags</a> <span class="divider">/</span></li>
+				<li class="active">{Tag Name}</li>
+			</ul>
+			<h1>{Tag Name}</h1>
+			<hr />
+			<p><small>(Custom tag content.)</small></p>
+
+			<div class="row">
+
+				<div class="span8">
+
+					<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;
+						float: right; clear: left;">
+						<img src="../../Themes/default/images/thumb-up.png" /><br />
+						<img src="../../Themes/default/images/thumb-down.png" /><br />
+						<img src="../../Themes/default/images/icon_notification_attention.png" /><br />
+					</div>
+
+					<h2><a href="@Url.Action("Post")">{Post Title}</a></h2>
+					<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+						dapibus posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
+							font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">
+							Placeholder Category</span></a></p>
+
+					<div class="row">
+
+						<div class="span4">
+							<a class="btn" href="#">Add comment &raquo;</a></div>
+
+						<div class="span4" style="padding-top: 7px; text-align: right; font-size: smaller;">
+							<a href="#">999 comments</a></div>
+
+					</div>
+
+				</div>
+
+				<div class="span8">
+
+					<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;
+						float: right; clear: left;">
+						<img src="images/thumb-up.png" /><br />
+						<img src="images/thumb-down.png" /><br />
+						<img src="images/icon_notification_attention.png" /><br />
+					</div>
+
+					<h2><a href="@Url.Action("Post")">{Post Title}</a></h2>
+					<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+						dapibus posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
+							font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">
+								Another Category</a></p>
+
+					<div class="row">
+
+						<div class="span4">
+							<a class="btn small" href="#">Add comment &raquo;</a></div>
+
+						<div class="span4" style="padding-top: 7px; text-align: right; font-size: smaller;">
+							<a href="#">999 comments</a></div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<hr>
+
+			<div class="row">
+
+				<div class="span8">
+
+					<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;
+						float: right; clear: left;">
+						<img src="../../Themes/default/images/thumb-up.png" /><br />
+						<img src="../../Themes/default/images/thumb-down.png" /><br />
+						<img src="../../Themes/default/images/icon_notification_attention.png" /><br />
+					</div>
+
+					<h2><a href="@Url.Action("Post")">{Post Title}</a></h2>
+					<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+						dapibus posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
+							font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">
+							Placeholder Category</span></a></p>
+
+					<div class="row">
+
+						<div class="span4">
+							<a class="btn" href="#">Add comment &raquo;</a></div>
+
+						<div class="span4" style="padding-top: 7px; text-align: right; font-size: smaller;">
+							<a href="#">999 comments</a></div>
+
+					</div>
+
+				</div>
+
+				<div class="span8">
+
+					<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;
+						float: right; clear: left;">
+						<img src="../../Themes/default/images/thumb-up.png" /><br />
+						<img src="../../Themes/default/images/thumb-down.png" /><br />
+						<img src="../../Themes/default/images/icon_notification_attention.png" /><br />
+					</div>
+
+					<h2><a href="@Url.Action("Post")">{Post Title}</a></h2>
+					<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+						dapibus posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
+							font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">
+								Another Category</a></p>
+
+					<div class="row">
+
+						<div class="span4">
+							<a class="btn small" href="#">Add comment &raquo;</a></div>
+
+						<div class="span4" style="padding-top: 7px; text-align: right; font-size: smaller;">
+							<a href="#">999 comments</a></div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<hr>
+
+			<div class="row">
+
+				<div class="span4">
+
+					<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;
+						float: right; clear: left;">
+						<img src="../../Themes/default/images/thumb-up.png" /><br />
+						<img src="../../Themes/default/images/thumb-down.png" /><br />
+						<img src="../../Themes/default/images/icon_notification_attention.png" /><br />
+					</div>
+
+					<h3><a href="@Url.Action("Post")">{Post Title}</a></h3>
+					<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+						dapibus posuere. &mdash; <span style="text-align: right; font-size: smaller;"><em>
+							12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Example Category</a></p>
+
+					<div class="row">
+
+						<div class="span2">
+							<a class="btn small" href="#">Add comment &raquo;</a></div>
+
+						<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;">
+							<a href="#">999 comments</a></div>
+
+					</div>
+
+				</div>
+
+				<div class="span4">
+
+					<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;
+						float: right; clear: left;">
+						<img src="../../Themes/default/images/thumb-up.png" /><br />
+						<img src="../../Themes/default/images/thumb-down.png" /><br />
+						<img src="../../Themes/default/images/icon_notification_attention.png" /><br />
+					</div>
+
+					<h3><a href="@Url.Action("Post")">{Post Title}</a></h3>
+					<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+						dapibus posuere. &mdash; <span style="text-align: right; font-size: smaller;"><em>
+							12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Creative Category</a></p>
+
+					<div class="row">
+
+						<div class="span2">
+							<a class="btn small" href="#">Add comment &raquo;</a></div>
+
+						<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;">
+							<a href="#">999 comments</a></div>
+
+					</div>
+
+				</div>
+
+				<div class="span4">
+
+					<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;
+						float: right; clear: left;">
+						<img src="../../Themes/default/images/thumb-up.png" /><br />
+						<img src="../../Themes/default/images/thumb-down.png" /><br />
+						<img src="../../Themes/default/images/icon_notification_attention.png" /><br />
+					</div>
+
+					<h3><a href="@Url.Action("Post")">{Post Title}</a></h3>
+					<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+						dapibus posuere. &mdash; <span style="text-align: right; font-size: smaller;"><em>
+							12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Unmoderated Forum</a></p>
+
+					<div class="row">
+
+						<div class="span2">
+							<a class="btn small" href="#">Add comment &raquo;</a></div>
+
+						<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;">
+							<a href="#">999 comments</a></div>
+
+					</div>
+
+				</div>
+
+				<div class="span4">
+
+					<div style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;
+						float: right; clear: left;">
+						<img src="../../Themes/default/images/thumb-up.png" /><br />
+						<img src="../../Themes/default/images/thumb-down.png" /><br />
+						<img src="../../Themes/default/images/icon_notification_attention.png" /><br />
+					</div>
+
+					<h3><a href="@Url.Action("Post")">{Post Title}</a></h3>
+					<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+						dapibus posuere. &mdash; <span style="text-align: right; font-size: smaller;"><em>
+							12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Category</a></p>
+
+					<div class="row">
+
+						<div class="span2">
+							<a class="btn small" href="#">Add comment &raquo;</a></div>
+
+						<div class="span2" style="padding-top: 7px; text-align: right; font-size: smaller;">
+							<a href="#">999 comments</a></div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<footer>
+				<p>&copy; Newco 2011-12</p>
+			</footer>
+		</div>
+
+	</div>
+
+</body>
+</html>
