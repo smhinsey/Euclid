@@ -28,13 +28,29 @@
 				<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
 					<div class="span10">
 						<p>
-							<strong><a href="@Url.Action("Post")">{Post Title}</a></strong> &ndash; This is a favorite
-							post. Integer posuere erat a ante venenatis dapibus posuere. Etiam porta sem malesuada
-							magna mollis euismod. &mdash; <span style="text-align: right; font-size: smaller;">
-								<em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Category</a></span></p>
+							<strong><a href="@Url.Action("Post")">{Post Title}</a></strong> &ndash; This is
+							a favorite post. Integer posuere erat a ante venenatis dapibus posuere. Etiam porta
+							sem malesuada magna mollis euismod. &mdash; <span style="text-align: right; font-size: smaller;">
+								<em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Category</a> &middot; <a href="#">Remove</a></span></p>
 						<hr />
 					</div>
 				</div>
+		 
+		 if (i % 2 == 0)
+		 {
+		 	
+				<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
+					<div class="span10">
+						<p>
+							Comment on post: <strong><a href="@Url.Action("Post")">{Post Title}</a></strong> &ndash; This is
+							a favorite comment. Integer posuere erat a ante venenatis dapibus posuere. Etiam porta
+							sem malesuada magna mollis euismod. &mdash; <span style="text-align: right; font-size: smaller;">
+								<em>12:59 PM 12/31/2011</em> &middot; <a href="#">Remove</a></span></p>
+						<hr />
+					</div>
+				</div>			 
+			 
+		 }
 	 }
 			<footer>
 				<p>&copy; Newco 2011-12</p>
