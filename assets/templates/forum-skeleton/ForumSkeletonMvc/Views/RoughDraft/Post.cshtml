@@ -7,7 +7,25 @@
 	<meta name="author" content="">
 	@RenderPage("~/Views/RoughDraft/partials/shared/Styles.cshtml")
 	@RenderPage("~/Views/RoughDraft/partials/shared/Scripts.cshtml")
-	<style>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#addComment").click(function () {
+				$("#addComment").hide();
+				$("#addCommentForm").show();
+			});
+
+			$("#publishComment").click(function () {
+				$("#addComment").show();
+				$("#addCommentForm").hide();
+			});
+
+			$("#cancelComment").click(function () {
+				$("#addComment").show();
+				$("#addCommentForm").hide();
+			});
+		});
+	</script>
+	<style type="text/css">
 		.comment
 		{
 			margin-top: 15px;
@@ -47,7 +65,28 @@
 					<hr />
 					<div class="row">
 						<div class="span6">
-							<a class="btn large primary" href="@Url.Action("Post")">Add a Comment</a></div>
+							<button id="addComment" class="btn large primary">
+								Add a Comment</button>
+							<div id="addCommentForm" style="display: none;">
+								<form>
+								<fieldset>
+									<legend>Add a Comment</legend>
+									<div class="clearfix">
+										<label for="newCommentBody">
+											Comment</label>
+										<div class="input">
+											<textarea class="xxlarge" name="newCommentBody" rows="6"></textarea>
+											<span class="help-block">Please be civil.</span>
+										</div>
+									</div>
+									<div class="actions">
+										<input id="publishComment" type="button" class="btn primary" value="Publish Comment" />
+										<input id="cancelComment" type="button" class="btn" value="Cancel" />
+									</div>
+								</fieldset>
+								</form>
+							</div>
+						</div>
 						<div class="span6" style="text-align: right;">
 							<a href="#">
 								<img src="../../Themes/default/images/thumb-up.png" /></a>&nbsp;&nbsp;&nbsp; <a href="#">
@@ -392,8 +431,9 @@
 				</div>
 			</div>
 			<footer>
-			<p>&copy; Newco 2011-12</p>
-		</footer>
+				<p>
+					&copy; Newco 2011-12</p>
+			</footer>
 		</div>
 	</div>
 </body>
