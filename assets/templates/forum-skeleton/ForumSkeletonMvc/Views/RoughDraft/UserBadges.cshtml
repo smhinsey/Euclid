@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{Forum Name} - {Username}'s Badges</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	@RenderPage("~/Views/RoughDraft/partials/shared/Styles.cshtml")
+	@RenderPage("~/Views/RoughDraft/partials/shared/Scripts.cshtml")
+</head>
+<body>
+	@RenderPage("~/Views/RoughDraft/partials/TopBar.cshtml")
+	<div class="container-fluid">
+		@RenderPage("~/Views/RoughDraft/partials/Sidebar.cshtml")
+		<div class="content">
+			<ul class="breadcrumb">
+				<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+				<li><a href="@Url.Action("AllUsers")">All Users</a> <span class="divider">/</span></li>
+				<li><a href="@Url.Action("User")">{Username}</a> <span class="divider">/</span></li>
+				<li class="active">Badges</li>
+			</ul>
+			<h1>
+				{Username}'s Badges</h1>
+			<hr />
+			@RenderPage("~/Views/RoughDraft/partials/UserProfileTabs.cshtml")
+			<div class="row">
+				<div class="span12">
+					<ul class="media-grid">
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+						<li class="thumbnail"><a href="#"><img src="http://placehold.it/210x150" /></a></li>
+					</ul>
+				</div>
+			</div>
+			<footer>
+				<p>&copy; Newco 2011-12</p>
+			</footer>
+		</div>
+	</div>
+</body>
+</html>
