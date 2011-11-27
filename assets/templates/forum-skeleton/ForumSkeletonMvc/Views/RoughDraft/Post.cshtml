@@ -27,6 +27,8 @@
 			$("#addReply").click(function () {
 				$("#addReply").hide();
 				$("#addReplyForm").show();
+				$("#publishReply").focus();
+				$("#newReplyBody").focus();
 			});
 
 			$("#publishReply").click(function () {
@@ -447,7 +449,7 @@
 									<legend style="padding-left: 0px;">New Reply</legend>
 									<div class="clearfix">
 										<div class="input" style="margin-left: 0px;">
-											<textarea class="xxlarge" name="newReplyBody" rows="6"></textarea>
+											<textarea class="xxlarge" id="newReplyBody" name="newReplyBody" rows="6"></textarea>
 											<span class="help-block">Please be civil.</span>
 										</div>
 									</div>
