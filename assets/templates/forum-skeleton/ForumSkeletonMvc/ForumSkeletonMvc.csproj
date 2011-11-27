@@ -95,6 +95,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Themes\default\images\arrow-090-medium.png" />
+    <Content Include="Themes\default\images\arrow-090-small.png" />
+    <Content Include="Themes\default\images\arrow-090.png" />
+    <Content Include="Themes\default\images\arrow-270-medium.png" />
+    <Content Include="Themes\default\images\arrow-270-small.png" />
+    <Content Include="Themes\default\images\arrow-270.png" />
+    <Content Include="Themes\default\images\balloon-white.png" />
+    <Content Include="Themes\default\images\exclamation-white.png" />
     <Content Include="Themes\default\scripts\bootstrap-alerts.js" />
     <Content Include="Themes\default\scripts\bootstrap-buttons.js" />
     <Content Include="Themes\default\scripts\bootstrap-dropdown.js" />
@@ -124,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Themes\default\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
