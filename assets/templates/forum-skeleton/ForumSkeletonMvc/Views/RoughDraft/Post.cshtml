@@ -23,6 +23,21 @@
 				$("#addComment").show();
 				$("#addCommentForm").hide();
 			});
+
+			$("#addReply").click(function () {
+				$("#addReply").hide();
+				$("#addReplyForm").show();
+			});
+
+			$("#publishReply").click(function () {
+				$("#addReply").show();
+				$("#addReplyForm").hide();
+			});
+
+			$("#cancelReply").click(function () {
+				$("#addReply").show();
+				$("#addReplyForm").hide();
+			});			
 		});
 	</script>
 	<style type="text/css">
@@ -425,7 +440,24 @@
 					<div class="row">
 						<div class="span9 offset3">
 							<hr />
-							<a class="btn primary" href="@Url.Action("Post")">Reply</a>
+							<button id="addReply" class="btn primary">Reply</button>
+							<div id="addReplyForm" style="display: none;">
+								<form>
+								<fieldset>
+									<legend style="padding-left: 0px;">New Reply</legend>
+									<div class="clearfix">
+										<div class="input" style="margin-left: 0px;">
+											<textarea class="xxlarge" name="newReplyBody" rows="6"></textarea>
+											<span class="help-block">Please be civil.</span>
+										</div>
+									</div>
+									<div class="actions" style="padding-left: 0px;">
+										<input id="publishReply" type="button" class="btn primary" value="Publish Reply" />
+										<input id="cancelReply" type="button" class="btn" value="Cancel" />
+									</div>
+								</fieldset>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
