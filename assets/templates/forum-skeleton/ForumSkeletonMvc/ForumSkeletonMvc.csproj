@@ -95,9 +95,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Themes\default\images\icon_notification_attention.png" />
-    <Content Include="Themes\default\images\thumb-down.png" />
-    <Content Include="Themes\default\images\thumb-up.png" />
     <Content Include="Themes\default\scripts\bootstrap-alerts.js" />
     <Content Include="Themes\default\scripts\bootstrap-buttons.js" />
     <Content Include="Themes\default\scripts\bootstrap-dropdown.js" />
@@ -127,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Themes\default\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -202,6 +200,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\RoughDraft\UserFriends.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\RoughDraft\partials\NewPost.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
