@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>{Forum Name} - {Username}'s Friends</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	@RenderPage("~/Views/RoughDraft/partials/shared/Styles.cshtml")
+	@RenderPage("~/Views/RoughDraft/partials/shared/Scripts.cshtml")
+</head>
+<body>
+	@RenderPage("~/Views/RoughDraft/partials/TopBar.cshtml")
+	<div class="container-fluid">
+		@RenderPage("~/Views/RoughDraft/partials/Sidebar.cshtml")
+		<div class="content">
+			<ul class="breadcrumb">
+				<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+				<li><a href="@Url.Action("AllUsers")">All Users</a> <span class="divider">/</span></li>
+				<li><a href="@Url.Action("User")">{Username}</a> <span class="divider">/</span></li>
+				<li class="active">Friends</li>
+			</ul>
+			<h1>
+				{Username}'s Friends</h1>
+			<hr />
+			@RenderPage("~/Views/RoughDraft/partials/UserProfileTabs.cshtml")
+			<p>{Username} has 8 friends.</p>
+			<table class="zebra-striped">
+				<tbody>
+					@for (var i = 1; i < 9; i++)
+		 {
+						<tr>
+							<td>
+								@i
+							</td>
+							<td>
+								<a href="@Url.Action("User")">
+									<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=40" /></a>
+							</td>
+							<td>
+								<h3>
+									<a href="@Url.Action("User")">{Username}</a></h3>
+							</td>
+							<td>
+								35 posts, 45 comments, 5 favorites
+							</td>
+							<td>
+								<a href="#">Remove as Friend</a>
+							</td>
+						</tr>
+		 }
+				</tbody>
+			</table>
+			<footer>
+				<p>&copy; Newco 2011-12</p>
+			</footer>
+		</div>
+	</div>
+</body>
+</html>

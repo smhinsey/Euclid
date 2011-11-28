@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="ForumSkeletonAzure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="1" osVersion="*">
+  <Role name="ForumSkeletonMvc">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="admin" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEGbRt7fdiEmbT8CYN8AJRF0wDQYJKoZIhvcNAQEBBQAEggEAxQ1Ss9nEhuq5NSw1cwbm9qcJ5PvH/W25xXM2r3yeqsBMJUZ/E0uKFQY82nz9AHNOIs5pgiKbRHTB0CyEJLAlgFRJIWLWXog++F9TRSGFlbxO9CFVDq9hIIL7gN49vUgdpwQyU+tIvHDVVtCaSNsdZKf5oB8FJvqwGitJ8DgEPj4yQraP9g8fIFK+C0dLc4DS/c+7Kkbv5tXiB4HEyhzYR09oz2KqA7yLjVEs7+Ep6s4PVMhgxzxbPOON8Cnd6t8ylsYagD0q1URkhapoqyVDvrz9ErdpPdh87cGjwOpQGna3LVBI9QPjxQYncfUWjnCu8voY/wUc4KoM1b1tjobUNDAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECHfuwe/eMYm0gBCsLq2xKtiN1w7i052V4uc/" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2012-11-26T23:59:59.0000000-05:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="8469DBEF86E6379B7BD135F720C950593FE8AB70" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>

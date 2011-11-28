@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="https://forumtemplate.cloudapp.net:8172/MsDeploy.axd" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="ForumSkeletonMvc_IN_0_Web" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="True" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="ForumTemplate - Production" publishMethod="MSDeploy" replaceMatchingFiles="True" userName="admin" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAMQzSSS/Rj0KsHLY6R3Ng3AAAAAACAAAAAAAQZgAAAAEAACAAAADcZQIKcfl3ZQQPH+ljcjtswRSXJxxjOJK1ItWnINRHLgAAAAAOgAAAAAIAACAAAABqe3NHn0IEk4qL0bYoTqCr+cJQrcNqwOy2Wwc5Du/gkCAAAABoxnryyejO81OnBl89iDqn84JeSZijTptOPZVYr44e5kAAAAAE4HkhjWOXbF9ADX9p04as1/Z2ew/MLcnu+z3hVOqDixvwps+O9O4TucOSEAUJGVCu2SlgZgTzrjNg1z8K1uhH" SelectedForPublish="True" />
+</publishData>
