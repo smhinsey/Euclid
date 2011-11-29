@@ -35,7 +35,7 @@ namespace AdminComposite.Controllers
 										WriteTr = false
 									};
 
-			return View(badges.Badges);
+			return View(badges);
 		}
 
 		public PartialViewResult NewBadge(Guid forumId)
