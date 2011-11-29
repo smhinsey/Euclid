@@ -1,20 +1,7 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>{Forum Name} - {Tag Name}</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
-	@RenderPage("~/Views/RoughDraft/partials/shared/Styles.cshtml")
-	@RenderPage("~/Views/RoughDraft/partials/shared/Scripts.cshtml")
-</head>
-<body>
-	@RenderPage("~/Views/RoughDraft/partials/TopBar.cshtml")
-
-	<div class="container-fluid">
-		@RenderPage("~/Views/RoughDraft/partials/Sidebar.cshtml")
-
-		<div class="content">
+﻿@{
+	ViewBag.Title = "{Forum Name} - {Tag Name}";
+	Layout = "~/Views/RoughDraft/Shared/_ForumLayout.cshtml";
+}
 			<ul class="breadcrumb">
 				<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
 				<li><a href="@Url.Action("Tags")">Tags</a> <span class="divider">/</span></li>
@@ -251,13 +238,3 @@
 				</div>
 
 			</div>
-
-			<footer>
-				<p>&copy; Newco 2011-12</p>
-			</footer>
-		</div>
-
-	</div>
-
-</body>
-</html>

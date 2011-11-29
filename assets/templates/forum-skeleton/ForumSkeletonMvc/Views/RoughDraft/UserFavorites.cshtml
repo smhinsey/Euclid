@@ -1,61 +1,45 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>{Forum Name} - {Username}'s Favorites</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
-	@RenderPage("~/Views/RoughDraft/partials/shared/Styles.cshtml")
-	@RenderPage("~/Views/RoughDraft/partials/shared/Scripts.cshtml")
-</head>
-<body>
-	@RenderPage("~/Views/RoughDraft/partials/TopBar.cshtml")
-	<div class="container-fluid">
-		@RenderPage("~/Views/RoughDraft/partials/Sidebar.cshtml")
-		<div class="content">
-			<ul class="breadcrumb">
-				<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
-				<li><a href="@Url.Action("AllUsers")">All Users</a> <span class="divider">/</span></li>
-				<li><a href="@Url.Action("User")">{Username}</a> <span class="divider">/</span></li>
-				<li class="active">Favorites</li>
-			</ul>
-			<h1>
-				{Username}'s Favorites</h1>
+﻿@{
+	ViewBag.Title = "{Forum Name} - {Username}'s Favorites";
+	Layout = "~/Views/RoughDraft/Shared/_ForumLayout.cshtml";
+}
+<ul class="breadcrumb">
+	<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.Action("AllUsers")">All Users</a> <span class="divider">/</span></li>
+	<li><a href="@Url.Action("User")">{Username}</a> <span class="divider">/</span></li>
+	<li class="active">Favorites</li>
+</ul>
+<h1>{Username}'s Favorites</h1>
+<hr />
+@RenderPage("~/Views/RoughDraft/partials/UserProfileTabs.cshtml")
+@for (var i = 1; i < 11; i++)
+{
+	<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
+
+		<div class="span10">
+			<p><strong><a href="@Url.Action("Post")">{Post Title}</a></strong> &ndash; This is
+				a favorite post. Integer posuere erat a ante venenatis dapibus posuere. Etiam porta
+				sem malesuada magna mollis euismod. &mdash; <span style="text-align: right; font-size: smaller;">
+					<em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Category</a>
+					&middot; <a href="#">Remove</a></span></p>
 			<hr />
-			@RenderPage("~/Views/RoughDraft/partials/UserProfileTabs.cshtml")
-			@for (var i = 1; i < 11; i++)
-	 {
-				<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
-					<div class="span10">
-						<p>
-							<strong><a href="@Url.Action("Post")">{Post Title}</a></strong> &ndash; This is
-							a favorite post. Integer posuere erat a ante venenatis dapibus posuere. Etiam porta
-							sem malesuada magna mollis euismod. &mdash; <span style="text-align: right; font-size: smaller;">
-								<em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Category</a> &middot; <a href="#">Remove</a></span></p>
-						<hr />
-					</div>
-				</div>
-		 
-		 if (i % 2 == 0)
-		 {
-		 	
-				<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
-					<div class="span10">
-						<p>
-							Comment on post: <strong><a href="@Url.Action("Post")">{Post Title}</a></strong> &ndash; This is
-							a favorite comment. Integer posuere erat a ante venenatis dapibus posuere. Etiam porta
-							sem malesuada magna mollis euismod. &mdash; <span style="text-align: right; font-size: smaller;">
-								<em>12:59 PM 12/31/2011</em> &middot; <a href="#">Remove</a></span></p>
-						<hr />
-					</div>
-				</div>			 
-			 
-		 }
-	 }
-			<footer>
-				<p>&copy; Newco 2011-12</p>
-			</footer>
 		</div>
+
 	</div>
-</body>
-</html>
+		 
+	if (i % 2 == 0)
+	{
+		 	
+	<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
+
+		<div class="span10">
+			<p>Comment on post: <strong><a href="@Url.Action("Post")">{Post Title}</a></strong>
+				&ndash; This is a favorite comment. Integer posuere erat a ante venenatis dapibus
+				posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
+					font-size: smaller;"><em>12:59 PM 12/31/2011</em> &middot; <a href="#">Remove</a></span></p>
+			<hr />
+		</div>
+
+	</div>			 
+			 
+	}
+}
