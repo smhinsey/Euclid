@@ -26,7 +26,8 @@ namespace ForumAgent.Queries
 			return new ModeratedItems
 			       	{
 						ForumIdentifier = forumId,
-			       		PageSize = pageSize,
+						ForumName = session.QueryOver<Forum>().Where(f => f.Identifier == forumId).SingleOrDefault().Name,
+						PageSize = pageSize,
 			       		Offset = offset,
 						TotalPosts = session.QueryOver<ModeratedPost>().Where(p => p.ForumIdentifier == forumId && !p.Approved).RowCount(),
 			       		Posts = posts

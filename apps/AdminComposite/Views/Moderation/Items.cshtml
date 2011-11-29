@@ -175,7 +175,7 @@
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="/" title="Back to Homepage">Home</a></li>
-		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ViewBag.ForumName)</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
 		<li>@ViewBag.Title</li>
 	</ul>
 }

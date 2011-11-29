@@ -15,5 +15,7 @@ namespace ForumAgent.ReadModels
 		public int PageSize { get; set; }
 
 		public Guid ForumIdentifier { get; set; }
+
+		public string ForumName { get; set; }
 	}
 }
