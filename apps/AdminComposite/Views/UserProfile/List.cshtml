@@ -1,9 +1,13 @@
 ﻿@using AdminComposite.Extensions
+@using AdminComposite.Models
 @using ForumAgent.ReadModels
-@model IList<ForumUser>
+@model ForumUsers
 @{
 	ViewBag.Title = "Manage Forum Users";
-	var forumId = ViewContext.RouteData.Values["forumId"];
+	((PaginationModel)ViewBag.Pagination).ColSpan = 6;
+	((PaginationModel)ViewBag.Pagination).WriteTFoot = true;
+	((PaginationModel)ViewBag.Pagination).WriteTable = false;
+	((PaginationModel)ViewBag.Pagination).WriteTr = true;
 }
 
 <script type="text/javascript" src="@Url.Content("~/Content/jquery.timers-1.2.js")"></script>
@@ -11,7 +15,7 @@
 	$(document).ready(function () {
 		$("#invite-users").click(function () {
 			$("<div></div>")
-				.load("@Url.Action("Invite", "UserProfile", new {forumId = forumId})")
+				.load("@Url.Action("Invite", "UserProfile", new {forumId = Model.ForumIdentifier})")
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -107,17 +111,9 @@
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
-			<tfoot>
-				<tr>
-					<td colspan="6">
-						<ul class="button-switch">
-							<li></li>
-						</ul>
-					</td>
-				</tr>
-			</tfoot>
+			@Html.Partial("_Pagination")
 			<tbody>
-				@foreach (var user in Model)
+				@foreach (var user in Model.Users)
 				{
 					<tr>
 						<td>@user.FirstName @user.LastName</td>
@@ -147,7 +143,7 @@
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="/" title="Back to Homepage">Home</a></li>
-		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ViewBag.ForumName)</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
 		<li>@ViewBag.Title</li>
 	</ul>
 }

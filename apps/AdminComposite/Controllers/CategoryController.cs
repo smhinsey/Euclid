@@ -23,8 +23,6 @@ namespace AdminComposite.Controllers
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
 			var model = _categoryQueries.List(forumId, offset, pageSize);
-			ViewBag.ForumName = model.ForumName;
-
 			ViewBag.Pagination = new PaginationModel
 			                     	{
 			                     		ActionName = "List",

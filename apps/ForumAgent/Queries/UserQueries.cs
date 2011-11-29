@@ -52,16 +52,17 @@ namespace ForumAgent.Queries
 			return FindByUserIdentifier(forumId, matchedUser.Identifier);
 		}
 
-		public IList<ForumUser> FindByForum(Guid forumId, int offset, int pageSize)
+		public ForumUsers FindByForum(Guid forumId, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();
 
-			var users = session.QueryOver<ForumUser>()
-				.Where(user => user.ForumIdentifier == forumId)
-				.Skip(offset)
-				.Take(pageSize);
-
-			return users.List();
+			return new ForumUsers
+			       	{
+			       		ForumIdentifier = forumId,
+			       		ForumName = session.QueryOver<Forum>().Where(f => f.Identifier == forumId).SingleOrDefault().Name,
+			       		Users = session.QueryOver<ForumUser>().Where(user => user.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List(),
+			       		TotalUsers = session.QueryOver<ForumUser>().RowCount()
+			       	};
 		}
 	}
 }
