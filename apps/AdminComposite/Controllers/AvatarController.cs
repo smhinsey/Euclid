@@ -35,7 +35,7 @@ namespace AdminComposite.Controllers
 			                     		WriteTr = false
 			                     	};
 
-			return View(model);
+			return View(model.Avatars);
 		}
 
 		public JsonResult ActivateAvatar(Guid avatarId, bool active)
@@ -51,12 +51,21 @@ namespace AdminComposite.Controllers
 
 		public PartialViewResult UpdateAvatar(Guid avatarId)
 		{
+			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
+
 			throw new NotImplementedException();
+			// return PartialView("_UpdateAvatar", new UpdateForumAvatarInputModel)
 		}
 
-		public PartialViewResult NewAvatar(Guid avatarId)
+		public PartialViewResult NewAvatar(Guid forumId)
 		{
-			throw new NotImplementedException();
+			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
+
+			return PartialView("_NewAvatar", new CreateForumAvatarInputModel
+			                                 	{
+			                                 		ForumIdentifier = forumId,
+													CreatedBy = userId,
+			                                 	});
 		}
 	}
 }

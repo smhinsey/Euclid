@@ -17,7 +17,7 @@ namespace ForumAgent.Queries
 
 			return new AvailableAvatars
 			       	{
-			       		Avatars = session.QueryOver<ForumAvatar>().Where(a => a.ForumIdentifier == forumId).List(),
+			       		Avatars = session.QueryOver<ForumAvatar>().Where(a => a.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List(),
 			       		TotalAvatars = session.QueryOver<ForumAvatar>().Where(a => a.ForumIdentifier == forumId).RowCount(),
 			       		ForumName = session.QueryOver<Forum>().Where(f => f.Identifier == forumId).SingleOrDefault().Name,
 			       	};
