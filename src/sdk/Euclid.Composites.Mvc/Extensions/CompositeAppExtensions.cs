@@ -15,7 +15,7 @@ namespace Euclid.Composites.Mvc.Extensions
 {
 	public static class CompositeAppExtensions
 	{
-		public static IInputModel GetInputModelFromCommandName(this ICompositeApp composite, string commandName, IValueProvider valueProvider)
+		public static IInputModel GetInputModelFromCommandName(this ICompositeApp composite, string commandName, IValueProvider valueProvider, HttpFileCollectionBase files)
 		{
 			var ignoreProperties = new List<string>();
 
@@ -36,7 +36,7 @@ namespace Euclid.Composites.Mvc.Extensions
 				var propValue = valueProvider.GetValue(property.Name);
 				try
 				{
-					var file = HttpContext.Current.Request.Files[property.Name];
+					var file = files[property.Name];
 					if (property.PropertyType == typeof(HttpPostedFileBase) && file != null)
 					{
 						var blobService = DependencyResolver.Current.GetService<IBlobStorage>();
@@ -56,10 +56,14 @@ namespace Euclid.Composites.Mvc.Extensions
 
 							if (blobUrlProperty != null && blobUrlProperty.CanWrite)
 							{
-								var existingBlobUri = HttpContext.Current.Request[blobUrlPropertyName];
+								var existingBlobUri = valueProvider.GetValue(blobUrlPropertyName).AttemptedValue;
 								if (!string.IsNullOrEmpty(existingBlobUri))
 								{
-									blobService.Delete(new Uri(existingBlobUri));
+									var uri = new Uri(existingBlobUri);
+									if (blobService.Exists(uri))
+									{
+										blobService.Delete(uri);
+									}
 								}
 
 								ignoreProperties.Add(blobUrlPropertyName);

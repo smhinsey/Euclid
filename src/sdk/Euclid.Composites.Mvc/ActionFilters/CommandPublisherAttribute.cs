@@ -26,7 +26,7 @@ namespace Euclid.Composites.Mvc.ActionFilters
 			var valueProvider = new NameValueCollectionValueProvider(
 				filterContext.HttpContext.Request.Params, CultureInfo.CurrentCulture);
 
-			var inputModel = CompositeApp.GetInputModelFromCommandName(commandName, valueProvider);
+			var inputModel = CompositeApp.GetInputModelFromCommandName(commandName, valueProvider, filterContext.HttpContext.Request.Files);
 
 			var command = CompositeApp.GetCommandForInputModel(inputModel);
 

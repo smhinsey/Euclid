@@ -3,22 +3,24 @@
 @model UpdateForumAvatarInputModel
 
 <script type="text/javascript">
-$(document).ready(function() {
-	$("#change-image").click(function() {
-		$("#avatar-preview").hide();
-		$(this).hide();
-		$("#avatar-image").show();
-		$("#reset-image").show();
-	});
+	$(document).ready(function () {
+		$("#change-image").click(function () {
+			$("#avatar-preview").hide();
+			$(this).hide();
+			$("#avatar-image").show();
+			$("#reset-image").show();
 
-	$("#reset-image").click(function() {
-		$("#avatar-image").val("");
-		$("#avatar-preview").show();
-		$("#change-image").show();
-		$("#avatar-image").hide();
-		$(this).hide();
+			$("#avatar-image").click();
+		});
+
+		$("#reset-image").click(function () {
+			$("#avatar-image").val("");
+			$("#avatar-preview").show();
+			$("#change-image").show();
+			$("#avatar-image").hide();
+			$(this).hide();
+		});
 	});
-});
 </script>
 
 <section>
