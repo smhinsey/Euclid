@@ -1,6 +1,8 @@
 ﻿@using ForumAgent.ReadModels
 @model IList<ForumContent>
-
+@{
+	ViewBag.Title = "Manage Forum Content";
+}
 <script type="text/javascript" src="@Url.Content("~/Content/jquery.timers-1.2.js")"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -73,7 +75,7 @@
 
 <article>
 	<header>
-		<h2>Manage Forum Content</h2>
+		<h2>@ViewBag.Title</h2>
 	</header>
 
 	<section>
@@ -121,7 +123,7 @@
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
-		<li>@ViewBag.ForumName</li>
-		<li>Custom Content</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ViewBag.ForumName)</li>
+		<li>@ViewBag.Title</li>
 	</ul>
 }

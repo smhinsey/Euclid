@@ -61,8 +61,8 @@
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "badge", "list", "current")>
 						<a href="@Url.Action("List", "Badge", new { forumId })">Badges</a> </li>
 				
-					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "votingscheme", "list", "current")>
-						<a href="@Url.Action("List", "VotingScheme", new { forumId })">Voting</a> </li>
+					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "voting", "list", "current")>
+						<a href="@Url.Action("List", "Voting", new { forumId })">Voting</a> </li>
 				
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "theme", "list", "current")>
 						<a href="@Url.Action("List", "Theme", new { forumId })">Themes</a> </li>

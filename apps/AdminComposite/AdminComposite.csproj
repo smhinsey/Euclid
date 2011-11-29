@@ -154,7 +154,7 @@
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\ThemeController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
-    <Compile Include="Controllers\VotingSchemeController.cs" />
+    <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -523,7 +523,7 @@
     <Content Include="Views\Dashboard\GetConfirmationMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\VotingScheme\List.cshtml" />
+    <Content Include="Views\Voting\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Theme\List.cshtml" />

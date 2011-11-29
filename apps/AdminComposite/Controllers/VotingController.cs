@@ -7,12 +7,12 @@ using ForumAgent.Queries;
 
 namespace AdminComposite.Controllers
 {
-	public class VotingSchemeController : Controller
+	public class VotingController : Controller
 	{
 		private readonly ForumQueries _forumQueries;
 		private readonly IPublisher _publisher;
 
-		public VotingSchemeController(ForumQueries forumQueries, IPublisher publisher)
+		public VotingController(ForumQueries forumQueries, IPublisher publisher)
 		{
 			_forumQueries = forumQueries;
 			_publisher = publisher;

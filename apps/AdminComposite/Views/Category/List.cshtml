@@ -1,6 +1,9 @@
 ﻿@using ForumAgent.ReadModels
 @model IList<Category>
-		   
+@{
+	ViewBag.Title = "Manage Forum Categories";
+}
+
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#create-category").click(function () {
@@ -54,7 +57,7 @@
 
 <article>
 	<header>
-		<h2>Manage Forum Categories</h2>
+		<h2>@ViewBag.Title</h2>
 	</header>
 
 	<section>
@@ -101,7 +104,7 @@
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
-		<li>@ViewBag.ForumName</li>
-		<li>Categories</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ViewBag.ForumName)</li>
+		<li>@ViewBag.Title</li>
 	</ul>
 }

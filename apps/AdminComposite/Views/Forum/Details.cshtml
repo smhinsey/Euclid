@@ -2,7 +2,7 @@
 @using Euclid.Composites.Mvc.Extensions
 @model UpdateForumInputModel
 @{
-	ViewBag.Title = string.Format("{0} Details", System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.Name));
+	ViewBag.Title = "Manage Forum Details";
 	var forumUrl = string.Format("http://{0}/org/{1}/forum/{2}", Model.UrlHostName, ViewBag.OrganizationSlug, Model.UrlSlug);
 }
 
@@ -247,7 +247,7 @@
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
-		<li>@Model.Name</li>
-		<li>Forum Details</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.Name)</li>
+		<li>@ViewBag.Title</li>
 	</ul>
 }
