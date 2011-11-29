@@ -3,6 +3,7 @@
 @model UpdateForumInputModel
 @{
 	ViewBag.Title = string.Format("{0} Details", System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.Name));
+	var forumUrl = string.Format("http://{0}/org/{1}/forum/{2}", Model.UrlHostName, ViewBag.OrganizationSlug, Model.UrlSlug);
 }
 
 <script type="text/javascript" src="@Url.Content("~/Content/jeditable/jquery.jeditable.wysiwyg.js")"></script>
@@ -145,7 +146,7 @@
 						<dt><label for="forum-host">Host</label></dt>
 						<dd class="text">
 							<p class="forum-setting" id="forum-host">@Model.UrlHostName</p>
-							<p style="font-size:77%">Forum url: <b><span id="forum-url">http://@Model.UrlHostName/org/@ViewBag.OrganizationSlug/forum/@Model.UrlSlug</span></b></p>
+							<p style="font-size:77%">Forum url: <b><span id="forum-url">@forumUrl</span></b></p>
 						</dd>
 
 						<dt><label for="forum-description">Description</label></dt>
@@ -221,17 +222,25 @@
 						<dt><label for="forum-host">Host</label></dt>
 						<dd  class="text">
 							@Model.UrlHostName
+							<p style="font-size:77%">Forum url: <b><span id="forum-url">@forumUrl</span></b></p>
 						</dd>
 
 						<dt><label>Description</label></dt>
 						<dd class="text">
 							@Html.Raw(Model.Description)
 						</dd>
+
+						<dt class="checkbox"><label for="forum-private">Private</label></dt>
+						<dd>
+							<input type="checkbox" disabled="disabled" @if(Model.Private){<text>checked="checked"</text>}/>
+						</dd>
+
+						<dt class="checkbox"><label for="forum-moderated">Moderated</label></dt>
+						<dd>
+							<input type="checkbox" disabled="disabled" @if(Model.Moderated){<text>checked="checked"</text>}/>
+						</dd>
 					</dl>
 						
-					@{
-						var forumUrl = string.Format("{0}/org/{1}/forum/{2}", Model.UrlHostName, @ViewBag.OrganizationSlug, @Model.UrlSlug);
-					}
 					<p class="notification information"><a href="@forumUrl" title="forum-url">@forumUrl</a></p>
 				</fieldset>
 			</form>
