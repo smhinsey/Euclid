@@ -2,7 +2,8 @@
 @using Euclid.Composites.Mvc.Extensions
 @model UpdateForumInputModel
 @{
-	ViewBag.Title = Model.Name + " Details";
+	ViewBag.Title = "Manage Forum Details";
+	var forumUrl = string.Format("http://{0}/org/{1}/forum/{2}", Model.UrlHostName, ViewBag.OrganizationSlug, Model.UrlSlug);
 }
 
 <script type="text/javascript" src="@Url.Content("~/Content/jeditable/jquery.jeditable.wysiwyg.js")"></script>
@@ -13,23 +14,17 @@
 		$("#trigger-edit").click(function () {
 			$("#cancel-edit").show();
 			$("#save-settings").show();
+			$("#generate-slug").show();
 			$("#trigger-edit").hide();
 			$("#forum-moderated").removeAttr("disabled");
 			$("#forum-private").removeAttr("disabled");
-
-			//			$("#cancel-edit").removeAttr("disabled");
-			//			$("#save-settings").removeAttr("disabled");
-			//			$("#forum-moderated").removeAttr("disabled");
-			//			$("#forum-private").removeAttr("disabled");
-			//			$("#deploy-settings").attr("disabled", "disabled");
-			//			$("#trigger-edit").attr("disabled", "disabled");
 
 			$("#forum-settings .forum-setting").each(function (index, item) {
 				var type = $(item).attr("id") == "forum-description" ? "wysiwyg" : "text";
 				if (type == "wysiwyg") {
 					$(item).addClass("editor");
 				}
-				
+
 				$(item).editable("enable");
 
 				$(item).editable(null, {
@@ -70,6 +65,29 @@
 		$("#cancel-edit").click(function () {
 			window.location.reload();
 		});
+
+		$("#generate-slug").click(function () {
+			var forumSlug = slugify($("#forum-name input").val());
+			$("#forum-slug input").val(forumSlug);
+
+			var orgSlug = $("#org-slug").val();
+			var host = $("#forum-host input").val();
+			setForumUrl(host, orgSlug, forumSlug);
+		});
+		
+
+		$("#forum-name input, #forum-slug input").live("blur", function () {
+			var slug = $("#forum-slug input").val();
+
+			if (isNullOrEmpty(slug)) {
+				slug = slugify($("#forum-name input").val());
+			}
+
+			$("#forum-slug input").val(slug);
+			var orgSlug = $("#org-slug").val();
+			var host = $("#forum-host input").val();
+			setForumUrl(host, orgSlug, slug);
+		});
 	});
 </script>
 
@@ -87,6 +105,11 @@
 		margin: 0;
 		padding: 0;
 		display: inline;
+	}
+	
+	.tab
+	{
+		overflow: visible;
 	}
 </style>
 
@@ -108,7 +131,7 @@
 		<div id="test" class="tab default-tab">
 			<form action="#">
 				<fieldset>
-					<legend>Forum Details</legend>
+					<legend>Details</legend>
 						
 					<dl id="forum-settings">
 						<dt><label for="forum-name">Name</label></dt>
@@ -117,13 +140,13 @@
 						<dt><label for="forum-slug">Slug</label></dt>
 						<dd class="text">
 							<p class="forum-setting" id="forum-slug">@Model.UrlSlug</p>
-							<p><a href="#" id="generate-slug">generate slug</a></p>
+							<p><a href="#" id="generate-slug" style="display:none">generate slug</a></p>
 						</dd>
 
 						<dt><label for="forum-host">Host</label></dt>
 						<dd class="text">
 							<p class="forum-setting" id="forum-host">@Model.UrlHostName</p>
-							<p>Forum url: <b><span id="forum-url">@Model.UrlHostName/org/@ViewBag.OrganizationSlug/forum/@Model.UrlSlug</span></b></p>
+							<p style="font-size:77%">Forum url: <b><span id="forum-url">@forumUrl</span></b></p>
 						</dd>
 
 						<dt><label for="forum-description">Description</label></dt>
@@ -185,32 +208,36 @@
 		<div id="production" class="tab" style="display: none">
 			<form action="#">
 				<fieldset>
-					<legend>Forum Details</legend>
+					<legend>Details</legend>
 						
 					<dl>
 						<dt><label for="forum-name">Name</label></dt>
-						<dd class="text">@Model.Name</dd>
+						<dd class="text"><p>@Model.Name</p></dd>
 
 						<dt><label for="forum-slug">Slug</label></dt>
-						<dd class="text">
-							@Model.UrlSlug
-						</dd>
+						<dd class="text"><p>@Model.UrlSlug</p></dd>
 
 						<dt><label for="forum-host">Host</label></dt>
 						<dd  class="text">
-							@Model.UrlHostName
+							<p>@Model.UrlHostName</p>
+							<p style="font-size:77%">Forum url: <b><span id="forum-url">@forumUrl</span></b></p>
 						</dd>
 
 						<dt><label>Description</label></dt>
 						<dd class="text">
-							@Html.Raw(Model.Description)
+							<p>@Html.Raw(Model.Description)</p>
+						</dd>
+
+						<dt class="checkbox"><label for="forum-private">Private</label></dt>
+						<dd>
+							<input type="checkbox" disabled="disabled" @if(Model.Private){<text>checked="checked"</text>}/>
+						</dd>
+
+						<dt class="checkbox"><label for="forum-moderated">Moderated</label></dt>
+						<dd>
+							<input type="checkbox" disabled="disabled" @if(Model.Moderated){<text>checked="checked"</text>}/>
 						</dd>
 					</dl>
-						
-					@{
-						var forumUrl = string.Format("{0}/org/{1}/forum/{2}", Model.UrlHostName, @ViewBag.OrganizationSlug, @Model.UrlSlug);
-					}
-					<p class="notification information"><a href="@forumUrl" title="forum-url">@forumUrl</a></p>
 				</fieldset>
 			</form>
 		</div>
@@ -220,7 +247,7 @@
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
-		<li>@Model.Name</li>
-		<li>Forum Details</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.Name)</li>
+		<li>@ViewBag.Title</li>
 	</ul>
 }

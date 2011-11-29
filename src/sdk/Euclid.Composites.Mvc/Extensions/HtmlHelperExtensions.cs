@@ -26,7 +26,7 @@ namespace Euclid.Composites.Mvc.Extensions
 
 			// jt: we can deduce the AgentSystemName & PartName w/out requiring them to be explicitly set on the inputmodel
 			var form = helper.BeginForm(
-				"Publish", "Agents", new { area = "CompositeInspector" }, FormMethod.Post, new { id = formId });
+				"Publish", "Agents", new { area = "CompositeInspector" }, FormMethod.Post, new { id = formId, encType = "multipart/form-data" });
 
 			var tagBuilder = new TagBuilder("input");
 			tagBuilder.Attributes.Add("type", "hidden");

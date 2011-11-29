@@ -25,9 +25,18 @@ namespace AdminComposite.Controllers
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
-			ViewBag.ForumName = _forumQueries.FindById(forumId).Name;
+			var model = _contentQueries.List(forumId, offset, pageSize);
+			ViewBag.Pagination = new PaginationModel
+			                     	{
+			                     		ActionName = "List",
+			                     		ControllerName = "Content",
+			                     		ForumIdentifier = forumId,
+			                     		Offset = offset,
+			                     		PageSize = pageSize,
+			                     		TotalItems = model.TotalContentItems
+			                     	};
 
-			return View(_contentQueries.List(forumId, offset, pageSize));
+			return View(model);
 		}
 
 		public PartialViewResult NewContent(Guid forumId)

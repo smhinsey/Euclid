@@ -40,8 +40,18 @@ namespace AdminComposite.Controllers
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
-			ViewBag.ForumName = _forumQueries.FindById(forumId).Name;
-			return View(_forumUserQueries.FindByForum(forumId, offset, pageSize));
+			var model = _forumUserQueries.FindByForum(forumId, offset, pageSize);
+			ViewBag.Pagination = new PaginationModel
+			                     	{
+			                     		ForumIdentifier = forumId,
+			                     		ActionName = "List",
+			                     		ControllerName = "UserProfile",
+			                     		Offset = offset,
+			                     		PageSize = pageSize,
+			                     		TotalItems = model.TotalUsers
+			                     	};
+
+			return View(model);
 		}
 
 		[HttpPost]

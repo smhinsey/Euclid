@@ -7,12 +7,12 @@ using ForumAgent.Queries;
 
 namespace AdminComposite.Controllers
 {
-	public class VotingSchemeController : Controller
+	public class VotingController : Controller
 	{
 		private readonly ForumQueries _forumQueries;
 		private readonly IPublisher _publisher;
 
-		public VotingSchemeController(ForumQueries forumQueries, IPublisher publisher)
+		public VotingController(ForumQueries forumQueries, IPublisher publisher)
 		{
 			_forumQueries = forumQueries;
 			_publisher = publisher;
@@ -21,11 +21,11 @@ namespace AdminComposite.Controllers
 		public ActionResult List(Guid forumId)
 		{
 			var forum = _forumQueries.FindById(forumId);
-			ViewBag.FormName = forum.Name;
-
+			
 			return View(new SetVotingSchemeInputModel
 			            	{
 			            		ForumIdentifier = forum.Identifier,
+								ForumName = forum.Name,
 								SelectedScheme = forum.NoVoting ? VotingScheme.NoVoting : VotingScheme.UpDownVoting
 			            	});
 		}

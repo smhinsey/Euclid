@@ -1,0 +1,118 @@
+﻿@using AdminComposite.Models
+@using ForumAgent.ReadModels
+@model AvailableAvatars
+
+@{
+	ViewBag.Title = "Manage Forum Avatars";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	((PaginationModel)ViewBag.Pagination).ColSpan = 4;
+	((PaginationModel) ViewBag.Pagination).WriteTFoot = false;
+	((PaginationModel) ViewBag.Pagination).WriteTable = false;
+	((PaginationModel) ViewBag.Pagination).WriteTr = false;
+}
+
+<script type="text/javascript">
+	var forumId = "@Model.ForumIdentifier";
+	$(document).ready(function() {
+		$("#create-avatar").click(function() {
+			$("<div></div>")
+				.load("/Avatar/NewAvatar/" + forumId)
+				.modal({
+						autoResize: true,
+						autoPosition: true,
+						position: new Array(25, 250),
+						dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 535, width: 585 },
+						containerCss: { height: 550, width: 600 }
+					});
+
+			return false;
+		});
+
+		$("#save").click(function() {
+			$(this).attr("disabled", "disabled");
+			
+			$(".avatar-active").each(function(index, item) {
+				var avatarId = $(item).attr("data-item-id");
+				$.get("/Avatar/ActivateAvatar?avatarId=" + avatarId + "&active=" + $(item).is(":checked"));
+			});
+
+			setTimeout("enableSaveButton()", 750);
+		});
+
+		$(".edit").click(function() {
+			var avatarId = $(this).attr("data-item-id");
+
+			$("<div></div>")
+				.load("@Url.Action("UpdateAvatar")?avatarId=" + avatarId)
+				.modal({
+						autoResize: true,
+						autoPosition: true,
+						position: new Array(25, 300),
+						dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 485, width: 635 },
+						containerCss: { height: 500, width: 650 }
+					});
+			return false;
+		});
+	});
+	
+	function enableSaveButton() {
+		$("#save").removeAttr('disabled');
+	}
+</script>
+
+<article>
+	<header>
+		<h2>@ViewBag.Title</h2>
+	</header>
+
+	<section>
+		<p style="float: left">Setting an avatar to active means it will be awarded to users when the trigger threshold is satisfied.</p>
+		<a href="#" style="float:right" class="button-link blue" id="create-avatar">Add Avatar</a>
+	</section>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Active</th>
+				<th>Name</th>
+				<th>Image</th>
+				<th>Description</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td>
+					<ul class="button-switch">
+						<li><button type="button" id="save">Save</button></li>
+					</ul>
+				</td>
+				@Html.Partial("_pagination")
+			</tr>
+		</tfoot>
+		<tbody>
+			@foreach (var avatar in Model.Avatars)
+			{
+				<tr>
+					<td>@Html.CheckBoxFor(m => avatar.Active, new { @class = "avatar-active", data_item_id = @avatar.Identifier })</td>
+					<td>@avatar.Name</td>
+					<td>@if (!string.IsNullOrEmpty(avatar.Url)) { <text><img class="avatar-preview" src="@avatar.Url" alt="avatar image" /></text>}else {<text>&nbsp;</text>}</td>
+					<td>@avatar.Description</td>
+					<td>
+						<ul class="actions">
+							<li><a class="edit" rel="tooltip" href="#" data-item-id="@avatar.Identifier" original-title="Edit">Edit</a></li>
+						</ul>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</article>
+
+@section Breadcrumbs {
+	<ul id="breadcrumbs">
+		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
+		<li>@ViewBag.Title</li>
+	</ul>
+}

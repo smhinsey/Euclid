@@ -9,6 +9,7 @@ using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Euclid.Common.Configuration;
 using Euclid.Common.Messaging;
+using Euclid.Common.Storage;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.Storage.Record;
@@ -133,26 +134,17 @@ namespace Euclid.Composites
 
 		public IPartMetadata GetCommandMetadataForInputModel(Type inputModelType)
 		{
-			if (!typeof(IInputModel).IsAssignableFrom(inputModelType))
-			{
-				throw new InvalidTypeSettingException(inputModelType.FullName, typeof(IInputModel), inputModelType.GetType());
-			}
-
-			var map = Mapper.GetAllTypeMaps().Where(m => m.SourceType == inputModelType).FirstOrDefault();
-
-			if (map == null)
-			{
-				throw new InputModelNotRegisteredException(inputModelType);
-			}
-
-			var commandType = map.DestinationType;
-
-			return commandType.GetMetadata() as PartMetadata;
+			return _inputModelMap.GetCommandMetadataForInputModel(inputModelType);
 		}
 
 		public Type GetInputModelTypeForCommandName(string commandName)
 		{
 			return _inputModelMap.GetInputModelTypeForCommandName(commandName);
+		}
+
+		public ICommand GetCommandForInputModel(IInputModel model)
+		{
+			return _inputModelMap.GetCommand(model);
 		}
 
 		public IEnumerable<string> GetConfigurationErrors()
@@ -238,6 +230,9 @@ namespace Euclid.Composites
 			Container.Register(
 				Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().Forward<ICommandRegistry>().
 					ImplementedBy(compositeAppSettings.PublicationRegistry.Value).LifeStyle.Transient);
+
+			Container.Register(
+				Component.For<IBlob>().UsingFactoryMethod(() => new Blob()));
 		}
 
 		private MappingConfiguration mapAllAssemblies(MappingConfiguration mcfg)
@@ -272,7 +267,7 @@ namespace Euclid.Composites
 					AutoMap
 						.Assembly(agent, autoMapperConfiguration)
 						.IgnoreBase<DefaultReadModel>()
-						.IgnoreBase<UnpersistedReadModel>()
+						.IgnoreBase<SyntheticReadModel>()
 						.Conventions
 						.Add<DefaultStringLengthConvention>());
 

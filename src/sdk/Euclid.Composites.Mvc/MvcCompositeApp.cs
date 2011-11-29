@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using CommonServiceLocator.WindsorAdapter;
 using Euclid.Common.Logging;
 using Euclid.Composites.Mvc.ActionFilters;
 using Euclid.Composites.Mvc.Binders;
@@ -50,6 +51,8 @@ namespace Euclid.Composites.Mvc
 			ModelBinders.Binders.DefaultBinder = new EuclidDefaultBinder(Container.ResolveAll<IEuclidModelBinder>());
 
 			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
+
+			DependencyResolver.SetResolver(new WindsorDependencyResolver(Container));
 		}
 	}
 }

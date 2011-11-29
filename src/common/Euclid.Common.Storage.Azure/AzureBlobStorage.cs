@@ -51,7 +51,7 @@ namespace Euclid.Common.Storage.Azure
 			{
 				target.FetchAttributes();
 			}
-			catch (StorageClientException s)
+			catch (StorageClientException)
 			{
 				exists = false;
 			}

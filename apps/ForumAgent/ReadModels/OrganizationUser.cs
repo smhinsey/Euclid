@@ -3,7 +3,7 @@ using Euclid.Framework.Models;
 
 namespace ForumAgent.ReadModels
 {
-	public class OrganizationUser : UnpersistedReadModel
+	public class OrganizationUser : SyntheticReadModel
 	{
 		public virtual string Email { get; set; }
 

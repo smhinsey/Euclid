@@ -6,25 +6,41 @@
 	$(document).ready(function() {
 		$("#forum-name").focus();
 
-		$("sumbit-create-command").click(function() {
-			alert($("#forum-description").val());
-			return false;
+		$("#forum-host").keyup(function () {
+			var forumSlug = $("#forum-slug").val();
+			var orgSlug = $("#org-slug").val();
+			var host = $("#forum-host").val();
+			setForumUrl(host, orgSlug, forumSlug);
 		});
 
-		$(".voting-scheme").click(function () {
-			var selectedIsChecked = $(this).is(":checked");
-			var selectedId = $(this).attr("id");
+		$("#generate-slug").click(function () {
+			var forumSlug = slugify($("#forum-name").val());
+			$("#forum-slug").val(forumSlug);
 
-			$(".voting-scheme").each(function (index, item) {
-				var currentId = $(this).attr("id");
-				if (selectedId != currentId && selectedIsChecked) {
-					$(item).prop("checked", false);
-				}
-			});
+			var orgSlug = $("#org-slug").val();
+			var host = $("#forum-host").val();
+			setForumUrl(host, orgSlug, forumSlug);
+		});
 
-			if (!$(".voting-scheme").is(":checked")) {
-				$("#forum-voting-disabled").prop("checked", true);
+		$("#forum-name, #forum-slug").blur(function () {
+			var slug = $("#forum-slug").val();
+
+			if (isNullOrEmpty(slug)) {
+				slug = slugify($("#forum-name").val());
 			}
+
+			$("#forum-slug").val(slug);
+			var orgSlug = $("#org-slug").val();
+			var host = $("#forum-host").val();
+			setForumUrl(host, orgSlug, slug);
+		});
+
+		$("#forum-slug").focus(function () {
+			$(this).selectRange(0, $(this).val().length);
+		});
+
+		$("#forum-slug").mouseup(function () {
+			return false;
 		});
 	});
 </script>
@@ -41,8 +57,9 @@
 		@Html.HiddenFor(m => m.OrganizationId)
 		@Html.HiddenFor(m=>m.CreatedBy)
 		@Html.HiddenFor(m=>m.Theme)
+		<input type="hidden" name="org-slug" value="@ViewBag.OrganizationSlug" id="org-slug" />
 		<fieldset>
-			<legend>Settings</legend>
+			<legend>Details</legend>
 
 			<dl>
 				<dt><label for="forum-name">Name</label></dt>
@@ -57,7 +74,7 @@
 				<dt><label for="forum-host">Host</label></dt>
 				<dd>
 					@Html.TextBoxFor(m => m.UrlHostName, new { id = "forum-host", @readonly = "readonly" })
-					<p>Forum url: <b><span id="forum-url">http//newco-forums.com/{organization-name}/forums/{forum-name}</span></b></p>
+					<p>Forum url: <b><span id="forum-url">http//newco-forums.com/org/@ViewBag.OrganizationSlug/forum/{forum-slug}</span></b></p>
 				</dd>
 
 				<dt><label for="forum-description">Description</label></dt>

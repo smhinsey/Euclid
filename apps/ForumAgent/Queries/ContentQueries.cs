@@ -26,11 +26,17 @@ namespace ForumAgent.Queries
 			return session.QueryOver<ForumContent>().Where(c => c.ForumIdentifier == forumId && c.Active).Skip(offset).Take(pageSize).List();
 		}
 
-		public IList<ForumContent> List(Guid forumId, int offset, int pageSize)
+		public AvailableContent List(Guid forumId, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();
 
-			return session.QueryOver<ForumContent>().Where(c => c.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List();
+			return new AvailableContent
+			       	{
+			       		ForumIdentifier = forumId,
+			       		ForumName = session.QueryOver<Forum>().Where(f => forumId == f.Identifier).SingleOrDefault().Name,
+			       		ContentItems = session.QueryOver<ForumContent>().Where(c => c.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List(),
+			       		TotalContentItems = session.QueryOver<ForumContent>().RowCount()
+			       	};
 		}
 	}
 }

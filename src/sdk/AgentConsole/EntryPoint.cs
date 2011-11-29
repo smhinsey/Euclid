@@ -14,6 +14,7 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
+using LoggingAgent.ReadModels;
 using Microsoft.WindowsAzure;
 using NConfig;
 using log4net.Config;
@@ -66,7 +67,7 @@ namespace AgentConsole
 
 				composite.AddAgent(typeof(CreateForum).Assembly);
 
-				// composite.AddAgent(typeof(LogEntry).Assembly);
+				//composite.AddAgent(typeof(LogEntry).Assembly);
 
 				//composite.AddAgent(typeof(TestCommand).Assembly);
 

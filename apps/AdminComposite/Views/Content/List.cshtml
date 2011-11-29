@@ -1,12 +1,19 @@
-﻿@using ForumAgent.ReadModels
-@model IList<ForumContent>
-
+﻿@using AdminComposite.Models
+@using ForumAgent.ReadModels
+@model AvailableContent
+@{
+	ViewBag.Title = "Manage Forum Content";
+	((PaginationModel)ViewBag.Pagination).ColSpan = 3;
+	((PaginationModel)ViewBag.Pagination).WriteTFoot = false;
+	((PaginationModel)ViewBag.Pagination).WriteTable = false;
+	((PaginationModel)ViewBag.Pagination).WriteTr = false;
+}
 <script type="text/javascript" src="@Url.Content("~/Content/jquery.timers-1.2.js")"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#add-content").click(function() {
 			$("<div></div>")
-				.load("@Url.Action("NewContent", "Content", new { forumId = ViewContext.RouteData.Values["forumId"] })")
+				.load("@Url.Action("NewContent", "Content", new { forumId = Model.ForumIdentifier })")
 				.modal({
 						autoResize: true,
 						autoPosition: true,
@@ -73,11 +80,11 @@
 
 <article>
 	<header>
-		<h2>Content for Forum</h2>
+		<h2>@ViewBag.Title</h2>
 	</header>
 
 	<section>
-		<p style="float:left">Manage content for this forum</p>
+		<p style="float:left">View, add, edit, and activate content for this forum</p>
 		<a style="float:right" href="#" class="button-link blue" id="add-content">Add Content</a>
 	</section>
 
@@ -92,15 +99,16 @@
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="4">
+				<td>
 					<ul class="button-switch">
 						<li><button type="button" id="update">Save</button></li>
 					</ul>
 				</td>
+				@Html.Partial("_Pagination")
 			</tr>
 		</tfoot>
 		<tbody>
-			@foreach (var content in Model)
+			@foreach (var content in Model.ContentItems)
 			{
 				<tr>
 					<td>@Html.CheckBoxFor(m=>content.Active, new {@class="content-active", data_item_id=@content.Identifier})</td>
@@ -121,7 +129,7 @@
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
-		<li>@ViewBag.ForumName</li>
-		<li>Custom Content</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
+		<li>@ViewBag.Title</li>
 	</ul>
 }

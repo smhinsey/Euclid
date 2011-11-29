@@ -20,11 +20,17 @@ namespace ForumAgent.Queries
 			return session.QueryOver<Category>().Where(c => c.Active == true && c.ForumIdentifier == forumIdentifier).Skip(offset).Take(pageSize).List();
 		}
 
-		public IList<Category> List(Guid forumId, int offset, int pageSize)
+		public AvailableCategories List(Guid forumId, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();
 
-			return session.QueryOver<Category>().Where(c => c.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List();
+			return new AvailableCategories
+			       	{
+			       		ForumIdentifier = forumId,
+			       		ForumName = session.QueryOver<Forum>().Where(f => f.Identifier == forumId).SingleOrDefault().Name,
+			       		Categories = session.QueryOver<Category>().Where(c => c.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List(),
+			       		TotalCategories = session.QueryOver<Category>().Where(c => c.ForumIdentifier == forumId).RowCount()
+			       	};
 		}
 	}
 }

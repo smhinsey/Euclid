@@ -4,7 +4,7 @@ using Euclid.Framework.Models;
 
 namespace ForumAgent.ReadModels
 {
-	public class ModeratedItems : UnpersistedReadModel
+	public class ModeratedItems : SyntheticReadModel
 	{
 		public IList<dynamic> Posts { get; set; }
 
@@ -15,5 +15,7 @@ namespace ForumAgent.ReadModels
 		public int PageSize { get; set; }
 
 		public Guid ForumIdentifier { get; set; }
+
+		public string ForumName { get; set; }
 	}
 }

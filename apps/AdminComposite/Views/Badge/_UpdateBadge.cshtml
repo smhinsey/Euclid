@@ -2,12 +2,34 @@
 @using Euclid.Composites.Mvc.Extensions
 @model UpdateBadgeInputModel
 
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#change-image").click(function () {
+			$("#badge-preview").hide();
+			$(this).hide();
+			$("#badge-image").show();
+			$("#reset-image").show();
+
+			$("#badge-image").click();
+		});
+
+		$("#reset-image").click(function () {
+			$("#badge-image").val("");
+			$("#badge-preview").show();
+			$("#change-image").show();
+			$("#badge-image").hide();
+			$(this).hide();
+		});
+	});
+</script>
+
 <section>
 	@using (Html.BeginFormForInputModel(Model))
 	{
 		@Html.HiddenFor(m=>m.BadgeIdentifier)
+		@Html.HiddenFor(m=>m.ImageUrl)
 		<fieldset>
-			<legend>New Badge</legend>
+			<legend>Update Badge</legend>
 
 			<dl>
 				<dt><label for="badge-name">Badge Name</label></dt>
@@ -24,6 +46,17 @@
 
 				<dt><label for="badge-description">Description</label></dt>
 				<dd>@Html.TextAreaFor(m=>m.Description, new { id = "badge-description"})</dd>
+
+				<dt><label for="badge-image">Image</label></dt>
+				<dd>
+					<div>
+						<img class="badge-preview" id="badge-preview" src="@Model.ImageUrl" alt="badge preview" style="display:inline"/>
+						@Html.TextBoxFor(m => m.Image, new { id = "badge-image", type = "file", style = "display:none" })
+					</div>
+					<a href="#" id="change-image">Change Image</a>
+
+					<a href="#" id="reset-image" data-original-url="@Model.ImageUrl" style="display:none">Reset Image</a>
+				</dd>
 			</dl>
 		</fieldset>
 

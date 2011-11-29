@@ -1,11 +1,19 @@
-﻿@using ForumAgent.ReadModels
-@model IList<Category>
-		   
+﻿@using AdminComposite.Models
+@using ForumAgent.ReadModels
+@model AvailableCategories
+@{
+	ViewBag.Title = "Manage Forum Categories";
+	((PaginationModel)ViewBag.Pagination).ColSpan = 3;
+	((PaginationModel)ViewBag.Pagination).WriteTFoot = false;
+	((PaginationModel)ViewBag.Pagination).WriteTable = false;
+	((PaginationModel)ViewBag.Pagination).WriteTr = false;
+}
+
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#create-category").click(function () {
 			$("<div></div>")
-				.load("@Url.Action("NewCategory")?forumId=@ViewContext.RouteData.Values["forumId"]")
+				.load("@Url.Action("NewCategory", "Category")?forumId=@Model.ForumIdentifier")
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -24,7 +32,7 @@
 			var categoryId = $(this).attr("data-category-id");
 			
 			$("<div></div>")
-				.load("@Url.Action("UpdateCategory")?categoryId=" + categoryId)
+				.load("@Url.Action("UpdateCategory", "Category")?categoryId=" + categoryId)
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -54,11 +62,11 @@
 
 <article>
 	<header>
-		<h2>Manage Forum Categories</h2>
+		<h2>@ViewBag.Title</h2>
 	</header>
 
 	<section>
-		<p style="float:left">View, edit, activate and create categories for this forum</p>
+		<p style="float:left">View, add, edit, and activate categories for this forum</p>
 		<a href="#" style="float:right" class="button-link blue" id="create-category">Add Category</a>
 	</section>
 	
@@ -73,15 +81,16 @@
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="4">
+				<td>
 					<ul class="button-switch">
 						<li><button type="button" id="update">Save</button></li>
 					</ul>
 				</td>
+				@Html.Partial("_pagination")
 			</tr>
 		</tfoot>
 		<tbody>
-			@foreach (var category in Model)
+			@foreach (var category in Model.Categories)
 			{
 			<tr>
 				<td>@Html.CheckBoxFor(m=>category.Active, new {@class="category-active", data_item_id=@category.Identifier})</td>
@@ -101,7 +110,7 @@
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
-		<li>@ViewBag.ForumName</li>
-		<li>Categories</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
+		<li>@ViewBag.Title</li>
 	</ul>
 }

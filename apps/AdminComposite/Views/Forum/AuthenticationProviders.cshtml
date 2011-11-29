@@ -66,7 +66,7 @@
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
-		<li>@ViewBag.ForumName</li>
-		<li>Authentication Providers</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ViewBag.ForumName)</li>
+		<li>@ViewBag.Title</li>
 	</ul>
 }

@@ -20,7 +20,7 @@ namespace Euclid.Composites.Mvc.Binders
 
 			var valueProvider = bindingContext.ValueProvider;
 
-			return _composite.GetInputModelFromCommandName(commandName, valueProvider);
+			return _composite.GetInputModelFromCommandName(commandName, valueProvider, controllerContext.HttpContext.Request.Files);
 		}
 
 		public bool IsMatch(Type modelType)

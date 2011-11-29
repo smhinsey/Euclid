@@ -19,7 +19,7 @@ namespace Euclid.Composites
 
 		IEnumerable<IPartMetadata> Commands { get; }
 
-		new string Name { get; set; }
+		string Name { get; set; }
 
 		CompositeAppSettings Settings { get; }
 
@@ -32,6 +32,8 @@ namespace Euclid.Composites
 		IPartMetadata GetCommandMetadataForInputModel(Type inputModelType);
 
 		Type GetInputModelTypeForCommandName(string commandName);
+
+		ICommand GetCommandForInputModel(IInputModel model);
 
 		IEnumerable<string> GetConfigurationErrors();
 

@@ -134,4 +134,29 @@ table .actions .admin-delete
 	background-repeat: no-repeat;
 }
 
+.avatar
+{
+	height: 200px;
+	width: 200px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	margin-left: 10px;
+}
 
+.avatar-preview
+{
+	height: 100px;
+	width: 100px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	margin-left: 10px;
+}
+
+.badge-preview
+{
+	height: 100px;
+	width: 100px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	margin-left: 10px;
+}

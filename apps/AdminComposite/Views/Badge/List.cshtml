@@ -1,12 +1,12 @@
 ﻿@using AdminComposite.Models
 @using ForumAgent.ReadModels
-@model IList<ForumBadge>
+@model AvailableBadges
 @{
-	ViewBag.Title = "Custom Badges";
+	ViewBag.Title = "Manage Forum Badges";
 	((PaginationModel) ViewBag.Pagination).ColSpan = 4;
 }
 <script type="text/javascript">
-	var forumId = "@ViewContext.RouteData.Values["forumId"]";
+	var forumId = "@Model.ForumIdentifier";
 	$(document).ready(function() {
 		$("#create-badge").click(function() {
 			$("<div></div>")
@@ -56,11 +56,11 @@
 </script>
 <article>
 	<header>
-		<h2>Manage Forum Badges</h2>
+		<h2>@ViewBag.Title</h2>
 	</header>
 
 	<section>
-		<p style="float: left">Setting a forum to active means it will be awarded to users when the trigger threshold is satisfied.</p>
+		<p style="float: left">View, add, edit and activate forum badges</p>
 		<a href="#" style="float:right" class="button-link blue" id="create-badge">Add Badge</a>
 	</section>
 
@@ -85,13 +85,13 @@
 			</tr>
 		</tfoot>
 		<tbody>
-			@foreach (var badge in Model)
+			@foreach (var badge in Model.Badges)
 			{
 				<tr>
 					<td>@Html.CheckBoxFor(m => badge.Active, new { @class = "badge-active", data_item_id = @badge.Identifier })</td>
 					<td>@badge.Name</td>
 					<td>@badge.Field @badge.Operator @badge.Value</td>
-					<td>@if (!string.IsNullOrEmpty(badge.ImageUrl)) { <text><img src="@badge.ImageUrl" alt="badge image" /></text>}else {<text>&nbsp;</text>}</td>
+					<td>@if (!string.IsNullOrEmpty(badge.ImageUrl)) { <text><img src="@badge.ImageUrl" alt="badge image" class="badge-preview"/></text>}else {<text>&nbsp;</text>}</td>
 					<td>
 						<ul class="actions">
 							<li><a class="edit" rel="tooltip" href="#" data-item-id="@badge.Identifier" original-title="Edit">Edit</a></li>
@@ -106,7 +106,7 @@
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
-		<li>@ViewBag.ForumName</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
 		<li>@ViewBag.Title</li>
 	</ul>
 }

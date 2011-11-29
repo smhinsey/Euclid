@@ -2,7 +2,7 @@
 
 namespace ForumAgent.ReadModels
 {
-	public class Organization : UnpersistedReadModel
+	public class Organization : SyntheticReadModel
 	{
 		public virtual string Address { get; set; }
 

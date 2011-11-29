@@ -1,14 +1,15 @@
 ﻿@using AdminComposite.Models
-@using Euclid.Composites.Mvc.Extensions
 @model SetVotingSchemeInputModel
-
+@{
+	ViewBag.Title = "Manage Forum Voting";
+}
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#save-voting-scheme").click(function () {
 			var forumId = "@Model.ForumIdentifier";
 			var selectedScheme = $("input:radio[name='SelectedScheme']:checked").val();
 
-			$.get("@Url.Action("SetVotingScheme")", { forumId: forumId, selectedScheme: selectedScheme });
+			$.get("@Url.Action("SetVotingScheme", "Voting")", { forumId: forumId, selectedScheme: selectedScheme });
 
 			return false;
 		});
@@ -17,7 +18,7 @@
 
 <article>
 	<header>
-		<h2>Manage Voting Schemes</h2>
+		<h2>@ViewBag.Title</h2>
 	</header>
 	<p>Select how forum members vote on posts and comments</p>
 	<table>
@@ -59,7 +60,7 @@
 @section Breadcrumbs{
 	<ul id="breadcrumbs">
 		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
-		<li>@ViewBag.FormName</li>
-		<li>Voting</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
+		<li>@ViewBag.Title</li>
 	</ul>
 }

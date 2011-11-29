@@ -13,6 +13,7 @@ namespace AdminComposite.Models
 			AgentSystemName = CommandType.Assembly.GetAgentMetadata().SystemName;
 		}
 
+		public string ForumName { get; set; }
 		public Guid ForumIdentifier { get; set; }
 		public VotingScheme SelectedScheme { get; set; }
 	}

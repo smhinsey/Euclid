@@ -23,5 +23,7 @@ namespace AdminComposite.Models
 		public string SelectedTheme { get; set; }
 
 		public string SelectedPreviewUrl { get; set; }
+
+		public string ForumName { get; set; }
 	}
 }

@@ -30,8 +30,7 @@ namespace AdminComposite.Controllers
 		{
 			ViewBag.Title = "Moderate Forum " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(type);
 			ViewBag.ItemType = type;
-			ViewBag.ForumName = _forumQueries.FindById(forumId).Name;
-
+			
 			ModeratedItems model = null;
 			if (type.ToLower() == "posts")
 			{
