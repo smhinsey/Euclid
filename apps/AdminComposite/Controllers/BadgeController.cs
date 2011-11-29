@@ -22,21 +22,18 @@ namespace AdminComposite.Controllers
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
 			var badges = _badgeQueries.FindBadges(forumId, offset, pageSize);
-
-			ViewBag.ForumName = badges.ForumName;
-
 			ViewBag.Pagination = new PaginationModel
-			                     	{
-			                     		ActionName = "List",
-			                     		ControllerName = "Badge",
-			                     		ForumIdentifier = forumId,
+									{
+										ActionName = "List",
+										ControllerName = "Badge",
+										ForumIdentifier = forumId,
 										TotalItems = badges.TotalBadges,
-			                     		Offset = offset,
-			                     		PageSize = pageSize,
-			                     		WriteTable = false,
+										Offset = offset,
+										PageSize = pageSize,
+										WriteTable = false,
 										WriteTFoot = false,
 										WriteTr = false
-			                     	};
+									};
 
 			return View(badges.Badges);
 		}

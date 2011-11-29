@@ -1,6 +1,6 @@
 ﻿@using AdminComposite.Models
 @using ForumAgent.ReadModels
-@model IList<ForumAvatar>
+@model AvailableAvatars
 
 @{
 	ViewBag.Title = "Manage Forum Avatars";
@@ -12,7 +12,7 @@
 }
 
 <script type="text/javascript">
-	var forumId = "@ViewContext.RouteData.Values["forumId"]";
+	var forumId = "@Model.ForumIdentifier";
 	$(document).ready(function() {
 		$("#create-avatar").click(function() {
 			$("<div></div>")
@@ -91,7 +91,7 @@
 			</tr>
 		</tfoot>
 		<tbody>
-			@foreach (var avatar in Model)
+			@foreach (var avatar in Model.Avatars)
 			{
 				<tr>
 					<td>@Html.CheckBoxFor(m => avatar.Active, new { @class = "avatar-active", data_item_id = @avatar.Identifier })</td>
@@ -112,7 +112,7 @@
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
-		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ViewBag.ForumName)</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
 		<li>@ViewBag.Title</li>
 	</ul>
 }

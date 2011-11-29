@@ -16,11 +16,12 @@ namespace ForumAgent.Queries
 			var session = GetCurrentSession();
 
 			return new AvailableBadges
-			       	{
-			       		TotalBadges = session.QueryOver<ForumBadge>().Where(f => f.ForumIdentifier == forumId).RowCount(),
-			       		Badges = session.QueryOver<ForumBadge>().Where(f => f.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List(),
-			       		ForumName = session.QueryOver<Forum>().Where(f => f.Identifier == forumId).SingleOrDefault().Name
-			       	};
+					{
+						TotalBadges = session.QueryOver<ForumBadge>().Where(f => f.ForumIdentifier == forumId).RowCount(),
+						Badges = session.QueryOver<ForumBadge>().Where(f => f.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List(),
+						ForumName = session.QueryOver<Forum>().Where(f => f.Identifier == forumId).SingleOrDefault().Name,
+						ForumIdentifier = forumId
+					};
 		}
 	}
 }

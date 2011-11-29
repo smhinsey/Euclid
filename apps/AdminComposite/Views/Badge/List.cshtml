@@ -1,12 +1,12 @@
 ﻿@using AdminComposite.Models
 @using ForumAgent.ReadModels
-@model IList<ForumBadge>
+@model AvailableBadges
 @{
 	ViewBag.Title = "Manage Forum Badges";
 	((PaginationModel) ViewBag.Pagination).ColSpan = 4;
 }
 <script type="text/javascript">
-	var forumId = "@ViewContext.RouteData.Values["forumId"]";
+	var forumId = "@Model.ForumIdentifier";
 	$(document).ready(function() {
 		$("#create-badge").click(function() {
 			$("<div></div>")
@@ -85,7 +85,7 @@
 			</tr>
 		</tfoot>
 		<tbody>
-			@foreach (var badge in Model)
+			@foreach (var badge in Model.Badges)
 			{
 				<tr>
 					<td>@Html.CheckBoxFor(m => badge.Active, new { @class = "badge-active", data_item_id = @badge.Identifier })</td>
@@ -106,7 +106,7 @@
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
-		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(ViewBag.ForumName)</li>
+		<li>@System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
 		<li>@ViewBag.Title</li>
 	</ul>
 }

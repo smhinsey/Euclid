@@ -24,15 +24,15 @@ namespace AdminComposite.Controllers
 		public ActionResult List(Guid forumId)
 		{
 			Forum forum = _forumQueries.FindById(forumId);
-			ViewBag.ForumName = forum.Name;
 
-			var availableThemes = _themeQueries.GetForumThemes(forumId);
-			var currentTheme = availableThemes.Where(t => t.IsCurrent).FirstOrDefault();
+			var forumThemes = _themeQueries.GetForumThemes(forumId);
+			var currentTheme = forumThemes.Where(t => t.IsCurrent).FirstOrDefault();
 
 			return View(new ForumThemeInputModel
 			            	{
 			            		ForumIdentifier = forumId,
-								AvailableThemes = availableThemes,
+								AvailableThemes = forumThemes,
+								ForumName = forum.Name,
 								SelectedTheme = (currentTheme == null) ? string.Empty : currentTheme.Name,
 								SelectedPreviewUrl = (currentTheme == null) ? string.Empty : currentTheme.PreviewUrl
 			            	});

@@ -18,27 +18,23 @@ namespace ForumAgent.Queries
 		public IList<ForumTheme> GetForumThemes(Guid forumId)
 		{
 			var session = GetCurrentSession();
+
 			var forum = session.QueryOver<Forum>().Where(f => f.Identifier == forumId).SingleOrDefault();
 
-			if (forum == null)
-			{
-				return new List<ForumTheme>();
-			}
+			var themes = new List<ForumTheme>
+			             	{
+			             		getForumTheme("Swiss", "1912959A-9242-43D5-9D37-487526604446", forum),
 
-			var themes =  new List<ForumTheme>
-			       	{
-			       		getForumTheme("Swiss", "1912959A-9242-43D5-9D37-487526604446", forum),
+			             		getForumTheme("Swiss-Blue", "1912959A-9242-43D5-9D37-487526604446", forum),
 
-						getForumTheme("Swiss-Blue", "1912959A-9242-43D5-9D37-487526604446", forum),
+			             		getForumTheme("Swiss-Green", "1912959A-9242-43D5-9D37-487526604446", forum),
 
-						getForumTheme("Swiss-Green", "1912959A-9242-43D5-9D37-487526604446", forum),
+			             		getForumTheme("Swiss-Purple", "1912959A-9242-43D5-9D37-487526604446", forum),
 
-						getForumTheme("Swiss-Purple", "1912959A-9242-43D5-9D37-487526604446", forum),
+			             		getForumTheme("No-Theme", "1912959A-9242-43D5-9D37-487526604446", forum),
+			             	};
 
-						getForumTheme("No-Theme", "1912959A-9242-43D5-9D37-487526604446", forum),
-			       	};
-
-			if (!themes.Any(t => t.IsCurrent))
+			if (!themes.Any(t=>t.IsCurrent))
 			{
 				themes[4].IsCurrent = true;
 			}

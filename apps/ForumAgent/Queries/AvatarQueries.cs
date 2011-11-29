@@ -16,11 +16,12 @@ namespace ForumAgent.Queries
 			var session = GetCurrentSession();
 
 			return new AvailableAvatars
-			       	{
-			       		Avatars = session.QueryOver<ForumAvatar>().Where(a => a.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List(),
-			       		TotalAvatars = session.QueryOver<ForumAvatar>().Where(a => a.ForumIdentifier == forumId).RowCount(),
-			       		ForumName = session.QueryOver<Forum>().Where(f => f.Identifier == forumId).SingleOrDefault().Name,
-			       	};
+					{
+						ForumIdentifier = forumId,
+						Avatars = session.QueryOver<ForumAvatar>().Where(a => a.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List(),
+						TotalAvatars = session.QueryOver<ForumAvatar>().Where(a => a.ForumIdentifier == forumId).RowCount(),
+						ForumName = session.QueryOver<Forum>().Where(f => f.Identifier == forumId).SingleOrDefault().Name,
+					};
 		}
 	}
 }
