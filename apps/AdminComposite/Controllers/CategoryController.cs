@@ -12,21 +12,30 @@ namespace AdminComposite.Controllers
 	public class CategoryController : Controller
 	{
 		private readonly CategoryQueries _categoryQueries;
-		private readonly ForumQueries _forumQueries;
 		private readonly IPublisher _publisher;
 
 		public CategoryController(CategoryQueries categoryQueries, ForumQueries forumQueries, IPublisher publisher)
 		{
 			_categoryQueries = categoryQueries;
-			_forumQueries = forumQueries;
 			_publisher = publisher;
 		}
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
-			ViewBag.ForumName = _forumQueries.FindById(forumId).Name;
+			var model = _categoryQueries.List(forumId, offset, pageSize);
+			ViewBag.ForumName = model.ForumName;
 
-			return View(_categoryQueries.List(forumId, offset, pageSize));
+			ViewBag.Pagination = new PaginationModel
+			                     	{
+			                     		ActionName = "List",
+			                     		ControllerName = "Category",
+			                     		ForumIdentifier = forumId,
+			                     		PageSize = pageSize,
+			                     		Offset = offset,
+			                     		TotalItems = model.TotalCategories
+			                     	};
+
+			return View(model);
 		}
 
 		public PartialViewResult NewCategory(Guid forumId)

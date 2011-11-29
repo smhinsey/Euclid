@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#save-voting-scheme").click(function () {
-			var forumId = "@Model.ForumIdentifier";
+			var forumId = "@Model.ForumIdentifierentifier";
 			var selectedScheme = $("input:radio[name='SelectedScheme']:checked").val();
 
 			$.get("@Url.Action("SetVotingScheme", "Voting")", { forumId: forumId, selectedScheme: selectedScheme });

@@ -1,14 +1,19 @@
-﻿@using ForumAgent.ReadModels
-@model IList<Category>
+﻿@using AdminComposite.Models
+@using ForumAgent.ReadModels
+@model AvailableCategories
 @{
 	ViewBag.Title = "Manage Forum Categories";
+	((PaginationModel)ViewBag.Pagination).ColSpan = 3;
+	((PaginationModel)ViewBag.Pagination).WriteTFoot = false;
+	((PaginationModel)ViewBag.Pagination).WriteTable = false;
+	((PaginationModel)ViewBag.Pagination).WriteTr = false;
 }
 
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#create-category").click(function () {
 			$("<div></div>")
-				.load("@Url.Action("NewCategory")?forumId=@ViewContext.RouteData.Values["forumId"]")
+				.load("@Url.Action("NewCategory", "Category")?forumId=@Model.ForumIdentifier")
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -27,7 +32,7 @@
 			var categoryId = $(this).attr("data-category-id");
 			
 			$("<div></div>")
-				.load("@Url.Action("UpdateCategory")?categoryId=" + categoryId)
+				.load("@Url.Action("UpdateCategory", "Category")?categoryId=" + categoryId)
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -76,15 +81,16 @@
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="4">
+				<td>
 					<ul class="button-switch">
 						<li><button type="button" id="update">Save</button></li>
 					</ul>
 				</td>
+				@Html.Partial("_pagination")
 			</tr>
 		</tfoot>
 		<tbody>
-			@foreach (var category in Model)
+			@foreach (var category in Model.Categories)
 			{
 			<tr>
 				<td>@Html.CheckBoxFor(m=>category.Active, new {@class="category-active", data_item_id=@category.Identifier})</td>

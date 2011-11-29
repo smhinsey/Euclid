@@ -135,6 +135,7 @@
     <Compile Include="Queries\ThemeQueries.cs" />
     <Compile Include="ReadModels\AvailableAvatars.cs" />
     <Compile Include="ReadModels\AvailableBadges.cs" />
+    <Compile Include="ReadModels\AvailableCategories.cs" />
     <Compile Include="ReadModels\AwardedBadge.cs" />
     <Compile Include="ReadModels\ForumAvatar.cs" />
     <Compile Include="ReadModels\ForumBadge.cs" />
