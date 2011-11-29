@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 
 namespace Euclid.Framework.Models
 {
-	public class DefaultReadModel : IReadModel
+	public class SyntheticReadModel : IReadModel
 	{
 		public virtual DateTime Created { get; set; }
 

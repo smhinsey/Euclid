@@ -33,6 +33,8 @@ namespace Euclid.Composites
 
 		Type GetInputModelTypeForCommandName(string commandName);
 
+		ICommand GetCommandForInputModel(IInputModel model);
+
 		IEnumerable<string> GetConfigurationErrors();
 
 		IMetadataFormatter GetFormatter();

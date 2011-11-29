@@ -133,26 +133,17 @@ namespace Euclid.Composites
 
 		public IPartMetadata GetCommandMetadataForInputModel(Type inputModelType)
 		{
-			if (!typeof(IInputModel).IsAssignableFrom(inputModelType))
-			{
-				throw new InvalidTypeSettingException(inputModelType.FullName, typeof(IInputModel), inputModelType.GetType());
-			}
-
-			var map = Mapper.GetAllTypeMaps().Where(m => m.SourceType == inputModelType).FirstOrDefault();
-
-			if (map == null)
-			{
-				throw new InputModelNotRegisteredException(inputModelType);
-			}
-
-			var commandType = map.DestinationType;
-
-			return commandType.GetMetadata() as PartMetadata;
+			return _inputModelMap.GetCommandMetadataForInputModel(inputModelType);
 		}
 
 		public Type GetInputModelTypeForCommandName(string commandName)
 		{
 			return _inputModelMap.GetInputModelTypeForCommandName(commandName);
+		}
+
+		public ICommand GetCommandForInputModel(IInputModel model)
+		{
+			return _inputModelMap.GetCommand(model);
 		}
 
 		public IEnumerable<string> GetConfigurationErrors()
@@ -272,7 +263,7 @@ namespace Euclid.Composites
 					AutoMap
 						.Assembly(agent, autoMapperConfiguration)
 						.IgnoreBase<DefaultReadModel>()
-						.IgnoreBase<UnpersistedReadModel>()
+						.IgnoreBase<SyntheticReadModel>()
 						.Conventions
 						.Add<DefaultStringLengthConvention>());
 

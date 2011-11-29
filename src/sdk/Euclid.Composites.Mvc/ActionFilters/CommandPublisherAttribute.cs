@@ -28,9 +28,12 @@ namespace Euclid.Composites.Mvc.ActionFilters
 
 			var inputModel = CompositeApp.GetInputModelFromCommandName(commandName, valueProvider);
 
-			var commandMetadata = CompositeApp.GetCommandMetadataForInputModel(inputModel.GetType());
+			var command = CompositeApp.GetCommandForInputModel(inputModel);
 
-			var command = Mapper.Map(inputModel, inputModel.GetType(), commandMetadata.Type) as ICommand;
+			// jt:
+			// if there is an HttpPostedFileBase on the inputmodel
+			// with a corresponding URI property on the command
+			// upload the file and store the URL
 
 			var publicationId = Publisher.PublishMessage(command);
 
