@@ -1,86 +1,89 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>{Forum Name} Home</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
-	@RenderPage("~/Views/RoughDraft/partials/shared/Styles.cshtml")
-	@RenderPage("~/Views/RoughDraft/partials/shared/Scripts.cshtml")
-</head>
-<body>
-	@RenderPage("~/Views/RoughDraft/partials/TopBar.cshtml")
-	<div class="container-fluid">
-		@RenderPage("~/Views/RoughDraft/partials/Sidebar.cshtml")
-		<div class="content">
-			<div class="alert-message block-message warning fade in" data-alert="alert">
-				<a class="close" href="#">×</a>
-				<p class="alert-message-text">
-					<h2>
-						Welcome, forum user.</h2>
-					This is something a user only needs to see occasionally and can be closed. Duis
-					mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem
-					nec elit.</p>
-				<div class="alert-actions">
-					<a class="btn large info" href="#">Go register!</a>
-				</div>
-			</div>
-			<ul class="tabs">
-				<li class="active"><a href="#">Popular Posts</a></li>
-				<li><a href="@Url.Action("ControversialPosts")">Controversial Posts</a></li>
-				<li><a href="@Url.Action("AllPosts")">All Posts</a></li>
-			</ul>
-			<!-- top posts -->
-			<div class="row">
-				<div class="span10">
-					@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-				</div>
-				<div class="span6">
-					@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-				</div>
-			</div>
-			<hr>
-			<div class="row">
-				<div class="span8">
-					@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-				</div>
-				<div class="span8">
-					@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-				</div>
-			</div>
-			<hr>
-			<div class="row">
-				<div class="span4">
-					@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-				</div>
-				<div class="span4">
-					@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-				</div>
-				<div class="span4">
-					@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-				</div>
-				<div class="span4">
-					@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-				</div>
-			</div>
-			<hr>
-			<div class="pagination">
-				<ul>
-					<li class="prev disabled"><a href="#">&larr; Previous</a></li>
-					<li><a href="#">1</a></li>
-					<li class="active"><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li class="disabled"><a href="#">...</a></li>
-					<li><a href="#">45</a></li>
-					<li><a href="#">46</a></li>
-					<li><a href="#">47</a></li>
-					<li class="next"><a href="#">Next &rarr;</a></li>
-				</ul>
-			</div>
-			<footer>
-				<p>&copy; Newco 2011-12</p>
-			</footer>
-		</div>
+﻿@{
+	ViewBag.Title = "{Forum Name} Home";
+	Layout = "~/Views/RoughDraft/Shared/_ForumLayout.cshtml";
+}
+
+<div class="alert-message block-message warning fade in" data-alert="alert">
+	<a class="close" href="#">×</a>
+	<p class="alert-message-text">
+		<h2>Welcome, forum user.</h2>
+		This is something a user only needs to see occasionally and can be closed. Duis
+		mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem
+		nec elit.</p>
+
+	<div class="alert-actions">
+		<a class="btn large info" href="#">Go register!</a>
 	</div>
-</body>
-</html>
+
+</div>
+
+<ul class="tabs">
+	<li class="active"><a href="#">Popular Posts</a></li>
+	<li><a href="@Url.Action("ControversialPosts")">Controversial Posts</a></li>
+	<li><a href="@Url.Action("AllPosts")">All Posts</a></li>
+</ul>
+<!-- top posts -->
+
+<div class="row">
+
+	<div class="span10">
+		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+	</div>
+
+	<div class="span6">
+		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+	</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+	<div class="span8">
+		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+	</div>
+
+	<div class="span8">
+		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+	</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+	<div class="span4">
+		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+	</div>
+
+</div>
+
+<hr>
+
+<div class="pagination">
+	<ul>
+		<li class="prev disabled"><a href="#">&larr; Previous</a></li>
+		<li><a href="#">1</a></li>
+		<li class="active"><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li class="disabled"><a href="#">...</a></li>
+		<li><a href="#">45</a></li>
+		<li><a href="#">46</a></li>
+		<li><a href="#">47</a></li>
+		<li class="next"><a href="#">Next &rarr;</a></li>
+	</ul>
+</div>

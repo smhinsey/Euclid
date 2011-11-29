@@ -1,209 +1,186 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>{Forum Name} - All Posts</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
-	@RenderPage("~/Views/RoughDraft/partials/shared/Styles.cshtml")
-	@RenderPage("~/Views/RoughDraft/partials/shared/Scripts.cshtml")
-</head>
-<body>
-	@RenderPage("~/Views/RoughDraft/partials/TopBar.cshtml")
+﻿@{
+	ViewBag.Title = "{Forum Name} - Tags";
+	Layout = "~/Views/RoughDraft/Shared/_ForumLayout.cshtml";
+}
+<ul class="breadcrumb">
+	<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li class="active">Tags</li>
+</ul>
+<h1>Tags</h1>
+<hr />
 
-	<div class="container-fluid">
-		@RenderPage("~/Views/RoughDraft/partials/Sidebar.cshtml")
+<div class="row">
 
-		<div class="content">
-			<ul class="breadcrumb">
-				<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
-				<li class="active">Tags</li>
-			</ul>
-			<h1>Tags</h1>
-			<hr />
-			<!-- all posts -->
-
-			<div class="row">
-
-				<div class="span5">
-					<h2><a href="@Url.Action("Tag")">{Tag Name}</a></h2>
-					<p>A brief description of the tag.</p>
-					<dl>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod.<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
-							dapibus posuere.
-							<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante.
-							<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-					</dl>
-					<a href="#">View</a> 33 more posts.
-				</div>
-
-				<div class="span5">
-					<h2><a href="@Url.Action("Tag")">{Tag Name}</a></h2>
-					<p>A brief description of the tag.</p>
-					<dl>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod.<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
-							dapibus posuere.
-							<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante.
-							<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-					</dl>
-					<a href="#">View</a> 33 more posts.
-				</div>
-
-				<div class="span5">
-					<h2><a href="@Url.Action("Tag")">{Tag Name}</a></h2>
-					<p>A brief description of the tag.</p>
-					<dl>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod.<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
-							dapibus posuere.
-							<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante.
-							<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-					</dl>
-					<a href="#">View</a> 33 more posts.
-				</div>
-
-			</div>
-
-			<hr>
-
-			<div class="row">
-
-				<div class="span4" style="font-size: smaller;">
-					<h3><a href="@Url.Action("Tag")">{Tag Name}</a></h3>
-					<p>A brief description of the tag.</p>
-					<dl>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>A severely truncated post body.<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod.
-							<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-					</dl>
-					<a href="#">View</a> 33 more posts.
-				</div>
-
-				<div class="span4" style="font-size: smaller;">
-					<h3><a href="@Url.Action("Tag")">{Tag Name}</a></h3>
-					<p style="font-size: smaller;">A brief description of the tag.</p>
-					<dl>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>A severely truncated post body.<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod.
-							<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-					</dl>
-					<a href="#">View</a> 33 more posts.
-				</div>
-
-				<div class="span4" style="font-size: smaller;">
-					<h3><a href="@Url.Action("Tag")">{Tag Name}</a></h3>
-					<p style="font-size: smaller;">A brief description of the tag.</p>
-					<dl>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>A severely truncated post body.<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod.
-							<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-					</dl>
-					<a href="#">View</a> 33 more posts.
-				</div>
-
-				<div class="span4" style="font-size: smaller;">
-					<h3><a href="@Url.Action("Tag")">{Tag Name}</a></h3>
-					<p style="font-size: smaller;">A brief description of the tag.</p>
-					<dl>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>A severely truncated post body.<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-						<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
-						<dd>Etiam porta sem malesuada magna mollis euismod.
-							<br />
-							<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
-								with 33 comments.</span></dd>
-					</dl>
-					<a href="#">View</a> 33 more posts.
-				</div>
-
-			</div>
-
-			<hr />
-
-			<div class="pagination">
-				<ul>
-					<li class="prev disabled"><a href="#">&larr; Previous</a></li>
-					<li><a href="#">1</a></li>
-					<li class="active"><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li class="disabled"><a href="#">...</a></li>
-					<li><a href="#">45</a></li>
-					<li><a href="#">46</a></li>
-					<li><a href="#">47</a></li>
-					<li class="next"><a href="#">Next &rarr;</a></li>
-				</ul>
-			</div>
-
-			<footer>
-				<p>&copy; Newco 2011-12</p>
-			</footer>
-		</div>
-
+	<div class="span5">
+		<h2><a href="@Url.Action("Tag")">{Tag Name}</a></h2>
+		<p>A brief description of the tag.</p>
+		<dl>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod.<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+				dapibus posuere.
+				<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante.
+				<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+		</dl>
+		<a href="#">View</a> 33 more posts.
 	</div>
 
-</body>
-</html>
+	<div class="span5">
+		<h2><a href="@Url.Action("Tag")">{Tag Name}</a></h2>
+		<p>A brief description of the tag.</p>
+		<dl>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod.<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+				dapibus posuere.
+				<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante.
+				<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+		</dl>
+		<a href="#">View</a> 33 more posts.
+	</div>
+
+	<div class="span5">
+		<h2><a href="@Url.Action("Tag")">{Tag Name}</a></h2>
+		<p>A brief description of the tag.</p>
+		<dl>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod.<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+				dapibus posuere.
+				<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante.
+				<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+		</dl>
+		<a href="#">View</a> 33 more posts.
+	</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+	<div class="span4" style="font-size: smaller;">
+		<h3><a href="@Url.Action("Tag")">{Tag Name}</a></h3>
+		<p>A brief description of the tag.</p>
+		<dl>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>A severely truncated post body.<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod.
+				<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+		</dl>
+		<a href="#">View</a> 33 more posts.
+	</div>
+
+	<div class="span4" style="font-size: smaller;">
+		<h3><a href="@Url.Action("Tag")">{Tag Name}</a></h3>
+		<p style="font-size: smaller;">A brief description of the tag.</p>
+		<dl>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>A severely truncated post body.<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod.
+				<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+		</dl>
+		<a href="#">View</a> 33 more posts.
+	</div>
+
+	<div class="span4" style="font-size: smaller;">
+		<h3><a href="@Url.Action("Tag")">{Tag Name}</a></h3>
+		<p style="font-size: smaller;">A brief description of the tag.</p>
+		<dl>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>A severely truncated post body.<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod.
+				<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+		</dl>
+		<a href="#">View</a> 33 more posts.
+	</div>
+
+	<div class="span4" style="font-size: smaller;">
+		<h3><a href="@Url.Action("Tag")">{Tag Name}</a></h3>
+		<p style="font-size: smaller;">A brief description of the tag.</p>
+		<dl>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>A severely truncated post body.<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
+			<dd>Etiam porta sem malesuada magna mollis euismod.
+				<br />
+				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="#">username</a>
+					with 33 comments.</span></dd>
+		</dl>
+		<a href="#">View</a> 33 more posts.
+	</div>
+
+</div>
+
+<hr />
+
+<div class="pagination">
+	<ul>
+		<li class="prev disabled"><a href="#">&larr; Previous</a></li>
+		<li><a href="#">1</a></li>
+		<li class="active"><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li class="disabled"><a href="#">...</a></li>
+		<li><a href="#">45</a></li>
+		<li><a href="#">46</a></li>
+		<li><a href="#">47</a></li>
+		<li class="next"><a href="#">Next &rarr;</a></li>
+	</ul>
+</div>
+
