@@ -1,38 +1,4 @@
 ﻿$(document).ready(function () {
-	$("#forum-host").live("keyup", function () {
-		setForumUrl();
-	});
-
-	$(".new-forum-button").click(function () {
-		$("<div></div>")
-			.load("/Forum/Create")
-			.modal({
-				autoResize: true,
-				autoPosition: true,
-				position: new Array(25, 300),
-				dataCss: { backgroundColor: "#fff", overflow: "auto", height: 835 },
-				containerCss: { height: 850 }
-			});
-
-		return false;
-	});
-
-	$(".vote-scheme").live("click", function () {
-		var description = "";
-
-		if ($(this).val() == "00000000-0000-0000-0000-000000000000") {
-			description = "Voting disabled";
-		} else if ($(this).val() == "9A52AFD8-196B-475D-94DE-EC15F9C8E367") {
-			description = "Users can vote Up (+1) or Down (-1)";
-		}
-
-		$("#vote-scheme-description").text(description);
-	});
-
-	$(".activate-badge").click(function () {
-
-	});
-
 	$(".confirmation-dialog").live("click", function () {
 		var msg = $(this).attr("data-confirmation-message");
 		var confirmFunction = $(this).attr("data-confirm-function");
@@ -64,48 +30,16 @@
 
 		return false;
 	});
-
-	$("#generate-slug").live("click", function () {
-		$("#forum-slug").val(slugify($("#forum-name").val()));
-		setForumUrl();
-	});
-
-	$("#forum-name, #forum-slug").live("blur", function () {
-		var slug = slugify($("#forum-slug").val());
-
-		if (isNullOrEmpty(slug)) {
-			slug = slugify($("#forum-name").val());
-		}
-
-		$("#forum-slug").val(slug);
-		setForumUrl();
-	});
-
-	$("#forum-slug").live("focus", function () {
-		$(this).selectRange(0, $(this).val().length);
-	});
-
-	$("#forum-slug").live("mouseup", function () {
-		return false;
-	});
 });
+
+function setForumUrl(host, orgSlug, forumSlug) {
+	var url = "http://" + host + "/org/" + orgSlug + "/forum/" + forumSlug;
+
+	$("#forum-url").html(url);
+}
 
 function isNullOrEmpty(value) {
 	return value == null || value == "";
-}
-
-function setForumUrl() {
-	var forumSlug = slugify($("#forum-slug").val());
-	$("#forum-slug").val(forumSlug);
-	
-	var host = slugify($("#forum-host").val());
-	$("#host-example").html(host);
-
-	var orgSlug = $("#orgSlug").val();
-	
-	var url = host + "/org/" + orgSlug + "/forum/" + forumSlug;
-
-	$("#forum-url").html(url);
 }
 
 function slugify(value) {

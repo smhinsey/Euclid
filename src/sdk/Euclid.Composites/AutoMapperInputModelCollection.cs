@@ -45,7 +45,7 @@ namespace Euclid.Composites
 
 		public ICommand GetCommand<TSourceInputModel>(TSourceInputModel inputModel) where TSourceInputModel : IInputModel
 		{
-			var commandMetadata = GetCommandMetadataForInputModel<TSourceInputModel>();
+			var commandMetadata = GetCommandMetadataForInputModel(inputModel.GetType());
 
 			return Mapper.Map(inputModel, inputModel.GetType(), commandMetadata.Type) as ICommand;
 		}

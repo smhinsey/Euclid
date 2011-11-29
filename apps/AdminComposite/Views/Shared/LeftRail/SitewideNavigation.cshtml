@@ -33,10 +33,10 @@
 			var forumId = forum.Identifier;
 			var isCurrentForum = (forumId.ToString() == selectedForumId);
 			var moderatingPosts = isCurrentForum && Html.AreControllerAndActionAreCurrent("moderation", "items");
-
+			var forumName = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(forum.Name);
 			<li @if (isCurrentForum)
 					{<text>class="current"</text>}>
-				<a title="Forums" class="articles">@forum.Name</a>
+				<a title="Forums" class="articles">@forumName</a>
 			
 				<section class="sidebar nested" style="padding: 10px; text-align: center; margin-bottom: 5px;">
 					<p class="sidebar" style="margin: 0px; display: inline; padding: 0px;">
@@ -68,7 +68,7 @@
 						<a href="@Url.Action("List", "Theme", new { forumId })">Themes</a> </li>
 				
 					<li @if (moderatingPosts)
-							{
+		 {
 								<text>class="current"</text>}>
 						<a href="@Url.Action("Items", "Moderation", new { forumId })">Moderate Posts & Comments</a> </li>
 
