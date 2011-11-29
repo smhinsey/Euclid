@@ -21,6 +21,7 @@ namespace AdminComposite.Controllers
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
 			var model = _avatarQueries.FindAvatarsForForum(forumId, offset, pageSize);
+			ViewBag.ForumName = model.ForumName;
 
 			ViewBag.Pagination = new PaginationModel
 			                     	{
@@ -30,9 +31,6 @@ namespace AdminComposite.Controllers
 			                     		Offset = offset,
 			                     		PageSize = pageSize,
 			                     		TotalItems = model.TotalAvatars,
-			                     		WriteTFoot = false,
-			                     		WriteTable = false,
-			                     		WriteTr = false
 			                     	};
 
 			return View(model.Avatars);
