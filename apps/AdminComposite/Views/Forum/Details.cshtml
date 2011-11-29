@@ -208,26 +208,24 @@
 		<div id="production" class="tab" style="display: none">
 			<form action="#">
 				<fieldset>
-					<legend>Forum Details</legend>
+					<legend>Details</legend>
 						
 					<dl>
 						<dt><label for="forum-name">Name</label></dt>
-						<dd class="text">@Model.Name</dd>
+						<dd class="text"><p>@Model.Name</p></dd>
 
 						<dt><label for="forum-slug">Slug</label></dt>
-						<dd class="text">
-							@Model.UrlSlug
-						</dd>
+						<dd class="text"><p>@Model.UrlSlug</p></dd>
 
 						<dt><label for="forum-host">Host</label></dt>
 						<dd  class="text">
-							@Model.UrlHostName
+							<p>@Model.UrlHostName</p>
 							<p style="font-size:77%">Forum url: <b><span id="forum-url">@forumUrl</span></b></p>
 						</dd>
 
 						<dt><label>Description</label></dt>
 						<dd class="text">
-							@Html.Raw(Model.Description)
+							<p>@Html.Raw(Model.Description)</p>
 						</dd>
 
 						<dt class="checkbox"><label for="forum-private">Private</label></dt>
@@ -240,8 +238,6 @@
 							<input type="checkbox" disabled="disabled" @if(Model.Moderated){<text>checked="checked"</text>}/>
 						</dd>
 					</dl>
-						
-					<p class="notification information"><a href="@forumUrl" title="forum-url">@forumUrl</a></p>
 				</fieldset>
 			</form>
 		</div>
