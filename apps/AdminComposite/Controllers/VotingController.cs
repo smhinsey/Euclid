@@ -21,11 +21,11 @@ namespace AdminComposite.Controllers
 		public ActionResult List(Guid forumId)
 		{
 			var forum = _forumQueries.FindById(forumId);
-			ViewBag.FormName = forum.Name;
-
+			
 			return View(new SetVotingSchemeInputModel
 			            	{
 			            		ForumIdentifier = forum.Identifier,
+								ForumName = forum.Name,
 								SelectedScheme = forum.NoVoting ? VotingScheme.NoVoting : VotingScheme.UpDownVoting
 			            	});
 		}
