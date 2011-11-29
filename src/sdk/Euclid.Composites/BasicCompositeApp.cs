@@ -9,6 +9,7 @@ using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Euclid.Common.Configuration;
 using Euclid.Common.Messaging;
+using Euclid.Common.Storage;
 using Euclid.Common.Storage.Binary;
 using Euclid.Common.Storage.NHibernate;
 using Euclid.Common.Storage.Record;
@@ -229,6 +230,9 @@ namespace Euclid.Composites
 			Container.Register(
 				Component.For<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>().Forward<ICommandRegistry>().
 					ImplementedBy(compositeAppSettings.PublicationRegistry.Value).LifeStyle.Transient);
+
+			Container.Register(
+				Component.For<IBlob>().UsingFactoryMethod(() => new Blob()));
 		}
 
 		private MappingConfiguration mapAllAssemblies(MappingConfiguration mcfg)

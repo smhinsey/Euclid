@@ -96,7 +96,7 @@
 				<tr>
 					<td>@Html.CheckBoxFor(m => avatar.Active, new { @class = "avatar-active", data_item_id = @avatar.Identifier })</td>
 					<td>@avatar.Name</td>
-					<td>@if (!string.IsNullOrEmpty(avatar.Url)) { <text><img src="@avatar.Url" alt="avatar image" /></text>}else {<text>&nbsp;</text>}</td>
+					<td>@if (!string.IsNullOrEmpty(avatar.Url)) { <text><img class="avatar-preview" src="@avatar.Url" alt="avatar image" /></text>}else {<text>&nbsp;</text>}</td>
 					<td>@avatar.Description</td>
 					<td>
 						<ul class="actions">

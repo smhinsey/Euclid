@@ -161,6 +161,8 @@ namespace AdminComposite
 
 			composite.RegisterInputModelMap<CreateBadgeInputModel, CreateBadge>();
 			composite.RegisterInputModelMap<UpdateBadgeInputModel, UpdateBadge>();
+
+			composite.RegisterInputModelMap<CreateForumAvatarInputModel, CreateAvatar>();
 			setAzureCredentials(container);
 
 			_initialized = true;

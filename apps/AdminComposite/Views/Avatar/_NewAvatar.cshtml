@@ -6,6 +6,7 @@
 <section>
 	@using (Html.BeginFormForInputModel(Model))
 	{
+		@Html.HiddenFor(m=>m.CreatedBy)
 		@Html.HiddenFor(m=>m.ForumIdentifier)
 		<fieldset>
 			<legend>New Avatar</legend>
@@ -18,7 +19,7 @@
 				<dd>@Html.TextAreaFor(m => m.Description, new { id = "avatar-description" })</dd>
 
 				<dt><label for="avatar-image">Image</label></dt>
-				<dd><input type="file" /></dd>
+				<dd>@Html.TextBoxFor(m=>m.Image, new {id="avatar-image", type="file"})</dd>
 			</dl>
 		</fieldset>
 

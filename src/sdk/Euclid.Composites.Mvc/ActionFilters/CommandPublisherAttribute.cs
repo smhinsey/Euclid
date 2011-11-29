@@ -30,11 +30,6 @@ namespace Euclid.Composites.Mvc.ActionFilters
 
 			var command = CompositeApp.GetCommandForInputModel(inputModel);
 
-			// jt:
-			// if there is an HttpPostedFileBase on the inputmodel
-			// with a corresponding URI property on the command
-			// upload the file and store the URL
-
 			var publicationId = Publisher.PublishMessage(command);
 
 			filterContext.ActionParameters["publicationId"] = publicationId;
