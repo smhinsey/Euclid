@@ -52,7 +52,7 @@ namespace ForumAgent.Queries
 			       		};
 		}
 
-		public new IList<OrganizationUser> FindByOrganization(Guid organizationId, int offset, int pageSize)
+		public IList<OrganizationUser> FindByOrganization(Guid organizationId, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();
 

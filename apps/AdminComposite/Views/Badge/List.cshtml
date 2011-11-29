@@ -91,7 +91,7 @@
 					<td>@Html.CheckBoxFor(m => badge.Active, new { @class = "badge-active", data_item_id = @badge.Identifier })</td>
 					<td>@badge.Name</td>
 					<td>@badge.Field @badge.Operator @badge.Value</td>
-					<td>@if (!string.IsNullOrEmpty(badge.ImageUrl)) { <text><img src="@badge.ImageUrl" alt="badge image" /></text>}else {<text>&nbsp;</text>}</td>
+					<td>@if (!string.IsNullOrEmpty(badge.ImageUrl)) { <text><img src="@badge.ImageUrl" alt="badge image" class="badge-preview"/></text>}else {<text>&nbsp;</text>}</td>
 					<td>
 						<ul class="actions">
 							<li><a class="edit" rel="tooltip" href="#" data-item-id="@badge.Identifier" original-title="Edit">Edit</a></li>

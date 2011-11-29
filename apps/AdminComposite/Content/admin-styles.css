@@ -151,3 +151,12 @@ table .actions .admin-delete
 	margin-bottom: 20px;
 	margin-left: 10px;
 }
+
+.badge-preview
+{
+	height: 100px;
+	width: 100px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	margin-left: 10px;
+}

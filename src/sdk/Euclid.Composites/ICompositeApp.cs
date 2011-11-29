@@ -19,7 +19,7 @@ namespace Euclid.Composites
 
 		IEnumerable<IPartMetadata> Commands { get; }
 
-		new string Name { get; set; }
+		string Name { get; set; }
 
 		CompositeAppSettings Settings { get; }
 
