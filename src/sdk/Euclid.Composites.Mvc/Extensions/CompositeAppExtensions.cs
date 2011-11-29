@@ -44,17 +44,24 @@ namespace Euclid.Composites.Mvc.Extensions
 						using (var memorySteam = new MemoryStream())
 						{
 							file.InputStream.CopyTo(memorySteam);
-
+							
 							var blob = DependencyResolver.Current.GetService<IBlob>();
 							blob.Content = memorySteam.ToArray();
 							blob.ContentType = file.ContentType;
 
 							var blobUri = blobService.Put(blob, file.FileName);
+
 							var blobUrlPropertyName = string.Format("{0}Url", property.Name);
 							var blobUrlProperty = modelProperties.Where(p => p.Name == blobUrlPropertyName).FirstOrDefault();
 
 							if (blobUrlProperty != null && blobUrlProperty.CanWrite)
 							{
+								var existingBlobUri = HttpContext.Current.Request[blobUrlPropertyName];
+								if (!string.IsNullOrEmpty(existingBlobUri))
+								{
+									blobService.Delete(new Uri(existingBlobUri));
+								}
+
 								ignoreProperties.Add(blobUrlPropertyName);
 								blobUrlProperty.SetValue(inputModel, blobUri.ToString(), null);
 							}

@@ -160,6 +160,7 @@
     </Compile>
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Models\UpdateForumAvatarInputModel.cs" />
     <Compile Include="Models\CreateBadgeInputModel.cs" />
     <Compile Include="Models\CreateCategoryInputModel.cs" />
     <Compile Include="Models\CreateForumAvatarInputModel.cs" />
@@ -601,6 +602,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Avatar\_NewAvatar.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Avatar\_UpdateAvatar.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

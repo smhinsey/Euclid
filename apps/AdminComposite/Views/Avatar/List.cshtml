@@ -43,7 +43,7 @@
 			var avatarId = $(this).attr("data-item-id");
 
 			$("<div></div>")
-				.load("@Url.Action("UpdateAvatar")?badgeId=" + avatarId)
+				.load("@Url.Action("UpdateAvatar")?avatarId=" + avatarId)
 				.modal({
 						autoResize: true,
 						autoPosition: true,

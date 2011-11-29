@@ -26,7 +26,8 @@ namespace ForumAgent.Processors
 			                 		Description = message.Description,
 			                 		ForumIdentifier = message.ForumIdentifier,
 			                 		Name = message.Name,
-			                 		Url = message.ImageUrl
+			                 		Url = message.ImageUrl,
+									CreatedBy = message.CreatedBy
 			                 	});
 		}
 	}

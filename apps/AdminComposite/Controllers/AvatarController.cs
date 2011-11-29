@@ -51,10 +51,15 @@ namespace AdminComposite.Controllers
 
 		public PartialViewResult UpdateAvatar(Guid avatarId)
 		{
-			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
+			var avatar = _avatarQueries.FindById(avatarId);
 
-			throw new NotImplementedException();
-			// return PartialView("_UpdateAvatar", new UpdateForumAvatarInputModel)
+			return PartialView("_UpdateAvatar", new UpdateForumAvatarInputModel
+			                              	{
+			                              		AvatarIdentifier = avatarId,
+			                              		Description = avatar.Description,
+			                              		Name = avatar.Name,
+			                              		ImageUrl = avatar.Url
+			                              	});
 		}
 
 		public PartialViewResult NewAvatar(Guid forumId)

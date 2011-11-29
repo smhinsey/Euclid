@@ -69,6 +69,7 @@
     <Compile Include="Commands\RejectComment.cs" />
     <Compile Include="Commands\RejectPost.cs" />
     <Compile Include="Commands\SetForumTheme.cs" />
+    <Compile Include="Commands\UpdateAvatar.cs" />
     <Compile Include="Commands\UpdateBadge.cs" />
     <Compile Include="CommentNotFoundException.cs" />
     <Compile Include="ContentNotFoundException.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Commands\CreateForumContent.cs" />
     <Compile Include="Processors\DeleteForumContentProcessor.cs" />
     <Compile Include="Commands\DeleteForumContent.cs" />
+    <Compile Include="Processors\UpdateAvatarProcessor.cs" />
     <Compile Include="Processors\UpdateBadgeProcessor.cs" />
     <Compile Include="Processors\UpdateForumContentProcessor.cs" />
     <Compile Include="Commands\UpdateForumContent.cs" />
