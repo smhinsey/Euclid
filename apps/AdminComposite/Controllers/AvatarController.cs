@@ -32,7 +32,7 @@ namespace AdminComposite.Controllers
 			                     		TotalItems = model.TotalAvatars,
 			                     	};
 
-			return View(model.Avatars);
+			return View(model);
 		}
 
 		public JsonResult ActivateAvatar(Guid avatarId, bool active)
