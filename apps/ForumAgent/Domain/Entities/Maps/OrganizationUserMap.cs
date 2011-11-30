@@ -17,6 +17,7 @@ namespace ForumAgent.Domain.Entities.Maps
 			Map(x => x.Modified);
 			Map(x => x.Username);
 			Map(x => x.LastLogin);
+			Map(x => x.Active);
 		}
 	}
 }

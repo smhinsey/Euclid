@@ -27,7 +27,7 @@ namespace AdminComposite.Controllers
 			                     	{
 			                     		ActionName = "List",
 			                     		ControllerName = "Category",
-			                     		ForumIdentifier = forumId,
+			                     		Identifier = forumId,
 			                     		PageSize = pageSize,
 			                     		Offset = offset,
 			                     		TotalItems = model.TotalCategories

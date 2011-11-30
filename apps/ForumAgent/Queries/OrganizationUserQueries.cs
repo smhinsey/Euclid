@@ -52,7 +52,7 @@ namespace ForumAgent.Queries
 			       		};
 		}
 
-		public IList<OrganizationUser> FindByOrganization(Guid organizationId, int offset, int pageSize)
+		public OrganizationUsers FindByOrganization(Guid organizationId, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();
 
@@ -60,23 +60,34 @@ namespace ForumAgent.Queries
 				.Where(u => u.OrganizationEntity.Identifier == organizationId)
 				.Skip(offset).Take(pageSize).List();
 
-			return
-				users.Select(
-					user =>
-					new OrganizationUser
-						{
-							Created = user.Created,
-							Email = user.Email,
-							FirstName = user.FirstName,
-							Identifier = user.Identifier,
-							LastLogin = user.LastLogin,
-							LastName = user.LastName,
-							Modified = user.Modified,
-							OrganizationIdentifier = user.OrganizationEntity.Identifier,
-							Username = user.Username,
-							PasswordSalt = user.PasswordHash,
-							PasswordHash = user.PasswordSalt
-						}).ToList();
+			var org = session.QueryOver<OrganizationEntity>().Where(o => o.Identifier == organizationId).SingleOrDefault();
+			return new OrganizationUsers
+				{
+					OrganizationName = org.OrganizationName,
+					OrganizationIdentifier = organizationId,
+					OrganizationSlug = org.OrganizationSlug,
+					TotalNumberOfUsers = session.QueryOver<OrganizationUser>().Where(o => o.OrganizationIdentifier == organizationId).RowCount(),
+					Users = users
+						.Where(o => o.OrganizationEntity.Identifier == organizationId)
+						.Skip(offset)
+						.Take(pageSize)
+						.Select(user =>
+								new OrganizationUser
+								{
+									Created = user.Created,
+									Email = user.Email,
+									FirstName = user.FirstName,
+									Identifier = user.Identifier,
+									LastLogin = user.LastLogin,
+									LastName = user.LastName,
+									Modified = user.Modified,
+									OrganizationIdentifier = user.OrganizationEntity.Identifier,
+									Username = user.Username,
+									PasswordSalt = user.PasswordHash,
+									PasswordHash = user.PasswordSalt,
+									Active = user.Active
+								}).ToList()
+				};
 		}
 
 		public new OrganizationUser FindById(Guid userId)

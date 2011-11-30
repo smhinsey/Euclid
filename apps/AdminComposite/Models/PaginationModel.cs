@@ -4,6 +4,8 @@ namespace AdminComposite.Models
 {
 	public class PaginationModel
 	{
+		private string _identifierName = "forumId";
+
 		public string ControllerName { get; set; }
 		public string ActionName { get; set; }
 		public int Offset { get; set; }
@@ -13,7 +15,13 @@ namespace AdminComposite.Models
 		public bool WriteTFoot { get; set; }
 		public bool WriteTr { get; set; }
 		public int ColSpan { get; set; }
-		public Guid ForumIdentifier { get; set; }
+		public Guid Identifier { get; set; }
+		
+		public string IdentifierParameterName
+		{
+			get { return _identifierName; }
+			set { _identifierName = value; }
+		}
 
 		public int CurrentPage
 		{

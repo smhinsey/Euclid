@@ -28,5 +28,7 @@ namespace ForumAgent.Domain.Entities
 		public virtual string PasswordSalt { get; set; }
 
 		public virtual string Username { get; set; }
+
+		public virtual bool Active { get; set; }
 	}
 }

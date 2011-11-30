@@ -112,7 +112,7 @@ namespace AdminComposite.Controllers
 											WriteTFoot = true,
 											WriteTable = true,
 											WriteTr = true,
-											ForumIdentifier = forumId
+											Identifier = forumId
 										};
 		}
 

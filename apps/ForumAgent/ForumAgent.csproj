@@ -60,6 +60,8 @@
     <Compile Include="Commands\ActivateBadge.cs" />
     <Compile Include="Commands\ActivateCategory.cs" />
     <Compile Include="Commands\ActivateContent.cs" />
+    <Compile Include="Commands\ActivateForumUser.cs" />
+    <Compile Include="Commands\ActivateOrganizationUser.cs" />
     <Compile Include="Commands\ApproveComment.cs" />
     <Compile Include="Commands\ApprovePost.cs" />
     <Compile Include="Commands\AwardBadge.cs" />
@@ -79,6 +81,8 @@
     <Compile Include="PostNotFoundException.cs" />
     <Compile Include="Processors\ActivateAvatarProcessor.cs" />
     <Compile Include="Processors\ActivateBadgeProcessor.cs" />
+    <Compile Include="Processors\ActivateForumUserProcessor.cs" />
+    <Compile Include="Processors\ActivateOrganizationUserProcessor.cs" />
     <Compile Include="Processors\ApproveCommentProcessor.cs" />
     <Compile Include="Processors\ApprovePostProcessor.cs" />
     <Compile Include="Processors\CreateAvatarProcessor.cs" />
@@ -162,6 +166,7 @@
     <Compile Include="ReadModels\Forum.cs" />
     <Compile Include="ReadModels\Organization.cs" />
     <Compile Include="ReadModels\OrganizationUser.cs" />
+    <Compile Include="ReadModels\OrganizationUsers.cs" />
     <Compile Include="ReadModels\Post.cs" />
     <Compile Include="ReadModels\PostDetail.cs" />
     <Compile Include="ReadModels\PostListing.cs" />

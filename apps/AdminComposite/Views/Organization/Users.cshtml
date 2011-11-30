@@ -1,37 +1,56 @@
 ﻿@using AdminComposite.Extensions
+@using AdminComposite.Models
 @using ForumAgent.ReadModels
 @model IList<OrganizationUser>
+@{
+	((PaginationModel) ViewBag.Pagination).WriteTFoot = false;
+	((PaginationModel)ViewBag.Pagination).WriteTable= false;
+	((PaginationModel)ViewBag.Pagination).WriteTr= false;
+	((PaginationModel)ViewBag.Pagination).ColSpan = 4;
+}
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#add-user").click(function() {
+	$(document).ready(function () {
+		$("#add-user").click(function () {
 			$("<div></div>")
 				.load("/Organization/RegisterUser?organizationId=@ViewBag.OrganizationId&currentUserId=@ViewBag.UserId")
 				.modal({
-						autoResize: true,
-						autoPosition: true,
-						position: new Array(25, 300),
-						dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
-						containerCss: { height: 400, width: 650 }
-					});
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
+					containerCss: { height: 400, width: 650 }
+				});
 
 			return false;
 		});
 
-		$(".edit.user").click(function() {
+		$(".edit.user").click(function () {
 			var organizationId = "@ViewBag.OrganizationId";
 			$("<div></div>")
 				.load("/Organization/UpdateUser?organizationId=@ViewBag.OrganizationId&userId=" + $(this).attr("data-user-id"))
 				.modal({
-						autoResize: true,
-						autoPosition: true,
-						position: new Array(25, 300),
-						dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
-						containerCss: { height: 400, width: 650 }
-					});
-
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
+					containerCss: { height: 400, width: 650 }
+				});
 		});
-	});
+
+		$("#save").click(function () {
+			$("#save").attr("disabled", "disabled");
+
+			$(".activate-user").each(function(index, item) {
+				var userId = $(item).attr("data-user-id");
+				var checked = $(item).is(":checked");
+
+				$.get("@Url.Action("ActivateUser")", { userId: userId, activate: checked });
+			});
+			
+			setTimeout('$("#save").removeAttr("disabled");', 750);
+		});
+	});   //document.ready
 </script>
 
 <article>
@@ -47,16 +66,24 @@
 	<table>
 		<thead>
 			<tr>
+				<th>Active</th>
 				<th>Name</th>
 				<th>Email</th>
 				<th>Last Login</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
+		<tfoot>
+			<tr>
+				<td><button type="button" id="save">Save</button></td>
+				@Html.Partial("_pagination")
+			</tr>
+		</tfoot>
 		<tbody>
 			@foreach (var user in Model)
 			{
 				<tr>
+					<td><input type="checkbox" @if(user.Active) {<text>checked="checked"</text>} class="activate-user" data-user-id="@user.Identifier"/></td>
 					<td>
 						@if (HttpContext.Current.User.Identity.Name == user.Username)
 						{

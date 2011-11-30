@@ -43,7 +43,7 @@ namespace AdminComposite.Controllers
 			var model = _forumUserQueries.FindByForum(forumId, offset, pageSize);
 			ViewBag.Pagination = new PaginationModel
 			                     	{
-			                     		ForumIdentifier = forumId,
+			                     		Identifier = forumId,
 			                     		ActionName = "List",
 			                     		ControllerName = "UserProfile",
 			                     		Offset = offset,
