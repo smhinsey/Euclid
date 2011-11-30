@@ -22,7 +22,7 @@ namespace ForumAgent.Queries
 			// TODO: implement safe hashing/salting and all that noise
 			var matchedAccount =
 				session.QueryOver<OrganizationUserEntity>().Where(
-					user => user.PasswordHash == password && user.PasswordSalt == password && user.Username == username).
+					user => user.PasswordHash == password && user.PasswordSalt == password && user.Username == username && user.Active).
 					SingleOrDefault();
 
 			return matchedAccount != null;

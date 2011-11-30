@@ -92,13 +92,11 @@
 			<tbody>
 				@foreach (var user in Model.Users)
 				{
+					var isCurrentUser = (HttpContext.Current.User.Identity.Name == user.Username);
 					<tr>
-						<td><input type="checkbox" @if (user.Active)
-												   {
-										   			<text>checked="checked"</text>
-												   } class="activate-user" data-user-id="@user.Identifier"/></td>
+						<td><input type="checkbox" @if (user.Active) { <text>checked="checked"</text> } @if (isCurrentUser) {<text>disabled="disabled"</text>} class="activate-user" data-user-id="@user.Identifier"/></td>
 						<td>
-							@if (HttpContext.Current.User.Identity.Name == user.Username)
+							@if (isCurrentUser)
 							{
 								<span>(You)</span>
 							} 
