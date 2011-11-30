@@ -80,32 +80,50 @@
 				<th></th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<td>
-					<ul class="button-switch">
-						<li><button type="button" id="save">Save</button></li>
-					</ul>
-				</td>
-				@Html.Partial("_pagination")
-			</tr>
-		</tfoot>
-		<tbody>
-			@foreach (var avatar in Model.Avatars)
-			{
+		@if (Model.TotalAvatars == 0)
+		{
+			<tbody class="no-table-data">
 				<tr>
-					<td>@Html.CheckBoxFor(m => avatar.Active, new { @class = "avatar-active", data_item_id = @avatar.Identifier })</td>
-					<td>@avatar.Name</td>
-					<td>@if (!string.IsNullOrEmpty(avatar.Url)) { <text><img class="avatar-preview" src="@avatar.Url" alt="avatar image" /></text>}else {<text>&nbsp;</text>}</td>
-					<td>@avatar.Description</td>
+					<td colspan="5">There are no avatars in this forum, create one using the blue button above.</td>
+				</tr>
+			</tbody>
+		}
+		else
+		{
+			<tfoot>
+				<tr>
 					<td>
-						<ul class="actions">
-							<li><a class="edit" rel="tooltip" href="#" data-item-id="@avatar.Identifier" original-title="Edit">Edit</a></li>
+						<ul class="button-switch">
+							<li><button type="button" id="save">Save</button></li>
 						</ul>
 					</td>
+					@Html.Partial("_pagination")
 				</tr>
-			}
-		</tbody>
+			</tfoot>
+			<tbody>
+				@foreach (var avatar in Model.Avatars)
+				{
+					<tr>
+						<td>@Html.CheckBoxFor(m => avatar.Active, new {@class = "avatar-active", data_item_id = @avatar.Identifier})</td>
+						<td>@avatar.Name</td>
+						<td>@if (!string.IsNullOrEmpty(avatar.Url))
+							{
+								<text><img class="avatar-preview" src="@avatar.Url" alt="avatar image" /></text>
+							}
+							else
+							{
+								<text>&nbsp;</text>
+							}</td>
+						<td>@avatar.Description</td>
+						<td>
+							<ul class="actions">
+								<li><a class="edit" rel="tooltip" href="#" data-item-id="@avatar.Identifier" original-title="Edit">Edit</a></li>
+							</ul>
+						</td>
+					</tr>
+				}
+			</tbody>
+		}
 	</table>
 </article>
 

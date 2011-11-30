@@ -15,7 +15,7 @@
 	$(document).ready(function () {
 		$("#invite-users").click(function () {
 			$("<div></div>")
-				.load("@Url.Action("Invite", "UserProfile", new {forumId = Model.ForumIdentifier})")
+				.load("@Url.Action("Invite", "UserProfile", new { forumId = Model.ForumIdentifier })")
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -118,7 +118,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Active</th>
+					<th>Active</th>	
 					<th>Name</th>
 					<th>Username</th>
 					<th># Posts</th>
@@ -127,6 +127,16 @@
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
+		@if (Model.TotalUsers == 0)
+		{
+			<tbody class="no-table-data">
+				<tr>
+					<td colspan="7">There are no users in this forum, invite one using the blue button above.</td>
+				</tr>
+			</tbody>
+		}
+		else
+		{
 			<tfoot>
 				<tr>
 					<td><button type="button" id="save">Save</button></td>
@@ -138,7 +148,7 @@
 				{
 					<tr>
 						<td>
-							<input type="checkbox" class="activate-user" data-user-id="@user.Identifier" @if(user.Active) {<text>checked="checked"</text>} @if (user.IsBlocked){ <text>disabled="disabled"</text> } />
+							<input type="checkbox" class="activate-user" data-user-id="@user.Identifier" @if (user.Active) {<text>checked="checked"</text>} @if (user.IsBlocked) { <text>disabled="disabled"</text> } />
 						</td>
 						<td>@user.FirstName @user.LastName</td>
 						<td>@user.Username</td>
@@ -158,8 +168,9 @@
 							</ul>
 						</td>
 					</tr>
-				}
-			</tbody>
+			}
+					</tbody>
+		}
 		</table>
 	</article>
 </div>

@@ -140,13 +140,22 @@
 	<article>
 		<section>
 			<h3>Latest Activity</h3>
-				<p id="no-results-message" @if (Model.TotalPosts > 0){<text>style="display:none"</text>}>There are no @ViewBag.ItemType to review</p>
-				<ul class="logs" id="item-list" @if(Model.TotalPosts == 0){<text>style="display:none"</text>}>
+
+			@if (Model.TotalPosts == 0)
+			{
+				<p class="no-moderation-items">
+					There are no @ViewBag.ItemType to moderate at this time
+				</p>
+			}
+			else
+			{
+				<ul class="logs" id="item-list" @if (Model.TotalPosts == 0)
+									{<text>style="display:none"</text>}>
 					@Html.Partial("_list", Model.Posts)
 				</ul>
+				@Html.Partial("_pagination")
+			}
 		</section>
-
-		@Html.Partial("_pagination")
 	</article>
 </div>
 

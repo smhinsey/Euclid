@@ -79,7 +79,7 @@ namespace AdminComposite.Controllers
 										TotalItems = model.TotalNumberOfUsers
 									};
 
-			return View(model.Users);
+			return View(model);
 		}
 
 		public JsonResult ActivateUser(Guid userId, bool activate)

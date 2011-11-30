@@ -1,11 +1,11 @@
 ﻿@using AdminComposite.Extensions
 @using AdminComposite.Models
 @using ForumAgent.ReadModels
-@model IList<OrganizationUser>
+@model OrganizationUsers
 @{
-	((PaginationModel) ViewBag.Pagination).WriteTFoot = false;
-	((PaginationModel)ViewBag.Pagination).WriteTable= false;
-	((PaginationModel)ViewBag.Pagination).WriteTr= false;
+	((PaginationModel)ViewBag.Pagination).WriteTFoot = false;
+	((PaginationModel)ViewBag.Pagination).WriteTable = false;
+	((PaginationModel)ViewBag.Pagination).WriteTr = false;
 	((PaginationModel)ViewBag.Pagination).ColSpan = 4;
 }
 
@@ -73,34 +73,48 @@
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<td><button type="button" id="save">Save</button></td>
-				@Html.Partial("_pagination")
-			</tr>
-		</tfoot>
-		<tbody>
-			@foreach (var user in Model)
-			{
+		@if (Model.TotalNumberOfUsers == 0)
+		{
+			<tbody class="no-table-data">
 				<tr>
-					<td><input type="checkbox" @if(user.Active) {<text>checked="checked"</text>} class="activate-user" data-user-id="@user.Identifier"/></td>
-					<td>
-						@if (HttpContext.Current.User.Identity.Name == user.Username)
-						{
-							<span>(You)</span>
-						} 
-						@user.FirstName @user.LastName
-					</td>
-					<td><a href="mailto:@user.Email">@user.Email</a></td>
-					<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
-					<td>
-						<ul class="actions">
-							<li><a class="edit user" rel="tooltip" href="#" original-title="Edit" data-user-name="@user.FirstName @user.LastName" data-user-id="@user.Identifier">Edit</a></li>
-						</ul>
-					</td>
+					<td colspan="5">There are no other users associated with this organization, invite one using the blue button above.</td>
 				</tr>
-			}
-		</tbody>
+			</tbody>
+		}
+		else
+		{
+			<tfoot>
+				<tr>
+					<td><button type="button" id="save">Save</button></td>
+					@Html.Partial("_pagination")
+				</tr>
+			</tfoot>
+			<tbody>
+				@foreach (var user in Model.Users)
+				{
+					<tr>
+						<td><input type="checkbox" @if (user.Active)
+												   {
+										   			<text>checked="checked"</text>
+												   } class="activate-user" data-user-id="@user.Identifier"/></td>
+						<td>
+							@if (HttpContext.Current.User.Identity.Name == user.Username)
+							{
+								<span>(You)</span>
+							} 
+							@user.FirstName @user.LastName
+						</td>
+						<td><a href="mailto:@user.Email">@user.Email</a></td>
+						<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
+						<td>
+							<ul class="actions">
+								<li><a class="edit user" rel="tooltip" href="#" original-title="Edit" data-user-name="@user.FirstName @user.LastName" data-user-id="@user.Identifier">Edit</a></li>
+							</ul>
+						</td>
+					</tr>
+				}
+			</tbody>
+		}
 	</table>
 </article>
 

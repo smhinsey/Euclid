@@ -79,31 +79,42 @@
 				<th></th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<td>
-					<ul class="button-switch">
-						<li><button type="button" id="update">Save</button></li>
-					</ul>
-				</td>
-				@Html.Partial("_pagination")
-			</tr>
-		</tfoot>
-		<tbody>
-			@foreach (var category in Model.Categories)
-			{
-			<tr>
-				<td>@Html.CheckBoxFor(m=>category.Active, new {@class="category-active", data_item_id=@category.Identifier})</td>
-				<td><span data-category-id="@category.Identifier">@category.Name</span></td>
-				<td><span data-category-id="@category.Identifier">@category.Slug</span></td>
-				<td>
-					<ul class="actions">
-						<li><a href="#" class="edit" data-category-id="@category.Identifier" rel="tooltip" original-title="Edit Category">edit category</a></li>
-					</ul>
-				</td>
-			</tr>
-			}
-		</tbody>
+		@if (Model.TotalCategories == 0)
+		{
+			<tbody class="no-table-data">
+				<tr>
+					<td colspan="4">There are no categories in this forum, create one using the blue button above.</td>
+				</tr>
+			</tbody>
+		}
+		else
+		{
+			<tfoot>
+				<tr>
+					<td>
+						<ul class="button-switch">
+							<li><button type="button" id="update">Save</button></li>
+						</ul>
+					</td>
+					@Html.Partial("_pagination")
+				</tr>
+			</tfoot>
+			<tbody>
+				@foreach (var category in Model.Categories)
+				{
+					<tr>
+						<td>@Html.CheckBoxFor(m => category.Active, new {@class = "category-active", data_item_id = @category.Identifier})</td>
+						<td><span data-category-id="@category.Identifier">@category.Name</span></td>
+						<td><span data-category-id="@category.Identifier">@category.Slug</span></td>
+						<td>
+							<ul class="actions">
+								<li><a href="#" class="edit" data-category-id="@category.Identifier" rel="tooltip" original-title="Edit Category">edit category</a></li>
+							</ul>
+						</td>
+					</tr>
+				}
+			</tbody>
+		}
 	</table>
 </article>
 

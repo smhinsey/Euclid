@@ -66,7 +66,7 @@ namespace ForumAgent.Queries
 					OrganizationName = org.OrganizationName,
 					OrganizationIdentifier = organizationId,
 					OrganizationSlug = org.OrganizationSlug,
-					TotalNumberOfUsers = session.QueryOver<OrganizationUser>().Where(o => o.OrganizationIdentifier == organizationId).RowCount(),
+					TotalNumberOfUsers = session.QueryOver<OrganizationUserEntity>().Where(o => o.OrganizationEntity.Identifier == organizationId).RowCount(),
 					Users = users
 						.Where(o => o.OrganizationEntity.Identifier == organizationId)
 						.Skip(offset)
