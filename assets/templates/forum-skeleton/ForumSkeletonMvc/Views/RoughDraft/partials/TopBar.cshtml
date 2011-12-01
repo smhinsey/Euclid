@@ -3,7 +3,7 @@
 		<div class="container-fluid">
 			<a class="brand" href="@Url.RouteUrl("Home")">{Forum Name}</a>
 			<ul class="nav">
-				<li class="@ViewBag.CategoriesClass"><a href="@Url.Action("Categories", "RoughDraft")">Categories</a></li>
+				<li class="@ViewBag.CategoriesClass"><a href="@Url.RouteUrl("Categories")">Categories</a></li>
 				<li class="@ViewBag.TagsClass"><a href="@Url.Action("Tags", "RoughDraft")">Tags</a></li>
 				<li class="@ViewBag.InfoClass"><a href="@Url.Action("Info", "RoughDraft")">Info</a></li>
 			</ul>

@@ -4,7 +4,7 @@
 	ViewBag.CategoriesClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
 	<li class="active">Categories</li>
 </ul>
 <h1>Categories</h1>
@@ -13,7 +13,7 @@
 <div class="row">
 
 	<div class="span5">
-		<h2><a href="@Url.Action("Category")">{Category Name}</a></h2>
+		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h2>
 		<p>A brief description of the category.</p>
 		<dl>
 			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
@@ -40,7 +40,7 @@
 	</div>
 
 	<div class="span5">
-		<h2><a href="@Url.Action("Category")">{Category Name}</a></h2>
+		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h2>
 		<p>A brief description of the category.</p>
 		<dl>
 			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
@@ -67,7 +67,7 @@
 	</div>
 
 	<div class="span5">
-		<h2><a href="@Url.Action("Category")">{Category Name}</a></h2>
+		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h2>
 		<p>A brief description of the category.</p>
 		<dl>
 			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
@@ -100,7 +100,7 @@
 <div class="row">
 
 	<div class="span4" style="font-size: smaller;">
-		<h3><a href="@Url.Action("Category")">{Category Name}</a></h3>
+		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h3>
 		<p>A brief description of the category.</p>
 		<dl>
 			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
@@ -117,7 +117,7 @@
 	</div>
 
 	<div class="span4" style="font-size: smaller;">
-		<h3><a href="@Url.Action("Category")">{Category Name}</a></h3>
+		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h3>
 		<p style="font-size: smaller;">A brief description of the category.</p>
 		<dl>
 			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
@@ -134,7 +134,7 @@
 	</div>
 
 	<div class="span4" style="font-size: smaller;">
-		<h3><a href="@Url.Action("Category")">{Category Name}</a></h3>
+		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h3>
 		<p style="font-size: smaller;">A brief description of the category.</p>
 		<dl>
 			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
@@ -151,7 +151,7 @@
 	</div>
 
 	<div class="span4" style="font-size: smaller;">
-		<h3><a href="@Url.Action("Category")">{Category Name}</a></h3>
+		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h3>
 		<p style="font-size: smaller;">A brief description of the category.</p>
 		<dl>
 			<dt><a href="@Url.Action("Post")">{Post title}</a></dt>
