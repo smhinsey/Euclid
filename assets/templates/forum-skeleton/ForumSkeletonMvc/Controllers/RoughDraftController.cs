@@ -29,11 +29,6 @@ namespace ForumSkeletonMvc.Controllers
 			return View();
 		}
 
-		public ActionResult Home()
-		{
-			return View();
-		}
-
 		public ActionResult Info()
 		{
 			return View();
