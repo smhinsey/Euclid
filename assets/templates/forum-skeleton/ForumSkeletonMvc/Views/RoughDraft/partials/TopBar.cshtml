@@ -3,10 +3,9 @@
 		<div class="container-fluid">
 			<a class="brand" href="@Url.Action("Home")">{Forum Name}</a>
 			<ul class="nav">
-				<li class="active"><a href="@Url.Action("Home")">Home</a></li>
-				<li><a href="@Url.Action("Categories")">Categories</a></li>
-				<li><a href="@Url.Action("Tags")">Tags</a></li>
-				<li><a href="@Url.Action("Info")">Info</a></li>
+				<li class="@ViewBag.CategoriesClass"><a href="@Url.Action("Categories")">Categories</a></li>
+				<li class="@ViewBag.TagsClass"><a href="@Url.Action("Tags")">Tags</a></li>
+				<li class="@ViewBag.InfoClass"><a href="@Url.Action("Info")">Info</a></li>
 			</ul>
 			<form action="" class="pull-right">
 				<input class="input-small" type="text" placeholder="Username">

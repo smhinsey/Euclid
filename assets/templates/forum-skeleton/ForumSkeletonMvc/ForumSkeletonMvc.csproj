@@ -86,6 +86,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\PostListingController.cs" />
     <Compile Include="Controllers\RoughDraftController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -143,10 +144,10 @@
     <Content Include="Views\RoughDraft\partials\Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\shared\Scripts.cshtml" />
+    <Content Include="Views\RoughDraft\Shared\Scripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\shared\Styles.cshtml" />
+    <Content Include="Views\RoughDraft\Shared\Styles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\RoughDraft\partials\Sidebar.cshtml" />
@@ -213,6 +214,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\RoughDraft\Shared\_ForumLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PostListing\All.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PostListing\Popular.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PostListing\Controversial.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
