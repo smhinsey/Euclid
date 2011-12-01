@@ -5,9 +5,9 @@
 @{
 	ViewBag.Title = "Manage Forum Users";
 	((PaginationModel)ViewBag.Pagination).ColSpan = 6;
-	((PaginationModel)ViewBag.Pagination).WriteTFoot = true;
+	((PaginationModel)ViewBag.Pagination).WriteTFoot = false;
 	((PaginationModel)ViewBag.Pagination).WriteTable = false;
-	((PaginationModel)ViewBag.Pagination).WriteTr = true;
+	((PaginationModel)ViewBag.Pagination).WriteTr = false;
 }
 
 <script type="text/javascript" src="@Url.Content("~/Content/jquery.timers-1.2.js")"></script>
@@ -15,7 +15,7 @@
 	$(document).ready(function () {
 		$("#invite-users").click(function () {
 			$("<div></div>")
-				.load("@Url.Action("Invite", "UserProfile", new {forumId = Model.ForumIdentifier})")
+				.load("@Url.Action("Invite", "UserProfile", new { forumId = Model.ForumIdentifier })")
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -39,6 +39,19 @@
 						containerCss: { height: 400, width: 650 }
 					});
 		});
+
+		$("#save").click(function() {
+			$("#save").attr("disabled", "disabled");
+		
+			$(".activate-user").each(function(index, item) {
+				var userId = $(item).attr("data-user-id");
+				var active = $(item).is(":checked");
+
+				$.get("@Url.Action("ActivateUser")", { userIdentifier: userId, activate: active });
+			});
+
+			setTimeout('$("#save").removeAttr("disabled");', 750);
+		});
 	});
 
 	function blockUser(userId) {
@@ -46,7 +59,8 @@
 			if (isBlocked) {
 				$(".block-user[data-item-id='" + userId + "']").parent().addClass("hidden");
 				$(".unblock-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
-
+				$(".activate-user[data-user-id='" + userId + "']").removeAttr("checked").attr("disabled", "disabled");
+				
 				return true;
 			}
 
@@ -59,6 +73,7 @@
 			if (!isBlocked) {
 				$(".block-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
 				$(".unblock-user[data-item-id='" + userId + "']").parent().addClass("hidden");
+				$(".activate-user[data-user-id='" + userId + "']").removeAttr("disabled");
 
 				return true;
 			}
@@ -103,6 +118,7 @@
 		<table>
 			<thead>
 				<tr>
+					<th>Active</th>	
 					<th>Name</th>
 					<th>Username</th>
 					<th># Posts</th>
@@ -111,11 +127,29 @@
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
-			@Html.Partial("_Pagination")
+		@if (Model.TotalUsers == 0)
+		{
+			<tbody class="no-table-data">
+				<tr>
+					<td colspan="7">There are no users in this forum, invite one using the blue button above.</td>
+				</tr>
+			</tbody>
+		}
+		else
+		{
+			<tfoot>
+				<tr>
+					<td><button type="button" id="save">Save</button></td>
+					@Html.Partial("_Pagination")
+				</tr>
+			</tfoot>
 			<tbody>
 				@foreach (var user in Model.Users)
 				{
 					<tr>
+						<td>
+							<input type="checkbox" class="activate-user" data-user-id="@user.Identifier" @if (user.Active) {<text>checked="checked"</text>} @if (user.IsBlocked) { <text>disabled="disabled"</text> } />
+						</td>
 						<td>@user.FirstName @user.LastName</td>
 						<td>@user.Username</td>
 						<td>@user.NumberPosts</td>
@@ -134,8 +168,9 @@
 							</ul>
 						</td>
 					</tr>
-				}
-			</tbody>
+			}
+					</tbody>
+		}
 		</table>
 	</article>
 </div>

@@ -1,5 +1,4 @@
-﻿using System;
-using Euclid.Common.Messaging;
+using System;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
@@ -7,20 +6,19 @@ using ForumAgent.ReadModels;
 
 namespace ForumAgent.Processors
 {
-	public class BlockUserProcessor : DefaultCommandProcessor<BlockUser>
+	public class UnblockUserProcessor : DefaultCommandProcessor<UnblockUser>
 	{
 		private readonly ISimpleRepository<ForumUser> _userRepository;
 
-		public BlockUserProcessor(ISimpleRepository<ForumUser> userRepository)
+		public UnblockUserProcessor(ISimpleRepository<ForumUser> userRepository)
 		{
 			_userRepository = userRepository;
 		}
 
-		public override void Process(BlockUser message)
+		public override void Process(UnblockUser message)
 		{
 			var user = _userRepository.FindById(message.UserIdentifier);
-			user.IsBlocked = true;
-			user.Active = false;
+			user.IsBlocked = false;
 			user.Modified = DateTime.Now;
 			_userRepository.Update(user);
 		}

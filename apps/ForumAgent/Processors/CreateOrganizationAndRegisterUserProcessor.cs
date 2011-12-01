@@ -30,7 +30,8 @@ namespace ForumAgent.Processors
 
 			var organizationUserWriteModel = Mapper.Map<OrganizationUserEntity>(message);
 			organizationUserWriteModel.Created = created;
-			organizationUserWriteModel.Modified = created;
+			organizationUserWriteModel.Modified = (DateTime)SqlDateTime.MinValue;
+			organizationUserWriteModel.Active = true;
 			organizationUserWriteModel.LastLogin = (DateTime)SqlDateTime.MinValue;
 			organizationUserWriteModel.CreatedBy = Guid.Empty;
 

@@ -30,5 +30,7 @@ namespace ForumAgent.ReadModels
 		public virtual int NumberComments { get; set; }
 
 		public virtual int NumberVotes { get; set; }
+
+		public virtual bool Active { get; set; }
 	}
 }

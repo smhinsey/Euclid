@@ -160,3 +160,14 @@ table .actions .admin-delete
 	margin-bottom: 20px;
 	margin-left: 10px;
 }
+
+.no-moderation-items,
+.no-table-data td
+{
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	font-weight: bold;
+	font-style: italic;
+	color: #AE432E;
+}

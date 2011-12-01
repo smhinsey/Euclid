@@ -6,11 +6,14 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#save-voting-scheme").click(function () {
+			$("#save-voting-scheme").attr("disabled", "disabled");
+			
 			var forumId = "@Model.ForumIdentifier";
 			var selectedScheme = $("input:radio[name='SelectedScheme']:checked").val();
 
 			$.get("@Url.Action("SetVotingScheme", "Voting")", { forumId: forumId, selectedScheme: selectedScheme });
 
+			setTimeout('$("#save-voting-scheme").removeAttr("disabled");', 750);
 			return false;
 		});
 	});

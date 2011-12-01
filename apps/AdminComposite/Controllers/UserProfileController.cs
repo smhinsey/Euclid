@@ -43,7 +43,7 @@ namespace AdminComposite.Controllers
 			var model = _forumUserQueries.FindByForum(forumId, offset, pageSize);
 			ViewBag.Pagination = new PaginationModel
 			                     	{
-			                     		ForumIdentifier = forumId,
+			                     		Identifier = forumId,
 			                     		ActionName = "List",
 			                     		ControllerName = "UserProfile",
 			                     		Offset = offset,
@@ -54,7 +54,6 @@ namespace AdminComposite.Controllers
 			return View(model);
 		}
 
-		[HttpPost]
 		public JsonResult PerformBlockOperation(Guid userIdentifier)
 		{
 			var user = _forumUserQueries.FindById(userIdentifier);
@@ -63,7 +62,8 @@ namespace AdminComposite.Controllers
 			              	? (IMessage) new UnblockUser {UserIdentifier = userIdentifier}
 			              	: (IMessage) new BlockUser {UserIdentifier = userIdentifier};
 
-			return Json(new { publicationId = _publisher.PublishMessage(message) });
+			var publicationId = _publisher.PublishMessage(message);
+			return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
 		}
 
 		public JsonResult BlockStatus(Guid userIdentifier)
@@ -71,6 +71,17 @@ namespace AdminComposite.Controllers
 			var user = _forumUserQueries.FindById(userIdentifier);
 
 			return Json(new {isBlocked = user.IsBlocked}, JsonRequestBehavior.AllowGet);
+		}
+
+		public JsonResult ActivateUser(Guid userIdentifier, bool activate)
+		{
+			var publicationId = _publisher.PublishMessage(new ActivateForumUser
+			                                              	{
+			                                              		UserIdentifier = userIdentifier,
+			                                              		Active = activate
+			                                              	});
+
+			return Json(publicationId, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

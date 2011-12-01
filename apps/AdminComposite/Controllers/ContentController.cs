@@ -30,7 +30,7 @@ namespace AdminComposite.Controllers
 			                     	{
 			                     		ActionName = "List",
 			                     		ControllerName = "Content",
-			                     		ForumIdentifier = forumId,
+			                     		Identifier = forumId,
 			                     		Offset = offset,
 			                     		PageSize = pageSize,
 			                     		TotalItems = model.TotalContentItems

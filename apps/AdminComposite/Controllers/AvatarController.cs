@@ -26,7 +26,7 @@ namespace AdminComposite.Controllers
 			                     	{
 			                     		ActionName = "List",
 			                     		ControllerName = "Avatar",
-			                     		ForumIdentifier = forumId,
+			                     		Identifier = forumId,
 			                     		Offset = offset,
 			                     		PageSize = pageSize,
 			                     		TotalItems = model.TotalAvatars,

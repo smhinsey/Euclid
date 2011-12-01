@@ -26,7 +26,7 @@ namespace AdminComposite.Controllers
 									{
 										ActionName = "List",
 										ControllerName = "Badge",
-										ForumIdentifier = forumId,
+										Identifier = forumId,
 										TotalItems = badges.TotalBadges,
 										Offset = offset,
 										PageSize = pageSize,

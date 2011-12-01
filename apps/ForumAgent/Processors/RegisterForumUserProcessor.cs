@@ -29,7 +29,8 @@ namespace ForumAgent.Processors
 					Created = DateTime.Now,
 					Modified = DateTime.Now,
 					ForumIdentifier = message.ForumIdentifier,
-					LastLogin = (DateTime)SqlDateTime.MinValue
+					LastLogin = (DateTime)SqlDateTime.MinValue,
+					Active = true
 				};
 
 			_repository.Save(newUser);

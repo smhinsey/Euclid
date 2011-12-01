@@ -2,7 +2,9 @@
 using System.Web.Mvc;
 using AdminComposite.Models;
 using AutoMapper;
+using Euclid.Common.Messaging;
 using ForumAgent;
+using ForumAgent.Commands;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
@@ -15,10 +17,13 @@ namespace AdminComposite.Controllers
 
 		private readonly OrganizationUserQueries _userQueries;
 
-		public OrganizationController(OrganizationUserQueries userQueries, OrganizationQueries organizationQueries)
+		private readonly IPublisher _publisher;
+
+		public OrganizationController(OrganizationUserQueries userQueries, OrganizationQueries organizationQueries, IPublisher publisher)
 		{
 			_userQueries = userQueries;
 			_organizationQueries = organizationQueries;
+			_publisher = publisher;
 			Mapper.CreateMap<OrganizationUser, UpdateOrganizationUserInputModel>();
 			Mapper.CreateMap<Organization, UpdateOrganizationInputModel>().ForMember(
 				input => input.OrganizationName, o => o.MapFrom(org => org.Name)).ForMember(
@@ -60,11 +65,32 @@ namespace AdminComposite.Controllers
 			return PartialView("_UpdateOrganizationUser", model);
 		}
 
-		public ActionResult Users(Guid organizationId, int pageNumber = 0, int pageSize = 25)
+		public ActionResult Users(Guid organizationId, int offset = 0, int pageSize = 25)
 		{
-			ViewBag.OrganizationName = _organizationQueries.FindById(organizationId).Name;
+			var model = _userQueries.FindByOrganization(organizationId, offset, pageSize);
+			ViewBag.Pagination = new PaginationModel
+									{
+										ActionName = "Users",
+										ControllerName = "Organization",
+										IdentifierParameterName = "organizationId",
+										Identifier = model.OrganizationIdentifier,
+										Offset = offset,
+										PageSize = pageSize,
+										TotalItems = model.TotalNumberOfUsers
+									};
 
-			return View(_userQueries.FindByOrganization(organizationId, pageNumber * pageSize, pageSize));
+			return View(model);
+		}
+
+		public JsonResult ActivateUser(Guid userId, bool activate)
+		{
+			var publicationRecordId = _publisher.PublishMessage(new ActivateOrganizationUser
+			                          	{
+			                          		UserIdentifier = userId,
+			                          		Active = activate
+			                          	});
+
+			return Json(new {publicationRecordId}, JsonRequestBehavior.AllowGet);
 		}
 	}
 }
