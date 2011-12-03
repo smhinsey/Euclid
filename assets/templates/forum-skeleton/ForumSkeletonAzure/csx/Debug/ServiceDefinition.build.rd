@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ForumSkeletonAzure" generation="1" functional="0" release="0" Id="2a8ba606-aac1-4370-9e64-c6682d4aa6d5" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ForumSkeletonAzure" generation="1" functional="0" release="0" Id="a5af8121-4ec4-4cf6-bbb1-23498fd85ea3" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="ForumSkeletonAzureGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -165,14 +165,14 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="eed33ef0-d3d7-4f71-b855-9ba6fd998781" ref="Microsoft.RedDog.Contract\ServiceContract\ForumSkeletonAzureContract@ServiceDefinition.build">
+    <implementation Id="9476d2bd-e423-4af5-818a-252b1bcd6a29" ref="Microsoft.RedDog.Contract\ServiceContract\ForumSkeletonAzureContract@ServiceDefinition.build">
       <interfacereferences>
-        <interfaceReference Id="d06e8b0f-d133-4cfb-8617-d42656c0c790" ref="Microsoft.RedDog.Contract\Interface\ForumSkeletonMvc:Endpoint1@ServiceDefinition.build">
+        <interfaceReference Id="7b3f7c7f-6e5a-4dba-a65c-f69132dc2548" ref="Microsoft.RedDog.Contract\Interface\ForumSkeletonMvc:Endpoint1@ServiceDefinition.build">
           <inPort>
             <inPortMoniker name="/ForumSkeletonAzure/ForumSkeletonAzureGroup/ForumSkeletonMvc:Endpoint1" />
           </inPort>
         </interfaceReference>
-        <interfaceReference Id="dc457a82-460f-4e18-919d-767f34c6e117" ref="Microsoft.RedDog.Contract\Interface\ForumSkeletonMvc:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput@ServiceDefinition.build">
+        <interfaceReference Id="8ca2ba4a-90e2-4e96-9606-fe0d1648755e" ref="Microsoft.RedDog.Contract\Interface\ForumSkeletonMvc:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput@ServiceDefinition.build">
           <inPort>
             <inPortMoniker name="/ForumSkeletonAzure/ForumSkeletonAzureGroup/ForumSkeletonMvc:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" />
           </inPort>

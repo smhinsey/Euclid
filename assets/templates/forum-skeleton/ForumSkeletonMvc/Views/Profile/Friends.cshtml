@@ -3,7 +3,7 @@
 	Layout = "~/Views/RoughDraft/Shared/_ForumLayout.cshtml";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.Action("AllUsers")">All Users</a> <span class="divider">/</span></li>
 	<li><a href="@Url.Action("User")">{Username}</a> <span class="divider">/</span></li>
 	<li class="active">Friends</li>
