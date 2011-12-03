@@ -86,6 +86,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\PostListingController.cs" />
     <Compile Include="Controllers\RoughDraftController.cs" />
     <Compile Include="Global.asax.cs">
@@ -168,19 +169,7 @@
     <Content Include="Views\RoughDraft\UserRecentActivity.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\AllPosts.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\RoughDraft\AllUsers.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\RoughDraft\Categories.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\RoughDraft\Category.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\RoughDraft\ControversialPosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\RoughDraft\Home.cshtml" />
@@ -223,6 +212,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\PostListing\Controversial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Category\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Category\All.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

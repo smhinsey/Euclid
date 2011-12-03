@@ -45,13 +45,13 @@ namespace ForumSkeletonMvc
 			routes.MapRoute(
 				"Categories",
 				"categories",
-				new { controller = "RoughDraft", action = "Categories" }
+				new { controller = "Category", action = "All" }
 				);
 
 			routes.MapRoute(
 				"Category",
 				"categories/{categorySlug}",
-				new { controller = "RoughDraft", action = "Category", categorySlug = UrlParameter.Optional }
+				new { controller = "Category", action = "Detail", categorySlug = UrlParameter.Optional }
 				);
 
 			routes.MapRoute(
