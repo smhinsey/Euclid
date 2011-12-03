@@ -1,6 +1,6 @@
 ﻿@{
 	ViewBag.Title = "{Forum Name} - All Posts";
-	Layout = "~/Views/RoughDraft/Shared/_ForumLayout.cshtml";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 }
 <ul class="tabs">
 	<li><a href="@Url.RouteUrl("PopularPosts")">Popular Posts</a></li>
@@ -12,41 +12,19 @@
 <div class="row">
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-	</div>
-
-</div>
-
-<hr>
-
-<div class="row">
-
-	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 </div>
@@ -56,19 +34,19 @@
 <div class="row">
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 </div>
@@ -78,26 +56,48 @@
 <div class="row">
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 	<div class="span4">
-		@RenderPage("~/Views/RoughDraft/partials/PostTile.cshtml")
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
+	</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/partials/PostTile.cshtml")
 	</div>
 
 </div>
 
 <ul class="pills">
-	<li class="active"><a href="@Url.Action("AllPosts")">Newest</a></li>
-	<li><a href="@Url.Action("AllPosts")">Oldest</a></li>
+	<li class="active"><a href="@Url.RouteUrl("AllPosts")">Newest</a></li>
+	<li><a href="@Url.RouteUrl("AllPosts")">Oldest</a></li>
 </ul>
 
 <div class="pagination">

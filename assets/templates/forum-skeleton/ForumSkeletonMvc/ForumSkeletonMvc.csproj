@@ -90,7 +90,6 @@
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\PostListingController.cs" />
-    <Compile Include="Controllers\RoughDraftController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
@@ -133,8 +132,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -143,37 +140,37 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\Badge.cshtml" />
+    <Content Include="Views\Shared\Partials\Badge.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\Categories.cshtml" />
+    <Content Include="Views\Shared\Partials\Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\Shared\Scripts.cshtml" />
+    <Content Include="Views\Shared\Scripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\Shared\Styles.cshtml" />
+    <Content Include="Views\Shared\Styles.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\Sidebar.cshtml" />
+    <Content Include="Views\Shared\Partials\Sidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\Tags.cshtml" />
+    <Content Include="Views\Shared\Partials\Tags.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\TopBar.cshtml" />
+    <Content Include="Views\Shared\Partials\TopBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\TopUsers.cshtml" />
+    <Content Include="Views\Shared\Partials\TopUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\UserProfileTabs.cshtml" />
+    <Content Include="Views\Shared\Partials\UserProfileTabs.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\NewPost.cshtml" />
+    <Content Include="Views\Shared\Partials\NewPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\Shared\_ForumLayout.cshtml" />
+    <Content Include="Views\Shared\_ForumLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\PostListing\All.cshtml" />
@@ -218,7 +215,7 @@
     <Content Include="Views\Post\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\partials\PostTile.cshtml" />
+    <Content Include="Views\Shared\Partials\PostTile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Pages\Info.cshtml" />

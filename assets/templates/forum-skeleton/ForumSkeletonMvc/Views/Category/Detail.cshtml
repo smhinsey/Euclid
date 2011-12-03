@@ -1,11 +1,11 @@
 ﻿@{
 	ViewBag.Title = "{Forum Name} - {Category Name}";
-	Layout = "~/Views/RoughDraft/Shared/_ForumLayout.cshtml";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.CategoriesClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
-	<li><a href="@Url.Action("Categories")">Categories</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Categories")">Categories</a> <span class="divider">/</span></li>
 	<li class="active">{Category Name}</li>
 </ul>
 <h1>{Category Name}</h1>
@@ -26,7 +26,7 @@
 		<h2><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post Title}</a></h2>
 		<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
 			dapibus posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
-				font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">
+				font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.RouteUrl("Category", new { categorySlug = "placeholder-category" })" class="label">
 				Placeholder Category</span></a></p>
 
 		<div class="row">
@@ -54,7 +54,7 @@
 		<h2><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post Title}</a></h2>
 		<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
 			dapibus posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
-				font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">
+				font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.RouteUrl("Category", new { categorySlug = "placeholder-category" })" class="label">
 					Another Category</a></p>
 
 		<div class="row">
@@ -88,7 +88,7 @@
 		<h2><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post Title}</a></h2>
 		<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
 			dapibus posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
-				font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">
+				font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.RouteUrl("Category", new { categorySlug = "placeholder-category" })" class="label">
 				Placeholder Category</span></a></p>
 
 		<div class="row">
@@ -116,7 +116,7 @@
 		<h2><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post Title}</a></h2>
 		<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
 			dapibus posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
-				font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">
+				font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.RouteUrl("Category", new { categorySlug = "placeholder-category" })" class="label">
 					Another Category</a></p>
 
 		<div class="row">
@@ -150,7 +150,7 @@
 		<h3><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post Title}</a></h3>
 		<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
 			dapibus posuere. &mdash; <span style="text-align: right; font-size: smaller;"><em>
-				12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Example
+				12:59 PM 12/31/2011</em> in <a href="@Url.RouteUrl("Category", new { categorySlug = "placeholder-category" })" class="label">Example
 					Category</a></p>
 
 		<div class="row">
@@ -178,7 +178,7 @@
 		<h3><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post Title}</a></h3>
 		<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
 			dapibus posuere. &mdash; <span style="text-align: right; font-size: smaller;"><em>
-				12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Creative
+				12:59 PM 12/31/2011</em> in <a href="@Url.RouteUrl("Category", new { categorySlug = "placeholder-category" })" class="label">Creative
 					Category</a></p>
 
 		<div class="row">
@@ -206,7 +206,7 @@
 		<h3><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post Title}</a></h3>
 		<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
 			dapibus posuere. &mdash; <span style="text-align: right; font-size: smaller;"><em>
-				12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Unmoderated
+				12:59 PM 12/31/2011</em> in <a href="@Url.RouteUrl("Category", new { categorySlug = "placeholder-category" })" class="label">Unmoderated
 					Forum</a></p>
 
 		<div class="row">
@@ -234,7 +234,7 @@
 		<h3><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post Title}</a></h3>
 		<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
 			dapibus posuere. &mdash; <span style="text-align: right; font-size: smaller;"><em>
-				12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">Category</a></p>
+				12:59 PM 12/31/2011</em> in <a href="@Url.RouteUrl("Category", new { categorySlug = "placeholder-category" })" class="label">Category</a></p>
 
 		<div class="row">
 

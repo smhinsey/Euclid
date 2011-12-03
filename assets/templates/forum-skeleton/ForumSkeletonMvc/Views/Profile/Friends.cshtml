@@ -1,16 +1,16 @@
 ﻿@{
 	ViewBag.Title = "{Forum Name} - {Username}'s Friends";
-	Layout = "~/Views/RoughDraft/Shared/_ForumLayout.cshtml";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 }
 <ul class="breadcrumb">
 	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
-	<li><a href="@Url.Action("AllUsers")">All Users</a> <span class="divider">/</span></li>
-	<li><a href="@Url.Action("User")">{Username}</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a> <span class="divider">/</span></li>
 	<li class="active">Friends</li>
 </ul>
 <h1>{Username}'s Friends</h1>
 <hr />
-@RenderPage("~/Views/RoughDraft/partials/UserProfileTabs.cshtml")
+@RenderPage("~/Views/Shared/partials/UserProfileTabs.cshtml")
 <p>{Username} has 8 friends.</p>
 <table class="zebra-striped">
 	<tbody>
@@ -20,11 +20,11 @@
 				<td>
 					@i
 				</td>
-				<td><a href="@Url.Action("User")">
+				<td><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 					<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=40" /></a>
 				</td>
 				<td>
-					<h3><a href="@Url.Action("User")">{Username}</a></h3>
+					<h3><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a></h3>
 				</td>
 				<td>35 posts, 45 comments, 5 favorites </td>
 				<td><a href="#">Remove as Friend</a> </td>

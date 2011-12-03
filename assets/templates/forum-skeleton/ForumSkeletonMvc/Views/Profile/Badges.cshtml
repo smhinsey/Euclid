@@ -1,16 +1,16 @@
 ﻿@{
 	ViewBag.Title = "{Forum Name} - {Username}'s Badges";
-	Layout = "~/Views/RoughDraft/Shared/_ForumLayout.cshtml";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
-	<li><a href="@Url.Action("AllUsers")">All Users</a> <span class="divider">/</span></li>
-	<li><a href="@Url.Action("User")">{Username}</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a> <span class="divider">/</span></li>
 	<li class="active">Badges</li>
 </ul>
 <h1>{Username}'s Badges</h1>
 <hr />
-@RenderPage("~/Views/RoughDraft/partials/UserProfileTabs.cshtml")
+@RenderPage("~/Views/Shared/partials/UserProfileTabs.cshtml")
 
 <div class="row">
 

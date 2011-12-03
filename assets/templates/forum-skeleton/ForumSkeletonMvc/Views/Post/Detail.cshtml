@@ -1,6 +1,6 @@
 ﻿@{
 	ViewBag.Title = "{Forum Name} - {Post Name}";
-	Layout = "~/Views/RoughDraft/Shared/_ForumLayout.cshtml";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 }
 @section HeadContent {
 	<script type="text/javascript">
@@ -47,9 +47,9 @@
 	</style>
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.Action("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
-	<li><a href="@Url.Action("Categories")">Categories</a> <span class="divider">/</span></li>
-	<li><a href="@Url.Action("Category")">{Category}</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Categories")">Categories</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Category")">{Category}</a> <span class="divider">/</span></li>
 	<li class="active">{Post Name}</li>
 </ul>
 <h1>{Post Name}</h1>
@@ -108,11 +108,11 @@
 
 			<div class="span6" style="text-align: right;">
 				<a href="#">
-					<img src="../../Themes/default/images/arrow-090.png" /></a>&nbsp;&nbsp;&nbsp;
+					<img src="../../../Themes/default/images/arrow-090.png" /></a>&nbsp;&nbsp;&nbsp;
 				<a href="#">
-					<img src="../../Themes/default/images/arrow-270.png" /></a>&nbsp;&nbsp;&nbsp;
+					<img src="../../../Themes/default/images/arrow-270.png" /></a>&nbsp;&nbsp;&nbsp;
 				<a href="#">
-					<img src="../../Themes/default/images/exclamation-white.png" /></a>
+					<img src="../../../Themes/default/images/exclamation-white.png" /></a>
 			</div>
 
 		</div>
@@ -146,12 +146,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -193,12 +193,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -236,12 +236,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -276,12 +276,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -310,12 +310,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -350,12 +350,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -390,12 +390,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -430,12 +430,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -476,12 +476,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -510,12 +510,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -550,12 +550,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.Action("User")">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.Action("User")">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 

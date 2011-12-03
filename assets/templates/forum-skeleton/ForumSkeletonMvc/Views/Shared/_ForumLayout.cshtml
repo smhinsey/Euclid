@@ -5,15 +5,15 @@
 	<title>@ViewBag.Title</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
-	@RenderPage("~/Views/RoughDraft/Shared/Styles.cshtml")
-	@RenderPage("~/Views/RoughDraft/Shared/Scripts.cshtml")
+	@RenderPage("~/Views/Shared/Styles.cshtml")
+	@RenderPage("~/Views/Shared/Scripts.cshtml")
 	@RenderSection("HeadContent", false)
 </head>
 <body>
-	@RenderPage("~/Views/RoughDraft/partials/TopBar.cshtml")
+	@RenderPage("~/Views/Shared/partials/TopBar.cshtml")
 
 	<div class="container-fluid">
-		@RenderPage("~/Views/RoughDraft/partials/Sidebar.cshtml")
+		@RenderPage("~/Views/Shared/partials/Sidebar.cshtml")
 
 		<div class="content">
 			@RenderBody()
