@@ -80,25 +80,25 @@ namespace ForumSkeletonMvc
 
 			routes.MapRoute(
 				"ProfileBadges",
-				"profiles/{tagSlug}/badges",
+				"profiles/{profileSlug}/badges",
 				new {controller = "Profile", action = "Badges", profileSlug = UrlParameter.Optional}
 				);
 
 			routes.MapRoute(
 				"ProfileFavorites",
-				"profiles/{tagSlug}/favorites",
+				"profiles/{profileSlug}/favorites",
 				new {controller = "Profile", action = "Favorites", profileSlug = UrlParameter.Optional}
 				);
 
 			routes.MapRoute(
 				"ProfileFriends",
-				"profiles/{tagSlug}/friends",
+				"profiles/{profileSlug}/friends",
 				new {controller = "Profile", action = "Friends", profileSlug = UrlParameter.Optional}
 				);
 
 			routes.MapRoute(
 				"ProfileRecentActivity",
-				"profiles/{tagSlug}/activity",
+				"profiles/{profileSlug}/activity",
 				new {controller = "Profile", action = "RecentActivity", profileSlug = UrlParameter.Optional}
 				);
 
