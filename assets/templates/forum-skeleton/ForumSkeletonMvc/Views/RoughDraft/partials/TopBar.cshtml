@@ -5,7 +5,7 @@
 			<ul class="nav">
 				<li class="@ViewBag.CategoriesClass"><a href="@Url.RouteUrl("Categories")">Categories</a></li>
 				<li class="@ViewBag.TagsClass"><a href="@Url.RouteUrl("Tags")">Tags</a></li>
-				<li class="@ViewBag.InfoClass"><a href="@Url.Action("Info", "RoughDraft")">Info</a></li>
+				<li class="@ViewBag.InfoClass"><a href="@Url.RouteUrl("InfoPage")">Info</a></li>
 			</ul>
 			<form action="" class="pull-right">
 				<input class="input-small" type="text" placeholder="Username">

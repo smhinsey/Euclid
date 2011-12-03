@@ -115,9 +115,9 @@ namespace ForumSkeletonMvc
 				);
 
 			routes.MapRoute(
-				"OldDefault", // Route name
-				"{controller}/{action}/{id}", // URL with parameters
-				new {controller = "RoughDraft", action = "Home", id = UrlParameter.Optional} // Parameter defaults
+				"InfoPage",
+				"pages/info",
+				new {controller = "Pages", action = "Info"}
 				);
 		}
 
