@@ -1,6 +1,7 @@
 ﻿@{
 	ViewBag.Title = "{Forum Name} - {Username}'s Recent Activity";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+	ViewBag.ProfileRecentActivityClass = "active";
 }
 <ul class="breadcrumb">
 	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
@@ -10,7 +11,7 @@
 </ul>
 <h1>{Username}'s Recent Activity</h1>
 <hr />
-@RenderPage("~/Views/Shared/partials/UserProfileTabs.cshtml")
+@RenderPage("~/Views/Shared/partials/ProfileTabs.cshtml")
 @for (var i = 1; i < 11; i++)
 {
 	<div class="row">

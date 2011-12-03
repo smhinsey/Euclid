@@ -1,6 +1,7 @@
 ﻿@{
 	ViewBag.Title = "{Forum Name} - {Username}'s Badges";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+	ViewBag.ProfileBadgesClass = "active";
 }
 <ul class="breadcrumb">
 	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
@@ -10,7 +11,7 @@
 </ul>
 <h1>{Username}'s Badges</h1>
 <hr />
-@RenderPage("~/Views/Shared/partials/UserProfileTabs.cshtml")
+@RenderPage("~/Views/Shared/partials/ProfileTabs.cshtml")
 
 <div class="row">
 

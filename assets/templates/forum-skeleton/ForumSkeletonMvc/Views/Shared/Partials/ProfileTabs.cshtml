@@ -1,0 +1,7 @@
+﻿<ul class="tabs">
+	<li class="@ViewBag.ProfileOverviewClass"><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Overview</a></li>
+	<li class="@ViewBag.ProfileRecentActivityClass"><a href="@Url.RouteUrl("ProfileRecentActivity", new { profileSlug = "my-profile-slug" })">Recent Activity</a></li>
+	<li class="@ViewBag.ProfileFavoritesClass"><a href="@Url.RouteUrl("ProfileFavorites", new { profileSlug = "my-profile-slug" })">Favorites</a></li>
+	<li class="@ViewBag.ProfileBadgesClass"><a href="@Url.RouteUrl("ProfileBadges", new { profileSlug = "my-profile-slug" })">Badges</a></li>
+	<li class="@ViewBag.ProfileFriendsClass"><a href="@Url.RouteUrl("ProfileFriends", new { profileSlug = "my-profile-slug" })">Friends</a></li>
+</ul>

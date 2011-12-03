@@ -1,6 +1,7 @@
 ﻿@{
 	ViewBag.Title = "{Forum Name} - {Username}'s Friends";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+	ViewBag.ProfileFriendsClass = "active";
 }
 <ul class="breadcrumb">
 	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
@@ -10,7 +11,7 @@
 </ul>
 <h1>{Username}'s Friends</h1>
 <hr />
-@RenderPage("~/Views/Shared/partials/UserProfileTabs.cshtml")
+@RenderPage("~/Views/Shared/partials/ProfileTabs.cshtml")
 <p>{Username} has 8 friends.</p>
 <table class="zebra-striped">
 	<tbody>
