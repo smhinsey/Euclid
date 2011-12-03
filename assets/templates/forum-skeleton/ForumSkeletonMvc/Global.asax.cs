@@ -55,9 +55,21 @@ namespace ForumSkeletonMvc
 				);
 
 			routes.MapRoute(
+				"Tags",
+				"tags",
+				new { controller = "Tag", action = "All" }
+				);
+
+			routes.MapRoute(
+				"Tag",
+				"tags/{tagSlug}",
+				new { controller = "Tag", action = "Detail", tagSlug = UrlParameter.Optional }
+				);
+
+			routes.MapRoute(
 				"OldDefault", // Route name
 				"{controller}/{action}/{id}", // URL with parameters
-				new {controller = "RoughDraft", action = "Home", id = UrlParameter.Optional} // Parameter defaults
+				new { controller = "RoughDraft", action = "Home", id = UrlParameter.Optional } // Parameter defaults
 				);
 		}
 

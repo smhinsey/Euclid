@@ -1,21 +1,21 @@
 ﻿<h3>Tags</h3>
 <div id="tagCloud" style="height: 175px; width: 150px; position: relative;"></div>
 <br/>
-<p><a href="@Url.Action("Tags")">View all tags</a>.</p>
+<p><a href="@Url.RouteUrl("Tags")">View all tags</a>.</p>
 
 <script>
 	var tag_cloud = [
-        	{ text: "Tag", weight: 1, url: '@Url.Action("Tag")' },
-        	{ text: "Another Tag", weight: 2, url: '@Url.Action("Tag")' },
-        	{ text: "Green", weight: 3, url: '@Url.Action("Tag")' },
-        	{ text: "Favorites", weight: 4, url: '@Url.Action("Tag")' },
-        	{ text: "Cars", weight: 6, url: '@Url.Action("Tag")' },
-        	{ text: "Arbitrary", weight: 4, url: '@Url.Action("Tag")' },
-        	{ text: "Bars", weight: 6, url: '@Url.Action("Tag")' },
-        	{ text: "Hoaxes", weight: 5, url: '@Url.Action("Tag")' },
-        	{ text: "Bats", weight: 6, url: '@Url.Action("Tag")' },
-        	{ text: "Marathon", weight: 2, url: '@Url.Action("Tag")' },
-        	{ text: "Jokes", weight: 7, url: '@Url.Action("Tag")' }
+        	{ text: "Tag", weight: 1, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' },
+        	{ text: "Another Tag", weight: 2, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' },
+        	{ text: "Green", weight: 3, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' },
+        	{ text: "Favorites", weight: 4, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' },
+        	{ text: "Cars", weight: 6, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' },
+        	{ text: "Arbitrary", weight: 4, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' },
+        	{ text: "Bars", weight: 6, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' },
+        	{ text: "Hoaxes", weight: 5, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' },
+        	{ text: "Bats", weight: 6, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' },
+        	{ text: "Marathon", weight: 2, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' },
+        	{ text: "Jokes", weight: 7, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag"})' }
         ];
 
 	$(document).ready(function () {
