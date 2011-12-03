@@ -140,10 +140,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Badge.cshtml" />
+    <Content Include="Views\Shared\SideBar\Badge.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Categories.cshtml" />
+    <Content Include="Views\Shared\SideBar\Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Scripts.cshtml" />
@@ -152,22 +152,22 @@
     <Content Include="Views\Shared\Styles.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Sidebar.cshtml" />
+    <Content Include="Views\Shared\SideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\Tags.cshtml" />
+    <Content Include="Views\Shared\SideBar\Tags.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\TopBar.cshtml" />
+    <Content Include="Views\Shared\TopBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\TopUsers.cshtml" />
+    <Content Include="Views\Shared\SideBar\TopUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\UserProfileTabs.cshtml" />
+    <Content Include="Views\Profile\_Tabs.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\NewPost.cshtml" />
+    <Content Include="Views\Shared\SideBar\NewPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_ForumLayout.cshtml" />
@@ -215,10 +215,13 @@
     <Content Include="Views\Post\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Partials\PostTile.cshtml" />
+    <Content Include="Views\PostListing\_PostTile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Pages\Info.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Post\Create.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

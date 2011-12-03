@@ -11,30 +11,7 @@
 	</div>
 
 	<div class="modal-body">
-		<form>
-		<fieldset>
-
-			<div class="clearfix">
-				<label for="username">Title</label>
-
-				<div class="input">
-					<input class="large" name="username" size="30" type="text" value="Your Post Title" />
-				</div>
-
-			</div>
-
-			<div class="clearfix">
-				<label for="email">Post</label>
-
-				<div class="input">
-					<textarea class="xlarge" id="newReplyBody" name="newReplyBody" rows="6"></textarea>
-					<span class="help-block">Please be civil.</span>
-				</div>
-
-			</div>
-
-		</fieldset>
-		</form>
+		@{ Html.RenderAction("Create", "Post");  }
 	</div>
 
 	<div class="modal-footer">

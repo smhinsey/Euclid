@@ -115,6 +115,12 @@ namespace ForumSkeletonMvc
 				);
 
 			routes.MapRoute(
+				"CreatePost",
+				"createpost",
+				new {controller = "Post", action = "Create"}
+				);
+
+			routes.MapRoute(
 				"InfoPage",
 				"pages/info",
 				new {controller = "Pages", action = "Info"}
