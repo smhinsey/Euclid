@@ -5,12 +5,12 @@
 	<img src="../../Themes/default/images/exclamation-white.png" /><br />
 </div>
 <h2>
-	<a href="@Url.Action("Post")">{Post Title}</a></h2>
+	<a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post Title}</a></h2>
 <p>
 	Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio
 	sem nec elit. Etiam porta sem malesuada magna mollis euismod. Integer posuere erat
 	a ante venenatis dapibus posuere velit aliquet. &mdash; <span style="text-align: right;
-		font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">
+		font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.RouteUrl("Category", new { categorySlug = "category"})" class="label">
 			Another Category</a></span></p>
 <p>
 	<span style="padding-top: 7px; text-align: right; font-size: smaller;">

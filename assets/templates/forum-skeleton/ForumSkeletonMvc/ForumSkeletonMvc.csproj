@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\PostListingController.cs" />
     <Compile Include="Controllers\RoughDraftController.cs" />
     <Compile Include="Controllers\TagController.cs" />
@@ -171,9 +172,6 @@
     <Content Include="Views\RoughDraft\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\RoughDraft\Post.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\RoughDraft\partials\NewPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +215,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Profile\RecentActivity.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Post\Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\RoughDraft\partials\PostTile.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

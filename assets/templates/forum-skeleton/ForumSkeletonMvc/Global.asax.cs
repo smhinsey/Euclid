@@ -103,6 +103,18 @@ namespace ForumSkeletonMvc
 				);
 
 			routes.MapRoute(
+				"Post",
+				"categories/{categorySlug}/posts/{postSlug}",
+				new
+					{
+						controller = "Post",
+						action = "Detail",
+						categorySlug = UrlParameter.Optional,
+						postSlug = UrlParameter.Optional
+					}
+				);
+
+			routes.MapRoute(
 				"OldDefault", // Route name
 				"{controller}/{action}/{id}", // URL with parameters
 				new {controller = "RoughDraft", action = "Home", id = UrlParameter.Optional} // Parameter defaults
