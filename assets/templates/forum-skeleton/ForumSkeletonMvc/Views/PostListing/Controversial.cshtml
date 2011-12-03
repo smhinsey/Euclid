@@ -8,45 +8,65 @@
 	<li><a href="@Url.RouteUrl("AllPosts")">All Posts</a></li>
 </ul>
 <!-- controversial posts -->
+
 <div class="row">
+
 	<div class="span8">
-		@RenderPage("_PostTile.cshtml")
+		@RenderPage("_PostTile.cshtml", new { Size = "Large" })
 	</div>
+
 	<div class="span8">
-		@RenderPage("_PostTile.cshtml")
+		@RenderPage("_PostTile.cshtml", new { Size = "Large" })
 	</div>
+
 </div>
+
 <hr>
+
 <div class="row">
+
 	<div class="span4">
-		@RenderPage("_PostTile.cshtml")
+		@RenderPage("_PostTile.cshtml", new { Size = "Small" })
 	</div>
+
 	<div class="span4">
-		@RenderPage("_PostTile.cshtml")
+		@RenderPage("_PostTile.cshtml", new { Size = "Small" })
 	</div>
+
 	<div class="span4">
-		@RenderPage("_PostTile.cshtml")
+		@RenderPage("_PostTile.cshtml", new { Size = "Small" })
 	</div>
+
 	<div class="span4">
-		@RenderPage("_PostTile.cshtml")
+		@RenderPage("_PostTile.cshtml", new { Size = "Small" })
 	</div>
+
 </div>
+
 <hr>
+
 <div class="row">
+
 	<div class="span4">
-		@RenderPage("_PostTile.cshtml")
+		@RenderPage("_PostTile.cshtml", new { Size = "Small" })
 	</div>
+
 	<div class="span4">
-		@RenderPage("_PostTile.cshtml")
+		@RenderPage("_PostTile.cshtml", new { Size = "Small" })
 	</div>
+
 	<div class="span4">
-		@RenderPage("_PostTile.cshtml")
+		@RenderPage("_PostTile.cshtml", new { Size = "Small" })
 	</div>
+
 	<div class="span4">
-		@RenderPage("_PostTile.cshtml")
+		@RenderPage("_PostTile.cshtml", new { Size = "Small" })
 	</div>
+
 </div>
+
 <hr>
+
 <div class="pagination">
 	<ul>
 		<li class="prev disabled"><a href="#">&larr; Previous</a></li>
@@ -60,3 +80,4 @@
 		<li class="next"><a href="#">Next &rarr;</a></li>
 	</ul>
 </div>
+
