@@ -13,83 +13,35 @@
 <div class="row">
 
 	<div class="span5">
-		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h2>
-		<p>A brief description of the category, yo.</p>
-		<dl>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod.<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
-				dapibus posuere.
-				<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante.
-				<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-		</dl>
+		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category
+			Name}</a></h2>
+		<p>A brief description of the category.</p>
+		@for (int i = 1; i < 5; i++)
+	{
+			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed" })
+	}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
 	<div class="span5">
-		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h2>
+		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category
+			Name}</a></h2>
 		<p>A brief description of the category.</p>
-		<dl>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod.<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
-				dapibus posuere.
-				<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante.
-				<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-		</dl>
+		@for (int i = 1; i < 5; i++)
+	{
+			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed" })
+	}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
 	<div class="span5">
-		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h2>
+		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category
+			Name}</a></h2>
 		<p>A brief description of the category.</p>
-		<dl>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod.<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
-				dapibus posuere.
-				<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante.
-				<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-		</dl>
+		@for (int i = 1; i < 5; i++)
+	{
+			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed" })
+	}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
@@ -99,71 +51,47 @@
 
 <div class="row">
 
-	<div class="span4" style="font-size: smaller;">
-		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h3>
-		<p>A brief description of the category.</p>
-		<dl>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>A severely truncated post body.<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod.
-				<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-		</dl>
+	<div class="span4" style="font-size: small;">
+		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category
+			Name}</a></h3>
+		<p style="font-size: smaller;">A brief description of the category.</p>
+		@for (int i = 1; i < 3; i++)
+	{
+			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed" })
+	}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
-	<div class="span4" style="font-size: smaller;">
-		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h3>
+	<div class="span4" style="font-size: small;">
+		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category
+			Name}</a></h3>
 		<p style="font-size: smaller;">A brief description of the category.</p>
-		<dl>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>A severely truncated post body.<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod.
-				<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-		</dl>
+		@for (int i = 1; i < 3; i++)
+	{
+			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed" })
+	}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
-	<div class="span4" style="font-size: smaller;">
-		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h3>
+	<div class="span4" style="font-size: small;">
+		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category
+			Name}</a></h3>
 		<p style="font-size: smaller;">A brief description of the category.</p>
-		<dl>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>A severely truncated post body.<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod.
-				<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-		</dl>
+		@for (int i = 1; i < 3; i++)
+	{
+			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed" })
+	}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
-	<div class="span4" style="font-size: smaller;">
-		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category Name}</a></h3>
+	<div class="span4" style="font-size: small;">
+		<h3><a href="@Url.RouteUrl("Category", new { categorySlug = "category-name" })">{Category
+			Name}</a></h3>
 		<p style="font-size: smaller;">A brief description of the category.</p>
-		<dl>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>A severely truncated post body.<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-			<dt><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post title}</a></dt>
-			<dd>Etiam porta sem malesuada magna mollis euismod.
-				<br />
-				<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug"})">username</a>
-					with 33 comments.</span></dd>
-		</dl>
+		@for (int i = 1; i < 3; i++)
+	{
+			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed" })
+	}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
