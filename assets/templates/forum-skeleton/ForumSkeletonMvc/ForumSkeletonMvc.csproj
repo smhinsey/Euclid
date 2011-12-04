@@ -140,34 +140,34 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\SideBar\Badge.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\Badge.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\SideBar\Categories.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Scripts.cshtml" />
+    <Content Include="Views\Shared\Layout\Scripts.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Styles.cshtml" />
+    <Content Include="Views\Shared\Layout\Styles.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\SideBar.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\SideBar\Tags.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\Tags.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\TopBar.cshtml" />
+    <Content Include="Views\Shared\Layout\TopBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\SideBar\TopUsers.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\TopUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Profile\_Tabs.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\SideBar\NewPost.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\NewPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_ForumLayout.cshtml" />
@@ -215,7 +215,7 @@
     <Content Include="Views\Post\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\PostListing\_PostTile.cshtml" />
+    <Content Include="Views\Shared\_PostTile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Pages\Info.cshtml" />
