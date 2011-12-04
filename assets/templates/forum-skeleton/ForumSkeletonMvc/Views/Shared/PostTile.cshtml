@@ -70,7 +70,7 @@ else if (mode == "condensed")
 		{Post title}</a></b><br />
 		A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
 		<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug" })">
-			username</a> with 33 comments.</span> </p>
+			username</a> with <a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })#comments">33 comments.</a></span> </p>
 	</text>
 }
 @helper truncate(string text, int numberOfWords)
