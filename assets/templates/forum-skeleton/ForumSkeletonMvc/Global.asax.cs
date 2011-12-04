@@ -51,7 +51,7 @@ namespace ForumSkeletonMvc
 			routes.MapRoute(
 				"Category",
 				"categories/{categorySlug}",
-				new {controller = "Category", action = "Detail", categorySlug = UrlParameter.Optional}
+				new {controller = "Category", action = "Detail"}
 				);
 
 			routes.MapRoute(
@@ -63,7 +63,7 @@ namespace ForumSkeletonMvc
 			routes.MapRoute(
 				"Tag",
 				"tags/{tagSlug}",
-				new {controller = "Tag", action = "Detail", tagSlug = UrlParameter.Optional}
+				new {controller = "Tag", action = "Detail"}
 				);
 
 			routes.MapRoute(
@@ -75,31 +75,31 @@ namespace ForumSkeletonMvc
 			routes.MapRoute(
 				"ProfileOverview",
 				"profiles/{profileSlug}",
-				new {controller = "Profile", action = "Overview", profileSlug = UrlParameter.Optional}
+				new {controller = "Profile", action = "Overview"}
 				);
 
 			routes.MapRoute(
 				"ProfileBadges",
 				"profiles/{profileSlug}/badges",
-				new {controller = "Profile", action = "Badges", profileSlug = UrlParameter.Optional}
+				new {controller = "Profile", action = "Badges"}
 				);
 
 			routes.MapRoute(
 				"ProfileFavorites",
 				"profiles/{profileSlug}/favorites",
-				new {controller = "Profile", action = "Favorites", profileSlug = UrlParameter.Optional}
+				new {controller = "Profile", action = "Favorites"}
 				);
 
 			routes.MapRoute(
 				"ProfileFriends",
 				"profiles/{profileSlug}/friends",
-				new {controller = "Profile", action = "Friends", profileSlug = UrlParameter.Optional}
+				new {controller = "Profile", action = "Friends"}
 				);
 
 			routes.MapRoute(
 				"ProfileRecentActivity",
 				"profiles/{profileSlug}/activity",
-				new {controller = "Profile", action = "RecentActivity", profileSlug = UrlParameter.Optional}
+				new {controller = "Profile", action = "RecentActivity"}
 				);
 
 			routes.MapRoute(

@@ -215,7 +215,7 @@
     <Content Include="Views\Post\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_PostTile.cshtml" />
+    <Content Include="Views\Shared\PostTile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Pages\Info.cshtml" />
