@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ForumSkeletonAzure" generation="1" functional="0" release="0" Id="e721c511-1e7c-4d96-b54e-4ea00b910737" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ForumSkeletonAzure" generation="1" functional="0" release="0" Id="b2cb802b-0c4f-4f52-832a-bd9597fb4ed0" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="ForumSkeletonAzureGroup" generation="1" functional="0" release="0">
       <componentports>
@@ -117,7 +117,7 @@
       </maps>
       <components>
         <groupHascomponents>
-          <role name="ForumSkeletonMvc" generation="1" functional="0" release="0" software="D:\Users\smhinsey\git\Euclid\assets\templates\forum-skeleton\ForumSkeletonAzure\csx\Debug\roles\ForumSkeletonMvc" entryPoint="base\x64\WaHostBootstrapper.exe" parameters="base\x64\WaIISHost.exe " memIndex="1792" hostingEnvironment="frontendadmin" hostingEnvironmentVersion="2">
+          <role name="ForumSkeletonMvc" generation="1" functional="0" release="0" software="C:\Users\smhinsey\git\Euclid\assets\templates\forum-skeleton\ForumSkeletonAzure\csx\Debug\roles\ForumSkeletonMvc" entryPoint="base\x64\WaHostBootstrapper.exe" parameters="base\x64\WaIISHost.exe " memIndex="1792" hostingEnvironment="frontendadmin" hostingEnvironmentVersion="2">
             <componentports>
               <inPort name="Endpoint1" protocol="http" portRanges="80" />
               <inPort name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" protocol="tcp" />
@@ -165,14 +165,14 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="85738c9b-395d-4d57-8a8e-ae5e8e97ecdc" ref="Microsoft.RedDog.Contract\ServiceContract\ForumSkeletonAzureContract@ServiceDefinition.build">
+    <implementation Id="5bba5a3f-1b8e-4fef-b33a-2bcad3b1734f" ref="Microsoft.RedDog.Contract\ServiceContract\ForumSkeletonAzureContract@ServiceDefinition.build">
       <interfacereferences>
-        <interfaceReference Id="c2a9667d-e8bd-46f0-962a-5e2145b04de4" ref="Microsoft.RedDog.Contract\Interface\ForumSkeletonMvc:Endpoint1@ServiceDefinition.build">
+        <interfaceReference Id="d3669404-b20d-4844-9fc0-f6ba05dcb3bd" ref="Microsoft.RedDog.Contract\Interface\ForumSkeletonMvc:Endpoint1@ServiceDefinition.build">
           <inPort>
             <inPortMoniker name="/ForumSkeletonAzure/ForumSkeletonAzureGroup/ForumSkeletonMvc:Endpoint1" />
           </inPort>
         </interfaceReference>
-        <interfaceReference Id="b1aa45c5-f68b-43de-ac5a-15fc897519c7" ref="Microsoft.RedDog.Contract\Interface\ForumSkeletonMvc:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput@ServiceDefinition.build">
+        <interfaceReference Id="ea201630-2785-4324-8999-b59573e469c5" ref="Microsoft.RedDog.Contract\Interface\ForumSkeletonMvc:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput@ServiceDefinition.build">
           <inPort>
             <inPortMoniker name="/ForumSkeletonAzure/ForumSkeletonAzureGroup/ForumSkeletonMvc:Microsoft.WindowsAzure.Plugins.RemoteForwarder.RdpInput" />
           </inPort>

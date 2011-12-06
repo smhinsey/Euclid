@@ -96,6 +96,22 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Category\AllCategoriesViewModel.cs" />
+    <Compile Include="ViewModels\Category\CategoryDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Pages\InfoPageViewModel.cs" />
+    <Compile Include="ViewModels\PostListing\ControversialPostsViewModel.cs" />
+    <Compile Include="ViewModels\PostListing\AllPostsViewModel.cs" />
+    <Compile Include="ViewModels\PostListing\PopularPostsViewModel.cs" />
+    <Compile Include="ViewModels\Post\CreatePostViewModel.cs" />
+    <Compile Include="ViewModels\Post\PostDetailViewModel.cs" />
+    <Compile Include="ViewModels\Profile\AllProfilesViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileBadgesViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileFavoritesViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileFriendsViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileRecentActivityViewModel.cs" />
+    <Compile Include="ViewModels\Tag\AllTagsViewModel.cs" />
+    <Compile Include="ViewModels\Tag\TagDetailViewModel.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -133,9 +149,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
