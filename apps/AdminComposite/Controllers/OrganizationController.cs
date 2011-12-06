@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Models;
-using AutoMapper;
 using Euclid.Common.Messaging;
 using ForumAgent;
 using ForumAgent.Commands;
 using ForumAgent.Queries;
-using ForumAgent.ReadModels;
 
 namespace AdminComposite.Controllers
 {
@@ -24,12 +22,6 @@ namespace AdminComposite.Controllers
 			_userQueries = userQueries;
 			_organizationQueries = organizationQueries;
 			_publisher = publisher;
-			Mapper.CreateMap<OrganizationUser, UpdateOrganizationUserInputModel>();
-			Mapper.CreateMap<Organization, UpdateOrganizationInputModel>().ForMember(
-				input => input.OrganizationName, o => o.MapFrom(org => org.Name)).ForMember(
-					input => input.OrganizationUrl, o => o.MapFrom(org => org.WebsiteUrl)).ForMember(
-						input => input.OrganizationSlug, o => o.MapFrom(org => org.Slug)).ForMember(
-							input => input.OrganizationIdentifier, o => o.MapFrom(org => org.Identifier));
 		}
 
 		//
@@ -39,7 +31,21 @@ namespace AdminComposite.Controllers
 			ViewBag.Title = string.Format("Manage Organization {0}", organizationId);
 			var org = _organizationQueries.FindById(organizationId);
 
-			return View(Mapper.Map<UpdateOrganizationInputModel>(org));
+			return View(
+				new UpdateOrganizationInputModel
+					{
+						Address = org.Address,
+						Address2 = org.Address2,
+						City = org.City,
+						Country = org.Country,
+						OrganizationIdentifier = org.Identifier,
+						OrganizationName = org.Name,
+						OrganizationSlug = org.Slug,
+						PhoneNumber = org.PhoneNumber,
+						OrganizationUrl = org.WebsiteUrl,
+						State = org.State,
+						Zip = org.Zip
+					});
 		}
 
 		[HttpGet]
@@ -60,9 +66,15 @@ namespace AdminComposite.Controllers
 				throw new UserNotFoundException(userId);
 			}
 
-			var model = Mapper.Map<UpdateOrganizationUserInputModel>(user);
-
-			return PartialView("_UpdateOrganizationUser", model);
+			return PartialView("_UpdateOrganizationUser", new UpdateOrganizationUserInputModel
+															{
+																Email = user.Email,
+																FirstName = user.FirstName,
+																LastName = user.LastName,
+																UserId = user.Identifier,
+																OrganizationId = user.OrganizationIdentifier,
+																Username = user.Username,
+															});
 		}
 
 		public ActionResult Users(Guid organizationId, int offset = 0, int pageSize = 25)

@@ -18,7 +18,6 @@ namespace AdminComposite.Controllers
 		{
 			_forumQueries = forumQueries;
 			_publisher = publisher;
-			AutoMapper.Mapper.CreateMap<Forum, UpdateForumInputModel>().ForMember(input=>input.ForumIdentifier, opt=>opt.MapFrom(forum=>forum.Identifier));
 		}
 
 		public ActionResult AuthenticationProviders(Guid forumId)
@@ -45,7 +44,16 @@ namespace AdminComposite.Controllers
 		public ActionResult Details(Guid forumId)
 		{
 			var forum = _forumQueries.FindById(forumId);
-			var model = AutoMapper.Mapper.Map<UpdateForumInputModel>(forum);
+			var model = new UpdateForumInputModel
+							{
+								Description = forum.Description,
+								Name = forum.Name,
+								UrlSlug = forum.UrlSlug,
+								UrlHostName = forum.UrlHostName,
+								ForumIdentifier = forum.Identifier,
+								Moderated = forum.Moderated,
+								Private = forum.Private,
+							};
 
 			return View(model);
 		}
