@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using AgentConsole;
@@ -15,6 +16,7 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.WindowsAzure;
+using NConfig;
 using NUnit.Framework;
 using log4net.Config;
 
@@ -33,13 +35,19 @@ namespace Euclid.TestingSupport
 			_agentAssemblies = agentAssemblies;
 		}
 
+		[TestFixtureSetUp]
+		public void FixtureSetup()
+		{
+			NConfigurator.UsingFile(@"Config\custom.config").SetAsSystemDefault();
+		}
+
 		[SetUp]
 		public void SetUp()
 		{
+			XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
+
 			var compositeDatabaseConnection =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
-
-			XmlConfigurator.Configure();
 
 			Container = new WindsorContainer();
 

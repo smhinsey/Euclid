@@ -4,6 +4,7 @@ using Euclid.Common.Messaging;
 using Euclid.Sdk.TestAgent.Commands;
 using Euclid.Sdk.TestAgent.Queries;
 using Euclid.TestingSupport;
+using NConfig;
 using NUnit.Framework;
 
 namespace Euclid.Sdk.IntegrationTests

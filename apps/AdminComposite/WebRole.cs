@@ -44,7 +44,6 @@ namespace AdminComposite
 				.SetAsSystemDefault();
 
 			XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
-			;
 
 			MsSqlConfiguration databaseConfiguration =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
