@@ -1,0 +1,50 @@
+﻿@using ForumSkeletonMvc.ViewModels.Profile
+@model ProfileFavoritesViewModel
+@{
+	ViewBag.Title = "{Forum Name} - {Username}'s Favorites";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+	ViewBag.ProfileFavoritesClass = "active";
+}
+<ul class="breadcrumb">
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
+		{Username}</a> <span class="divider">/</span></li>
+	<li class="active">Favorites</li>
+</ul>
+<h1>
+	{Username}'s Favorites</h1>
+<hr />
+@RenderPage("_Tabs.cshtml")
+@for (var i = 1; i < 11; i++)
+{
+	<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
+		<div class="span10">
+			<p>
+				<strong><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">
+					{Post Title}</a></strong> &ndash; This is a favorite post. Integer posuere erat
+				a ante venenatis dapibus posuere. Etiam porta sem malesuada magna mollis euismod.
+				&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em>
+					in <a href="@Url.RouteUrl("Category", new { categorySlug = "category-slug" })" class="label">
+						Category</a> &middot; <a href="#">Remove</a></span></p>
+			<hr />
+		</div>
+	</div>
+		 
+	if (i % 2 == 0)
+	{
+		 	
+	<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
+		<div class="span10">
+			<p>
+				Comment on post: <strong><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">
+					{Post Title}</a></strong> &ndash; This is a favorite comment. Integer posuere
+				erat a ante venenatis dapibus posuere. Etiam porta sem malesuada magna mollis euismod.
+				&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em>
+					&middot; <a href="#">Remove</a></span></p>
+			<hr />
+		</div>
+	</div>			 
+			 
+	}
+}

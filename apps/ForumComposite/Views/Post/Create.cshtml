@@ -1,33 +1,21 @@
-﻿@using Euclid.Composites.Mvc.Extensions
-@using ForumAgent.ReadModels
-@using ForumComposite.Models
-@model PublishPostInputModel
-@{
-	ViewBag.Title = "Start a new discussion";
-}
-
-<div id="DiscussionForm">
-	<h2>Start a New Discussion</h2>
-	@using (Html.BeginFormForInputModel(Model, true, Url.Action("List", "Post", new { forumSlug = ViewBag.ForumSlug, orgSlug = ViewBag.OrganizationSlug })))
-	{
-		@Html.HiddenFor(m => m.AuthorIdentifier)
-		@Html.HiddenFor(m => m.ForumIdentifier)
-		@Html.HiddenFor(m=>m.ModerationRequired)
-		<div>
-			@Html.LabelFor(m => m.Title)
-			@Html.TextBoxFor(m => m.Title, new { @class = "InputBox", maxlength = "100", id = "Form_Name" })
+﻿@using ForumSkeletonMvc.ViewModels.Post
+@model CreatePostViewModel
+<form>
+<fieldset>
+	<div class="clearfix">
+		<label for="username">
+			Title</label>
+		<div class="input">
+			<input class="large" name="username" size="30" type="text" value="Your Post Title" />
 		</div>
-	 
-		<div>
-			@Html.LabelFor(m => m.Body)
-			@Html.TextAreaFor(m => m.Body, new { @class = "TextBox", rows = "6", cols = "100", id = "Form_Body" })
-			@Html.LabelFor(m => m.CategoryIdentifier, "Category")
-			@Html.DropDownListFor(m => m.CategoryIdentifier, new SelectList(ViewBag.Categories, "Identifier", "Name"))
+	</div>
+	<div class="clearfix">
+		<label for="email">
+			Post</label>
+		<div class="input">
+			<textarea class="xlarge" id="newReplyBody" name="newReplyBody" rows="6"></textarea>
+			<span class="help-block">Please be civil.</span>
 		</div>
-
-		<div class="PostFormControlPanel">
-			<input type="submit" id="Form_PostDiscussion" name="Discussion/Post_Discussion" value="Post Discussion"
-						 class="Button DiscussionButton" />
-		</div>
-	}
-</div>
+	</div>
+</fieldset>
+</form>

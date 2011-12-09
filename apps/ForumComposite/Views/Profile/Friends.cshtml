@@ -1,0 +1,37 @@
+﻿@using ForumSkeletonMvc.ViewModels.Profile
+@model ProfileFriendsViewModel
+@{
+	ViewBag.Title = "{Forum Name} - {Username}'s Friends";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+	ViewBag.ProfileFriendsClass = "active";
+}
+<ul class="breadcrumb">
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a> <span class="divider">/</span></li>
+	<li class="active">Friends</li>
+</ul>
+<h1>{Username}'s Friends</h1>
+<hr />
+@RenderPage("_Tabs.cshtml")
+<p>{Username} has 8 friends.</p>
+<table class="zebra-striped">
+	<tbody>
+		@for (var i = 1; i < 9; i++)
+	{
+			<tr>
+				<td>
+					@i
+				</td>
+				<td><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+					<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=40" /></a>
+				</td>
+				<td>
+					<h3><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a></h3>
+				</td>
+				<td>35 posts, 45 comments, 5 favorites </td>
+				<td><a href="#">Remove as Friend</a> </td>
+			</tr>
+	}
+	</tbody>
+</table>

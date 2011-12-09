@@ -1,0 +1,47 @@
+﻿@using ForumSkeletonMvc.ViewModels.Profile
+@model AllProfilesViewModel
+@{
+	ViewBag.Title = "{Forum Name} - All Users";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+}
+<ul class="breadcrumb">
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li class="active">All Users</li>
+</ul>
+<h1>All Users</h1>
+<table class="zebra-striped">
+	<tbody>
+		@for (var i = 1; i < 11; i++)
+	{
+			<tr>
+				<td>
+					@i
+				</td>
+				<td><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+					<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=40" /></a>
+				</td>
+				<td>
+					<h3><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a></h3>
+				</td>
+				<td>35 posts, 45 comments, 5 favorites </td>
+				<td style="text-align: right;"><a href="#">Add as Friend</a> </td>
+			</tr>
+	}
+	</tbody>
+</table>
+<hr />
+
+<div class="pagination">
+	<ul>
+		<li class="prev disabled"><a href="#">&larr; Previous</a></li>
+		<li><a href="#">1</a></li>
+		<li class="active"><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li class="disabled"><a href="#">...</a></li>
+		<li><a href="#">45</a></li>
+		<li><a href="#">46</a></li>
+		<li><a href="#">47</a></li>
+		<li class="next"><a href="#">Next &rarr;</a></li>
+	</ul>
+</div>
+

@@ -1,0 +1,621 @@
+﻿@using ForumSkeletonMvc.ViewModels.Post
+@model PostDetailViewModel
+@{
+	ViewBag.Title = "{Forum Name} - {Post Name}";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+}
+@section HeadContent {
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#addComment").click(function () {
+				$("#addComment").hide();
+				$("#addCommentForm").show();
+			});
+
+			$("#publishComment").click(function () {
+				$("#addComment").show();
+				$("#addCommentForm").hide();
+			});
+
+			$("#cancelComment").click(function () {
+				$("#addComment").show();
+				$("#addCommentForm").hide();
+			});
+
+			$("#addReply").click(function () {
+				$("#addReply").hide();
+				$("#addReplyForm").show();
+				$("#publishReply").focus();
+				$("#newReplyBody").focus();
+			});
+
+			$("#publishReply").click(function () {
+				$("#addReply").show();
+				$("#addReplyForm").hide();
+			});
+
+			$("#cancelReply").click(function () {
+				$("#addReply").show();
+				$("#addReplyForm").hide();
+			});
+		});
+	</script>
+	<style type="text/css">
+		.comment
+		{
+			margin-top: 15px;
+			margin-bottom: 15px;
+		}
+	</style>
+}
+<ul class="breadcrumb">
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Categories")">Categories</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Category")">{Category}</a> <span class="divider">/</span></li>
+	<li class="active">{Post Name}</li>
+</ul>
+<h1>{Post Name}</h1>
+
+<div class="row">
+
+	<div class="span16">
+
+		<div class="row">
+
+			<div class="span12">
+				<p>This is the body of the post. Morbi tortor ligula, tempor vitae adipiscing scelerisque,
+					venenatis quis nulla. Class aptent taciti sociosqu ad litora torquent per conubia
+					nostra, per inceptos himenaeos. Duis ac augue urna, fermentum convallis enim. Nulla
+					rutrum placerat eros sit amet dictum. Fusce dolor massa, bibendum posuere elementum
+					ac, consectetur vitae lorem. Fusce nec justo quis ante pellentesque gravida. Etiam
+					a diam quam. Nunc tellus mi, commodo molestie sollicitudin sed, facilisis dictum
+					magna. Pellentesque eros nisl, congue quis consectetur a, tempor rutrum diam. In
+					quam velit, rutrum at tincidunt ut, bibendum commodo elit. In neque velit, fringilla
+					suscipit sollicitudin at, interdum vel est. Nunc sed ipsum nisl.</p>
+			</div>
+
+		</div>
+
+		<hr />
+
+		<div class="row">
+
+			<div class="span6">
+				<button id="addComment" class="btn large primary">Add a Comment</button>
+
+				<div id="addCommentForm" style="display: none;">
+					<form>
+					<fieldset><legend>Add a Comment</legend>
+
+						<div class="clearfix">
+							<label for="newCommentBody">Comment</label>
+
+							<div class="input">
+								<textarea class="xxlarge" name="newCommentBody" rows="6"></textarea>
+								<span class="help-block">Please be civil.</span>
+							</div>
+
+						</div>
+
+						<div class="actions">
+							<input id="publishComment" type="button" class="btn primary" value="Publish Comment" />
+							<input id="cancelComment" type="button" class="btn" value="Cancel" />
+						</div>
+
+					</fieldset>
+					</form>
+				</div>
+
+			</div>
+
+			<div class="span6" style="text-align: right;">
+				<a href="#">
+					<img src="../../../Themes/default/images/arrow-090.png" /></a>&nbsp;&nbsp;&nbsp;
+				<a href="#">
+					<img src="../../../Themes/default/images/arrow-270.png" /></a>&nbsp;&nbsp;&nbsp;
+				<a href="#">
+					<img src="../../../Themes/default/images/exclamation-white.png" /></a>
+			</div>
+
+		</div>
+
+		<hr />
+
+		<div class="row">
+
+			<div class="span6">
+				<h2>Comments</h2><a name="comments"></a>
+			</div>
+
+			<div class="span6">
+				<ul class="pills" style="float: right;">
+					<li class="active"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Best</a></li>
+					<li><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Oldest</a></li>
+					<li><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Newest</a></li>
+				</ul>
+			</div>
+
+		</div>
+
+		<hr style="margin-top: 0px;" />
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span9">
+					<p>Comments are displayed beneath an article according to the selected sort order.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+						massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+						amet volutpat.</p>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset3">
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span6 offset3">
+					<p>Initial replies are indented to indicate hierarchy. Lorem ipsum dolor sit amet,
+						consectetur adipiscing elit. Pellentesque tristique massa eget est accumsan quis
+						tincidunt libero facilisis. In ac tortor diam, sit amet volutpat.</p>
+				</div>
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset4">
+					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span6 offset3">
+					<p>However, replies to replies are not indented further, they are simply displayed
+						in chronological order. Comments, regardless of whether or not they are replies,
+						will begin to fade away and eventually disappear altogether if they receive large
+						numbers of downvotes or are frequently reported. Lorem ipsum dolor sit amet, consectetur
+						adipiscing elit. Pellentesque tristique massa eget est accumsan quis tincidunt libero
+						facilisis. In ac tortor diam, sit amet volutpat.</p>
+				</div>
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset4">
+					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span6 offset3">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+						massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+						amet volutpat.</p>
+				</div>
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset4">
+					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span9">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+						massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+						amet volutpat.</p>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset3">
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span9">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+						massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+						amet volutpat.</p>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset3">
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span9">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+						massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+						amet volutpat.</p>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset3">
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span9">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+						massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+						amet volutpat.</p>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset3">
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span6 offset3">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+						massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+						amet volutpat.</p>
+				</div>
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset4">
+					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span9">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+						massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+						amet volutpat.</p>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset3">
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="comment">
+
+			<div class="row">
+
+				<div class="span3">
+
+					<div class="row">
+
+						<div class="span1" style="margin-top: 4px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
+						</div>
+
+						<div class="span2" style="margin-left: 0px;">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<small style="font-size: smaller;">About an hour ago</small>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="span9">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
+						massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
+						amet volutpat.</p>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="span8 offset3">
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="row">
+
+			<div class="span9 offset3">
+				<hr />
+				<button id="addReply" class="btn primary">Reply</button>
+
+				<div id="addReplyForm" style="display: none;">
+					<form>
+					<fieldset><legend style="padding-left: 0px;">New Reply</legend>
+
+						<div class="clearfix">
+
+							<div class="input" style="margin-left: 0px;">
+								<textarea class="xxlarge" id="newReplyBody" name="newReplyBody" rows="6"></textarea>
+								<span class="help-block">Please be civil.</span>
+							</div>
+
+						</div>
+
+						<div class="actions" style="padding-left: 0px;">
+							<input id="publishReply" type="button" class="btn primary" value="Publish Reply" />
+							<input id="cancelReply" type="button" class="btn" value="Cancel" />
+						</div>
+
+					</fieldset>
+					</form>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+

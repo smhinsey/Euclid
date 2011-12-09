@@ -2,14 +2,14 @@
 
 namespace ForumSkeletonMvc.Controllers
 {
-	public class PostController : Controller
+	public class CategoryController : Controller
 	{
-		public ActionResult Detail()
+		public ActionResult All()
 		{
 			return View();
 		}
 
-		public ActionResult Create()
+		public ActionResult Detail()
 		{
 			return View();
 		}

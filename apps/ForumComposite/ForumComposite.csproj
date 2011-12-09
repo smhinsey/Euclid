@@ -127,11 +127,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionFilters\PopulateForumWideViewBag.cs" />
-    <Compile Include="Controllers\AddUserSpecificDataAttribute.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PostController.cs" />
-    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\PostListingController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,113 +144,47 @@
     <Compile Include="Models\VoteOnCommentInputModel.cs" />
     <Compile Include="Models\VoteOnPostInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Category\AllCategoriesViewModel.cs" />
+    <Compile Include="ViewModels\Category\CategoryDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Pages\InfoPageViewModel.cs" />
+    <Compile Include="ViewModels\PostListing\AllPostsViewModel.cs" />
+    <Compile Include="ViewModels\PostListing\ControversialPostsViewModel.cs" />
+    <Compile Include="ViewModels\PostListing\PopularPostsViewModel.cs" />
+    <Compile Include="ViewModels\Post\CreatePostViewModel.cs" />
+    <Compile Include="ViewModels\Post\PostDetailViewModel.cs" />
+    <Compile Include="ViewModels\Profile\AllProfilesViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileBadgesViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileFavoritesViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileFriendsViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileRecentActivityViewModel.cs" />
+    <Compile Include="ViewModels\Tag\AllTagsViewModel.cs" />
+    <Compile Include="ViewModels\Tag\TagDetailViewModel.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
-    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
-    <Content Include="Content\themes\base\jquery.ui.all.css" />
-    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
-    <Content Include="Content\themes\base\jquery.ui.base.css" />
-    <Content Include="Content\themes\base\jquery.ui.button.css" />
-    <Content Include="Content\themes\base\jquery.ui.core.css" />
-    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
-    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
-    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
-    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
-    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
-    <Content Include="Content\themes\base\jquery.ui.slider.css" />
-    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
-    <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.all.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.base.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="Content\themes\swiss-purple\custom.css" />
-    <Content Include="Content\themes\swiss-purple\favicon.png" />
-    <Content Include="Content\themes\swiss-purple\images\bookmark-off.png" />
-    <Content Include="Content\themes\swiss-purple\images\bookmark-on.png" />
-    <Content Include="Content\themes\swiss-purple\images\logo.gif" />
-    <Content Include="Content\themes\swiss-purple\images\rss.png" />
-    <Content Include="Content\themes\swiss-purple\images\rss_thread.png" />
-    <Content Include="Content\themes\swiss-purple\purple\search-arrow.png" />
-    <Content Include="Content\themes\swiss-purple\style.css" />
-    <Content Include="Content\themes\swiss-green\custom.css" />
-    <Content Include="Content\themes\swiss-green\favicon.png" />
-    <Content Include="Content\themes\swiss-green\green\search-arrow.png" />
-    <Content Include="Content\themes\swiss-green\images\bookmark-off.png" />
-    <Content Include="Content\themes\swiss-green\images\bookmark-on.png" />
-    <Content Include="Content\themes\swiss-green\images\logo.gif" />
-    <Content Include="Content\themes\swiss-green\images\rss.png" />
-    <Content Include="Content\themes\swiss-green\images\rss_thread.png" />
-    <Content Include="Content\themes\swiss-green\style.css" />
-    <Content Include="Content\themes\swiss-blue\blue\search-arrow.png" />
-    <Content Include="Content\themes\swiss-blue\custom.css" />
-    <Content Include="Content\themes\swiss-blue\favicon.png" />
-    <Content Include="Content\themes\swiss-blue\images\bookmark-off.png" />
-    <Content Include="Content\themes\swiss-blue\images\bookmark-on.png" />
-    <Content Include="Content\themes\swiss-blue\images\logo.gif" />
-    <Content Include="Content\themes\swiss-blue\images\rss.png" />
-    <Content Include="Content\themes\swiss-blue\images\rss_thread.png" />
-    <Content Include="Content\themes\swiss-blue\style.css" />
-    <Content Include="Content\themes\swiss\custom.css" />
-    <Content Include="Content\themes\swiss\favicon.png" />
-    <Content Include="Content\themes\swiss\images\bookmark-off.png" />
-    <Content Include="Content\themes\swiss\images\bookmark-on.png" />
-    <Content Include="Content\themes\swiss\images\logo.gif" />
-    <Content Include="Content\themes\swiss\images\rss.png" />
-    <Content Include="Content\themes\swiss\images\rss_thread.png" />
-    <Content Include="Content\themes\swiss\red\search-arrow copy.png" />
-    <Content Include="Content\themes\swiss\red\search-arrow.png" />
-    <Content Include="Content\themes\swiss\style.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\jquery-1.6.2-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.2.js" />
-    <Content Include="Scripts\jquery-1.6.2.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.14.js" />
-    <Content Include="Scripts\jquery-ui-1.8.14.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
+    <Content Include="Themes\default\images\arrow-090-medium.png" />
+    <Content Include="Themes\default\images\arrow-090-small.png" />
+    <Content Include="Themes\default\images\arrow-090.png" />
+    <Content Include="Themes\default\images\arrow-270-medium.png" />
+    <Content Include="Themes\default\images\arrow-270-small.png" />
+    <Content Include="Themes\default\images\arrow-270.png" />
+    <Content Include="Themes\default\images\balloon-white.png" />
+    <Content Include="Themes\default\images\exclamation-white.png" />
+    <Content Include="Themes\default\scripts\bootstrap-alerts.js" />
+    <Content Include="Themes\default\scripts\bootstrap-buttons.js" />
+    <Content Include="Themes\default\scripts\bootstrap-dropdown.js" />
+    <Content Include="Themes\default\scripts\bootstrap-modal.js" />
+    <Content Include="Themes\default\scripts\bootstrap-popover.js" />
+    <Content Include="Themes\default\scripts\bootstrap-scrollspy.js" />
+    <Content Include="Themes\default\scripts\bootstrap-tabs.js" />
+    <Content Include="Themes\default\scripts\bootstrap-twipsy.js" />
+    <Content Include="Themes\default\scripts\jqcloud-0.2.8.js" />
+    <Content Include="Themes\default\scripts\jqcloud-0.2.8.min.js" />
+    <Content Include="Themes\default\styles\bootstrap.css" />
+    <Content Include="Themes\default\styles\custom.css" />
+    <Content Include="Themes\default\styles\jqcloud.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -259,35 +194,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Post\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Categories.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Post\Thread.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\TopMenu.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\LeftMenu.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Web.config" />
@@ -306,12 +215,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Post\Create.cshtml" />
-    <Content Include="Views\Post\AddComment.cshtml" />
-    <Content Include="Views\Authentication\SignIn.cshtml" />
-    <Content Include="Views\Authentication\Register.cshtml" />
-    <Content Include="Views\Profile\MyDiscussions.cshtml" />
-    <Content Include="Views\Post\ByCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
@@ -374,6 +277,38 @@
       <Project>{7C5DC02C-5E2E-46A2-8343-ADE8035F141B}</Project>
       <Name>ForumAgent</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Category\All.cshtml" />
+    <Content Include="Views\Category\Detail.cshtml" />
+    <Content Include="Views\Pages\Info.cshtml" />
+    <Content Include="Views\PostListing\All.cshtml" />
+    <Content Include="Views\PostListing\Controversial.cshtml" />
+    <Content Include="Views\PostListing\Popular.cshtml" />
+    <Content Include="Views\Post\Create.cshtml" />
+    <Content Include="Views\Post\Detail.cshtml" />
+    <Content Include="Views\Profile\All.cshtml" />
+    <Content Include="Views\Profile\Badges.cshtml" />
+    <Content Include="Views\Profile\Favorites.cshtml" />
+    <Content Include="Views\Profile\Friends.cshtml" />
+    <Content Include="Views\Profile\Overview.cshtml" />
+    <Content Include="Views\Profile\RecentActivity.cshtml" />
+    <Content Include="Views\Profile\_Tabs.cshtml" />
+    <Content Include="Views\Shared\Layout\Scripts.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\Badge.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\Categories.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\NewPost.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\Tags.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\TopUsers.cshtml" />
+    <Content Include="Views\Shared\Layout\Styles.cshtml" />
+    <Content Include="Views\Shared\Layout\TopBar.cshtml" />
+    <Content Include="Views\Shared\PostTile.cshtml" />
+    <Content Include="Views\Shared\_ForumLayout.cshtml" />
+    <Content Include="Views\Tag\All.cshtml" />
+    <Content Include="Views\Tag\Detail.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

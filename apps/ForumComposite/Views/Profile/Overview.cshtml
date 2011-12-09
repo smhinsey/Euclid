@@ -1,0 +1,35 @@
+﻿@using ForumSkeletonMvc.ViewModels.Profile
+@model ProfileOverviewViewModel
+@{
+	ViewBag.Title = "{Forum Name} - {Username}'s Profile";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+	ViewBag.ProfileOverviewClass = "active";
+}
+<ul class="breadcrumb">
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
+	<li class="active">{Username}</li>
+</ul>
+<h1>{Username}'s Profile</h1>
+<hr />
+
+@RenderPage("_Tabs.cshtml")
+<div class="row">
+
+	<div class="span3">
+		<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=150" />
+	</div>
+
+	<div class="span6">
+		<h3>{Username}</h3>
+		<p>25 badges | 245 points | 465 comments | 3 posts</p>
+		<p>Located in Arlington, Virginia, USA</p>
+		<b>Custom profile fields</b>
+		<ul>
+			<li>Favorite Music: Loud</li>
+			<li>Political Affiliation: Kodos (why vote for the lesser of two evils?)</li>
+		</ul>
+	</div>
+
+</div>
+

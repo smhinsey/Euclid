@@ -1,0 +1,42 @@
+﻿@using ForumSkeletonMvc.ViewModels.Profile
+@model ProfileBadgesViewModel
+@{
+	ViewBag.Title = "{Forum Name} - {Username}'s Badges";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+	ViewBag.ProfileBadgesClass = "active";
+}
+<ul class="breadcrumb">
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a> <span class="divider">/</span></li>
+	<li class="active">Badges</li>
+</ul>
+<h1>{Username}'s Badges</h1>
+<hr />
+@RenderPage("_Tabs.cshtml")
+
+<div class="row">
+
+	<div class="span12">
+		<ul class="media-grid">
+			<li class="thumbnail"><a href="#">
+				<img src="http://placehold.it/210x150" /></a></li>
+			<li class="thumbnail"><a href="#">
+				<img src="http://placehold.it/210x150" /></a></li>
+			<li class="thumbnail"><a href="#">
+				<img src="http://placehold.it/210x150" /></a></li>
+			<li class="thumbnail"><a href="#">
+				<img src="http://placehold.it/210x150" /></a></li>
+			<li class="thumbnail"><a href="#">
+				<img src="http://placehold.it/210x150" /></a></li>
+			<li class="thumbnail"><a href="#">
+				<img src="http://placehold.it/210x150" /></a></li>
+			<li class="thumbnail"><a href="#">
+				<img src="http://placehold.it/210x150" /></a></li>
+			<li class="thumbnail"><a href="#">
+				<img src="http://placehold.it/210x150" /></a></li>
+		</ul>
+	</div>
+
+</div>
+

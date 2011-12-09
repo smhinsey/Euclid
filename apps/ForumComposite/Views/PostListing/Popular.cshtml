@@ -1,0 +1,91 @@
+﻿@using ForumSkeletonMvc.ViewModels.PostListing
+@model PopularPostsViewModel
+@{
+	ViewBag.Title = "{Forum Name} Home";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+}
+
+<div class="alert-message block-message warning fade in" data-alert="alert">
+	<a class="close" href="#">×</a>
+	<p class="alert-message-text">
+		<h2>Welcome, forum user.</h2>
+		This is something a user only needs to see occasionally and can be closed. Duis
+		mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem
+		nec elit, etc.</p>
+
+	<div class="alert-actions">
+		<a class="btn large info" href="#">Go register!</a>
+	</div>
+
+</div>
+
+<ul class="tabs">
+	<li class="active"><a href="@Url.RouteUrl("PopularPosts")">Popular Posts</a></li>
+	<li><a href="@Url.RouteUrl("ControversialPosts")">Controversial Posts</a></li>
+	<li><a href="@Url.RouteUrl("AllPosts")">All Posts</a></li>
+</ul>
+<!-- top posts -->
+
+<div class="row">
+
+	<div class="span10">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "XLarge" })
+	</div>
+
+	<div class="span6">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Large" })
+	</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+	<div class="span8">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium" })
+	</div>
+
+	<div class="span8">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium" })
+	</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+</div>
+
+<hr>
+
+<div class="pagination">
+	<ul>
+		<li class="prev disabled"><a href="#">&larr; Previous</a></li>
+		<li><a href="#">1</a></li>
+		<li class="active"><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li class="disabled"><a href="#">...</a></li>
+		<li><a href="#">45</a></li>
+		<li><a href="#">46</a></li>
+		<li><a href="#">47</a></li>
+		<li class="next"><a href="#">Next &rarr;</a></li>
+	</ul>
+</div>

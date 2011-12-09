@@ -1,0 +1,117 @@
+﻿@using ForumSkeletonMvc.ViewModels.PostListing
+@model AllPostsViewModel
+@{
+	ViewBag.Title = "{Forum Name} - All Posts";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+}
+<ul class="tabs">
+	<li><a href="@Url.RouteUrl("PopularPosts")">Popular Posts</a></li>
+	<li><a href="@Url.RouteUrl("ControversialPosts")">Controversial Posts</a></li>
+	<li class="active"><a href="@Url.RouteUrl("AllPosts")">All Posts</a></li>
+</ul>
+<!-- all posts -->
+
+<div class="row">
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+	<div class="span4">
+		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
+	</div>
+
+</div>
+
+<ul class="pills">
+	<li class="active"><a href="@Url.RouteUrl("AllPosts")">Newest</a></li>
+	<li><a href="@Url.RouteUrl("AllPosts")">Oldest</a></li>
+</ul>
+
+<div class="pagination">
+	<ul>
+		<li class="prev disabled"><a href="#">&larr; Previous</a></li>
+		<li><a href="#">1</a></li>
+		<li class="active"><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li class="disabled"><a href="#">...</a></li>
+		<li><a href="#">45</a></li>
+		<li><a href="#">46</a></li>
+		<li><a href="#">47</a></li>
+		<li class="next"><a href="#">Next &rarr;</a></li>
+	</ul>
+</div>

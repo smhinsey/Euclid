@@ -1,0 +1,24 @@
+body
+{
+	padding-top: 60px;
+}
+
+.badge-labels
+{
+	vertical-align: top;
+}
+
+.badge-username
+{
+	line-height: 25px;
+}
+
+.alert-actions
+{
+	margin-top: 15px !important;
+}
+
+.pagination
+{
+	text-align: right;
+}

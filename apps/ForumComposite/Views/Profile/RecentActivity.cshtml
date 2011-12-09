@@ -1,0 +1,71 @@
+﻿@using ForumSkeletonMvc.ViewModels.Profile
+@model ProfileRecentActivityViewModel
+@{
+	ViewBag.Title = "{Forum Name} - {Username}'s Recent Activity";
+	Layout = "~/Views/Shared/_ForumLayout.cshtml";
+	ViewBag.ProfileRecentActivityClass = "active";
+}
+<ul class="breadcrumb">
+	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a> <span class="divider">/</span></li>
+	<li class="active">Recent Activity</li>
+</ul>
+<h1>{Username}'s Recent Activity</h1>
+<hr />
+@RenderPage("_Tabs.cshtml")
+@for (var i = 1; i < 11; i++)
+{
+	<div class="row">
+
+		<div class="span10">
+			<h3><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">{Post Title}</a></h3>
+			<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+				dapibus posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
+					font-size: smaller;"><em>12:59 PM 12/31/2011</em> in <a href="@Url.Action("Category")" class="label">
+						Category</a></span></p>
+
+			<div class="row">
+
+				<div class="span3 offset7" style="padding-top: 7px; text-align: right; font-size: smaller;">
+					<img src="../../Themes/default/images/balloon-white.png" />
+					<a href="#">999 comments</a></div>
+
+			</div>
+
+		</div>
+
+	</div>
+	<div class="row">
+
+		<div class="span10 offset1">
+			<hr />
+		</div>
+
+	</div>
+				
+	if (i % 2 == 0)
+	{
+				
+	<div class="row">
+
+		<div class="span10">
+			<p>Comment on post: <strong style="font-size: 18px"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">
+				{Post Title}</a></strong>. </p>
+			<p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis
+				dapibus posuere. Etiam porta sem malesuada magna mollis euismod. &mdash; <span style="text-align: right;
+					font-size: smaller;"><em>12:59 PM 12/31/2011</em></span></p>
+		</div>
+
+	</div>
+	<div class="row">
+
+		<div class="span10 offset1">
+			<hr />
+		</div>
+
+	</div>
+		 
+	}
+
+}

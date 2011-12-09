@@ -1,27 +1,37 @@
-﻿using System;
-using System.Web.Mvc;
-using ForumAgent.Queries;
+﻿using System.Web.Mvc;
 
-namespace ForumComposite.Controllers
+namespace ForumSkeletonMvc.Controllers
 {
-	[AddUserSpecificData]
 	public class ProfileController : Controller
 	{
-		private readonly PostQueries _postQueries;
-
-		public ProfileController(PostQueries postQueries)
+		public ActionResult All()
 		{
-			_postQueries = postQueries;
+			return View();
 		}
 
-		public ActionResult MyDiscussions(int pageSize = 10, int offset = 0)
+		public ActionResult Overview()
 		{
-			// SELF there's a better way to do this, but i'm lazy
-			var authorId = Guid.Parse(Request.Cookies["ForumUserId"].Value);
+			return View();
+		}
 
-			var posts = _postQueries.FindByAuthorIdentifier(ViewBag.ForumIdentifier, authorId, pageSize, offset);
+		public ActionResult Badges()
+		{
+			return View();
+		}
 
-			return View(posts);
+		public ActionResult Favorites()
+		{
+			return View();
+		}
+
+		public ActionResult Friends()
+		{
+			return View();
+		}
+
+		public ActionResult RecentActivity()
+		{
+			return View();
 		}
 	}
 }

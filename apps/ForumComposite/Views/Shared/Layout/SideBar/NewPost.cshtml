@@ -1,0 +1,23 @@
+﻿<div id="newPost" style="text-align: center;">
+	<input type="button" data-controls-modal="newPost-modal" data-backdrop="static" class="btn medium primary"
+		value="Create Post" />
+</div>
+
+<div class="modal hide fade" style="display: none;" id="newPost-modal">
+
+	<div class="modal-header">
+		<a href="#" class="close">&times;</a>
+		<h3>New Post</h3>
+	</div>
+
+	<div class="modal-body">
+		@{ Html.RenderAction("Create", "Post");  }
+	</div>
+
+	<div class="modal-footer">
+		<button class="btn primary">Publish Post</button>
+		<a href="#" class="btn secondary">Cancel</a>
+	</div>
+
+</div>
+
