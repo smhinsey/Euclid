@@ -51,7 +51,7 @@ namespace ForumComposite
 			var container = new WindsorContainer();
 
 			var composite = new MvcCompositeApp(container)
-			                	{Name = "NewCo Forum", Description = " A website where ideas and views on issues can be exchanged."};
+			                	{Name = "NewCo Forum", Description = " A highly customizable managed forum."};
 
 			composite.RegisterNh(databaseConfiguration, true);
 

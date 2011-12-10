@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
+using AdminComposite.Extensions;
 using AdminComposite.Models;
-using Euclid.Common.Messaging;
-using ForumAgent.Commands;
 using ForumAgent.Queries;
-using ForumAgent.ReadModels;
 
 namespace AdminComposite.Controllers
 {
@@ -12,12 +10,10 @@ namespace AdminComposite.Controllers
 	public class ForumController : Controller
 	{
 		private readonly ForumQueries _forumQueries;
-		private readonly IPublisher _publisher;
-
-		public ForumController(ForumQueries forumQueries, IPublisher publisher)
+		
+		public ForumController(ForumQueries forumQueries)
 		{
 			_forumQueries = forumQueries;
-			_publisher = publisher;
 		}
 
 		public ActionResult AuthenticationProviders(Guid forumId)
@@ -28,7 +24,7 @@ namespace AdminComposite.Controllers
 
 		public ActionResult Create()
 		{
-			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
+			var userId = Request.GetLoggedInUserId();
 
 			return View(new CreateForumInputModel
 			            	{
@@ -56,17 +52,6 @@ namespace AdminComposite.Controllers
 							};
 
 			return View(model);
-		}
-
-		public JsonResult SetForumTheme(Guid forumId, string theme)
-		{
-			var publicationId = _publisher.PublishMessage(new SetForumTheme
-			                                              	{
-			                                              		ForumIdentifier = forumId,
-			                                              		ThemeName = theme
-			                                              	});
-
-			return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

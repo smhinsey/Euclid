@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using ForumComposite.ActionFilters;
 
 namespace ForumComposite
 {
@@ -18,16 +17,117 @@ namespace ForumComposite
 			routes.IgnoreRoute("favicon.ico");
 
 			routes.MapRoute(
-				"Forum",
-				"org/{orgSlug}/forum/{forumSlug}/{controller}/{action}/{id}",
-				new { controller = "Post", action = "List", id = UrlParameter.Optional });
+				"Home",
+				"",
+				new { controller = "PostListing", action = "Popular" }
+				);
+
+			routes.MapRoute(
+				"PopularPosts",
+				"posts/popular",
+				new { controller = "PostListing", action = "Popular" }
+				);
+
+			routes.MapRoute(
+				"AllPosts",
+				"posts/all",
+				new { controller = "PostListing", action = "All" }
+				);
+
+			routes.MapRoute(
+				"ControversialPosts",
+				"posts/controversial",
+				new { controller = "PostListing", action = "Controversial" }
+				);
+
+			routes.MapRoute(
+				"Categories",
+				"categories",
+				new { controller = "Category", action = "All" }
+				);
+
+			routes.MapRoute(
+				"Category",
+				"categories/{categorySlug}",
+				new { controller = "Category", action = "Detail" }
+				);
+
+			routes.MapRoute(
+				"Tags",
+				"tags",
+				new { controller = "Tag", action = "All" }
+				);
+
+			routes.MapRoute(
+				"Tag",
+				"tags/{tagSlug}",
+				new { controller = "Tag", action = "Detail" }
+				);
+
+			routes.MapRoute(
+				"AllProfiles",
+				"profiles",
+				new { controller = "Profile", action = "All" }
+				);
+
+			routes.MapRoute(
+				"ProfileOverview",
+				"profiles/{profileSlug}",
+				new { controller = "Profile", action = "Overview" }
+				);
+
+			routes.MapRoute(
+				"ProfileBadges",
+				"profiles/{profileSlug}/badges",
+				new { controller = "Profile", action = "Badges" }
+				);
+
+			routes.MapRoute(
+				"ProfileFavorites",
+				"profiles/{profileSlug}/favorites",
+				new { controller = "Profile", action = "Favorites" }
+				);
+
+			routes.MapRoute(
+				"ProfileFriends",
+				"profiles/{profileSlug}/friends",
+				new { controller = "Profile", action = "Friends" }
+				);
+
+			routes.MapRoute(
+				"ProfileRecentActivity",
+				"profiles/{profileSlug}/activity",
+				new { controller = "Profile", action = "RecentActivity" }
+				);
+
+			routes.MapRoute(
+				"Post",
+				"categories/{categorySlug}/posts/{postSlug}",
+				new
+				{
+					controller = "Post",
+					action = "Detail",
+					categorySlug = UrlParameter.Optional,
+					postSlug = UrlParameter.Optional
+				}
+				);
+
+			routes.MapRoute(
+				"CreatePost",
+				"createpost",
+				new { controller = "Post", action = "Create" }
+				);
+
+			routes.MapRoute(
+				"InfoPage",
+				"pages/info",
+				new { controller = "Pages", action = "Info" }
+				);
 		}
 
 		protected void Application_Start()
 		{
 			AreaRegistration.RegisterAllAreas();
-
-			GlobalFilters.Filters.Add(new PopulateForumWideViewBag());
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);

@@ -163,6 +163,8 @@ namespace AdminComposite
 
 			composite.RegisterInputModelMap<CreateForumAvatarInputModel, CreateAvatar>();
 			composite.RegisterInputModelMap<UpdateForumAvatarInputModel, UpdateAvatar>();
+
+			composite.RegisterInputModelMap<ActivateAvatarInputModel, ActivateAvatar>();
 			setAzureCredentials(container);
 
 			_initialized = true;

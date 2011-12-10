@@ -151,11 +151,13 @@
     <Compile Include="Controllers\ThemeController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\VotingController.cs" />
+    <Compile Include="Extensions\RequestExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Models\ActivateAvatarInputModel.cs" />
     <Compile Include="Models\UpdateForumAvatarInputModel.cs" />
     <Compile Include="Models\CreateBadgeInputModel.cs" />
     <Compile Include="Models\CreateCategoryInputModel.cs" />

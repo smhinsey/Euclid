@@ -33,7 +33,12 @@
 			
 			$(".avatar-active").each(function(index, item) {
 				var avatarId = $(item).attr("data-item-id");
-				$.get("/Avatar/ActivateAvatar?avatarId=" + avatarId + "&active=" + $(item).is(":checked"));
+//				$.get("/Avatar/ActivateAvatar?avatarId=" + avatarId + "&active=" + $(item).is(":checked"));
+
+				//jQuery.post( url [, data] [, success(data, textStatus, jqXHR)] [, dataType] )
+				$.post("/CompositeInspector/agents/publish", { AvatarIdentifier: avatarId, Active: $(item).is(":checked"), partName: "ActivateAvatar", agentSystemName: "NewCo.ForumAgent"}, function(data) {
+					alert("done");
+				});
 			});
 
 			setTimeout("enableSaveButton()", 750);

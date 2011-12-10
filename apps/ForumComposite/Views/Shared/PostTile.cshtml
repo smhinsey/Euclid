@@ -1,0 +1,84 @@
+﻿@{
+	var header = "h2";
+	var button = "btn";
+	var arrowSize = "";
+	var text = "";
+	var textLength = 50;
+	var mode = Page.Mode ?? "standard";
+
+	mode = mode.ToLower();
+}
+@if (Page.Size.ToLower() == "XLarge".ToLower())
+{
+	header = "h2";
+	button = "btn";
+	arrowSize = "";
+	text = "";
+	textLength = 50;
+}
+else if (Page.Size.ToLower() == "Large".ToLower())
+{
+	header = "h2";
+	button = "btn";
+	arrowSize = "";
+	text = "";
+	textLength = 30;
+}
+else if (Page.Size.ToLower() == "Medium".ToLower())
+{
+	header = "h3";
+	button = "btn";
+	arrowSize = "-medium";
+	text = "";
+	textLength = 25;
+}
+else if (Page.Size.ToLower() == "Small".ToLower())
+{
+	header = "h3";
+	button = "btn small";
+	arrowSize = "-medium";
+	text = "font-size: smaller;";
+	textLength = 20;
+}
+@if (mode == "standard")
+{
+	<text>
+	<div class="@Page.Size.ToLower()" style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;
+	float: right; clear: left;">
+		<img src="../../Themes/default/images/arrow-090@{@arrowSize}.png" /><br />
+		<img src="../../Themes/default/images/arrow-270@{@arrowSize}.png" /><br />
+		<img src="../../Themes/default/images/exclamation-white.png" /><br />
+	</div>
+
+	<@header> <a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">
+		{Post Title}</a></@header>
+	<p style="@text">@truncate("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis ante in ipsum pharetra tempus a vel mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean aliquet magna eget lacus accumsan faucibus. Etiam varius tortor vitae ligula rutrum placerat auctor elit iaculis. Ut lectus justo.", textLength)
+		&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em>
+			in <a href="@Url.RouteUrl("Category", new { categorySlug = "category" })" class="label">
+				Another Category</a></span></p>
+	<p><span style="padding-top: 7px; text-align: right; font-size: smaller;">
+		<img src="../../Themes/default/images/balloon-white.png" />
+		<a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })#comments">
+			999 comments</a></span>&nbsp;&nbsp;&nbsp;<a class="@button" href="#">Add comment &raquo;</a>
+	</p>
+	</text>
+}
+else if (mode == "condensed")
+{
+	<text>
+	<p style="@text"><b><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">
+		{Post title}</a></b><br />
+		A truncated post body. Etiam porta sem malesuada magna mollis euismod.<br />
+		<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug" })">
+			username</a> with <a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })#comments">33 comments.</a></span> </p>
+	</text>
+}
+@helper truncate(string text, int numberOfWords)
+	{
+	
+		var words = text.Split(' ');
+
+		var truncatedWords = words.Take(numberOfWords).ToArray();
+	
+	@String.Join(" ", truncatedWords)
+}

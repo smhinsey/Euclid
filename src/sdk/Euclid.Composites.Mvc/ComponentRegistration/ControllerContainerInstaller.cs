@@ -11,7 +11,7 @@ namespace Euclid.Composites.Mvc.ComponentRegistration
 		{
 			foreach (var t in GetTypesThatImplement<IController>())
 			{
-				container.Register(Component.For(t).ImplementedBy(t).LifeStyle.PerWebRequest);
+				container.Register(Component.For(t).ImplementedBy(t).LifeStyle.Transient);
 			}
 		}
 	}

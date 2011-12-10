@@ -8,7 +8,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 {
 	public class InputModelFormatter : MetadataFormatter
 	{
-		private readonly IList<Properties> _properties;
+		private readonly IList<Property> _properties;
 
 
 		public InputModelFormatter(IInputModel inputModel)
@@ -17,10 +17,10 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 							.GetType()
 							.GetProperties()
 							.Where(pi => pi.CanWrite)
-							.Select(pi => new Properties
+							.Select(pi => new Property
 								{
 									Name = pi.Name,
-									TypeName = pi.PropertyType.Name,
+									Type = pi.PropertyType.Name,
 									Value = pi.GetValue(inputModel, null).ToString()
 								})
 							.ToList();
@@ -28,10 +28,10 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public InputModelFormatter(ITypeMetadata metadata)
 		{
-			_properties = metadata.Properties.Select(pi => new Properties
+			_properties = metadata.Properties.Select(pi => new Property
 			                                               	{
 			                                               		Name = pi.Name,
-			                                               		TypeName = pi.PropertyType.Name,
+			                                               		Type = pi.PropertyType.Name,
 			                                               		Value = null
 			                                               	}).ToList();
 		}
@@ -44,7 +44,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			{
 				root.Add(
 					new XElement(
-						"Property", new XElement("PropertyName", pi.Name), new XElement("PropertyType", pi.TypeName)));
+						"Property", new XElement("Name", pi.Name), new XElement("Type", pi.Type)));
 			}
 
 			return root.ToString();
@@ -52,13 +52,13 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		protected override object GetJsonObject(JsonSerializer serializer)
 		{
-			return _properties;
+			return _properties.Select(p=>new {p.Name, p.Type, p.Value});
 		}
 
-		private class Properties
+		private class Property
 		{
 			internal string Name { get; set; }
-			internal string TypeName { get; set; }
+			internal string Type { get; set; }
 			internal string Value { get; set; }
 		}
 	}

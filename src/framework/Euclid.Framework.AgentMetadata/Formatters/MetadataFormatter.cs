@@ -35,13 +35,13 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 				case "xml":
 					return GetAsXml();
 				case "json":
-					return SetupJsonSerialization();
+					return GetAsJson();
 			}
 
 			throw new MetadataFormatNotSupportedException(format);
 		}
 
-		public string SetupJsonSerialization()
+		public string GetAsJson()
 		{
 			var serializerSettings = new JsonSerializerSettings();
 
