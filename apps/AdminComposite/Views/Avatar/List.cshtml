@@ -14,6 +14,16 @@
 <script type="text/javascript">
 	var forumId = "@Model.ForumIdentifier";
 	$(document).ready(function() {
+		var inputModel;
+		try {
+			var inputModel = EUCLID.getModel({commandName: "ActivateAvatar", agentSystemName: "NewCo.ForumAgent"});
+			inputModel.AvatarIdentifier = "137a8082-9e5a-417b-a78c-eecb6ef530e5";
+			inputModel.Active = true;
+			inputModel.publish();
+		} catch(e) {
+			alert(e.name + "\n" + e.message);
+		}
+
 		$("#create-avatar").click(function() {
 			$("<div></div>")
 				.load("/Avatar/NewAvatar/" + forumId)

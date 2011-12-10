@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Models;
 using Newtonsoft.Json;
 
@@ -9,8 +10,6 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 	public class InputModelFormatter : MetadataFormatter
 	{
 		private readonly IList<Property> _properties;
-
-
 		public InputModelFormatter(IInputModel inputModel)
 		{
 			_properties = inputModel
@@ -52,7 +51,10 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		protected override object GetJsonObject(JsonSerializer serializer)
 		{
-			return _properties.Select(p=>new {p.Name, p.Type, p.Value});
+			return new
+					{
+						Properties = _properties.Select(p => new {p.Name, p.Type, p.Value})
+					};
 		}
 
 		private class Property
