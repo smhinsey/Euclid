@@ -11,7 +11,6 @@ namespace AdminComposite.Models
 		public UpdateForumAvatarInputModel()
 		{
 			CommandType = typeof (UpdateAvatar);
-			AgentSystemName = CommandType.Assembly.GetAgentMetadata().SystemName;
 		}
 
 		public Guid AvatarIdentifier { get; set; }

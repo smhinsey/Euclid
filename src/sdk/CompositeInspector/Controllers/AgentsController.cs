@@ -7,6 +7,7 @@ using Euclid.Common.Messaging;
 using Euclid.Composites;
 using Euclid.Composites.Mvc.ActionFilters;
 using Euclid.Framework.AgentMetadata;
+using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 using MvcContrib.Filters;
@@ -52,6 +53,11 @@ namespace CompositeInspector.Controllers
 			}
 
 			Thread.Sleep(500);
+
+			if (Request.IsAjaxRequest())
+			{
+				return Json(new {publicationId});
+			}
 
 			return Redirect(redirectUrl);
 		}
@@ -101,18 +107,9 @@ namespace CompositeInspector.Controllers
 		}
 
 		[FormatInputModel]
-		public ActionResult ViewInputModelForCommand(IInputModel inputModel, IPartMetadata typeMetadata, string format)
+		public ActionResult ViewInputModelForCommand(IInputModel inputModel, string format)
 		{
-			var partCollection = typeMetadata.GetContainingPartCollection();
-
-			if (inputModel == null)
-			{
-				return RedirectToAction(
-					"ViewPart", new { partCollection.AgentSystemName, PartName = typeMetadata.Name, Format = format });
-			}
-
-			ViewBag.Title = typeMetadata.Type.Name;
-
+			ViewBag.Title = inputModel.GetType().Name;
 			ActionResult result = View("ViewInputModelForCommand", inputModel);
 
 			return result;

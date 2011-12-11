@@ -10,7 +10,6 @@ namespace AdminComposite.Models
 		public SetVotingSchemeInputModel()
 		{
 			CommandType = typeof (UpdateForumVotingScheme);
-			AgentSystemName = CommandType.Assembly.GetAgentMetadata().SystemName;
 		}
 
 		public string ForumName { get; set; }

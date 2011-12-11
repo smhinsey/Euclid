@@ -11,7 +11,6 @@ namespace AdminComposite.Models
 		public CreateForumAvatarInputModel()
 		{
 			CommandType = typeof (CreateAvatar);
-			AgentSystemName = CommandType.Assembly.GetAgentMetadata().SystemName;
 		}
 
 		public Guid CreatedBy { get; set; }

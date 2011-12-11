@@ -14,16 +14,6 @@
 <script type="text/javascript">
 	var forumId = "@Model.ForumIdentifier";
 	$(document).ready(function() {
-		var inputModel;
-		try {
-			var inputModel = EUCLID.getModel({commandName: "ActivateAvatar", agentSystemName: "NewCo.ForumAgent"});
-			inputModel.AvatarIdentifier = "137a8082-9e5a-417b-a78c-eecb6ef530e5";
-			inputModel.Active = true;
-			inputModel.publish();
-		} catch(e) {
-			alert(e.name + "\n" + e.message);
-		}
-
 		$("#create-avatar").click(function() {
 			$("<div></div>")
 				.load("/Avatar/NewAvatar/" + forumId)
@@ -40,18 +30,28 @@
 
 		$("#save").click(function() {
 			$(this).attr("disabled", "disabled");
-			
-			$(".avatar-active").each(function(index, item) {
-				var avatarId = $(item).attr("data-item-id");
-//				$.get("/Avatar/ActivateAvatar?avatarId=" + avatarId + "&active=" + $(item).is(":checked"));
+			var inputModel = null;
+			try {
+				inputModel = EUCLID.getModel({commandName: "ActivateAvatar", agentSystemName: "NewCo.ForumAgent"});
+			} catch(e) {
+				alert(e.name + "\n" + e.message);
+			}
 
-				//jQuery.post( url [, data] [, success(data, textStatus, jqXHR)] [, dataType] )
-				$.post("/CompositeInspector/agents/publish", { AvatarIdentifier: avatarId, Active: $(item).is(":checked"), partName: "ActivateAvatar", agentSystemName: "NewCo.ForumAgent"}, function(data) {
-					alert("done");
-				});
+			$(".avatar-active").each(function(index, item) {
+				var currentName = $(item).attr("data-item-name");
+				try {
+					inputModel.AvatarIdentifier = $(item).attr("data-item-id");
+					inputModel.Active = $(item).is(":checked");
+					EUCLID.publish(inputModel);
+				} catch (e) {
+					var title = "Error processing avatar '" + currentName + "'";
+					var description = e.name + "<br />" + e.message;
+					EUCLID.displayError(title, description);
+				}
 			});
 
 			setTimeout("enableSaveButton()", 750);
+			return false;
 		});
 
 		$(".edit").click(function() {
@@ -119,7 +119,7 @@
 				@foreach (var avatar in Model.Avatars)
 				{
 					<tr>
-						<td>@Html.CheckBoxFor(m => avatar.Active, new {@class = "avatar-active", data_item_id = @avatar.Identifier})</td>
+						<td>@Html.CheckBoxFor(m => avatar.Active, new {@class = "avatar-active", data_item_id = @avatar.Identifier, data_item_name=@avatar.Name})</td>
 						<td>@avatar.Name</td>
 						<td>@if (!string.IsNullOrEmpty(avatar.Url))
 							{

@@ -8,7 +8,6 @@ namespace ForumComposite.Models
 	{
 		public VoteOnCommentInputModel()
 		{
-			AgentSystemName = "NewCo.ForumAgent";
 			CommandType = typeof(VoteOnComment);
 		}
 

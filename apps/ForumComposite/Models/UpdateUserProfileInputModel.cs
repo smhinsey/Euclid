@@ -8,7 +8,6 @@ namespace ForumComposite.Models
 	{
 		public UpdateUserProfileInputModel()
 		{
-			AgentSystemName = "NewCo.ForumAgent";
 			CommandType = typeof(UpdateUserProfile);
 		}
 

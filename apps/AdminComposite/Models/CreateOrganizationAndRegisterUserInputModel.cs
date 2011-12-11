@@ -7,7 +7,6 @@ namespace AdminComposite.Models
 	{
 		public CreateOrganizationAndRegisterUserInputModel()
 		{
-			AgentSystemName = "NewCo.ForumAgent";
 			CommandType = typeof(CreateOrganizationAndRegisterUser);
 		}
 

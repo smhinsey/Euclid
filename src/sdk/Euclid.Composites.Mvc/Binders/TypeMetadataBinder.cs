@@ -20,8 +20,10 @@ namespace Euclid.Composites.Mvc.Binders
 		public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
 		{
 			var systemName = controllerContext.GetAgentSystemName();
+			if (string.IsNullOrEmpty(systemName)) return null;
 
 			var partName = controllerContext.GetPartName();
+			if (string.IsNullOrEmpty(partName)) return null;
 
 			var metadata = _resolvers.GetAgentMetadata(systemName);
 

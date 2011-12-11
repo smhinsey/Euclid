@@ -127,7 +127,6 @@
     <Content Include="Content\chromatron\js\jquery\jquery.nyromodal.js" />
     <Content Include="Content\clear.gif" />
     <Content Include="Content\date.js" />
-    <EmbeddedResource Include="Content\euclid.js" />
     <Content Include="Content\jeditable\jquery.jeditable.wysiwyg.js" />
     <Content Include="Content\jquery.cookie.js" />
     <Content Include="Content\jeditable\jquery.jeditable.js" />

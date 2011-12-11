@@ -263,6 +263,9 @@
     <EmbeddedResource Include="Content\Images\ui-icons_888888_256x240.png" />
     <EmbeddedResource Include="Content\Images\ui-icons_cd0a0a_256x240.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\Scripts\euclid.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

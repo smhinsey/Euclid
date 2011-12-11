@@ -12,7 +12,6 @@ namespace AdminComposite.Models
 		public CreateBadgeInputModel()
 		{
 			CommandType = typeof (CreateBadge);
-			AgentSystemName = CommandType.Assembly.GetAgentMetadata().SystemName;
 		}
 
 		public enum TriggerField

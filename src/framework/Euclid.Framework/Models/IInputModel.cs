@@ -4,7 +4,7 @@ namespace Euclid.Framework.Models
 {
 	public interface IInputModel
 	{
-		string AgentSystemName { get; set; }
+		string AgentSystemName { get; }
 
 		Type CommandType { get; set; }
 

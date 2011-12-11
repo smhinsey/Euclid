@@ -77,6 +77,11 @@ namespace Euclid.Composites.Mvc.Extensions
 										? commandType
 										: (propValue == null) ? null : propValue.ConvertTo(property.PropertyType);
 
+						if (property.PropertyType == typeof(string) && value == null)
+						{
+							value = string.Empty;
+						}
+
 						if (property.CanWrite)
 						{
 							property.SetValue(inputModel, value, null);

@@ -13,7 +13,6 @@ namespace AdminComposite.Models
 		public ForumThemeInputModel()
 		{
 			CommandType = typeof (SetForumTheme);
-			AgentSystemName = CommandType.Assembly.GetAgentMetadata().SystemName;
 		}
 
 		public Guid ForumIdentifier { get; set; }

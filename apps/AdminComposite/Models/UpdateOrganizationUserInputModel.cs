@@ -8,7 +8,6 @@ namespace AdminComposite.Models
 	{
 		public UpdateOrganizationUserInputModel()
 		{
-			AgentSystemName = "NewCo.ForumAgent";
 			CommandType = typeof(UpdateOrganizationUser);
 		}
 

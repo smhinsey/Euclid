@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.Models;
@@ -10,7 +11,7 @@ namespace Euclid.Composites.Mvc.ActionFilters
 		{
 			var format = filterContext.ActionParameters["format"] as string ?? string.Empty;
 
-			if (string.IsNullOrEmpty(format))
+			if (string.IsNullOrEmpty(format) || string.Equals(format, "html", StringComparison.CurrentCultureIgnoreCase))
 			{
 				return;
 			}

@@ -10,7 +10,6 @@ namespace AdminComposite.Models
 		public UpdateCategoryInputModel()
 		{
 			CommandType = typeof (UpdateCategory);
-			AgentSystemName = CommandType.Assembly.GetAgentMetadata().SystemName;
 		}
 
 		public Guid CategoryIdentifier { get; set; }

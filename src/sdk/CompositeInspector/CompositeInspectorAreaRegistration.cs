@@ -62,11 +62,16 @@ namespace CompositeInspector
 				"CompositeInspector-PublishCommandWithView",
 				"CompositeInspector/agents/publishandviewdetails",
 				new { controller = "Agents", action = "PublishAndViewDetails" });
-
+			
 			context.MapRoute(
 				"CompositeInspector-Agent",
 				"CompositeInspector/agents/{agentSystemName}",
 				new { controller = "Agents", action = "ViewAgent" });
+
+			context.MapRoute(
+				"CompositeInspector-FormatInputModel",
+				"CompositeInspector/agents/ViewInputModelForCommand/{partName}.{format}",
+				new {controller = "Agents", action = "ViewInputModelForCommand"});
 
 			context.MapRoute(
 				"CompositeInspector-AgentWithFormat",

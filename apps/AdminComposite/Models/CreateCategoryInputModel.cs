@@ -10,7 +10,6 @@ namespace AdminComposite.Models
 		public CreateCategoryInputModel()
 		{
 			CommandType = typeof (CreateCategory);
-			AgentSystemName = CommandType.Assembly.GetAgentMetadata().SystemName;
 		}
 
 		public string Name { get; set; }

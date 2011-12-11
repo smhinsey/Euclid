@@ -8,7 +8,6 @@ namespace ForumComposite.Models
 	{
 		public PublishPostInputModel()
 		{
-			AgentSystemName = "NewCo.ForumAgent";
 			CommandType = typeof (PublishPost);
 		}
 

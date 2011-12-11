@@ -8,7 +8,6 @@ namespace AdminComposite.Models
 	{
 		public CreateForumInputModel()
 		{
-			AgentSystemName = "NewCo.ForumAgent";
 			CommandType = typeof(CreateForum);
 		}
 

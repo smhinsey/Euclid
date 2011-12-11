@@ -8,7 +8,6 @@ namespace ForumComposite.Models
 	{
 		public RegisterForumUserInputModel()
 		{
-			AgentSystemName = "NewCo.ForumAgent";
 			CommandType = typeof(RegisterForumUser);
 		}
 

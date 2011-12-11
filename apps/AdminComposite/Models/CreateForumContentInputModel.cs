@@ -10,7 +10,6 @@ namespace AdminComposite.Models
 		public CreateForumContentInputModel()
 		{
 			CommandType = typeof (CreateForumContent);
-			AgentSystemName = CommandType.Assembly.GetAgentMetadata().SystemName;
 		}
 
 		public Guid ForumIdentifier { get; set; }

@@ -22,14 +22,6 @@ namespace CompositeInspector.Models
 
 	public class CommandAndInputModel
 	{
-		public string AgentSystemName
-		{
-			get
-			{
-				return Command.Type.Assembly.GetAgentMetadata().SystemName;
-			}
-		}
-
 		public IPartMetadata Command { get; set; }
 
 		public ITypeMetadata InputModel { get; set; }
