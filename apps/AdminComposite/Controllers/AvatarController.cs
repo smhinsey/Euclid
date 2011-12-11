@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using AdminComposite.Models;
 using Euclid.Common.Messaging;
-using ForumAgent.Commands;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Controllers
@@ -11,11 +10,9 @@ namespace AdminComposite.Controllers
 	public class AvatarController : Controller
 	{
 		private readonly AvatarQueries _avatarQueries;
-		private readonly IPublisher _publisher;
-		public AvatarController(AvatarQueries avatarQueries, IPublisher publisher)
+		public AvatarController(AvatarQueries avatarQueries)
 		{
 			_avatarQueries = avatarQueries;
-			_publisher = publisher;
 		}
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
@@ -33,17 +30,6 @@ namespace AdminComposite.Controllers
 			                     	};
 
 			return View(model);
-		}
-
-		public JsonResult ActivateAvatar(Guid avatarId, bool active)
-		{
-			var publicationId = _publisher.PublishMessage(new ActivateAvatar
-			                                              	{
-			                                              		Active = active,
-			                                              		AvatarIdentifier = avatarId
-			                                              	});
-
-			return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
 		}
 
 		public PartialViewResult UpdateAvatar(Guid avatarId)
