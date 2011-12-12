@@ -32,9 +32,10 @@
 			$(this).attr("disabled", "disabled");
 			var inputModel = null;
 			try {
-				inputModel = EUCLID.getModel({commandName: "ActivateAvatar", agentSystemName: "NewCo.ForumAgent"});
+				inputModel = EUCLID.getModel({commandName: "ActivateAvatar"});
 			} catch(e) {
-				alert(e.name + "\n" + e.message);
+				EUCLID.displayError("Unable to fetch input model for ActivateAvatar command", e.name + "<br />" +  description);
+				return false;
 			}
 
 			$(".avatar-active").each(function(index, item) {
@@ -44,7 +45,7 @@
 					inputModel.Active = $(item).is(":checked");
 					EUCLID.publish(inputModel);
 				} catch (e) {
-					var title = "Error processing avatar '" + currentName + "'";
+					var title = "Error activating avatar '" + currentName + "'";
 					var description = e.name + "<br />" + e.message;
 					EUCLID.displayError(title, description);
 				}

@@ -30,14 +30,13 @@ EUCLID.publish = (function (inputModel) {
 });
 
 EUCLID.getModel = (function (args) {
-	if (args === null || args === undefined || !args.hasOwnProperty("commandName") || !args.hasOwnProperty("agentSystemName")) {
+	if (args === null || args === undefined || !args.hasOwnProperty("commandName")) {
 		throw {
 			name: "Invalid Argument Exception",
-			message: "EUCLID.getInputModelPublisher expects an an object with the properties: commandName, agentSystemName"
+			message: "EUCLID.getInputModelPublisher expects an an object with the properties: commandName"
 		};
 	}
 
-	var _agentSystemName = args.agentSystemName;
 	var _commandName = args.commandName;
 	var _getInputModelUrl = "/CompositeInspector/agents/ViewInputModelForCommand/" + _commandName + ".json";
 	var _publishInputModelUrl = "/CompositeInspector/agents/Publish/";
@@ -50,7 +49,7 @@ EUCLID.getModel = (function (args) {
 	if (_model === null) {
 		throw {
 			name: "Invalid InputModel Exception",
-			message: "Could not retrieve the input model for command '" + _commandName + "' from agent '" + _agentSystemName + "'"
+			message: "Could not retrieve the input model for command '" + _commandName + "'"
 		};
 	}
 
@@ -66,8 +65,6 @@ EUCLID.getModel = (function (args) {
 
 	_returnModel.propertyNameIsValid = (function (name) {
 		var found = ($.inArray(name, _propertyNames) > -1 || name === "PartName");
-		console.log("$.inArray(" + name + ", _propertyNames) = " + found);
-
 		return found;
 	});
 
