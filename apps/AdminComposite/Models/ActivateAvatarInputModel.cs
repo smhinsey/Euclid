@@ -57,4 +57,35 @@ namespace AdminComposite.Models
 
 		public Guid ContentIdentifier { get; set; }
 	}
+
+	public class ActivateUserInputModel : DefaultInputModel
+	{
+		public ActivateUserInputModel()
+		{
+			CommandType = typeof (ActivateForumUser);
+		}
+
+		public Guid UserIdentifier { get; set; }
+		public bool Active { get; set; }
+	}
+
+	public class BlockUserInputModel : DefaultInputModel
+	{
+		public BlockUserInputModel()
+		{
+			CommandType = typeof (BlockUser);
+		}
+
+		public Guid UserIdentifier { get; set; }
+	}
+
+	public class UnblockUserInputModel : DefaultInputModel
+	{
+		public UnblockUserInputModel()
+		{
+			CommandType = typeof (UnblockUser);
+		}
+
+		public Guid UserIdentifier { get; set; }
+	}
 }

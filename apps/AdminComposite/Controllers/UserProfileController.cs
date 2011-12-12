@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using AdminComposite.Extensions;
 using AdminComposite.Models;
 using Euclid.Common.Messaging;
 using ForumAgent.Commands;
@@ -10,15 +11,11 @@ namespace AdminComposite.Controllers
 	[Authorize]
 	public class UserProfileController : Controller
 	{
-		private readonly ForumQueries _forumQueries;
 		private readonly UserQueries _forumUserQueries;
-		private readonly IPublisher _publisher;
 
-		public UserProfileController(UserQueries forumUserQueries, IPublisher publisher, ForumQueries forumQueries)
+		public UserProfileController(UserQueries forumUserQueries)
 		{
 			_forumUserQueries = forumUserQueries;
-			_publisher = publisher;
-			_forumQueries = forumQueries;
 		}
 
 		public ActionResult Details(Guid? forumId)
@@ -28,7 +25,7 @@ namespace AdminComposite.Controllers
 
 		public ActionResult Invite(Guid forumId)
 		{
-			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
+			var userId = Request.GetLoggedInUserId();
 
 			return View("_Invite", new RegisterForumUserInputModel
 			                       	{
@@ -52,36 +49,6 @@ namespace AdminComposite.Controllers
 			                     	};
 
 			return View(model);
-		}
-
-		public JsonResult PerformBlockOperation(Guid userIdentifier)
-		{
-			var user = _forumUserQueries.FindById(userIdentifier);
-
-			var message = user.IsBlocked
-			              	? (IMessage) new UnblockUser {UserIdentifier = userIdentifier}
-			              	: (IMessage) new BlockUser {UserIdentifier = userIdentifier};
-
-			var publicationId = _publisher.PublishMessage(message);
-			return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
-		}
-
-		public JsonResult BlockStatus(Guid userIdentifier)
-		{
-			var user = _forumUserQueries.FindById(userIdentifier);
-
-			return Json(new {isBlocked = user.IsBlocked}, JsonRequestBehavior.AllowGet);
-		}
-
-		public JsonResult ActivateUser(Guid userIdentifier, bool activate)
-		{
-			var publicationId = _publisher.PublishMessage(new ActivateForumUser
-			                                              	{
-			                                              		UserIdentifier = userIdentifier,
-			                                              		Active = activate
-			                                              	});
-
-			return Json(publicationId, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

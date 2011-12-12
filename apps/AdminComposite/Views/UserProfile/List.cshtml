@@ -42,65 +42,79 @@
 
 		$("#save").click(function() {
 			$("#save").attr("disabled", "disabled");
-		
-			$(".activate-user").each(function(index, item) {
-				var userId = $(item).attr("data-user-id");
-				var active = $(item).is(":checked");
 
-				$.get("@Url.Action("ActivateUser")", { userIdentifier: userId, activate: active });
+			var inputModel;
+			try
+			{
+				inputModel = EUCLID.getModel({commandName: "ActivateForumUser"});
+			} catch(e) {
+				EUCLID.displayError("Unable to get model for command ActivateUser", e.name + "<br />" + e.message);
+				return false;
+			}
+
+			$(".activate-user").each(function(index, item) {
+				var userId = $(item).attr("data-item-id");
+				var active = $(item).is(":checked");
+				var currentName =- $(item).attr("data-item-name");
+
+				try {
+					inputModel.UserIdentifier = userId;
+					inputModel.Active = active;
+					EUCLID.publish(inputModel);
+				} catch(e) {
+					EUCLID.displayError("Unable to activate user '" + currentName + "'", e.name + "<br />" + e.message);
+				}
 			});
 
 			setTimeout('$("#save").removeAttr("disabled");', 750);
+			return false;
 		});
 	});
 
 	function blockUser(userId) {
-		performBlockOperation(userId, function(isBlocked) {
-			if (isBlocked) {
-				$(".block-user[data-item-id='" + userId + "']").parent().addClass("hidden");
-				$(".unblock-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
-				$(".activate-user[data-user-id='" + userId + "']").removeAttr("checked").attr("disabled", "disabled");
-				
-				return true;
-			}
+		var inputModel;
 
+		try {
+			inputModel = EUCLID.getModel({commandName: "BlockUser"});
+		} catch(e) {
+			EUCLID.displayError("Unable to get model for command BlockUser", e.name + "<br />" + e.message);
 			return false;
-		});
+		}
+
+		try{
+			inputModel.UserIdentifier = userId;
+			EUCLID.publish(inputModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to block user", e.name + "<br />" + e.message);
+			return false;
+		}
+
+		$(".block-user[data-item-id='" + userId + "']").parent().addClass("hidden");
+		$(".unblock-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
+		$(".activate-user[data-user-id='" + userId + "']").removeAttr("checked").attr("disabled", "disabled");
 	}
 
 	function unblockUser(userId) {
-		performBlockOperation(userId, function(isBlocked) {
-			if (!isBlocked) {
-				$(".block-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
-				$(".unblock-user[data-item-id='" + userId + "']").parent().addClass("hidden");
-				$(".activate-user[data-user-id='" + userId + "']").removeAttr("disabled");
+		var inputModel;
 
-				return true;
-			}
-
+		try {
+			inputModel = EUCLID.getModel({commandName: "UnblockUser"});
+		} catch(e) {
+			EUCLID.displayError("Unable to get model for command UnblockUser", e.name + "<br />" + e.message);
 			return false;
-		});		
-	}
-	
-	function performBlockOperation(userId, pollingCallback) {
-		$.ajax({
-				url: "@Url.Action("PerformBlockOperation", "UserProfile")",
-				type: "POST",
-				data: {userIdentifier: userId},
-				success: function(data)
-					{
-						$(document).everyTime(750, "poll", function() {
-							$.get(
-								"@Url.Action("BlockStatus")",
-								{ userIdentifier: userId },
-								function(user) {
-									if (pollingCallback(user.isBlocked)) {
-										$(document).stopTime("poll");
-									}
-								});
-						}, 10);
-					}
-			});
+		}
+
+		try{
+			inputModel.UserIdentifier = userId;
+			EUCLID.publish(inputModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to unblock user", e.name + "<br />" + e.message);
+			return false;
+		}
+
+		$(".block-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
+		$(".unblock-user[data-item-id='" + userId + "']").parent().addClass("hidden");
+		$(".activate-user[data-user-id='" + userId + "']").removeAttr("disabled");
 	}
 </script>
 
@@ -148,7 +162,7 @@
 				{
 					<tr>
 						<td>
-							<input type="checkbox" class="activate-user" data-user-id="@user.Identifier" @if (user.Active) {<text>checked="checked"</text>} @if (user.IsBlocked) { <text>disabled="disabled"</text> } />
+							<input type="checkbox" class="activate-user" data-item-id="@user.Identifier" data-item-name="@user.FirstName @user.LastName" @if (user.Active) {<text>checked="checked"</text>} @if (user.IsBlocked) { <text>disabled="disabled"</text> } />
 						</td>
 						<td>@user.FirstName @user.LastName</td>
 						<td>@user.Username</td>

@@ -169,6 +169,9 @@ namespace AdminComposite
 			composite.RegisterInputModelMap<ActivateCategoryInputModel, ActivateCategory>();
 			composite.RegisterInputModelMap<ActivateContentInputModel, ActivateContent>();
 			composite.RegisterInputModelMap<DeleteContentInputModel, DeleteForumContent>();
+			composite.RegisterInputModelMap<ActivateUserInputModel, ActivateForumUser>();
+			composite.RegisterInputModelMap<BlockUserInputModel, BlockUser>();
+			composite.RegisterInputModelMap<UnblockUserInputModel, UnblockUser>();
 			setAzureCredentials(container);
 
 			_initialized = true;
