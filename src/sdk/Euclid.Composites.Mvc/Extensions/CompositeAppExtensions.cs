@@ -54,12 +54,12 @@ namespace Euclid.Composites.Mvc.Extensions
 							var blobUrlPropertyName = string.Format("{0}Url", property.Name);
 							var blobUrlProperty = modelProperties.Where(p => p.Name == blobUrlPropertyName).FirstOrDefault();
 
-							if (blobUrlProperty != null && blobUrlProperty.CanWrite && valueProvider.GetValue(blobUrlPropertyName) != null)
+							if (blobUrlProperty != null && blobUrlProperty.CanWrite)
 							{
-								var existingBlobUri = valueProvider.GetValue(blobUrlPropertyName).AttemptedValue;
-								if (!string.IsNullOrEmpty(existingBlobUri))
+								var existingBlobUri = valueProvider.GetValue(blobUrlPropertyName);
+								if (existingBlobUri != null && !string.IsNullOrEmpty(existingBlobUri.AttemptedValue))
 								{
-									var uri = new Uri(existingBlobUri);
+									var uri = new Uri(existingBlobUri.AttemptedValue);
 									if (blobService.Exists(uri))
 									{
 										blobService.Delete(uri);
