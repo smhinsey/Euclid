@@ -10,7 +10,14 @@
 }
 
 <script type="text/javascript">
+	var ORGANIZATIONUSER = { deleteUserModel : null };
 	$(document).ready(function () {
+		try {
+			ORGANIZATIONUSER.deleteUserModel = EUCLID.getModel({ commandName: "DeleteOrganizationUser" });
+		} catch (e) {
+			EUCLID.displayError("Unable to get model for command DeleteOrganizationUser", e.name + "<br />" + e.message);
+		}
+
 		$("#add-user").click(function () {
 			$("<div></div>")
 				.load("/Organization/RegisterUser?organizationId=@ViewBag.OrganizationId&currentUserId=@ViewBag.UserId")
@@ -43,28 +50,39 @@
 			var inputModel;
 
 			try {
-				inputModel = EUCLID.getModel({commandName: "ActivateOrganizationUser"});
-			} catch(e) {
+				inputModel = EUCLID.getModel({ commandName: "ActivateOrganizationUser" });
+			} catch (e) {
 				EUCLID.displayError("Unable to get model for command ActivateOrganizationUser", e.name + "<br />" + e.message);
 				return false;
 			}
 
-			$(".activate-user").each(function(index, item) {
+			$(".activate-user").each(function (index, item) {
 				var currentName = $(item).attr("data-item-name");
 
-				try{
+				try {
 					inputModel.UserIdentifier = $(item).attr("data-item-id");
 					inputModel.Active = $(item).is(":checked");
 					EUCLID.publish(inputModel);
-				} catch(e) {
+				} catch (e) {
 					EUCLID.displayError("Unable to activate user " + currentName, e.name + "<br />" + e.message);
 				}
 			});
-			
+
 			setTimeout('$("#save").removeAttr("disabled");', 750);
 			return false;
 		});
-	});   //document.ready
+	});     //document.ready
+
+	function deleteUser(userId) {
+		ORGANIZATIONUSER.deleteUserModel.UserIdentifier = userId;
+		try {
+			EUCLID.publish(ORGANIZATIONUSER.deleteUserModel);
+		} catch (e) {
+			EUCLID.displayError("Unable to delete user", e.name + "<br />" + e.message);
+		}
+		window.location.reload();
+
+	}
 </script>
 
 <article>
@@ -120,6 +138,7 @@
 						<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
 						<td>
 							<ul class="actions">
+								<li><a class="@if (isCurrentUser) { <text>hidden</text>} admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete" data-confirmation-message="Do you want to delete the user @user.FirstName @user.LastName?" data-confirm-function="deleteUser" data-item-id="@user.Identifier">Delete</a></li>
 								<li><a class="edit user" rel="tooltip" href="#" original-title="Edit" data-user-name="@user.FirstName @user.LastName" data-user-id="@user.Identifier">Edit</a></li>
 							</ul>
 						</td>

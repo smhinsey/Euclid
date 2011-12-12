@@ -12,7 +12,6 @@ using Euclid.Framework.Cqrs;
 using FluentNHibernate.Cfg.Db;
 using ForumAgent;
 using ForumAgent.Commands;
-using ForumAgent.ReadModels;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
 using NConfig;
@@ -179,6 +178,9 @@ namespace AdminComposite
 			                                                                               		CommentIdentifier = input.PostIdentifier,
 																								CreatedBy = input.CreatedBy
 			                                                                               	});
+			composite.RegisterInputModelMap<DeleteOrganizationUserInputModel, DeleteOrganizationUser>();
+			composite.RegisterInputModelMap<DeleteForumUserInputModel, DeleteForumUser>();
+
 			setAzureCredentials(container);
 			_initialized = true;
 		}

@@ -116,6 +116,21 @@
 		$(".unblock-user[data-item-id='" + userId + "']").parent().addClass("hidden");
 		$(".activate-user[data-user-id='" + userId + "']").removeAttr("disabled");
 	}
+
+	function deleteUser(userId) {
+		var inputModel;
+
+		try {
+			inputModel = EUCLID.getModel({commandName: "DeleteForumUser"});
+			inputModel.UserIdentifier = userId;
+			EUCLID.publish(inputModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to get delete user", e.name + "<br />" + e.message);
+			return false;
+		}
+
+		window.location.reload();
+	}
 </script>
 
 <div class="article-container">
@@ -176,6 +191,7 @@
 						<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
 						<td>
 							<ul class="actions">
+								<li><a class="admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete" data-confirmation-message="Do you want to delete the user @user.FirstName @user.LastName?" data-confirm-function="deleteUser" data-item-id="@user.Identifier">Delete</a></li>
 								<li @if (user.IsBlocked) {<text>class="hidden"</text>}><a href="#" class="block-user confirmation-dialog" rel="tooltip" original-title="Block @user.FirstName @user.LastName" data-item-id="@user.Identifier" data-confirmation-message="Really block @user.FirstName @user.LastName?" data-confirm-function="blockUser">Block User</a></li>
 								<li @if (!user.IsBlocked) {<text>class="hidden"</text>}><a href="#" class="unblock-user confirmation-dialog" rel="tooltip" original-title="Unblock @user.FirstName @user.LastName" data-item-id="@user.Identifier" data-confirmation-message="Really unblock @user.FirstName @user.LastName?" data-confirm-function="unblockUser">Unblock User</a></li>
 								<li><a href="#" class="user-details view" rel="tooltip" original-title="View @user.FirstName @user.LastName's Profile" data-user-id="@user.Identifier">View Profile</a></li>

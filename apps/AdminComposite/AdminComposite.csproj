@@ -168,6 +168,8 @@
     <Compile Include="Models\ApprovePostInputModel.cs" />
     <Compile Include="Models\BlockUserInputModel.cs" />
     <Compile Include="Models\DeleteContentInputModel.cs" />
+    <Compile Include="Models\DeleteForumUserInputModel.cs" />
+    <Compile Include="Models\DeleteOrganizationUserInputModel.cs" />
     <Compile Include="Models\RejectCommentInputModel.cs" />
     <Compile Include="Models\RejectPostInputModel.cs" />
     <Compile Include="Models\UnblockUserInputModel.cs" />
