@@ -25,9 +25,23 @@
 		$("#save").click(function() {
 			$(this).attr("disabled", "disabled");
 			
+			var inputModel = null;
+			try {
+				inputModel = EUCLID.getModel({commandName: "ActivateBadge"});
+			} catch(e) {
+				EUCLID.displayError("Unable to fetch input model for ActivateBadge command", e.name + "<br />" +  description);
+				return false;
+			}
+
 			$(".badge-active").each(function(index, item) {
-				var badgeId = $(item).attr("data-item-id");
-				$.get("/Badge/ActivateBadge?badgeId=" + badgeId + "&active=" + $(item).is(":checked"));
+				var currentName = $(item).attr("data-item-name");
+				try {
+					inputModel.BadgeIdentifier = $(item).attr("data-item-id");
+					inputModel.Active = $(item).is(":checked");
+					EUCLID.publish(inputModel);
+				} catch(e) {
+					EUCLID.displayError("Error activating badge '" + currentName + "'", e.name + "<br />" + e.message);
+				}
 			});
 
 			setTimeout("enableSaveButton()", 750);
@@ -98,7 +112,7 @@
 				@foreach (var badge in Model.Badges)
 				{
 					<tr>
-						<td>@Html.CheckBoxFor(m => badge.Active, new {@class = "badge-active", data_item_id = @badge.Identifier})</td>
+						<td>@Html.CheckBoxFor(m => badge.Active, new {@class = "badge-active", data_item_id = @badge.Identifier, data_item_name=@badge.Name})</td>
 						<td>@badge.Name</td>
 						<td>@badge.Field @badge.Operator @badge.Value</td>
 						<td>@if (!string.IsNullOrEmpty(badge.ImageUrl))
