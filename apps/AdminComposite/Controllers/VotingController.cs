@@ -20,26 +20,21 @@ namespace AdminComposite.Controllers
 
 		public ActionResult List(Guid forumId)
 		{
-			var forum = _forumQueries.FindById(forumId);
-			
-			return View(new SetVotingSchemeInputModel
-			            	{
-			            		ForumIdentifier = forum.Identifier,
-								ForumName = forum.Name,
-								SelectedScheme = forum.NoVoting ? VotingScheme.NoVoting : VotingScheme.UpDownVoting
-			            	});
+			var model = _forumQueries.GetForumVotingScheme(forumId);
+
+			return View(model);
 		}
 
-		public JsonResult SetVotingScheme(Guid forumId, VotingScheme selectedScheme)
-		{
-			var publicationId = _publisher.PublishMessage(new UpdateForumVotingScheme
-			                                              	{
-			                                              		ForumIdentifier = forumId,
-			                                              		NoVoting = selectedScheme == VotingScheme.NoVoting,
-			                                              		UpDownVoting = selectedScheme == VotingScheme.UpDownVoting
-			                                              	});
+		//public JsonResult SetVotingScheme(Guid forumId, VotingScheme selectedScheme)
+		//{
+		//    var publicationId = _publisher.PublishMessage(new UpdateForumVotingScheme
+		//                                                    {
+		//                                                        ForumIdentifier = forumId,
+		//                                                        NoVoting = selectedScheme == VotingScheme.NoVoting,
+		//                                                        UpDownVoting = selectedScheme == VotingScheme.UpDownVoting
+		//                                                    });
 
-			return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
-		}
+		//    return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
+		//}
 	}
 }

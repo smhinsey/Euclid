@@ -1,6 +1,8 @@
 using System;
 using Euclid.Composites.Mvc.Models;
+using ForumAgent;
 using ForumAgent.Commands;
+using ForumAgent.ReadModels;
 
 namespace AdminComposite.Models
 {
@@ -87,5 +89,16 @@ namespace AdminComposite.Models
 		}
 
 		public Guid UserIdentifier { get; set; }
+	}
+
+	public class UpdateForumVotingSchemeInputModel : DefaultInputModel
+	{
+		public UpdateForumVotingSchemeInputModel()
+		{
+			CommandType = typeof (UpdateForumVotingScheme);
+		}
+
+		public Guid ForumIdentifier { get; set; }
+		public VotingScheme SelectedScheme { get; set; }
 	}
 }

@@ -10,7 +10,9 @@ using Euclid.Composites;
 using Euclid.Composites.Mvc;
 using Euclid.Framework.Cqrs;
 using FluentNHibernate.Cfg.Db;
+using ForumAgent;
 using ForumAgent.Commands;
+using ForumAgent.ReadModels;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
 using NConfig;
@@ -104,7 +106,6 @@ namespace AdminComposite
 						PasswordHash = input.Password,
 						PasswordSalt = input.Password
 					});
-			//the processor will handle generating passwords for users registered by an admin
 			composite.RegisterInputModelMap<RegisterOrganizationUserInputModel, RegisterOrganizationUser>();
 			composite.RegisterInputModelMap<UpdateOrganizationUserInputModel, UpdateOrganizationUser>(
 				input =>
@@ -120,7 +121,6 @@ namespace AdminComposite
 					});
 			composite.RegisterInputModelMap<UpdateOrganizationInputModel, UpdateOrganization>();
 			composite.RegisterInputModelMap<UpdateForumInputModel, UpdateForum>();
-
 			composite.RegisterInputModelMap<RegisterForumUserInputModel, RegisterForumUser>(input => new RegisterForumUser
 			                                                                                         	{
 			                                                                                         		ForumIdentifier =
@@ -137,33 +137,19 @@ namespace AdminComposite
 			                                                                                         		CreatedBy =
 			                                                                                         			input.CreatedBy
 			                                                                                         	});
-
-			composite.RegisterInputModelMap<SetVotingSchemeInputModel, UpdateForumVotingScheme>(
-				input => new UpdateForumVotingScheme
-				         	{
-				         		ForumIdentifier = input.ForumIdentifier,
-				         		NoVoting = input.SelectedScheme == VotingScheme.NoVoting,
-				         		UpDownVoting = input.SelectedScheme == VotingScheme.UpDownVoting
-				         	});
-
 			composite.RegisterInputModelMap<CreateCategoryInputModel, CreateCategory>();
 			composite.RegisterInputModelMap<UpdateCategoryInputModel, UpdateCategory>();
-
 			composite.RegisterInputModelMap<CreateForumContentInputModel, CreateForumContent>();
 			composite.RegisterInputModelMap<UpdateForumContentInputModel, UpdateForumContent>();
-
 			composite.RegisterInputModelMap<ForumThemeInputModel, SetForumTheme>(input=>new SetForumTheme
 			                                                                            	{
 			                                                                            		ForumIdentifier = input.ForumIdentifier,
 																								ThemeName = input.SelectedTheme
 			                                                                            	});
-
 			composite.RegisterInputModelMap<CreateBadgeInputModel, CreateBadge>();
 			composite.RegisterInputModelMap<UpdateBadgeInputModel, UpdateBadge>();
-
 			composite.RegisterInputModelMap<CreateForumAvatarInputModel, CreateAvatar>();
 			composite.RegisterInputModelMap<UpdateForumAvatarInputModel, UpdateAvatar>();
-
 			composite.RegisterInputModelMap<ActivateAvatarInputModel, ActivateAvatar>();
 			composite.RegisterInputModelMap<ActivateBadgeInputModel, ActivateBadge>();
 			composite.RegisterInputModelMap<ActivateCategoryInputModel, ActivateCategory>();
@@ -172,6 +158,20 @@ namespace AdminComposite
 			composite.RegisterInputModelMap<ActivateUserInputModel, ActivateForumUser>();
 			composite.RegisterInputModelMap<BlockUserInputModel, BlockUser>();
 			composite.RegisterInputModelMap<UnblockUserInputModel, UnblockUser>();
+			composite.RegisterInputModelMap<UpdateForumVotingSchemeInputModel, UpdateForumVotingScheme>(
+																							input => new UpdateForumVotingScheme
+																							{
+																								ForumIdentifier = input.ForumIdentifier,
+																								NoVoting = input.SelectedScheme == VotingScheme.NoVoting,
+																								UpDownVoting = input.SelectedScheme == VotingScheme.UpDownVoting
+																							});
+			//composite.RegisterInputModelMap<SetVotingSchemeInputModel, UpdateForumVotingScheme>(
+			//                                                                                input => new UpdateForumVotingScheme
+			//                                                                                {
+			//                                                                                    ForumIdentifier = input.ForumIdentifier,
+			//                                                                                    NoVoting = input.SelectedScheme == VotingScheme.NoVoting,
+			//                                                                                    UpDownVoting = input.SelectedScheme == VotingScheme.UpDownVoting
+			//                                                                                });
 			setAzureCredentials(container);
 
 			_initialized = true;

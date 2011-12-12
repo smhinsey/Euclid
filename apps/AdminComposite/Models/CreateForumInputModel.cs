@@ -1,6 +1,8 @@
 ﻿using System;
 using Euclid.Composites.Mvc.Models;
+using ForumAgent;
 using ForumAgent.Commands;
+using ForumAgent.ReadModels;
 
 namespace AdminComposite.Models
 {

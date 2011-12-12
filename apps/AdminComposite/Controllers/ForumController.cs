@@ -2,7 +2,9 @@
 using System.Web.Mvc;
 using AdminComposite.Extensions;
 using AdminComposite.Models;
+using ForumAgent;
 using ForumAgent.Queries;
+using ForumAgent.ReadModels;
 
 namespace AdminComposite.Controllers
 {

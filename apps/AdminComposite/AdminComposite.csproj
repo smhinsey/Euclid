@@ -169,7 +169,6 @@
     <Compile Include="Models\ForumThemeInputModel.cs" />
     <Compile Include="Models\PaginationModel.cs" />
     <Compile Include="Models\RegisterOrganizationUserInputModel.cs" />
-    <Compile Include="Models\SetVotingSchemeInputModel.cs" />
     <Compile Include="Models\UpdateBadgeInputModel.cs" />
     <Compile Include="Models\UpdateCategoryInputModel.cs" />
     <Compile Include="Models\UpdateForumContentInputModel.cs" />

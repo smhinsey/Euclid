@@ -147,6 +147,7 @@
     <Compile Include="ReadModels\ForumBadge.cs" />
     <Compile Include="ReadModels\ForumTheme.cs" />
     <Compile Include="ReadModels\ForumUsers.cs" />
+    <Compile Include="ReadModels\ForumVotingScheme.cs" />
     <Compile Include="ReadModels\ModeratedComment.cs" />
     <Compile Include="ReadModels\ModeratedItems.cs" />
     <Compile Include="ReadModels\ModeratedPost.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Domain\Entities\OrganizationEntity.cs" />
     <Compile Include="Domain\Entities\Maps\OrganizationMap.cs" />
     <Compile Include="Domain\Entities\Maps\OrganizationUserMap.cs" />
+    <Compile Include="VotingScheme.cs" />
     <Compile Include="UserNotFoundException.cs" />
   </ItemGroup>
   <ItemGroup>

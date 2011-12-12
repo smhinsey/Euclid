@@ -37,5 +37,27 @@ namespace ForumAgent.Queries
 
 			return org.Identifier;
 		}
+
+		public ForumVotingScheme GetForumVotingScheme(Guid forumIdentifier)
+		{
+			var session = GetCurrentSession();
+
+			var forum = session.QueryOver<Forum>().Where(f => f.Identifier == forumIdentifier).SingleOrDefault();
+
+			return new ForumVotingScheme
+					{
+						ForumIdentifier = forumIdentifier,
+						ForumName = forum.Name,
+						CurrentScheme = getVotingScheme(forum)
+					};
+		}
+
+		private static VotingScheme getVotingScheme(Forum forum)
+		{
+			if (forum.UpDownVoting)
+				return VotingScheme.UpDownVoting;
+
+			return VotingScheme.NoVoting;
+		}
 	}
 }

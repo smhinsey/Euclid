@@ -1,5 +1,6 @@
 ﻿@using AdminComposite.Models
-@model SetVotingSchemeInputModel
+@using ForumAgent;
+@model ForumAgent.ReadModels.ForumVotingScheme
 @{
 	ViewBag.Title = "Manage Forum Voting";
 }
@@ -7,11 +8,23 @@
 	$(document).ready(function () {
 		$("#save-voting-scheme").click(function () {
 			$("#save-voting-scheme").attr("disabled", "disabled");
-			
-			var forumId = "@Model.ForumIdentifier";
-			var selectedScheme = $("input:radio[name='SelectedScheme']:checked").val();
 
-			$.get("@Url.Action("SetVotingScheme", "Voting")", { forumId: forumId, selectedScheme: selectedScheme });
+			var inputModel;
+			try 
+			{
+				inputModel = EUCLID.getModel({commandName: "UpdateForumVotingScheme"});
+			} catch(e) {
+				EUCLID.displayError("Unable to get model for command UpdateVotingScheme", e.name + "<br />" + e.message);
+			}
+
+			try
+			{
+				inputModel.ForumIdentifier = "@Model.ForumIdentifier";
+				inputModel.SelectedScheme = $("input:radio[name='CurrentScheme']:checked").val();
+				EUCLID.publish(inputModel);
+			} catch(e) {
+				EUCLID.displayError("Unable to set voting scheme", e.name + "<br />" + e.message);
+			}
 
 			setTimeout('$("#save-voting-scheme").removeAttr("disabled");', 750);
 			return false;
@@ -44,14 +57,14 @@
 		<tbody>
 			<tr>
 				<td>
-					@Html.RadioButtonFor(m => m.SelectedScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
+					@Html.RadioButtonFor(m => m.CurrentScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
 				</td>
 				<td>None</td>
 				<td>Users cannot vote on posts or comments</td>
 			</tr>
 			<tr>
 				<td>
-					@Html.RadioButtonFor(m => m.SelectedScheme, VotingScheme.UpDownVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
+					@Html.RadioButtonFor(m => m.CurrentScheme, VotingScheme.UpDownVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
 				</td>
 				<td>Up / Down</td>
 				<td>Users can vote a post or comment up or down.  <br />A user can change their vote, but can only vote on a particular post or comment once</td>
