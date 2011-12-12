@@ -166,7 +166,19 @@ namespace AdminComposite
 																								UpDownVoting = input.SelectedScheme == VotingScheme.UpDownVoting
 																							});
 			composite.RegisterInputModelMap<ActivateOrganizationUserInputModel, ActivateOrganizationUser>();
-
+			composite.RegisterInputModelMap<ApprovePostInputModel, ApprovePost>();
+			composite.RegisterInputModelMap<RejectPostInputModel, RejectPost>();
+			composite.RegisterInputModelMap<ApproveCommentInputModel, ApproveComment>(input=>new ApproveComment
+			                                                                                 	{
+			                                                                                 		ApprovedBy = input.ApprovedBy,
+																									CommentIdentifier = input.PostIdentifier,
+																									CreatedBy = input.CreatedBy
+			                                                                                 	});
+			composite.RegisterInputModelMap<RejectCommentInputModel, RejectComment>(input=>new RejectComment
+			                                                                               	{
+			                                                                               		CommentIdentifier = input.PostIdentifier,
+																								CreatedBy = input.CreatedBy
+			                                                                               	});
 			setAzureCredentials(container);
 			_initialized = true;
 		}

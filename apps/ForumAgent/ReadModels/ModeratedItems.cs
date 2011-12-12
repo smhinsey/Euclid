@@ -17,5 +17,7 @@ namespace ForumAgent.ReadModels
 		public Guid ForumIdentifier { get; set; }
 
 		public string ForumName { get; set; }
+
+		public Guid CurrentUserId { get; set; }
 	}
 }

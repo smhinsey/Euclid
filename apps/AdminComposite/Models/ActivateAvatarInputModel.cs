@@ -112,4 +112,35 @@ namespace AdminComposite.Models
 		public Guid UserIdentifier { get; set; }
 		public bool Active { get; set; }
 	}
+
+	public class ApprovePostInputModel : DefaultInputModel
+	{
+		public ApprovePostInputModel()
+		{
+			CommandType = typeof (ApprovePost);
+		}
+
+		public Guid PostIdentifier { get; set; }
+		public Guid ApprovedBy { get; set; }
+		public Guid CreatedBy { get; set; }
+	}
+
+	public class RejectPostInputModel : DefaultInputModel
+	{
+		public Guid CreatedBy { get; set; }
+		public Guid PostIdentifier { get; set; }
+	}
+
+	public class ApproveCommentInputModel : DefaultInputModel
+	{
+		public Guid PostIdentifier { get; set; }
+		public Guid ApprovedBy { get; set; }
+		public Guid CreatedBy { get; set; }
+	}
+
+	public class RejectCommentInputModel : DefaultInputModel
+	{
+		public Guid CreatedBy { get; set; }
+		public Guid PostIdentifier { get; set; }
+	}
 }

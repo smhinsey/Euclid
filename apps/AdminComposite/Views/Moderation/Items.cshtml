@@ -6,12 +6,34 @@
 	var controller = (string)ViewContext.Controller.ValueProvider.GetValue("controller").RawValue;
 	var rejectAction = (ViewBag.ItemType == "posts") ? Url.Action("RejectPost") : Url.Action("RejectComment");
 	var approveAction = (ViewBag.ItemType == "posts") ? Url.Action("ApprovePost") : Url.Action("ApproveComment");
+
+	var rejectCommand = (ViewBag.ItemType == "posts") ? "RejectPost" : "RejectComment";
+	var approveCommand = (ViewBag.ItemType == "posts") ? "ApprovePost" : "ApproveComment";
 }
 
 <script type="text/javascript" src="@Url.Content("~/Content/date.js")"></script>
 <script type="text/javascript">
+	var MODERATION = { approveModel: null, rejectModel: null, blockModel: null };
 	$(document).ready(function() {
 		$($(".moderation-item.unread")[0]).addClass("current-unread");
+
+		try {
+			MODERATION.blockModel = EUCLID.getModel({commandName: "BlockUser"});
+		} catch(e) {
+			EUCLID.displayError("Unable to get input model for command BlockUser", e.name + "<br />" + e.message);
+		}
+
+		try {
+			MODERATION.approveModel = EUCLID.getModel({commandName: "@approveCommand"});
+		} catch(e) {
+			EUCLID.displayError("Unable to get input model for command @approveCommand", e.name + "<br />" + e.message);
+		}
+
+		try {
+			MODERATION.rejectModel = EUCLID.getModel({commandName: "@rejectCommand"});
+		} catch(e) {
+			EUCLID.displayError("Unable to get input model for command @rejectCommand", e.name + "<br />" + e.message);
+		}
 
 		$(document).keydown(function(event) {
 			var bubble = true;
@@ -75,22 +97,36 @@
 	});
 
 	function blockUser(userId) {
-		$.ajax({
-				url: "@Url.Action("PerformBlockOperation", "UserProfile")",
-				type: "POST",
-				data: { userIdentifier: userId }
-			});
+		try {
+			MODERATION.blockModel.UserIdentifier = userId;
+			EUCLID.publish(MODERATION.blockModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to block user", e.name + "<br />" + e.message);
+		}
 	}
 
 	function rejectItem(postId) {
-		$.get("@rejectAction", { postId: postId });
-		console.log("rejecting item: " + postId);
+		try {
+			MODERATION.rejectModel.PostIdentifier = postId;
+			MODERATION.rejectModel.CreatedBy = "@Model.CurrentUserId";
+			EUCLID.publish(MODERATION.rejectModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to reject item", e.name + "<br />" + e.message);
+		}
+
 		updateItem(postId, "moderator-removed", "rejected");
 	}
 
 	function approveItem(postId) {
-		$.get("@approveAction", { postId: postId });
-		console.log("approving item: " + postId);
+		try {
+			MODERATION.approveModel.PostIdentifier = postId;
+			MODERATION.approveModel.CreatedBy = "@Model.CurrentUserId";
+			MODERATION.approveModel.ApprovedBy = "@Model.CurrentUserId";
+			EUCLID.publish(MODERATION.approveModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to approve item", e.name + "<br />" + e.message);
+		}
+
 		updateItem(postId, "moderator-approved", "approved");
 	}
 
@@ -158,28 +194,6 @@
 		</section>
 	</article>
 </div>
-
-<li id="item-template" data-post-id="" style="display:none">
-	<div style="float:left;width:85%">
-		<span class="logs-timestamp"></span>
-		<h4 class="item-title"></h4>
-
-		<p class="item-body"></p>
-
-		<em class="logs-meta">posted by </em>
-	</div>
-
-	<div style="float: left; margin-left: 25px;">
-		<a href="#" class="approve" data-post-id=""><img src="@Url.Content("~/Content/thumb-up.png")" alt="approve" rel="tooltip" original-title="Approve this "/></a>
-		<br/>
-		<a href="#" class="reject" data-post-id=""><img src="@Url.Content("~/Content/thumb-down.png")" alt="reject" rel="tooltip" original-title="Reject this "/></a>
-		<br/>
-		<a href="#" class="block-user confirmation-dialog" data-confirmation-message="Really Block ?" data-confirm-function="blockUser" data-item-id=""><img src="@Url.Content("~/Content/chromatron/img/icons/icon_table_delete.png")" alt="block author" rel="tooltip" original-title="Block this author"/></a>
-		<br/>
-		<p style="margin-top: 25px" class="note last-action" data-post-id=""></p>
-	</div>
-</li>
-
 
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
