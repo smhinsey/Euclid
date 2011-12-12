@@ -51,6 +51,11 @@ EUCLID.getModel = (function (args) {
 			name: "Invalid InputModel Exception",
 			message: "Could not retrieve the input model for command '" + _commandName + "'"
 		};
+	} else if (_model.hasOwnProperty("exception") && _model.exception) {
+		throw {
+			name: _model.name,
+			message: _model.message + "\n\n" + _model.callstack
+		}
 	}
 
 	var _returnModel = {};
@@ -85,7 +90,7 @@ EUCLID.displayError = (function (title, message) {
 	}
 
 	var error = $("#euclid-error-display");
-	var message = $("<div class='error-message pinned'><a class='close' href='#'>×</a><p><strong>" + title + "</strong> " + message + ".</p></div>");
+	var message = $("<div class='error-message pinned'><a class='close' href='#'>×</a><p><strong>" + title.replace(/\n/g, "<br />") + "</strong> " + message.replace(/\n/g, "<br />") + ".</p></div>");
 
 	$(error).append(message);
 	$(window).scrollTop(0);

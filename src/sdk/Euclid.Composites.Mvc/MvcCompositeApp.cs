@@ -53,6 +53,8 @@ namespace Euclid.Composites.Mvc
 			ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(Container));
 
 			DependencyResolver.SetResolver(new WindsorDependencyResolver(Container));
+
+			GlobalFilters.Filters.Add(new FormatExceptionAttribute());
 		}
 	}
 }
