@@ -37,7 +37,7 @@ namespace Euclid.Composites.Mvc.Extensions
 				try
 				{
 					var file = files[property.Name];
-					if (property.PropertyType == typeof(HttpPostedFileBase) && file != null)
+					if (property.PropertyType == typeof(HttpPostedFileBase) && file != null && file.ContentLength > 0)
 					{
 						var blobService = DependencyResolver.Current.GetService<IBlobStorage>();
 
