@@ -55,26 +55,57 @@
 			return false;
 		});
 
-		$("#update").click(function() {
+		$("#save").click(function() {
+			$("#save").attr("disabled", "disabled");
+			var inputModel;
+			try 
+			{
+				inputModel = EUCLID.getModel({commandName: "ActivateContent"});
+			} catch(e) {
+				EUCLID.displayError("Unable to get model for command 'ActivateContent'", e.name + "<br />" + e.message);
+				return false;
+			}
+
 			$(".content-active").each(function(index, item) {
 				var contentId = $(item).attr("data-item-id");
 				var active = $(item).is(":checked");
+				var currentName = $(item).attr("data-item-name");
 
+				try
+				{
+					inputModel.ContentIdentifier = contentId;
+					inputModel.Active = active;
+					EUCLID.publish(inputModel);
+				} catch(e) {
+					EUCLID.displayError("Unable to activate content item '" + currentName + "'", e.name + "<br />" + e.message);
+				}
 				$.get("@Url.Action("ActivateContent")", { contentId: contentId, active: active });
 			});
 
+			setTimeout("$('#save').removeAttr('disabled');", 750);
 			return false;
 		});
 	});
 
 	function deleteContent(contentId) {
-		$.ajax({
-				url: "@Url.Action("Delete")",
-				data: { contentId: contentId },
-				success: function() { window.location.reload(); }
-			});
+		var inputModel;
+		try 
+		{
+			inputModel = EUCLID.getModel({ commandName: "DeleteForumContent" });
+		} catch(e) {
+			EUCLID.displayError("Unable to get model for command DeleteForumContent", e.name +  "<br />" + e.message);
+			return false;
+		}
 
-		return false;
+		try{
+			inputModel.ContentIdentifier = contentId;
+			EUCLID.publish(inputModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to delete content", e.name + "<br />" + e.message);
+			return false;
+		}
+		
+		window.location.reload();
 	}
 </script>
 
@@ -111,7 +142,7 @@
 				<tr>
 					<td>
 						<ul class="button-switch">
-							<li><button type="button" id="update">Save</button></li>
+							<li><button type="button" id="save">Save</button></li>
 						</ul>
 					</td>
 					@Html.Partial("_Pagination")
@@ -121,7 +152,7 @@
 				@foreach (var content in Model.ContentItems)
 				{
 					<tr>
-						<td>@Html.CheckBoxFor(m => content.Active, new {@class = "content-active", data_item_id = @content.Identifier})</td>
+						<td>@Html.CheckBoxFor(m => content.Active, new {@class = "content-active", data_item_id = @content.Identifier, data_item_name=string.Format("{0} - {1}", @content.Identifier, @content.ContentLocation) })</td>
 						<td>@content.ContentLocation</td>
 						<td>@content.ContentType</td>
 						<td>

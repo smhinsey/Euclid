@@ -27,7 +27,6 @@ namespace AdminComposite
 			AreaRegistration.RegisterAllAreas();
 
 			GlobalFilters.Filters.Add(new PopulateAdminWideViewBag());
-
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 

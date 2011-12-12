@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 using AdminComposite.Models;
-using Euclid.Common.Messaging;
 using ForumAgent.Commands;
 using ForumAgent.Queries;
 
@@ -13,14 +12,10 @@ namespace AdminComposite.Controllers
 	public class ContentController : Controller
 	{
 		private readonly ContentQueries _contentQueries;
-		private readonly ForumQueries _forumQueries;
-		private readonly IPublisher _publisher;
 
-		public ContentController(ContentQueries contentQueries, ForumQueries forumQueries, IPublisher publisher)
+		public ContentController(ContentQueries contentQueries)
 		{
 			_contentQueries = contentQueries;
-			_forumQueries = forumQueries;
-			_publisher = publisher;
 		}
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
@@ -62,29 +57,15 @@ namespace AdminComposite.Controllers
 			                                     		Location = content.ContentLocation,
 			                                     		Type = content.ContentType,
 			                                     		Value = content.Value,
-														PartialView = GetPartialViewNameForContentType(content.ContentType)
+														PartialView = getPartialViewNameForContentType(content.ContentType)
 			                                     	});
 		}
 
 		public PartialViewResult TypeSpecificInput(AvailableContentType contentType, string value)
 		{
-			var name = GetPartialViewNameForContentType(contentType);
+			var name = getPartialViewNameForContentType(contentType);
 
 			return PartialView(name, value);
-		}
-
-		public JsonResult Delete(Guid contentId)
-		{
-			var publicationId = _publisher.PublishMessage(new DeleteForumContent {ContentIdentifier = contentId});
-
-			return Json(publicationId, JsonRequestBehavior.AllowGet);
-		}
-
-		public JsonResult ActivateContent(Guid contentId, bool active)
-		{
-			var publicationId = _publisher.PublishMessage(new ActivateContent {ContentIdentifier = contentId, Active = active});
-
-			return Json(publicationId, JsonRequestBehavior.AllowGet);
 		}
 
 		public PartialViewResult Preview(Guid contentId)
@@ -94,14 +75,12 @@ namespace AdminComposite.Controllers
 			return PartialView("_preview", content);
 		}
 
-
-
-		private string GetPartialViewNameForContentType(string contentType)
+		private string getPartialViewNameForContentType(string contentType)
 		{
-			return GetPartialViewNameForContentType((AvailableContentType)Enum.Parse(typeof (AvailableContentType), contentType));
+			return getPartialViewNameForContentType((AvailableContentType)Enum.Parse(typeof (AvailableContentType), contentType));
 		}
 
-		private string GetPartialViewNameForContentType(AvailableContentType contentType)
+		private static string getPartialViewNameForContentType(AvailableContentType contentType)
 		{
 			string viewName;
 			switch (contentType)

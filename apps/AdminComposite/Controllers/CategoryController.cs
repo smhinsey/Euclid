@@ -12,12 +12,10 @@ namespace AdminComposite.Controllers
 	public class CategoryController : Controller
 	{
 		private readonly CategoryQueries _categoryQueries;
-		private readonly IPublisher _publisher;
 
-		public CategoryController(CategoryQueries categoryQueries, ForumQueries forumQueries, IPublisher publisher)
+		public CategoryController(CategoryQueries categoryQueries, ForumQueries forumQueries)
 		{
 			_categoryQueries = categoryQueries;
-			_publisher = publisher;
 		}
 
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
@@ -62,17 +60,6 @@ namespace AdminComposite.Controllers
 			                                      		Name = category.Name,
 			                                      		Active = category.Active
 			                                      	});
-		}
-
-		public JsonResult ActivateCategory(Guid categoryId, bool active)
-		{
-			var publicationId = _publisher.PublishMessage(new ActivateCategory
-			                                              	{
-			                                              		CategoryIdentifier = categoryId,
-			                                              		Active = active
-			                                              	});
-
-			return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

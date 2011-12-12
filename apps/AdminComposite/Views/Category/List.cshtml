@@ -47,14 +47,34 @@
 		});
 
 
-		$("#update").click(function() {
+		$("#save").click(function() {
+			$("#save").attr("disabled", "disabled");
+			var inputModel;
+			try
+			{ 
+				inputModel = EUCLID.getModel({commandName: "ActivateCategory"});
+			}
+			catch(e) {
+				EUCLID.displayError("Unable to get model for ActivateCategory command", e.name + "<br />" + e.message);
+				return false;
+			}
+
 			$(".category-active").each(function(index, item) {
 				var categoryId = $(item).attr("data-item-id");
 				var active = $(item).is(":checked");
+				var currentName = $(item).attr("data-item-name");
 
-				$.get("@Url.Action("ActivateCategory")", { categoryId: categoryId, active: active });
+				try 
+				{
+					inputModel.CategoryIdentifier = categoryId;
+					inputModel.Active = active;
+					EUCLID.publish(inputModel);
+				} catch(e) {
+					EUCLID.displayError("Unable to activate category '" + currentName + "'", e.name + "<br />" + e.message);
+				}
 			});
 
+			setTimeout("$('#save').removeAttr('disabled');", 750);
 			return false;
 		});
 	});
@@ -93,7 +113,7 @@
 				<tr>
 					<td>
 						<ul class="button-switch">
-							<li><button type="button" id="update">Save</button></li>
+							<li><button type="button" id="save">Save</button></li>
 						</ul>
 					</td>
 					@Html.Partial("_pagination")
@@ -103,7 +123,7 @@
 				@foreach (var category in Model.Categories)
 				{
 					<tr>
-						<td>@Html.CheckBoxFor(m => category.Active, new {@class = "category-active", data_item_id = @category.Identifier})</td>
+						<td>@Html.CheckBoxFor(m => category.Active, new {@class = "category-active", data_item_id = @category.Identifier, data_item_name=@category.Name})</td>
 						<td><span data-category-id="@category.Identifier">@category.Name</span></td>
 						<td><span data-category-id="@category.Identifier">@category.Slug</span></td>
 						<td>

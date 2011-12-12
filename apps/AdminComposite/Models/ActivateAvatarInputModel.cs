@@ -25,4 +25,36 @@ namespace AdminComposite.Models
 		public Guid BadgeIdentifier { get; set; }
 		public bool Active { get; set; }
 	}
+
+	public class ActivateCategoryInputModel : DefaultInputModel
+	{
+		public ActivateCategoryInputModel()
+		{
+			CommandType = typeof (ActivateCategory);
+		}
+
+		public Guid CategoryIdentifier { get; set; }
+		public bool Active { get; set; }
+	}
+
+	public class ActivateContentInputModel : DefaultInputModel
+	{
+		public ActivateContentInputModel()
+		{
+			CommandType = typeof (ActivateContent);
+		}
+
+		public Guid ContentIdentifier { get; set; }
+		public bool Active { get; set; }
+	}
+
+	public class DeleteContentInputModel : DefaultInputModel
+	{
+		public DeleteContentInputModel()
+		{
+			CommandType = typeof (DeleteForumContent);
+		}
+
+		public Guid ContentIdentifier { get; set; }
+	}
 }
