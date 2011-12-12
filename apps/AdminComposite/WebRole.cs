@@ -165,15 +165,9 @@ namespace AdminComposite
 																								NoVoting = input.SelectedScheme == VotingScheme.NoVoting,
 																								UpDownVoting = input.SelectedScheme == VotingScheme.UpDownVoting
 																							});
-			//composite.RegisterInputModelMap<SetVotingSchemeInputModel, UpdateForumVotingScheme>(
-			//                                                                                input => new UpdateForumVotingScheme
-			//                                                                                {
-			//                                                                                    ForumIdentifier = input.ForumIdentifier,
-			//                                                                                    NoVoting = input.SelectedScheme == VotingScheme.NoVoting,
-			//                                                                                    UpDownVoting = input.SelectedScheme == VotingScheme.UpDownVoting
-			//                                                                                });
-			setAzureCredentials(container);
+			composite.RegisterInputModelMap<ActivateOrganizationUserInputModel, ActivateOrganizationUser>();
 
+			setAzureCredentials(container);
 			_initialized = true;
 		}
 

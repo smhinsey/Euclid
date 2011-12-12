@@ -28,7 +28,7 @@
 		$(".edit.user").click(function () {
 			var organizationId = "@ViewBag.OrganizationId";
 			$("<div></div>")
-				.load("/Organization/UpdateUser?organizationId=@ViewBag.OrganizationId&userId=" + $(this).attr("data-user-id"))
+				.load("/Organization/UpdateUser?organizationId=@ViewBag.OrganizationId&userId=" + $(this).attr("data-item-id"))
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -40,15 +40,29 @@
 
 		$("#save").click(function () {
 			$("#save").attr("disabled", "disabled");
+			var inputModel;
+
+			try {
+				inputModel = EUCLID.getModel({commandName: "ActivateOrganizationUser"});
+			} catch(e) {
+				EUCLID.displayError("Unable to get model for command ActivateOrganizationUser", e.name + "<br />" + e.message);
+				return false;
+			}
 
 			$(".activate-user").each(function(index, item) {
-				var userId = $(item).attr("data-user-id");
-				var checked = $(item).is(":checked");
+				var currentName = $(item).attr("data-item-name");
 
-				$.get("@Url.Action("ActivateUser")", { userId: userId, activate: checked });
+				try{
+					inputModel.UserIdentifier = $(item).attr("data-item-id");
+					inputModel.Active = $(item).is(":checked");
+					EUCLID.publish(inputModel);
+				} catch(e) {
+					EUCLID.displayError("Unable to activate user " + currentName, e.name + "<br />" + e.message);
+				}
 			});
 			
 			setTimeout('$("#save").removeAttr("disabled");', 750);
+			return false;
 		});
 	});   //document.ready
 </script>
@@ -94,7 +108,7 @@
 				{
 					var isCurrentUser = (HttpContext.Current.User.Identity.Name == user.Username);
 					<tr>
-						<td><input type="checkbox" @if (user.Active) { <text>checked="checked"</text> } @if (isCurrentUser) {<text>disabled="disabled"</text>} class="activate-user" data-user-id="@user.Identifier"/></td>
+						<td><input type="checkbox" @if (user.Active) { <text>checked="checked"</text> } @if (isCurrentUser) {<text>disabled="disabled"</text>} class="activate-user" data-item-id="@user.Identifier" data-item-name="@user.FirstName @user.LastName"/></td>
 						<td>
 							@if (isCurrentUser)
 							{

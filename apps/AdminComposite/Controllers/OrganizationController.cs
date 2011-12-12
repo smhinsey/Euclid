@@ -12,16 +12,12 @@ namespace AdminComposite.Controllers
 	public class OrganizationController : Controller
 	{
 		private readonly OrganizationQueries _organizationQueries;
-
 		private readonly OrganizationUserQueries _userQueries;
 
-		private readonly IPublisher _publisher;
-
-		public OrganizationController(OrganizationUserQueries userQueries, OrganizationQueries organizationQueries, IPublisher publisher)
+		public OrganizationController(OrganizationUserQueries userQueries, OrganizationQueries organizationQueries)
 		{
 			_userQueries = userQueries;
 			_organizationQueries = organizationQueries;
-			_publisher = publisher;
 		}
 
 		//
@@ -92,17 +88,6 @@ namespace AdminComposite.Controllers
 									};
 
 			return View(model);
-		}
-
-		public JsonResult ActivateUser(Guid userId, bool activate)
-		{
-			var publicationRecordId = _publisher.PublishMessage(new ActivateOrganizationUser
-			                          	{
-			                          		UserIdentifier = userId,
-			                          		Active = activate
-			                          	});
-
-			return Json(new {publicationRecordId}, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

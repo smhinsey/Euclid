@@ -101,4 +101,15 @@ namespace AdminComposite.Models
 		public Guid ForumIdentifier { get; set; }
 		public VotingScheme SelectedScheme { get; set; }
 	}
+
+	public class ActivateOrganizationUserInputModel : DefaultInputModel
+	{
+		public ActivateOrganizationUserInputModel()
+		{
+			CommandType = typeof (ActivateOrganizationUser);
+		}
+
+		public Guid UserIdentifier { get; set; }
+		public bool Active { get; set; }
+	}
 }
