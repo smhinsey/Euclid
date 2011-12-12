@@ -139,6 +139,7 @@
     <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.min.js" />
     <Content Include="Content\admin-ui.js" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\AvailableContentType.cs" />
     <Compile Include="Controllers\AvatarController.cs" />
     <Compile Include="Extensions\FilterContextExtensions.cs" />
     <Compile Include="Controllers\BadgeController.cs" />
@@ -158,6 +159,18 @@
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Models\ActivateAvatarInputModel.cs" />
+    <Compile Include="Models\ActivateBadgeInputModel.cs" />
+    <Compile Include="Models\ActivateCategoryInputModel.cs" />
+    <Compile Include="Models\ActivateContentInputModel.cs" />
+    <Compile Include="Models\ActivateOrganizationUserInputModel.cs" />
+    <Compile Include="Models\ActivateUserInputModel.cs" />
+    <Compile Include="Models\ApproveCommentInputModel.cs" />
+    <Compile Include="Models\ApprovePostInputModel.cs" />
+    <Compile Include="Models\BlockUserInputModel.cs" />
+    <Compile Include="Models\DeleteContentInputModel.cs" />
+    <Compile Include="Models\RejectCommentInputModel.cs" />
+    <Compile Include="Models\RejectPostInputModel.cs" />
+    <Compile Include="Models\UnblockUserInputModel.cs" />
     <Compile Include="Models\UpdateForumAvatarInputModel.cs" />
     <Compile Include="Models\CreateBadgeInputModel.cs" />
     <Compile Include="Models\CreateCategoryInputModel.cs" />
@@ -173,6 +186,7 @@
     <Compile Include="Models\UpdateCategoryInputModel.cs" />
     <Compile Include="Models\UpdateForumContentInputModel.cs" />
     <Compile Include="Models\UpdateForumInputModel.cs" />
+    <Compile Include="Models\UpdateForumVotingSchemeInputModel.cs" />
     <Compile Include="Models\UpdateOrganizationInputModel.cs" />
     <Compile Include="Models\UpdateOrganizationUserInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

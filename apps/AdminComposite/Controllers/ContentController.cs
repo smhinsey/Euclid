@@ -6,8 +6,6 @@ using ForumAgent.Queries;
 
 namespace AdminComposite.Controllers
 {
-	public enum AvailableContentType { RichText, EmeddedYouTube }
-
 	[Authorize]
 	public class ContentController : Controller
 	{
