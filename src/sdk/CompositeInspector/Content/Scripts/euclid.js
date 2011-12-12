@@ -23,10 +23,18 @@ EUCLID.publish = (function (inputModel) {
 	}
 
 	$.ajaxSetup({ "async": false });
-	var result = $.post(inputModel.getPublishUrl(), $(form).serialize());
+	var jqHxr = $.post(inputModel.getPublishUrl(), $(form).serialize());
+	var result = $.parseJSON(jqHxr.responseText);
 	$.ajaxSetup({ "async": true });
 
-	return $.parseJSON(result.responseText).publicationId;
+	if (jqHxr.status == 500) {
+		throw {
+			name: result.name,
+			message: result.message + "\n\n" + result.callstack
+		};
+	}
+
+	return result.publicationId;
 });
 
 EUCLID.getModel = (function (args) {
@@ -51,7 +59,7 @@ EUCLID.getModel = (function (args) {
 			name: "Invalid InputModel Exception",
 			message: "Could not retrieve the input model for command '" + _commandName + "'"
 		};
-	} else if (_model.hasOwnProperty("exception") && _model.exception) {
+	} else if (jqHxr.status == 500) {
 		throw {
 			name: _model.name,
 			message: _model.message + "\n\n" + _model.callstack

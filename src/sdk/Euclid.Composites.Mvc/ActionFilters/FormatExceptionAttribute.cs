@@ -15,13 +15,14 @@ namespace Euclid.Composites.Mvc.ActionFilters
 													{
 														name = filterContext.Exception.GetType().Name,
 														message = filterContext.Exception.Message,
-														callstack = filterContext.Exception.StackTrace,
-														exception = true
+														callstack = filterContext.Exception.StackTrace
 													},
 											JsonRequestBehavior = JsonRequestBehavior.AllowGet
 										};
 
 				filterContext.ExceptionHandled = true;
+				filterContext.HttpContext.Response.StatusCode = 500;
+				filterContext.HttpContext.Response.TrySkipIisCustomErrors = true; 
 			}
 			else
 			{
