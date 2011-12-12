@@ -10,12 +10,9 @@ namespace AdminComposite.Controllers
 	public class VotingController : Controller
 	{
 		private readonly ForumQueries _forumQueries;
-		private readonly IPublisher _publisher;
-
-		public VotingController(ForumQueries forumQueries, IPublisher publisher)
+		public VotingController(ForumQueries forumQueries)
 		{
 			_forumQueries = forumQueries;
-			_publisher = publisher;
 		}
 
 		public ActionResult List(Guid forumId)
@@ -24,17 +21,5 @@ namespace AdminComposite.Controllers
 
 			return View(model);
 		}
-
-		//public JsonResult SetVotingScheme(Guid forumId, VotingScheme selectedScheme)
-		//{
-		//    var publicationId = _publisher.PublishMessage(new UpdateForumVotingScheme
-		//                                                    {
-		//                                                        ForumIdentifier = forumId,
-		//                                                        NoVoting = selectedScheme == VotingScheme.NoVoting,
-		//                                                        UpDownVoting = selectedScheme == VotingScheme.UpDownVoting
-		//                                                    });
-
-		//    return Json(new {publicationId}, JsonRequestBehavior.AllowGet);
-		//}
 	}
 }
