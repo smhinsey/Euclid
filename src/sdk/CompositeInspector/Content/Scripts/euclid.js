@@ -130,6 +130,8 @@ EUCLID.showModalForm = (function (args) {
 			dataCss: { backgroundColor: "#fff" },
 			containerCss:{ backgroundColor:"#fff" }
 		});
+
+		$(".simplemodal-container").css("height", "auto");
 });
 
 $(document).ready(function () {

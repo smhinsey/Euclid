@@ -6,17 +6,18 @@
  {
 		@Html.HiddenFor(m => m.ForumIdentifier);
 		@Html.HiddenFor(m => m.CreatedBy);
+		@Html.ValidationSummary()
 		<fieldset>
 			<legend>New Category</legend>
 		
 			<dl>
-				<dt><label for="category-name">Name</label></dt>
+				<dt>@Html.LabelFor(m=>m.Name)</dt>
 				<dd>@Html.TextBoxFor(m => m.Name, new { id = "category-name" })</dd>
 
-				<dt><label for="category-name">Slug</label></dt>
+				<dt>@Html.LabelFor(m=>m.Slug)</dt>
 				<dd>@Html.TextBoxFor(m => m.Slug, new { id = "category-slug" })</dd>
 
-				<dt class="checkbox"><label for="category-active">Active</label></dt>
+				<dt class="checkbox">@Html.LabelFor(m=>m.Active)</dt>
 				<dd>@Html.CheckBoxFor(m => m.Active, new { id = "category-active" })</dd>
 			</dl>
 		</fieldset>

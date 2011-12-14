@@ -6,26 +6,27 @@
 	@using (Html.BeginFormForInputModel(Model))
 	{
 		@Html.HiddenFor(m=>m.ForumIdentifier)
+		@Html.ValidationSummary()
 		<fieldset>
 			<legend>New Badge</legend>
 
 			<dl>
-				<dt><label for="badge-name">Badge Name</label></dt>
+				<dt>@Html.LabelFor(m=>m.Name)</dt>
 				<dd>@Html.TextBoxFor(m=>m.Name, new { id="badge-name"})</dd>
 
-				<dt><label for="badge-field">Field</label></dt>
+				<dt>@Html.LabelFor(m=>m.Field)</dt>
 				<dd>@Html.DropDownListFor(m=>m.Field, Model.Fields, "-- Select --") </dd>
 
-				<dt><label for="badge-trigger-operator">Operator</label></dt>
+				<dt>@Html.LabelFor(m=>m.Operator)</dt>
 				<dd>@Html.DropDownListFor(m=>m.Operator, Model.Operators, "-- Select --")</dd>
 
-				<dt><label for="award-value">Value</label></dt>
+				<dt>@Html.LabelFor(m=>m.Value)</dt>
 				<dd>@Html.TextBoxFor(m=>m.Value, new { id = "award-value"})</dd>
 
-				<dt><label for="badge-description">Description</label></dt>
+				<dt>@Html.LabelFor(m=>m.Description)</dt>
 				<dd>@Html.TextAreaFor(m=>m.Description, new { id = "badge-description"})</dd>
 
-				<dt><label for="badge-image">Image</label></dt>
+				<dt><label for="badge-image">@Html.LabelFor(m=>m.Image)</label></dt>
 				<dd>@Html.TextBoxFor(m=>m.Image, new { id = "badge-image", type="file"})</dd>
 			</dl>
 		</fieldset>
