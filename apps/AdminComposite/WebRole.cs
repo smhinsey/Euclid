@@ -180,6 +180,7 @@ namespace AdminComposite
 			                                                                               	});
 			composite.RegisterInputModelMap<DeleteOrganizationUserInputModel, DeleteOrganizationUser>();
 			composite.RegisterInputModelMap<DeleteForumUserInputModel, DeleteForumUser>();
+			composite.RegisterInputModelMap<DeleteAvatarInputModel, DeleteAvatar>();
 
 			setAzureCredentials(container);
 			_initialized = true;

@@ -167,6 +167,7 @@
     <Compile Include="Models\ApproveCommentInputModel.cs" />
     <Compile Include="Models\ApprovePostInputModel.cs" />
     <Compile Include="Models\BlockUserInputModel.cs" />
+    <Compile Include="Models\DeleteAvatarInputModel.cs" />
     <Compile Include="Models\DeleteContentInputModel.cs" />
     <Compile Include="Models\DeleteForumUserInputModel.cs" />
     <Compile Include="Models\DeleteOrganizationUserInputModel.cs" />

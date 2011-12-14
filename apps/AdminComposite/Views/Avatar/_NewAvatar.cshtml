@@ -2,23 +2,31 @@
 @using Euclid.Composites.Mvc.Extensions
 @model CreateForumAvatarInputModel
 
-
 <section>
 	@using (Html.BeginFormForInputModel(Model))
 	{
 		@Html.HiddenFor(m=>m.CreatedBy)
 		@Html.HiddenFor(m=>m.ForumIdentifier)
+		@Html.ValidationSummary()
 		<fieldset>
 			<legend>New Avatar</legend>
 
 			<dl>
-				<dt><label for="avatar-name">Badge Name</label></dt>
-				<dd>@Html.TextBoxFor(m => m.Name, new { id = "avatar-name" })</dd>
+				<dt>@Html.LabelFor(m=>m.Name)</dt>
+				<dd>
+					@Html.TextBoxFor(m => m.Name, new { id = "avatar-name" })
+					<br />
+					@Html.ValidationMessageFor(m=>m.Name)
+				</dd>
 
-				<dt><label for="avatar-description">Description</label></dt>
-				<dd>@Html.TextAreaFor(m => m.Description, new { id = "avatar-description" })</dd>
+				<dt>@Html.LabelFor(m=>m.Description)</dt>
+				<dd>
+					@Html.TextAreaFor(m => m.Description, new { id = "avatar-description" })
+					<br />
+					@Html.ValidationMessageFor(m=>m.Description)
+				</dd>
 
-				<dt><label for="avatar-image">Image</label></dt>
+				<dt>@Html.LabelFor(m=>m.Image)</dt>
 				<dd>@Html.TextBoxFor(m=>m.Image, new {id="avatar-image", type="file"})</dd>
 			</dl>
 		</fieldset>
