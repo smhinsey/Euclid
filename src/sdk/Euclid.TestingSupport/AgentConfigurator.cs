@@ -31,7 +31,7 @@ namespace Euclid.TestingSupport
 
 		public ConsoleFabric Fabric { get; set; }
 
-		public void Configure(Assembly agentAssembly)
+		public void Configure(Assembly agentAssembly, bool recreateDb = true)
 		{
 			if (_configured)
 			{
@@ -64,7 +64,7 @@ namespace Euclid.TestingSupport
 
 			_container.Register(Component.For<BasicFabric>().Instance(Fabric));
 
-			composite.CreateSchema(compositeDatabaseConnection, true);
+			composite.CreateSchema(compositeDatabaseConnection, recreateDb);
 
 			_configured = true;
 		}

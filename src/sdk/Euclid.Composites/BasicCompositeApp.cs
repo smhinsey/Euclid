@@ -63,7 +63,12 @@ namespace Euclid.Composites
 
 		public IEnumerable<IPartMetadata> Commands
 		{
-			get { return _inputModelMap.Commands; }
+			get { return _agents.SelectMany(a=>a.Commands); }
+		}
+
+		public IEnumerable<IPartMetadata> Queries
+		{
+			get { return _agents.SelectMany(a => a.Queries); }
 		}
 
 		public string Name { get; set; }
@@ -250,7 +255,7 @@ namespace Euclid.Composites
 
 			foreach (var agent in Agents)
 			{
-				foreach (var rm in agent.ReadModels.Collection)
+				foreach (var rm in agent.ReadModels)
 				{
 					var assembly = rm.Type.Assembly;
 					if (!assembliesToMap.ContainsKey(assembly))

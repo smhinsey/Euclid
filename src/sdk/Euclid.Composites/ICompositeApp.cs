@@ -19,6 +19,8 @@ namespace Euclid.Composites
 
 		IEnumerable<IPartMetadata> Commands { get; }
 
+		IEnumerable<IPartMetadata> Queries { get; }
+
 		string Name { get; set; }
 
 		CompositeAppSettings Settings { get; }
