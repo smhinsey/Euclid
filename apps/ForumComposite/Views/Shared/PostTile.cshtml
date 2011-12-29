@@ -49,9 +49,7 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 			<img src="@Url.Content("~/Content/images/exclamation-white.png")" /><br />
 		</div>
 
-		<@header> <a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">
-								{Post Title}</a></
-	@header>
+	<@header><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">{Post Title}</a></@header>
 	<p style="@text">@truncate("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis ante in ipsum pharetra tempus a vel mi. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean aliquet magna eget lacus accumsan faucibus. Etiam varius tortor vitae ligula rutrum placerat auctor elit iaculis. Ut lectus justo.", textLength)
 		&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em>
 							in <a href="@Url.RouteUrl("Category", new { categorySlug = "category" })" class="label">

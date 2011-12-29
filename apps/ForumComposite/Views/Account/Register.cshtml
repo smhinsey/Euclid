@@ -3,6 +3,8 @@
 <div class="modal hide fade" style="display: none;" id="registration-modal">
 	@using (Html.BeginFormForInputModel(Model, true, Url.RouteUrl("Home")))
 	{
+	 @Html.Hidden("ForumIdentifier", ForumIdentifier)
+
 		<div class="modal-header">
 			<a href="#" class="close">&times;</a>
 			<h3>Register for {Forum Name}</h3>
@@ -14,7 +16,7 @@
 				<label for="username">Name</label>
 
 				<div class="input">
-					<input class="large" name="username" size="30" type="text" value="username" />
+					@Html.TextBoxFor(m => m.FirstName)
 				</div>
 
 			</div>
@@ -23,7 +25,7 @@
 				<label for="username">Username</label>
 
 				<div class="input">
-					<input class="large" name="username" size="30" type="text" value="username" />
+					@Html.TextBoxFor(m => m.Username)
 				</div>
 
 			</div>
@@ -32,7 +34,7 @@
 				<label for="email">Email</label>
 
 				<div class="input">
-					<input class="large" name="email" size="30" type="text" value="account@emailprovider.com" />
+					@Html.TextBoxFor(m => m.Email)
 				</div>
 
 			</div>
@@ -41,7 +43,7 @@
 				<label for="password">Password</label>
 
 				<div class="input">
-					<input class="large" name="password" size="30" type="password" value="secret" />
+					@Html.TextBoxFor(m => m.Password)
 				</div>
 
 			</div>
@@ -50,7 +52,7 @@
 				<label for="password">Confirm Password</label>
 
 				<div class="input">
-					<input class="large" name="password" size="30" type="password" value="secret" />
+					@Html.TextBoxFor(m => m.ConfirmationPassword)
 				</div>
 
 			</div>
