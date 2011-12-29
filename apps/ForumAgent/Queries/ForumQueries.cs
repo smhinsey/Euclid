@@ -37,7 +37,7 @@ namespace ForumAgent.Queries
 				{ ForumIdentifier = forumIdentifier, ForumName = forum.Name, CurrentScheme = getVotingScheme(forum) };
 		}
 
-		public Forum GetForumBySlug(Guid orgIdentifier, string forumSlug)
+		public Forum FindBySlug(Guid orgIdentifier, string forumSlug)
 		{
 			var session = GetCurrentSession();
 

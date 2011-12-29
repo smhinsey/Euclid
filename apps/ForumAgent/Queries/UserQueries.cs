@@ -52,6 +52,15 @@ namespace ForumAgent.Queries
 			return FindByUserIdentifier(forumId, matchedUser.Identifier);
 		}
 
+		public IList<ForumUser> FindTopUsers(Guid forumId)
+		{
+			var session = GetCurrentSession();
+
+			var users = session.QueryOver<ForumUser>().Skip(0).Take(5);
+
+			return users.List();
+		}
+
 		public ForumUsers FindByForum(Guid forumId, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();

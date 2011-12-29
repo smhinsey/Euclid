@@ -58,6 +58,7 @@ namespace ForumComposite
 				new { controller = "Category", action = "Detail" }
 				);
 
+
 			routes.MapRoute(
 				"Tags",
 				"org/{org}/forum/{forum}/tags",

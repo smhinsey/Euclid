@@ -91,7 +91,7 @@ namespace ForumAgent.Processors
 
 			if (user != null)
 			{
-				user.NumberPosts++;
+				user.PostCount++;
 				_userRepository.Update(user);
 			}
 		}

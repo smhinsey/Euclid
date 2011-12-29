@@ -83,7 +83,7 @@ namespace ForumAgent.Processors
 
 			if (user != null)
 			{
-				user.NumberComments++;
+				user.CommentCount++;
 				_userRepository.Update(user);
 			}
 
