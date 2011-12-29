@@ -18,91 +18,91 @@ namespace ForumComposite
 
 			routes.MapRoute(
 				"Home",
-				"",
+				"org/{org}/forum/{forum}",
 				new { controller = "PostListing", action = "Popular" }
 				);
 
 			routes.MapRoute(
 				"PopularPosts",
-				"posts/popular",
+				"org/{org}/forum/{forum}/posts/popular",
 				new { controller = "PostListing", action = "Popular" }
 				);
 
 			routes.MapRoute(
 				"AllPosts",
-				"posts/all",
+				"org/{org}/forum/{forum}/posts/all",
 				new { controller = "PostListing", action = "All" }
 				);
 
 			routes.MapRoute(
 				"ControversialPosts",
-				"posts/controversial",
+				"org/{org}/forum/{forum}/posts/controversial",
 				new { controller = "PostListing", action = "Controversial" }
 				);
 
 			routes.MapRoute(
 				"Categories",
-				"categories",
+				"org/{org}/forum/{forum}/categories",
 				new { controller = "Category", action = "All" }
 				);
 
 			routes.MapRoute(
 				"Category",
-				"categories/{categorySlug}",
+				"org/{org}/forum/{forum}/categories/{categorySlug}",
 				new { controller = "Category", action = "Detail" }
 				);
 
 			routes.MapRoute(
 				"Tags",
-				"tags",
+				"org/{org}/forum/{forum}/tags",
 				new { controller = "Tag", action = "All" }
 				);
 
 			routes.MapRoute(
 				"Tag",
-				"tags/{tagSlug}",
+				"org/{org}/forum/{forum}/tags/{tagSlug}",
 				new { controller = "Tag", action = "Detail" }
 				);
 
 			routes.MapRoute(
 				"AllProfiles",
-				"profiles",
+				"org/{org}/forum/{forum}/profiles",
 				new { controller = "Profile", action = "All" }
 				);
 
 			routes.MapRoute(
 				"ProfileOverview",
-				"profiles/{profileSlug}",
+				"org/{org}/forum/{forum}/profiles/{profileSlug}",
 				new { controller = "Profile", action = "Overview" }
 				);
 
 			routes.MapRoute(
 				"ProfileBadges",
-				"profiles/{profileSlug}/badges",
+				"org/{org}/forum/{forum}/profiles/{profileSlug}/badges",
 				new { controller = "Profile", action = "Badges" }
 				);
 
 			routes.MapRoute(
 				"ProfileFavorites",
-				"profiles/{profileSlug}/favorites",
+				"org/{org}/forum/{forum}/profiles/{profileSlug}/favorites",
 				new { controller = "Profile", action = "Favorites" }
 				);
 
 			routes.MapRoute(
 				"ProfileFriends",
-				"profiles/{profileSlug}/friends",
+				"org/{org}/forum/{forum}/profiles/{profileSlug}/friends",
 				new { controller = "Profile", action = "Friends" }
 				);
 
 			routes.MapRoute(
 				"ProfileRecentActivity",
-				"profiles/{profileSlug}/activity",
+				"org/{org}/forum/{forum}/profiles/{profileSlug}/activity",
 				new { controller = "Profile", action = "RecentActivity" }
 				);
 
 			routes.MapRoute(
 				"Post",
-				"categories/{categorySlug}/posts/{postSlug}",
+				"org/{org}/forum/{forum}/categories/{categorySlug}/posts/{postSlug}",
 				new
 				{
 					controller = "Post",
@@ -114,13 +114,13 @@ namespace ForumComposite
 
 			routes.MapRoute(
 				"CreatePost",
-				"createpost",
+				"org/{org}/forum/{forum}/createpost",
 				new { controller = "Post", action = "Create" }
 				);
 
 			routes.MapRoute(
 				"InfoPage",
-				"pages/info",
+				"org/{org}/forum/{forum}/pages/info",
 				new { controller = "Pages", action = "Info" }
 				);
 		}
