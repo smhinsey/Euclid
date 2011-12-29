@@ -1,8 +1,13 @@
-﻿<div id="newPost" style="text-align: center;">
-	<input type="button" data-controls-modal="newPost-modal" data-backdrop="static" class="btn medium primary"
-				 value="Create Post" />
-</div>
-
+﻿
+@if (Request.IsAuthenticated)
+{
+	<div class="well">
+		<div id="newPost" style="text-align: center;">
+			<input type="button" data-controls-modal="newPost-modal" data-backdrop="static" class="btn medium primary"
+						 value="Create Post" />
+		</div>
+	</div>
+}
 <div class="modal hide fade" style="display: none;" id="newPost-modal">
 
 	<div class="modal-header">

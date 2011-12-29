@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Euclid.Common.Messaging;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
@@ -12,7 +13,6 @@ namespace ForumComposite.Controllers
 	public abstract class ForumController : Controller
 	{
 		private readonly ForumQueries _forumQueries;
-
 		private readonly OrganizationQueries _orgQueries;
 		private readonly CategoryQueries _categoryQueries;
 		private readonly UserQueries _userQueries;
@@ -23,6 +23,7 @@ namespace ForumComposite.Controllers
 			_orgQueries = DependencyResolver.Current.GetService<OrganizationQueries>();
 			_categoryQueries = DependencyResolver.Current.GetService<CategoryQueries>();
 			_userQueries = DependencyResolver.Current.GetService<UserQueries>();
+			Publisher = DependencyResolver.Current.GetService<IPublisher>();
 		}
 
 		protected override void Execute(System.Web.Routing.RequestContext requestContext)
@@ -33,15 +34,15 @@ namespace ForumComposite.Controllers
 		}
 
 		public Guid ForumIdentifier { get; set; }
-
 		public string ForumName { get; set; }
-
 		public Guid OrganizationIdentifier { get; set; }
-
 		public string OrganizationName { get; set; }
-
 		public IList<Category> Categories { get; set; }
 		public IList<ForumUser> TopUsers { get; set; }
+
+		public string CurrentUserName { get; set; }
+
+		public IPublisher Publisher { get; set; }
 
 		private void setGlobalProperties(RequestContext requestContext)
 		{
@@ -59,6 +60,11 @@ namespace ForumComposite.Controllers
 
 			Categories = _categoryQueries.GetActiveCategories(ForumIdentifier, 0, 100);
 			TopUsers = _userQueries.FindTopUsers(ForumIdentifier);
+
+			if (requestContext.HttpContext.Request.IsAuthenticated)
+			{
+				CurrentUserName = requestContext.HttpContext.User.Identity.Name;
+			}
 		}
 	}
 }

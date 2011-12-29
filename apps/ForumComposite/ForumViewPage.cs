@@ -34,6 +34,7 @@ namespace ForumComposite
 
 		public IList<Category> Categories { get; set; }
 		public IList<ForumUser> TopUsers { get; set; }
+		public string CurrentUserName { get; set; }
 
 		protected override void InitializePage()
 		{
@@ -58,6 +59,11 @@ namespace ForumComposite
 
 			Categories = _categoryQueries.GetActiveCategories(ForumIdentifier, 0, 100);
 			TopUsers = _userQueries.FindTopUsers(ForumIdentifier);
+
+			if (Request.IsAuthenticated)
+			{
+				CurrentUserName = User.Identity.Name;
+			}
 		}
 	}
 }

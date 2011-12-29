@@ -130,6 +130,18 @@ namespace ForumComposite
 				"org/{org}/forum/{forum}/pages/info",
 				new { controller = "Pages", action = "Info" }
 				);
+
+			routes.MapRoute(
+				"AuthenticateSignIn",
+				"org/{org}/forum/{forum}/authenticate",
+				new { controller = "Authentication", action = "Authenticate" }
+				);
+
+			routes.MapRoute(
+				"AuthenticateSignOut",
+				"org/{org}/forum/{forum}/authenticate/signout",
+				new { controller = "Authentication", action = "SignOut" }
+				);
 		}
 
 		protected void Application_Start()
