@@ -7,9 +7,9 @@
 <ul class="breadcrumb">
 	<li><a href="@Url.RouteUrl("Home")">@ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("Categories")">Categories</a> <span class="divider">/</span></li>
-	<li class="active">{Category Name}</li>
+	<li class="active">@Model.Name</li>
 </ul>
-<h1>{Category Name}</h1>
+<h1>@Model.Name</h1>
 <hr />
 <p><small>(Custom category content.)</small></p>
 

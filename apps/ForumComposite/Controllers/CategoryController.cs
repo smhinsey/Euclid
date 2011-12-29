@@ -1,17 +1,36 @@
 ﻿using System.Web.Mvc;
+using ForumAgent.Queries;
+using ForumComposite.ViewModels.Category;
 
 namespace ForumComposite.Controllers
 {
-	public class CategoryController : Controller
+	public class CategoryController : ForumController
 	{
+		private readonly CategoryQueries _categoryQueries;
+
+		private readonly PostQueries _postQueries;
+
+		public CategoryController(CategoryQueries categoryQueries, PostQueries postQueries)
+		{
+			_categoryQueries = categoryQueries;
+			_postQueries = postQueries;
+		}
+
 		public ActionResult All()
 		{
 			return View();
 		}
 
-		public ActionResult Detail()
+		public ActionResult Detail(string categorySlug)
 		{
-			return View();
+			var model = new CategoryDetailsViewModel();
+
+			var category = _categoryQueries.FindBySlug(ForumIdentifier, categorySlug);
+
+			model.Name = category.Name;
+			model.Posts = _postQueries.FindPostsByCategory(ForumIdentifier, category.Identifier);
+
+			return View(model);
 		}
 	}
 }

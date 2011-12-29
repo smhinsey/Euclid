@@ -2,7 +2,7 @@
 <ul>
 	@foreach(var category in Categories)
 	{
-		<li><a href="@Url.RouteUrl("Category", new { categorySlug = "category" })">@category.Name</a> (@category.TotalPosts)</li>
+		<li><a href="@Url.RouteUrl("Category", new { categorySlug = category.Slug })">@category.Name</a> (@category.TotalPosts)</li>
 	}
 </ul>
 <p><a href="@Url.RouteUrl("Categories")">View all categories</a>.</p>
