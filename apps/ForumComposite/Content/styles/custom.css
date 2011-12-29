@@ -22,3 +22,7 @@ body
 {
 	text-align: right;
 }
+
+form {
+	margin-bottom: 0px;
+}

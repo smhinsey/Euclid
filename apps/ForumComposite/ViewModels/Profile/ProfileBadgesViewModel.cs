@@ -1,4 +1,4 @@
-﻿namespace ForumSkeletonMvc.ViewModels.Profile
+﻿namespace ForumComposite.ViewModels.Profile
 {
 	public class ProfileBadgesViewModel
 	{

@@ -1,7 +1,6 @@
-﻿@using ForumSkeletonMvc.ViewModels.PostListing
-@model ControversialPostsViewModel
+﻿@model ForumComposite.ViewModels.PostListing.ControversialPostsViewModel
 @{
-	ViewBag.Title = "{Forum Name} - Controversial Posts";
+	ViewBag.Title = ForumName + " - Controversial Posts";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 }
 <ul class="tabs">
@@ -82,4 +81,3 @@
 		<li class="next"><a href="#">Next &rarr;</a></li>
 	</ul>
 </div>
-

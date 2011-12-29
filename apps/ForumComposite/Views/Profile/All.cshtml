@@ -1,7 +1,6 @@
-﻿@using ForumSkeletonMvc.ViewModels.Profile
-@model AllProfilesViewModel
+﻿@model ForumComposite.ViewModels.Profile.AllProfilesViewModel
 @{
-	ViewBag.Title = "{Forum Name} - All Users";
+	ViewBag.Title = ForumName + " - All Users";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 }
 <ul class="breadcrumb">
@@ -12,21 +11,21 @@
 <table class="zebra-striped">
 	<tbody>
 		@for (var i = 1; i < 11; i++)
-	{
+		{
 			<tr>
 				<td>
 					@i
 				</td>
-				<td><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
-					<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=40" /></a>
+				<td><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
+							<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=40" /></a>
 				</td>
 				<td>
-					<h3><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a></h3>
+					<h3><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">{Username}</a></h3>
 				</td>
 				<td>35 posts, 45 comments, 5 favorites </td>
 				<td style="text-align: right;"><a href="#">Add as Friend</a> </td>
 			</tr>
-	}
+		}
 	</tbody>
 </table>
 <hr />
@@ -44,4 +43,3 @@
 		<li class="next"><a href="#">Next &rarr;</a></li>
 	</ul>
 </div>
-

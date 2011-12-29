@@ -1,7 +1,6 @@
-﻿@using ForumSkeletonMvc.ViewModels.Profile
-@model ProfileOverviewViewModel
+﻿@model ForumComposite.ViewModels.Profile.ProfileOverviewViewModel
 @{
-	ViewBag.Title = "{Forum Name} - {Username}'s Profile";
+	ViewBag.Title = ForumName + " - {Username}'s Profile";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.ProfileOverviewClass = "active";
 }
@@ -32,4 +31,3 @@
 	</div>
 
 </div>
-

@@ -127,6 +127,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PostController.cs" />
@@ -138,7 +139,7 @@
     </Compile>
     <Compile Include="Models\CommentOnPostInputModel.cs" />
     <Compile Include="Models\PublishPostInputModel.cs" />
-    <Compile Include="Models\RegisterUserInputModel.cs" />
+    <Compile Include="Models\RegisterForumUserInputModel.cs" />
     <Compile Include="Models\SignInInputModel.cs" />
     <Compile Include="Models\UpdateUserProfileInputModel.cs" />
     <Compile Include="Models\VoteOnCommentInputModel.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="ViewModels\Profile\ProfileRecentActivityViewModel.cs" />
     <Compile Include="ViewModels\Tag\AllTagsViewModel.cs" />
     <Compile Include="ViewModels\Tag\TagDetailViewModel.cs" />
+    <Compile Include="ForumViewPage.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +316,9 @@
     <Content Include="Config\jason-mbp.custom.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

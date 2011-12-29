@@ -1,4 +1,4 @@
-﻿namespace ForumSkeletonMvc.ViewModels.Category
+﻿namespace ForumComposite.ViewModels.Category
 {
 	public class CategoryDetailsViewModel
 	{

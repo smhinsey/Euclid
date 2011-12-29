@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace ForumSkeletonMvc.Controllers
+namespace ForumComposite.Controllers
 {
 	public class CategoryController : Controller
 	{

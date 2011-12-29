@@ -1,4 +1,4 @@
-﻿namespace ForumSkeletonMvc.ViewModels.Pages
+﻿namespace ForumComposite.ViewModels.Pages
 {
 	public class InfoPageViewModel
 	{

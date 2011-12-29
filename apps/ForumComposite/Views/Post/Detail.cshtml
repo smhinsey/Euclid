@@ -1,48 +1,46 @@
-﻿@using ForumSkeletonMvc.ViewModels.Post
-@model PostDetailViewModel
+﻿@model ForumComposite.ViewModels.Post.PostDetailViewModel
 @{
-	ViewBag.Title = "{Forum Name} - {Post Name}";
+	ViewBag.Title = ForumName + " - {Post Name}";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 }
 @section HeadContent {
 	<script type="text/javascript">
-		$(document).ready(function () {
-			$("#addComment").click(function () {
+		$(document).ready(function() {
+			$("#addComment").click(function() {
 				$("#addComment").hide();
 				$("#addCommentForm").show();
 			});
 
-			$("#publishComment").click(function () {
+			$("#publishComment").click(function() {
 				$("#addComment").show();
 				$("#addCommentForm").hide();
 			});
 
-			$("#cancelComment").click(function () {
+			$("#cancelComment").click(function() {
 				$("#addComment").show();
 				$("#addCommentForm").hide();
 			});
 
-			$("#addReply").click(function () {
+			$("#addReply").click(function() {
 				$("#addReply").hide();
 				$("#addReplyForm").show();
 				$("#publishReply").focus();
 				$("#newReplyBody").focus();
 			});
 
-			$("#publishReply").click(function () {
+			$("#publishReply").click(function() {
 				$("#addReply").show();
 				$("#addReplyForm").hide();
 			});
 
-			$("#cancelReply").click(function () {
+			$("#cancelReply").click(function() {
 				$("#addReply").show();
 				$("#addReplyForm").hide();
 			});
 		});
 	</script>
 	<style type="text/css">
-		.comment
-		{
+		.comment {
 			margin-top: 15px;
 			margin-bottom: 15px;
 		}
@@ -85,24 +83,24 @@
 
 				<div id="addCommentForm" style="display: none;">
 					<form>
-					<fieldset><legend>Add a Comment</legend>
+						<fieldset><legend>Add a Comment</legend>
 
-						<div class="clearfix">
-							<label for="newCommentBody">Comment</label>
+							<div class="clearfix">
+								<label for="newCommentBody">Comment</label>
 
-							<div class="input">
-								<textarea class="xxlarge" name="newCommentBody" rows="6"></textarea>
-								<span class="help-block">Please be civil.</span>
+								<div class="input">
+									<textarea class="xxlarge" name="newCommentBody" rows="6"></textarea>
+									<span class="help-block">Please be civil.</span>
+								</div>
+
 							</div>
 
-						</div>
+							<div class="actions">
+								<input id="publishComment" type="button" class="btn primary" value="Publish Comment" />
+								<input id="cancelComment" type="button" class="btn" value="Cancel" />
+							</div>
 
-						<div class="actions">
-							<input id="publishComment" type="button" class="btn primary" value="Publish Comment" />
-							<input id="cancelComment" type="button" class="btn" value="Cancel" />
-						</div>
-
-					</fieldset>
+						</fieldset>
 					</form>
 				</div>
 
@@ -129,9 +127,9 @@
 
 			<div class="span6">
 				<ul class="pills" style="float: right;">
-					<li class="active"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Best</a></li>
-					<li><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Oldest</a></li>
-					<li><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Newest</a></li>
+					<li class="active"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Best</a></li>
+					<li><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Oldest</a></li>
+					<li><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Newest</a></li>
 				</ul>
 			</div>
 
@@ -148,12 +146,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -173,7 +171,7 @@
 			<div class="row">
 
 				<div class="span8 offset3">
-					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -195,12 +193,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -213,7 +211,7 @@
 			<div class="row">
 
 				<div class="span8 offset4">
-					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -238,12 +236,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -256,7 +254,7 @@
 			<div class="row">
 
 				<div class="span8 offset4">
-					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -278,12 +276,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -296,7 +294,7 @@
 			<div class="row">
 
 				<div class="span8 offset4">
-					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -312,12 +310,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -336,7 +334,7 @@
 			<div class="row">
 
 				<div class="span8 offset3">
-					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -352,12 +350,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -376,7 +374,7 @@
 			<div class="row">
 
 				<div class="span8 offset3">
-					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -392,12 +390,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -416,7 +414,7 @@
 			<div class="row">
 
 				<div class="span8 offset3">
-					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -432,12 +430,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -456,7 +454,7 @@
 			<div class="row">
 
 				<div class="span8 offset3">
-					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -478,12 +476,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -496,7 +494,7 @@
 			<div class="row">
 
 				<div class="span8 offset4">
-					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -512,12 +510,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -536,7 +534,7 @@
 			<div class="row">
 
 				<div class="span8 offset3">
-					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -552,12 +550,12 @@
 					<div class="row">
 
 						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
 						</div>
 
 						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">Username</a><br />
+							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
 							<small style="font-size: smaller;">About an hour ago</small>
 						</div>
 
@@ -576,7 +574,7 @@
 			<div class="row">
 
 				<div class="span8 offset3">
-					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title"})">Reply</a></p>
+					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
 				</div>
 
 			</div>
@@ -591,23 +589,23 @@
 
 				<div id="addReplyForm" style="display: none;">
 					<form>
-					<fieldset><legend style="padding-left: 0px;">New Reply</legend>
+						<fieldset><legend style="padding-left: 0px;">New Reply</legend>
 
-						<div class="clearfix">
+							<div class="clearfix">
 
-							<div class="input" style="margin-left: 0px;">
-								<textarea class="xxlarge" id="newReplyBody" name="newReplyBody" rows="6"></textarea>
-								<span class="help-block">Please be civil.</span>
+								<div class="input" style="margin-left: 0px;">
+									<textarea class="xxlarge" id="newReplyBody" name="newReplyBody" rows="6"></textarea>
+									<span class="help-block">Please be civil.</span>
+								</div>
+
 							</div>
 
-						</div>
+							<div class="actions" style="padding-left: 0px;">
+								<input id="publishReply" type="button" class="btn primary" value="Publish Reply" />
+								<input id="cancelReply" type="button" class="btn" value="Cancel" />
+							</div>
 
-						<div class="actions" style="padding-left: 0px;">
-							<input id="publishReply" type="button" class="btn primary" value="Publish Reply" />
-							<input id="cancelReply" type="button" class="btn" value="Cancel" />
-						</div>
-
-					</fieldset>
+						</fieldset>
 					</form>
 				</div>
 
@@ -618,4 +616,3 @@
 	</div>
 
 </div>
-

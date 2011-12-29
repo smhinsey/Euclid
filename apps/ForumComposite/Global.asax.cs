@@ -23,6 +23,12 @@ namespace ForumComposite
 				);
 
 			routes.MapRoute(
+				"Register",
+				"org/{org}/forum/{forum}/register",
+				new { controller = "Account", action = "Register" }
+				);
+
+			routes.MapRoute(
 				"PopularPosts",
 				"org/{org}/forum/{forum}/posts/popular",
 				new { controller = "PostListing", action = "Popular" }

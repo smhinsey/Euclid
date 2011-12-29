@@ -1,7 +1,6 @@
-﻿@using ForumSkeletonMvc.ViewModels.Tag
-@model AllTagsViewModel
+﻿@model ForumComposite.ViewModels.Tag.AllTagsViewModel
 @{
-	ViewBag.Title = "{Forum Name} - Tags";
+	ViewBag.Title = ForumName + " - Tags";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.TagsClass = "active";
 }
@@ -17,30 +16,30 @@
 	<div class="span5">
 		<h2><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h2>
 		<p>A brief description of the tag.</p>
-		@for (int i = 1; i < 5; i++)
-	{
+		@for (var i = 1; i < 5; i++)
+		{
 			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed" })
-	}
+		}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
 	<div class="span5">
 		<h2><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h2>
 		<p>A brief description of the tag.</p>
-		@for (int i = 1; i < 5; i++)
-	{
+		@for (var i = 1; i < 5; i++)
+		{
 			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed" })
-	}
+		}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
 	<div class="span5">
 		<h2><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h2>
 		<p>A brief description of the tag.</p>
-		@for (int i = 1; i < 5; i++)
-	{
+		@for (var i = 1; i < 5; i++)
+		{
 			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed" })
-	}
+		}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
@@ -53,40 +52,40 @@
 	<div class="span4" style="font-size: small;">
 		<h3><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h3>
 		<p style="font-size: smaller;">A brief description of the tag.</p>
-		@for (int i = 1; i < 3; i++)
-	{
+		@for (var i = 1; i < 3; i++)
+		{
 			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed" })
-	}
+		}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
 	<div class="span4" style="font-size: small;">
 		<h3><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h3>
 		<p style="font-size: smaller;">A brief description of the tag.</p>
-		@for (int i = 1; i < 3; i++)
-	{
+		@for (var i = 1; i < 3; i++)
+		{
 			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed" })
-	}
+		}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
 	<div class="span4" style="font-size: small;">
 		<h3><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h3>
 		<p style="font-size: smaller;">A brief description of the tag.</p>
-		@for (int i = 1; i < 3; i++)
-	{
+		@for (var i = 1; i < 3; i++)
+		{
 			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed" })
-	}
+		}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
 	<div class="span4" style="font-size: small;">
 		<h3><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h3>
 		<p style="font-size: smaller;">A brief description of the tag.</p>
-		@for (int i = 1; i < 3; i++)
-	{
+		@for (var i = 1; i < 3; i++)
+		{
 			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed" })
-	}
+		}
 		<a href="#">View</a> 33 more posts.
 	</div>
 
@@ -107,4 +106,3 @@
 		<li class="next"><a href="#">Next &rarr;</a></li>
 	</ul>
 </div>
-

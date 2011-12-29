@@ -1,22 +1,29 @@
 ﻿using System.Web.Mvc;
+using ForumComposite.ViewModels.PostListing;
 
-namespace ForumSkeletonMvc.Controllers
+namespace ForumComposite.Controllers
 {
 	public class PostListingController : Controller
 	{
 		public ActionResult All()
 		{
-			return View();
+			var model = new AllPostsViewModel();
+
+			return View(model);
 		}
 
 		public ActionResult Controversial()
 		{
-			return View();
+			var model = new ControversialPostsViewModel();
+
+			return View(model);
 		}
 
 		public ActionResult Popular()
 		{
-			return View();
+			var model = new PopularPostsViewModel();
+
+			return View(model);
 		}
 	}
 }

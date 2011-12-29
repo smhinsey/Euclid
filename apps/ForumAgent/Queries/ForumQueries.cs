@@ -17,9 +17,7 @@ namespace ForumAgent.Queries
 		{
 			var session = GetCurrentSession();
 
-			return session.QueryOver<Forum>()
-				.Where(f => f.OrganizationId == organizationId)
-				.List();
+			return session.QueryOver<Forum>().Where(f => f.OrganizationId == organizationId).List();
 		}
 
 		public IList<Forum> FindForums()
@@ -29,15 +27,6 @@ namespace ForumAgent.Queries
 			return session.QueryOver<Forum>().List();
 		}
 
-		public Guid GetIdentifierBySlug(string slug)
-		{
-			var session = GetCurrentSession();
-
-			var org = session.QueryOver<Forum>().Where(u => u.UrlSlug == slug).SingleOrDefault();
-
-			return org.Identifier;
-		}
-
 		public ForumVotingScheme GetForumVotingScheme(Guid forumIdentifier)
 		{
 			var session = GetCurrentSession();
@@ -45,17 +34,27 @@ namespace ForumAgent.Queries
 			var forum = session.QueryOver<Forum>().Where(f => f.Identifier == forumIdentifier).SingleOrDefault();
 
 			return new ForumVotingScheme
-					{
-						ForumIdentifier = forumIdentifier,
-						ForumName = forum.Name,
-						CurrentScheme = getVotingScheme(forum)
-					};
+				{ ForumIdentifier = forumIdentifier, ForumName = forum.Name, CurrentScheme = getVotingScheme(forum) };
+		}
+
+		public Forum GetForumBySlug(Guid orgIdentifier, string forumSlug)
+		{
+			var session = GetCurrentSession();
+
+			var org = session.QueryOver<Forum>()
+				.Where(u => u.UrlSlug == forumSlug)
+				.Where(f => f.OrganizationId == orgIdentifier)
+				.SingleOrDefault();
+
+			return org;
 		}
 
 		private static VotingScheme getVotingScheme(Forum forum)
 		{
 			if (forum.UpDownVoting)
+			{
 				return VotingScheme.UpDownVoting;
+			}
 
 			return VotingScheme.NoVoting;
 		}

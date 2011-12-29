@@ -1,4 +1,4 @@
-﻿namespace ForumSkeletonMvc.ViewModels.Post
+﻿namespace ForumComposite.ViewModels.Post
 {
 	public class PostDetailViewModel
 	{
