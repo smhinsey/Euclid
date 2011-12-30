@@ -4,6 +4,6 @@
 	{
 		public string Name { get; set; }
 
-		public ForumAgent.ReadModels.PostListing Posts { get; set; }
+		public ForumAgent.ReadModels.PostListing Listing { get; set; }
 	}
 }
