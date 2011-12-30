@@ -2,5 +2,6 @@
 {
 	public class AllPostsViewModel
 	{
+		public ForumAgent.ReadModels.PostListing Listing { get; set; }
 	}
 }

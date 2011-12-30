@@ -10,91 +10,31 @@
 </ul>
 <!-- all posts -->
 
-<div class="row">
 
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
+@{
+	var postCount = 0;
+}
 
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
+@foreach(var post in Model.Listing.Posts){
 
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
+	if (postCount % 4 == 0)
+		{
+			@:<div class="row">
+		}
 
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
+			<div class="span4">
+				@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Post = post })
+			</div>
 
-</div>
+		if (postCount % 4 == 3)
+		{
+			@:</div><hr/>
+		}
 
-<hr>
-
-<div class="row">
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-</div>
-
-<hr>
-
-<div class="row">
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-</div>
-
-<hr>
-
-<div class="row">
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-</div>
+	{
+		postCount++;
+	}
+}
 
 <ul class="pills">
 	<li class="active"><a href="@Url.RouteUrl("AllPosts")">Newest</a></li>

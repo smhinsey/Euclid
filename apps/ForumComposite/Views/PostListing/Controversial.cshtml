@@ -10,63 +10,30 @@
 </ul>
 <!-- controversial posts -->
 
-<div class="row">
+@{
+	var postCount = 0;
+}
 
-	<div class="span8">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Large" })
-	</div>
+@foreach(var post in Model.Listing.Posts){
 
-	<div class="span8">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Large" })
-	</div>
+	if (postCount % 4 == 0)
+		{
+			@:<div class="row">
+		}
 
-</div>
+			<div class="span4">
+				@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Post = post })
+			</div>
 
-<hr>
+		if (postCount % 4 == 3)
+		{
+			@:</div><hr/>
+		}
 
-<div class="row">
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-</div>
-
-<hr>
-
-<div class="row">
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-</div>
-
-<hr>
+	{
+		postCount++;
+	}
+}
 
 <div class="pagination">
 	<ul>

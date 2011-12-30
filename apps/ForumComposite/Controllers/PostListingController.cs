@@ -1,27 +1,35 @@
 ﻿using System.Web.Mvc;
+using ForumAgent.Queries;
 using ForumComposite.ViewModels.PostListing;
 
 namespace ForumComposite.Controllers
 {
-	public class PostListingController : Controller
+	public class PostListingController : ForumController
 	{
+		private readonly PostQueries _postQueries;
+
+		public PostListingController(PostQueries postQueries)
+		{
+			_postQueries = postQueries;
+		}
+
 		public ActionResult All()
 		{
-			var model = new AllPostsViewModel();
+			var model = new AllPostsViewModel { Listing = _postQueries.GetPostListing(ForumIdentifier, 16, 0) };
 
 			return View(model);
 		}
 
 		public ActionResult Controversial()
 		{
-			var model = new ControversialPostsViewModel();
+			var model = new ControversialPostsViewModel { Listing = _postQueries.GetPostListing(ForumIdentifier, 16, 0) };
 
 			return View(model);
 		}
 
 		public ActionResult Popular()
 		{
-			var model = new PopularPostsViewModel();
+			var model = new PopularPostsViewModel { Listing = _postQueries.GetPostListing(ForumIdentifier, 10, 0) };
 
 			return View(model);
 		}

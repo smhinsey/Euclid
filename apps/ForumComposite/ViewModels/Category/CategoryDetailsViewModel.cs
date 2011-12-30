@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace ForumComposite.ViewModels.Category
+﻿namespace ForumComposite.ViewModels.Category
 {
 	public class CategoryDetailsViewModel
 	{
 		public string Name { get; set; }
 
-		public IList<ForumAgent.ReadModels.Post> Posts { get; set; }
+		public ForumAgent.ReadModels.PostListing Posts { get; set; }
 	}
 }
