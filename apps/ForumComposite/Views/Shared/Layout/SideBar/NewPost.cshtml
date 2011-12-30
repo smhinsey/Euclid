@@ -25,23 +25,31 @@
 		 @Html.Hidden("ForumIdentifier", ForumIdentifier)
 		 @Html.Hidden("AuthorIdentifier", CurrentUserIdentifier)
 
-				<fieldset>
-					<div class="clearfix">
-						<label for="username">
-							Title</label>
-						<div class="input">
-							@Html.TextBoxFor(m => m.Title)
-						</div>
-					</div>
-					<div class="clearfix">
-						<label for="email">
-							Post</label>
-						<div class="input">
-							@Html.TextAreaFor(m => m.Body, 3, 6, new { @class ="x-large"})
-							<span class="help-block">Please be civil.</span>
-						</div>
-					</div>
-				</fieldset>
+			<div class="clearfix">
+				<label for="username">
+					Title</label>
+				<div class="input">
+					@Html.TextBoxFor(m => m.Title)
+				</div>
+			</div>
+
+			<div class="clearfix">
+				<label for="email">
+					Post</label>
+				<div class="input">
+					@Html.TextAreaFor(m => m.Body, 4, 6, new { @class ="x-large"})
+					<span class="help-block">Please be civil.</span>
+				</div>
+			</div>
+			
+			<div class="clearfix">
+				<label for="email">
+					Category</label>
+				<div class="input">
+					@Html.DropDownList("CategoryIdentifier", new SelectList(Categories, "Identifier", "Name"))
+					
+				</div>
+			</div>			
 
 		</div>
 
