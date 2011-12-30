@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlTypes;
+using Euclid.Common.Extensions;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
@@ -51,8 +52,9 @@ namespace ForumAgent.Processors
 				           		Created = DateTime.Now,
 				           		Modified = (DateTime) SqlDateTime.MinValue,
 				           		ForumIdentifier = message.ForumIdentifier,
-								Approved = false,
-								ApprovedOn = (DateTime)SqlDateTime.MinValue
+											Approved = false,
+											ApprovedOn = (DateTime)SqlDateTime.MinValue,
+											Slug = message.Title.Slugify()
 				           	};
 
 				_moderatedPostRepository.Save(post);
@@ -71,6 +73,7 @@ namespace ForumAgent.Processors
 					Created = DateTime.Now,
 					Modified = (DateTime)SqlDateTime.MinValue,
 					ForumIdentifier = message.ForumIdentifier,
+					Slug = message.Title.Slugify()
 				};
 
 				forum.TotalPosts++;

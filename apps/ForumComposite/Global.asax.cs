@@ -109,7 +109,7 @@ namespace ForumComposite
 
 			routes.MapRoute(
 				"Post",
-				"org/{org}/forum/{forum}/categories/{categorySlug}/posts/{postSlug}",
+				"org/{org}/forum/{forum}/posts/{postSlug}/{postIdentifier}",
 				new { controller = "Post", action = "Detail" }
 				);
 

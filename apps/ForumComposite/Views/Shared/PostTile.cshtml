@@ -49,7 +49,7 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 			<img src="@Url.Content("~/Content/images/exclamation-white.png")" /><br />
 		</div>
 
-	<@header><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">@Page.Post.Title</a></@header>
+	<@header><a href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })">@Page.Post.Title</a></@header>
 	<p style="@text">@truncate(Page.Post.Body, textLength)
 		&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em>
 							in <a href="@Url.RouteUrl("Category", new { categorySlug = "category" })" class="label">
@@ -64,7 +64,7 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 else if (mode == "condensed")
 {
 	<text>
-		<p style="@text"><b><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">@Page.Post.Title</a></b><br />
+		<p style="@text"><b><a href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })">@Page.Post.Title</a></b><br />
 			@truncate(Page.Post.Body, textLength)<br />
 			<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug" })">
 																																			username</a> with <a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })#comments">33 comments.</a></span> </p>

@@ -1,6 +1,6 @@
 ﻿@model ForumComposite.ViewModels.Post.PostDetailViewModel
 @{
-	ViewBag.Title = ForumName + " - {Post Name}";
+	ViewBag.Title = ForumName + " - " + Model.Post.InitialPost.Title;
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 }
 @section HeadContent {
@@ -49,10 +49,10 @@
 <ul class="breadcrumb">
 	<li><a href="@Url.RouteUrl("Home")">@ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("Categories")">Categories</a> <span class="divider">/</span></li>
-	<li><a href="@Url.RouteUrl("Category")">{Category}</a> <span class="divider">/</span></li>
-	<li class="active">{Post Name}</li>
+	<li><a href="@Url.RouteUrl("Category", new { categorySlug = Model.Post.Category.Slug})">@Model.Post.Category.Name</a> <span class="divider">/</span></li>
+	<li class="active">@Model.Post.InitialPost.Title</li>
 </ul>
-<h1>{Post Name}</h1>
+<h1>@Model.Post.InitialPost.Title</h1>
 
 <div class="row">
 
@@ -61,15 +61,7 @@
 		<div class="row">
 
 			<div class="span12">
-				<p>This is the body of the post. Morbi tortor ligula, tempor vitae adipiscing scelerisque,
-					venenatis quis nulla. Class aptent taciti sociosqu ad litora torquent per conubia
-					nostra, per inceptos himenaeos. Duis ac augue urna, fermentum convallis enim. Nulla
-					rutrum placerat eros sit amet dictum. Fusce dolor massa, bibendum posuere elementum
-					ac, consectetur vitae lorem. Fusce nec justo quis ante pellentesque gravida. Etiam
-					a diam quam. Nunc tellus mi, commodo molestie sollicitudin sed, facilisis dictum
-					magna. Pellentesque eros nisl, congue quis consectetur a, tempor rutrum diam. In
-					quam velit, rutrum at tincidunt ut, bibendum commodo elit. In neque velit, fringilla
-					suscipit sollicitudin at, interdum vel est. Nunc sed ipsum nisl.</p>
+				<p>@Model.Post.InitialPost.Body</p>
 			</div>
 
 		</div>
