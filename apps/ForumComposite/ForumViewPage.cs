@@ -35,6 +35,7 @@ namespace ForumComposite
 		public IList<Category> Categories { get; set; }
 		public IList<ForumUser> TopUsers { get; set; }
 		public string CurrentUserName { get; set; }
+		public Guid CurrentUserIdentifier { get; set; }
 
 		protected override void InitializePage()
 		{
@@ -63,6 +64,12 @@ namespace ForumComposite
 			if (Request.IsAuthenticated)
 			{
 				CurrentUserName = User.Identity.Name;
+
+				var cookie = Request.Cookies[string.Format("{0}UserId", ForumName)];
+				if (cookie != null)
+				{
+					CurrentUserIdentifier = Guid.Parse(cookie.Value);
+				}
 			}
 		}
 	}

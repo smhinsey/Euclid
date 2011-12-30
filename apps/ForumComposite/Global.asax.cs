@@ -110,13 +110,7 @@ namespace ForumComposite
 			routes.MapRoute(
 				"Post",
 				"org/{org}/forum/{forum}/categories/{categorySlug}/posts/{postSlug}",
-				new
-				{
-					controller = "Post",
-					action = "Detail",
-					categorySlug = UrlParameter.Optional,
-					postSlug = UrlParameter.Optional
-				}
+				new { controller = "Post", action = "Detail" }
 				);
 
 			routes.MapRoute(

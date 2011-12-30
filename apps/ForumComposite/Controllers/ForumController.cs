@@ -41,6 +41,7 @@ namespace ForumComposite.Controllers
 		public IList<ForumUser> TopUsers { get; set; }
 
 		public string CurrentUserName { get; set; }
+		public Guid CurrentUserIdentifier { get; set; }
 
 		public IPublisher Publisher { get; set; }
 
@@ -64,6 +65,12 @@ namespace ForumComposite.Controllers
 			if (requestContext.HttpContext.Request.IsAuthenticated)
 			{
 				CurrentUserName = requestContext.HttpContext.User.Identity.Name;
+
+				var cookie = requestContext.HttpContext.Request.Cookies[string.Format("{0}UserId", ForumName)];
+				if (cookie != null)
+				{
+					CurrentUserIdentifier = Guid.Parse(cookie.Value);
+				}
 			}
 		}
 	}

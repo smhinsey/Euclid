@@ -35,7 +35,9 @@ namespace ForumAgent.Processors
 				username = user.Username;
 			}
 
-			if (message.ModerationRequired)
+			var forum = _forumRepository.FindById(message.ForumIdentifier);
+
+			if (forum.Moderated)
 			{
 				var post = new ModeratedPost
 				           	{
@@ -70,8 +72,6 @@ namespace ForumAgent.Processors
 					Modified = (DateTime)SqlDateTime.MinValue,
 					ForumIdentifier = message.ForumIdentifier,
 				};
-
-				var forum = _forumRepository.FindById(message.ForumIdentifier);
 
 				forum.TotalPosts++;
 

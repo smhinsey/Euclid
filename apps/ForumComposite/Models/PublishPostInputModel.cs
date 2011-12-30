@@ -20,7 +20,5 @@ namespace ForumComposite.Models
 		public Guid CategoryIdentifier { get; set; }
 
 		public string Title { get; set; }
-
-		public bool ModerationRequired { get; set; }
 	}
 }
