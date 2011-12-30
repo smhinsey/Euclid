@@ -27,7 +27,7 @@
 		<p>A brief description of the category.</p>
 		@for (var i = 1; i < 5; i++)
 		{
-			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed" })
+			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed", Post = new ForumAgent.ReadModels.Post() { Title = "{Post Title}", Body = "A truncated post body. Etiam porta sem malesuada magna mollis euismod."} })
 		}
 		<a href="#">View</a> 33 more posts.
 	</div>
