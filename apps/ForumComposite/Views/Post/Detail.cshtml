@@ -8,38 +8,43 @@
 }
 @section HeadContent {
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#addComment").click(function() {
+		$(document).ready(function () {
+			$("#addComment").click(function () {
 				$("#addComment").hide();
 				$("#addCommentForm").show();
 			});
 
-			$("#publishComment").click(function() {
+			$("#publishComment").click(function () {
 				$("#addComment").show();
 				$("#addCommentForm").hide();
 			});
 
-			$("#cancelComment").click(function() {
+			$("#cancelComment").click(function () {
 				$("#addComment").show();
 				$("#addCommentForm").hide();
 			});
 
-			$("#addReply").click(function() {
+			$("#addReply").click(function () {
 				$("#addReply").hide();
 				$("#addReplyForm").show();
 				$("#publishReply").focus();
 				$("#newReplyBody").focus();
 			});
 
-			$("#publishReply").click(function() {
+			$("#publishReply").click(function () {
 				$("#addReply").show();
 				$("#addReplyForm").hide();
 			});
 
-			$("#cancelReply").click(function() {
+			$("#cancelReply").click(function () {
 				$("#addReply").show();
 				$("#addReplyForm").hide();
 			});
+
+			if (window.location.hash == "#addcomment") {
+				$("#addComment").hide();
+				$("#addCommentForm").show();
+			}
 		});
 	</script>
 	<style type="text/css">

@@ -56,8 +56,8 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 								 	Another Category</a></span></p>
 	<p><span style="padding-top: 7px; text-align: right; font-size: smaller;">
 		 	<img src="@Url.Content("~/Content/images/balloon-white.png")" />
-		 	<a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })#comments">
-				999 comments</a></span>&nbsp;&nbsp;&nbsp;<a class="@button" href="#">Add comment &raquo;</a>
+		 	<a href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })#comments">
+				@Page.Post.CommentCount comments</a></span>&nbsp;&nbsp;&nbsp;<a class="@button" href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })#addcomment">Add comment &raquo;</a>
 	</p>
 	</text>
 }
