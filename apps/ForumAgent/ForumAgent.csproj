@@ -147,6 +147,7 @@
     <Compile Include="ReadModels\AvailableCategories.cs" />
     <Compile Include="ReadModels\AvailableContent.cs" />
     <Compile Include="ReadModels\AwardedBadge.cs" />
+    <Compile Include="ReadModels\CategoryDetail.cs" />
     <Compile Include="ReadModels\ForumAvatar.cs" />
     <Compile Include="ReadModels\ForumBadge.cs" />
     <Compile Include="ReadModels\ForumTheme.cs" />

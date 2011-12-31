@@ -13,9 +13,21 @@
 
 @{
 	var catCount = 0;
+
+	var totalCategories = Model.Categories.Count;
+
+	var needsPadding = false;
+	var cellsToPad = 0;
+	
+	if(totalCategories % 3 != 0)
+	{
+		needsPadding = true;
+
+		cellsToPad = 3 - (totalCategories % 3);
+	}
 }
 
-@foreach(var category in Categories)
+@foreach (var categoryDetail in Model.Categories)
 {
 	if(catCount % 3 == 0)
 	{
@@ -23,14 +35,24 @@
 	}
 	
 	<div class="span5">
-		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = category.Slug })">@category.Name</a></h2>
+		<h2><a href="@Url.RouteUrl("Category", new { categorySlug = categoryDetail.Category.Slug })">@categoryDetail.Category.Name</a></h2>
 		<p>A brief description of the category.</p>
-		@for (var i = 1; i < 5; i++)
+		
+		@foreach(var post in categoryDetail.Posts)
 		{
-			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed", Post = new ForumAgent.ReadModels.Post() { Title = "{Post Title}", Body = "A truncated post body. Etiam porta sem malesuada magna mollis euismod."} })
+			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed", Post = post })
 		}
 		<a href="#">View</a> 33 more posts.
 	</div>
+
+	if (needsPadding && catCount == (totalCategories - 1))
+		{
+			for (var i = 0; i < cellsToPad; i++)
+			{
+				<div class="span5"></div>
+			}
+			@:</div><hr/>
+		}
 
 		if (catCount % 3 == 2)
 		{
@@ -41,8 +63,6 @@
 		catCount++;
 	}
 }
-
-<hr />
 
 <div class="pagination">
 	<ul>

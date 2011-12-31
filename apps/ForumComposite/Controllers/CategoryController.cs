@@ -18,7 +18,9 @@ namespace ForumComposite.Controllers
 
 		public ActionResult All()
 		{
-			return View();
+			var model = new AllCategoriesViewModel { Categories = _categoryQueries.FindCategoriesForForum(ForumIdentifier, 5) };
+
+			return View(model);
 		}
 
 		public ActionResult Detail(string categorySlug)

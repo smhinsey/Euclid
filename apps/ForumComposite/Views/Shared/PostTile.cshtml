@@ -65,7 +65,7 @@ else if (mode == "condensed")
 {
 	<text>
 		<p style="@text"><b><a href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })">@Page.Post.Title</a></b><br />
-			@truncate(Page.Post.Body, textLength)<br />
+			@truncate(Page.Post.Body, 10)<br />
 			<span style="font-size: smaller;"><em>Three hours ago</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug" })">
 																																			username</a> with <a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })#comments">33 comments.</a></span> </p>
 	</text>
@@ -74,7 +74,7 @@ else if (mode == "condensed")
 {
 	var words = text.Split(' ');
 
-	var truncatedWords = words.Take(numberOfWords).ToArray();
-
+	var truncatedWords = words.Take(numberOfWords).ToList();
+	
 	@String.Join(" ", truncatedWords)
 }
