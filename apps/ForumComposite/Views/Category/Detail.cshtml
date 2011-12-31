@@ -15,6 +15,16 @@
 
 @{
 	var postCount = 0;
+	var totalPosts = Model.Listing.Posts.Count;
+
+	var postsToPad = 0;
+	var needsPadding = false;
+	
+	if(totalPosts % 4 != 0)
+	{
+		needsPadding = true;
+		postsToPad = 4 - (totalPosts % 4);
+	}
 }
 
 @foreach(var post in Model.Listing.Posts){
@@ -27,6 +37,15 @@
 			<div class="span4">
 				@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Post = post })
 			</div>
+
+		if(needsPadding && postCount == (totalPosts - 1))
+		{
+			for(var i = 0; i<postsToPad; i++)
+			{
+				<div class="span4"></div>
+			}
+			@:</div><hr/>
+		}
 
 		if (postCount % 4 == 3)
 		{
