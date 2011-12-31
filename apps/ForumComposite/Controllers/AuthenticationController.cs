@@ -34,13 +34,12 @@ namespace ForumComposite.Controllers
 				Response.Cookies.Add(new HttpCookie(string.Format("{0}UserId", ForumName), user.Identifier.ToString()));
 
 				FormsAuthentication.SetAuthCookie(username, false);
+
 				return new RedirectToRouteResult("Home", null);
 			}
-			else
-			{
-				// redirect to a login error screen
-				return new RedirectToRouteResult("Home", null);
-			}
+			
+			// redirect to a login error screen
+			return new RedirectToRouteResult("Home", null);
 		}
 
 		public ActionResult Signout()

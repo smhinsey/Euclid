@@ -69,18 +69,18 @@
 		<div class="row">
 
 			<div class="span12">
-				<p>@Model.Post.InitialPost.Body</p>
+				<p>@Model.Post.InitialPost.Body<a name="addcomment"></a></p>
 			</div>
-
+			
 		</div>
+		
+		
 
 		<hr />
 
 		<div class="row">
-
 			<div class="span6">
 				<button id="addComment" class="btn large primary">Add a Comment</button>
-
 				<div id="addCommentForm" style="display: none;">
 					@Html.Partial("NewComment", new CommentOnPostInputModel(){ PostIdentifier = Model.Post.Identifier})
 				</div>

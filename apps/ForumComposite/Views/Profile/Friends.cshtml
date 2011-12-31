@@ -1,4 +1,5 @@
-﻿@model ForumComposite.ViewModels.Profile.ProfileFriendsViewModel
+﻿@using Euclid.Common.Extensions
+@model ForumComposite.ViewModels.Profile.ProfileFriendsViewModel
 @{
 	ViewBag.Title = ForumName + " - {Username}'s Friends";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
@@ -7,13 +8,13 @@
 <ul class="breadcrumb">
 	<li><a href="@Url.RouteUrl("Home")">@ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
-	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">{Username}</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = Model.User.Username.Slugify() })">@Model.User.Username</a> <span class="divider">/</span></li>
 	<li class="active">Friends</li>
 </ul>
-<h1>{Username}'s Friends</h1>
+<h1>@Model.User.Username's Friends</h1>
 <hr />
-@RenderPage("_Tabs.cshtml")
-<p>{Username} has 8 friends.</p>
+@Html.Partial("_Tabs", Model.User.Username.Slugify())
+<p>@Model.User.Username has 8 friends.</p>
 <table class="zebra-striped">
 	<tbody>
 		@for (var i = 1; i < 9; i++)

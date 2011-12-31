@@ -1,37 +1,64 @@
 ﻿using System.Web.Mvc;
+using ForumAgent.Queries;
+using ForumComposite.ViewModels.Profile;
 
 namespace ForumComposite.Controllers
 {
-	public class ProfileController : Controller
+	public class ProfileController : ForumController
 	{
+		private readonly PostQueries _postQueries;
+
+		private readonly UserQueries _userQueries;
+
+		public ProfileController(UserQueries userQueries, PostQueries postQueries)
+		{
+			_userQueries = userQueries;
+			_postQueries = postQueries;
+		}
+
 		public ActionResult All()
 		{
 			return View();
 		}
 
-		public ActionResult Overview()
+		public ActionResult Badges(string profileSlug)
 		{
-			return View();
+			var model = new ProfileBadgesViewModel
+				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
+
+			return View(model);
 		}
 
-		public ActionResult Badges()
+		public ActionResult Favorites(string profileSlug)
 		{
-			return View();
+			var model = new ProfileFavoritesViewModel
+				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
+
+			return View(model);
 		}
 
-		public ActionResult Favorites()
+		public ActionResult Friends(string profileSlug)
 		{
-			return View();
+			var model = new ProfileFriendsViewModel
+				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
+
+			return View(model);
 		}
 
-		public ActionResult Friends()
+		public ActionResult Overview(string profileSlug)
 		{
-			return View();
+			var model = new ProfileOverviewViewModel
+				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
+
+			return View(model);
 		}
 
-		public ActionResult RecentActivity()
+		public ActionResult RecentActivity(string profileSlug)
 		{
-			return View();
+			var model = new ProfileRecentActivityViewModel
+				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
+
+			return View(model);
 		}
 	}
 }
