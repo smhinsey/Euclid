@@ -91,6 +91,8 @@ namespace ForumAgent.Processors
 					_categoryRepository.Save(category);
 				}
 
+				_repository.Save(post);
+
 				var userAction = new ForumUserAction()
 					{
 						Created = DateTime.Now,
@@ -105,8 +107,6 @@ namespace ForumAgent.Processors
 					};
 
 				_userActionRepository.Save(userAction);
-
-				_repository.Save(post);
 			}
 
 			if (user != null)
