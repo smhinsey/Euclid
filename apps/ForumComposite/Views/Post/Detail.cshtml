@@ -134,59 +134,15 @@
 						<p>@comment.Body</p>
 					</div>
 				</div>
-				<div class="row">
+@*				<div class="row">
 					<div class="span8 offset3">
-						<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
+						<button class="btn small">Reply</button>
 					</div>
-				</div>
+				</div>*@
 			</div>		
 		}
 
-		<hr/>
-		
-		Static comments, remove later
-
-		<div class="comment">
-
-			<div class="row">
-
-				<div class="span3">
-
-					<div class="row">
-
-						<div class="span1" style="margin-top: 4px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
-								<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=30" /></a>
-						</div>
-
-						<div class="span2" style="margin-left: 0px;">
-							<a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">Username</a><br />
-							<small style="font-size: smaller;">About an hour ago</small>
-						</div>
-
-					</div>
-
-				</div>
-
-				<div class="span9">
-					<p>Comments are displayed beneath an article according to the selected sort order.
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque tristique
-						massa eget est accumsan quis tincidunt libero facilisis. In ac tortor diam, sit
-						amet volutpat.</p>
-				</div>
-
-			</div>
-
-			<div class="row">
-
-				<div class="span8 offset3">
-					<p style="font-size: smaller; text-align: right;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
-				</div>
-
-			</div>
-
-		</div>
-
+		@*		<!-- comment replies, which aren't currently implemented -->
 		<div class="comment">
 
 			<div class="row">
@@ -219,23 +175,23 @@
 
 			<div class="row">
 
-				<div class="span8 offset4">
-					<p style="font-size: smaller;"><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">Reply</a></p>
+				<div class="span8 offset3">
+					<p style="font-size: smaller;"><button id="addReply" class="btn small primary">Reply</button></p>
 				</div>
 
 			</div>
 
-		</div>
+		</div>*@
 
 		<div class="row">
 
 			<div class="span9 offset3">
 				<hr />
-				<button id="addReply" class="btn primary">Reply</button>
+				<button id="addReply" class="btn primary">Add a Comment</button>
 
 				<div id="addReplyForm" style="display: none;">
 					<form>
-						<fieldset><legend style="padding-left: 0px;">New Reply</legend>
+						<fieldset><legend style="padding-left: 0px;">Add a Comment</legend>
 
 							<div class="clearfix">
 
@@ -246,8 +202,8 @@
 
 							</div>
 
-							<div class="actions" style="padding-left: 0px;">
-								<input id="publishReply" type="button" class="btn primary" value="Publish Reply" />
+							<div class="actions" style="padding-left: 15px;">
+								<input id="publishReply" type="button" class="btn primary" value="Publish Comment" />
 								<input id="cancelReply" type="button" class="btn" value="Cancel" />
 							</div>
 
