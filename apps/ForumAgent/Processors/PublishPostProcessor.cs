@@ -13,16 +13,18 @@ namespace ForumAgent.Processors
 		private readonly ISimpleRepository<Post> _repository;
 		private readonly ISimpleRepository<ModeratedPost> _moderatedPostRepository;
 		private readonly ISimpleRepository<ForumUser> _userRepository;
+		private readonly ISimpleRepository<ForumUserAction> _userActionRepository;
 		private readonly ISimpleRepository<Forum> _forumRepository;
 		private readonly ISimpleRepository<Category> _categoryRepository;
 
-		public PublishPostProcessor(ISimpleRepository<Post> repository, ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedPost> moderatedPostRepository, ISimpleRepository<Forum> forumRepository, ISimpleRepository<Category> categoryRepository)
+		public PublishPostProcessor(ISimpleRepository<Post> repository, ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedPost> moderatedPostRepository, ISimpleRepository<Forum> forumRepository, ISimpleRepository<Category> categoryRepository, ISimpleRepository<ForumUserAction> userActionRepository)
 		{
 			_repository = repository;
 			_userRepository = userRepository;
 			_moderatedPostRepository = moderatedPostRepository;
 			_forumRepository = forumRepository;
 			_categoryRepository = categoryRepository;
+			_userActionRepository = userActionRepository;
 		}
 
 		public override void Process(PublishPost message)
@@ -88,6 +90,21 @@ namespace ForumAgent.Processors
 
 					_categoryRepository.Save(category);
 				}
+
+				var userAction = new ForumUserAction()
+					{
+						Created = DateTime.Now,
+						Modified = (DateTime)SqlDateTime.MinValue,
+						UserIdentifier = message.AuthorIdentifier,
+						ActivityOccurredOn = message.Created,
+						AssociatedPostIdentifier = post.Identifier,
+						AssociatedPostTitle = post.Title,
+						Body = post.Body,
+						ForumIdentifier = message.ForumIdentifier,
+						IsPost = true
+					};
+
+				_userActionRepository.Save(userAction);
 
 				_repository.Save(post);
 			}

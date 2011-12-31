@@ -151,6 +151,7 @@
     <Compile Include="ReadModels\ForumAvatar.cs" />
     <Compile Include="ReadModels\ForumBadge.cs" />
     <Compile Include="ReadModels\ForumTheme.cs" />
+    <Compile Include="ReadModels\ForumUserAction.cs" />
     <Compile Include="ReadModels\ForumUsers.cs" />
     <Compile Include="ReadModels\ForumVotingScheme.cs" />
     <Compile Include="ReadModels\ModeratedComment.cs" />

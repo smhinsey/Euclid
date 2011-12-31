@@ -28,7 +28,7 @@ namespace ForumAgent.Queries
 			return matchedAccount != null;
 		}
 
-		public UserProfile FindByUserIdentifier(Guid forumId, Guid identifier)
+		public UserProfile FindProfileByUserIdentifier(Guid forumId, Guid identifier)
 		{
 			var session = GetCurrentSession();
 
@@ -50,7 +50,7 @@ namespace ForumAgent.Queries
 		{
 			var matchedUser = FindByUsername(forumId, username);
 
-			return FindByUserIdentifier(forumId, matchedUser.Identifier);
+			return FindProfileByUserIdentifier(forumId, matchedUser.Identifier);
 		}
 
 		public IList<ForumUser> FindTopUsers(Guid forumId)
@@ -60,6 +60,18 @@ namespace ForumAgent.Queries
 			var users = session.QueryOver<ForumUser>().Skip(0).Take(5);
 
 			return users.List();
+		}
+
+		public IList<ForumUserAction> FindUserActivity(Guid forumId, Guid userIdentifier)
+		{
+			var session = GetCurrentSession();
+
+			var activity = session.QueryOver<ForumUserAction>()
+				.Where(a => a.ForumIdentifier == forumId)
+				.Where(a => a.UserIdentifier == userIdentifier)
+				.OrderBy(a => a.ActivityOccurredOn).Desc;
+
+			return activity.List();
 		}
 
 		public ForumUsers FindByForum(Guid forumId, int offset, int pageSize)

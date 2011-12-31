@@ -18,18 +18,20 @@ namespace ForumAgent.Processors
 		private readonly ISimpleRepository<ForumUser> _userRepository;
 
 		private readonly ISimpleRepository<ModeratedComment> _moderatedCommentRepository;
+		private readonly ISimpleRepository<ForumUserAction> _userActionRepository;
 
 		public CommentOnPostProcessor(
 			ISimpleRepository<Comment> commentRepository,
 			ISimpleRepository<Post> postRepository,
 			ISimpleRepository<Forum> forumRepository,
-			ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedComment> moderatedCommentRepository)
+			ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedComment> moderatedCommentRepository, ISimpleRepository<ForumUserAction> userActionRepository)
 		{
 			_commentRepository = commentRepository;
 			_postRepository = postRepository;
 			_forumRepository = forumRepository;
 			_userRepository = userRepository;
 			_moderatedCommentRepository = moderatedCommentRepository;
+			_userActionRepository = userActionRepository;
 		}
 
 		public override void Process(CommentOnPost message)
@@ -44,6 +46,8 @@ namespace ForumAgent.Processors
 			{
 				username = user.Username;
 			}
+
+			var post = _postRepository.FindById(message.PostIdentifier);
 
 			if (forum.Moderated)
 			{
@@ -81,9 +85,22 @@ namespace ForumAgent.Processors
 				};
 
 				_commentRepository.Save(comment);
-			}
 
-			var post = _postRepository.FindById(message.PostIdentifier);
+				var userAction = new ForumUserAction()
+				{
+					Created = DateTime.Now,
+					Modified = (DateTime)SqlDateTime.MinValue,
+					UserIdentifier = message.AuthorIdentifier,
+					ActivityOccurredOn = message.Created,
+					AssociatedPostIdentifier = message.PostIdentifier,
+					AssociatedPostTitle = post.Title,
+					Body = message.Body,
+					ForumIdentifier = message.ForumIdentifier,
+					IsComment = true
+				};
+
+				_userActionRepository.Save(userAction);
+			}
 
 			post.CommentCount++;
 

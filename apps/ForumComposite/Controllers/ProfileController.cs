@@ -58,6 +58,8 @@ namespace ForumComposite.Controllers
 			var model = new ProfileRecentActivityViewModel
 				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
 
+			model.Activity = _userQueries.FindUserActivity(ForumIdentifier, model.User.Identifier);
+
 			return View(model);
 		}
 	}
