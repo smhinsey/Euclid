@@ -13,6 +13,8 @@ namespace ForumAgent.Processors
 
 		private readonly ISimpleRepository<Post> _postRepository;
 
+		private readonly ISimpleRepository<Forum> _forumRepository;
+
 		private readonly ISimpleRepository<ForumUser> _userRepository;
 
 		private readonly ISimpleRepository<ModeratedComment> _moderatedCommentRepository;
@@ -20,10 +22,12 @@ namespace ForumAgent.Processors
 		public CommentOnPostProcessor(
 			ISimpleRepository<Comment> commentRepository,
 			ISimpleRepository<Post> postRepository,
+			ISimpleRepository<Forum> forumRepository,
 			ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedComment> moderatedCommentRepository)
 		{
 			_commentRepository = commentRepository;
 			_postRepository = postRepository;
+			_forumRepository = forumRepository;
 			_userRepository = userRepository;
 			_moderatedCommentRepository = moderatedCommentRepository;
 		}
@@ -32,6 +36,8 @@ namespace ForumAgent.Processors
 		{
 			var user = _userRepository.FindById(message.AuthorIdentifier);
 
+			var forum = _forumRepository.FindById(message.ForumIdentifier);
+
 			var username = "Anonymous";
 
 			if (user != null)
@@ -39,11 +45,12 @@ namespace ForumAgent.Processors
 				username = user.Username;
 			}
 
-			if (message.ModerationRequired)
+			if (forum.Moderated)
 			{
 				var comment = new ModeratedComment
 				              	{
-				              		AuthorIdentifier = message.AuthorIdentifier,
+													ForumIdentifier = message.ForumIdentifier,
+													AuthorIdentifier = message.AuthorIdentifier,
 				              		AuthorDisplayName = username,
 				              		Body = message.Body,
 				              		PostIdentifier = message.PostIdentifier,
@@ -62,6 +69,7 @@ namespace ForumAgent.Processors
 			{
 				var comment = new Comment
 				{
+					ForumIdentifier = message.ForumIdentifier,
 					AuthorIdentifier = message.AuthorIdentifier,
 					AuthorDisplayName = username,
 					Body = message.Body,
