@@ -32,7 +32,7 @@
 	var postsToPad = 0;
 	var needsPadding = false;
 	
-	if(totalPosts % 4 != 0)
+	if((totalPosts - 2) % 4 != 0)
 	{
 		needsPadding = true;
 		postsToPad = 4 - (totalPosts % 4);
