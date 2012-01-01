@@ -1,4 +1,6 @@
 ﻿@using Euclid.Common.Extensions
+@using Euclid.Composites.Mvc.Extensions
+@using ForumComposite.Models
 @model ForumComposite.ViewModels.Profile.ProfileFriendsViewModel
 @{
 	ViewBag.Title = ForumName + " - {Username}'s Friends";
@@ -14,24 +16,41 @@
 <h1>@Model.User.Username's Friends</h1>
 <hr />
 @Html.Partial("_Tabs", Model.User.Username.Slugify())
-<p>@Model.User.Username has 8 friends.</p>
+<p>@Model.User.Username has @Model.Friends.Count friends.</p>
 <table class="zebra-striped">
 	<tbody>
-		@for (var i = 1; i < 9; i++)
-		{
+		@{
+			var count = 1;
+		}
+		@foreach (var friend in Model.Friends)
+	{
 			<tr>
-				<td>
-					@i
+				<td width="5">
+					<h3>@count</h3>
 				</td>
-				<td><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
+				<td width="50"><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
 							<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=40" /></a>
 				</td>
 				<td>
-					<h3><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">{Username}</a></h3>
+					<h3><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">@friend.FriendUsername</a></h3>
 				</td>
-				<td>35 posts, 45 comments, 5 favorites </td>
-				<td><a href="#">Remove as Friend</a> </td>
+				<td style="text-align: right;">
+					@if (Model.IsCurrentUser)
+					{
+						using (Html.BeginFormForInputModel(new RemoveForumUserFriendInputModel()))
+						{
+						@Html.Hidden("ForumIdentifier", ForumIdentifier)
+						@Html.Hidden("UserIdentifier", CurrentUserIdentifier)
+						@Html.Hidden("FriendIdentifier", friend.FriendIdentifier)
+
+						<input type="submit" class="btn small" value="Remove Friend"/>
+						}
+					}
+				</td>
 			</tr>
-		}
+		 {
+			 count++;
+		 }
+	}
 	</tbody>
 </table>

@@ -44,6 +44,8 @@ namespace ForumComposite.Controllers
 			var model = new ProfileFriendsViewModel
 				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
 
+			model.Friends = _userQueries.FindUserFriends(ForumIdentifier, model.User.Identifier);
+
 			return View(model);
 		}
 

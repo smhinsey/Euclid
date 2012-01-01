@@ -1,4 +1,6 @@
 ﻿@using Euclid.Common.Extensions
+@using Euclid.Composites.Mvc.Extensions
+@using ForumComposite.Models
 @model ForumComposite.ViewModels.Profile.ProfileOverviewViewModel
 @{
 	ViewBag.Title = ForumName + " - " + Model.User.Username + "'s Profile";
@@ -34,6 +36,17 @@
 		@if(Model.IsCurrentUser)
 		{
 			<a href="#">Edit</a>
+		}
+		else
+		{
+			using (Html.BeginFormForInputModel(new AddForumUserAsFriendInputModel()))
+			{
+				@Html.Hidden("ForumIdentifier", ForumIdentifier)
+				@Html.Hidden("UserIdentifier", CurrentUserIdentifier)
+				@Html.Hidden("FriendIdentifier", Model.User.Identifier)
+
+				<input type="submit" class="btn small" value="Add Friend"/>
+			}
 		}
 	</div>
 

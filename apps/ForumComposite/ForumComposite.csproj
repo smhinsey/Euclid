@@ -139,11 +139,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddForumUserAsFriendInputModel.cs" />
     <Compile Include="Models\CommentOnPostInputModel.cs" />
     <Compile Include="Models\MarkCommentAsFavoriteInputModel.cs" />
     <Compile Include="Models\MarkPostAsFavoriteInputModel.cs" />
     <Compile Include="Models\PublishPostInputModel.cs" />
     <Compile Include="Models\RegisterForumUserInputModel.cs" />
+    <Compile Include="Models\RemoveForumUserFriendInputModel.cs" />
     <Compile Include="Models\SignInInputModel.cs" />
     <Compile Include="Models\UpdateUserProfileInputModel.cs" />
     <Compile Include="Models\VoteOnCommentInputModel.cs" />
