@@ -28,6 +28,22 @@ namespace ForumAgent.Queries
 			return matchedAccount != null;
 		}
 
+		public IList<ForumUserFavorite> FindFavoritesRelatedToPost(Guid forumId, Guid userId, Guid postId)
+		{
+			var session = GetCurrentSession();
+
+			return
+				session.QueryOver<ForumUserFavorite>().Where(f => f.ForumIdentifier == forumId).Where(
+					f => f.UserIdentifier == userId).Where(f => f.AssociatedPostIdentifier == postId).List();
+		}
+
+		public bool IsFavoritePost(Guid forumId, Guid userId, Guid postId)
+		{
+			var favorites = FindFavoritesRelatedToPost(forumId, userId, postId);
+
+			return favorites.Count > 0;
+		}
+
 		public UserProfile FindProfileByUserIdentifier(Guid forumId, Guid identifier)
 		{
 			var session = GetCurrentSession();

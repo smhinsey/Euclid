@@ -24,23 +24,16 @@
 
 			<div class="span10">
 				<h3><a href="@Url.RouteUrl("Post", new { postIdentifier = action.AssociatedPostIdentifier, postSlug = action.AssociatedPostTitle.Slugify() })">@action.AssociatedPostTitle</a></h3>
-				<p>@action.Body &mdash; <span style="text-align: right; font-size: smaller;"><em>@action.ActivityOccurredOn.ToString("h:mm tt M/d/yyyy")</em> in <a href="@Url.Action("Category")" class="label">
-																																																																																					Category</a></span></p>
-
-				<div class="row">
-
-					<div class="span3 offset7" style="padding-top: 7px; text-align: right; font-size: smaller;">
-						<img src="../../Themes/default/images/balloon-white.png" />
-						<a href="#">999 comments</a></div>
-
-				</div>
-
+				<p>@action.Body &mdash; <span style="text-align: right; font-size: smaller;">
+																	<em>@action.ActivityOccurredOn.ToString("h:mm tt M/d/yyyy")</em> in <a href="@Url.Action("Category")" class="label">Category</a>
+																</span>
+				</p>
 			</div>
 
 		</div>
 		<div class="row">
 
-			<div class="span10 offset1">
+			<div class="span10">
 				<hr />
 			</div>
 
@@ -59,7 +52,7 @@
 		</div>
 		<div class="row">
 
-			<div class="span10 offset1">
+			<div class="span10">
 				<hr />
 			</div>
 

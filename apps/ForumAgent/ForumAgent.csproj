@@ -70,6 +70,8 @@
     <Compile Include="Commands\DeleteForumUser.cs" />
     <Compile Include="Commands\DeleteOrganizationUser.cs" />
     <Compile Include="Commands\ForumModerated.cs" />
+    <Compile Include="Commands\MarkCommentAsFavorite.cs" />
+    <Compile Include="Commands\MarkPostAsFavorite.cs" />
     <Compile Include="Commands\RejectComment.cs" />
     <Compile Include="Commands\RejectPost.cs" />
     <Compile Include="Commands\SetForumTheme.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Processors\CreateBadgeProcessor.cs" />
     <Compile Include="Processors\DeleteForumUserProcessor.cs" />
     <Compile Include="Processors\DeleteOrganizationUser.cs" />
+    <Compile Include="Processors\MarkPostAsFavoriteProcessor.cs" />
     <Compile Include="Processors\RejectCommentProcessor.cs" />
     <Compile Include="Processors\RejectPostProcessor.cs" />
     <Compile Include="Processors\SetForumThemeProcessor.cs" />
@@ -152,6 +155,7 @@
     <Compile Include="ReadModels\ForumBadge.cs" />
     <Compile Include="ReadModels\ForumTheme.cs" />
     <Compile Include="ReadModels\ForumUserAction.cs" />
+    <Compile Include="ReadModels\ForumUserFavorite.cs" />
     <Compile Include="ReadModels\ForumUsers.cs" />
     <Compile Include="ReadModels\ForumVotingScheme.cs" />
     <Compile Include="ReadModels\ModeratedComment.cs" />

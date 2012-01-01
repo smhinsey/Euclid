@@ -2,6 +2,8 @@
 {
 	public class PostDetailViewModel
 	{
-		public ForumAgent.ReadModels.PostDetail Post { get; set; } 
+		public ForumAgent.ReadModels.PostDetail Post { get; set; }
+
+		public bool IsFavoritePost { get; set; }
 	}
 }

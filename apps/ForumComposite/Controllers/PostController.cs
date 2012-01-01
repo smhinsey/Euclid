@@ -9,15 +9,21 @@ namespace ForumComposite.Controllers
 	{
 		private readonly PostQueries _postQueries;
 
-		public PostController(PostQueries postQueries)
+		private readonly UserQueries _userQueries;
+
+		public PostController(PostQueries postQueries, UserQueries userQueries)
 		{
 			_postQueries = postQueries;
+			_userQueries = userQueries;
 		}
 
 		public ActionResult Detail(string postSlug, Guid postIdentifier)
 		{
-			var model = new PostDetailViewModel { Post = _postQueries.FindByIdentifier(ForumIdentifier, postIdentifier) };
-
+			var model = new PostDetailViewModel
+				{
+					Post = _postQueries.FindByIdentifier(ForumIdentifier, postIdentifier),
+					IsFavoritePost = _userQueries.IsFavoritePost(ForumIdentifier, CurrentUserIdentifier, postIdentifier)
+				};
 
 			return View(model);
 		}

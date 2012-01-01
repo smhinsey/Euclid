@@ -57,7 +57,7 @@
 <ul class="breadcrumb">
 	<li><a href="@Url.RouteUrl("Home")">@ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("Categories")">Categories</a> <span class="divider">/</span></li>
-	<li><a href="@Url.RouteUrl("Category", new { categorySlug = Model.Post.Category.Slug})">@Model.Post.Category.Name</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Category", new { categorySlug = Model.Post.Category.Slug })">@Model.Post.Category.Name</a> <span class="divider">/</span></li>
 	<li class="active">@Model.Post.InitialPost.Title</li>
 </ul>
 <h1>@Model.Post.InitialPost.Title</h1>
@@ -82,18 +82,32 @@
 			<div class="span6">
 				<button id="addComment" class="btn large primary">Add a Comment</button>
 				<div id="addCommentForm" style="display: none;">
-					@Html.Partial("NewComment", new CommentOnPostInputModel(){ PostIdentifier = Model.Post.Identifier})
+					@Html.Partial("NewComment", new CommentOnPostInputModel() { PostIdentifier = Model.Post.Identifier })
 				</div>
 
 			</div>
 
 			<div class="span6" style="text-align: right;">
 				<a href="#">
-					<img src="@Url.Content("~/Content/images/arrow-090.png")" /></a>&nbsp;&nbsp;&nbsp;
+					<img title="Vote up" src="@Url.Content("~/Content/images/arrow-090.png")" /></a>&nbsp;&nbsp;&nbsp;
 				<a href="#">
-					<img src="@Url.Content("~/Content/images/arrow-270.png")" /></a>&nbsp;&nbsp;&nbsp;
+					<img title="Vote down" src="@Url.Content("~/Content/images/arrow-270.png")" /></a>&nbsp;&nbsp;&nbsp;
 				<a href="#">
-					<img src="@Url.Content("~/Content/images/exclamation-white.png")" /></a>
+					<img title="Report abusive content" src="@Url.Content("~/Content/images/exclamation-white.png")" /></a>&nbsp;&nbsp;&nbsp;
+				@using (Html.BeginFormForInputModel(new MarkPostAsFavoriteInputModel()))
+				{
+					@Html.Hidden("ForumIdentifier", ForumIdentifier)
+					@Html.Hidden("UserIdentifier", CurrentUserIdentifier)
+					@Html.Hidden("PostIdentifier", Model.Post.Identifier)
+					if (Model.IsFavoritePost)
+					{
+						<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" border="0" height="16" width="16" title="Mark as favorite" src="@Url.Content("~/Content/images/star.png")"/>
+					}
+					else
+					{
+						<input type="image" border="0" height="16" width="16" title="Mark as favorite" src="@Url.Content("~/Content/images/star-empty.png")"/>
+					}
+				}
 			</div>
 
 		</div>
@@ -118,8 +132,8 @@
 
 		<hr style="margin-top: 0px;" />
 
-		@foreach(var comment in Model.Post.Comments)
-		{
+		@foreach (var comment in Model.Post.Comments)
+	{
 
 			<div class="comment">
 				<div class="row">
@@ -145,7 +159,7 @@
 					</div>
 				</div>*@
 			</div>		
-		}
+	}
 
 		@*		<!-- comment replies, which aren't currently implemented -->
 		<div class="comment">

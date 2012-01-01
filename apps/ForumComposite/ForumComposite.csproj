@@ -140,6 +140,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CommentOnPostInputModel.cs" />
+    <Compile Include="Models\MarkCommentAsFavoriteInputModel.cs" />
+    <Compile Include="Models\MarkPostAsFavoriteInputModel.cs" />
     <Compile Include="Models\PublishPostInputModel.cs" />
     <Compile Include="Models\RegisterForumUserInputModel.cs" />
     <Compile Include="Models\SignInInputModel.cs" />
@@ -167,6 +169,8 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\star-empty.png" />
+    <Content Include="Content\images\star.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\images\arrow-090-medium.png" />
     <Content Include="Content\images\arrow-090-small.png" />
