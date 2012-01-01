@@ -32,8 +32,9 @@ namespace ForumComposite.Controllers
 				{
 					User = _userQueries.FindByUsername(ForumIdentifier, profileSlug),
 					IsCurrentUser = profileSlug == CurrentUserName,
-					Favorites = _userQueries.FindUserFavorites(ForumIdentifier, CurrentUserIdentifier)
 				};
+
+			model.Favorites = _userQueries.FindUserFavorites(ForumIdentifier, model.User.Identifier);
 
 			return View(model);
 		}

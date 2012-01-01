@@ -16,6 +16,17 @@
 
 @Html.Partial("_Tabs", Model.User.Username.Slugify())
 
+@if(Model.Activity.Count == 0)
+{
+	<div class="row">
+		<div class="span10">
+			
+			<p>This user has no recent activity.</p>
+
+		</div>
+	</div>
+}
+
 @foreach(var action in Model.Activity)
 {
 	if(action.IsPost)
