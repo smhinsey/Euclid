@@ -13,5 +13,6 @@ namespace ForumAgent.ReadModels
 		public virtual string Body { get; set; }
 		public virtual bool IsPost { get; set; }
 		public virtual bool IsComment { get; set; }
+		public virtual DateTime AssociatedPostPublicationDate { get; set; }
 	}
 }

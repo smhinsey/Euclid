@@ -6,14 +6,11 @@ namespace ForumComposite.Controllers
 {
 	public class ProfileController : ForumController
 	{
-		private readonly PostQueries _postQueries;
-
 		private readonly UserQueries _userQueries;
 
-		public ProfileController(UserQueries userQueries, PostQueries postQueries)
+		public ProfileController(UserQueries userQueries)
 		{
 			_userQueries = userQueries;
-			_postQueries = postQueries;
 		}
 
 		public ActionResult All()
@@ -32,7 +29,11 @@ namespace ForumComposite.Controllers
 		public ActionResult Favorites(string profileSlug)
 		{
 			var model = new ProfileFavoritesViewModel
-				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
+				{
+					User = _userQueries.FindByUsername(ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == CurrentUserName,
+					Favorites = _userQueries.FindUserFavorites(ForumIdentifier, CurrentUserIdentifier)
+				};
 
 			return View(model);
 		}

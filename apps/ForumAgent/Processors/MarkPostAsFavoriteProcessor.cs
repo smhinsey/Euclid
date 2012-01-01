@@ -31,7 +31,8 @@ namespace ForumAgent.Processors
 				ForumIdentifier = message.ForumIdentifier,
 				UserIdentifier = message.UserIdentifier,
 				AssociatedPostTitle = post.Title,
-				Body = post.Body
+				Body = post.Body,
+				AssociatedPostPublicationDate = post.Created
 			};
 
 			_favoriteRepository.Save(favorite);

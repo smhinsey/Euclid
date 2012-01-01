@@ -28,6 +28,15 @@ namespace ForumAgent.Queries
 			return matchedAccount != null;
 		}
 
+		public IList<ForumUserFavorite> FindUserFavorites(Guid forumId, Guid userId)
+		{
+			var session = GetCurrentSession();
+
+			return
+				session.QueryOver<ForumUserFavorite>().Where(f => f.ForumIdentifier == forumId).Where(
+					f => f.UserIdentifier == userId).OrderBy(f => f.Created).Desc.List();
+		}
+
 		public IList<ForumUserFavorite> FindFavoritesRelatedToPost(Guid forumId, Guid userId, Guid postId)
 		{
 			var session = GetCurrentSession();
