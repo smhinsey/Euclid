@@ -21,8 +21,8 @@ namespace ForumAgent.Queries
 			var session = GetCurrentSession();
 
 			var posts =
-				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).OrderBy(p => p.Created).Desc.Skip(offset).Take(
-					pageSize);
+				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).OrderBy(p => p.Created).Desc
+				.Skip(offset).Take(pageSize);
 
 			var totalPosts = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).RowCount();
 
@@ -68,7 +68,6 @@ namespace ForumAgent.Queries
 			var posts =
 				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId)
 				.OrderBy(p => p.TotalVotes).Desc
-				.OrderBy(p => p.Created).Desc
 				.Skip(offset).Take(pageSize);
 
 			var totalPosts = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).RowCount();
@@ -89,9 +88,7 @@ namespace ForumAgent.Queries
 			var posts =
 				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId)
 				.OrderBy(p => p.Score).Desc
-				.OrderBy(p => p.Created).Desc
-				.Skip(offset).Take(
-					pageSize);
+				.Skip(offset).Take(pageSize);
 
 			var totalPosts = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).RowCount();
 

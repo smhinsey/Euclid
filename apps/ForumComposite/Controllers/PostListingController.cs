@@ -15,21 +15,33 @@ namespace ForumComposite.Controllers
 
 		public ActionResult All(int? page)
 		{
-			var model = new AllPostsViewModel { Listing = _postQueries.FindAllPosts(ForumIdentifier, 16, page.GetValueOrDefault(1) * 16), CurrentPage = page.GetValueOrDefault(1) };
-			
+			var model = new AllPostsViewModel
+				{
+					Listing = _postQueries.FindAllPosts(ForumIdentifier, 16, page.GetValueOrDefault(0) * 16),
+					CurrentPage = page.GetValueOrDefault(1)
+				};
+
 			return View(model);
 		}
 
 		public ActionResult Controversial(int? page)
 		{
-			var model = new ControversialPostsViewModel { Listing = _postQueries.FindControversialPosts(ForumIdentifier, 16, page.GetValueOrDefault(1) * 16), CurrentPage = page.GetValueOrDefault(1) };
+			var model = new ControversialPostsViewModel
+				{
+					Listing = _postQueries.FindControversialPosts(ForumIdentifier, 16, page.GetValueOrDefault(0) * 16),
+					CurrentPage = page.GetValueOrDefault(1)
+				};
 
 			return View(model);
 		}
 
 		public ActionResult Popular(int? page)
 		{
-			var model = new PopularPostsViewModel { Listing = _postQueries.FindPopularPosts(ForumIdentifier, 10, page.GetValueOrDefault(1) * 10), CurrentPage = page.GetValueOrDefault(1) };
+			var model = new PopularPostsViewModel
+				{
+					Listing = _postQueries.FindPopularPosts(ForumIdentifier, 10, page.GetValueOrDefault(0) * 10),
+					CurrentPage = page.GetValueOrDefault(1)
+				};
 
 			return View(model);
 		}
