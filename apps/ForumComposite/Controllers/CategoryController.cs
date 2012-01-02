@@ -30,7 +30,7 @@ namespace ForumComposite.Controllers
 			var category = _categoryQueries.FindBySlug(ForumIdentifier, categorySlug);
 
 			model.Name = category.Name;
-			model.Listing = _postQueries.GetPostListingByCategory(ForumIdentifier, categorySlug, 22, 0);
+			model.Listing = _postQueries.FindPostsInCategory(ForumIdentifier, categorySlug, 22, 0);
 
 			return View(model);
 		}

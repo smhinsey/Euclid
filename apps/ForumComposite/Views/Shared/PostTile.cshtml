@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Euclid.Composites.Mvc.Extensions
+@using ForumComposite.Models
+@{
 	var header = "h2";
 	var button = "btn";
 	var arrowSize = "";
@@ -44,8 +46,25 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 {
 	<text>
 		<div class="@Page.Size.ToLower()" style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
-			<img src="@Url.Content("~/Content/images/arrow-090" + @arrowSize + ".png")" /><br />
-			<img src="@Url.Content("~/Content/images/arrow-270" + @arrowSize + ".png")" /><br />
+			@using (Html.BeginFormForInputModel(new VoteOnPostInputModel()))
+	 {
+				@Html.Hidden("ForumIdentifier", ForumIdentifier)
+				@Html.Hidden("AuthorIdentifier", CurrentUserIdentifier)
+				@Html.Hidden("PostIdentifier", (Guid)Page.Post.Identifier)
+				@Html.Hidden("VoteUp", true)
+				<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" src="@Url.Content("~/Content/images/arrow-090" + @arrowSize + ".png")" />
+				<br />
+	 }
+			(@Page.Post.Score)<br/>
+			@using (Html.BeginFormForInputModel(new VoteOnPostInputModel()))
+	 {
+				@Html.Hidden("ForumIdentifier", ForumIdentifier)
+				@Html.Hidden("AuthorIdentifier", CurrentUserIdentifier)
+				@Html.Hidden("PostIdentifier", (Guid)Page.Post.Identifier)
+				@Html.Hidden("VoteUp", false)
+				<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" src="@Url.Content("~/Content/images/arrow-270" + @arrowSize + ".png")" />
+				<br />
+	 }
 			<img src="@Url.Content("~/Content/images/exclamation-white.png")" /><br />
 		</div>
 
@@ -71,10 +90,10 @@ else if (mode == "condensed")
 	</text>
 }
 @helper truncate(string text, int numberOfWords)
-{
-	var words = text.Split(' ');
+	{
+		var words = text.Split(' ');
 
-	var truncatedWords = words.Take(numberOfWords).ToList();
+		var truncatedWords = words.Take(numberOfWords).ToList();
 	
 	@String.Join(" ", truncatedWords)
 }

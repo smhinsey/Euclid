@@ -21,6 +21,8 @@ namespace ForumAgent.ReadModels
 
 		public virtual int Score { get; set; }
 
+		public virtual int TotalVotes { get; set; }
+
 		public virtual string Title { get; set; }
 	}
 }

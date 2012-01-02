@@ -14,74 +14,7 @@ namespace ForumAgent.Queries
 		{
 		}
 
-		public PostListing FindByAuthorIdentifier(Guid forumId, Guid authorId, int pageSize, int offset)
-		{
-			var result = new PostListing { Posts = new List<Post>() };
-
-			var session = GetCurrentSession();
-
-			var posts =
-				session.QueryOver<Post>().Where(p => p.AuthorIdentifier == authorId).OrderBy(p => p.Created).Desc.Skip(offset).Take(
-					pageSize);
-
-			var totalPosts = session.QueryOver<Post>().Where(p => p.AuthorIdentifier == authorId).RowCount();
-
-			result.TotalPosts = totalPosts;
-
-			result.Posts = posts.List();
-
-			return result;
-		}
-
-		public PostDetail FindByIdentifier(Guid forumId, Guid postId)
-		{
-			var session = GetCurrentSession();
-
-			var post = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).Where(p => p.Identifier == postId).SingleOrDefault();
-
-			var comments =
-				session.QueryOver<Comment>().Where(c => c.ForumIdentifier == forumId).Where(c => c.PostIdentifier == postId).List();
-
-			var category = session.QueryOver<Category>().Where(c => c.Identifier == post.CategoryIdentifier).SingleOrDefault();
-
-			return new PostDetail()
-				{
-					InitialPost = post,
-					Comments = comments,
-					Created = post.Created,
-					Category = category
-				};
-		}
-
-		public Post FindByTitle(Guid forumId, string title)
-		{
-			var session = GetCurrentSession();
-
-			var posts = session.QueryOver<Post>().WhereRestrictionOn(post => post.Title).IsInsensitiveLike(
-				title, MatchMode.Exact);
-
-			return posts.SingleOrDefault();
-		}
-
-		public IList<Post> FindPostsByCategory(Guid forumId, Guid categoryIdentifier)
-		{
-			var session = GetCurrentSession();
-
-			var posts = session.QueryOver<Post>().Where(post => post.CategoryIdentifier == categoryIdentifier);
-
-			return posts.List();
-		}
-
-		public int GetPostCountByAuthor(Guid forumId, Guid authorId)
-		{
-			var session = GetCurrentSession();
-
-			var totalPosts = session.QueryOver<Post>().Where(p => p.AuthorIdentifier == authorId).RowCount();
-
-			return totalPosts;
-		}
-
-		public PostListing GetPostListing(Guid forumId, int pageSize, int offset)
+		public PostListing FindAllPosts(Guid forumId, int pageSize, int offset)
 		{
 			var result = new PostListing { Posts = new List<Post>() };
 
@@ -100,7 +33,76 @@ namespace ForumAgent.Queries
 			return result;
 		}
 
-		public PostListing GetPostListingByCategory(Guid forumId, string categorySlug, int pageSize, int offset)
+		public PostDetail FindByIdentifier(Guid forumId, Guid postId)
+		{
+			var session = GetCurrentSession();
+
+			var post =
+				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).Where(p => p.Identifier == postId).
+					SingleOrDefault();
+
+			var comments =
+				session.QueryOver<Comment>().Where(c => c.ForumIdentifier == forumId).Where(c => c.PostIdentifier == postId).List();
+
+			var category = session.QueryOver<Category>().Where(c => c.Identifier == post.CategoryIdentifier).SingleOrDefault();
+
+			return new PostDetail { InitialPost = post, Comments = comments, Created = post.Created, Category = category };
+		}
+
+		public Post FindByTitle(Guid forumId, string title)
+		{
+			var session = GetCurrentSession();
+
+			var posts = session.QueryOver<Post>().WhereRestrictionOn(post => post.Title).IsInsensitiveLike(
+				title, MatchMode.Exact);
+
+			return posts.SingleOrDefault();
+		}
+
+		public PostListing FindControversialPosts(Guid forumId, int pageSize, int offset)
+		{
+			var result = new PostListing { Posts = new List<Post>() };
+
+			var session = GetCurrentSession();
+
+			var posts =
+				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId)
+				.OrderBy(p => p.TotalVotes).Desc
+				.OrderBy(p => p.Created).Desc
+				.Skip(offset).Take(pageSize);
+
+			var totalPosts = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).RowCount();
+
+			result.TotalPosts = totalPosts;
+
+			result.Posts = posts.List();
+
+			return result;
+		}
+
+		public PostListing FindPopularPosts(Guid forumId, int pageSize, int offset)
+		{
+			var result = new PostListing { Posts = new List<Post>() };
+
+			var session = GetCurrentSession();
+
+			var posts =
+				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId)
+				.OrderBy(p => p.Score).Desc
+				.OrderBy(p => p.Created).Desc
+				.Skip(offset).Take(
+					pageSize);
+
+			var totalPosts = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).RowCount();
+
+			result.TotalPosts = totalPosts;
+
+			result.Posts = posts.List();
+
+			return result;
+		}
+
+		public PostListing FindPostsInCategory(Guid forumId, string categorySlug, int pageSize, int offset)
 		{
 			var result = new PostListing { Posts = new List<Post>() };
 
