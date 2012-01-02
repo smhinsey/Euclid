@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Logging;

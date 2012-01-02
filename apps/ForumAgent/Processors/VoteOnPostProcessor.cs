@@ -19,10 +19,12 @@ namespace ForumAgent.Processors
 
 		public override void Process(VoteOnPost message)
 		{
+			if(message.PostIdentifier == Guid.Empty)
+			{
+				return;
+			}
+		
 			var post = _repository.FindById(message.PostIdentifier);
-
-			Console.WriteLine(string.Format("Voting on: {0}", message.PostIdentifier));
-			Console.WriteLine(string.Format("Voting up: {0}", message.VoteUp));
 
 			if (message.VoteUp)
 			{

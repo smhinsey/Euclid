@@ -31,19 +31,19 @@ namespace ForumComposite
 			routes.MapRoute(
 				"PopularPosts",
 				"org/{org}/forum/{forum}/posts/popular",
-				new { controller = "PostListing", action = "Popular" }
+				new { controller = "PostListing", action = "Popular", page = UrlParameter.Optional }
 				);
 
 			routes.MapRoute(
 				"AllPosts",
 				"org/{org}/forum/{forum}/posts/all",
-				new { controller = "PostListing", action = "All" }
+				new { controller = "PostListing", action = "All", page = UrlParameter.Optional }
 				);
 
 			routes.MapRoute(
 				"ControversialPosts",
 				"org/{org}/forum/{forum}/posts/controversial",
-				new { controller = "PostListing", action = "Controversial" }
+				new { controller = "PostListing", action = "Controversial", page = UrlParameter.Optional }
 				);
 
 			routes.MapRoute(
