@@ -15,9 +15,15 @@ namespace ForumComposite.Controllers
 
 		public ActionResult All(int? page)
 		{
+			var offset = page.GetValueOrDefault(1);
+
+			offset--;
+
+			offset = offset * 16;
+
 			var model = new AllPostsViewModel
 				{
-					Listing = _postQueries.FindAllPosts(ForumIdentifier, 16, page.GetValueOrDefault(0) * 16),
+					Listing = _postQueries.FindAllPosts(ForumIdentifier, 16, offset),
 					CurrentPage = page.GetValueOrDefault(1)
 				};
 
@@ -26,9 +32,15 @@ namespace ForumComposite.Controllers
 
 		public ActionResult Controversial(int? page)
 		{
+			var offset = page.GetValueOrDefault(1);
+
+			offset--;
+
+			offset = offset * 16;
+
 			var model = new ControversialPostsViewModel
 				{
-					Listing = _postQueries.FindControversialPosts(ForumIdentifier, 16, page.GetValueOrDefault(0) * 16),
+					Listing = _postQueries.FindControversialPosts(ForumIdentifier, 16, offset),
 					CurrentPage = page.GetValueOrDefault(1)
 				};
 
@@ -37,9 +49,15 @@ namespace ForumComposite.Controllers
 
 		public ActionResult Popular(int? page)
 		{
+			var offset = page.GetValueOrDefault(1);
+
+			offset--;
+
+			offset = offset * 10;
+
 			var model = new PopularPostsViewModel
 				{
-					Listing = _postQueries.FindPopularPosts(ForumIdentifier, 10, page.GetValueOrDefault(0) * 10),
+					Listing = _postQueries.FindPopularPosts(ForumIdentifier, 10, offset),
 					CurrentPage = page.GetValueOrDefault(1)
 				};
 
