@@ -23,14 +23,23 @@ namespace ForumComposite.Controllers
 			return View(model);
 		}
 
-		public ActionResult Detail(string categorySlug)
+		public ActionResult Detail(string categorySlug, int? page)
 		{
-			var model = new CategoryDetailsViewModel();
+			var offset = page.GetValueOrDefault(1);
+
+			offset--;
+
+			offset = offset * 16;
+
+			var model = new CategoryDetailsViewModel
+				{
+					CurrentPage = page.GetValueOrDefault(1),
+					Listing = _postQueries.FindPostsInCategory(ForumIdentifier, categorySlug, 16, offset)
+				};
 
 			var category = _categoryQueries.FindBySlug(ForumIdentifier, categorySlug);
 
 			model.Name = category.Name;
-			model.Listing = _postQueries.FindPostsInCategory(ForumIdentifier, categorySlug, 22, 0);
 
 			return View(model);
 		}
