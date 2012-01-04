@@ -1,37 +1,56 @@
-﻿@using ForumSkeletonMvc.ViewModels.Profile
-@model ProfileFriendsViewModel
+﻿@using Euclid.Common.Extensions
+@using Euclid.Composites.Mvc.Extensions
+@using ForumComposite.Models
+@model ForumComposite.ViewModels.Profile.ProfileFriendsViewModel
 @{
-	ViewBag.Title = "{Forum Name} - {Username}'s Friends";
+	ViewBag.Title = ForumInfo.ForumName + " - {Username}'s Friends";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.ProfileFriendsClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@ForumInfo.ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
-	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = Model.User.Username.Slugify() })">@Model.User.Username</a> <span class="divider">/</span></li>
 	<li class="active">Friends</li>
 </ul>
-<h1>{Username}'s Friends</h1>
+<h1>@Model.User.Username's Friends</h1>
 <hr />
-@RenderPage("_Tabs.cshtml")
-<p>{Username} has 8 friends.</p>
+@Html.Partial("_Tabs", Model.User.Username.Slugify())
+<p>@Model.User.Username has @Model.Friends.Count friends.</p>
 <table class="zebra-striped">
 	<tbody>
-		@for (var i = 1; i < 9; i++)
+		@{
+			var count = 1;
+		}
+		@foreach (var friend in Model.Friends)
 	{
 			<tr>
+				<td width="5">
+					<h3>@count</h3>
+				</td>
+				<td width="50"><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
+							<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=40" /></a>
+				</td>
 				<td>
-					@i
+					<h3><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">@friend.FriendUsername</a></h3>
 				</td>
-				<td><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">
-					<img src="https://secure.gravatar.com/avatar/4ff80c3ba10af1c3a5d86f293003cc99?s=40" /></a>
+				<td style="text-align: right;">
+					@if (Model.IsCurrentUser)
+					{
+						using (Html.BeginFormForInputModel(new RemoveForumUserFriendInputModel()))
+						{
+						@Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
+						@Html.Hidden("UserIdentifier", ForumInfo.AuthenticatedUserIdentifier)
+						@Html.Hidden("FriendIdentifier", friend.FriendIdentifier)
+
+						<input type="submit" class="btn small" value="Remove Friend"/>
+						}
+					}
 				</td>
-				<td>
-					<h3><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug"})">{Username}</a></h3>
-				</td>
-				<td>35 posts, 45 comments, 5 favorites </td>
-				<td><a href="#">Remove as Friend</a> </td>
 			</tr>
+		 {
+			 count++;
+		 }
 	}
 	</tbody>
 </table>

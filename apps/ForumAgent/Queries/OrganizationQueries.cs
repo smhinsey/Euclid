@@ -44,13 +44,30 @@ namespace ForumAgent.Queries
 			       		};
 		}
 
-		public Guid GetIdentifierBySlug(string slug)
+		public Organization FindBySlug(string slug)
 		{
 			var session = GetCurrentSession();
 
 			var org = session.QueryOver<OrganizationEntity>().Where(u => u.OrganizationSlug == slug).SingleOrDefault();
 
-			return org.Identifier;
+			return (org == null)
+							? null
+							: new Organization
+							{
+								Created = org.Created,
+								Address = org.Address,
+								Address2 = org.Address2,
+								City = org.City,
+								Country = org.Country,
+								Identifier = org.Identifier,
+								Modified = org.Modified,
+								Name = org.OrganizationName,
+								PhoneNumber = org.PhoneNumber,
+								State = org.State,
+								WebsiteUrl = org.OrganizationUrl,
+								Zip = org.Zip,
+								Slug = org.OrganizationSlug
+							};
 		}
 
 		public new IList<Organization> List(int offset, int pageSize)

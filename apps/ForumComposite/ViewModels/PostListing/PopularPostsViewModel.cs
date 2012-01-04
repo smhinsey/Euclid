@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ForumSkeletonMvc.ViewModels.PostListing
+﻿namespace ForumComposite.ViewModels.PostListing
 {
 	public class PopularPostsViewModel
 	{
+		public ForumAgent.ReadModels.PostListing Listing { get; set; }
+
+		public int CurrentPage { get; set; }
 	}
 }

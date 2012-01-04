@@ -10,6 +10,8 @@ namespace ForumAgent.ReadModels
 		public virtual Guid AuthorIdentifier { get; set; }
 
 		public virtual string Body { get; set; }
+		
+		public virtual string Slug { get; set; }
 
 		public virtual Guid CategoryIdentifier { get; set; }
 

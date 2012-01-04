@@ -13,24 +13,32 @@ namespace ForumAgent.Processors
 
 		private readonly ISimpleRepository<Post> _postRepository;
 
+		private readonly ISimpleRepository<Forum> _forumRepository;
+
 		private readonly ISimpleRepository<ForumUser> _userRepository;
 
 		private readonly ISimpleRepository<ModeratedComment> _moderatedCommentRepository;
+		private readonly ISimpleRepository<ForumUserAction> _userActionRepository;
 
 		public CommentOnPostProcessor(
 			ISimpleRepository<Comment> commentRepository,
 			ISimpleRepository<Post> postRepository,
-			ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedComment> moderatedCommentRepository)
+			ISimpleRepository<Forum> forumRepository,
+			ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedComment> moderatedCommentRepository, ISimpleRepository<ForumUserAction> userActionRepository)
 		{
 			_commentRepository = commentRepository;
 			_postRepository = postRepository;
+			_forumRepository = forumRepository;
 			_userRepository = userRepository;
 			_moderatedCommentRepository = moderatedCommentRepository;
+			_userActionRepository = userActionRepository;
 		}
 
 		public override void Process(CommentOnPost message)
 		{
 			var user = _userRepository.FindById(message.AuthorIdentifier);
+
+			var forum = _forumRepository.FindById(message.ForumIdentifier);
 
 			var username = "Anonymous";
 
@@ -39,11 +47,14 @@ namespace ForumAgent.Processors
 				username = user.Username;
 			}
 
-			if (message.ModerationRequired)
+			var post = _postRepository.FindById(message.PostIdentifier);
+
+			if (forum.Moderated)
 			{
 				var comment = new ModeratedComment
 				              	{
-				              		AuthorIdentifier = message.AuthorIdentifier,
+													ForumIdentifier = message.ForumIdentifier,
+													AuthorIdentifier = message.AuthorIdentifier,
 				              		AuthorDisplayName = username,
 				              		Body = message.Body,
 				              		PostIdentifier = message.PostIdentifier,
@@ -62,6 +73,7 @@ namespace ForumAgent.Processors
 			{
 				var comment = new Comment
 				{
+					ForumIdentifier = message.ForumIdentifier,
 					AuthorIdentifier = message.AuthorIdentifier,
 					AuthorDisplayName = username,
 					Body = message.Body,
@@ -73,9 +85,22 @@ namespace ForumAgent.Processors
 				};
 
 				_commentRepository.Save(comment);
-			}
 
-			var post = _postRepository.FindById(message.PostIdentifier);
+				var userAction = new ForumUserAction()
+				{
+					Created = DateTime.Now,
+					Modified = (DateTime)SqlDateTime.MinValue,
+					UserIdentifier = message.AuthorIdentifier,
+					ActivityOccurredOn = message.Created,
+					AssociatedPostIdentifier = message.PostIdentifier,
+					AssociatedPostTitle = post.Title,
+					Body = message.Body,
+					ForumIdentifier = message.ForumIdentifier,
+					IsComment = true
+				};
+
+				_userActionRepository.Save(userAction);
+			}
 
 			post.CommentCount++;
 
@@ -83,7 +108,7 @@ namespace ForumAgent.Processors
 
 			if (user != null)
 			{
-				user.NumberComments++;
+				user.CommentCount++;
 				_userRepository.Update(user);
 			}
 

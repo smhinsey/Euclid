@@ -11,6 +11,8 @@ namespace ForumComposite.Models
 			CommandType = typeof(CommentOnPost);
 		}
 
+		public Guid ForumIdentifier { get; set; }
+
 		public Guid AuthorIdentifier { get; set; }
 
 		public string Body { get; set; }

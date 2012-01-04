@@ -1,4 +1,4 @@
-﻿namespace ForumSkeletonMvc.ViewModels.Tag
+﻿namespace ForumComposite.ViewModels.Tag
 {
 	public class AllTagsViewModel
 	{

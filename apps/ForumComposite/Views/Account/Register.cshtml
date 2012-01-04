@@ -1,0 +1,67 @@
+﻿@using Euclid.Composites.Mvc.Extensions
+@model ForumComposite.Models.RegisterForumUserInputModel
+<div class="modal hide fade" style="display: none;" id="registration-modal">
+	@using (Html.BeginFormForInputModel(Model, true, Url.RouteUrl("Home")))
+	{
+	 @Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
+
+		<div class="modal-header">
+			<a href="#" class="close">&times;</a>
+			<h3>Register for {Forum Name}</h3>
+		</div>
+
+		<div class="modal-body">
+
+			<div class="clearfix">
+				<label for="username">Name</label>
+
+				<div class="input">
+					@Html.TextBoxFor(m => m.FirstName)
+				</div>
+
+			</div>
+
+			<div class="clearfix">
+				<label for="username">Username</label>
+
+				<div class="input">
+					@Html.TextBoxFor(m => m.Username)
+				</div>
+
+			</div>
+
+			<div class="clearfix">
+				<label for="email">Email</label>
+
+				<div class="input">
+					@Html.TextBoxFor(m => m.Email)
+				</div>
+
+			</div>
+
+			<div class="clearfix">
+				<label for="password">Password</label>
+
+				<div class="input">
+					@Html.TextBoxFor(m => m.Password)
+				</div>
+
+			</div>
+
+			<div class="clearfix">
+				<label for="password">Confirm Password</label>
+
+				<div class="input">
+					@Html.TextBoxFor(m => m.ConfirmationPassword)
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="modal-footer">
+			<button class="btn primary">Complete Registration</button>
+			<a href="#" class="btn secondary">Cancel</a>
+		</div>
+	}
+</div>

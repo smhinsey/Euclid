@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Euclid.Framework.Cqrs.NHibernate;
+using ForumAgent.Domain.Entities;
 using ForumAgent.ReadModels;
 using NHibernate;
 
@@ -27,7 +28,41 @@ namespace ForumAgent.Queries
 			return matchedAccount != null;
 		}
 
-		public UserProfile FindByUserIdentifier(Guid forumId, Guid identifier)
+		public IList<ForumUserFavorite> FindUserFavorites(Guid forumId, Guid userId)
+		{
+			var session = GetCurrentSession();
+
+			return
+				session.QueryOver<ForumUserFavorite>().Where(f => f.ForumIdentifier == forumId).Where(
+					f => f.UserIdentifier == userId).OrderBy(f => f.Created).Desc.List();
+		}
+
+		public IList<ForumUserFriend> FindUserFriends(Guid forumId, Guid userId)
+		{
+			var session = GetCurrentSession();
+
+			return
+				session.QueryOver<ForumUserFriend>().Where(f => f.ForumIdentifier == forumId).Where(
+					f => f.UserIdentifier == userId).OrderBy(f => f.Created).Desc.List();
+		}
+
+		public IList<ForumUserFavorite> FindFavoritesRelatedToPost(Guid forumId, Guid userId, Guid postId)
+		{
+			var session = GetCurrentSession();
+
+			return
+				session.QueryOver<ForumUserFavorite>().Where(f => f.ForumIdentifier == forumId).Where(
+					f => f.UserIdentifier == userId).Where(f => f.AssociatedPostIdentifier == postId).List();
+		}
+
+		public bool IsFavoritePost(Guid forumId, Guid userId, Guid postId)
+		{
+			var favorites = FindFavoritesRelatedToPost(forumId, userId, postId);
+
+			return favorites.Count > 0;
+		}
+
+		public UserProfile FindProfileByUserIdentifier(Guid forumId, Guid identifier)
 		{
 			var session = GetCurrentSession();
 
@@ -49,7 +84,28 @@ namespace ForumAgent.Queries
 		{
 			var matchedUser = FindByUsername(forumId, username);
 
-			return FindByUserIdentifier(forumId, matchedUser.Identifier);
+			return FindProfileByUserIdentifier(forumId, matchedUser.Identifier);
+		}
+
+		public IList<ForumUser> FindTopUsers(Guid forumId)
+		{
+			var session = GetCurrentSession();
+
+			var users = session.QueryOver<ForumUser>().Skip(0).Take(5);
+
+			return users.List();
+		}
+
+		public IList<ForumUserAction> FindUserActivity(Guid forumId, Guid userIdentifier)
+		{
+			var session = GetCurrentSession();
+
+			var activity = session.QueryOver<ForumUserAction>()
+				.Where(a => a.ForumIdentifier == forumId)
+				.Where(a => a.UserIdentifier == userIdentifier)
+				.OrderBy(a => a.ActivityOccurredOn).Desc;
+
+			return activity.List();
 		}
 
 		public ForumUsers FindByForum(Guid forumId, int offset, int pageSize)

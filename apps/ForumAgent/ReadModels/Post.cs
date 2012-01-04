@@ -7,6 +7,8 @@ namespace ForumAgent.ReadModels
 	{
 		public virtual string AuthorDisplayName { get; set; }
 
+		public virtual string Slug { get; set; }
+
 		public virtual Guid AuthorIdentifier { get; set; }
 
 		public virtual string Body { get; set; }
@@ -18,6 +20,8 @@ namespace ForumAgent.ReadModels
 		public virtual Guid ForumIdentifier { get; set; }
 
 		public virtual int Score { get; set; }
+
+		public virtual int TotalVotes { get; set; }
 
 		public virtual string Title { get; set; }
 	}

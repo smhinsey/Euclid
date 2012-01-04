@@ -1,17 +1,31 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using ForumAgent.Queries;
+using ForumComposite.ViewModels.Post;
 
-namespace ForumSkeletonMvc.Controllers
+namespace ForumComposite.Controllers
 {
-	public class PostController : Controller
+	public class PostController : ForumController
 	{
-		public ActionResult Detail()
+		private readonly PostQueries _postQueries;
+
+		private readonly UserQueries _userQueries;
+
+		public PostController(PostQueries postQueries, UserQueries userQueries)
 		{
-			return View();
+			_postQueries = postQueries;
+			_userQueries = userQueries;
 		}
 
-		public ActionResult Create()
+		public ActionResult Detail(string postSlug, Guid postIdentifier)
 		{
-			return View();
+			var model = new PostDetailViewModel
+				{
+					Post = _postQueries.FindByIdentifier(ForumInfo.ForumIdentifier, postIdentifier),
+					IsFavoritePost = _userQueries.IsFavoritePost(ForumInfo.ForumIdentifier, ForumInfo.AuthenticatedUserIdentifier, postIdentifier)
+				};
+
+			return View(model);
 		}
 	}
 }

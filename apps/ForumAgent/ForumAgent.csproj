@@ -62,6 +62,7 @@
     <Compile Include="Commands\ActivateContent.cs" />
     <Compile Include="Commands\ActivateForumUser.cs" />
     <Compile Include="Commands\ActivateOrganizationUser.cs" />
+    <Compile Include="Commands\AddForumUserAsFriend.cs" />
     <Compile Include="Commands\ApproveComment.cs" />
     <Compile Include="Commands\ApprovePost.cs" />
     <Compile Include="Commands\AwardBadge.cs" />
@@ -71,8 +72,11 @@
     <Compile Include="Commands\DeleteForumUser.cs" />
     <Compile Include="Commands\DeleteOrganizationUser.cs" />
     <Compile Include="Commands\ForumModerated.cs" />
+    <Compile Include="Commands\MarkCommentAsFavorite.cs" />
+    <Compile Include="Commands\MarkPostAsFavorite.cs" />
     <Compile Include="Commands\RejectComment.cs" />
     <Compile Include="Commands\RejectPost.cs" />
+    <Compile Include="Commands\RemoveForumUserFriend.cs" />
     <Compile Include="Commands\SetForumTheme.cs" />
     <Compile Include="Commands\UpdateAvatar.cs" />
     <Compile Include="Commands\UpdateBadge.cs" />
@@ -86,6 +90,7 @@
     <Compile Include="Processors\ActivateBadgeProcessor.cs" />
     <Compile Include="Processors\ActivateForumUserProcessor.cs" />
     <Compile Include="Processors\ActivateOrganizationUserProcessor.cs" />
+    <Compile Include="Processors\AddForumUserAsFriendProcessor.cs" />
     <Compile Include="Processors\ApproveCommentProcessor.cs" />
     <Compile Include="Processors\ApprovePostProcessor.cs" />
     <Compile Include="Processors\CreateAvatarProcessor.cs" />
@@ -93,8 +98,10 @@
     <Compile Include="Processors\DeleteAvatarProcessor.cs" />
     <Compile Include="Processors\DeleteForumUserProcessor.cs" />
     <Compile Include="Processors\DeleteOrganizationUser.cs" />
+    <Compile Include="Processors\MarkPostAsFavoriteProcessor.cs" />
     <Compile Include="Processors\RejectCommentProcessor.cs" />
     <Compile Include="Processors\RejectPostProcessor.cs" />
+    <Compile Include="Processors\RemoveForumUserFriendProcessor.cs" />
     <Compile Include="Processors\SetForumThemeProcessor.cs" />
     <Compile Include="Processors\ActivateCategoryProcessor.cs" />
     <Compile Include="Processors\ActivateContentProcessor.cs" />
@@ -149,9 +156,13 @@
     <Compile Include="ReadModels\AvailableCategories.cs" />
     <Compile Include="ReadModels\AvailableContent.cs" />
     <Compile Include="ReadModels\AwardedBadge.cs" />
+    <Compile Include="ReadModels\CategoryDetail.cs" />
     <Compile Include="ReadModels\ForumAvatar.cs" />
     <Compile Include="ReadModels\ForumBadge.cs" />
     <Compile Include="ReadModels\ForumTheme.cs" />
+    <Compile Include="ReadModels\ForumUserAction.cs" />
+    <Compile Include="ReadModels\ForumUserFavorite.cs" />
+    <Compile Include="ReadModels\ForumUserFriend.cs" />
     <Compile Include="ReadModels\ForumUsers.cs" />
     <Compile Include="ReadModels\ForumVotingScheme.cs" />
     <Compile Include="ReadModels\ModeratedComment.cs" />

@@ -1,0 +1,32 @@
+﻿@model CommentOnPostInputModel
+
+@using Euclid.Composites.Mvc.Extensions
+@using ForumComposite.Models
+
+@using (Html.BeginFormForInputModel(Model))
+{
+				
+	@Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
+	@Html.Hidden("AuthorIdentifier", ForumInfo.AuthenticatedUserIdentifier)
+	@Html.Hidden("PostIdentifier", Model.PostIdentifier)
+							
+	<fieldset><legend>Add a Comment</legend>
+
+		<div class="clearfix">
+			<label for="newCommentBody">Comment</label>
+
+			<div class="input">
+										
+				<textarea class="xxlarge" name="Body" rows="6"></textarea>
+				<span class="help-block">Please be civil.</span>
+			</div>
+
+		</div>
+
+		<div class="actions">
+			<input id="publishComment" type="submit" class="btn primary" value="Publish Comment" />
+			<input id="cancelComment" type="button" class="btn" value="Cancel" />
+		</div>
+
+	</fieldset>
+}

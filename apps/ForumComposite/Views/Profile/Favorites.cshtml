@@ -1,50 +1,59 @@
-﻿@using ForumSkeletonMvc.ViewModels.Profile
-@model ProfileFavoritesViewModel
+﻿@using Euclid.Common.Extensions
+@model ForumComposite.ViewModels.Profile.ProfileFavoritesViewModel
 @{
-	ViewBag.Title = "{Forum Name} - {Username}'s Favorites";
+	ViewBag.Title = ForumInfo.ForumName + " - " + Model.User.Username + "'s Favorites";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.ProfileFavoritesClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@ForumInfo.ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
-	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "my-profile-slug" })">
-		{Username}</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = Model.User.Username.Slugify() })">@Model.User.Username</a> <span class="divider">/</span></li>
 	<li class="active">Favorites</li>
 </ul>
-<h1>
-	{Username}'s Favorites</h1>
+<h1>@Model.User.Username's Favorites</h1>
 <hr />
-@RenderPage("_Tabs.cshtml")
-@for (var i = 1; i < 11; i++)
+@Html.Partial("_Tabs", Model.User.Username.Slugify())
+
+@if(Model.Favorites.Count == 0)
 {
-	<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
+	<div class="row">
 		<div class="span10">
-			<p>
-				<strong><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">
-					{Post Title}</a></strong> &ndash; This is a favorite post. Integer posuere erat
-				a ante venenatis dapibus posuere. Etiam porta sem malesuada magna mollis euismod.
-				&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em>
-					in <a href="@Url.RouteUrl("Category", new { categorySlug = "category-slug" })" class="label">
-						Category</a> &middot; <a href="#">Remove</a></span></p>
-			<hr />
+			
+			<p>This user has no favorites.</p>
+
 		</div>
 	</div>
-		 
-	if (i % 2 == 0)
+}
+
+@foreach(var favorite in Model.Favorites)
+{
+	if (favorite.IsPost)
 	{
-		 	
-	<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
-		<div class="span10">
-			<p>
-				Comment on post: <strong><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">
-					{Post Title}</a></strong> &ndash; This is a favorite comment. Integer posuere
-				erat a ante venenatis dapibus posuere. Etiam porta sem malesuada magna mollis euismod.
-				&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em>
-					&middot; <a href="#">Remove</a></span></p>
-			<hr />
+		<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
+			<div class="span10">
+				<p>
+					<strong><a href="@Url.RouteUrl("Post", new { postIdentifier = favorite.AssociatedPostIdentifier, postSlug = favorite.AssociatedPostTitle.Slugify() })">
+										@favorite.AssociatedPostTitle</a></strong> &ndash; @favorite.Body
+					&mdash; <span style="text-align: right; font-size: smaller;"><em>@favorite.AssociatedPostPublicationDate.ToString("h:mm tt M/d/yyyy")</em>
+										in <a href="@Url.RouteUrl("Category", new { categorySlug = "category-slug" })" class="label">
+											 	Category</a> &middot; <img alt="Favorite" src="@Url.Content("~/Content/images/star.png")"/></span></p>
+				<hr />
+			</div>
 		</div>
-	</div>			 
-			 
+	} 
+	else if (favorite.IsComment)
+	{
+		<div class="row" style="margin-top: 0px; margin-bottom: 0px;">
+			<div class="span10">
+				<p>
+					Comment on post: <strong><a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })">
+																	 	{Post Title}</a></strong> &ndash; This is a favorite comment. Integer posuere
+					erat a ante venenatis dapibus posuere. Etiam porta sem malesuada magna mollis euismod.
+					&mdash; <span style="text-align: right; font-size: smaller;"><em>12:59 PM 12/31/2011</em>
+										&middot; <a href="#">Remove</a></span></p>
+				<hr />
+			</div>
+		</div>
 	}
 }

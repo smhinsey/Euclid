@@ -1,4 +1,5 @@
-﻿using Euclid.Common.Storage.Model;
+﻿using System;
+using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
 using ForumAgent.ReadModels;
@@ -18,6 +19,11 @@ namespace ForumAgent.Processors
 
 		public override void Process(VoteOnPost message)
 		{
+			if(message.PostIdentifier == Guid.Empty)
+			{
+				return;
+			}
+		
 			var post = _repository.FindById(message.PostIdentifier);
 
 			if (message.VoteUp)
@@ -28,6 +34,8 @@ namespace ForumAgent.Processors
 			{
 				post.Score--;
 			}
+
+			post.TotalVotes++;
 
 			_repository.Update(post);
 

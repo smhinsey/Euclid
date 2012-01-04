@@ -83,6 +83,10 @@ namespace ForumComposite
 			composite.RegisterInputModelMap<UpdateUserProfileInputModel, UpdateUserProfile>();
 			composite.RegisterInputModelMap<VoteOnCommentInputModel, VoteOnComment>();
 			composite.RegisterInputModelMap<VoteOnPostInputModel, VoteOnPost>();
+			composite.RegisterInputModelMap<MarkPostAsFavoriteInputModel, MarkPostAsFavorite>();
+			composite.RegisterInputModelMap<MarkCommentAsFavoriteInputModel, MarkCommentAsFavorite>();
+			composite.RegisterInputModelMap<AddForumUserAsFriendInputModel, AddForumUserAsFriend>();
+			composite.RegisterInputModelMap<RemoveForumUserFriendInputModel, RemoveForumUserFriend>();
 
 			composite.CreateSchema(databaseConfiguration, false);
 

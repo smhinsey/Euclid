@@ -1,79 +1,73 @@
-﻿@using ForumSkeletonMvc.ViewModels.Category
-@model CategoryDetailsViewModel
+﻿@model ForumComposite.ViewModels.Category.CategoryDetailsViewModel
 @{
-	ViewBag.Title = "{Forum Name} - {Category Name}";
+	ViewBag.Title = ForumInfo.ForumName + " - " + Model.Name;
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.CategoriesClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">{Forum Name} Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@ForumInfo.ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("Categories")">Categories</a> <span class="divider">/</span></li>
-	<li class="active">{Category Name}</li>
+	<li class="active">@Model.Name</li>
 </ul>
-<h1>{Category Name}</h1>
+<h1>@Model.Name</h1>
 <hr />
 <p><small>(Custom category content.)</small></p>
 
-<div class="row">
+@{
+	var postCount = 0;
+	var totalPosts = Model.Listing.Posts.Count;
 
-	<div class="span8">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Large" })
-	</div>
+	var postsToPad = 0;
+	var needsPadding = false;
+	
+	if(totalPosts % 4 != 0)
+	{
+		needsPadding = true;
+		postsToPad = 4 - (totalPosts % 4);
+	}
+}
 
-	<div class="span8">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Large" })
-	</div>
+@foreach(var post in Model.Listing.Posts){
 
-</div>
+	if (postCount % 4 == 0)
+		{
+			@:<div class="row">
+		}
 
-<hr>
+			<div class="span4">
+				@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Post = post })
+			</div>
 
-<div class="row">
+		if(needsPadding && postCount == (totalPosts - 1))
+		{
+			for(var i = 0; i<postsToPad; i++)
+			{
+				<div class="span4"></div>
+			}
+			@:</div><hr/>
+		}
 
-	<div class="span8">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Large" })
-	</div>
+		if (postCount % 4 == 3)
+		{
+			@:</div><hr/>
+		}
 
-	<div class="span8">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Large" })
-	</div>
+	{
+		postCount++;
+	}
+}
 
-</div>
-
-<hr>
-
-<div class="row">
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-	<div class="span4">
-		@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small" })
-	</div>
-
-</div>
-
-<hr />
+@{
+	var pages = Model.Listing.TotalPosts % 16;
+}
 
 <div class="pagination">
 	<ul>
 		<li class="prev disabled"><a href="#">&larr; Previous</a></li>
-		<li><a href="#">1</a></li>
-		<li class="active"><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li class="disabled"><a href="#">...</a></li>
-		<li><a href="#">45</a></li>
-		<li><a href="#">46</a></li>
-		<li><a href="#">47</a></li>
+		@for (var i = 1; i < pages + 1; i++ )
+	{
+		<li @if(i == Model.CurrentPage){<text>class="active"</text>}><a href="?page=@i">@i</a></li>
+	}
 		<li class="next"><a href="#">Next &rarr;</a></li>
 	</ul>
 </div>

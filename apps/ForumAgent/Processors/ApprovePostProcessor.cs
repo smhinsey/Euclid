@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.SqlTypes;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
@@ -9,13 +8,19 @@ namespace ForumAgent.Processors
 {
 	public class ApprovePostProcessor : DefaultCommandProcessor<ApprovePost>
 	{
-		private readonly ISimpleRepository<ModeratedPost> _repository;
-
-		private readonly ISimpleRepository<Post> _postRepository;
-		private readonly ISimpleRepository<Forum> _forumRepository;
 		private readonly ISimpleRepository<Category> _categoryRepository;
 
-		public ApprovePostProcessor(ISimpleRepository<ModeratedPost> repository, ISimpleRepository<Post> postRepository, ISimpleRepository<Forum> forumRepository, ISimpleRepository<Category> categoryRepository)
+		private readonly ISimpleRepository<Forum> _forumRepository;
+
+		private readonly ISimpleRepository<Post> _postRepository;
+
+		private readonly ISimpleRepository<ModeratedPost> _repository;
+
+		public ApprovePostProcessor(
+			ISimpleRepository<ModeratedPost> repository,
+			ISimpleRepository<Post> postRepository,
+			ISimpleRepository<Forum> forumRepository,
+			ISimpleRepository<Category> categoryRepository)
 		{
 			_repository = repository;
 			_postRepository = postRepository;
@@ -39,19 +44,20 @@ namespace ForumAgent.Processors
 			_repository.Update(post);
 
 			var approvedPost = new Post
-			                   	{
-									Identifier = post.Identifier,
-			                   		AuthorDisplayName = post.AuthorDisplayName,
-			                   		Created = post.Created,
-			                   		AuthorIdentifier = post.AuthorIdentifier,
-			                   		ForumIdentifier = post.ForumIdentifier,
-			                   		CommentCount = post.CommentCount,
-			                   		Body = post.Body,
-			                   		CategoryIdentifier = post.CategoryIdentifier,
-			                   		Modified = post.Modified,
-			                   		Score = post.Score,
-			                   		Title = post.Title
-			                   	};
+				{
+					Identifier = post.Identifier,
+					AuthorDisplayName = post.AuthorDisplayName,
+					Created = post.Created,
+					AuthorIdentifier = post.AuthorIdentifier,
+					ForumIdentifier = post.ForumIdentifier,
+					CommentCount = post.CommentCount,
+					Body = post.Body,
+					CategoryIdentifier = post.CategoryIdentifier,
+					Modified = post.Modified,
+					Score = post.Score,
+					Title = post.Title,
+					Slug = post.Slug
+				};
 
 			var forum = _forumRepository.FindById(post.ForumIdentifier);
 
@@ -69,7 +75,6 @@ namespace ForumAgent.Processors
 			}
 
 			_postRepository.Save(approvedPost);
-
 		}
 	}
 }
