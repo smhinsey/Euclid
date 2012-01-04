@@ -22,8 +22,8 @@
 		<div class="modal-body">
 		
 			
-		 @Html.Hidden("ForumIdentifier", CurrentForum.ForumIdentifier)
-		 @Html.Hidden("AuthorIdentifier", CurrentForum.CurrentUserIdentifier)
+		 @Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
+		 @Html.Hidden("AuthorIdentifier", ForumInfo.AuthenticatedUserIdentifier)
 
 			<div class="clearfix">
 				<label for="username">
@@ -46,7 +46,7 @@
 				<label for="email">
 					Category</label>
 				<div class="input">
-					@Html.DropDownList("CategoryIdentifier", new SelectList(CurrentForum.Categories, "Identifier", "Name"))
+					@Html.DropDownList("CategoryIdentifier", new SelectList(ForumInfo.Categories, "Identifier", "Name"))
 					
 				</div>
 			</div>			

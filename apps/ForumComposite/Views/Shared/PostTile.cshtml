@@ -48,8 +48,8 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 		<div class="@Page.Size.ToLower()" style="padding-top: 25px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; float: right; clear: left;">
 			@using (Html.BeginFormForInputModel(new VoteOnPostInputModel()))
 	 {
-				@Html.Hidden("ForumIdentifier", CurrentForum.ForumIdentifier)
-				@Html.Hidden("AuthorIdentifier", CurrentForum.CurrentUserIdentifier)
+				@Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
+				@Html.Hidden("AuthorIdentifier", ForumInfo.AuthenticatedUserIdentifier)
 				@Html.Hidden("PostIdentifier", (Guid)Page.Post.Identifier)
 				@Html.Hidden("VoteUp", true)
 				<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" src="@Url.Content("~/Content/images/arrow-090" + @arrowSize + ".png")" />
@@ -58,8 +58,8 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 			(@Page.Post.Score)<br/>
 			@using (Html.BeginFormForInputModel(new VoteOnPostInputModel()))
 	 {
-				@Html.Hidden("ForumIdentifier", CurrentForum.ForumIdentifier)
-				@Html.Hidden("AuthorIdentifier", CurrentForum.CurrentUserIdentifier)
+				@Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
+				@Html.Hidden("AuthorIdentifier", ForumInfo.AuthenticatedUserIdentifier)
 				@Html.Hidden("PostIdentifier", (Guid)Page.Post.Identifier)
 				@Html.Hidden("VoteUp", false)
 				<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" src="@Url.Content("~/Content/images/arrow-270" + @arrowSize + ".png")" />

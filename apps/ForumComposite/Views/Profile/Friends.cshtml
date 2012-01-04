@@ -3,12 +3,12 @@
 @using ForumComposite.Models
 @model ForumComposite.ViewModels.Profile.ProfileFriendsViewModel
 @{
-	ViewBag.Title = CurrentForum.ForumName + " - {Username}'s Friends";
+	ViewBag.Title = ForumInfo.ForumName + " - {Username}'s Friends";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.ProfileFriendsClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">@CurrentForum.ForumName Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@ForumInfo.ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = Model.User.Username.Slugify() })">@Model.User.Username</a> <span class="divider">/</span></li>
 	<li class="active">Friends</li>
@@ -39,8 +39,8 @@
 					{
 						using (Html.BeginFormForInputModel(new RemoveForumUserFriendInputModel()))
 						{
-						@Html.Hidden("ForumIdentifier", CurrentForum.ForumIdentifier)
-						@Html.Hidden("UserIdentifier", CurrentForum.CurrentUserIdentifier)
+						@Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
+						@Html.Hidden("UserIdentifier", ForumInfo.AuthenticatedUserIdentifier)
 						@Html.Hidden("FriendIdentifier", friend.FriendIdentifier)
 
 						<input type="submit" class="btn small" value="Remove Friend"/>

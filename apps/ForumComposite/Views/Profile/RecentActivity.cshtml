@@ -1,12 +1,12 @@
 ﻿@using Euclid.Common.Extensions
 @model ForumComposite.ViewModels.Profile.ProfileRecentActivityViewModel
 @{
-	ViewBag.Title = @CurrentForum.ForumName + " - " + Model.User.Username + "'s Recent Activity";
+	ViewBag.Title = ForumInfo.ForumName + " - " + Model.User.Username + "'s Recent Activity";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.ProfileRecentActivityClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">@CurrentForum.ForumName Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@ForumInfo.ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = Model.User.Username.Slugify() })">@Model.User.Username</a> <span class="divider">/</span></li>
 	<li class="active">Recent Activity</li>

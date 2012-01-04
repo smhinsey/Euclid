@@ -4,15 +4,15 @@ namespace ForumComposite
 {
 	public abstract class ForumViewPage<T> : WebViewPage<T>
 	{
-		public ForumTenantDescriptor CurrentForum { get; private set; }
+		public SharedForumInfo ForumInfo { get; private set; }
 
 		protected override void InitializePage()
 		{
-			var descriptor = new ForumTenantDescriptor();
+			var descriptor = new SharedForumInfo();
 
 			descriptor.Initialize(Url.RequestContext.RouteData);
 
-			CurrentForum = descriptor;
+			ForumInfo = descriptor;
 
 			base.InitializePage();
 		}

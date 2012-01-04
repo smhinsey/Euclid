@@ -23,7 +23,7 @@ namespace ForumComposite.Controllers
 
 			var model = new AllPostsViewModel
 				{
-					Listing = _postQueries.FindAllPosts(CurrentForum.ForumIdentifier, 16, offset),
+					Listing = _postQueries.FindAllPosts(ForumInfo.ForumIdentifier, 16, offset),
 					CurrentPage = page.GetValueOrDefault(1)
 				};
 
@@ -40,7 +40,7 @@ namespace ForumComposite.Controllers
 
 			var model = new ControversialPostsViewModel
 				{
-					Listing = _postQueries.FindControversialPosts(CurrentForum.ForumIdentifier, 16, offset),
+					Listing = _postQueries.FindControversialPosts(ForumInfo.ForumIdentifier, 16, offset),
 					CurrentPage = page.GetValueOrDefault(1)
 				};
 
@@ -57,7 +57,7 @@ namespace ForumComposite.Controllers
 
 			var model = new PopularPostsViewModel
 				{
-					Listing = _postQueries.FindPopularPosts(CurrentForum.ForumIdentifier, 10, offset),
+					Listing = _postQueries.FindPopularPosts(ForumInfo.ForumIdentifier, 10, offset),
 					CurrentPage = page.GetValueOrDefault(1)
 				};
 

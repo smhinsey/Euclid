@@ -6,8 +6,8 @@
 @using (Html.BeginFormForInputModel(Model))
 {
 				
-	@Html.Hidden("ForumIdentifier", CurrentForum.ForumIdentifier)
-	@Html.Hidden("AuthorIdentifier", CurrentForum.CurrentUserIdentifier)
+	@Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
+	@Html.Hidden("AuthorIdentifier", ForumInfo.AuthenticatedUserIdentifier)
 	@Html.Hidden("PostIdentifier", Model.PostIdentifier)
 							
 	<fieldset><legend>Add a Comment</legend>

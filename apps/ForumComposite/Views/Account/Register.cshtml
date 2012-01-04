@@ -3,7 +3,7 @@
 <div class="modal hide fade" style="display: none;" id="registration-modal">
 	@using (Html.BeginFormForInputModel(Model, true, Url.RouteUrl("Home")))
 	{
-	 @Html.Hidden("ForumIdentifier", CurrentForum.ForumIdentifier)
+	 @Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
 
 		<div class="modal-header">
 			<a href="#" class="close">&times;</a>

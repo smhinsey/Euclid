@@ -2,7 +2,7 @@
 <div class="topbar">
 	<div class="topbar-inner">
 		<div class="container-fluid">
-			<a class="brand" href="@Url.RouteUrl("Home")">@CurrentForum.ForumName</a>
+			<a class="brand" href="@Url.RouteUrl("Home")">@ForumInfo.ForumName</a>
 			<ul class="nav">
 				<li class="@ViewBag.CategoriesClass"><a href="@Url.RouteUrl("Categories")">Categories</a></li>
 				<li class="@ViewBag.TagsClass"><a href="@Url.RouteUrl("Tags")">Tags</a></li>

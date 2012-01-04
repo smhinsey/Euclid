@@ -11,17 +11,17 @@ namespace ForumComposite.Controllers
 			Publisher = DependencyResolver.Current.GetService<IPublisher>();
 		}
 
-		public ForumTenantDescriptor CurrentForum { get; private set; }
+		public SharedForumInfo ForumInfo { get; private set; }
 
 		public IPublisher Publisher { get; private set; }
 
 		protected override void Execute(RequestContext requestContext)
 		{
-			var descriptor = new ForumTenantDescriptor();
+			var descriptor = new SharedForumInfo();
 
 			descriptor.Initialize(requestContext.RouteData);
 
-			CurrentForum = descriptor;
+			ForumInfo = descriptor;
 
 			base.Execute(requestContext);
 		}

@@ -22,8 +22,8 @@ namespace ForumComposite.Controllers
 		{
 			var model = new ProfileBadgesViewModel
 				{
-					User = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, profileSlug),
-					IsCurrentUser = profileSlug == CurrentForum.CurrentUserName
+					User = _userQueries.FindByUsername(ForumInfo.ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == ForumInfo.AuthenticatedUserName
 				};
 
 			return View(model);
@@ -33,11 +33,11 @@ namespace ForumComposite.Controllers
 		{
 			var model = new ProfileFavoritesViewModel
 				{
-					User = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, profileSlug),
-					IsCurrentUser = profileSlug == CurrentForum.CurrentUserName,
+					User = _userQueries.FindByUsername(ForumInfo.ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == ForumInfo.AuthenticatedUserName,
 				};
 
-			model.Favorites = _userQueries.FindUserFavorites(CurrentForum.ForumIdentifier, model.User.Identifier);
+			model.Favorites = _userQueries.FindUserFavorites(ForumInfo.ForumIdentifier, model.User.Identifier);
 
 			return View(model);
 		}
@@ -46,11 +46,11 @@ namespace ForumComposite.Controllers
 		{
 			var model = new ProfileFriendsViewModel
 				{
-					User = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, profileSlug),
-					IsCurrentUser = profileSlug == CurrentForum.CurrentUserName
+					User = _userQueries.FindByUsername(ForumInfo.ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == ForumInfo.AuthenticatedUserName
 				};
 
-			model.Friends = _userQueries.FindUserFriends(CurrentForum.ForumIdentifier, model.User.Identifier);
+			model.Friends = _userQueries.FindUserFriends(ForumInfo.ForumIdentifier, model.User.Identifier);
 
 			return View(model);
 		}
@@ -59,8 +59,8 @@ namespace ForumComposite.Controllers
 		{
 			var model = new ProfileOverviewViewModel
 				{
-					User = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, profileSlug),
-					IsCurrentUser = profileSlug == CurrentForum.CurrentUserName
+					User = _userQueries.FindByUsername(ForumInfo.ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == ForumInfo.AuthenticatedUserName
 				};
 
 			return View(model);
@@ -70,11 +70,11 @@ namespace ForumComposite.Controllers
 		{
 			var model = new ProfileRecentActivityViewModel
 				{
-					User = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, profileSlug),
-					IsCurrentUser = profileSlug == CurrentForum.CurrentUserName
+					User = _userQueries.FindByUsername(ForumInfo.ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == ForumInfo.AuthenticatedUserName
 				};
 
-			model.Activity = _userQueries.FindUserActivity(CurrentForum.ForumIdentifier, model.User.Identifier);
+			model.Activity = _userQueries.FindUserActivity(ForumInfo.ForumIdentifier, model.User.Identifier);
 
 			return View(model);
 		}

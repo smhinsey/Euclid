@@ -1,11 +1,11 @@
 ﻿@model ForumComposite.ViewModels.Tag.AllTagsViewModel
 @{
-	ViewBag.Title = CurrentForum.ForumName + " - Tags";
+	ViewBag.Title = ForumInfo.ForumName + " - Tags";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.TagsClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">@CurrentForum.ForumName Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@ForumInfo.ForumName Home</a> <span class="divider">/</span></li>
 	<li class="active">Tags</li>
 </ul>
 <h1>Tags</h1>

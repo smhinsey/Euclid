@@ -8,9 +8,9 @@ using ForumAgent.ReadModels;
 
 namespace ForumComposite
 {
-	// TODO: this should replace the duplicated properties from ForumViewPage and ForumController
 	// TODO: all of the below queries need to be combined into a single one
-	public class ForumTenantDescriptor
+	// TODO: this should only execute once per request
+	public class CommonForumInfo
 	{
 		private readonly CategoryQueries _categoryQueries;
 
@@ -20,7 +20,7 @@ namespace ForumComposite
 
 		private readonly UserQueries _userQueries;
 
-		public ForumTenantDescriptor()
+		public CommonForumInfo()
 		{
 			_forumQueries = DependencyResolver.Current.GetService<ForumQueries>();
 			_orgQueries = DependencyResolver.Current.GetService<OrganizationQueries>();
@@ -30,9 +30,10 @@ namespace ForumComposite
 
 		public IList<Category> Categories { get; private set; }
 
-		public Guid CurrentUserIdentifier { get; private set; }
+		// TODO: user-specific data should be moved to a principal or something like that
+		public Guid AuthenticatedUserIdentifier { get; private set; }
 
-		public string CurrentUserName { get; private set; }
+		public string AuthenticatedUserName { get; private set; }
 
 		public Guid ForumIdentifier { get; private set; }
 
@@ -63,12 +64,12 @@ namespace ForumComposite
 
 			if (HttpContext.Current.Request.IsAuthenticated)
 			{
-				CurrentUserName = HttpContext.Current.User.Identity.Name;
+				AuthenticatedUserName = HttpContext.Current.User.Identity.Name;
 
 				var cookie = HttpContext.Current.Request.Cookies[string.Format("{0}UserId", ForumName)];
 				if (cookie != null)
 				{
-					CurrentUserIdentifier = Guid.Parse(cookie.Value);
+					AuthenticatedUserIdentifier = Guid.Parse(cookie.Value);
 				}
 			}
 		}

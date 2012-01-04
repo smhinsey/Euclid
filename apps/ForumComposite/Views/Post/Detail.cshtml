@@ -3,7 +3,7 @@
 @using ForumComposite.Models
 @model ForumComposite.ViewModels.Post.PostDetailViewModel
 @{
-	ViewBag.Title = CurrentForum.ForumName + " - " + Model.Post.InitialPost.Title;
+	ViewBag.Title = ForumInfo.ForumName + " - " + Model.Post.InitialPost.Title;
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 }
 @section HeadContent {
@@ -55,7 +55,7 @@
 	</style>
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">@CurrentForum.ForumName Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@ForumInfo.ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("Categories")">Categories</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("Category", new { categorySlug = Model.Post.Category.Slug })">@Model.Post.Category.Name</a> <span class="divider">/</span></li>
 	<li class="active">@Model.Post.InitialPost.Title</li>
@@ -96,8 +96,8 @@
 					<img title="Report abusive content" src="@Url.Content("~/Content/images/exclamation-white.png")" /></a>&nbsp;&nbsp;&nbsp;
 				@using (Html.BeginFormForInputModel(new MarkPostAsFavoriteInputModel()))
 				{
-					@Html.Hidden("ForumIdentifier", CurrentForum.ForumIdentifier)
-					@Html.Hidden("UserIdentifier", CurrentForum.CurrentUserIdentifier)
+					@Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
+					@Html.Hidden("UserIdentifier", ForumInfo.AuthenticatedUserIdentifier)
 					@Html.Hidden("PostIdentifier", Model.Post.Identifier)
 					if (Model.IsFavoritePost)
 					{
