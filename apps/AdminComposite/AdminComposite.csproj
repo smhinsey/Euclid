@@ -87,6 +87,9 @@
       <HintPath>..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Nancy">
+      <HintPath>..\..\packages\Nancy.0.9.0\lib\net40\Nancy.dll</HintPath>
+    </Reference>
     <Reference Include="NConfig">
       <HintPath>..\..\packages\NConfig.1.0.6\lib\Net40\NConfig.dll</HintPath>
     </Reference>
@@ -458,6 +461,10 @@
     <ProjectReference Include="..\..\src\sdk\Euclid.Composites\Euclid.Composites.csproj">
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\JsonCompositeInspector\JsonCompositeInspector.csproj">
+      <Project>{7453ADF2-CE91-47BD-A046-003CCC90D962}</Project>
+      <Name>JsonCompositeInspector</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\sdk\LoggingAgent\LoggingAgent.csproj">
       <Project>{1FE538F6-D05D-4849-8741-F827F1B7B34F}</Project>

@@ -1,0 +1,40 @@
+﻿@using JsonCompositeInspector.Models;
+
+@{
+	Layout = "Shared/_Layout.cshtml";
+	CompositeHome model = (CompositeHome)@Model;
+}
+
+<div class="pageheader">
+	<h3>@Model.CompositeName
+		<small>@Model.CompositeDescription</small>
+	</h3>
+</div>
+
+@if (Model.IsValid)
+{
+	<p>The following agents have been configured in your composite.</p>
+
+	<ul>
+		@foreach (var agent in Model.Agents)
+		{
+			<li>
+				@agent.DescriptiveName - @agent.SystemName 
+				(
+					<a href="/composite/agent/@agent.SystemName">html</a> |
+					<a href="/composite/agent/@string.Format("{0}.json", agent.SystemName)">json</a>
+				)
+			</li>
+		}
+	</ul>
+}
+else
+{
+	<p>The composite application not configured correctly</p>
+	<ul>
+		@foreach(var error in Model.ConfigurationErrors)
+		{
+			<li>error</li>
+		}
+	</ul>
+}

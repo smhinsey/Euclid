@@ -16,7 +16,8 @@ namespace AdminComposite
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.IgnoreRoute("favicon.ico");
-
+			routes.IgnoreRoute("composite/{*route}");
+			routes.IgnoreRoute("composite/{*pathInfo}");
 			routes.MapRoute(
 				"Default", "{controller}/{action}/{forumId}", 
 				new { controller = "Authentication", action = "Signin", forumId = UrlParameter.Optional });

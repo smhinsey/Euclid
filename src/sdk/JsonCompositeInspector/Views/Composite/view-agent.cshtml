@@ -1,0 +1,41 @@
+@using JsonCompositeInspector.Models;
+@using Euclid.Framework;
+@{
+	Layout = "Shared/_Layout.cshtml";
+	AgentModel model = (AgentModel)@Model;
+}
+
+<div class="row show-grid">
+
+	<div class="span16 columns">
+		<h5>@model.DescriptiveName <small>(@model.AgentSystemName)</small></h5>
+		<dl>
+			<dd>@model.Description</dd>
+		</dl>
+	</div>
+
+</div>
+
+<div class="row show-grid">
+
+	<div class="span5 columns">
+		<h5>commands</h5>
+		<ul>
+		@foreach (var c in model.Commands)
+		{
+			<li id="@model.AgentSystemName-commands">
+				<a href="/composite/commands/@model.AgentSystemName/@c.Name">@string.Format("{0}", c.Name)</a>
+			</li>
+		}
+		</ul>
+	</div>
+
+	<div class="span6 columns">
+		Html.DisplayFor(x => x.Queries, "IAgentPart", model.Queries)
+	</div>
+
+	<div class="span5 columns">
+		Html.DisplayFor(x => x.ReadModels, "IAgentPart", model.ReadModels)
+	</div>
+
+</div>
