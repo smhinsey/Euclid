@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -16,12 +17,18 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 							.GetType()
 							.GetProperties()
 							.Where(pi => pi.CanWrite)
-							.Select(pi => new Property
-								{
-									Name = pi.Name,
-									Type = pi.PropertyType.Name,
-									Value = pi.GetValue(inputModel, null).ToString()
-								})
+							.Select(pi =>
+							        	{
+							        		var v = pi.GetValue(inputModel, null);
+											return new Property
+							        		       	{
+							        		       		Name = pi.Name,
+							        		       		Type = pi.PropertyType.Name,
+							        		       		Value = (v == null) ? string.Empty : pi.GetValue(inputModel, null).ToString(),
+														Choices = pi.PropertyType.IsEnum ? Enum.GetNames(pi.PropertyType) : null,
+														MultiChoice = pi.PropertyType.GetCustomAttributes(typeof(FlagsAttribute), false).Length > 0
+							        		       	};
+							        	})
 							.ToList();
 		}
 
@@ -53,7 +60,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 		{
 			return new
 					{
-						Properties = _properties.Select(p => new {p.Name, p.Type, p.Value})
+						Properties = _properties.Select(p => new {p.Name, p.Type, p.Value, p.Choices, p.MultiChoice})
 					};
 		}
 
@@ -62,6 +69,8 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			internal string Name { get; set; }
 			internal string Type { get; set; }
 			internal string Value { get; set; }
+			internal string[] Choices { get; set; }
+			internal bool MultiChoice { get; set; }
 		}
 	}
 }
