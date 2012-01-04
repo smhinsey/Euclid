@@ -16,9 +16,9 @@ namespace ForumComposite.Controllers
 
 		public ActionResult Authenticate(string username, string password)
 		{
-			if (_userQueries.Authenticate(ForumIdentifier, username, password))
+			if (_userQueries.Authenticate(CurrentForum.ForumIdentifier, username, password))
 			{
-				var user = _userQueries.FindByUsername(ForumIdentifier, username);
+				var user = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, username);
 
 				//Publisher.PublishMessage(
 				//  new UpdateOrganizationUserLastLogin
@@ -31,7 +31,7 @@ namespace ForumComposite.Controllers
 				//  });
 
 				// SELF need to do something better here
-				Response.Cookies.Add(new HttpCookie(string.Format("{0}UserId", ForumName), user.Identifier.ToString()));
+				Response.Cookies.Add(new HttpCookie(string.Format("{0}UserId", CurrentForum.ForumName), user.Identifier.ToString()));
 
 				FormsAuthentication.SetAuthCookie(username, false);
 
@@ -44,7 +44,7 @@ namespace ForumComposite.Controllers
 
 		public ActionResult Signout()
 		{
-			Response.Cookies.Remove(string.Format("{0}UserId", ForumName));
+			Response.Cookies.Remove(string.Format("{0}UserId", CurrentForum.ForumName));
 
 			FormsAuthentication.SignOut();
 

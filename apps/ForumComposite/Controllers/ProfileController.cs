@@ -21,7 +21,10 @@ namespace ForumComposite.Controllers
 		public ActionResult Badges(string profileSlug)
 		{
 			var model = new ProfileBadgesViewModel
-				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
+				{
+					User = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == CurrentForum.CurrentUserName
+				};
 
 			return View(model);
 		}
@@ -30,11 +33,11 @@ namespace ForumComposite.Controllers
 		{
 			var model = new ProfileFavoritesViewModel
 				{
-					User = _userQueries.FindByUsername(ForumIdentifier, profileSlug),
-					IsCurrentUser = profileSlug == CurrentUserName,
+					User = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == CurrentForum.CurrentUserName,
 				};
 
-			model.Favorites = _userQueries.FindUserFavorites(ForumIdentifier, model.User.Identifier);
+			model.Favorites = _userQueries.FindUserFavorites(CurrentForum.ForumIdentifier, model.User.Identifier);
 
 			return View(model);
 		}
@@ -42,9 +45,12 @@ namespace ForumComposite.Controllers
 		public ActionResult Friends(string profileSlug)
 		{
 			var model = new ProfileFriendsViewModel
-				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
+				{
+					User = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == CurrentForum.CurrentUserName
+				};
 
-			model.Friends = _userQueries.FindUserFriends(ForumIdentifier, model.User.Identifier);
+			model.Friends = _userQueries.FindUserFriends(CurrentForum.ForumIdentifier, model.User.Identifier);
 
 			return View(model);
 		}
@@ -52,7 +58,10 @@ namespace ForumComposite.Controllers
 		public ActionResult Overview(string profileSlug)
 		{
 			var model = new ProfileOverviewViewModel
-				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
+				{
+					User = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == CurrentForum.CurrentUserName
+				};
 
 			return View(model);
 		}
@@ -60,9 +69,12 @@ namespace ForumComposite.Controllers
 		public ActionResult RecentActivity(string profileSlug)
 		{
 			var model = new ProfileRecentActivityViewModel
-				{ User = _userQueries.FindByUsername(ForumIdentifier, profileSlug), IsCurrentUser = profileSlug == CurrentUserName };
+				{
+					User = _userQueries.FindByUsername(CurrentForum.ForumIdentifier, profileSlug),
+					IsCurrentUser = profileSlug == CurrentForum.CurrentUserName
+				};
 
-			model.Activity = _userQueries.FindUserActivity(ForumIdentifier, model.User.Identifier);
+			model.Activity = _userQueries.FindUserActivity(CurrentForum.ForumIdentifier, model.User.Identifier);
 
 			return View(model);
 		}

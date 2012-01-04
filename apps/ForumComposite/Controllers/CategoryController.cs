@@ -18,7 +18,7 @@ namespace ForumComposite.Controllers
 
 		public ActionResult All()
 		{
-			var model = new AllCategoriesViewModel { Categories = _categoryQueries.FindCategoriesForForum(ForumIdentifier, 5) };
+			var model = new AllCategoriesViewModel { Categories = _categoryQueries.FindCategoriesForForum(CurrentForum.ForumIdentifier, 5) };
 
 			return View(model);
 		}
@@ -34,10 +34,10 @@ namespace ForumComposite.Controllers
 			var model = new CategoryDetailsViewModel
 				{
 					CurrentPage = page.GetValueOrDefault(1),
-					Listing = _postQueries.FindPostsInCategory(ForumIdentifier, categorySlug, 16, offset)
+					Listing = _postQueries.FindPostsInCategory(CurrentForum.ForumIdentifier, categorySlug, 16, offset)
 				};
 
-			var category = _categoryQueries.FindBySlug(ForumIdentifier, categorySlug);
+			var category = _categoryQueries.FindBySlug(CurrentForum.ForumIdentifier, categorySlug);
 
 			model.Name = category.Name;
 

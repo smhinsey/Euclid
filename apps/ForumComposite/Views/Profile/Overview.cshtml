@@ -3,12 +3,12 @@
 @using ForumComposite.Models
 @model ForumComposite.ViewModels.Profile.ProfileOverviewViewModel
 @{
-	ViewBag.Title = ForumName + " - " + Model.User.Username + "'s Profile";
+	ViewBag.Title = CurrentForum.ForumName + " - " + Model.User.Username + "'s Profile";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.ProfileOverviewClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">@ForumName Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@CurrentForum.ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
 	<li class="active">@Model.User.Username</li>
 </ul>
@@ -41,8 +41,8 @@
 		{
 			using (Html.BeginFormForInputModel(new AddForumUserAsFriendInputModel()))
 			{
-				@Html.Hidden("ForumIdentifier", ForumIdentifier)
-				@Html.Hidden("UserIdentifier", CurrentUserIdentifier)
+				@Html.Hidden("ForumIdentifier", CurrentForum.ForumIdentifier)
+				@Html.Hidden("UserIdentifier", CurrentForum.CurrentUserIdentifier)
 				@Html.Hidden("FriendIdentifier", Model.User.Identifier)
 
 				<input type="submit" class="btn small" value="Add Friend"/>

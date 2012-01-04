@@ -136,6 +136,7 @@
     <Compile Include="Controllers\PostListingController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="ForumTenantDescriptor.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

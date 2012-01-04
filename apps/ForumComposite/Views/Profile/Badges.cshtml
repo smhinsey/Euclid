@@ -1,12 +1,12 @@
 ﻿@using Euclid.Common.Extensions
 @model ForumComposite.ViewModels.Profile.ProfileBadgesViewModel
 @{
-	ViewBag.Title = ForumName + " - " + Model.User.Username + "'s Badges";
+	ViewBag.Title = CurrentForum.ForumName + " - " + Model.User.Username + "'s Badges";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.ProfileBadgesClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">@ForumName Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@CurrentForum.ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = Model.User.Username.Slugify() })">@Model.User.Username</a> <span class="divider">/</span></li>
 	<li class="active">Badges</li>

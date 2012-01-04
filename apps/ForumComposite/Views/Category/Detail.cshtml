@@ -1,11 +1,11 @@
 ﻿@model ForumComposite.ViewModels.Category.CategoryDetailsViewModel
 @{
-	ViewBag.Title = ForumName + " - " + Model.Name;
+	ViewBag.Title = CurrentForum.ForumName + " - " + Model.Name;
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.CategoriesClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">@ForumName Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@CurrentForum.ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("Categories")">Categories</a> <span class="divider">/</span></li>
 	<li class="active">@Model.Name</li>
 </ul>

@@ -1,12 +1,12 @@
 ﻿@using Euclid.Common.Extensions
 @model ForumComposite.ViewModels.Profile.ProfileFavoritesViewModel
 @{
-	ViewBag.Title = ForumName + " - " + Model.User.Username + "'s Favorites";
+	ViewBag.Title = CurrentForum.ForumName + " - " + Model.User.Username + "'s Favorites";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 	ViewBag.ProfileFavoritesClass = "active";
 }
 <ul class="breadcrumb">
-	<li><a href="@Url.RouteUrl("Home")">@ForumName Home</a> <span class="divider">/</span></li>
+	<li><a href="@Url.RouteUrl("Home")">@CurrentForum.ForumName Home</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("AllProfiles")">All Users</a> <span class="divider">/</span></li>
 	<li><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = Model.User.Username.Slugify() })">@Model.User.Username</a> <span class="divider">/</span></li>
 	<li class="active">Favorites</li>

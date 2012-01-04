@@ -21,8 +21,8 @@ namespace ForumComposite.Controllers
 		{
 			var model = new PostDetailViewModel
 				{
-					Post = _postQueries.FindByIdentifier(ForumIdentifier, postIdentifier),
-					IsFavoritePost = _userQueries.IsFavoritePost(ForumIdentifier, CurrentUserIdentifier, postIdentifier)
+					Post = _postQueries.FindByIdentifier(CurrentForum.ForumIdentifier, postIdentifier),
+					IsFavoritePost = _userQueries.IsFavoritePost(CurrentForum.ForumIdentifier, CurrentForum.CurrentUserIdentifier, postIdentifier)
 				};
 
 			return View(model);
