@@ -83,7 +83,7 @@ namespace Euclid.Common.Messaging
 						GetType().FullName,
 						message.GetType().FullName);
 
-					this.WriteErrorMessage(msg, null);
+					this.WriteErrorMessage(msg, "");
 
 					_publicationRegistry.MarkAsUnableToDispatch(record.Identifier, true, msg);
 

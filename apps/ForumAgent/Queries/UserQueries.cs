@@ -91,7 +91,7 @@ namespace ForumAgent.Queries
 		{
 			var session = GetCurrentSession();
 
-			var users = session.QueryOver<ForumUser>().Skip(0).Take(5);
+			var users = session.QueryOver<ForumUser>().Where(u => u.ForumIdentifier == forumId).Skip(0).Take(5);
 
 			return users.List();
 		}

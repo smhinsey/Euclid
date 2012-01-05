@@ -46,6 +46,24 @@ namespace Euclid.Common.Logging
 			}
 		}
 
+		/// <summary>
+		/// 	Writes an error message to the logging stream.
+		/// </summary>
+		/// <param name = "source">An ILoggingSource implementation.</param>
+		/// <param name = "message">The message to be written to the log.</param>
+		/// <param name = "formatParameters">String formatting parameters.</param>
+		public static void WriteErrorMessage(this ILoggingSource source, string message, string formatParameters)
+		{
+			source.SetCustomLogFields();
+
+			var logger = LogManager.GetLogger(source.GetType());
+
+			if (logger.IsErrorEnabled)
+			{
+				logger.Error(string.Format(message, formatParameters));
+			}
+		}
+
 		// SELF all or nothing on the format parameters...
 
 		/// <summary>
