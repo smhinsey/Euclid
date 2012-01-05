@@ -75,9 +75,9 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 							{
 								m.DescriptiveName,
 								m.SystemName,
-								Commands = m.Commands.Collection.Select(x => new { x.Namespace, x.Name }),
-								ReadModels = m.ReadModels.Collection.Select(x => new { x.Namespace, x.Name }),
-								Queries = m.Queries.Collection.Select(x => new { x.Namespace, x.Name })
+								Commands = m.Commands.Select(x => new { x.Namespace, x.Name }),
+								ReadModels = m.ReadModels.Select(x => new { x.Namespace, x.Name }),
+								Queries = m.Queries.Select(x => new { x.Namespace, x.Name })
 							});
 			}
 		}

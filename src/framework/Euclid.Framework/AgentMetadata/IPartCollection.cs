@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Euclid.Framework.AgentMetadata
 {
-	public interface IPartCollection
+	public interface IPartCollection : IEnumerable<IPartMetadata>
 	{
 		string AgentSystemName { get; }
 
-		IEnumerable<IPartMetadata> Collection { get; }
+//		IEnumerable<IPartMetadata> Collection { get; }
 
 		Type CollectionType { get; }
 
@@ -16,5 +16,7 @@ namespace Euclid.Framework.AgentMetadata
 		string Namespace { get; }
 
 		IMetadataFormatter GetFormatter();
+
+//		IPartMetadata GetByName(string partName);
 	}
 }

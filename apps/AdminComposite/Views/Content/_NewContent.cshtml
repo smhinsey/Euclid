@@ -40,12 +40,12 @@
 		@Html.HiddenFor(m => m.ForumIdentifier)
 		@Html.HiddenFor(m=>m.CreatedBy)
 		@Html.HiddenFor(m => m.Value, new { id = "content-value" });
-
+		@Html.ValidationSummary()
 		<fieldset>
 			<legend>New Content</legend>
 		
 			<dl>
-				<dt><label for="content-location">Location</label></dt>
+				<dt>@Html.LabelFor(m=>m.Location)</dt>
 				<dd>
 					@Html.DropDownListFor(m=>m.Location, new List<SelectListItem>
 											{
@@ -57,7 +57,7 @@
 											}, new {id = "content-location"})
 				</dd>
 
-				<dt><label for="content-type">Type</label></dt>
+				<dt>@Html.LabelFor(m=>m.Type)</dt>
 				<dd>
 					@Html.DropDownListFor(m=>m.Type, new List<SelectListItem>
 											{
@@ -67,13 +67,13 @@
 											}, new { id = "content-type" })
 				</dd>
 
-				<dt><label for="content-input">Value</label></dt>
+				<dt>@Html.LabelFor(m=>m.Value)</dt>
 				<dd>
 					<span id="content-specific-input" style="display: none"></span>
 					<span id="default-input-type">select type</span>
 				</dd>
 
-				<dt class="checkbox"><label for="content-active">Active</label></dt>
+				<dt class="checkbox">@Html.LabelFor(m=>m.Active)</dt>
 				<dd>@Html.CheckBoxFor(m=>m.Active)</dd>
 			</dl>
 

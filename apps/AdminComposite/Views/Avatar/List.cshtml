@@ -15,15 +15,7 @@
 	var forumId = "@Model.ForumIdentifier";
 	$(document).ready(function() {
 		$("#create-avatar").click(function() {
-			$("<div></div>")
-				.load("/Avatar/NewAvatar/" + forumId)
-				.modal({
-						autoResize: true,
-						autoPosition: true,
-						position: new Array(25, 250),
-						dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 535, width: 585 },
-						containerCss: { height: 550, width: 600 }
-					});
+			EUCLID.showModalForm({Url: "/Avatar/NewAvatar/" + forumId});
 
 			return false;
 		});
@@ -74,6 +66,19 @@
 	function enableSaveButton() {
 		$("#save").removeAttr('disabled');
 	}
+
+	function deleteAvatar(avatarId) {
+		try
+		{
+			var inputModel = EUCLID.getModel({commandName: "DeleteAvatar"});
+			inputModel.AvatarIdentifier = avatarId;
+			EUCLID.publish(inputModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to delete avatar", e.name + "<br />" + e.message);
+		}
+		
+		$("tr[data-avatar-id='" + avatarId + "']").remove();
+	}
 </script>
 
 <article>
@@ -119,7 +124,7 @@
 			<tbody>
 				@foreach (var avatar in Model.Avatars)
 				{
-					<tr>
+					<tr data-avatar-id="@avatar.Identifier">
 						<td>@Html.CheckBoxFor(m => avatar.Active, new {@class = "avatar-active", data_item_id = @avatar.Identifier, data_item_name=@avatar.Name})</td>
 						<td>@avatar.Name</td>
 						<td>@if (!string.IsNullOrEmpty(avatar.Url))
@@ -133,6 +138,7 @@
 						<td>@avatar.Description</td>
 						<td>
 							<ul class="actions">
+								<li><a class="admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete Avatar" data-confirmation-message="Do you want to delete the avatar @avatar.Name?" data-confirm-function="deleteAvatar" data-item-id="@avatar.Identifier">Delete</a></li>
 								<li><a class="edit" rel="tooltip" href="#" data-item-id="@avatar.Identifier" original-title="Edit">Edit</a></li>
 							</ul>
 						</td>

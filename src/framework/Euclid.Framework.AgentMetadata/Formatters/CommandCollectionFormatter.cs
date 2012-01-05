@@ -17,7 +17,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 		{
 			var root = new XElement("Commands");
 
-			foreach (var item in _metadata.Collection)
+			foreach (var item in _metadata)
 			{
 				root.Add(new XElement("Command", new XAttribute("Namespace", item.Namespace), new XAttribute("Name", item.Name)));
 			}
@@ -27,7 +27,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		protected override object GetJsonObject(JsonSerializer serializer)
 		{
-			return new { Commands = _metadata.Collection.Select(x => new { x.Namespace, x.Name, }) };
+			return new { Commands = _metadata.Select(x => new { x.Namespace, x.Name, }) };
 		}
 	}
 }

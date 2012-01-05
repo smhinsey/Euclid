@@ -11,20 +11,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
+		
 		$("#create-category").click(function () {
-			$("<div></div>")
-				.load("@Url.Action("NewCategory", "Category")?forumId=@Model.ForumIdentifier")
-				.modal({
-					autoResize: true,
-					autoPosition: true,
-					position: new Array(25, 300),
-					dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 485, width: 635 },
-					containerCss: { height: 500, width: 650 },
-					onClose: function (dialog) {
-						window.location.href = window.location.href;
-					}
-				});
-
+			EUCLID.showModalForm({Url: "@Url.Action("NewCategory", "Category")?forumId=@Model.ForumIdentifier"});
 			return false;
 		});
 

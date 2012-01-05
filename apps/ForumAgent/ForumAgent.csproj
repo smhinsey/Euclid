@@ -68,6 +68,7 @@
     <Compile Include="Commands\AwardBadge.cs" />
     <Compile Include="Commands\CreateAvatar.cs" />
     <Compile Include="Commands\CreateBadge.cs" />
+    <Compile Include="Commands\DeleteAvatar.cs" />
     <Compile Include="Commands\DeleteForumUser.cs" />
     <Compile Include="Commands\DeleteOrganizationUser.cs" />
     <Compile Include="Commands\ForumModerated.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Processors\ApprovePostProcessor.cs" />
     <Compile Include="Processors\CreateAvatarProcessor.cs" />
     <Compile Include="Processors\CreateBadgeProcessor.cs" />
+    <Compile Include="Processors\DeleteAvatarProcessor.cs" />
     <Compile Include="Processors\DeleteForumUserProcessor.cs" />
     <Compile Include="Processors\DeleteOrganizationUser.cs" />
     <Compile Include="Processors\MarkPostAsFavoriteProcessor.cs" />

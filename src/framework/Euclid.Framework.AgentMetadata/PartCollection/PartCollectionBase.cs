@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -27,6 +28,7 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 		{
 			_agent = agent;
 			_partNamespace = partNamespace;
+			Initialize();
 		}
 
 		public string AgentSystemName
@@ -39,19 +41,6 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 				}
 
 				return _agentSystemName;
-			}
-		}
-
-		public IEnumerable<IPartMetadata> Collection
-		{
-			get
-			{
-				if (!_init)
-				{
-					Initialize();
-				}
-
-				return _collection;
 			}
 		}
 
@@ -99,6 +88,16 @@ namespace Euclid.Framework.AgentMetadata.PartCollection
 			_ns = _partNamespace;
 
 			_init = true;
+		}
+
+		public IEnumerator<IPartMetadata> GetEnumerator()
+		{
+			return _collection.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
 		}
 	}
 }

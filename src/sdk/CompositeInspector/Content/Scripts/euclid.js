@@ -109,6 +109,31 @@ EUCLID.getId = (function () {
 	return Date.UTC(now.getFullYear(), now.getMonth(), now.getDay(), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
 });
 
+EUCLID.showModalForm = (function (args) {
+	if (args === null || args === undefined || !args.hasOwnProperty("Url")) {
+		throw new {
+			name: "Invalid Argument Exception",
+			message: "The argument object must contain a property named 'Url'"
+		};
+	};
+
+	var id = EUCLID.getId();
+	var modal = $("<div id='" + id + "'></div>");
+	$(modal).load(
+			args.Url,
+			function () {
+				$.validator.unobtrusive.parse($("#" + id));
+			})
+		.modal({
+			autoResize: true,
+			autoPosition: true,
+			dataCss: { backgroundColor: "#fff" },
+			containerCss:{ backgroundColor:"#fff" }
+		});
+
+		$(".simplemodal-container").css("height", "auto");
+});
+
 $(document).ready(function () {
 	$(".close").live('click', function () {
 		$(this).parent().remove();

@@ -66,7 +66,7 @@ namespace Euclid.Framework.AgentMetadata
 		{
 			var partCollection = GetPartCollectionContainingPartName(partName);
 
-			return partCollection.Collection.Where(m => m.Name == partName).FirstOrDefault();
+			return partCollection.Where(m => m.Name == partName).FirstOrDefault();
 		}
 
 		public IPartCollection GetPartCollectionByDescriptiveName(string descriptiveName)
@@ -91,7 +91,7 @@ namespace Euclid.Framework.AgentMetadata
 
 		public IPartCollection GetPartCollectionContainingPartName(string partName)
 		{
-			var allParts = Commands.Collection.Union(ReadModels.Collection).Union(Queries.Collection);
+			var allParts = Commands.Union(ReadModels).Union(Queries);
 
 			var part = allParts.Where(x => x.Name == partName).FirstOrDefault();
 
@@ -138,7 +138,7 @@ namespace Euclid.Framework.AgentMetadata
 					new XElement("SystemName", _agentMetadata.SystemName));
 
 				var commands = new XElement("Commands");
-				foreach (var c in _agentMetadata.Commands.Collection)
+				foreach (var c in _agentMetadata.Commands)
 				{
 					commands.Add(new XElement("Command", new XAttribute("Namespace", c.Namespace), new XAttribute("Name", c.Name)));
 				}
@@ -146,7 +146,7 @@ namespace Euclid.Framework.AgentMetadata
 				xml.Add(commands);
 
 				var readModels = new XElement("ReadModels");
-				foreach (var r in _agentMetadata.ReadModels.Collection)
+				foreach (var r in _agentMetadata.ReadModels)
 				{
 					readModels.Add(new XElement("ReadModel", new XAttribute("Namespace", r.Namespace), new XAttribute("Name", r.Name)));
 				}
@@ -154,7 +154,7 @@ namespace Euclid.Framework.AgentMetadata
 				xml.Add(readModels);
 
 				var queries = new XElement("Queries");
-				foreach (var q in _agentMetadata.Queries.Collection)
+				foreach (var q in _agentMetadata.Queries)
 				{
 					queries.Add(new XElement("Query", new XAttribute("Namespace", q.Namespace), new XAttribute("Name", q.Name)));
 				}
@@ -171,9 +171,9 @@ namespace Euclid.Framework.AgentMetadata
 						{
 							_agentMetadata.DescriptiveName,
 							_agentMetadata.SystemName,
-							Commands = _agentMetadata.Commands.Collection.Select(x => new { x.Namespace, x.Name }),
-							ReadModels = _agentMetadata.ReadModels.Collection.Select(x => new { x.Namespace, x.Name }),
-							Queries = _agentMetadata.Queries.Collection.Select(x => new { x.Namespace, x.Name })
+							Commands = _agentMetadata.Commands.Select(x => new { x.Namespace, x.Name }),
+							ReadModels = _agentMetadata.ReadModels.Select(x => new { x.Namespace, x.Name }),
+							Queries = _agentMetadata.Queries.Select(x => new { x.Namespace, x.Name })
 						};
 			}
 		}

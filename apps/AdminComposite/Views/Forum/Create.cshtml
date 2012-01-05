@@ -58,35 +58,36 @@
 		@Html.HiddenFor(m => m.OrganizationId)
 		@Html.HiddenFor(m=>m.CreatedBy)
 		@Html.HiddenFor(m=>m.Theme)
+		@Html.ValidationSummary()
 		<input type="hidden" name="org-slug" value="@ViewBag.OrganizationSlug" id="org-slug" />
 		<fieldset>
 			<legend>Details</legend>
 
 			<dl>
-				<dt><label for="forum-name">Name</label></dt>
+				<dt>@Html.LabelFor(m=>m.Name)</dt>
 				<dd>@Html.TextBoxFor(m => m.Name, new { id = "forum-name" })</dd>
 
-				<dt><label for="forum-slug">Slug</label></dt>
+				<dt>@Html.LabelFor(m=>m.UrlSlug)</dt>
 				<dd>
 					@Html.TextBoxFor(m=>m.UrlSlug, new {id="forum-slug"})
 					<p><a href="#" id="generate-slug">generate slug</a></p>
 				</dd>
 
-				<dt><label for="forum-host">Host</label></dt>
+				<dt>@Html.LabelFor(m=>m.UrlHostName)</dt>
 				<dd>
 					@Html.TextBoxFor(m => m.UrlHostName, new { id = "forum-host", @readonly = "readonly" })
 					<p>Forum url: <b><span id="forum-url">http//newco-forums.com/org/@ViewBag.OrganizationSlug/forum/{forum-slug}</span></b></p>
 				</dd>
 
-				<dt><label for="forum-description">Description</label></dt>
+				<dt>@Hmtl.LabelFor(m=>m.Description)</dt>
 				<dd>
 					@Html.TextAreaFor(m => m.Description, new { id = "forum-description", @class = "wysiwyg", @readonly = "readonly" })
 				</dd>
 
-				<dt class="checkbox"><label for="forum-moderated">Moderated</label></dt>
+				<dt class="checkbox">@Html.LabelFor(m=>m.Moderated)</dt>
 				<dd>@Html.CheckBoxFor(m=>m.Moderated, new {id="forum-moderated"})</dd>
 
-				<dt class="checkbox"><label for="forum-private">Private</label></dt>
+				<dt class="checkbox">@Html.LabelFor(m=>m.Private)</dt>
 				<dd>@Html.CheckBoxFor(m=>m.Private, new {id="forum-private"})</dd>
 			</dl>
 	 	</fieldset>
