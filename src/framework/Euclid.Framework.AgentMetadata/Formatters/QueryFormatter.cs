@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Xml.Linq;
 using Euclid.Framework.AgentMetadata.Extensions;
@@ -61,11 +62,19 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 								method =>
 								new
 									{
-										Arguments =
-									method.Arguments.OrderBy(a => a.Order).Select(
-										a => new { ArgumentType = a.PropertyType.Name, ArgumentName = a.Name }),
-										ReturnType = GetFormattedReturnType(method),
-										method.Name
+										Arguments = method
+														.Arguments
+														.OrderBy(a => a.Order)
+														.Select(a => 
+															new
+																{
+																	ArgumentType = a.PropertyType.Name, 
+																	ArgumentName = a.Name,
+																	Choices = a.PropertyType.IsEnum ? Enum.GetNames(a.PropertyType) : null,
+																	MultiChoice = a.PropertyType.GetCustomAttributes(typeof(FlagsAttribute), false).Length > 0
+																}),
+													ReturnType = GetFormattedReturnType(method), 
+													method.Name
 									})
 					};
 		}
