@@ -115,9 +115,12 @@
     <EmbeddedResource Include="Assets\Images\1.jpg" />
     <EmbeddedResource Include="Assets\Images\test\2.jpg" />
     <EmbeddedResource Include="Assets\NewCo.ico" />
-    <EmbeddedResource Include="Assets\Scripts\euclid.js" />
+    <EmbeddedResource Include="Assets\Scripts\euclid-0.9.js" />
     <EmbeddedResource Include="Assets\Scripts\jquery-1.7.1.min.js" />
     <EmbeddedResource Include="Assets\Styles\composite-inspector.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\euclid.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

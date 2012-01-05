@@ -1,4 +1,5 @@
-﻿var EUCLID = {};
+﻿var EUCLID = {
+};
 
 EUCLID.getId = (function () {
 	function S4() {
@@ -79,7 +80,7 @@ EUCLID.getQueryMethods = (function (args) {
 		var fieldSet = $(form).children("fieldset");
 
 		$.each(_model.Methods, function (index, item) {
-
+			
 		});
 	});
 

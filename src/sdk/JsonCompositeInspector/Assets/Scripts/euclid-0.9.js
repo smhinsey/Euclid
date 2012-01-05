@@ -26,7 +26,7 @@
 	}
 
 	return {
-		getQueryMethods: (function (args) {
+		getQueryMetadata: (function (args) {
 			if (args === null || args === undefined || !args.hasOwnProperty("queryName")) {
 				throw {
 					name: "Invalid Argument Exception",
@@ -36,14 +36,7 @@
 
 			var _queryName = args.queryName;
 			var _getQueryMethodsUrl = "/composite/queries/" + _queryName + ".json";
-			var _queryModel = getJsonObject(_getQueryMethodsUrl);
-
-			var _methodList = new Array();
-			$.each(_queryModel.Methods, function (index, item) {
-				_methodList.push("<a href='/composite/queries/execute/" + _queryName + "/" + item.Name + "'>" + item.Name + "</a>");
-			});
-
-			return _methodList;
+			return getJsonObject(_getQueryMethodsUrl);
 		}) // end getQueryMethods
 	}
 } ();
