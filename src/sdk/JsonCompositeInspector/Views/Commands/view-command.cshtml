@@ -1,0 +1,25 @@
+@using JsonCompositeInspector.Models;
+@using Euclid.Framework;
+@{
+	Layout = "Shared/_Layout.cshtml";
+	CommandModel model = (CommandModel)@Model;
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		try {
+			var model = EUCLID.getInputModel({ agentSystemName: "@model.AgentSystemName", commandName: "@model.CommandName" });
+			var form = model.getForm();
+			$("#form-container").append(form);
+		} catch (e) {
+			$("#form-container").html("<p class='alert-message error'><strong>" + e.name + "</strong><br/><br/><span>" + e.message + "</span></p>");
+		}
+	});
+</script>
+<div class="row show-grid">
+
+	<div class="span5 columns">
+		<div id="form-container" ></div>
+	</div>
+
+</div>
