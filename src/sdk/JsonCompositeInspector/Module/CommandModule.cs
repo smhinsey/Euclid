@@ -3,7 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Castle.Windsor;
+using Euclid.Common.Messaging;
 using Euclid.Composites;
+using Euclid.Composites.Conversion;
 using Euclid.Framework.AgentMetadata.Formatters;
 using Euclid.Framework.Models;
 using JsonCompositeInspector.Models;
@@ -16,13 +18,14 @@ namespace JsonCompositeInspector.Module
 	{
 		private readonly IWindsorContainer _container;
 		private readonly ICompositeApp _compositeApp;
+		private readonly IPublisher _publisher;
 
 		public CommandModule(IWindsorContainer container)
 			: base("composite/commands")
 		{
 			_container = container;
 			_compositeApp = _container.Resolve<ICompositeApp>();
-
+			_publisher = _container.Resolve<IPublisher>();
 			Get[""] = _ => "Command API";
 
 			Get["/{agentSystemName}/{commandName}"] = p =>
@@ -41,7 +44,10 @@ namespace JsonCompositeInspector.Module
 
 			                                          		if (inputModel == null)
 			                                          		{
-			                                          			return HttpStatusCode.NotFound;
+			                                          			return
+			                                          				string.Format(
+			                                          					"The {0} composite application does not support the command '{1}'",
+			                                          					_compositeApp.Name, commandName);
 			                                          		}
 
 			                                          		if (asJson)
@@ -51,7 +57,7 @@ namespace JsonCompositeInspector.Module
 			                                          			return Response.FromStream(s, "application/json");
 			                                          		}
 
-			                                          		return View["Command/view-command.cshtml", new CommandModel
+			                                          		return View["Commands/view-command.cshtml", new CommandModel
 			                                          		                                           	{
 			                                          		                                           		AgentSystemName =
 			                                          		                                           			agentSystemName,
@@ -61,22 +67,25 @@ namespace JsonCompositeInspector.Module
 
 			Post["/publish"] = p =>
 			                   	{
-			                   		var inputModel = (IInputModel) this.Bind();
-												if (inputModel == null)
-												{
-													throw new InvalidOperationException("Unable to retrieve input model from form");
-												}
+			                   		var inputModel = this.Bind<IInputModel>();
+			                   		if (inputModel == null)
+			                   		{
+			                   			throw new InvalidOperationException("Unable to retrieve input model from form");
+			                   		}
 
-												var type = inputModel.GetType();
-												var sb = new StringBuilder(type.Name);
-												foreach (var property in type.GetProperties())
-												{
-													var v = property.GetValue(inputModel, null);
-													sb.AppendFormat("<br/>&nbsp;&nbsp;.{0} = {1}", property.Name, v);
-												}
+			                   		var command = _compositeApp.GetCommandForInputModel(inputModel);
+			                   		return _publisher.PublishMessage(command).ToString();
+			                   		//var type = inputModel.GetType();
+			                   		//var sb = new StringBuilder(type.Name);
+			                   		//foreach (var property in type.GetProperties())
+			                   		//{
+			                   		//    var v = property.GetValue(inputModel, null);
+			                   		//    sb.AppendFormat("<br/>&nbsp;&nbsp;.{0} = {1}", property.Name, v);
+			                   		//}
 
-												return sb.ToString();
-			                            	};
+			                   		//return sb.ToString();
+			                   		//};
+			                   	};
 		}
 
 		private IInputModel getInputModel(string agentSystemName, string commandName)
@@ -95,9 +104,15 @@ namespace JsonCompositeInspector.Module
 
 			if (command == null) return null;
 
-			var inputModelType = _compositeApp.GetInputModelTypeForCommandName(command.Name);
-
-			return _container.Resolve<IInputModel>(inputModelType.Name);
+			try
+			{
+				var inputModelType = _compositeApp.GetInputModelTypeForCommandName(command.Name);
+				return _container.Resolve<IInputModel>(inputModelType.Name);
+			}
+			catch (CannotMapCommandException)
+			{
+				return null;
+			}
 		}
 	}
 }

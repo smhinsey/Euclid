@@ -51,7 +51,7 @@ namespace AdminComposite
 
 			var container = new WindsorContainer();
 
-			var composite = new MvcCompositeApp(container) {Name = "Admin", Description = "Create and manage custom forums."};
+			var composite = new MvcCompositeApp(container) {Name = "Newco Forum Admin", Description = "Create and manage custom forums."};
 
 			composite.RegisterNh(databaseConfiguration, true);
 

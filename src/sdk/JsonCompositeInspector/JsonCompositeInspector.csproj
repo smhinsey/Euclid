@@ -50,8 +50,8 @@
     <Reference Include="Nancy.BootStrappers.Windsor">
       <HintPath>..\..\..\packages\Nancy.Bootstrappers.Windsor.0.9.0\lib\net40\Nancy.BootStrappers.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.Demo.Hosting.Aspnet">
-      <HintPath>..\..\..\packages\Nancy.Hosting.Aspnet.0.9.0\lib\net40\Nancy.Demo.Hosting.Aspnet.dll</HintPath>
+    <Reference Include="Nancy.Hosting.Aspnet, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Nancy.Hosting.Aspnet.0.9.0\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.ViewEngines.Razor">
       <HintPath>..\..\..\packages\Nancy.Viewengines.Razor.0.9.0\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
@@ -78,16 +78,17 @@
     <Compile Include="Module\CompositeModule.cs" />
     <Compile Include="Module\QueryModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\Command\Binders\InputModelBinder.cs" />
+    <Compile Include="Views\Commands\Binders\InputModelBinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="Views\Command\view-command.cshtml" />
+    <EmbeddedResource Include="Views\Commands\view-command.cshtml" />
     <EmbeddedResource Include="Views\Composite\home.cshtml" />
     <EmbeddedResource Include="Views\Composite\view-agent.cshtml" />
     <EmbeddedResource Include="Views\Shared\Frameset.cshtml" />
     <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
+    <EmbeddedResource Include="Views\Queries\view-query-methods.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common\Euclid.Common.csproj">
@@ -108,7 +109,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Queries\Binders\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Images\1.jpg" />
+    <EmbeddedResource Include="Assets\Images\test\2.jpg" />
+    <EmbeddedResource Include="Assets\NewCo.ico" />
+    <EmbeddedResource Include="Assets\Scripts\euclid.js" />
+    <EmbeddedResource Include="Assets\Scripts\jquery-1.7.1.min.js" />
+    <EmbeddedResource Include="Assets\Styles\composite-inspector.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
