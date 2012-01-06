@@ -29,17 +29,76 @@
 		$(".execute").click(function () {
 			var idx = $(this).attr("data-index");
 			var method = queryMetadata.Methods[idx];
-			alert("there are " + method.Arguments.length + " arguments to the method '@model." + method.Name + "'");
+			var form = EUCLID.getQueryForm({ method: method, queryName: "@model" });
 
+			$("#form-container").html("");
+			$("#results").html("");
+			$("#form-container").append($(form));
+
+			$(form).attr("id", "query-form");
+			return false;
+		});
+
+		$(document).on('submit', "#query-form", function () {
+			var url = $("#query-form").attr("action");
+			var data = $("#query-form").serialize();
+
+			$.ajaxSetup({ "async": false });
+			var jqHxr = jQuery.post(url, data);
+			$.ajaxSetup({ "async": true });
+
+			var json = jqHxr.responseText;
+			if (jqHxr.status == 500) {
+				var e = $.parseJSON(json);
+				$("#results").html("<p class='alert-message error'><strong>" + e.name + "</strong> " + e.message + "<br/><br/>" + e.callStack + "</p>");
+			} else {
+				var model = $.parseJSON(json);
+				var html = "";
+
+				if (model instanceof Array) {
+					$.each(model, function (index, item) {
+						html += formatProperties(item);
+					});
+				}
+				else {
+					html = formatProperties(item);
+				}
+
+				$("#results").html(html);
+			}
+			event.preventDefault();
 			return false;
 		});
 	});
+
+	function formatProperties(item) {
+		var format = "<div class='alert-message block-message success'><p>";
+		var re = new RegExp("\\/Date\\((-?\\d+)\\)\\/");
+		for (property in item) {
+			if (item.hasOwnProperty(property) && typeof property != "function") {
+				var m = re.exec(item[property]);
+				var val = (m == null) ? item[property] : new Date(parseInt(m[1]));
+				format += "<strong>" + property + "</strong> " + val + "<br />";
+			}
+		}
+		format += "</p></div>";
+		return format;
+	}
 </script>
+
+<h5 id="query-name">@model</h5>
 <div class="row show-grid">
-	
-	<div class="span5 columns">
-		<h5 id="query-name">@model</h5>
+	<div class="span6">
 		<div id="list-container" ></div>
 	</div>
+	<div class="span8 offset2">
+		<div id="form-container"></div>
+	</div>
+</div>
 
+<div class="row">
+	<div class="span12 offset2">
+		<div id="results"></div>
+	</div>
+	<div class="span2"></div>
 </div>

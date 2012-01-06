@@ -32,7 +32,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			foreach (var method in _partMetadata.Methods)
 			{
 				var m = new XElement(
-					"Method", new XElement("ReturnType", GetFormattedReturnType(method)), new XElement("Name", method.Name));
+					"Method", new XElement("ReturnType", getFormattedReturnType(method)), new XElement("Name", method.Name));
 
 				var args = new XElement("Arguments");
 				foreach (var arg in method.Arguments.OrderBy(a => a.Order))
@@ -73,13 +73,13 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 																	Choices = a.PropertyType.IsEnum ? Enum.GetNames(a.PropertyType) : null,
 																	MultiChoice = a.PropertyType.GetCustomAttributes(typeof(FlagsAttribute), false).Length > 0
 																}),
-													ReturnType = GetFormattedReturnType(method), 
+													ReturnType = getFormattedReturnType(method), 
 													method.Name
 									})
 					};
 		}
 
-		private static string GetFormattedReturnType(IMethodMetadata methodMetadata)
+		private static string getFormattedReturnType(IMethodMetadata methodMetadata)
 		{
 			return (methodMetadata.ReturnType.Namespace != null && !methodMetadata.ReturnType.Namespace.Contains("Collection"))
 			       	? methodMetadata.ReturnType.Name
