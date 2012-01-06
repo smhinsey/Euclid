@@ -52,7 +52,7 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 				@Html.Hidden("AuthorIdentifier", ForumInfo.AuthenticatedUserIdentifier)
 				@Html.Hidden("PostIdentifier", (Guid)Page.Post.Identifier)
 				@Html.Hidden("VoteUp", true)
-				<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" src="@Url.Content("~/Content/images/arrow-090" + @arrowSize + ".png")" />
+				<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/arrow-090" + @arrowSize + ".png")" />
 				<br />
 	 }
 			(@Page.Post.Score)<br/>
@@ -62,10 +62,10 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 				@Html.Hidden("AuthorIdentifier", ForumInfo.AuthenticatedUserIdentifier)
 				@Html.Hidden("PostIdentifier", (Guid)Page.Post.Identifier)
 				@Html.Hidden("VoteUp", false)
-				<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" src="@Url.Content("~/Content/images/arrow-270" + @arrowSize + ".png")" />
+				<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/arrow-270" + @arrowSize + ".png")" />
 				<br />
 	 }
-			<img src="@Url.Content("~/Content/images/exclamation-white.png")" /><br />
+			<img src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/exclamation-white.png")" /><br />
 		</div>
 
 	<@header><a href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })">@Page.Post.Title</a></@header>
@@ -74,7 +74,7 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 							in <a href="@Url.RouteUrl("Category", new { categorySlug = "category" })" class="label">
 								 	Another Category</a></span></p>
 	<p><span style="padding-top: 7px; text-align: right; font-size: smaller;">
-		 	<img src="@Url.Content("~/Content/images/balloon-white.png")" />
+		 	<img src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/balloon-white.png")" />
 		 	<a href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })#comments">
 				@Page.Post.CommentCount comments</a></span>&nbsp;&nbsp;&nbsp;<a class="@button" href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })#addcomment">Add comment &raquo;</a>
 	</p>

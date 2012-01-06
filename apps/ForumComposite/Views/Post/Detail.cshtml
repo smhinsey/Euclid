@@ -89,11 +89,11 @@
 
 			<div class="span6" style="text-align: right;">
 				<a href="#">
-					<img title="Vote up" src="@Url.Content("~/Content/images/arrow-090.png")" /></a>&nbsp;&nbsp;&nbsp;
+					<img title="Vote up" src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/arrow-090.png")" /></a>&nbsp;&nbsp;&nbsp;
 				<a href="#">
-					<img title="Vote down" src="@Url.Content("~/Content/images/arrow-270.png")" /></a>&nbsp;&nbsp;&nbsp;
+					<img title="Vote down" src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/arrow-270.png")" /></a>&nbsp;&nbsp;&nbsp;
 				<a href="#">
-					<img title="Report abusive content" src="@Url.Content("~/Content/images/exclamation-white.png")" /></a>&nbsp;&nbsp;&nbsp;
+					<img title="Report abusive content" src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/exclamation-white.png")" /></a>&nbsp;&nbsp;&nbsp;
 				@using (Html.BeginFormForInputModel(new MarkPostAsFavoriteInputModel()))
 				{
 					@Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
@@ -101,11 +101,11 @@
 					@Html.Hidden("PostIdentifier", Model.Post.Identifier)
 					if (Model.IsFavoritePost)
 					{
-						<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" border="0" height="16" width="16" title="Mark as favorite" src="@Url.Content("~/Content/images/star.png")"/>
+						<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" border="0" height="16" width="16" title="Mark as favorite" src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/star.png")"/>
 					}
 					else
 					{
-						<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" border="0" height="16" width="16" title="Mark as favorite" src="@Url.Content("~/Content/images/star-empty.png")"/>
+						<input style="display: inline; height: 16px; width: 16px; border: 0px;" type="image" border="0" height="16" width="16" title="Mark as favorite" src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/star-empty.png")"/>
 					}
 				}
 			</div>

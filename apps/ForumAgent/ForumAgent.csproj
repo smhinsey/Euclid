@@ -68,6 +68,7 @@
     <Compile Include="Commands\AwardBadge.cs" />
     <Compile Include="Commands\CreateAvatar.cs" />
     <Compile Include="Commands\CreateBadge.cs" />
+    <Compile Include="Commands\CreateOrganization.cs" />
     <Compile Include="Commands\DeleteAvatar.cs" />
     <Compile Include="Commands\DeleteForumUser.cs" />
     <Compile Include="Commands\DeleteOrganizationUser.cs" />

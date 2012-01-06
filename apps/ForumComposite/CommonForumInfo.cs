@@ -10,6 +10,7 @@ namespace ForumComposite
 {
 	// TODO: all of the below queries need to be combined into a single one
 	// TODO: this should only execute once per request
+	// TODO: user-specific data should be moved to a principal or something like that
 	public class CommonForumInfo
 	{
 		private readonly CategoryQueries _categoryQueries;
@@ -30,7 +31,6 @@ namespace ForumComposite
 
 		public IList<Category> Categories { get; private set; }
 
-		// TODO: user-specific data should be moved to a principal or something like that
 		public Guid AuthenticatedUserIdentifier { get; private set; }
 
 		public string AuthenticatedUserName { get; private set; }
@@ -42,6 +42,8 @@ namespace ForumComposite
 		public Guid OrganizationIdentifier { get; private set; }
 
 		public string OrganizationName { get; private set; }
+		
+		public string ForumTheme { get; private set; }
 
 		public IList<ForumUser> TopUsers { get; private set; }
 
@@ -58,6 +60,7 @@ namespace ForumComposite
 
 			ForumName = forum.Name;
 			ForumIdentifier = forum.Identifier;
+			ForumTheme = forum.Theme;
 
 			Categories = _categoryQueries.GetActiveCategories(ForumIdentifier, 0, 100);
 			TopUsers = _userQueries.FindTopUsers(ForumIdentifier);

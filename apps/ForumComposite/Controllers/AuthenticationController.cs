@@ -32,8 +32,13 @@ namespace ForumComposite.Controllers
 				//    UserIdentifier = user.Identifier
 				//  });
 
-				var ticket = new FormsAuthenticationTicket(
-					1, user.Username, DateTime.Now, DateTime.Now.AddMinutes(30), true, string.Format("{0}^{1}", org, forum));
+				var issueDate = DateTime.Now;
+
+				var expirationDate = DateTime.Now.AddMinutes(30);
+
+				var userData = string.Format("{0}^{1}", org, forum);
+
+				var ticket = new FormsAuthenticationTicket(1, user.Username, issueDate, expirationDate, true, userData);
 
 				var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket))
 					{ Path = string.Format("org/{0}/forum/{1}", org, forum) };
