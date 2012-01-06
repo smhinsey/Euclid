@@ -76,7 +76,7 @@
 		var html = "";
 		if (choices != null) {
 			var options = "";
-			$.each(choices.Values, function (index, item) {
+			$.each(choices, function (index, item) {
 				options += "<option value='" + item + "'";
 				if (propertyValue == item) {
 					options += " selected='selected'";
@@ -97,18 +97,20 @@
 		} else if (type == "checkbox") {
 			var inputElement = "";
 			if (propertyValue.toLowerCase() == "true" || propertyValue.toLowerCase() == "yes" || propertyValue.toLowerCase() == "on" || propertyValue.toLowerCase() == "1") {
-				inputElement = "<input class='" + inputClass + "' type='text' value='" + propertyName + "' class='uneditable-input' disabled='disabled' checked='checked' />";
+				inputElement = "<input id='" + inputId + "' type='checkbox' name='" + propertyName + "'  checked='checked' />";
 			} else {
-				inputElement = "<input class='" + inputClass + "' type='text' value='" + propertyName + "' class='uneditable-input' disabled='disabled' />";
+				inputElement = "<input id='" + inputId + "' type='checkbox' name='" + propertyName + "' />";
 			}
 
 			html = "<div class='clearfix'>" +
-							"<div class='input-prepend'>" +
-								"<label class='add-on'><input type='checkbox' id='" + inputId + "' name='" + propertyName + "' /></label>" +
-								inputElement +
-							"</div>" +
-						"</div>" +
-					"</div>";
+								"<label for='" + inputId + "'>" + propertyName + "</label>" +
+								"<div class='input'> " +
+									"<div class='input-prepend'>" +
+										"<label class='add-on'>" + inputElement + "</label>" +
+										"<input type='text' disabled='disabled' />" +
+									"</div>" +
+								"</div>" +
+							"</div>";
 		} else if (type == "hidden") {
 			html = "<input type='hidden' name='" + propertyName + "' value='" + propertyValue + "' />";
 		} else {
@@ -132,9 +134,9 @@
 				};
 			}
 
-			var _queryName = args.queryName;
-			var _getQueryMethodsUrl = "/composite/queries/" + _queryName + ".json";
-			return _getJsonObject(_getQueryMethodsUrl);
+			var queryName = args.queryName;
+			var getQueryMethodsUrl = "/composite/queries/" + queryName + ".json";
+			return _getJsonObject(getQueryMethodsUrl);
 		}), // end getQueryMethods
 
 		randomId: (function () {
@@ -167,14 +169,102 @@
 
 		getJsonObject: (function (url) {
 			return _getJsonObject(url);
+		}),
+
+		getInputModel: (function (args) {
+			if (args === null || args === undefined || !args.hasOwnProperty("commandName") || !args.hasOwnProperty("agentSystemName")) {
+				throw {
+					name: "Invalid Argument Exception",
+					message: "EUCLID.getInputModel expects an an object with the properties: 'commandName' and 'agentSystemName'"
+				};
+			}
+
+			var _rawModel = _getJsonObject("/composite/commands/" + args.agentSystemName + "/" + args.commandName + ".json");
+			var _propertyNames = new Array();
+			var _model = (function () {
+				var _isInputModel = (function () {
+					return true;
+				});
+
+				var _propertyNameIsValid = (function (name) {
+					var found = ($.inArray(name, _propertyNames) > -1 || name === "PartName");
+					return found;
+				});
+
+				var _getPropertyType = (function (propertyName) {
+					if (propertyName.toLowerCase() == "partname") {
+						return "String";
+					}
+
+					for (i = 0; i < _rawModel.Properties.length; i++) {
+						var obj = _rawModel.Properties[i];
+						if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
+							return obj.Type;
+						}
+					}
+
+					throw {
+						name: "Invalid Property Exception",
+						message: "The property '" + propertyName + "' does not exist on the inputModel"
+					};
+				});
+
+				var _getChoices = (function (propertyName) {
+					for (i = 0; i < _rawModel.Properties.length; i++) {
+						var obj = _rawModel.Properties[i];
+						if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
+							return (obj.Choices === null) ? null : { Values: obj.Choices, MultiChoice: obj.MultiChoice };
+						}
+					}
+
+					return null;
+				});
+
+				return {
+					getForm: (function () {
+						var form = $("<form action='/composite/commands/publish' method='post'><legend>" + args.commandName + "</legend><fieldset></fieldset></form>");
+						var fieldSet = $(form).children("fieldset");
+
+						for (propertyName in _model) {
+							if (_model.hasOwnProperty(propertyName) && typeof _model[propertyName] !== 'function') {
+								if (!_propertyNameIsValid(propertyName)) {
+									throw {
+										name: "Invalid Property Exception",
+										message: "the input model for command '" + _model.PartName + "' does not contain a property named '" + propertyName + "'"
+									}
+								}
+
+								var propertyType = _getPropertyType(propertyName);
+								var choiceObject = _getChoices(propertyName);
+								var propertyChoices = choiceObject == null ? null : choiceObject.Values;
+								var multiChoice = choiceObject == null ? false : choiceObject.MultiChoice;
+								var forceShow = propertyType.toLowerCase() == "guid";
+								_addElementToForm(propertyName, propertyType, _model[propertyName], propertyChoices, multiChoice, fieldSet, forceShow);
+							}
+						}
+
+						$(form).find(".input-date").datepicker();
+						$(form).append("<input type='submit' value='" + args.commandName + "' />");
+						return form;
+					})
+				}
+			})();
+
+			for (i = 0; i < _rawModel.Properties.length; i++) {
+				var prop = _rawModel.Properties[i];
+				_model[prop.Name] = prop.Value;
+				_propertyNames.push(prop.Name);
+			}
+			_model["PartName"] = args.commandName;
+
+			return _model;
 		})
 	}
 } ();
 
-
 // extension methods
-$.fn.hasAttr = function(name) {  
-   return this.attr(name) !== undefined;
+$.fn.hasAttr = function(name) {
+	return this.attr(name) !== undefined;
 };
 
 String.prototype.endsWith = function(suffix) {
