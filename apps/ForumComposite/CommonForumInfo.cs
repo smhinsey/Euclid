@@ -21,12 +21,15 @@ namespace ForumComposite
 
 		private readonly UserQueries _userQueries;
 
+		private readonly ContentQueries _contentQueries;
+
 		public CommonForumInfo()
 		{
 			_forumQueries = DependencyResolver.Current.GetService<ForumQueries>();
 			_orgQueries = DependencyResolver.Current.GetService<OrganizationQueries>();
 			_categoryQueries = DependencyResolver.Current.GetService<CategoryQueries>();
 			_userQueries = DependencyResolver.Current.GetService<UserQueries>();
+			_contentQueries = DependencyResolver.Current.GetService<ContentQueries>();
 		}
 
 		public IList<Category> Categories { get; private set; }
@@ -47,6 +50,8 @@ namespace ForumComposite
 
 		public IList<ForumUser> TopUsers { get; private set; }
 
+		public IDictionary<string, ForumContent> CustomContent { get; private set; }
+
 		public void Initialize(RouteData routeData)
 		{
 			var orgSlug = routeData.Values["org"].ToString();
@@ -61,6 +66,15 @@ namespace ForumComposite
 			ForumName = forum.Name;
 			ForumIdentifier = forum.Identifier;
 			ForumTheme = forum.Theme;
+
+			CustomContent = new Dictionary<string, ForumContent>();
+
+			var content = _contentQueries.GetAllActiveContent(forum.Identifier);
+
+			foreach (var forumContent in content)
+			{
+				CustomContent.Add(forumContent.ContentLocation, forumContent);
+			}
 
 			Categories = _categoryQueries.GetActiveCategories(ForumIdentifier, 0, 100);
 			TopUsers = _userQueries.FindTopUsers(ForumIdentifier);

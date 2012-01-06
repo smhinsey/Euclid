@@ -1,4 +1,4 @@
 ﻿namespace AdminComposite.Controllers
 {
-	public enum AvailableContentType { RichText, EmeddedYouTube }
+	public enum AvailableContentType { RichText, EmbeddedYouTube }
 }

@@ -86,7 +86,7 @@ namespace AdminComposite.Controllers
 				case AvailableContentType.RichText:
 					viewName = "_wysiwg";
 					break;
-				case AvailableContentType.EmeddedYouTube:
+				case AvailableContentType.EmbeddedYouTube:
 					viewName = "_youtube";
 					break;
 				default:
