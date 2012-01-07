@@ -74,6 +74,7 @@
     <Compile Include="Models\AgentPartModel.cs" />
     <Compile Include="Models\CommandModel.cs" />
     <Compile Include="Models\CompositeHome.cs" />
+    <Compile Include="Models\PublishedCommandModel.cs" />
     <Compile Include="Module\CommandModule.cs" />
     <Compile Include="Module\CompositeModule.cs" />
     <Compile Include="Module\QueryModule.cs" />
@@ -89,6 +90,7 @@
     <EmbeddedResource Include="Views\Shared\Frameset.cshtml" />
     <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
     <EmbeddedResource Include="Views\Queries\view-query-methods.cshtml" />
+    <EmbeddedResource Include="Views\Commands\view-publication-record.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common\Euclid.Common.csproj">
@@ -108,7 +110,9 @@
       <Name>Euclid.Composites</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\jquery.form.js" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Images\1.jpg" />
     <EmbeddedResource Include="Assets\Images\test\2.jpg" />
@@ -116,9 +120,6 @@
     <EmbeddedResource Include="Assets\Scripts\euclid-0.9.js" />
     <EmbeddedResource Include="Assets\Scripts\jquery-1.7.1.min.js" />
     <EmbeddedResource Include="Assets\Styles\composite-inspector.css" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\euclid.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\jquery-ui-1.8.16.custom.min.js" />

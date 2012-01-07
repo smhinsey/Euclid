@@ -1,4 +1,6 @@
-﻿var EUCLID = function () {
+﻿$.getScript("/composite/js/jquery.form.js");
+
+var EUCLID = function () {
 	/* private methods */
 	var _getJsonObject = (function (url) {
 		$.ajaxSetup({ "async": false });
@@ -20,26 +22,31 @@
 		return _model;
 	}); // end getJsonObject
 
-	var _postJsonObject = (function (url, data) {
+	var _submitForm = (function (form) {
+		var model = null;
 		$.ajaxSetup({ "async": false });
-		var jqHxr = jQuery.post(url, data);
-		var model = $.parseJSON(jqHxr.responseText);
+		$(form).ajaxSubmit({
+			success: function (responseText, statusText, jqHxr, $form) {
+				if (jqHxr.status == 500) {
+					throw {
+						name: model.name,
+						message: model.message + "\n\n" + _model.callstack
+					}
+				} else {
+					model = $.parseJSON(jqHxr.responseText);
+					if (model === null) {
+						throw {
+							name: "Invalid QueryName Exception",
+							message: "Could not POST JSON from url: " + url
+						};
+					}
+				}
+			}
+		});
 		$.ajaxSetup({ "async": true });
 
-		if (model === null) {
-			throw {
-				name: "Invalid QueryName Exception",
-				message: "Could not POST JSON from url: " + url
-			};
-		} else if (jqHxr.status == 500) {
-			throw {
-				name: model.name,
-				message: model.message + "\n\n" + _model.callstack
-			}
-		}
-
 		return model;
-	}); // end postJsonObject
+	}); // end submitForm
 
 	var _getId = (function () {
 		function S4() {
@@ -145,6 +152,7 @@
 		$(fieldSet).append($(html));
 	}); //end addElementToForm
 
+
 	return {
 		getQueryMetadata: (function (args) {
 			if (args === null || args === undefined || !args.hasOwnProperty("queryName")) {
@@ -167,8 +175,8 @@
 			return _getJsonObject(url);
 		}),
 
-		postJsonObject: (function(url, data) {
-			return _postJsonObject(url, data);
+		submitForm: (function (url, data) {
+			return _submitForm(url, data);
 		}),
 
 		getQueryForm: (function (args) {
@@ -282,7 +290,72 @@
 			_model["PartName"] = args.commandName;
 
 			return _model;
-		})
+		}), // end getInputModel
+
+		pollForCommandStatus: (function (args) {
+			// publicationId, onOpportunityToCancelPolling, onCommandComplete, onCommandError, onPollError
+			if (!args.hasOwnProperty("publicationId") || !args.hasOwnProperty("onCommandComplete") || !args.hasOwnProperty("onCommandError")) {
+				throw {
+					name: "Invalid Argument Exception",
+					message: "EUCLID.pollForCommandStatus expects an object that contains: publicationId and the functions onCommandCompleted & onCommandError.  Optionally you may specify the property Interval (number of ms between status requests) and the functions onOpportunityToCancelPolling (a function that accepts the number of times the registry has been polled, and returns false to stop polling), and the function onPollError (accepts a standard error object)"
+				}
+			}
+
+			var PollMax = (args.PollMax == null || args.PollMax <= 0) ? 100 : args.PollMax;
+			var PollInterval = (args.PollInterval == null || args.PollInterval <= 0) ? 250 : args.PollInterval;
+			var PollCount = 1;
+			var PollerId = setInterval(doPoll, PollInterval);
+
+			function doPoll() {
+				try {
+					var result = _getJsonObject("/composite/commands/status/" + args.publicationId);
+				} catch (e) {
+					if (args.hasOwnProperty("onPollError")) {
+						args.onPollError(e);
+					}
+				}
+
+				PollCount++;
+				complete = result.Completed;
+				if (result.Error) {
+					clearInterval(PollerId);
+					args.onCommandError(result);
+				} else if (result.Completed) {
+					clearInterval(PollerId);
+					args.onCommandComplete(result);
+				} else {
+					var e = { name: "", message: "" };
+					if (args.hasOwnProperty("onOpportunityToCancelPolling")) {
+						continuePolling = args.onOpportunityToCancelPolling(PollCount);
+						e.name = "Polling Aborted Exception";
+						e.message = "Polling cancelled by caller";
+					} else {
+						continuePolling = pollCount <= PollMax;
+						e.name = "Polling Max Reached";
+						e.message = "Polled maximum number of time: " + PollMax;
+					}
+
+					if (!continuePolling) {
+						clearInterval(PollerId);
+						if (args.hasOwnProperty("onPollError")) {
+							args.onPollError(e);
+						}
+					}
+				}
+			}
+		}), // end pollForCommandStatus
+
+		displayError: (function (e) {
+			if ($("#euclid-error-display").length == 0) {
+				$("body").prepend("<div id='euclid-error-display' style='z-index:9999'></div>");
+			}
+
+			var error = $("#euclid-error-display");
+			var message = $("<div class='alert-message error' data-alert='alert'><a class='close' href='#'>×</a><p><strong>" + e.name.replace(/\n/g, "<br />") + "</strong> " + e.message.replace(/\n/g, "<br />") + ".</p></div>");
+
+			$(error).append(message);
+			$(window).scrollTop(0);
+		}) // end displayError
 	}
 } ();
 
@@ -294,3 +367,10 @@ $.fn.hasAttr = function(name) {
 String.prototype.endsWith = function(suffix) {
 	return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
+
+$(document).ready(function () {
+	$(window).scroll(function () {
+		var top = $("body").scrollTop() + "px";
+		$("#euclid-error-display").css("top", top);
+	});
+});

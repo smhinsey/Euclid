@@ -11,7 +11,9 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 using JsonCompositeInspector.Models;
 using Nancy;
+using Nancy.Extensions;
 using Nancy.ModelBinding;
+using Nancy.Responses;
 
 namespace JsonCompositeInspector.Module
 {
@@ -62,11 +64,11 @@ namespace JsonCompositeInspector.Module
 			                                          		}
 
 			                                          		return View["Commands/view-command.cshtml", new CommandModel
-			                                          		                                           	{
-			                                          		                                           		AgentSystemName =
-			                                          		                                           			agentSystemName,
-			                                          		                                           		CommandName = commandName
-			                                          		                                           	}];
+			                                          		                                            	{
+			                                          		                                            		AgentSystemName =
+			                                          		                                            			agentSystemName,
+			                                          		                                            		CommandName = commandName
+			                                          		                                            	}];
 			                                          	};
 
 			Post["/publish"] = p =>
@@ -77,43 +79,77 @@ namespace JsonCompositeInspector.Module
 			                   			throw new InvalidOperationException("Unable to retrieve input model from form");
 			                   		}
 
-									try
+			                   		Exception publishingException = null;
+			                   		Guid publicationId;
+			                   		try
+			                   		{
+			                   			var command = _compositeApp.GetCommandForInputModel(inputModel);
+			                   			publicationId = _publisher.PublishMessage(command);
+			                   		}
+			                   		catch (Exception e)
+			                   		{
+			                   			publishingException = e;
+			                   			publicationId = Guid.Empty;
+			                   		}
+
+									if (Request.IsAjaxRequest())
 									{
-										var command = _compositeApp.GetCommandForInputModel(inputModel);
-										return Response.AsJson(new {publicationId = _publisher.PublishMessage(command)});
+										return (publishingException == null)
+												? Response.AsJson(new { publicationId })
+												: Response.AsJson(
+													new
+														{
+															name = publishingException.GetType().Name,
+															message = publishingException.Message,
+															callStack = publishingException.StackTrace
+														}, HttpStatusCode.InternalServerError);
 									}
-									catch (Exception e)
-									{
-										return Response.AsJson(
-															new
-															{
-																name = e.GetType().Name,
-																message = e.Message,
-																callStack = e.StackTrace
-															},
-															   HttpStatusCode.InternalServerError);
-									}
+
+									var redirectUrl = !string.IsNullOrEmpty(Request.Form["alternateRedirectUrl"].Value)
+														? (string)Request.Form["alternateRedirectUrl"].Value
+														: Request.Headers["REFERER"].FirstOrDefault() ?? string.Format("/commands/status/{0}", publicationId);
+
+									return Response.AsRedirect(redirectUrl);
 			                   	};
 
 			Get["/status/{publicationId}"] = p =>
 			                                 	{
+			                                 		Exception fetchRegistryError = null;
+			                                 		ICommandPublicationRecord record = null;
+													var publicationId = (Guid)p.publicationId;
 			                                 		try
 			                                 		{
-														var publicationId = (Guid)p.publicationId;
-														var record = _registry.GetPublicationRecord(publicationId);
-														return Response.AsJson(record);
-													}
+			                                 			record = _registry.GetPublicationRecord(publicationId);
+														if (record == null)
+														{
+															throw new CommandNotFoundInRegistryException(publicationId);
+														}
+			                                 		}
 			                                 		catch (Exception e)
 			                                 		{
-														return Response.AsJson(
-																			new
-																			{
-																				name = e.GetType().Name,
-																				message = e.Message,
-																				callStack = e.StackTrace
-																			},
-																			   HttpStatusCode.InternalServerError);
-													}
+			                                 			fetchRegistryError = e;
+			                                 		}
+
+			                                 		if (Request.IsAjaxRequest())
+			                                 		{
+			                                 			return fetchRegistryError == null
+			                                 			       	? Response.AsJson(record)
+			                                 			       	: Response.AsJson(
+			                                 			       		new
+			                                 			       			{
+			                                 			       				name = fetchRegistryError.GetType().Name,
+			                                 			       				message = fetchRegistryError.Message,
+			                                 			       				callStack = fetchRegistryError.StackTrace
+			                                 			       			},
+			                                 			       		HttpStatusCode.InternalServerError);
+			                                 		}
+
+													var model = new PublishedCommandModel
+													{
+														PublicationId = publicationId.ToString(),
+														Record = record
+													};
+													return View["Commands/view-publication-record.cshtml", model];
 			                                 	};
 		}
 
@@ -142,6 +178,13 @@ namespace JsonCompositeInspector.Module
 			{
 				return null;
 			}
+		}
+	}
+
+	public class CommandNotFoundInRegistryException : Exception
+	{
+		public CommandNotFoundInRegistryException(Guid publicationId) : base(publicationId.ToString())
+		{
 		}
 	}
 }
