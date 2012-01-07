@@ -87,6 +87,7 @@
     <Compile Include="CommentNotFoundException.cs" />
     <Compile Include="ContentNotFoundException.cs" />
     <Compile Include="Processors\ActivateTagProcessor.cs" />
+    <Compile Include="ReadModels\TagDetail.cs" />
     <Compile Include="TagNotFoundException.cs" />
     <Compile Include="ForumContentNotFoundException.cs" />
     <Compile Include="ForumNotFoundException.cs" />
