@@ -1,24 +1,20 @@
-﻿<h3>Tags</h3>
-<div id="tagCloud" style="height: 175px; width: 150px; position: relative;"></div>
-<br/>
-<p><a href="@Url.RouteUrl("Tags")">View all tags</a>.</p>
+﻿@if (ForumInfo.Tags.Count > 0)
+{
+	<h3>Tags</h3>
+	<div id="tagCloud" style="height: 175px; width: 150px; position: relative;"></div>
+	<br/>
+	<p><a href="@Url.RouteUrl("Tags")">View all tags</a>.</p>
 
-<script>
-	var tag_cloud = [
-		{ text: "Tag", weight: 1, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' },
-		{ text: "Another Tag", weight: 2, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' },
-		{ text: "Green", weight: 3, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' },
-		{ text: "Favorites", weight: 4, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' },
-		{ text: "Cars", weight: 6, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' },
-		{ text: "Arbitrary", weight: 4, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' },
-		{ text: "Bars", weight: 6, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' },
-		{ text: "Hoaxes", weight: 5, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' },
-		{ text: "Bats", weight: 6, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' },
-		{ text: "Marathon", weight: 2, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' },
-		{ text: "Jokes", weight: 7, url: '@Url.RouteUrl("Tag", new { tagSlug = "tag" })' }
+	<script>
+		var tag_cloud = [
+			@foreach (var tag in ForumInfo.Tags)
+			{
+				<text>{ text: "@tag.Name", weight: @tag.TotalPosts, url: '@Url.RouteUrl("Tag", new { tagSlug = tag.Slug })' },</text>
+			}
 	];
 
 	$(document).ready(function() {
 		$("#tagCloud").jQCloud(tag_cloud);
 	});
-</script>
+	</script>
+}

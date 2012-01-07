@@ -23,6 +23,8 @@ namespace ForumComposite
 
 		private readonly ContentQueries _contentQueries;
 
+		private readonly TagQueries _tagQueries;
+
 		public CommonForumInfo()
 		{
 			_forumQueries = DependencyResolver.Current.GetService<ForumQueries>();
@@ -30,6 +32,7 @@ namespace ForumComposite
 			_categoryQueries = DependencyResolver.Current.GetService<CategoryQueries>();
 			_userQueries = DependencyResolver.Current.GetService<UserQueries>();
 			_contentQueries = DependencyResolver.Current.GetService<ContentQueries>();
+			_tagQueries = DependencyResolver.Current.GetService<TagQueries>();
 		}
 
 		public IList<Category> Categories { get; private set; }
@@ -49,6 +52,7 @@ namespace ForumComposite
 		public string ForumTheme { get; private set; }
 
 		public IList<ForumUser> TopUsers { get; private set; }
+		public IList<Tag> Tags { get; private set; }
 
 		public IDictionary<string, ForumContent> CustomContent { get; private set; }
 
@@ -78,6 +82,7 @@ namespace ForumComposite
 
 			Categories = _categoryQueries.GetActiveCategories(ForumIdentifier, 0, 100);
 			TopUsers = _userQueries.FindTopUsers(ForumIdentifier);
+			Tags = _tagQueries.List(ForumIdentifier, 0, 100).Tags;
 
 			if (HttpContext.Current.Request.IsAuthenticated)
 			{
