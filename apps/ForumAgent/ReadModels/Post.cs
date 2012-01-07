@@ -7,13 +7,15 @@ namespace ForumAgent.ReadModels
 	{
 		public virtual string AuthorDisplayName { get; set; }
 
-		public virtual string Slug { get; set; }
-
 		public virtual Guid AuthorIdentifier { get; set; }
 
 		public virtual string Body { get; set; }
 
 		public virtual Guid CategoryIdentifier { get; set; }
+
+		public virtual string CategoryName { get; set; }
+
+		public virtual string CategorySlug { get; set; }
 
 		public virtual int CommentCount { get; set; }
 
@@ -21,8 +23,10 @@ namespace ForumAgent.ReadModels
 
 		public virtual int Score { get; set; }
 
-		public virtual int TotalVotes { get; set; }
+		public virtual string Slug { get; set; }
 
 		public virtual string Title { get; set; }
+
+		public virtual int TotalVotes { get; set; }
 	}
 }

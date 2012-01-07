@@ -26,7 +26,7 @@ namespace ForumComposite.Controllers
 				//  new UpdateForumUserLastLogin
 				//  {
 				//    Created = DateTime.Now,
-				//    CreatedBy = Guid.Empty,
+				//    CreatedBy = user.Identifier,
 				//    Identifier = Guid.NewGuid(),
 				//    LoginTime = DateTime.Now,
 				//    UserIdentifier = user.Identifier
@@ -34,7 +34,7 @@ namespace ForumComposite.Controllers
 
 				var issueDate = DateTime.Now;
 
-				var expirationDate = DateTime.Now.AddMinutes(30);
+				var expirationDate = DateTime.Now.AddYears(1);
 
 				var userData = string.Format("{0}^{1}", org, forum);
 

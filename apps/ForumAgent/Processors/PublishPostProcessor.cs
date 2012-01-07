@@ -30,6 +30,7 @@ namespace ForumAgent.Processors
 		public override void Process(PublishPost message)
 		{
 			var user = _userRepository.FindById(message.AuthorIdentifier);
+			var category = _categoryRepository.FindById(message.CategoryIdentifier);
 
 			var username = "Anonymous";
 
@@ -70,6 +71,8 @@ namespace ForumAgent.Processors
 					Body = message.Body,
 					Score = 0,
 					Title = message.Title,
+					CategoryName = category.Name,
+					CategorySlug = category.Slug,
 					CategoryIdentifier = message.CategoryIdentifier,
 					Identifier = message.Identifier,
 					Created = DateTime.Now,
@@ -84,8 +87,6 @@ namespace ForumAgent.Processors
 
 				if (message.CategoryIdentifier != Guid.Empty)
 				{
-					var category = _categoryRepository.FindById(message.CategoryIdentifier);
-
 					category.TotalPosts++;
 
 					_categoryRepository.Save(category);

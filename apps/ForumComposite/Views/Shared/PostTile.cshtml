@@ -1,4 +1,5 @@
-﻿@using Euclid.Composites.Mvc.Extensions
+﻿@using Euclid.Common.Extensions
+@using Euclid.Composites.Mvc.Extensions
 @using ForumComposite.Models
 @{
 	var header = "h2";
@@ -71,8 +72,8 @@ else if (Page.Size.ToLower() == "Small".ToLower())
 	<@header><a href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })">@Page.Post.Title</a></@header>
 	<p style="@text">@truncate(Page.Post.Body, textLength)
 		&mdash; <span style="text-align: right; font-size: smaller;"><em>@Page.Post.Created.ToString("h:mm tt M/d/yyyy")</em>
-							in <a href="@Url.RouteUrl("Category", new { categorySlug = "category" })" class="label">
-								 	Another Category</a></span></p>
+							 by <em><a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = @Page.Post.AuthorDisplayName })">@Page.Post.AuthorDisplayName</a></em> <a href="@Url.RouteUrl("Category", new { categorySlug = @Page.Post.CategorySlug })" class="label">
+								 	@Page.Post.CategoryName</a></span></p>
 	<p><span style="padding-top: 7px; text-align: right; font-size: smaller;">
 		 	<img src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/balloon-white.png")" />
 		 	<a href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })#comments">
