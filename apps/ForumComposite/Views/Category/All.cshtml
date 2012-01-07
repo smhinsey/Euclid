@@ -45,7 +45,7 @@
 		{
 			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed", Post = post })
 		}
-		<a href="#">View</a> 33 more posts.
+		<a href="@Url.RouteUrl("Category", new { categorySlug = categoryDetail.Category.Slug })">View</a> @categoryDetail.Category.TotalPosts more posts.
 	</div>
 
 	if (needsPadding && catCount == (totalCategories - 1))
