@@ -66,6 +66,9 @@
     <Compile Include="Commands\ApproveComment.cs" />
     <Compile Include="Commands\ApprovePost.cs" />
     <Compile Include="Commands\AwardBadge.cs" />
+    <Compile Include="Commands\ActivateTag.cs" />
+    <Compile Include="Commands\UpdateTag.cs" />
+    <Compile Include="Commands\CreateTag.cs" />
     <Compile Include="Commands\CreateAvatar.cs" />
     <Compile Include="Commands\CreateBadge.cs" />
     <Compile Include="Commands\CreateOrganization.cs" />
@@ -83,6 +86,8 @@
     <Compile Include="Commands\UpdateBadge.cs" />
     <Compile Include="CommentNotFoundException.cs" />
     <Compile Include="ContentNotFoundException.cs" />
+    <Compile Include="Processors\ActivateTagProcessor.cs" />
+    <Compile Include="TagNotFoundException.cs" />
     <Compile Include="ForumContentNotFoundException.cs" />
     <Compile Include="ForumNotFoundException.cs" />
     <Compile Include="OrganizationNotFoundException.cs" />
@@ -94,6 +99,8 @@
     <Compile Include="Processors\AddForumUserAsFriendProcessor.cs" />
     <Compile Include="Processors\ApproveCommentProcessor.cs" />
     <Compile Include="Processors\ApprovePostProcessor.cs" />
+    <Compile Include="Processors\UpdateTagProcessor.cs" />
+    <Compile Include="Processors\CreateTagProcessor.cs" />
     <Compile Include="Processors\CreateAvatarProcessor.cs" />
     <Compile Include="Processors\CreateBadgeProcessor.cs" />
     <Compile Include="Processors\DeleteAvatarProcessor.cs" />
@@ -151,11 +158,13 @@
     <Compile Include="Queries\BadgeQueries.cs" />
     <Compile Include="Queries\ModeratedCommentQueries.cs" />
     <Compile Include="Queries\ModeratedPostQueries.cs" />
+    <Compile Include="Queries\TagQueries.cs" />
     <Compile Include="Queries\ThemeQueries.cs" />
     <Compile Include="ReadModels\AvailableAvatars.cs" />
     <Compile Include="ReadModels\AvailableBadges.cs" />
     <Compile Include="ReadModels\AvailableCategories.cs" />
     <Compile Include="ReadModels\AvailableContent.cs" />
+    <Compile Include="ReadModels\AvailableTags.cs" />
     <Compile Include="ReadModels\AwardedBadge.cs" />
     <Compile Include="ReadModels\CategoryDetail.cs" />
     <Compile Include="ReadModels\ForumAvatar.cs" />
@@ -191,6 +200,7 @@
     <Compile Include="ReadModels\PostDetail.cs" />
     <Compile Include="ReadModels\PostListing.cs" />
     <Compile Include="ReadModels\ForumUser.cs" />
+    <Compile Include="ReadModels\Tag.cs" />
     <Compile Include="ReadModels\UserProfile.cs" />
     <Compile Include="Domain\Entities\OrganizationUserEntity.cs" />
     <Compile Include="Domain\Entities\OrganizationEntity.cs" />

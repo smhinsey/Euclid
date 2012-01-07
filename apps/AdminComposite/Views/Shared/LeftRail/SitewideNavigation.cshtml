@@ -54,6 +54,9 @@
 
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "category", "list", "current")>
 						<a href="@Url.Action("List", "Category", new { forumId })">Categories</a> </li>
+						
+					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "tag", "list", "current")>
+						<a href="@Url.Action("List", "Tag", new { forumId })">Tags</a> </li>
 
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "userprofile", "list", "current")>
 						<a href="@Url.Action("List", "UserProfile", new { forumId })">Users</a> </li>

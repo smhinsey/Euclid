@@ -136,6 +136,8 @@ namespace AdminComposite
 			                                                                                         		CreatedBy =
 			                                                                                         			input.CreatedBy
 			                                                                                         	});
+			composite.RegisterInputModelMap<CreateTagInputModel, CreateTag>();
+			composite.RegisterInputModelMap<UpdateTagInputModel, UpdateTag>();
 			composite.RegisterInputModelMap<CreateCategoryInputModel, CreateCategory>();
 			composite.RegisterInputModelMap<UpdateCategoryInputModel, UpdateCategory>();
 			composite.RegisterInputModelMap<CreateForumContentInputModel, CreateForumContent>();
@@ -152,6 +154,7 @@ namespace AdminComposite
 			composite.RegisterInputModelMap<ActivateAvatarInputModel, ActivateAvatar>();
 			composite.RegisterInputModelMap<ActivateBadgeInputModel, ActivateBadge>();
 			composite.RegisterInputModelMap<ActivateCategoryInputModel, ActivateCategory>();
+			composite.RegisterInputModelMap<ActivateTagInputModel, ActivateTag>();
 			composite.RegisterInputModelMap<ActivateContentInputModel, ActivateContent>();
 			composite.RegisterInputModelMap<DeleteContentInputModel, DeleteForumContent>();
 			composite.RegisterInputModelMap<ActivateUserInputModel, ActivateForumUser>();
