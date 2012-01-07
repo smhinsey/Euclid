@@ -9,7 +9,7 @@
 		var tag_cloud = [
 			@foreach (var tag in ForumInfo.Tags)
 			{
-				<text>{ text: "@tag.Name", weight: @tag.TotalPosts, url: '@Url.RouteUrl("Tag", new { tagSlug = tag.Slug })' },</text>
+				<text>{ text: "@tag.Name", weight: @tag.TotalPosts, url: '@Url.RouteUrl("Tag", new { tagSlug = tag.Name })' },</text>
 			}
 	];
 

@@ -14,9 +14,6 @@
 				<dt>@Html.LabelFor(m=>m.Name)</dt>
 				<dd>@Html.TextBoxFor(m => m.Name, new { id = "tag-name" })</dd>
 
-				<dt>@Html.LabelFor(m=>m.Slug)</dt>
-				<dd>@Html.TextBoxFor(m => m.Slug, new { id = "tag-slug" })</dd>
-
 				<dt class="checkbox">@Html.LabelFor(m=>m.Active)</dt>
 				<dd>@Html.CheckBoxFor(m => m.Active, new { id = "tag-active" })</dd>
 			</dl>

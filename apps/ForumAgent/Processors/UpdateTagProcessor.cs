@@ -1,4 +1,5 @@
 using System;
+using Euclid.Common.Extensions;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
@@ -24,8 +25,7 @@ namespace ForumAgent.Processors
 				throw new TagNotFoundException(string.Format("Could not update tag with id {0}", message.TagIdentifier));
 			}
 
-			tag.Name = message.Name;
-			tag.Slug = message.Slug;
+			tag.Name = message.Name.Slugify();
 			tag.Active = message.Active;
 			tag.Modified = DateTime.Now;
 

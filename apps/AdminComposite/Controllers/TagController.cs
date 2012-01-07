@@ -50,7 +50,7 @@ namespace AdminComposite.Controllers
 			}
 
 			var model = new UpdateTagInputModel
-				{ TagIdentifier = tagId, Name = tag.Name, Active = tag.Active, Slug = tag.Slug};
+				{ TagIdentifier = tagId, Name = tag.Name, Active = tag.Active};
 
 			return PartialView("_UpdateTag", model);
 		}

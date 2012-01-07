@@ -174,6 +174,8 @@
   <ItemGroup>
     <Content Include="Content\themes\default\images\star-empty.png" />
     <Content Include="Content\themes\default\images\star.png" />
+    <Content Include="Content\themes\default\scripts\tagit.js" />
+    <Content Include="Content\themes\default\styles\tagit.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\themes\default\images\arrow-090-medium.png" />
     <Content Include="Content\themes\default\images\arrow-090-small.png" />

@@ -27,9 +27,5 @@ namespace AdminComposite.Models
 		[Required(ErrorMessage = "The tag name cannot be blank")]
 		[Display(Name = "Tag Name")]
 		public string Name { get; set; }
-
-		[Required(ErrorMessage = "The tag slug cannot be blank")]
-		[Display(Name = "Slug")]
-		public string Slug { get; set; }
 	}
 }

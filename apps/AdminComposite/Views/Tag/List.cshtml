@@ -84,7 +84,6 @@
 			<tr>
 				<th>Active</th>
 				<th>Name</th>
-				<th>Slug</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -114,7 +113,6 @@
 					<tr>
 						<td>@Html.CheckBoxFor(m => tag.Active, new {@class = "tag-active", data_item_id = tag.Identifier, data_item_name=tag.Name})</td>
 						<td><span data-category-id="@tag.Identifier">@tag.Name</span></td>
-						<td><span data-category-id="@tag.Identifier">@tag.Slug</span></td>
 						<td>
 							<ul class="actions">
 								<li><a href="#" class="edit" data-tag-id="@tag.Identifier" rel="tooltip" original-title="Edit Tag">edit tag</a></li>
