@@ -7,6 +7,7 @@ using Euclid.Common.Messaging;
 using Euclid.Composites;
 using Euclid.Composites.Conversion;
 using Euclid.Framework.AgentMetadata.Formatters;
+using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 using JsonCompositeInspector.Models;
 using Nancy;
@@ -19,6 +20,7 @@ namespace JsonCompositeInspector.Module
 		private readonly IWindsorContainer _container;
 		private readonly ICompositeApp _compositeApp;
 		private readonly IPublisher _publisher;
+		private readonly ICommandRegistry _registry;
 
 		public CommandModule(IWindsorContainer container)
 			: base("composite/commands")
@@ -26,6 +28,8 @@ namespace JsonCompositeInspector.Module
 			_container = container;
 			_compositeApp = _container.Resolve<ICompositeApp>();
 			_publisher = _container.Resolve<IPublisher>();
+			_registry = _container.Resolve<ICommandRegistry>();
+
 			Get[""] = _ => "Command API";
 
 			Get["/{agentSystemName}/{commandName}"] = p =>
@@ -73,19 +77,44 @@ namespace JsonCompositeInspector.Module
 			                   			throw new InvalidOperationException("Unable to retrieve input model from form");
 			                   		}
 
-			                   		var command = _compositeApp.GetCommandForInputModel(inputModel);
-			                   		return _publisher.PublishMessage(command).ToString();
-			                   		//var type = inputModel.GetType();
-			                   		//var sb = new StringBuilder(type.Name);
-			                   		//foreach (var property in type.GetProperties())
-			                   		//{
-			                   		//    var v = property.GetValue(inputModel, null);
-			                   		//    sb.AppendFormat("<br/>&nbsp;&nbsp;.{0} = {1}", property.Name, v);
-			                   		//}
-
-			                   		//return sb.ToString();
-			                   		//};
+									try
+									{
+										var command = _compositeApp.GetCommandForInputModel(inputModel);
+										return Response.AsJson(new {publicationId = _publisher.PublishMessage(command)});
+									}
+									catch (Exception e)
+									{
+										return Response.AsJson(
+															new
+															{
+																name = e.GetType().Name,
+																message = e.Message,
+																callStack = e.StackTrace
+															},
+															   HttpStatusCode.InternalServerError);
+									}
 			                   	};
+
+			Get["/status/{publicationId}"] = p =>
+			                                 	{
+			                                 		try
+			                                 		{
+														var publicationId = (Guid)p.publicationId;
+														var record = _registry.GetPublicationRecord(publicationId);
+														return Response.AsJson(record);
+													}
+			                                 		catch (Exception e)
+			                                 		{
+														return Response.AsJson(
+																			new
+																			{
+																				name = e.GetType().Name,
+																				message = e.Message,
+																				callStack = e.StackTrace
+																			},
+																			   HttpStatusCode.InternalServerError);
+													}
+			                                 	};
 		}
 
 		private IInputModel getInputModel(string agentSystemName, string commandName)

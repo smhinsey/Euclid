@@ -11,15 +11,77 @@
 			var model = EUCLID.getInputModel({ agentSystemName: "@model.AgentSystemName", commandName: "@model.CommandName" });
 			var form = model.getForm();
 			$("#form-container").append(form);
+			$(form).attr("id", "command-form");
 		} catch (e) {
 			$("#form-container").html("<p class='alert-message error'><strong>" + e.name + "</strong><br/><br/><span>" + e.message + "</span></p>");
 		}
+
+		var pollCount = 0;
+		var continuePolling = true;
+		$(document).on("submit", "#command-form", function () {
+			var url = $("#command-form").attr("action");
+			var data = $("#command-form").serialize();
+
+			if (!$("#results-container").hasClass("visible")) {
+				$("#results-container").addClass("visible");
+			}
+
+			if ($("#results-container").hasClass("hidden")) {
+				$("#results-container").removeClass("hidden");
+			}
+
+			$("#publication-record").html("");
+			try {
+				var publicationModel = EUCLID.postJsonObject(url, data);
+				continuePolling = true;
+				pollCount = 0;
+				pollForResults(publicationModel.publicationId);
+			} catch (e) {
+				$("#publication-record").html("<p class='alert-message error'><strong>" + e.name + "</strong><span> " + e.message + "</span></p>");
+			}
+
+			event.preventDefault();
+			return false;
+		});
+
+		$("#stop-polling").click(function () {
+			continuePolling = false;
+		});
 	});
+
+	function pollForResults(publicationId) {
+		var complete = false;
+		var url = "/composite/commands/status/" + publicationId;
+		do {
+			try {
+				pollCount++;
+				var result = EUCLID.getJsonObject(url);
+				complete = result.Completed;
+				if (result.Error) {
+					$("#publication-record").html("<p class='alert-message error'><strong>Error processing command</strong><br/><span> " + result.ErrorMessage + "</span><br/><br/><span>" + result.CallStack + "</span></p>");
+				} else if (result.Completed) {
+					$("#publication-record").html("<p class='alert-message success'><strong>Complete</strong><span> the command <a href='" + result.MessageLocation + "'>" + result.MessageType + "</a> has been processed</span>");
+				} else {
+					$.delay(250);
+					$("#poll-count").text(pollCount);
+				}
+			} catch (e) {
+				continuePolling = false;
+				$("#publication-record").html("<p class='alert-message error'><strong>" + e.name + "</strong><br/><br/><span>" + e.message + "</span></p>");
+			}
+		} while (!complete && continuePolling);
+	}
 </script>
 <div class="row show-grid">
 
 	<div class="span5 columns">
 		<div id="form-container" ></div>
+	</div>
+
+	<div class="span7 offset4 hidden" id="results-container">
+		<div>Polled <span id="poll-count">0</span> times</div>
+		<div id="publication-record"></div>
+		<button type="button" id="stop-polling">Stop Polling</button>
 	</div>
 
 </div>

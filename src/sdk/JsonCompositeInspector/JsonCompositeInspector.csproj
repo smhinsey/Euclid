@@ -108,9 +108,7 @@
       <Name>Euclid.Composites</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Queries\Binders\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Assets\Images\1.jpg" />
     <EmbeddedResource Include="Assets\Images\test\2.jpg" />

@@ -9,17 +9,37 @@
 		if (_model === null) {
 			throw {
 				name: "Invalid QueryName Exception",
-				message: "Could not retrieve the methods for query: " + _queryName
+				message: "Could not GET JSON from url : " + url
 			};
 		} else if (jqHxr.status == 500) {
 			throw {
 				name: _model.name,
 				message: _model.message + "\n\n" + _model.callstack
 			}
-		} // end getJsonObject
-
+		}
 		return _model;
-	}); // end getFormElement
+	}); // end getJsonObject
+
+	var _postJsonObject = (function (url, data) {
+		$.ajaxSetup({ "async": false });
+		var jqHxr = jQuery.post(url, data);
+		var model = $.parseJSON(jqHxr.responseText);
+		$.ajaxSetup({ "async": true });
+
+		if (model === null) {
+			throw {
+				name: "Invalid QueryName Exception",
+				message: "Could not POST JSON from url: " + url
+			};
+		} else if (jqHxr.status == 500) {
+			throw {
+				name: model.name,
+				message: model.message + "\n\n" + _model.callstack
+			}
+		}
+
+		return model;
+	}); // end postJsonObject
 
 	var _getId = (function () {
 		function S4() {
@@ -33,7 +53,7 @@
 		switch (propertyType.toLowerCase()) {
 			case "httppostedfilebase":
 			case "byte[]":
-				$(form).attr("enctype", "multipart/form-data");
+				$(fieldSet).parent().attr("enctype", "multipart/form-data");
 				type = "file";
 				inputClass = "input-file";
 				break;
@@ -139,8 +159,16 @@
 			return _getJsonObject(getQueryMethodsUrl);
 		}), // end getQueryMethods
 
-		randomId: (function () {
+		getId: (function () {
 			return _getId();
+		}),
+
+		getJsonObject: (function (url) {
+			return _getJsonObject(url);
+		}),
+
+		postJsonObject: (function(url, data) {
+			return _postJsonObject(url, data);
 		}),
 
 		getQueryForm: (function (args) {
@@ -165,10 +193,6 @@
 			$(form).find(".input-date").datepicker();
 			$(form).append("<input type='submit' value='" + method.Name + "' />");
 			return form;
-		}),
-
-		getJsonObject: (function (url) {
-			return _getJsonObject(url);
 		}),
 
 		getInputModel: (function (args) {
