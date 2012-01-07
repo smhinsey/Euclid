@@ -117,9 +117,27 @@ namespace ForumAgent.Processors
 				{
 					var tagRecord = _tagQueries.FindByName(forum.Identifier, tag);
 
-					tagRecord.TotalPosts++;
+					if (tagRecord == null)
+					{
+						tagRecord = new Tag
+							{
+								Identifier = Guid.NewGuid(),
+								ForumIdentifier = forum.Identifier,
+								Name = tag.Slugify(),
+								TotalPosts = 1,
+								Created = DateTime.Now,
+								Modified = (DateTime)SqlDateTime.MinValue,
+								Active = true,
+							};
 
-					_tagRepository.Update(tagRecord);
+						_tagRepository.Save(tagRecord);
+					}
+					else
+					{
+						tagRecord.TotalPosts++;
+
+						_tagRepository.Update(tagRecord);
+					}
 				}
 
 				_repository.Save(post);
