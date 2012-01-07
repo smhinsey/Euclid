@@ -86,8 +86,8 @@ else if (mode == "condensed")
 	<text>
 		<p style="@text"><b><a href="@Url.RouteUrl("Post", new { postIdentifier = Page.Post.Identifier, postSlug = Page.Post.Slug })">@Page.Post.Title</a></b><br />
 			@truncate(Page.Post.Body, 10)<br />
-			<span style="font-size: smaller;"><em>@Page.Post.Created.ToString("h:mm tt M/d/yyyy")</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = "user-profile-slug" })">
-																																			username</a> with <a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })#comments">33 comments.</a></span> </p>
+			<span style="font-size: smaller;"><em>@Page.Post.Created.ToString("h:mm tt M/d/yyyy")</em> by <a href="@Url.RouteUrl("ProfileOverview", new { profileSlug = Page.Post.AuthorDisplayName })">
+																																			@Page.Post.AuthorDisplayName</a> with <a href="@Url.RouteUrl("Post", new { categorySlug = "my-category", postSlug = "post-title" })#comments">@Page.Post.CommentCount comments.</a></span> </p>
 	</text>
 }
 @helper truncate(string text, int numberOfWords)
