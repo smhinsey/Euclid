@@ -93,9 +93,11 @@ namespace ForumComposite
 				
 				if (cookie != null)
 				{
-					var parts = cookie.Value.Split(new[]{ "^"}, StringSplitOptions.None);
+					var ticket = FormsAuthentication.Decrypt(cookie.Value);
 
-					if (parts.Length == 2)
+					var parts = ticket.UserData.Split(new[] { "^" }, StringSplitOptions.None);
+
+					if (parts.Length == 3)
 					{
 						AuthenticatedUserIdentifier = Guid.Parse(parts[2]);
 					}
