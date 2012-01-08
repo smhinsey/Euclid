@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Models;
 
 namespace Euclid.Composites.Mvc.Extensions
@@ -25,9 +26,22 @@ namespace Euclid.Composites.Mvc.Extensions
 			}
 
 			// jt: we can deduce the AgentSystemName & PartName w/out requiring them to be explicitly set on the inputmodel
-			var form = helper.BeginForm("Publish", "Agents", new { area = "CompositeInspector" }, FormMethod.Post, new { id = formId, encType = "multipart/form-data" });
+			/*
+			var compositeApp = DependencyResolver.Current.GetService<ICompositeApp>();
+			var command = compositeApp.GetCommandMetadataForInputModel(inputModel.GetType());
+			var agentSystemName = command.Type.Assembly.GetAgentMetadata().SystemName;
+			var partName = command.Name;
+			*/
 
-			var tagBuilder = new TagBuilder("input");
+			var tagBuilder = new TagBuilder("form");
+			tagBuilder.Attributes.Add("method", "post");
+			tagBuilder.Attributes.Add("action", "/composite/commands/publish");
+			tagBuilder.Attributes.Add("id", formId);
+			tagBuilder.Attributes.Add("encType", "multipart/form-data");
+			helper.ViewContext.Writer.Write(tagBuilder.ToString(TagRenderMode.StartTag));
+			helper.ViewContext.Writer.Write(Environment.NewLine);
+
+			tagBuilder = new TagBuilder("input");
 			tagBuilder.Attributes.Add("type", "hidden");
 			tagBuilder.Attributes.Add("name", "agentSystemName");
 			tagBuilder.Attributes.Add("value", inputModel.AgentSystemName);
@@ -54,7 +68,7 @@ namespace Euclid.Composites.Mvc.Extensions
 				helper.ViewContext.Writer.Write(Environment.NewLine);
 			}
 
-			return form;
+			return new MvcForm(helper.ViewContext);
 		}
 	}
 

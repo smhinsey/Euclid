@@ -450,10 +450,6 @@
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\sdk\CompositeInspector\CompositeInspector.csproj">
-      <Project>{D1B6455D-9E83-423F-A8E0-82073D066846}</Project>
-      <Name>CompositeInspector</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\sdk\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
       <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
       <Name>Euclid.Composites.Mvc</Name>

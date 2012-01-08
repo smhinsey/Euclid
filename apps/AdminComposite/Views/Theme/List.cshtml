@@ -41,7 +41,8 @@
 	{
 		@Html.HiddenFor(m => m.ForumIdentifier);
 		@Html.HiddenFor(m => m.SelectedTheme, new { id = "selected-theme" });
-									   
+		@Html.HiddenFor(m => m.ForumName, new { id = "forum-name" });
+
 		<fieldset>
 			<legend>Themes</legend>
 			<dl>
