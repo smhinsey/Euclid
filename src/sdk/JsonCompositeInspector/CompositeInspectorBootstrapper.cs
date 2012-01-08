@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
@@ -26,7 +27,6 @@ namespace JsonCompositeInspector
 			{
 				var container = DependencyResolver.Current.GetService<IWindsorContainer>();
 				container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel, true));
-
 				return container;
 			}
 

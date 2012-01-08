@@ -15,6 +15,7 @@ namespace ForumComposite
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.IgnoreRoute("favicon.ico");
+			routes.IgnoreRoute("composite/{*pathInfo}");
 
 			routes.MapRoute(
 				"Home",
