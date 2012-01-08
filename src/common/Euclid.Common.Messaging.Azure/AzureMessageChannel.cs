@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
 using Euclid.Common.Extensions;
+using Euclid.Common.Logging;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.StorageClient;
 
 namespace Euclid.Common.Messaging.Azure
 {
-	public class AzureMessageChannel : DefaultMessageChannel
+	public class AzureMessageChannel : DefaultMessageChannel, ILoggingSource
 	{
 		private const int MaximumNumberOfMessagesThatCanBeFetched = 32;
 
@@ -49,15 +50,19 @@ namespace Euclid.Common.Messaging.Azure
 
 		public override ChannelState Open()
 		{
+			this.WriteDebugMessage("Opening channel {0}", ChannelName);
+
 			lock (Down)
 			{
 				if (_queue == null)
 				{
-					CreateQueue(ChannelName);
+					createQueue(ChannelName);
 				}
 
 				State = ChannelState.Open;
 			}
+
+			this.WriteDebugMessage("Opened channel {0}", ChannelName);
 
 			return State;
 		}
@@ -111,8 +116,10 @@ namespace Euclid.Common.Messaging.Azure
 			_queue.AddMessage(msg);
 		}
 
-		private static void CreateQueue(string channelName)
+		private void createQueue(string channelName)
 		{
+			this.WriteDebugMessage("Creating queue for channel {0}", channelName);
+
 			CloudStorageAccount.SetConfigurationSettingPublisher(
 				(configurationKey, publishConfigurationValue) =>
 					{
@@ -126,8 +133,18 @@ namespace Euclid.Common.Messaging.Azure
 			var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
 			var queueClient = storageAccount.CreateCloudQueueClient();
 
-			_queue = queueClient.GetQueueReference(channelName.ToLower());
-			_queue.CreateIfNotExist(); // jt: why does exception get swalloed
+			try
+			{
+				_queue = queueClient.GetQueueReference(channelName.ToLower());
+
+				_queue.CreateIfNotExist();
+			}
+			catch (Exception e)
+			{
+				this.WriteErrorMessage("Failed to create queue for channel {0}", e, channelName);
+			}
+
+			this.WriteDebugMessage("Created queue for channel {0}", channelName);
 		}
 
 		private static void ValidNumberOfMessagesRequested(int howMany)

@@ -46,9 +46,19 @@ namespace Euclid.Common.Messaging
 
 			dispatcherIsConfigured();
 
+			this.WriteDebugMessage("Dispatcher is configured.");
+
+			this.WriteDebugMessage("Opening input channel.");
+
 			InputChannel.Open();
 
+			this.WriteDebugMessage("Input channel open.");
+
+			this.WriteDebugMessage("Opening invalid channel.");
+			
 			InvalidChannel.Open();
+
+			this.WriteDebugMessage("Invalid channel open.");
 
 			State = MessageDispatcherState.Enabled;
 
@@ -145,6 +155,8 @@ namespace Euclid.Common.Messaging
 
 		private void pollChannelForRecords()
 		{
+			this.WriteDebugMessage("Started polling for records");
+
 			while (!_cancellationToken.IsCancellationRequested)
 			{
 				Task.Factory.StartNew(dispatchTask => dispatchMessage(), _cancellationToken);
