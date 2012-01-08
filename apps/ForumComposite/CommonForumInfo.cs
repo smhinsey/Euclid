@@ -82,7 +82,7 @@ namespace ForumComposite
 
 			Categories = _categoryQueries.GetActiveCategories(ForumIdentifier, 0, 100);
 			TopUsers = _userQueries.FindTopUsers(ForumIdentifier);
-			Tags = _tagQueries.List(ForumIdentifier, 0, 100).Tags;
+			Tags = _tagQueries.FindActiveTags(ForumIdentifier, 0, 100).Tags;
 
 			if (HttpContext.Current.Request.IsAuthenticated)
 			{

@@ -28,5 +28,7 @@ namespace ForumAgent.ReadModels
 		public virtual DateTime ApprovedOn { get; set; }
 
 		public virtual Guid ApprovedBy { get; set; }
+
+		public virtual string Tags { get; set; }
 	}
 }

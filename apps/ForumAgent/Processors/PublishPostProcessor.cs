@@ -77,7 +77,8 @@ namespace ForumAgent.Processors
 						ForumIdentifier = message.ForumIdentifier,
 						Approved = false,
 						ApprovedOn = (DateTime)SqlDateTime.MinValue,
-						Slug = message.Title.Slugify()
+						Slug = message.Title.Slugify(),
+						Tags = string.Join(", ", message.Tags)
 					};
 
 				_moderatedPostRepository.Save(post);
