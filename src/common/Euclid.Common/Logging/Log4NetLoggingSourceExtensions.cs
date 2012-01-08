@@ -22,7 +22,7 @@ namespace Euclid.Common.Logging
 
 			if (logger.IsDebugEnabled)
 			{
-				logger.Debug(message);
+				logger.Debug(string.Format(message, formatParameters));
 			}
 		}
 

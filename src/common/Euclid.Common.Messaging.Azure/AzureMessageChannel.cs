@@ -81,6 +81,8 @@ namespace Euclid.Common.Messaging.Azure
 			{
 				var message = _queue.GetMessage();
 
+				this.WriteDebugMessage("Message received from Azure Queue.");
+
 				count++;
 
 				if (message == null)
@@ -89,6 +91,8 @@ namespace Euclid.Common.Messaging.Azure
 				}
 
 				_queue.DeleteMessage(message);
+
+				this.WriteDebugMessage("Message deleted from Azure Queue.");
 
 				yield return _serializer.Deserialize(message.AsBytes);
 			}
@@ -116,37 +120,6 @@ namespace Euclid.Common.Messaging.Azure
 			_queue.AddMessage(msg);
 		}
 
-		private void createQueue(string channelName)
-		{
-			this.WriteDebugMessage("Creating queue for channel {0}", channelName);
-
-			CloudStorageAccount.SetConfigurationSettingPublisher(
-				(configurationKey, publishConfigurationValue) =>
-					{
-						var connectionString = RoleEnvironment.IsAvailable
-						                       	? RoleEnvironment.GetConfigurationSettingValue(configurationKey)
-						                       	: ConfigurationManager.AppSettings[configurationKey];
-
-						publishConfigurationValue(connectionString);
-					});
-
-			var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
-			var queueClient = storageAccount.CreateCloudQueueClient();
-
-			try
-			{
-				_queue = queueClient.GetQueueReference(channelName.ToLower());
-
-				_queue.CreateIfNotExist();
-			}
-			catch (Exception e)
-			{
-				this.WriteErrorMessage("Failed to create queue for channel {0}", e, channelName);
-			}
-
-			this.WriteDebugMessage("Created queue for channel {0}", channelName);
-		}
-
 		private static void ValidNumberOfMessagesRequested(int howMany)
 		{
 			if (howMany > MaximumNumberOfMessagesThatCanBeFetched)
@@ -169,6 +142,37 @@ namespace Euclid.Common.Messaging.Azure
 			}
 
 			return new CloudQueueMessage(msg);
+		}
+
+		private void createQueue(string channelName)
+		{
+			this.WriteDebugMessage("Creating queue for channel {0}", channelName);
+
+			try
+			{
+				CloudStorageAccount.SetConfigurationSettingPublisher(
+					(configurationKey, publishConfigurationValue) =>
+						{
+							var connectionString = RoleEnvironment.IsAvailable
+							                       	? RoleEnvironment.GetConfigurationSettingValue(configurationKey)
+							                       	: ConfigurationManager.AppSettings[configurationKey];
+
+							publishConfigurationValue(connectionString);
+						});
+
+				var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
+				var queueClient = storageAccount.CreateCloudQueueClient();
+
+				_queue = queueClient.GetQueueReference(channelName.ToLower());
+
+				_queue.CreateIfNotExist();
+			}
+			catch (Exception e)
+			{
+				this.WriteErrorMessage("Failed to create queue for channel {0}", e, channelName);
+			}
+
+			this.WriteDebugMessage("Created queue for channel {0}", channelName);
 		}
 	}
 }

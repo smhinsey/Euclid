@@ -39,55 +39,64 @@ namespace AzureAgentConsole
 
 		public override void Run()
 		{
-			if (!RoleEnvironment.IsAvailable)
+			try
 			{
-				NConfigurator.UsingFile(@"~\Config\custom.config").SetAsSystemDefault();
-				XmlConfigurator.Configure(
-					new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
-				;
+				if (!RoleEnvironment.IsAvailable)
+				{
+					NConfigurator.UsingFile(@"~\Config\custom.config").SetAsSystemDefault();
+					XmlConfigurator.Configure(
+						new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
+					;
+				}
+				else
+				{
+					XmlConfigurator.Configure();
+				}
+
+				var databaseConfiguration =
+					MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
+
+				this.WriteInfoMessage("Starting agent console");
+
+				var container = new WindsorContainer();
+
+				setAzureCredentials(container);
+
+				var fabric = new ConsoleFabric(container);
+
+				var composite = new BasicCompositeApp(container)
+					{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
+
+				composite.AddAgent(typeof(CreateForum).Assembly);
+
+				//composite.AddAgent(typeof(LogEntry).Assembly);
+
+				//composite.AddAgent(typeof(TestCommand).Assembly);
+
+				composite.Configure(getCompositeSettings());
+
+				composite.RegisterNh(databaseConfiguration, false);
+
+				this.WriteInfoMessage("Initializing fabric");
+
+				fabric.Initialize(getFabricSettings());
+
+				this.WriteInfoMessage("Installing composite: {0}", composite.Name);
+
+				composite.CreateSchema(databaseConfiguration, false);
+
+				fabric.InstallComposite(composite);
+
+				fabric.Start();
+
+				Thread.Sleep(Timeout.Infinite);
 			}
-			else
+			catch (Exception e)
 			{
-				XmlConfigurator.Configure();
+				this.WriteFatalMessage("WorkerRole failed and will recycle.", e);
 			}
 
-			var databaseConfiguration =
-				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
-
-			this.WriteInfoMessage("Starting agent console");
-
-			var container = new WindsorContainer();
-
-			setAzureCredentials(container);
-
-			var fabric = new ConsoleFabric(container);
-
-			var composite = new BasicCompositeApp(container)
-				{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
-
-			composite.AddAgent(typeof(CreateForum).Assembly);
-
-			//composite.AddAgent(typeof(LogEntry).Assembly);
-
-			//composite.AddAgent(typeof(TestCommand).Assembly);
-
-			composite.Configure(getCompositeSettings());
-
-			composite.RegisterNh(databaseConfiguration, false);
-
-			this.WriteInfoMessage("Initializing fabric");
-
-			fabric.Initialize(getFabricSettings());
-
-			this.WriteInfoMessage("Installing composite: {0}", composite.Name);
-
-			composite.CreateSchema(databaseConfiguration, false);
-
-			fabric.InstallComposite(composite);
-
-			fabric.Start();
-
-			Thread.Sleep(Timeout.Infinite);
+			this.WriteInfoMessage("Worker role is recycling.");
 		}
 
 		private CompositeAppSettings getCompositeSettings()
@@ -113,8 +122,6 @@ namespace AzureAgentConsole
 			var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
 
 			messageChannel.Open();
-
-			messageChannel.Clear();
 
 			messageChannel.Close();
 

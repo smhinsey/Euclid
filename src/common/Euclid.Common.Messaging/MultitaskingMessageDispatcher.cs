@@ -162,8 +162,6 @@ namespace Euclid.Common.Messaging
 				Task.Factory.StartNew(dispatchTask => dispatchMessage(), _cancellationToken);
 
 				Thread.Sleep((int)CurrentSettings.DurationOfDispatchingSlice.Value.TotalMilliseconds);
-
-				this.WriteDebugMessage("Polling for records");
 			}
 
 			this.WriteDebugMessage("Stopped polling for records");
