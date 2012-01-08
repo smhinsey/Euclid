@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using Euclid.Common.Logging;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
 using Euclid.Common.Storage.NHibernate;
@@ -13,18 +15,19 @@ using ForumAgent.Commands;
 using ForumComposite.Models;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.ServiceRuntime;
 using NConfig;
 using log4net.Config;
 
 namespace ForumComposite
 {
-	public class WebRole
+	public class WebRole : RoleEntryPoint, ILoggingSource
 	{
 		private static WebRole _instance;
 
 		private bool _initialized;
 
-		private WebRole()
+		public WebRole()
 		{
 		}
 
@@ -40,12 +43,17 @@ namespace ForumComposite
 				return;
 			}
 
-			NConfigurator.UsingFile(@"~\Config\custom.config")
-				.SetAsSystemDefault();
+			if (!RoleEnvironment.IsAvailable)
+			{
+				NConfigurator.UsingFile(@"~\Config\custom.config").SetAsSystemDefault();
+				XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0]))); ;
+			}
+			else
+			{
+				XmlConfigurator.Configure();
+			}
 
-			XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0]))); ;
-
-			MsSqlConfiguration databaseConfiguration =
+			var databaseConfiguration =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("forum-db"));
 
 			var container = new WindsorContainer();
@@ -97,12 +105,19 @@ namespace ForumComposite
 
 		private void setAzureCredentials(IWindsorContainer container)
 		{
-			// as soon as we can stop using the azure storage emulator we should
-			var storageAccount = new CloudStorageAccount(
-				CloudStorageAccount.DevelopmentStorageAccount.Credentials,
-				CloudStorageAccount.DevelopmentStorageAccount.BlobEndpoint,
-				CloudStorageAccount.DevelopmentStorageAccount.QueueEndpoint,
-				CloudStorageAccount.DevelopmentStorageAccount.TableEndpoint);
+			CloudStorageAccount.SetConfigurationSettingPublisher(
+				(configurationKey, publishConfigurationValue) =>
+				{
+					var connectionString = RoleEnvironment.IsAvailable
+																	? RoleEnvironment.GetConfigurationSettingValue(configurationKey)
+																	: ConfigurationManager.AppSettings[configurationKey];
+
+					publishConfigurationValue(connectionString);
+				});
+
+			var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
+
+			this.WriteInfoMessage("Using Azure queue endpoint {0}", storageAccount.QueueEndpoint.AbsoluteUri);
 
 			container.Register(Component.For<CloudStorageAccount>().Instance(storageAccount));
 		}

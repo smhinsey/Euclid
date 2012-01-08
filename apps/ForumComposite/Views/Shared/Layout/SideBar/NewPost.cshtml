@@ -11,9 +11,22 @@
 	</div>
 }
 
+	<script type="text/javascript">
+
+		$(function () {
+
+			var tags = [@for(var i =0; i< ForumInfo.Tags.Count;i ++)
+				{<text>'</text>@ForumInfo.Tags[i].Name<text>'</text>if(i < ForumInfo.Tags.Count - 1){<text>,</text>}}];
+
+			$('#addTagToPost').tagit({tagSource: tags, triggerKeys: ['enter', 'comma', 'tab'], select: true});
+		});
+
+	</script>
+
 <div class="modal hide fade" style="display: none;" id="newPost-modal">
+
 	@using (Html.BeginFormForInputModel(Model))
-	{
+ {
 		<div class="modal-header">
 			<a href="#" class="close">&times;</a>
 			<h3>New Post</h3>
@@ -21,35 +34,38 @@
 
 		<div class="modal-body">
 		
-			
-		 @Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
-		 @Html.Hidden("AuthorIdentifier", ForumInfo.AuthenticatedUserIdentifier)
+			@Html.Hidden("ForumIdentifier", ForumInfo.ForumIdentifier)
+			@Html.Hidden("AuthorIdentifier", ForumInfo.AuthenticatedUserIdentifier)
 
 			<div class="clearfix">
-				<label for="username">
-					Title</label>
+				<label for="username">Title</label>
 				<div class="input">
 					@Html.TextBoxFor(m => m.Title)
 				</div>
 			</div>
 
 			<div class="clearfix">
-				<label for="email">
-					Post</label>
+				<label for="email">Post</label>
 				<div class="input">
-					@Html.TextAreaFor(m => m.Body, 4, 6, new { @class ="xlarge"})
+					@Html.TextAreaFor(m => m.Body, 4, 6, new { @class = "xlarge" })
 					<span class="help-block">Please be civil.</span>
 				</div>
 			</div>
 			
 			<div class="clearfix">
-				<label for="email">
-					Category</label>
+				<label for="email">Category</label>
 				<div class="input">
 					@Html.DropDownList("CategoryIdentifier", new SelectList(ForumInfo.Categories, "Identifier", "Name"))
 					
 				</div>
-			</div>			
+			</div>	
+			
+			<div class="clearfix">
+				<label for="email">Tags</label>
+				<div class="input">
+					<ul name="Tags" id="addTagToPost"></ul>
+				</div>
+			</div>							
 
 		</div>
 

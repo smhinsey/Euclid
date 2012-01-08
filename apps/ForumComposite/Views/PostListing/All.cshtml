@@ -3,13 +3,16 @@
 	ViewBag.Title = ForumInfo.ForumName + " - All Posts";
 	Layout = "~/Views/Shared/_ForumLayout.cshtml";
 }
+
+@Html.Partial("Layout/CustomContent", "home-dismissableheader")
+@Html.Partial("Layout/CustomContent", "home-permanentheader")
+
 <ul class="tabs">
 	<li><a href="@Url.RouteUrl("PopularPosts")">Popular Posts</a></li>
 	<li><a href="@Url.RouteUrl("ControversialPosts")">Controversial Posts</a></li>
 	<li class="active"><a href="@Url.RouteUrl("AllPosts")">All Posts</a></li>
 </ul>
 <!-- all posts -->
-
 
 @{
 	var postCount = 0;

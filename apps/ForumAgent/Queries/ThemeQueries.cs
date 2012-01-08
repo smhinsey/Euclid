@@ -23,20 +23,20 @@ namespace ForumAgent.Queries
 
 			var themes = new List<ForumTheme>
 			             	{
-			             		getForumTheme("Swiss", "1912959A-9242-43D5-9D37-487526604446", forum),
+			             		getForumTheme("Default", "1912959A-9242-43D5-9D37-487526604446", forum),
 
-			             		getForumTheme("Swiss-Blue", "1912959A-9242-43D5-9D37-487526604446", forum),
+											getForumTheme("Swiss-Blue", "1912959A-9242-43D5-9D37-487526604446", forum),
 
-			             		getForumTheme("Swiss-Green", "1912959A-9242-43D5-9D37-487526604446", forum),
+											getForumTheme("Swiss-Green", "1912959A-9242-43D5-9D37-487526604446", forum),
 
-			             		getForumTheme("Swiss-Purple", "1912959A-9242-43D5-9D37-487526604446", forum),
+											getForumTheme("Swiss-Purple", "1912959A-9242-43D5-9D37-487526604446", forum),
 
-			             		getForumTheme("No-Theme", "1912959A-9242-43D5-9D37-487526604446", forum),
+											getForumTheme("No-Theme", "1912959A-9242-43D5-9D37-487526604446", forum),
 			             	};
 
 			if (!themes.Any(t=>t.IsCurrent))
 			{
-				themes[4].IsCurrent = true;
+				themes[0].IsCurrent = true;
 			}
 
 			return themes;

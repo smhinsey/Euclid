@@ -46,14 +46,16 @@
 			<dl>
 				<dt><label for="content-location">Location</label></dt>
 				<dd>
-					@Html.DropDownListFor(m => m.Location, new List<SelectListItem>
+					@Html.DropDownListFor(m=>m.Location, new List<SelectListItem>
 											{
-												new SelectListItem {Selected = false, Text = " -- Content Location --", Value = string.Empty},											
-												new SelectListItem {Text = "Home - Header"},
-												new SelectListItem {Text = "Home - Content"},
-												new SelectListItem {Text = "UserProfile - Header"},
-												new SelectListItem {Text = "Category - Content"},
-											}, new { id = "content-location" })
+												new SelectListItem {Selected = true, Text = " -- Content Location --", Value = string.Empty},											
+												new SelectListItem {Selected = false, Text = "Home - Dismissable Header", Value = "home-dismissableheader"},
+												new SelectListItem {Selected = false, Text = "Home - Permanent Header", Value = "home-permanentheader"},
+												new SelectListItem {Selected = false, Text = "Category Listing - Header", Value = "categorylisting-header"},
+												new SelectListItem {Selected = false, Text = "Individual Category - Header", Value = "individualcategory-header"},
+												new SelectListItem {Selected = false, Text = "Tag Listing - Header", Value = "taglisting-header"},
+												new SelectListItem {Selected = false, Text = "Individual Tag - Header", Value = "individualtag-header"},												
+											}, new {id = "content-location"})
 				</dd>
 
 				<dt><label for="content-type">Type</label></dt>
@@ -62,7 +64,7 @@
 											{
 												new SelectListItem { Text = " -- Content Type --", Value = string.Empty},											
 												new SelectListItem { Text = "Rich Text", Value = Enum.GetName(typeof(AvailableContentType), AvailableContentType.RichText)},
-												new SelectListItem { Text = "Embedded Youtube", Value = Enum.GetName(typeof(AvailableContentType), AvailableContentType.EmeddedYouTube)},
+												new SelectListItem { Text = "Embedded Youtube", Value = Enum.GetName(typeof(AvailableContentType), AvailableContentType.EmbeddedYouTube)},
 											}, new { id = "content-type" })
 				</dd>
 

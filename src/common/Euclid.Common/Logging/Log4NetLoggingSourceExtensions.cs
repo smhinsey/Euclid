@@ -22,7 +22,7 @@ namespace Euclid.Common.Logging
 
 			if (logger.IsDebugEnabled)
 			{
-				logger.Debug(message);
+				logger.Debug(string.Format(message, formatParameters));
 			}
 		}
 
@@ -43,6 +43,24 @@ namespace Euclid.Common.Logging
 			if (logger.IsErrorEnabled)
 			{
 				logger.Error(string.Format(message, formatParameters), exception);
+			}
+		}
+
+		/// <summary>
+		/// 	Writes an error message to the logging stream.
+		/// </summary>
+		/// <param name = "source">An ILoggingSource implementation.</param>
+		/// <param name = "message">The message to be written to the log.</param>
+		/// <param name = "formatParameters">String formatting parameters.</param>
+		public static void WriteErrorMessage(this ILoggingSource source, string message, string formatParameters)
+		{
+			source.SetCustomLogFields();
+
+			var logger = LogManager.GetLogger(source.GetType());
+
+			if (logger.IsErrorEnabled)
+			{
+				logger.Error(string.Format(message, formatParameters));
 			}
 		}
 

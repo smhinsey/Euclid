@@ -37,7 +37,7 @@
 										@favorite.AssociatedPostTitle</a></strong> &ndash; @favorite.Body
 					&mdash; <span style="text-align: right; font-size: smaller;"><em>@favorite.AssociatedPostPublicationDate.ToString("h:mm tt M/d/yyyy")</em>
 										in <a href="@Url.RouteUrl("Category", new { categorySlug = "category-slug" })" class="label">
-											 	Category</a> &middot; <img alt="Favorite" src="@Url.Content("~/Content/images/star.png")"/></span></p>
+											 	Category</a> &middot; <img alt="Favorite" src="@Url.Content("~/Content/themes/" + ForumInfo.ForumTheme + "/images/star.png")"/></span></p>
 				<hr />
 			</div>
 		</div>

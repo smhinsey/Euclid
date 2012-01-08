@@ -26,6 +26,13 @@ namespace ForumAgent.Queries
 			return session.QueryOver<ForumContent>().Where(c => c.ForumIdentifier == forumId && c.Active).Skip(offset).Take(pageSize).List();
 		}
 
+		public IList<ForumContent> GetAllActiveContent(Guid forumId)
+		{
+			var session = GetCurrentSession();
+
+			return session.QueryOver<ForumContent>().Where(c => c.ForumIdentifier == forumId && c.Active).List();
+		}
+
 		public AvailableContent List(Guid forumId, int offset, int pageSize)
 		{
 			var session = GetCurrentSession();

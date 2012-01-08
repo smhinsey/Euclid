@@ -1,0 +1,41 @@
+﻿@using ForumAgent.ReadModels
+@model string
+	@if (ForumInfo.CustomContent.ContainsKey(Model))
+	{
+		var content = ForumInfo.CustomContent[Model];
+		
+		switch (Model)
+		{
+			case "home-dismissableheader":
+				<div class="alert-message block-message warning fade in" data-alert="alert">
+					<a class="close" href="#">×</a>
+					<p class="alert-message-text">
+						@RenderContent(content)
+					</p>
+@*					<div class="alert-actions">
+						<a class="btn large info" href="#">Go register!</a>
+					</div>*@
+				</div>
+			break;
+			default:
+				@RenderContent(content);
+			break;
+		}
+
+	}
+	
+@helper RenderContent(ForumContent content)
+{
+	switch (content.ContentType.ToLower())
+	{
+		case "richtext":
+			@Html.Raw(content.Value)
+		break;
+		case "plaintext":
+			@content.Value
+		break;
+		case "embeddedyoutube":
+			<iframe width="560" height="315" src="http://www.youtube.com/embed/@content.Value" frameborder="0" allowfullscreen></iframe>
+																																 break;
+	}
+}

@@ -1,10 +1,13 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
+using Euclid.Common.Logging;
 
 namespace ForumComposite
 {
-	public class MvcApplication : HttpApplication
+	public class MvcApplication : HttpApplication, ILoggingSource
 	{
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
@@ -58,7 +61,6 @@ namespace ForumComposite
 				"org/{org}/forum/{forum}/categories/{categorySlug}",
 				new { controller = "Category", action = "Detail" }
 				);
-
 
 			routes.MapRoute(
 				"Tags",
@@ -147,6 +149,63 @@ namespace ForumComposite
 			RegisterRoutes(RouteTable.Routes);
 
 			WebRole.GetInstance().Init();
+		}
+
+		protected void Application_AuthenticateRequest(object sender, EventArgs e)
+		{
+			if (!Request.IsAuthenticated)
+			{
+				return;
+			}
+
+			var route = RouteTable.Routes.GetRouteData(new HttpContextWrapper(Context));
+
+			if (route == null || route.Route.GetType().Name == "IgnoreRouteInternal")
+			{
+				return;
+			}
+
+			var requestedOrg = route.GetRequiredString("org").Trim().ToLowerInvariant();
+			var requestedForum = route.GetRequiredString("forum").Trim().ToLowerInvariant();
+
+			var identity = (FormsIdentity)Context.User.Identity;
+
+			var rawData = identity.Ticket.UserData;
+
+			if(rawData.Contains("^"))
+			{
+				var orgForumCombo = rawData.Split(new[] { "^" }, StringSplitOptions.None);
+
+				if(orgForumCombo.Length < 2)
+				{
+					this.WriteErrorMessage("User {0}'s forms authentication ticket did not contain org/forum data.", identity.Name);
+
+					redirectOnFailure(requestedOrg, requestedForum);
+				}
+
+				var userOrg = orgForumCombo[0];
+				var userForum = orgForumCombo[1];
+
+				if (userOrg != requestedOrg || userForum != requestedForum)
+				{
+					this.WriteErrorMessage("User {0}'s forms authentication ticket was for another org/forum.", identity.Name);
+
+					redirectOnFailure(requestedOrg, requestedForum);
+				}
+			}
+			else
+			{
+				this.WriteErrorMessage("User {0}'s forms authentication ticket did not contain org/forum data.", identity.Name);
+
+				redirectOnFailure(requestedOrg, requestedForum);
+			}
+		}
+
+		private void redirectOnFailure(string org, string forum)
+		{
+			FormsAuthentication.SignOut();
+
+			Response.Redirect(string.Format("/org/{0}/forum/{1}", org, forum));
 		}
 	}
 }

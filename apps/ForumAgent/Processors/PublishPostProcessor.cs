@@ -4,20 +4,38 @@ using Euclid.Common.Extensions;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
+using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
 namespace ForumAgent.Processors
 {
 	public class PublishPostProcessor : DefaultCommandProcessor<PublishPost>
 	{
-		private readonly ISimpleRepository<Post> _repository;
-		private readonly ISimpleRepository<ModeratedPost> _moderatedPostRepository;
-		private readonly ISimpleRepository<ForumUser> _userRepository;
-		private readonly ISimpleRepository<ForumUserAction> _userActionRepository;
-		private readonly ISimpleRepository<Forum> _forumRepository;
 		private readonly ISimpleRepository<Category> _categoryRepository;
 
-		public PublishPostProcessor(ISimpleRepository<Post> repository, ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedPost> moderatedPostRepository, ISimpleRepository<Forum> forumRepository, ISimpleRepository<Category> categoryRepository, ISimpleRepository<ForumUserAction> userActionRepository)
+		private readonly ISimpleRepository<Forum> _forumRepository;
+
+		private readonly ISimpleRepository<ModeratedPost> _moderatedPostRepository;
+
+		private readonly ISimpleRepository<Post> _repository;
+
+		private readonly TagQueries _tagQueries;
+
+		private readonly ISimpleRepository<Tag> _tagRepository;
+
+		private readonly ISimpleRepository<ForumUserAction> _userActionRepository;
+
+		private readonly ISimpleRepository<ForumUser> _userRepository;
+
+		public PublishPostProcessor(
+			ISimpleRepository<Post> repository,
+			ISimpleRepository<ForumUser> userRepository,
+			ISimpleRepository<ModeratedPost> moderatedPostRepository,
+			ISimpleRepository<Forum> forumRepository,
+			ISimpleRepository<Category> categoryRepository,
+			ISimpleRepository<ForumUserAction> userActionRepository,
+			TagQueries tagQueries,
+			ISimpleRepository<Tag> tagRepository)
 		{
 			_repository = repository;
 			_userRepository = userRepository;
@@ -25,11 +43,14 @@ namespace ForumAgent.Processors
 			_forumRepository = forumRepository;
 			_categoryRepository = categoryRepository;
 			_userActionRepository = userActionRepository;
+			_tagQueries = tagQueries;
+			_tagRepository = tagRepository;
 		}
 
 		public override void Process(PublishPost message)
 		{
 			var user = _userRepository.FindById(message.AuthorIdentifier);
+			var category = _categoryRepository.FindById(message.CategoryIdentifier);
 
 			var username = "Anonymous";
 
@@ -43,40 +64,44 @@ namespace ForumAgent.Processors
 			if (forum.Moderated)
 			{
 				var post = new ModeratedPost
-				           	{
-				           		AuthorIdentifier = message.AuthorIdentifier,
-				           		AuthorDisplayName = username,
-				           		Body = message.Body,
-				           		Score = 0,
-				           		Title = message.Title,
-				           		CategoryIdentifier = message.CategoryIdentifier,
-				           		Identifier = message.Identifier,
-				           		Created = DateTime.Now,
-				           		Modified = (DateTime) SqlDateTime.MinValue,
-				           		ForumIdentifier = message.ForumIdentifier,
-											Approved = false,
-											ApprovedOn = (DateTime)SqlDateTime.MinValue,
-											Slug = message.Title.Slugify()
-				           	};
+					{
+						AuthorIdentifier = message.AuthorIdentifier,
+						AuthorDisplayName = username,
+						Body = message.Body,
+						Score = 0,
+						Title = message.Title,
+						CategoryIdentifier = message.CategoryIdentifier,
+						Identifier = message.Identifier,
+						Created = DateTime.Now,
+						Modified = (DateTime)SqlDateTime.MinValue,
+						ForumIdentifier = message.ForumIdentifier,
+						Approved = false,
+						ApprovedOn = (DateTime)SqlDateTime.MinValue,
+						Slug = message.Title.Slugify(),
+						Tags = string.Join(", ", message.Tags)
+					};
 
 				_moderatedPostRepository.Save(post);
 			}
 			else
 			{
 				var post = new Post
-				{
-					AuthorIdentifier = message.AuthorIdentifier,
-					AuthorDisplayName = username,
-					Body = message.Body,
-					Score = 0,
-					Title = message.Title,
-					CategoryIdentifier = message.CategoryIdentifier,
-					Identifier = message.Identifier,
-					Created = DateTime.Now,
-					Modified = (DateTime)SqlDateTime.MinValue,
-					ForumIdentifier = message.ForumIdentifier,
-					Slug = message.Title.Slugify()
-				};
+					{
+						AuthorIdentifier = message.AuthorIdentifier,
+						AuthorDisplayName = username,
+						Body = message.Body,
+						Score = 0,
+						Title = message.Title,
+						CategoryName = category.Name,
+						CategorySlug = category.Slug,
+						CategoryIdentifier = message.CategoryIdentifier,
+						Identifier = message.Identifier,
+						Created = DateTime.Now,
+						Modified = (DateTime)SqlDateTime.MinValue,
+						ForumIdentifier = message.ForumIdentifier,
+						Slug = message.Title.Slugify(),
+						Tags = string.Join(", ", message.Tags)
+					};
 
 				forum.TotalPosts++;
 
@@ -84,16 +109,41 @@ namespace ForumAgent.Processors
 
 				if (message.CategoryIdentifier != Guid.Empty)
 				{
-					var category = _categoryRepository.FindById(message.CategoryIdentifier);
-
 					category.TotalPosts++;
 
 					_categoryRepository.Save(category);
 				}
 
+				foreach (var tag in message.Tags)
+				{
+					var tagRecord = _tagQueries.FindByName(forum.Identifier, tag);
+
+					if (tagRecord == null)
+					{
+						tagRecord = new Tag
+							{
+								Identifier = Guid.NewGuid(),
+								ForumIdentifier = forum.Identifier,
+								Name = tag.Slugify(),
+								TotalPosts = 1,
+								Created = DateTime.Now,
+								Modified = (DateTime)SqlDateTime.MinValue,
+								Active = true,
+							};
+
+						_tagRepository.Save(tagRecord);
+					}
+					else
+					{
+						tagRecord.TotalPosts++;
+
+						_tagRepository.Update(tagRecord);
+					}
+				}
+
 				_repository.Save(post);
 
-				var userAction = new ForumUserAction()
+				var userAction = new ForumUserAction
 					{
 						Created = DateTime.Now,
 						Modified = (DateTime)SqlDateTime.MinValue,

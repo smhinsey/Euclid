@@ -9,89 +9,62 @@
 	<li class="active">Tags</li>
 </ul>
 <h1>Tags</h1>
-<hr />
 
-<div class="row">
-
-	<div class="span5">
-		<h2><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h2>
-		<p>A brief description of the tag.</p>
-		@for (var i = 1; i < 5; i++)
-		{
-			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed", Post = new ForumAgent.ReadModels.Post() { Title = "{Post Title}", Body = "Etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis ante in ipsum pharetra tempus a vel mi. Cum sociis." }  })
-		}
-		<a href="#">View</a> 33 more posts.
-	</div>
-
-	<div class="span5">
-		<h2><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h2>
-		<p>A brief description of the tag.</p>
-		@for (var i = 1; i < 5; i++)
-		{
-			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed", Post = new ForumAgent.ReadModels.Post() { Title = "{Post Title}", Body = "Etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis ante in ipsum pharetra tempus a vel mi. Cum sociis." }  })
-		}
-		<a href="#">View</a> 33 more posts.
-	</div>
-
-	<div class="span5">
-		<h2><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h2>
-		<p>A brief description of the tag.</p>
-		@for (var i = 1; i < 5; i++)
-		{
-			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed", Post = new ForumAgent.ReadModels.Post() { Title = "{Post Title}", Body = "Etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis ante in ipsum pharetra tempus a vel mi. Cum sociis." }  })
-		}
-		<a href="#">View</a> 33 more posts.
-	</div>
-
-</div>
-
-<hr>
-
-<div class="row">
-
-	<div class="span4" style="font-size: small;">
-		<h3><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h3>
-		<p style="font-size: smaller;">A brief description of the tag.</p>
-		@for (var i = 1; i < 3; i++)
-		{
-			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed", Post = new ForumAgent.ReadModels.Post() { Title = "{Post Title}", Body = "Etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis ante in ipsum pharetra tempus a vel mi. Cum sociis." }  })
-		}
-		<a href="#">View</a> 33 more posts.
-	</div>
-
-	<div class="span4" style="font-size: small;">
-		<h3><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h3>
-		<p style="font-size: smaller;">A brief description of the tag.</p>
-		@for (var i = 1; i < 3; i++)
-		{
-			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed", Post = new ForumAgent.ReadModels.Post() { Title = "{Post Title}", Body = "Etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis ante in ipsum pharetra tempus a vel mi. Cum sociis." }  })
-		}
-		<a href="#">View</a> 33 more posts.
-	</div>
-
-	<div class="span4" style="font-size: small;">
-		<h3><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h3>
-		<p style="font-size: smaller;">A brief description of the tag.</p>
-		@for (var i = 1; i < 3; i++)
-		{
-			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed", Post = new ForumAgent.ReadModels.Post() { Title = "{Post Title}", Body = "Etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis ante in ipsum pharetra tempus a vel mi. Cum sociis." }  })
-		}
-		<a href="#">View</a> 33 more posts.
-	</div>
-
-	<div class="span4" style="font-size: small;">
-		<h3><a href="@Url.RouteUrl("Tag", new { tagSlug = "tag" })">{Tag Name}</a></h3>
-		<p style="font-size: smaller;">A brief description of the tag.</p>
-		@for (var i = 1; i < 3; i++)
-		{
-			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Small", Mode = "Condensed", Post = new ForumAgent.ReadModels.Post() { Title = "{Post Title}", Body = "Etiam porta sem malesuada magna mollis euismod. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis ante in ipsum pharetra tempus a vel mi. Cum sociis." }  })
-		}
-		<a href="#">View</a> 33 more posts.
-	</div>
-
-</div>
+@Html.Partial("Layout/CustomContent", "taglisting-header")
 
 <hr />
+
+@{
+	var catCount = 0;
+
+	var totalCategories = Model.Tags.Count;
+
+	var needsPadding = false;
+	var cellsToPad = 0;
+	
+	if(totalCategories % 3 != 0)
+	{
+		needsPadding = true;
+
+		cellsToPad = 3 - (totalCategories % 3);
+	}
+}
+
+@foreach (var tagDetail in Model.Tags)
+{
+	if(catCount % 3 == 0)
+	{
+		@:<div class="row">
+	}
+	
+	<div class="span5">
+		<h2><a href="@Url.RouteUrl("Tag", new { tagSlug = tagDetail.Tag.Name })">@tagDetail.Tag.Name</a></h2>
+		
+		@foreach(var post in tagDetail.Posts)
+		{
+			@RenderPage("~/Views/Shared/PostTile.cshtml", new { Size = "Medium", Mode = "Condensed", Post = post })
+		}
+		<a href="@Url.RouteUrl("Tag", new { tagSlug = tagDetail.Tag.Name })">View</a> @tagDetail.Tag.TotalPosts more posts.
+	</div>
+
+	if (needsPadding && catCount == (totalCategories - 1))
+		{
+			for (var i = 0; i < cellsToPad; i++)
+			{
+				<div class="span5"></div>
+			}
+			@:</div><hr/>
+		}
+
+		if (catCount % 3 == 2)
+		{
+			@:</div><hr/>
+		}
+
+	{
+		catCount++;
+	}
+}
 
 <div class="pagination">
 	<ul>
