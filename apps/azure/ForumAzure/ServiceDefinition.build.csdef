@@ -9,7 +9,7 @@
   **********************************************************************************************
 -->
 <ServiceDefinition name="ForumAzure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
-  <WebRole name="ForumComposite" vmsize="Small">
+  <WebRole name="ForumComposite" vmsize="Medium">
     <Sites>
       <Site name="Web">
         <Bindings>
@@ -28,7 +28,7 @@
       <Setting name="DataConnectionString" />
     </ConfigurationSettings>
   </WebRole>
-  <WebRole name="AdminComposite" vmsize="Small">
+  <WebRole name="AdminComposite" vmsize="Medium">
     <Sites>
       <Site name="Web">
         <Bindings>
@@ -47,7 +47,7 @@
       <Setting name="DataConnectionString" />
     </ConfigurationSettings>
   </WebRole>
-  <WorkerRole name="AzureAgentConsole" vmsize="Small">
+  <WorkerRole name="AzureAgentConsole" vmsize="Medium">
     <Imports>
       <Import moduleName="Diagnostics" />
       <Import moduleName="RemoteAccess" />
