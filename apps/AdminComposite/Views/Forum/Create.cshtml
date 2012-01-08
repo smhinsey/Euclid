@@ -79,7 +79,7 @@
 					<p>Forum url: <b><span id="forum-url">http//newco-forums.com/org/@ViewBag.OrganizationSlug/forum/{forum-slug}</span></b></p>
 				</dd>
 
-				<dt>@Hmtl.LabelFor(m=>m.Description)</dt>
+				<dt>@Html.LabelFor(m => m.Description)</dt>
 				<dd>
 					@Html.TextAreaFor(m => m.Description, new { id = "forum-description", @class = "wysiwyg", @readonly = "readonly" })
 				</dd>

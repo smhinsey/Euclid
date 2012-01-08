@@ -81,14 +81,14 @@ namespace Euclid.Common.Messaging.Azure
 			{
 				var message = _queue.GetMessage();
 
-				this.WriteDebugMessage("Message received from Azure Queue.");
-
 				count++;
 
 				if (message == null)
 				{
 					continue;
 				}
+
+				this.WriteDebugMessage("Message received from Azure Queue.");
 
 				_queue.DeleteMessage(message);
 
