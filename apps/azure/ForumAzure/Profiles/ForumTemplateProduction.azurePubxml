@@ -11,7 +11,7 @@
     <AzureStorageAccountName>forumskeleton</AzureStorageAccountName>
     <AzureStorageAccountLabel>ForumSkeleton</AzureStorageAccountLabel>
     <AzureDeploymentLabel>ForumAzure</AzureDeploymentLabel>
-    <AzureSolutionConfiguration>Debug</AzureSolutionConfiguration>
+    <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
     <AzureAllowUpgrade>True</AzureAllowUpgrade>
