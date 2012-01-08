@@ -36,7 +36,7 @@ namespace ForumComposite.Controllers
 
 				var expirationDate = DateTime.Now.AddYears(1);
 
-				var userData = string.Format("{0}^{1}", org, forum);
+				var userData = string.Format("{0}^{1}^{2}", org, forum, user.Identifier);
 
 				var ticket = new FormsAuthenticationTicket(1, user.Username, issueDate, expirationDate, true, userData);
 

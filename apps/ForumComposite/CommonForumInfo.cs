@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
@@ -88,10 +89,20 @@ namespace ForumComposite
 			{
 				AuthenticatedUserName = HttpContext.Current.User.Identity.Name;
 
-				var cookie = HttpContext.Current.Request.Cookies[string.Format("{0}UserId", ForumName)];
+				var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+				
 				if (cookie != null)
 				{
-					AuthenticatedUserIdentifier = Guid.Parse(cookie.Value);
+					var parts = cookie.Value.Split(new[]{ "^"}, StringSplitOptions.None);
+
+					if (parts.Length == 3)
+					{
+						AuthenticatedUserIdentifier = Guid.Parse(parts[2]);
+					}
+					else
+					{
+						throw new Exception("Invalid or corrupt authentication cookie.");
+					}
 				}
 			}
 		}
