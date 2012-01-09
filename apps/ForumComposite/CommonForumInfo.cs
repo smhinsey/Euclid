@@ -16,15 +16,15 @@ namespace ForumComposite
 	{
 		private readonly CategoryQueries _categoryQueries;
 
+		private readonly ContentQueries _contentQueries;
+
 		private readonly ForumQueries _forumQueries;
 
 		private readonly OrganizationQueries _orgQueries;
 
-		private readonly UserQueries _userQueries;
-
-		private readonly ContentQueries _contentQueries;
-
 		private readonly TagQueries _tagQueries;
+
+		private readonly UserQueries _userQueries;
 
 		public CommonForumInfo()
 		{
@@ -36,61 +36,88 @@ namespace ForumComposite
 			_tagQueries = DependencyResolver.Current.GetService<TagQueries>();
 		}
 
-		public IList<Category> Categories { get; private set; }
-
 		public Guid AuthenticatedUserIdentifier { get; private set; }
 
 		public string AuthenticatedUserName { get; private set; }
+
+		public IList<Category> Categories { get; private set; }
+
+		public IDictionary<string, ForumContent> CustomContent { get; private set; }
 
 		public Guid ForumIdentifier { get; private set; }
 
 		public string ForumName { get; private set; }
 
+		public string ForumTheme { get; private set; }
+
 		public Guid OrganizationIdentifier { get; private set; }
 
 		public string OrganizationName { get; private set; }
-		
-		public string ForumTheme { get; private set; }
 
-		public IList<ForumUser> TopUsers { get; private set; }
 		public IList<Tag> Tags { get; private set; }
 
-		public IDictionary<string, ForumContent> CustomContent { get; private set; }
+		public IList<ForumUser> TopUsers { get; private set; }
+
+		private static readonly IDictionary<string, CommonForumInfo> Instances = new Dictionary<string, CommonForumInfo>();
 
 		public void Initialize(RouteData routeData)
 		{
 			var orgSlug = routeData.Values["org"].ToString();
 			var forumSlug = routeData.Values["forum"].ToString();
 
-			var org = _orgQueries.FindBySlug(orgSlug);
-			var forum = _forumQueries.FindBySlug(org.Identifier, forumSlug);
+			var instanceKey = string.Format("{0}^{1}", orgSlug, forumSlug);
 
-			OrganizationIdentifier = org.Identifier;
-			OrganizationName = org.Name;
-
-			ForumName = forum.Name;
-			ForumIdentifier = forum.Identifier;
-			ForumTheme = forum.Theme;
-
-			CustomContent = new Dictionary<string, ForumContent>();
-
-			var content = _contentQueries.GetAllActiveContent(forum.Identifier);
-
-			foreach (var forumContent in content)
+			if (Instances.ContainsKey(instanceKey))
 			{
-				CustomContent.Add(forumContent.ContentLocation, forumContent);
-			}
+				var instance = Instances[instanceKey];
 
-			Categories = _categoryQueries.GetActiveCategories(ForumIdentifier, 0, 100);
-			TopUsers = _userQueries.FindTopUsers(ForumIdentifier);
-			Tags = _tagQueries.FindActiveTags(ForumIdentifier, 0, 100).Tags;
+				OrganizationIdentifier = instance.OrganizationIdentifier;
+				OrganizationName = instance.OrganizationName;
+
+				ForumName = instance.ForumName;
+				ForumIdentifier = instance.ForumIdentifier;
+				ForumTheme = instance.ForumTheme;
+
+				CustomContent = instance.CustomContent;
+
+				Categories = instance.Categories;
+				TopUsers = instance.TopUsers;
+				Tags = instance.Tags;
+			}
+			else
+			{
+				var org = _orgQueries.FindBySlug(orgSlug);
+				var forum = _forumQueries.FindBySlug(org.Identifier, forumSlug);
+
+				OrganizationIdentifier = org.Identifier;
+				OrganizationName = org.Name;
+
+				ForumName = forum.Name;
+				ForumIdentifier = forum.Identifier;
+				ForumTheme = forum.Theme;
+
+				CustomContent = new Dictionary<string, ForumContent>();
+
+				var content = _contentQueries.GetAllActiveContent(forum.Identifier);
+
+				foreach (var forumContent in content)
+				{
+					CustomContent.Add(forumContent.ContentLocation, forumContent);
+				}
+
+				Categories = _categoryQueries.GetActiveCategories(ForumIdentifier, 0, 100);
+				TopUsers = _userQueries.FindTopUsers(ForumIdentifier);
+				Tags = _tagQueries.FindActiveTags(ForumIdentifier, 0, 100).Tags;
+			
+				Instances.Add(instanceKey, this);
+			}
 
 			if (HttpContext.Current.Request.IsAuthenticated)
 			{
 				AuthenticatedUserName = HttpContext.Current.User.Identity.Name;
 
 				var cookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-				
+
 				if (cookie != null)
 				{
 					var ticket = FormsAuthentication.Decrypt(cookie.Value);
