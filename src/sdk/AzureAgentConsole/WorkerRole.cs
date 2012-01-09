@@ -121,10 +121,6 @@ namespace AzureAgentConsole
 
 			var messageChannel = new AzureMessageChannel(new JsonMessageSerializer());
 
-			messageChannel.Open();
-
-			messageChannel.Close();
-
 			fabricSettings.InputChannel.WithDefault(messageChannel);
 			fabricSettings.ErrorChannel.WithDefault(messageChannel);
 

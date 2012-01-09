@@ -65,7 +65,7 @@ namespace ForumComposite
 
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.OutputChannel.ApplyOverride(typeof (AzureMessageChannel));
+			compositeAppSettings.OutputChannel.WithDefault(typeof(AzureMessageChannel));
 			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
 			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
 

@@ -12,13 +12,11 @@ namespace Euclid.Common.Messaging.Azure
 {
 	public class AzureMessageChannel : DefaultMessageChannel, ILoggingSource
 	{
-		private const int MaximumNumberOfMessagesThatCanBeFetched = 32;
-
-		private static readonly object Down = new object();
+		private static readonly object Locker = new object();
 
 		private readonly IMessageSerializer _serializer;
 
-		private static CloudQueue _queue;
+		private CloudQueue _queue;
 
 		public AzureMessageChannel(IMessageSerializer serializer)
 		{
@@ -38,9 +36,8 @@ namespace Euclid.Common.Messaging.Azure
 
 		public override ChannelState Close()
 		{
-			lock (Down)
+			lock (Locker)
 			{
-				_queue.Delete();
 				_queue = null;
 				State = ChannelState.Closed;
 			}
@@ -52,11 +49,11 @@ namespace Euclid.Common.Messaging.Azure
 		{
 			this.WriteDebugMessage("Opening channel {0}", ChannelName);
 
-			lock (Down)
+			lock (Locker)
 			{
 				if (_queue == null)
 				{
-					createQueue(ChannelName);
+					openOrCreateQueue(ChannelName);
 				}
 
 				State = ChannelState.Open;
@@ -70,8 +67,6 @@ namespace Euclid.Common.Messaging.Azure
 		public override IEnumerable<IMessage> ReceiveMany(int howMany, TimeSpan timeout)
 		{
 			TransportIsOpenFor("ReceiveMany");
-
-			ValidNumberOfMessagesRequested(howMany);
 
 			var start = DateTime.Now;
 
@@ -120,16 +115,6 @@ namespace Euclid.Common.Messaging.Azure
 			_queue.AddMessage(msg);
 		}
 
-		private static void ValidNumberOfMessagesRequested(int howMany)
-		{
-			if (howMany > MaximumNumberOfMessagesThatCanBeFetched)
-			{
-				throw new InvalidOperationException(
-					string.Format(
-						"Only {0} messages can be retrieved from an azure channel at a time", MaximumNumberOfMessagesThatCanBeFetched));
-			}
-		}
-
 		private CloudQueueMessage MessageIsNotTooBig(IMessage message)
 		{
 			var msgBytes = _serializer.Serialize(message);
@@ -144,9 +129,9 @@ namespace Euclid.Common.Messaging.Azure
 			return new CloudQueueMessage(msg);
 		}
 
-		private void createQueue(string channelName)
+		private void openOrCreateQueue(string channelName)
 		{
-			this.WriteDebugMessage("Creating queue for channel {0}", channelName);
+			this.WriteDebugMessage("Attempting to open queue for channel {0}", channelName);
 
 			try
 			{
@@ -165,14 +150,23 @@ namespace Euclid.Common.Messaging.Azure
 
 				_queue = queueClient.GetQueueReference(channelName.ToLower());
 
-				_queue.CreateIfNotExist();
+				if (!_queue.Exists())
+				{
+					this.WriteDebugMessage("Queue {0} does not exist. Attempting to create it.", channelName);
+
+					_queue.Create();
+
+					this.WriteDebugMessage("Created queue for channel {0}", channelName);
+				}
 			}
 			catch (Exception e)
 			{
-				this.WriteErrorMessage("Failed to create queue for channel {0}", e, channelName);
+				this.WriteErrorMessage("Failed to open or create queue for channel {0}", e, channelName);
+
+				throw;
 			}
 
-			this.WriteDebugMessage("Created queue for channel {0}", channelName);
+			this.WriteDebugMessage("Opened queue for channel {0}", channelName);
 		}
 	}
 }
