@@ -52,7 +52,7 @@ namespace CompositeInspector.Controllers
 				redirectUrl = potentialAlternateUrl;
 			}
 
-			Thread.Sleep(500);
+			Thread.Sleep(1000);
 
 			if (Request.IsAjaxRequest())
 			{
