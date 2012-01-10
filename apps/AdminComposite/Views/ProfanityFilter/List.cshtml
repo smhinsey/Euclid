@@ -125,7 +125,16 @@
 					<tr>
 						<td>@Html.CheckBoxFor(m => stopWord.Active, new {@class = "stopWord-active", data_item_id = stopWord.Identifier, data_item_name=string.Format("{0} - {1}", stopWord.Identifier, stopWord.WordToMatch) })</td>
 						<td>@stopWord.WordToMatch</td>
-						<td>@stopWord.ReplacementWord</td>
+						<td>
+							@if(stopWord.ReplacementWord.Length == 0)
+							{
+								<text><i>removed without replacement</i></text>
+							}
+							else
+							{
+								@stopWord.ReplacementWord
+							}
+						</td>
 						<td>
 							<ul class="actions">
 								<li><a class="admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete" data-confirmation-message="Do you want to delete this stop word?" data-confirm-function="deleteStopWord" data-item-id="@stopWord.Identifier">Delete</a></li>
