@@ -22,7 +22,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using NConfig;
 using log4net.Config;
 
-namespace AzureAgentConsole
+namespace AzureAgentHost
 {
 	public class WorkerRole : RoleEntryPoint, ILoggingSource
 	{

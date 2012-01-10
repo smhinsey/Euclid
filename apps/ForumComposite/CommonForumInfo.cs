@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
@@ -58,18 +59,16 @@ namespace ForumComposite
 
 		public IList<ForumUser> TopUsers { get; private set; }
 
-		private static readonly IDictionary<string, CommonForumInfo> Instances = new Dictionary<string, CommonForumInfo>();
-
 		public void Initialize(RouteData routeData)
 		{
 			var orgSlug = routeData.Values["org"].ToString();
 			var forumSlug = routeData.Values["forum"].ToString();
 
-			var instanceKey = string.Format("{0}^{1}", orgSlug, forumSlug);
+			var cacheKey = string.Format("{0}^{1}", orgSlug, forumSlug);
 
-			if (Instances.ContainsKey(instanceKey))
+			if (HttpContext.Current.Cache[cacheKey] != null)
 			{
-				var instance = Instances[instanceKey];
+				var instance = (CommonForumInfo)HttpContext.Current.Cache[cacheKey];
 
 				OrganizationIdentifier = instance.OrganizationIdentifier;
 				OrganizationName = instance.OrganizationName;
@@ -108,8 +107,10 @@ namespace ForumComposite
 				Categories = _categoryQueries.GetActiveCategories(ForumIdentifier, 0, 100);
 				TopUsers = _userQueries.FindTopUsers(ForumIdentifier);
 				Tags = _tagQueries.FindActiveTags(ForumIdentifier, 0, 100).Tags;
-			
-				Instances.Add(instanceKey, this);
+
+				var absoluteExpiration = DateTime.Now.AddSeconds(30);
+
+				HttpContext.Current.Cache.Add(cacheKey, this, null, absoluteExpiration, Cache.NoSlidingExpiration, CacheItemPriority.Normal, null);
 			}
 
 			if (HttpContext.Current.Request.IsAuthenticated)

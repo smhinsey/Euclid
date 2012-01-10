@@ -38,7 +38,7 @@
       <Setting name="DataConnectionString" />
     </ConfigurationSettings>
   </WebRole>
-  <WorkerRole name="AzureAgentConsole" vmsize="Medium">
+  <WorkerRole name="AzureAgentHost" vmsize="Medium">
     <Imports>
       <Import moduleName="Diagnostics" />
       <Import moduleName="RemoteAccess" />

@@ -101,7 +101,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{674A6EA6
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "ForumAzure", "apps\azure\ForumAzure\ForumAzure.ccproj", "{F97C0F32-E7E6-49C5-A3D2-0B35A2ECFD4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureAgentConsole", "src\sdk\AzureAgentConsole\AzureAgentConsole.csproj", "{67EB33C1-88DD-458A-BAC9-66D7A8401301}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureAgentHost", "src\sdk\AzureAgentHost\AzureAgentHost.csproj", "{67EB33C1-88DD-458A-BAC9-66D7A8401301}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

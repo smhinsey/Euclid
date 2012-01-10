@@ -5,7 +5,7 @@ using Euclid.Common.ServiceHost;
 using Euclid.Framework.HostingFabric;
 using Microsoft.Practices.ServiceLocation;
 
-namespace AzureAgentConsole
+namespace AzureAgentHost
 {
 	public class ConsoleFabric : BasicFabric
 	{
