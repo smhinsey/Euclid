@@ -164,6 +164,7 @@ namespace AdminComposite
 			composite.RegisterInputModelMap<ActivateBadgeInputModel, ActivateBadge>();
 			composite.RegisterInputModelMap<ActivateCategoryInputModel, ActivateCategory>();
 			composite.RegisterInputModelMap<ActivateTagInputModel, ActivateTag>();
+			composite.RegisterInputModelMap<ActivateStopWordInputModel, ActivateStopWord>();
 			composite.RegisterInputModelMap<ActivateContentInputModel, ActivateContent>();
 			composite.RegisterInputModelMap<DeleteContentInputModel, DeleteForumContent>();
 			composite.RegisterInputModelMap<ActivateUserInputModel, ActivateForumUser>();

@@ -189,6 +189,7 @@
     <Compile Include="Models\ApprovePostInputModel.cs" />
     <Compile Include="Models\BlockUserInputModel.cs" />
     <Compile Include="Models\ActivateTagInputModel.cs" />
+    <Compile Include="Models\ActivateStopWordInputModel.cs" />
     <Compile Include="Models\CreateStopWordInputModel.cs" />
     <Compile Include="Models\UpdateTagInputModel.cs" />
     <Compile Include="Models\CreateTagInputModel.cs" />
