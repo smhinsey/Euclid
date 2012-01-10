@@ -68,6 +68,7 @@
     <Compile Include="Commands\AwardBadge.cs" />
     <Compile Include="Commands\ActivateTag.cs" />
     <Compile Include="Commands\ActivateStopWord.cs" />
+    <Compile Include="Commands\DeleteStopWord.cs" />
     <Compile Include="Commands\CreateStopWord.cs" />
     <Compile Include="Commands\UpdateTag.cs" />
     <Compile Include="Commands\CreateTag.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="ContentNotFoundException.cs" />
     <Compile Include="Processors\ActivateTagProcessor.cs" />
     <Compile Include="Processors\ActivateStopWordProcessor.cs" />
+    <Compile Include="Processors\DeleteStopWordProcessor.cs" />
     <Compile Include="Processors\CreateStopWordProcessor.cs" />
     <Compile Include="Queries\ProfanityFilterQueries.cs" />
     <Compile Include="ReadModels\AvailableStopWords.cs" />

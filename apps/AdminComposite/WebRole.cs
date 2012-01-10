@@ -167,6 +167,7 @@ namespace AdminComposite
 			composite.RegisterInputModelMap<ActivateStopWordInputModel, ActivateStopWord>();
 			composite.RegisterInputModelMap<ActivateContentInputModel, ActivateContent>();
 			composite.RegisterInputModelMap<DeleteContentInputModel, DeleteForumContent>();
+			composite.RegisterInputModelMap<DeleteStopWordInputModel, DeleteStopWord>();
 			composite.RegisterInputModelMap<ActivateUserInputModel, ActivateForumUser>();
 			composite.RegisterInputModelMap<BlockUserInputModel, BlockUser>();
 			composite.RegisterInputModelMap<UnblockUserInputModel, UnblockUser>();
