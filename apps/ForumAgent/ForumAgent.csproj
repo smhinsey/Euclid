@@ -67,6 +67,7 @@
     <Compile Include="Commands\ApprovePost.cs" />
     <Compile Include="Commands\AwardBadge.cs" />
     <Compile Include="Commands\ActivateTag.cs" />
+    <Compile Include="Commands\CreateStopWord.cs" />
     <Compile Include="Commands\UpdateTag.cs" />
     <Compile Include="Commands\CreateTag.cs" />
     <Compile Include="Commands\CreateAvatar.cs" />
@@ -87,6 +88,9 @@
     <Compile Include="CommentNotFoundException.cs" />
     <Compile Include="ContentNotFoundException.cs" />
     <Compile Include="Processors\ActivateTagProcessor.cs" />
+    <Compile Include="Queries\ProfanityFilterQueries.cs" />
+    <Compile Include="ReadModels\AvailableStopWords.cs" />
+    <Compile Include="ReadModels\StopWord.cs" />
     <Compile Include="ReadModels\TagDetail.cs" />
     <Compile Include="TagNotFoundException.cs" />
     <Compile Include="ForumContentNotFoundException.cs" />

@@ -145,6 +145,7 @@ namespace AdminComposite
 			                                                                                         			input.CreatedBy
 			                                                                                         	});
 			composite.RegisterInputModelMap<CreateTagInputModel, CreateTag>();
+			composite.RegisterInputModelMap<CreateStopWordInputModel, CreateStopWord>();
 			composite.RegisterInputModelMap<UpdateTagInputModel, UpdateTag>();
 			composite.RegisterInputModelMap<CreateCategoryInputModel, CreateCategory>();
 			composite.RegisterInputModelMap<UpdateCategoryInputModel, UpdateCategory>();

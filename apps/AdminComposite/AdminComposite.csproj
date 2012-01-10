@@ -160,6 +160,7 @@
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\AvailableContentType.cs" />
     <Compile Include="Controllers\AvatarController.cs" />
+    <Compile Include="Controllers\ProfanityFilterController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Extensions\FilterContextExtensions.cs" />
     <Compile Include="Controllers\BadgeController.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="Models\ApprovePostInputModel.cs" />
     <Compile Include="Models\BlockUserInputModel.cs" />
     <Compile Include="Models\ActivateTagInputModel.cs" />
+    <Compile Include="Models\CreateStopWordInputModel.cs" />
     <Compile Include="Models\UpdateTagInputModel.cs" />
     <Compile Include="Models\CreateTagInputModel.cs" />
     <Compile Include="Models\DeleteAvatarInputModel.cs" />
@@ -656,6 +658,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Tag\_UpdateTag.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProfanityFilter\_NewStopWord.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProfanityFilter\List.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

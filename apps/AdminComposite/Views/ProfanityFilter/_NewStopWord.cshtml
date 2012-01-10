@@ -1,0 +1,35 @@
+﻿@using AdminComposite.Models
+@using Euclid.Composites.Mvc.Extensions
+@model CreateStopWordInputModel
+		   
+<section>
+	@using (Html.BeginFormForInputModel(Model, true, @Url.Action("List", "ProfanityFilter", new {forumId = Model.ForumIdentifier}), "create-form"))
+	{
+		@Html.HiddenFor(m => m.ForumIdentifier)
+		@Html.HiddenFor(m=>m.CreatedBy)
+		@Html.ValidationSummary()
+		<fieldset>
+			<legend>New Content</legend>
+		
+			<dl>
+				<dt>@Html.LabelFor(m=>m.WordToMatch)</dt>
+				<dd>@Html.TextBoxFor(m => m.WordToMatch)</dd>
+				
+				<dt>@Html.LabelFor(m=>m.WordToReplace)</dt>
+				<dd>@Html.TextBoxFor(m => m.WordToReplace)</dd>
+
+				<dt class="checkbox">@Html.LabelFor(m=>m.Active)</dt>
+				<dd>@Html.CheckBoxFor(m=>m.Active)</dd>
+			</dl>
+
+			<div id="error" class="notification error hidden">
+				<a href="#" class="close-notification" title="Hide Message" rel="tooltip">x</a>
+				<p>
+					<strong>Incomplete Form</strong>
+					Provide a value for this content
+				</p>
+			</div>
+			<button type="submit">Create</button>
+		</fieldset>
+	}
+</section>

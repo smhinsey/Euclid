@@ -67,6 +67,10 @@
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "avatar", "list", "current")>
 						<a href="@Url.Action("List", "Avatar", new {forumId })">Avatars</a>
 					</li>
+					
+					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "profanityfilter", "list", "current")>
+						<a href="@Url.Action("List", "ProfanityFilter", new {forumId })">Profanity Filter</a>
+					</li>
 
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "voting", "list", "current")>
 						<a href="@Url.Action("List", "Voting", new { forumId })">Voting</a> </li>
