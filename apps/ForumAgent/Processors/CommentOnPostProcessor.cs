@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlTypes;
+using Euclid.Common.Extensions;
 using Euclid.Common.Storage.Model;
 using Euclid.Framework.Cqrs;
 using ForumAgent.Commands;
+using ForumAgent.Queries;
 using ForumAgent.ReadModels;
 
 namespace ForumAgent.Processors
@@ -20,11 +23,13 @@ namespace ForumAgent.Processors
 		private readonly ISimpleRepository<ModeratedComment> _moderatedCommentRepository;
 		private readonly ISimpleRepository<ForumUserAction> _userActionRepository;
 
+		private readonly ProfanityFilterQueries _profanityFilterQueries;
+
 		public CommentOnPostProcessor(
 			ISimpleRepository<Comment> commentRepository,
 			ISimpleRepository<Post> postRepository,
 			ISimpleRepository<Forum> forumRepository,
-			ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedComment> moderatedCommentRepository, ISimpleRepository<ForumUserAction> userActionRepository)
+			ISimpleRepository<ForumUser> userRepository, ISimpleRepository<ModeratedComment> moderatedCommentRepository, ISimpleRepository<ForumUserAction> userActionRepository, ProfanityFilterQueries profanityFilterQueries)
 		{
 			_commentRepository = commentRepository;
 			_postRepository = postRepository;
@@ -32,6 +37,7 @@ namespace ForumAgent.Processors
 			_userRepository = userRepository;
 			_moderatedCommentRepository = moderatedCommentRepository;
 			_userActionRepository = userActionRepository;
+			_profanityFilterQueries = profanityFilterQueries;
 		}
 
 		public override void Process(CommentOnPost message)
@@ -45,6 +51,18 @@ namespace ForumAgent.Processors
 			if (user != null)
 			{
 				username = user.Username;
+			}
+
+			var profanityFilterStopWords = _profanityFilterQueries.FindAllActiveInForum(message.ForumIdentifier);
+
+			var stopWordDictionary = new Dictionary<string, string>();
+
+			foreach (var stopWord in profanityFilterStopWords)
+			{
+				if (!stopWordDictionary.ContainsKey(stopWord.WordToMatch))
+				{
+					stopWordDictionary.Add(stopWord.WordToMatch, stopWord.ReplacementWord);
+				}
 			}
 
 			var post = _postRepository.FindById(message.PostIdentifier);
@@ -76,7 +94,7 @@ namespace ForumAgent.Processors
 					ForumIdentifier = message.ForumIdentifier,
 					AuthorIdentifier = message.AuthorIdentifier,
 					AuthorDisplayName = username,
-					Body = message.Body,
+					Body = message.Body.Censor(stopWordDictionary),
 					PostIdentifier = message.PostIdentifier,
 					Score = 0,
 					Created = DateTime.Now,
@@ -94,7 +112,7 @@ namespace ForumAgent.Processors
 					ActivityOccurredOn = message.Created,
 					AssociatedPostIdentifier = message.PostIdentifier,
 					AssociatedPostTitle = post.Title,
-					Body = message.Body,
+					Body = message.Body.Censor(stopWordDictionary),
 					ForumIdentifier = message.ForumIdentifier,
 					IsComment = true
 				};

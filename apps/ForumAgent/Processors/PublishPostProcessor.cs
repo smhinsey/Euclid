@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlTypes;
 using Euclid.Common.Extensions;
 using Euclid.Common.Storage.Model;
@@ -20,6 +21,7 @@ namespace ForumAgent.Processors
 		private readonly ISimpleRepository<Post> _repository;
 
 		private readonly TagQueries _tagQueries;
+		private readonly ProfanityFilterQueries _profanityFilterQueries;
 
 		private readonly ISimpleRepository<Tag> _tagRepository;
 
@@ -35,7 +37,7 @@ namespace ForumAgent.Processors
 			ISimpleRepository<Category> categoryRepository,
 			ISimpleRepository<ForumUserAction> userActionRepository,
 			TagQueries tagQueries,
-			ISimpleRepository<Tag> tagRepository)
+			ISimpleRepository<Tag> tagRepository, ProfanityFilterQueries profanityFilterQueries)
 		{
 			_repository = repository;
 			_userRepository = userRepository;
@@ -45,12 +47,25 @@ namespace ForumAgent.Processors
 			_userActionRepository = userActionRepository;
 			_tagQueries = tagQueries;
 			_tagRepository = tagRepository;
+			_profanityFilterQueries = profanityFilterQueries;
 		}
 
 		public override void Process(PublishPost message)
 		{
 			var user = _userRepository.FindById(message.AuthorIdentifier);
 			var category = _categoryRepository.FindById(message.CategoryIdentifier);
+
+			var profanityFilterStopWords = _profanityFilterQueries.FindAllActiveInForum(message.ForumIdentifier);
+
+			var stopWordDictionary = new Dictionary<string, string>();
+
+			foreach (var stopWord in profanityFilterStopWords)
+			{
+				if(!stopWordDictionary.ContainsKey(stopWord.WordToMatch))
+				{
+					stopWordDictionary.Add(stopWord.WordToMatch, stopWord.ReplacementWord);
+				}
+			}
 
 			var username = "Anonymous";
 
@@ -89,9 +104,9 @@ namespace ForumAgent.Processors
 					{
 						AuthorIdentifier = message.AuthorIdentifier,
 						AuthorDisplayName = username,
-						Body = message.Body,
+						Body = message.Body.Censor(stopWordDictionary),
 						Score = 0,
-						Title = message.Title,
+						Title = message.Title.Censor(stopWordDictionary),
 						CategoryName = category.Name,
 						CategorySlug = category.Slug,
 						CategoryIdentifier = message.CategoryIdentifier,

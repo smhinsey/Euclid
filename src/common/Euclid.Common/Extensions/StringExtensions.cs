@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -40,6 +41,23 @@ namespace Euclid.Common.Extensions
 			str = Regex.Replace(str, @"\s", "-"); // hyphens   
 
 			return str;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="text"></param>
+		/// <param name="wordsAndTheirReplacements">A dictionary containing the words to locate as keys and their replacements as values.</param>
+		/// <returns></returns>
+		public static string Censor(this string text, IDictionary<string,string> wordsAndTheirReplacements)
+		{
+			foreach (var wordAndReplacement in wordsAndTheirReplacements)
+			{
+				text = Regex.Replace(text, wordAndReplacement.Key, wordAndReplacement.Value,
+				RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+			}
+
+			return text;
 		}
 	}
 }

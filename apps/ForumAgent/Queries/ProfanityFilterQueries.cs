@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Euclid.Framework.Cqrs.NHibernate;
 using ForumAgent.ReadModels;
 using NHibernate;
@@ -18,11 +19,17 @@ namespace ForumAgent.Queries
 
 			var forumName = session.QueryOver<Forum>().Where(f => f.Identifier == forumId).SingleOrDefault().Name;
 
-			var tags = session.QueryOver<StopWord>().Where(c => c.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List();
+			var stopWords = session.QueryOver<StopWord>().Where(c => c.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List();
 
-			var totalTags = session.QueryOver<StopWord>().Where(c => c.ForumIdentifier == forumId).RowCount();
+			var totalStopWords = session.QueryOver<StopWord>().Where(c => c.ForumIdentifier == forumId).RowCount();
 
-			return new AvailableStopWords { ForumIdentifier = forumId, ForumName = forumName, StopWords = tags, TotalStopWords = totalTags };
+			return new AvailableStopWords { ForumIdentifier = forumId, ForumName = forumName, StopWords = stopWords, TotalStopWords = totalStopWords };
+		}
+
+		public IList<StopWord> FindAllActiveInForum(Guid forumId)
+		{
+			var session = GetCurrentSession();
+			return session.QueryOver<StopWord>().Where(stopWord => stopWord.ForumIdentifier == forumId).Where(stopWord => stopWord.Active).List();
 		}
 	}
 }
