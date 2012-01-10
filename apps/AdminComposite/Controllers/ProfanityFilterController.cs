@@ -31,9 +31,15 @@ namespace AdminComposite.Controllers
 			return View(model);
 		}
 
-		public PartialViewResult NewStopWord()
+		public PartialViewResult NewStopWord(Guid forumId)
 		{
-			return PartialView("_NewStopWord");
+			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
+
+			return PartialView("_NewStopWord", new CreateStopWordInputModel
+			{
+				ForumIdentifier = forumId,
+				CreatedBy = userId,
+			});
 		}
 	}
 }

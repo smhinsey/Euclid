@@ -15,8 +15,8 @@
 				<dt>@Html.LabelFor(m=>m.WordToMatch)</dt>
 				<dd>@Html.TextBoxFor(m => m.WordToMatch)</dd>
 				
-				<dt>@Html.LabelFor(m=>m.WordToReplace)</dt>
-				<dd>@Html.TextBoxFor(m => m.WordToReplace)</dd>
+				<dt>@Html.LabelFor(m=>m.ReplacementWord)</dt>
+				<dd>@Html.TextBoxFor(m => m.ReplacementWord)<br/><p>If you leave this blank, the matched word will simply be removed.</p></dd>
 
 				<dt class="checkbox">@Html.LabelFor(m=>m.Active)</dt>
 				<dd>@Html.CheckBoxFor(m=>m.Active)</dd>

@@ -88,6 +88,7 @@
     <Compile Include="CommentNotFoundException.cs" />
     <Compile Include="ContentNotFoundException.cs" />
     <Compile Include="Processors\ActivateTagProcessor.cs" />
+    <Compile Include="Processors\CreateStopWordProcessor.cs" />
     <Compile Include="Queries\ProfanityFilterQueries.cs" />
     <Compile Include="ReadModels\AvailableStopWords.cs" />
     <Compile Include="ReadModels\StopWord.cs" />

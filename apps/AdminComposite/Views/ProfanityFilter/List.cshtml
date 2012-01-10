@@ -94,7 +94,7 @@
 			<tr>
 				<th>Active</th>
 				<th>Word to Match</th>
-				<th>Replacement</th>
+				<th>Replacement Word</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -124,7 +124,7 @@
 					<tr>
 						<td>@Html.CheckBoxFor(m => content.Active, new {@class = "content-active", data_item_id = @content.Identifier, data_item_name=string.Format("{0} - {1}", @content.Identifier, @content.WordToMatch) })</td>
 						<td>@content.WordToMatch</td>
-						<td>@content.WordToReplaceWith</td>
+						<td>@content.ReplacementWord</td>
 						<td>
 							<ul class="actions">
 								<li><a class="admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete" data-confirmation-message="Do you want to delete this content?" data-confirm-function="deleteContent" data-item-id="@content.Identifier">Delete</a></li>

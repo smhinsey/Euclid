@@ -29,7 +29,7 @@ namespace AdminComposite.Models
 		public string WordToMatch { get; set; }
 
 		[Required(ErrorMessage = "The word to replace cannot be blank")]
-		[Display(Name = "Word to Replace")]
-		public string WordToReplace { get; set; }
+		[Display(Name = "Replacement Word")]
+		public string ReplacementWord { get; set; }
 	}
 }
