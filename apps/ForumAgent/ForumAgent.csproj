@@ -93,6 +93,7 @@
     <Compile Include="Processors\CreateStopWordProcessor.cs" />
     <Compile Include="Queries\ProfanityFilterQueries.cs" />
     <Compile Include="ReadModels\AvailableStopWords.cs" />
+    <Compile Include="ReadModels\ForumUserListing.cs" />
     <Compile Include="ReadModels\StopWord.cs" />
     <Compile Include="ReadModels\TagDetail.cs" />
     <Compile Include="TagNotFoundException.cs" />
