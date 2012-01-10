@@ -108,7 +108,7 @@ namespace ForumComposite
 				TopUsers = _userQueries.FindTopUsers(ForumIdentifier);
 				Tags = _tagQueries.FindActiveTags(ForumIdentifier, 0, 100).Tags;
 
-				var absoluteExpiration = DateTime.Now.AddSeconds(30);
+				var absoluteExpiration = DateTime.Now.AddMinutes(5);
 
 				HttpContext.Current.Cache.Add(cacheKey, this, null, absoluteExpiration, Cache.NoSlidingExpiration, CacheItemPriority.Normal, null);
 			}
