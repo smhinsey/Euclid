@@ -96,6 +96,16 @@ namespace ForumAgent.Queries
 			return users.List();
 		}
 
+		public ForumUserListing FindForumUsers(Guid forumId, int offset, int pageSize)
+		{
+			var session = GetCurrentSession();
+
+			var users = session.QueryOver<ForumUser>().Where(u => u.ForumIdentifier == forumId).Skip(offset).Take(pageSize).List();
+			var totalUsers = session.QueryOver<ForumUser>().Where(u => u.ForumIdentifier == forumId).RowCount();
+
+			return new ForumUserListing() { Users = users, TotalUsers = totalUsers };
+		}
+
 		public IList<ForumUserAction> FindUserActivity(Guid forumId, Guid userIdentifier)
 		{
 			var session = GetCurrentSession();

@@ -8,8 +8,8 @@
     <ProjectGuid>{67EB33C1-88DD-458A-BAC9-66D7A8401301}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AzureAgentConsole</RootNamespace>
-    <AssemblyName>AzureAgentConsole</AssemblyName>
+    <RootNamespace>AzureAgentHost</RootNamespace>
+    <AssemblyName>AzureAgentHost</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <RoleType>Worker</RoleType>

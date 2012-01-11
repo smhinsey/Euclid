@@ -37,12 +37,12 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\sdk\AzureAgentConsole\AzureAgentConsole.csproj">
-      <Name>AzureAgentConsole</Name>
+    <ProjectReference Include="..\..\..\src\sdk\AzureAgentHost\AzureAgentHost.csproj">
+      <Name>AzureAgentHost</Name>
       <Project>{67eb33c1-88dd-458a-bac9-66d7a8401301}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>AzureAgentConsole</RoleName>
+      <RoleName>AzureAgentHost</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
     <ProjectReference Include="..\..\AdminComposite\AdminComposite.csproj">

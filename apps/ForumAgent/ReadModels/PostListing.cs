@@ -9,5 +9,6 @@ namespace ForumAgent.ReadModels
 
 		public virtual int TotalPosts { get; set; }
 		public virtual string CategoryName { get; set; }
+		public virtual string TagName { get; set; }
 	}
 }

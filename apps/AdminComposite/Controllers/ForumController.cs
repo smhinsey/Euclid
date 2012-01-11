@@ -35,7 +35,7 @@ namespace AdminComposite.Controllers
 			            		Description = " ",
 								CreatedBy = userId,
 								VotingScheme = VotingScheme.UpDownVoting,
-								Theme = "Swiss"
+								Theme = "Default"
 			            	});
 		}
 

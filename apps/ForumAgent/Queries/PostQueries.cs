@@ -121,5 +121,25 @@ namespace ForumAgent.Queries
 
 			return result;
 		}
+
+		public PostListing FindPostsInTag(Guid forumId, string tag, int pageSize, int offset)
+		{
+			var result = new PostListing { Posts = new List<Post>() };
+
+			var session = GetCurrentSession();
+
+			var posts =
+				session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).Where(Restrictions.On<Post>(p => p.Tags).IsInsensitiveLike(tag)).
+					OrderBy(p => p.Created).Desc.Skip(offset).Take(pageSize);
+
+			var totalPosts = session.QueryOver<Post>().Where(p => p.ForumIdentifier == forumId).RowCount();
+
+			result.TotalPosts = totalPosts;
+			result.TagName = tag;
+
+			result.Posts = posts.List();
+
+			return result;
+		}
 	}
 }

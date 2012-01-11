@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using AdminComposite.Models;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
@@ -15,6 +16,7 @@ using FluentNHibernate.Cfg.Db;
 using ForumAgent;
 using ForumAgent.Commands;
 using LoggingAgent.Queries;
+using Microsoft.Web.Administration;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using NConfig;
@@ -30,6 +32,26 @@ namespace AdminComposite
 
 		public WebRole()
 		{
+		}
+
+		public override bool OnStart()
+		{
+			using (var serverManager = new ServerManager())
+			{
+				var siteName = RoleEnvironment.CurrentRoleInstance.Id + "_Web";
+
+				var siteApplication = serverManager.Sites[siteName].Applications.First();
+				var appPoolName = siteApplication.ApplicationPoolName;
+
+				var appPool = serverManager.ApplicationPools[appPoolName];
+
+				appPool.ProcessModel.IdleTimeout = TimeSpan.Zero;
+				appPool.Recycling.PeriodicRestart.Time = TimeSpan.Zero;
+
+				serverManager.CommitChanges();
+			}
+
+			return base.OnStart();
 		}
 
 		public static WebRole GetInstance()
@@ -65,7 +87,7 @@ namespace AdminComposite
 
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.OutputChannel.ApplyOverride(typeof (AzureMessageChannel));
+			compositeAppSettings.OutputChannel.WithDefault(typeof(AzureMessageChannel));
 			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
 			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
 
@@ -145,6 +167,7 @@ namespace AdminComposite
 			                                                                                         			input.CreatedBy
 			                                                                                         	});
 			composite.RegisterInputModelMap<CreateTagInputModel, CreateTag>();
+			composite.RegisterInputModelMap<CreateStopWordInputModel, CreateStopWord>();
 			composite.RegisterInputModelMap<UpdateTagInputModel, UpdateTag>();
 			composite.RegisterInputModelMap<CreateCategoryInputModel, CreateCategory>();
 			composite.RegisterInputModelMap<UpdateCategoryInputModel, UpdateCategory>();
@@ -163,8 +186,10 @@ namespace AdminComposite
 			composite.RegisterInputModelMap<ActivateBadgeInputModel, ActivateBadge>();
 			composite.RegisterInputModelMap<ActivateCategoryInputModel, ActivateCategory>();
 			composite.RegisterInputModelMap<ActivateTagInputModel, ActivateTag>();
+			composite.RegisterInputModelMap<ActivateStopWordInputModel, ActivateStopWord>();
 			composite.RegisterInputModelMap<ActivateContentInputModel, ActivateContent>();
 			composite.RegisterInputModelMap<DeleteContentInputModel, DeleteForumContent>();
+			composite.RegisterInputModelMap<DeleteStopWordInputModel, DeleteStopWord>();
 			composite.RegisterInputModelMap<ActivateUserInputModel, ActivateForumUser>();
 			composite.RegisterInputModelMap<BlockUserInputModel, BlockUser>();
 			composite.RegisterInputModelMap<UnblockUserInputModel, UnblockUser>();

@@ -54,6 +54,8 @@ namespace ForumComposite.Controllers
 
 		public ActionResult Signout()
 		{
+			Response.Cookies.Remove(FormsAuthentication.FormsCookieName);
+
 			FormsAuthentication.SignOut();
 
 			return new RedirectToRouteResult("Home", null);

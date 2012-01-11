@@ -13,9 +13,17 @@ namespace ForumComposite.Controllers
 			_userQueries = userQueries;
 		}
 
-		public ActionResult All()
+		public ActionResult All(int? page)
 		{
-			return View();
+			var offset = page.GetValueOrDefault(1);
+
+			offset--;
+
+			offset = offset * 10;
+
+			var model = new AllProfilesViewModel { UserListing = _userQueries.FindForumUsers(ForumInfo.ForumIdentifier, offset, 10)};
+
+			return View(model);
 		}
 
 		public ActionResult Badges(string profileSlug)

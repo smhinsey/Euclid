@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Logging;
@@ -14,6 +15,7 @@ using FluentNHibernate.Cfg.Db;
 using ForumAgent.Commands;
 using ForumComposite.Models;
 using LoggingAgent.Queries;
+using Microsoft.Web.Administration;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using NConfig;
@@ -29,6 +31,26 @@ namespace ForumComposite
 
 		public WebRole()
 		{
+		}
+
+		public override bool OnStart()
+		{
+			using (var serverManager = new ServerManager())
+			{
+				var siteName = RoleEnvironment.CurrentRoleInstance.Id + "_Web";
+
+				var siteApplication = serverManager.Sites[siteName].Applications.First();
+				var appPoolName = siteApplication.ApplicationPoolName;
+
+				var appPool = serverManager.ApplicationPools[appPoolName];
+
+				appPool.ProcessModel.IdleTimeout = TimeSpan.Zero;
+				appPool.Recycling.PeriodicRestart.Time = TimeSpan.Zero;
+
+				serverManager.CommitChanges();
+			}  
+
+			return base.OnStart();
 		}
 
 		public static WebRole GetInstance()
@@ -65,7 +87,7 @@ namespace ForumComposite
 
 			var compositeAppSettings = new CompositeAppSettings();
 
-			compositeAppSettings.OutputChannel.ApplyOverride(typeof (AzureMessageChannel));
+			compositeAppSettings.OutputChannel.WithDefault(typeof(AzureMessageChannel));
 			compositeAppSettings.BlobStorage.WithDefault(typeof (AzureBlobStorage));
 			compositeAppSettings.CommandPublicationRecordMapper.WithDefault(typeof (NhRecordMapper<CommandPublicationRecord>));
 

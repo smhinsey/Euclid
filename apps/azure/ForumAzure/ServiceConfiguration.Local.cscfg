@@ -28,7 +28,7 @@
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="53831C4D6946195D6E5CA0C91EC01D64E78E3884" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
-  <Role name="AzureAgentConsole">
+  <Role name="AzureAgentHost">
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
