@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Module\AssetModule.cs" />
+    <Compile Include="Module\LogModule.cs" />
     <Compile Include="Views\Commands\CommandNotFoundInRegistryException.cs" />
     <Compile Include="CompositeInspectorBootstrapper.cs" />
     <Compile Include="Models\AgentModel.cs" />
@@ -104,13 +105,25 @@
       <Project>{276664F8-43A3-43E6-AA9A-B9A275B14013}</Project>
       <Name>Euclid.Framework.AgentMetadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
+      <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
+      <Name>Euclid.Framework.Cqrs.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
+      <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
+      <Name>Euclid.Composites.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Euclid.Composites\Euclid.Composites.csproj">
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoggingAgent\LoggingAgent.csproj">
+      <Project>{1FE538F6-D05D-4849-8741-F827F1B7B34F}</Project>
+      <Name>LoggingAgent</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
