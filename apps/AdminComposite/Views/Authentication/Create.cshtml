@@ -12,22 +12,28 @@
 }
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#submit-form").click(function() {
+	$(document).ready(function () {
+		$("#submit-form").click(function () {
 			var processForm = true;
 			if ($("#password").val() != $("#confirm-password").val()) {
 				$("#confirm-error").show();
 				processForm = false;
+				event.preventDefaults();
 			}
 
+			var userName = $("#username").val();
+			var results = EUCLID.executeQuery({ queryName: "OrganizationUserQueries", method: { Name: "FindByUsername", Arguments: [{ ArgumentType: "string", ArgumentName: userName, Choices: null, MultiChoice: false}]} });
+
+			event.preventDefault();
+			return false;
 			return processForm;
 		});
 
-		$("#password, #confirm-password").focus(function() {
+		$("#password, #confirm-password").focus(function () {
 			$("#confirm-error").hide();
 		});
 
-		$("#organization-name").blur(function() {
+		$("#organization-name").blur(function () {
 			if ($("#organization-slug").val() == "") {
 				var slug = slugify($("#organization-name").val());
 				$("#organization-slug").val(slug);
