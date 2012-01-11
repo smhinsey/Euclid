@@ -204,6 +204,12 @@ namespace ForumComposite
 		{
 			FormsAuthentication.SignOut();
 
+			Response.Cookies.Remove(FormsAuthentication.FormsCookieName);
+
+			var cookie = new HttpCookie(FormsAuthentication.FormsCookieName) { Expires = DateTime.Now.AddDays(-10) };
+
+			Response.AppendCookie(cookie);
+
 			Response.Redirect(string.Format("/org/{0}/forum/{1}", org, forum));
 		}
 	}

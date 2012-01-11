@@ -41,22 +41,27 @@ namespace ForumComposite.Controllers
 				var ticket = new FormsAuthenticationTicket(1, user.Username, issueDate, expirationDate, true, userData);
 
 				var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket))
-					{ Path = string.Format("org/{0}/forum/{1}", org, forum) };
+					{ Path = string.Format("org/{0}/forum/{1}", org, forum), Expires = expirationDate };
 
 				Response.AppendCookie(cookie);
 
 				return new RedirectToRouteResult("Home", null);
 			}
 
-			// redirect to a login error screen
+			// TODO: redirect to a login error screen
 			return new RedirectToRouteResult("Home", null);
 		}
 
-		public ActionResult Signout()
+		public ActionResult SignOut(string org, string forum)
 		{
+			FormsAuthentication.SignOut();
+
 			Response.Cookies.Remove(FormsAuthentication.FormsCookieName);
 
-			FormsAuthentication.SignOut();
+			var cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
+				{ Path = string.Format("org/{0}/forum/{1}", org, forum), Expires = DateTime.Now.AddYears(-10) };
+
+			Response.Cookies.Add(cookie);
 
 			return new RedirectToRouteResult("Home", null);
 		}
