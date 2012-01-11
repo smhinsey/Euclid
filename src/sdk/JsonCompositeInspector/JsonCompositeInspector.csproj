@@ -69,6 +69,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\LogModel.cs" />
     <Compile Include="Module\AssetModule.cs" />
     <Compile Include="Module\LogModule.cs" />
     <Compile Include="Views\Commands\CommandNotFoundInRegistryException.cs" />
@@ -95,6 +96,7 @@
     <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
     <EmbeddedResource Include="Views\Queries\view-query-methods.cshtml" />
     <EmbeddedResource Include="Views\Commands\view-publication-record.cshtml" />
+    <EmbeddedResource Include="Views\Log\logs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common\Euclid.Common.csproj">
@@ -108,6 +110,10 @@
     <ProjectReference Include="..\..\framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
       <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
       <Name>Euclid.Framework.Cqrs.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
+      <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>
+      <Name>Euclid.Framework.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
