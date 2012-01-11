@@ -4,7 +4,7 @@ namespace JsonCompositeInspector.Module
 {
 	public class AssetModule : NancyModule
 	{
-		public AssetModule()
+		public AssetModule() : base("composite")
 		{
 			Get["/js/{file}"] = p =>
 			{

@@ -37,7 +37,7 @@ var EUCLID = function () {
 					if (model === null) {
 						throw {
 							name: "Invalid QueryName Exception",
-							message: "Could not POST JSON from url: " + url
+							message: "Could not POST JSON from url: " + $(form).attr("action")
 						};
 					}
 				}
@@ -166,6 +166,22 @@ var EUCLID = function () {
 			var getQueryMethodsUrl = "/composite/queries/" + queryName + ".json";
 			return _getJsonObject(getQueryMethodsUrl);
 		}), // end getQueryMethods
+
+		executeQuery: (function (args) {
+			if (args == null || args === undefined || !args.hasOwnProperty("queryName") || !args.hasOwnProperty("method")) {
+				throw {
+					name: "Invalid Argument Exception",
+					message: "EUCLID.executeQuery expects an object with the properties: 'queryName' and 'method' an object that represents the parameters for a query method"
+				}
+			}
+
+			try {
+				var form = EUCLID.getQueryForm(args);
+				return _submitForm(form);
+			} catch (e) {
+				EUCLID.displayError(e);
+			}
+		}), // end executeQuery
 
 		getId: (function () {
 			return _getId();
