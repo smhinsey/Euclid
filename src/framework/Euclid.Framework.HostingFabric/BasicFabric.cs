@@ -111,7 +111,7 @@ namespace Euclid.Framework.HostingFabric
 		{
 			this.WriteDebugMessage(string.Format("Shutting down {0}.", GetType().Name));
 
-			State = FabricRuntimeState.Stoppping;
+			State = FabricRuntimeState.Stopping;
 
 			_serviceHost.CancelAll();
 

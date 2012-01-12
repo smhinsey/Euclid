@@ -89,6 +89,7 @@
     <Compile Include="CommandPublicationRecord.cs" />
     <Compile Include="CommandPublisher.cs" />
     <Compile Include="CommandRegistry.cs" />
+    <Compile Include="MultipleCommandProcessor.cs" />
     <Compile Include="Settings\CommandHostService.cs" />
     <Compile Include="Settings\Dispatcher.cs" />
     <Compile Include="Settings\TimeSpanConfiguration.cs" />
