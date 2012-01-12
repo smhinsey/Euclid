@@ -22,9 +22,21 @@ var EUCLID = function () {
 		return _model;
 	}); // end getJsonObject
 
-	var _submitForm = (function (form) {
+	var _submitForm = (function (form, values) {
 		var model = null;
-		$.ajaxSetup({ "async": false });
+
+		if (values != null && typeof values == "object") {
+			for (valueName in values) {
+				if (values.hasOwnProperty(valueName)) {
+					var element = $(form).find("[name='" + valueName + "']");
+					if ($(element).length > 0) {
+						element.attr("value", values[valueName]);
+					}
+				}
+			}
+		}
+
+		$.ajaxSetup({ async: false });
 		$(form).ajaxSubmit({
 			success: function (responseText, statusText, jqHxr, $form) {
 				if (jqHxr.status == 500) {
@@ -34,16 +46,27 @@ var EUCLID = function () {
 					}
 				} else {
 					model = $.parseJSON(jqHxr.responseText);
-					if (model === null) {
-						throw {
-							name: "Invalid QueryName Exception",
-							message: "Could not POST JSON from url: " + $(form).attr("action")
-						};
-					}
+				}
+			},
+			error: function (jqHxr, statusText) {
+				var model = $.parseJSON(jqHxr.responseText);
+				throw {
+					name: model.name,
+					message: model.message + "\n\n" + _model.callstack
 				}
 			}
 		});
-		$.ajaxSetup({ "async": true });
+		$.ajaxSetup({ async: true });
+
+		var re = new RegExp("\\/Date\\((-?\\d+)\\)\\/");
+		for (property in model) {
+			if (model.hasOwnProperty(property) && typeof property != "function") {
+				var m = re.exec(model[property]);
+				if (m != null) {
+					model[property] = new Date(parseInt(m[1]));
+				}
+			}
+		}
 
 		return model;
 	}); // end submitForm
@@ -164,22 +187,37 @@ var EUCLID = function () {
 
 			var queryName = args.queryName;
 			var getQueryMethodsUrl = "/composite/queries/" + queryName + ".json";
-			return _getJsonObject(getQueryMethodsUrl);
+			var model = _getJsonObject(getQueryMethodsUrl);
+			if (args.hasOwnProperty("methodName")) {
+				$.each(model.Methods, function (index, item) {
+					if (item.Name.toLowerCase() == args.methodName.toLowerCase()) {
+						model = item;
+						return;
+					}
+				});
+			}
+
+			return model;
 		}), // end getQueryMethods
 
 		executeQuery: (function (args) {
-			if (args == null || args === undefined || !args.hasOwnProperty("queryName") || !args.hasOwnProperty("method")) {
-				throw {
-					name: "Invalid Argument Exception",
-					message: "EUCLID.executeQuery expects an object with the properties: 'queryName' and 'method' an object that represents the parameters for a query method"
-				}
-			}
-
 			try {
-				var form = EUCLID.getQueryForm(args);
-				return _submitForm(form);
+				if (args == null || args === undefined || !args.hasOwnProperty("queryName") || !args.hasOwnProperty("methodName") || !args.hasOwnProperty("parameters")) {
+					throw {
+						name: "Invalid Argument Exception",
+						message: "EUCLID.executeQuery expects an object with the properties: \nqueryName: the name of the query object\nmethodName: the name of the method to execute\nparameters: a JSON representation of the query parameters"
+					}
+				}
+
+				var method = EUCLID.getQueryMetadata(args);
+				var form = EUCLID.getQueryForm({ queryName: args.queryName, method: method });
+				return _submitForm(form, args.parameters);
 			} catch (e) {
-				EUCLID.displayError(e);
+				if (args.hasOwnProperty("handleError")) {
+					handleError(e);
+				} else {
+					EUCLID.displayError(e);
+				}
 			}
 		}), // end executeQuery
 
@@ -199,7 +237,7 @@ var EUCLID = function () {
 			if (args == null || args === undefined || !args.hasOwnProperty("method") || !args.hasOwnProperty("queryName")) {
 				throw {
 					name: "Invalid Argument Exception",
-					message: "EUCLID.getQueryForm exepcts an object with the properties: 'method' and 'queryName'"
+					message: "EUCLID.getQueryForm exepcts an object with the properties: 'method' and 'query'"
 				}
 			}
 
@@ -363,7 +401,7 @@ var EUCLID = function () {
 
 		displayError: (function (e) {
 			if ($("#euclid-error-display").length == 0) {
-				$("body").prepend("<div id='euclid-error-display' style='z-index:9999'></div>");
+				$("body").prepend("<div id='euclid-error-display' style='z-index:auto'></div>");
 			}
 
 			var error = $("#euclid-error-display");

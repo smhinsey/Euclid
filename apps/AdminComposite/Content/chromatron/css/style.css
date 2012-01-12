@@ -1493,3 +1493,16 @@ table .actions .delete { background:url('../img/icons/icon_table_delete.png') no
 	text-align:center;
 	font-size:1000%;
 }
+
+.alert-message
+{
+	background-color: White;
+	border:1px black solid;
+	z-index: 999999;
+	position:static;
+}
+
+.error 
+{
+	color: Red;
+}

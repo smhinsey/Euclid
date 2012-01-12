@@ -21,8 +21,8 @@
 				event.preventDefaults();
 			}
 
-			var userName = $("#username").val();
-			var results = EUCLID.executeQuery({ queryName: "OrganizationUserQueries", method: { Name: "FindByUsername", Arguments: [{ ArgumentType: "string", ArgumentName: userName, Choices: null, MultiChoice: false}]} });
+			var username = $("#username").val();
+			var results = EUCLID.executeQuery({ queryName: "OrganizationUserQueries", methodName: "FindByUsername", parameters: {username: username} });
 
 			event.preventDefault();
 			return false;
