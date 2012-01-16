@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Web;
+using Euclid.Common.Logging;
 
-namespace JsonCompositeInspector.Views.Commands.Binders
+namespace Euclid.Composites
 {
-	public static class ValueConverter
+	public class ValueConverter : ILoggingSource
 	{
+		private ValueConverter()
+		{
+			
+		}
+
 		public static object GetValueAs(string postedValue, Type expectedType)
 		{
-			object typedValue = null;
-			if (
-				expectedType == typeof(HttpPostedFileBase)
-				||
-				expectedType == typeof(Type))
-			{
-				return null;
-			}
+			var self = new ValueConverter();
 
+			object typedValue = null;
 			if (expectedType == typeof(Guid))
 			{
 				typedValue = Guid.Parse(postedValue);
@@ -38,9 +37,17 @@ namespace JsonCompositeInspector.Views.Commands.Binders
 			{
 				typedValue = DateTime.Parse(postedValue);
 			}
-			else if (expectedType != typeof(HttpPostedFileBase))
+			else if (expectedType != typeof(Type))
 			{
-				typedValue = Convert.ChangeType(postedValue, expectedType);
+				try
+				{
+					typedValue = Convert.ChangeType(postedValue, expectedType);
+				}
+				catch (InvalidCastException e)
+				{
+					typedValue = null;
+					self.WriteErrorMessage("Invalid cast request", e.Message);
+				}
 			}
 
 			return typedValue;

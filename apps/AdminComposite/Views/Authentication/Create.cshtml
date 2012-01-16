@@ -13,25 +13,44 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		$("#submit-form").click(function () {
-			var processForm = true;
-			if ($("#password").val() != $("#confirm-password").val()) {
-				$("#confirm-error").show();
-				processForm = false;
-				event.preventDefaults();
-			}
+		var validUsername = false;
+//		$("#submit-form").click(function () {
+//			var processForm = true;
+//			if ($("#password").val() != $("#confirm-password").val()) {
+//				EUCLID.displayError({ name: "Password error", message: "The password and confirmation don't match" });
+//				processForm = false;
+//				event.preventDefaults();
+//			}
 
-			var username = $("#username").val();
-			var results = EUCLID.executeQuery({ queryName: "OrganizationUserQueries", methodName: "FindByUsername", parameters: {username: username} });
+//			if (!validUsername) {
+//				EUCLID.displayError({ name: "Invalid username", message: "The username you've entered is already taken" });
+//				processForm = false;
+//				event.preventDefaults();
+//			}
 
-			event.preventDefault();
-			return false;
-			return processForm;
-		});
+//			return processForm;
+//		});
 
-		$("#password, #confirm-password").focus(function () {
-			$("#confirm-error").hide();
-		});
+//		$("#username").keyup(function (event) {
+//			var username = $(this).val();
+//			if (username == "") return;
+
+//			validUsername = !doesUsernameExist(username);
+
+//			if (validUsername) {
+//				$(this).css("border", "2px solid green");
+//			} else {
+//				$(this).css("border", "2px solid red");
+//			}
+//		});
+
+//		$("#username").focus(function () {
+//			$(this).keyup();
+//		});
+
+//		$("#username").blur(function (event) {
+//			$(this).css("border", "");
+//		});
 
 		$("#organization-name").blur(function () {
 			if ($("#organization-slug").val() == "") {
@@ -39,6 +58,11 @@
 				$("#organization-slug").val(slug);
 			}
 		});
+
+//		function doesUsernameExist(username) {
+//			var results = EUCLID.executeQuery({ queryName: "OrganizationUserQueries", methodName: "FindByUsername", parameters: { username: username} });
+//			return results != null;
+//		}
 	});
 </script>
 
@@ -114,9 +138,4 @@
 	</fieldset>
 
 	<input type="submit" value="Sign up" class="button" id="submit-form"/>
-
-	<div class="notification error" style="display: none" id="confirm-error">
-		<a href="#" class="close-notification" title="Dismiss" rel="tooltip">x</a>
-		<p><strong>Error</strong> Passwords don't match</p>
-	</div>
 }

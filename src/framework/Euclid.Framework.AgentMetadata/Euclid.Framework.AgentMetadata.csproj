@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentMetadata.cs" />
+    <Compile Include="AgentMetadataNotFoundException.cs" />
     <Compile Include="AgentPartFormatterNotFoundException.cs" />
     <Compile Include="ArgumentMetadata.cs" />
     <Compile Include="Formatters\DefaultFormatter.cs" />

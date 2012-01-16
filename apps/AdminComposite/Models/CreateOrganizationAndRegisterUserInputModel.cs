@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Euclid.Composites.Mvc.Models;
+using Euclid.Composites.Mvc.Validation;
 using ForumAgent.Commands;
 
 namespace AdminComposite.Models
@@ -65,6 +66,7 @@ namespace AdminComposite.Models
 		public string State { get; set; }
 
 		[Required(ErrorMessage = "Username cannot be blank")]
+		[UniqueValue("OrganizationUserQueries", "FindByUsername", ErrorMessage="The username is not unique")]
 		[Display(Name = "Username")]
 		public string Username { get; set; }
 

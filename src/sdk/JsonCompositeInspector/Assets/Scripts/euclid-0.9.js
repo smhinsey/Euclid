@@ -175,58 +175,98 @@ var EUCLID = function () {
 		$(fieldSet).append($(html));
 	}); //end addElementToForm
 
+	var _displayErrorWrapper = (function (args) {
+		if (args === null || args === undefined || !args.hasOwnProperty("callbackArgs") || !args.hasOwnProperty("callback")) {
+			throw {
+				name: "Invalid Argument Exception",
+				message: "_displayErrorWrapper exepects the parameters 'callback' - the function to execute, and 'callbackArgs' - an object containing the arguments to pass into the function"
+			}
+		}
+
+		try {
+			args.callback(args.callbackArgs);
+		} catch (e) {
+			if (args.callbackArgs.hasOwnProperty("handleError")) {
+				args.callbackArgs.handleError(e);
+			} else {
+				EUCLID.displayError(e);
+			}
+		}
+	});
 
 	return {
 		getQueryMetadata: (function (args) {
-			if (args === null || args === undefined || !args.hasOwnProperty("queryName")) {
-				throw {
-					name: "Invalid Argument Exception",
-					message: "EUCLID.getQueryMethods expects an object with the properties: 'queryName'"
-				};
-			}
-
-			var queryName = args.queryName;
-			var getQueryMethodsUrl = "/composite/queries/" + queryName + ".json";
-			var model = _getJsonObject(getQueryMethodsUrl);
-			if (args.hasOwnProperty("methodName")) {
-				$.each(model.Methods, function (index, item) {
-					if (item.Name.toLowerCase() == args.methodName.toLowerCase()) {
-						model = item;
-						return;
+			var model = null;
+			_displayErrorWrapper({
+				callback: function (args) {
+					if (args === null || args === undefined || !args.hasOwnProperty("queryName")) {
+						throw {
+							name: "Invalid Argument Exception",
+							message: "EUCLID.getQueryMethods expects an object with the properties: 'queryName'"
+						};
 					}
-				});
-			}
+
+					var queryName = args.queryName;
+					var getQueryMethodsUrl = "/composite/queries/" + queryName + ".json";
+					model = _getJsonObject(getQueryMethodsUrl);
+					if (args.hasOwnProperty("methodName")) {
+						$.each(model.Methods, function (index, item) {
+							if (item.Name.toLowerCase() == args.methodName.toLowerCase()) {
+								model = item;
+								return;
+							}
+						});
+					}
+				},
+				callbackArgs: args
+			});
 
 			return model;
 		}), // end getQueryMethods
 
 		executeQuery: (function (args) {
-			try {
-				if (args == null || args === undefined || !args.hasOwnProperty("queryName") || !args.hasOwnProperty("methodName") || !args.hasOwnProperty("parameters")) {
-					throw {
-						name: "Invalid Argument Exception",
-						message: "EUCLID.executeQuery expects an object with the properties: \nqueryName: the name of the query object\nmethodName: the name of the method to execute\nparameters: a JSON representation of the query parameters"
+			var model = null;
+			_displayErrorWrapper({
+				callback: function (args) {
+					if (args == null || args === undefined || !args.hasOwnProperty("queryName") || !args.hasOwnProperty("methodName") || !args.hasOwnProperty("parameters")) {
+						throw {
+							name: "Invalid Argument Exception",
+							message: "EUCLID.executeQuery expects an object with the properties: \nqueryName: the name of the query object\nmethodName: the name of the method to execute\nparameters: a JSON representation of the query parameters"
+						}
 					}
-				}
 
-				var method = EUCLID.getQueryMetadata(args);
-				var form = EUCLID.getQueryForm({ queryName: args.queryName, method: method });
-				return _submitForm(form, args.parameters);
-			} catch (e) {
-				if (args.hasOwnProperty("handleError")) {
-					handleError(e);
-				} else {
-					EUCLID.displayError(e);
-				}
-			}
+					var method = EUCLID.getQueryMetadata(args);
+					var form = EUCLID.getQueryForm({ queryName: args.queryName, method: method });
+					model = _submitForm(form, args.parameters);
+				},
+				callbackArgs: args
+			});
+
+			return model;
 		}), // end executeQuery
 
 		getId: (function () {
-			return _getId();
+			var id = "";
+			_displayErrorWrapper({
+				callback: function (args) {
+					id = _getId();
+				},
+				callbackArgs: null
+			});
+
+			return id;
 		}),
 
 		getJsonObject: (function (url) {
-			return _getJsonObject(url);
+			var object = null;
+			_displayErrorWrapper({
+				callback: function (args) {
+					object = _getJsonObject(args);
+				},
+				callbackArgs: url
+			});
+
+			return object;
 		}),
 
 		submitForm: (function (url, data) {
@@ -405,9 +445,14 @@ var EUCLID = function () {
 			}
 
 			var error = $("#euclid-error-display");
-			var message = $("<div class='alert-message error' data-alert='alert'><a class='close' href='#'>×</a><p><strong>" + e.name.replace(/\n/g, "<br />") + "</strong> " + e.message.replace(/\n/g, "<br />") + ".</p></div>");
+			var message = "<div class='alert-message error' data-alert='alert'><a class='close' href='#'>×</a><p><strong>" + e.name.replace(/\n/g, "<br />") + "</strong> " + e.message.replace(/\n/g, "<br />") + ".</p>";
 
-			$(error).append(message);
+			if (e.hasOwnProperty("callStack")) {
+				message += "<p>" + e.callStack.replace(/\n/g, "<br/>") + "</p>";
+			}
+
+			message += "</div>";
+			$(error).append($(message));
 			$(window).scrollTop(0);
 		}) // end displayError
 	}
@@ -421,6 +466,21 @@ $.fn.hasAttr = function(name) {
 String.prototype.endsWith = function(suffix) {
 	return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
+
+jQuery.validator.addMethod('uniquevalue', function (value, element, params) {
+	var query = $(element).attr("data-val-uniquevalue-query");
+	var method = $(element).attr("data-val-uniquevalue-method");
+	var argument = $(element).attr("data-val-uniquevalue-argument");
+	var argumentObject = $.parseJSON("{ \"" + argument + "\": \"" + value + "\"}")
+	var results = EUCLID.executeQuery({ queryName: query, methodName: method, parameters: argumentObject });
+	return results == null;
+}, '');
+
+// and an unobtrusive adapter
+jQuery.validator.unobtrusive.adapters.add('uniquevalue', {}, function (options) {
+	options.rules['uniquevalue'] = true;
+	options.messages['uniquevalue'] = options.message;
+});
 
 $(document).ready(function () {
 	$(window).scroll(function () {

@@ -44,14 +44,14 @@ namespace JsonCompositeInspector.Module
 													}
 
 			                                  		var model = new AgentModel
-			                                  		            	{
-			                                  		            		AgentSystemName = p.agentSystemName,
+																	{
+																		AgentSystemName = p.agentSystemName,
 																		Commands = agent.Commands,
 																		Description = agent.Description,
 																		DescriptiveName = agent.DescriptiveName,
 																		Queries = agent.Queries,
 																		ReadModels = agent.ReadModels
-			                                  		            	};
+																	};
 
 			                                  		return View["Composite/view-agent.cshtml", model];
 			                                  	};

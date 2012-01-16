@@ -158,6 +158,10 @@
     <Content Include="Content\jeditable\jquery.jeditable.js" />
     <Content Include="Content\jeditable\jquery.jeditable.mini.js" />
     <Content Include="Content\jquery.timers-1.2.js" />
+    <Content Include="Content\jquery.validate.js" />
+    <Content Include="Content\jquery.validate.min.js" />
+    <Content Include="Content\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\jquery.validate.unobtrusive.min.js" />
     <Content Include="Content\logo.jpg" />
     <Content Include="Content\chromatron\img\logo2.jpg" />
     <Content Include="Content\logo_3.jpg" />
@@ -583,9 +587,7 @@
   <ItemGroup>
     <Content Include="Views\Forum\Details.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\forum-admin\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\Content\_wysiwg.cshtml" />
   </ItemGroup>

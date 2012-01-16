@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using AutoMapper;
 using Castle.Core;
 using Castle.MicroKernel.Registration;
@@ -198,6 +199,42 @@ namespace Euclid.Composites
 			_inputModelMap.RegisterInputModel(customMap);
 		}
 
+		public object ExecuteQuery(string queryName, string methodName, int argumentCount, Func<string, string> getArgumentValue)
+		{
+			var query = Queries.Where(
+				q =>
+				q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase)).
+				FirstOrDefault();
+
+			if (query == null)
+			{
+				throw new QueryNotPresentInCompositeException(queryName);
+			}
+
+			var instance = Container.Resolve(query.Type);
+
+			if (instance == null)
+			{
+				throw new QueryNotPresentInCompositeException(queryName);
+			}
+
+			var method = query.Type.GetMethods().Where(m => m.Name == methodName && m.GetParameters().Count() == argumentCount).FirstOrDefault();
+
+			if (method == null)
+			{
+				throw new MissingMethodException(methodName);
+			}
+
+			var arguments = new List<object>();
+			foreach (var argument in method.GetParameters())
+			{
+				var val = getArgumentValue(argument.Name);
+				arguments.Add(ValueConverter.GetValueAs(val, argument.ParameterType));
+			}
+
+			return method.Invoke(instance, arguments.ToArray());
+		}
+
 		public void RegisterNh(IPersistenceConfigurer databaseConfiguration, bool isWeb)
 		{
 			var lifestyleType = isWeb ? LifestyleType.PerWebRequest : LifestyleType.Transient;
@@ -280,6 +317,13 @@ namespace Euclid.Composites
 			}
 
 			return mcfg;
+		}
+	}
+
+	public class QueryNotPresentInCompositeException : Exception
+	{
+		public QueryNotPresentInCompositeException(string queryName) : base(queryName)
+		{
 		}
 	}
 }

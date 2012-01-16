@@ -7,8 +7,6 @@ namespace Euclid.Framework.AgentMetadata
 	{
 		string AgentSystemName { get; }
 
-//		IEnumerable<IPartMetadata> Collection { get; }
-
 		Type CollectionType { get; }
 
 		string DescriptiveName { get; }
@@ -16,7 +14,5 @@ namespace Euclid.Framework.AgentMetadata
 		string Namespace { get; }
 
 		IMetadataFormatter GetFormatter();
-
-//		IPartMetadata GetByName(string partName);
 	}
 }

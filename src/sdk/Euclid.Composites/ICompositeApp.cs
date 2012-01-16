@@ -53,5 +53,7 @@ namespace Euclid.Composites
 			where TCommandDestination : ICommand;
 
 		void CreateSchema(IPersistenceConfigurer databaseConfiguration, bool destructive);
+
+		object ExecuteQuery(string queryName, string queryMethod, int argumentCount, Func<string, string> getArgumentValue);
 	}
 }

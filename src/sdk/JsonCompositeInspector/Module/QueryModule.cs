@@ -53,6 +53,18 @@ namespace JsonCompositeInspector.Module
 
 			if (asJson)
 			{
+				if (query == null)
+				{
+					return
+						Response.AsJson(
+							new
+								{
+									name = "Invalid QueryName Exception",
+									message = string.Format("The composite {0} has no query named {1}", _compositeApp.Name, queryName)
+								},
+							HttpStatusCode.InternalServerError);
+				}
+				
 				var json = query.GetFormatter().GetRepresentation("json");
 				var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
 				return Response.FromStream(ms, "application/json");
@@ -63,24 +75,11 @@ namespace JsonCompositeInspector.Module
 
 		public Response ExecuteQueryMethod(string queryName, string methodName)
 		{
-			var query = _compositeApp.Queries.Where(
-				q =>
-				q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase)).
-				FirstOrDefault();
-
-			var instance = _container.Resolve(query.Type);
-			var arguments = new List<object>();
-			var argumentCount = ((DynamicDictionary)Context.Request.Form).Count();
-			var method = query.Type.GetMethods().Where(m => m.Name == methodName && m.GetParameters().Count() == argumentCount).FirstOrDefault();
 			try
 			{
-				foreach (var param in method.GetParameters())
-				{
-					var value = Context.Request.Form[param.Name];
-					arguments.Add(ValueConverter.GetValueAs(value, param.ParameterType));
-				}
-
-				var results = method.Invoke(instance, arguments.ToArray());
+				var form = (DynamicDictionary) Context.Request.Form;
+				var argumentCount = form.Count();
+				var results = _compositeApp.ExecuteQuery(queryName, methodName, argumentCount, paramName => form[paramName]);
 				return Response.AsJson(results);
 			}
 			catch (Exception e)

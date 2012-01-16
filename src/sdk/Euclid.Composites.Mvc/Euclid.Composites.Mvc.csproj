@@ -90,6 +90,7 @@
       <HintPath>..\..\..\packages\routedebugger.2.0.0.7\lib\net40\RouteDebugger.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -102,7 +103,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionFilters\AgentMetadataNotFoundException.cs" />
     <Compile Include="ActionFilters\AgentPartMetdataNotFoundException.cs" />
     <Compile Include="ActionFilters\ApplicationNotPartResolverException.cs" />
     <Compile Include="ActionFilters\CannotRetrieveInputModelException.cs" />
@@ -145,6 +145,7 @@
     <Compile Include="Results\JsonNetResult.cs" />
     <Compile Include="Results\JsonpNetResult.cs" />
     <Compile Include="Results\XmlResult.cs" />
+    <Compile Include="Validation\UniqueValueAttribute.cs" />
     <Compile Include="WindsorControllerFactory.cs" />
     <Compile Include="WindsorDependencyResolver.cs" />
   </ItemGroup>
