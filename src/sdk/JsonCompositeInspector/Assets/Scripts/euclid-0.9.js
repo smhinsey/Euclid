@@ -472,7 +472,8 @@ jQuery.validator.addMethod('uniquevalue', function (value, element, params) {
 	var method = $(element).attr("data-val-uniquevalue-method");
 	var argument = $(element).attr("data-val-uniquevalue-argument");
 	var argumentObject = $.parseJSON("{ \"" + argument + "\": \"" + value + "\"}")
-	var results = EUCLID.executeQuery({ queryName: query, methodName: method, parameters: argumentObject });
+	var results = EUCLID.executeQuery({queryName: query, methodName: method, parameters: argumentObject});
+
 	return results == null;
 }, '');
 
