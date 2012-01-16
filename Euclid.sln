@@ -93,8 +93,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{B1A8F5A1
 		nuget\package.msbuild = nuget\package.msbuild
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeInspector", "src\sdk\CompositeInspector\CompositeInspector.csproj", "{D1B6455D-9E83-423F-A8E0-82073D066846}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingAgent", "src\sdk\LoggingAgent\LoggingAgent.csproj", "{1FE538F6-D05D-4849-8741-F827F1B7B34F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{674A6EA6-63D0-45C9-A6DE-4EBB21AE79A2}"
@@ -104,6 +102,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureAgentHost", "src\sdk\AzureAgentHost\AzureAgentHost.csproj", "{67EB33C1-88DD-458A-BAC9-66D7A8401301}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonCompositeInspector", "src\sdk\JsonCompositeInspector\JsonCompositeInspector.csproj", "{7453ADF2-CE91-47BD-A046-003CCC90D962}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{08FA4B73-08BA-4C7F-BFD3-FC6E0C5AA9FC}"
+	ProjectSection(SolutionItems) = preProject
+		build\build.msbuild = build\build.msbuild
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -587,18 +590,6 @@ Global
 		{780B3603-392F-4C71-BBE1-87477248D1A8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{780B3603-392F-4C71-BBE1-87477248D1A8}.Release|x64.ActiveCfg = Release|Any CPU
 		{780B3603-392F-4C71-BBE1-87477248D1A8}.Release|x86.ActiveCfg = Release|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Release|x64.ActiveCfg = Release|Any CPU
-		{D1B6455D-9E83-423F-A8E0-82073D066846}.Release|x86.ActiveCfg = Release|Any CPU
 		{1FE538F6-D05D-4849-8741-F827F1B7B34F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1FE538F6-D05D-4849-8741-F827F1B7B34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FE538F6-D05D-4849-8741-F827F1B7B34F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -667,7 +658,6 @@ Global
 		{A32FFA94-BEEA-46AD-9A99-F09D6F44D58B} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
 		{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
 		{B1A8F5A1-E899-4CE7-BC1F-B4F5C4F031DB} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
-		{D1B6455D-9E83-423F-A8E0-82073D066846} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
 		{1FE538F6-D05D-4849-8741-F827F1B7B34F} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
 		{67EB33C1-88DD-458A-BAC9-66D7A8401301} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}
 		{7453ADF2-CE91-47BD-A046-003CCC90D962} = {7F2FB364-EDF3-4C43-B5F2-1388ADA4C9EB}

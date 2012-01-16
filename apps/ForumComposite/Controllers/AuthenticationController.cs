@@ -32,31 +32,36 @@ namespace ForumComposite.Controllers
 				//    UserIdentifier = user.Identifier
 				//  });
 
-				var issueDate = DateTime.Now;
-
-				var expirationDate = DateTime.Now.AddYears(1);
-
 				var userData = string.Format("{0}^{1}^{2}", org, forum, user.Identifier);
 
-				var ticket = new FormsAuthenticationTicket(1, user.Username, issueDate, expirationDate, true, userData);
+				var authCookie = FormsAuthentication.GetAuthCookie(user.Username, true);
+				var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
 
-				var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket))
-					{ Path = string.Format("org/{0}/forum/{1}", org, forum) };
+				var ticket = new FormsAuthenticationTicket(authTicket.Version, authTicket.Name, authTicket.IssueDate, authTicket.Expiration, authTicket.IsPersistent, userData);
+				var encryptedTicket = FormsAuthentication.Encrypt(ticket);
 
-				Response.AppendCookie(cookie);
+				authCookie.Value = encryptedTicket;
+				authCookie.Path = string.Format("/org/{0}/forum/{1}", org, forum);
+				authCookie.Expires = DateTime.Now.AddDays(10);
+
+				Response.Cookies.Add(authCookie);
 
 				return new RedirectToRouteResult("Home", null);
 			}
 
-			// redirect to a login error screen
+			// TODO: redirect to a login error screen
 			return new RedirectToRouteResult("Home", null);
 		}
 
-		public ActionResult Signout()
+		public ActionResult SignOut(string org, string forum)
 		{
-			Response.Cookies.Remove(FormsAuthentication.FormsCookieName);
+			var authCookie = FormsAuthentication.GetAuthCookie(ForumInfo.AuthenticatedUserName, true);
 
-			FormsAuthentication.SignOut();
+			authCookie.Value = null;
+			authCookie.Path = string.Format("/org/{0}/forum/{1}", org, forum);
+			authCookie.Expires = DateTime.Now.AddYears(-1);
+
+			Response.Cookies.Add(authCookie);
 
 			return new RedirectToRouteResult("Home", null);
 		}

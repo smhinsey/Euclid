@@ -8,7 +8,7 @@
 
 		Started,
 
-		Stoppping,
+		Stopping,
 
 		Stopped,
 

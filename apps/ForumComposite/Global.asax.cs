@@ -203,7 +203,16 @@ namespace ForumComposite
 
 		private void redirectOnFailure(string org, string forum)
 		{
-			FormsAuthentication.SignOut();
+			var authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+
+			if (authCookie != null)
+			{
+				authCookie.Value = null;
+				authCookie.Path = string.Format("/org/{0}/forum/{1}", org, forum);
+				authCookie.Expires = DateTime.Now.AddYears(-1);
+
+				Response.Cookies.Add(authCookie);
+			}
 
 			Response.Redirect(string.Format("/org/{0}/forum/{1}", org, forum));
 		}
