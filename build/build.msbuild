@@ -1,0 +1,27 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="default">
+	<PropertyGroup>
+		<BaseDir>$(MSBuildProjectDirectory)\..</BaseDir>
+		<Configuration Condition="'$(Configuration)'==''" >Debug</Configuration>
+		<OutputDir>$(BaseDir)\output</OutputDir>
+		<SolutionFile>$(BaseDir)\Euclid.sln</SolutionFile>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	</PropertyGroup>
+
+	<!-- 
+		Can be run in a local dev environment or on a CI server.
+
+		* Remove all artifacts from any previous builds
+		* Update all relevant values in AssemblyInfo.cs files (use SemVer)
+		* Compile Euclid.sln
+		* Obtain all Common assemblies and combine with ilmerge where appropriate. For now, don't merge dependencies.
+		* Obtain all Framework assemblies and combine with ilmerge where appropriate. For now, don't merge dependencies.
+		* Obtain all SDK assemblies and combine with ilmerge where appropirate. For now, don't merge dependencies.
+		* Create nuget package for Common, using nuget dependencies for things such as nHibernate where possible.
+		* Create nuget package for Framework, using nuget dependencies for Euclid.Common and anything else that makes sense.
+		* Create nuget package for SDK, one per composite.
+		* Update local nuget feed
+		* (CI server only) publish updated nuget feed
+	-->
+
+
+</Project>
