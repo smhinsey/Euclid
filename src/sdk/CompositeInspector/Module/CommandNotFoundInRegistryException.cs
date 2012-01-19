@@ -9,3 +9,13 @@ namespace JsonCompositeInspector.Views.Commands
 		}
 	}
 }
+
+namespace JsonCompositeInspector.Module
+{
+	public class CommandNotFoundInRegistryException : Exception
+	{
+		public CommandNotFoundInRegistryException(Guid publicationId) : base(publicationId.ToString())
+		{
+		}
+	}
+}

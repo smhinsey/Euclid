@@ -2,18 +2,21 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D1B6455D-9E83-423F-A8E0-82073D066846}</ProjectGuid>
+    <ProjectGuid>{7453ADF2-CE91-47BD-A046-003CCC90D962}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CompositeInspector</RootNamespace>
-    <AssemblyName>CompositeInspector</AssemblyName>
+    <RootNamespace>JsonCompositeInspector</RootNamespace>
+    <AssemblyName>JsonCompositeInspector</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,7 +25,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,156 +34,70 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=2.0.0.232, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\AutoMapper.2.0.0\lib\net40-client\AutoMapper.dll</HintPath>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Web.Mvc">
-      <HintPath>..\..\..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\..\packages\Castle.Windsor.2.5.4\lib\net40-client\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="MvcContrib, Version=3.0.68.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\MvcContrib.Mvc3-ci.3.0.68.0\lib\MvcContrib.dll</HintPath>
+    <Reference Include="Nancy">
+      <HintPath>..\..\..\packages\Nancy.0.9.0\lib\net40\Nancy.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.BootStrappers.Windsor">
+      <HintPath>..\..\..\packages\Nancy.Bootstrappers.Windsor.0.9.0\lib\net40\Nancy.BootStrappers.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Aspnet, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Nancy.Hosting.Aspnet.0.9.0\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
+    </Reference>
+    <Reference Include="Nancy.ViewEngines.Razor">
+      <HintPath>..\..\..\packages\Nancy.Viewengines.Razor.0.9.0\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Activities" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.Linq" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Activation" />
-    <Reference Include="System.ServiceModel.Activities" />
-    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="System.Web.Routing" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.WebPages.Deployment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="System.WorkflowServices" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Nancy.Viewengines.Razor.0.9.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompositeInspectorAreaRegistration.cs" />
-    <Compile Include="Controllers\AgentsController.cs" />
-    <Compile Include="Controllers\CommandRegistryController.cs" />
-    <Compile Include="Controllers\CompositeController.cs" />
-    <Compile Include="Controllers\FrameController.cs" />
-    <Compile Include="Controllers\LoggingController.cs" />
-    <Compile Include="Messages\ContainerRegistrationMessage.cs" />
-    <Compile Include="Models\AgentListModel.cs" />
+    <Compile Include="Models\LogModel.cs" />
+    <Compile Include="Module\AssetModule.cs" />
+    <Compile Include="Module\CommandNotFoundInRegistryException.cs" />
+    <Compile Include="Module\LogModule.cs" />
+    <Compile Include="CompositeInspectorBootstrapper.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\AgentPartModel.cs" />
-    <Compile Include="Models\LogEntryModel.cs" />
+    <Compile Include="Models\CommandModel.cs" />
+    <Compile Include="Models\CompositeHome.cs" />
     <Compile Include="Models\PublishedCommandModel.cs" />
-    <Compile Include="Models\CompositeModel.cs" />
-    <Compile Include="Models\PartCollectionModel.cs" />
-    <Compile Include="Models\PartModel.cs" />
+    <Compile Include="Module\CommandModule.cs" />
+    <Compile Include="Module\CompositeModule.cs" />
+    <Compile Include="Module\QueryModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Binders\InputModelBinder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Content\Styles\euclid-default-styles.css" />
-    <EmbeddedResource Include="Content\Styles\Site.css" />
-    <EmbeddedResource Include="Content\Scripts\jquery-1.5.1-vsdoc.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery-1.6.2-vsdoc.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery-1.6.2.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery-1.6.2.min.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery-ui-1.8.14.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery-ui-1.8.14.min.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery.unobtrusive-ajax.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery.unobtrusive-ajax.min.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery.validate-vsdoc.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery.validate.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery.validate.min.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery.validate.unobtrusive.js" />
-    <EmbeddedResource Include="Content\Scripts\jquery.validate.unobtrusive.min.js" />
-    <EmbeddedResource Include="Content\Scripts\MicrosoftAjax.debug.js" />
-    <EmbeddedResource Include="Content\Scripts\MicrosoftAjax.js" />
-    <EmbeddedResource Include="Content\Scripts\MicrosoftMvcAjax.debug.js" />
-    <EmbeddedResource Include="Content\Scripts\MicrosoftMvcAjax.js" />
-    <EmbeddedResource Include="Content\Scripts\MicrosoftMvcValidation.debug.js" />
-    <EmbeddedResource Include="Content\Scripts\MicrosoftMvcValidation.js" />
-    <EmbeddedResource Include="Content\Scripts\modernizr-2.0.6-development-only.js" />
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <EmbeddedResource Include="Views\Commands\view-command.cshtml" />
+    <EmbeddedResource Include="Views\Composite\home.cshtml" />
+    <EmbeddedResource Include="Views\Composite\view-agent.cshtml" />
+    <EmbeddedResource Include="Views\Shared\Frameset.cshtml" />
+    <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
+    <EmbeddedResource Include="Views\Queries\view-query-methods.cshtml" />
+    <EmbeddedResource Include="Views\Commands\view-publication-record.cshtml" />
+    <EmbeddedResource Include="Views\Log\logs.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\_ViewStart.cshtml">
-      <LastGenOutput>_ViewStart.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Agents\Index.cshtml">
-      <LastGenOutput>Index.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Agents\ViewAgent.cshtml">
-      <LastGenOutput>ViewAgent.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Agents\ViewInputModelForCommand.cshtml">
-      <LastGenOutput>ViewInputModelForCommand.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Agents\ViewPart.cshtml">
-      <LastGenOutput>ViewPart.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\CommandRegistry\Details.cshtml">
-      <LastGenOutput>Details.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\CommandRegistry\Index.cshtml">
-      <LastGenOutput>Index.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Composite\Index.cshtml">
-      <LastGenOutput>Index.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Shared\_Layout.cshtml">
-      <LastGenOutput>_Layout.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Shared\DisplayTemplates\IAgentMetadata.cshtml">
-      <LastGenOutput>IAgentMetadata.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Shared\DisplayTemplates\IAgentPart.cshtml">
-      <LastGenOutput>IAgentPart.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Shared\Error.cshtml">
-      <LastGenOutput>Error.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">
-      <Project>{B04EEAA1-7492-41B9-9CEA-1D961D9A8568}</Project>
-      <Name>Euclid.Common.Configuration</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
@@ -200,10 +118,6 @@
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
-      <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
-      <Name>Euclid.Composites.Mvc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Euclid.Composites\Euclid.Composites.csproj">
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
@@ -214,57 +128,32 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\Agents\ViewPartCollection.cshtml" />
+    <EmbeddedResource Include="Assets\Scripts\jquery.form.js" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-    <EmbeddedResource Include="Views\Shared\Scripts.cshtml" />
-    <EmbeddedResource Include="Views\Shared\Styles.cshtml" />
-    <EmbeddedResource Include="Views\Frame\Index.cshtml" />
-    <EmbeddedResource Include="Views\Logging\Index.cshtml" />
-    <EmbeddedResource Include="Views\Shared\Paging.cshtml" />
-    <None Include="web.config" />
+    <EmbeddedResource Include="Assets\Images\1.jpg" />
+    <EmbeddedResource Include="Assets\Images\test\2.jpg" />
+    <EmbeddedResource Include="Assets\NewCo.ico" />
+    <EmbeddedResource Include="Assets\Scripts\euclid-0.9.js" />
+    <EmbeddedResource Include="Assets\Scripts\jquery-1.7.1.min.js" />
+    <EmbeddedResource Include="Assets\Styles\composite-inspector.css" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Content\Scripts\jquery-guid.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Content\Styles\jquery.ui.all.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.autocomplete.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.button.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.core.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.datepicker.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.progressbar.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.resizable.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.selectable.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.slider.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.tabs.css" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Content\Styles\jquery.ui.base.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.dialog.css" />
-    <EmbeddedResource Include="Content\Styles\jquery.ui.theme.css" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Content\Styles\jquery.ui.accordion.css" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Content\Images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <EmbeddedResource Include="Content\Images\ui-bg_flat_75_ffffff_40x100.png" />
-    <EmbeddedResource Include="Content\Images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <EmbeddedResource Include="Content\Images\ui-bg_glass_65_ffffff_1x400.png" />
-    <EmbeddedResource Include="Content\Images\ui-bg_glass_75_dadada_1x400.png" />
-    <EmbeddedResource Include="Content\Images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <EmbeddedResource Include="Content\Images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <EmbeddedResource Include="Content\Images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <EmbeddedResource Include="Content\Images\ui-icons_222222_256x240.png" />
-    <EmbeddedResource Include="Content\Images\ui-icons_2e83ff_256x240.png" />
-    <EmbeddedResource Include="Content\Images\ui-icons_454545_256x240.png" />
-    <EmbeddedResource Include="Content\Images\ui-icons_888888_256x240.png" />
-    <EmbeddedResource Include="Content\Images\ui-icons_cd0a0a_256x240.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Content\Scripts\euclid.js" />
+    <EmbeddedResource Include="Assets\Scripts\jquery-ui-1.8.16.custom.min.js" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-icons_222222_256x240.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-icons_454545_256x240.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-icons_888888_256x240.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <EmbeddedResource Include="Assets\Styles\smoothness\jquery-ui-1.8.16.custom.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

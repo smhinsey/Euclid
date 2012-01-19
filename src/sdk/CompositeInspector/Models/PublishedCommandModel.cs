@@ -1,6 +1,6 @@
 ﻿using Euclid.Framework.Cqrs;
 
-namespace CompositeInspector.Models
+namespace JsonCompositeInspector.Models
 {
 	public class PublishedCommandModel
 	{
