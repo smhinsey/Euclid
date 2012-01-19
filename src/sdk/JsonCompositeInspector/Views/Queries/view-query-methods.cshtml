@@ -31,7 +31,7 @@
 			var idx = $(this).attr("data-index");
 			var method = queryMetadata.Methods[idx];
 			var form = EUCLID.getQueryForm({ method: method, queryName: "@model" });
-
+			$(form).attr("data-method-name", method.Name);
 			$("#form-container").html("");
 			$("#results").html("");
 			$("#form-container").append($(form));
@@ -43,6 +43,7 @@
 		$(document).on('submit', "#query-form", function () {
 			var url = $("#query-form").attr("action");
 			var data = $("#query-form").serialize();
+			var method = $("#query-form").attr("data-method-name");
 
 			$.ajaxSetup({ "async": false });
 			var jqHxr = jQuery.post(url, data);
@@ -57,9 +58,13 @@
 				var html = "";
 
 				if (model instanceof Array) {
-					$.each(model, function (index, item) {
-						html += formatProperties(item);
-					});
+					if (model.length == 0) {
+						html = "<p class='alert-message warning'><strong>Nada</strong> the query @model." + method + " returned 0 results";
+					} else {
+						$.each(model, function (index, item) {
+							html += formatProperties(item);
+						});
+					}
 				}
 				else {
 					html = formatProperties(model);

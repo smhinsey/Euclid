@@ -288,7 +288,7 @@ var EUCLID = function () {
 			var fieldSet = $(form).children("fieldset");
 
 			$.each(method.Arguments, function (index, item) {
-				var forceShow = methodName == "FindById" && item.ArgumentName == "id";
+				var forceShow = true;// methodName == "FindById" && item.ArgumentName == "id";
 				_addElementToForm(item.ArgumentName, item.ArgumentType, "", item.Choices, item.MultiChoice, fieldSet, forceShow);
 			});
 
@@ -467,21 +467,23 @@ String.prototype.endsWith = function(suffix) {
 	return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
 
-jQuery.validator.addMethod('uniquevalue', function (value, element, params) {
-	var query = $(element).attr("data-val-uniquevalue-query");
-	var method = $(element).attr("data-val-uniquevalue-method");
-	var argument = $(element).attr("data-val-uniquevalue-argument");
-	var argumentObject = $.parseJSON("{ \"" + argument + "\": \"" + value + "\"}")
-	var results = EUCLID.executeQuery({queryName: query, methodName: method, parameters: argumentObject});
+if (jQuery.validator != null) {
+	jQuery.validator.addMethod('uniquevalue', function (value, element, params) {
+		var query = $(element).attr("data-val-uniquevalue-query");
+		var method = $(element).attr("data-val-uniquevalue-method");
+		var argument = $(element).attr("data-val-uniquevalue-argument");
+		var argumentObject = $.parseJSON("{ \"" + argument + "\": \"" + value + "\"}")
+		var results = EUCLID.executeQuery({ queryName: query, methodName: method, parameters: argumentObject });
 
-	return results == null;
-}, '');
+		return results == null;
+	}, '');
 
-// and an unobtrusive adapter
-jQuery.validator.unobtrusive.adapters.add('uniquevalue', {}, function (options) {
-	options.rules['uniquevalue'] = true;
-	options.messages['uniquevalue'] = options.message;
-});
+	// and an unobtrusive adapter
+	jQuery.validator.unobtrusive.adapters.add('uniquevalue', {}, function (options) {
+		options.rules['uniquevalue'] = true;
+		options.messages['uniquevalue'] = options.message;
+	});
+}
 
 $(document).ready(function () {
 	$(window).scroll(function () {
