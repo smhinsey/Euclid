@@ -168,70 +168,71 @@
     <Content Include="Content\logo_3.png" />
     <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.min.js" />
     <Content Include="Content\admin-ui.js" />
+    <Compile Include="Areas\Forum\ForumAreaRegistration.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
-    <Compile Include="Controllers\AvailableContentType.cs" />
-    <Compile Include="Controllers\AvatarController.cs" />
-    <Compile Include="Controllers\ProfanityFilterController.cs" />
-    <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Areas\Forum\Controllers\AvailableContentType.cs" />
+    <Compile Include="Areas\Forum\Controllers\AvatarController.cs" />
+    <Compile Include="Areas\Forum\Controllers\ProfanityFilterController.cs" />
+    <Compile Include="Areas\Forum\Controllers\TagController.cs" />
     <Compile Include="Extensions\FilterContextExtensions.cs" />
-    <Compile Include="Controllers\BadgeController.cs" />
-    <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\ContentController.cs" />
+    <Compile Include="Areas\Forum\Controllers\BadgeController.cs" />
+    <Compile Include="Areas\Forum\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Forum\Controllers\ContentController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Controllers\ForumController.cs" />
-    <Compile Include="Controllers\ModerationController.cs" />
+    <Compile Include="Areas\Forum\Controllers\ForumController.cs" />
+    <Compile Include="Areas\Forum\Controllers\ModerationController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
-    <Compile Include="Controllers\ThemeController.cs" />
-    <Compile Include="Controllers\UserProfileController.cs" />
-    <Compile Include="Controllers\VotingController.cs" />
+    <Compile Include="Areas\Forum\Controllers\ThemeController.cs" />
+    <Compile Include="Areas\Forum\Controllers\UserProfileController.cs" />
+    <Compile Include="Areas\Forum\Controllers\VotingController.cs" />
     <Compile Include="Extensions\RequestExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
-    <Compile Include="Models\ActivateAvatarInputModel.cs" />
-    <Compile Include="Models\ActivateBadgeInputModel.cs" />
-    <Compile Include="Models\ActivateCategoryInputModel.cs" />
-    <Compile Include="Models\ActivateContentInputModel.cs" />
-    <Compile Include="Models\ActivateOrganizationUserInputModel.cs" />
-    <Compile Include="Models\ActivateUserInputModel.cs" />
-    <Compile Include="Models\ApproveCommentInputModel.cs" />
-    <Compile Include="Models\ApprovePostInputModel.cs" />
-    <Compile Include="Models\BlockUserInputModel.cs" />
-    <Compile Include="Models\ActivateTagInputModel.cs" />
-    <Compile Include="Models\ActivateStopWordInputModel.cs" />
-    <Compile Include="Models\DeleteStopWordInputModel.cs" />
-    <Compile Include="Models\CreateStopWordInputModel.cs" />
-    <Compile Include="Models\UpdateTagInputModel.cs" />
-    <Compile Include="Models\CreateTagInputModel.cs" />
-    <Compile Include="Models\DeleteAvatarInputModel.cs" />
-    <Compile Include="Models\DeleteContentInputModel.cs" />
-    <Compile Include="Models\DeleteForumUserInputModel.cs" />
-    <Compile Include="Models\DeleteOrganizationUserInputModel.cs" />
-    <Compile Include="Models\RejectCommentInputModel.cs" />
-    <Compile Include="Models\RejectPostInputModel.cs" />
-    <Compile Include="Models\UnblockUserInputModel.cs" />
-    <Compile Include="Models\UpdateForumAvatarInputModel.cs" />
-    <Compile Include="Models\CreateBadgeInputModel.cs" />
-    <Compile Include="Models\CreateCategoryInputModel.cs" />
-    <Compile Include="Models\CreateForumAvatarInputModel.cs" />
-    <Compile Include="Models\CreateForumContentInputModel.cs" />
-    <Compile Include="Models\CreateForumInputModel.cs" />
-    <Compile Include="Models\CreateOrganizationAndRegisterUserInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\ActivateAvatarInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\ActivateBadgeInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\ActivateCategoryInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\ActivateContentInputModel.cs" />
+    <Compile Include="InputModels\ActivateOrganizationUserInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\ActivateUserInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\ApproveCommentInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\ApprovePostInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\BlockUserInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\ActivateTagInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\ActivateStopWordInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\DeleteStopWordInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\CreateStopWordInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\UpdateTagInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\CreateTagInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\DeleteAvatarInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\DeleteContentInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\DeleteForumUserInputModel.cs" />
+    <Compile Include="InputModels\DeleteOrganizationUserInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\RejectCommentInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\RejectPostInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\UnblockUserInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\UpdateForumAvatarInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\CreateBadgeInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\CreateCategoryInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\CreateForumAvatarInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\CreateForumContentInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\CreateForumInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\CreateOrganizationAndRegisterUserInputModel.cs" />
     <Compile Include="ActionFilters\PopulateAdminWideViewBag.cs" />
-    <Compile Include="Models\ForumThemeInputModel.cs" />
-    <Compile Include="Models\PaginationModel.cs" />
-    <Compile Include="Models\RegisterOrganizationUserInputModel.cs" />
-    <Compile Include="Models\UpdateBadgeInputModel.cs" />
-    <Compile Include="Models\UpdateCategoryInputModel.cs" />
-    <Compile Include="Models\UpdateForumContentInputModel.cs" />
-    <Compile Include="Models\UpdateForumInputModel.cs" />
-    <Compile Include="Models\UpdateForumVotingSchemeInputModel.cs" />
-    <Compile Include="Models\UpdateOrganizationInputModel.cs" />
-    <Compile Include="Models\UpdateOrganizationUserInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\ForumThemeInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\PaginationModel.cs" />
+    <Compile Include="InputModels\RegisterOrganizationUserInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\UpdateBadgeInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\UpdateCategoryInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\UpdateForumContentInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\UpdateForumInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\UpdateForumVotingSchemeInputModel.cs" />
+    <Compile Include="InputModels\UpdateOrganizationInputModel.cs" />
+    <Compile Include="InputModels\UpdateOrganizationUserInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\RegisterForumUserInputModel.cs" />
+    <Compile Include="Areas\Forum\InputModels\RegisterForumUserInputModel.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -519,19 +520,19 @@
     <Content Include="Areas\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Forum\Create.cshtml" />
+    <Content Include="Areas\Forum\Views\Forum\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Authentication\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\UserProfile\_Details.cshtml" />
+    <Content Include="Areas\Forum\Views\UserProfile\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\UserProfile\_Invite.cshtml" />
+    <Content Include="Areas\Forum\Views\UserProfile\_Invite.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\UserProfile\List.cshtml" />
+    <Content Include="Areas\Forum\Views\UserProfile\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Authentication\Signin.cshtml" />
@@ -546,28 +547,28 @@
     <Content Include="Views\Organization\_RegisterOrganizationUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Badge\List.cshtml" />
+    <Content Include="Areas\Forum\Views\Badge\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Badge\_NewBadge.cshtml" />
+    <Content Include="Areas\Forum\Views\Badge\_NewBadge.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Moderation\Items.cshtml" />
+    <Content Include="Areas\Forum\Views\Moderation\Items.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Forum\AuthenticationProviders.cshtml" />
+    <Content Include="Areas\Forum\Views\Forum\AuthenticationProviders.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Category\List.cshtml" />
+    <Content Include="Areas\Forum\Views\Category\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Category\_NewCategory.cshtml" />
+    <Content Include="Areas\Forum\Views\Category\_NewCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Content\List.cshtml" />
+    <Content Include="Areas\Forum\Views\Content\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Content\_NewContent.cshtml" />
+    <Content Include="Areas\Forum\Views\Content\_NewContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Dashboard\GetConfirmationMessageAttributesMissingMessage.cshtml" />
@@ -576,23 +577,25 @@
     <Content Include="Views\Dashboard\GetConfirmationMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Voting\List.cshtml" />
+    <Content Include="Areas\Forum\Views\Voting\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Theme\List.cshtml" />
+    <Content Include="Areas\Forum\Views\Theme\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Organization\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Forum\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <Content Include="Views\Content\_wysiwg.cshtml" />
+    <Content Include="Areas\Forum\Views\Forum\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Content\_youtube.cshtml" />
+    <Content Include="Areas\Forum\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Forum\Views\Content\_wysiwg.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Forum\Views\Content\_youtube.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Authentication\_AnonymousLayout.cshtml" />
@@ -610,13 +613,13 @@
     <Content Include="Views\Authentication\DoSignout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Category\_UpdateCategory.cshtml" />
+    <Content Include="Areas\Forum\Views\Category\_UpdateCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Content\_UpdateContent.cshtml" />
+    <Content Include="Areas\Forum\Views\Content\_UpdateContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Content\_preview.cshtml" />
+    <Content Include="Areas\Forum\Views\Content\_preview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\custom.config">
@@ -639,22 +642,22 @@
     <Content Include="Views\Shared\_pagination.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Moderation\_list.cshtml" />
+    <Content Include="Areas\Forum\Views\Moderation\_list.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\bluejay.custom.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Badge\_UpdateBadge.cshtml" />
+    <Content Include="Areas\Forum\Views\Badge\_UpdateBadge.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Avatar\List.cshtml" />
+    <Content Include="Areas\Forum\Views\Avatar\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Avatar\_NewAvatar.cshtml" />
+    <Content Include="Areas\Forum\Views\Avatar\_NewAvatar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Avatar\_UpdateAvatar.cshtml" />
+    <Content Include="Areas\Forum\Views\Avatar\_UpdateAvatar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\jason-mbp.custom.config">
@@ -662,19 +665,26 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Tag\_NewTag.cshtml" />
+    <Content Include="Areas\Forum\Views\Tag\_NewTag.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Tag\List.cshtml" />
+    <Content Include="Areas\Forum\Views\Tag\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Tag\_UpdateTag.cshtml" />
+    <Content Include="Areas\Forum\Views\Tag\_UpdateTag.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\ProfanityFilter\_NewStopWord.cshtml" />
+    <Content Include="Areas\Forum\Views\ProfanityFilter\_NewStopWord.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\ProfanityFilter\List.cshtml" />
+    <Content Include="Areas\Forum\Views\ProfanityFilter\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Forum\ViewModels\" />
+    <Folder Include="Areas\Forum\Views\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Forum\Views\_ViewStart.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

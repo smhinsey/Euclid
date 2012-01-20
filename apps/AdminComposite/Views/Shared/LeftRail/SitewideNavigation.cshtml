@@ -47,42 +47,42 @@
 				</section>
 				<ul class="expand">
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "forum", "details", "current")>
-						<a href="@Url.Action("Details", "Forum", new { forumId })">Details</a> </li>
+						<a href="@Url.Action("Details", "Forum", new { forumId, Area = "Forum" })">Details</a> </li>
 				
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "content", "list", "current")>
-						<a href="@Url.Action("List", "Content", new { forumId })">Content</a> </li>
+						<a href="@Url.Action("List", "Content", new { forumId, Area = "Forum" })">Content</a> </li>
 
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "category", "list", "current")>
-						<a href="@Url.Action("List", "Category", new { forumId })">Categories</a> </li>
+						<a href="@Url.Action("List", "Category", new { forumId, Area = "Forum" })">Categories</a> </li>
 						
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "tag", "list", "current")>
-						<a href="@Url.Action("List", "Tag", new { forumId })">Tags</a> </li>
+						<a href="@Url.Action("List", "Tag", new { forumId, Area = "Forum" })">Tags</a> </li>
 
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "userprofile", "list", "current")>
-						<a href="@Url.Action("List", "UserProfile", new { forumId })">Users</a> </li>
+						<a href="@Url.Action("List", "UserProfile", new { forumId, Area = "Forum" })">Users</a> </li>
 				
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "badge", "list", "current")>
-						<a href="@Url.Action("List", "Badge", new { forumId })">Badges</a> </li>
+						<a href="@Url.Action("List", "Badge", new { forumId, Area = "Forum" })">Badges</a> </li>
 
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "avatar", "list", "current")>
-						<a href="@Url.Action("List", "Avatar", new {forumId })">Avatars</a>
+						<a href="@Url.Action("List", "Avatar", new { forumId, Area = "Forum" })">Avatars</a>
 					</li>
 					
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "profanityfilter", "list", "current")>
-						<a href="@Url.Action("List", "ProfanityFilter", new {forumId })">Profanity Filter</a>
+						<a href="@Url.Action("List", "ProfanityFilter", new { forumId, Area = "Forum" })">Profanity Filter</a>
 					</li>
 
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "voting", "list", "current")>
-						<a href="@Url.Action("List", "Voting", new { forumId })">Voting</a> </li>
+						<a href="@Url.Action("List", "Voting", new { forumId, Area = "Forum" })">Voting</a> </li>
 				
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "theme", "list", "current")>
-						<a href="@Url.Action("List", "Theme", new { forumId })">Themes</a> </li>
+						<a href="@Url.Action("List", "Theme", new { forumId, Area = "Forum" })">Themes</a> </li>
 
 					<li @if (moderatingPosts) { <text>class="current"</text>}>
-						<a href="@Url.Action("Items", "Moderation", new { forumId })">Moderate Posts & Comments</a> </li>
+						<a href="@Url.Action("Items", "Moderation", new { forumId, Area = "Forum" })">Moderate Posts & Comments</a> </li>
 
 					<li @Html.GetClassWhenControllerAndActionAreCurrent(isCurrentForum, "forum", "authenticationproviders", "current")>
-						<a href="@Url.Action("AuthenticationProviders", "Forum", new { forumId })">Configure Authentication</a> </li>
+						<a href="@Url.Action("AuthenticationProviders", "Forum", new { forumId, Area = "Forum" })">Configure Authentication</a> </li>
 				</ul>
 			</li>
 		}

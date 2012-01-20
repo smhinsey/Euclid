@@ -1,0 +1,136 @@
+﻿@using System.Globalization
+@using AdminComposite.Areas.Forum.InputModels
+@model ForumAgent.ReadModels.AvailableBadges
+@{
+	ViewBag.Title = "Manage Forum Badges";
+	((PaginationModel)ViewBag.Pagination).ColSpan = 4;
+}
+<script type="text/javascript">
+	var forumId = "@Model.ForumIdentifier";
+	$(document).ready(function() {
+		$("#create-badge").click(function() {
+			EUCLID.showModalForm({ Url: "/Badge/NewBadge/" + forumId });
+
+			return false;
+		});
+
+		$("#save").click(function() {
+			$(this).attr("disabled", "disabled");
+
+			var inputModel = null;
+			try {
+				inputModel = EUCLID.getModel({ commandName: "ActivateBadge" });
+			} catch(e) {
+				EUCLID.displayError("Unable to fetch input model for ActivateBadge command", e.name + "<br />" + description);
+				return false;
+			}
+
+			$(".badge-active").each(function(index, item) {
+				var currentName = $(item).attr("data-item-name");
+				try {
+					inputModel.BadgeIdentifier = $(item).attr("data-item-id");
+					inputModel.Active = $(item).is(":checked");
+					EUCLID.publish(inputModel);
+				} catch(e) {
+					EUCLID.displayError("Error activating badge '" + currentName + "'", e.name + "<br />" + e.message);
+				}
+			});
+
+			setTimeout("enableSaveButton()", 750);
+		});
+
+		$(".edit").click(function() {
+			var badgeId = $(this).attr("data-item-id");
+
+			$("<div></div>")
+				.load("@Url.Action("UpdateBadge")?badgeId=" + badgeId)
+				.modal({
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 485, width: 635 },
+					containerCss: { height: 500, width: 650 }
+				});
+			return false;
+		});
+	});
+
+
+	function enableSaveButton() {
+		$("#save").removeAttr('disabled');
+	}
+</script>
+<article>
+	<header>
+		<h2>@ViewBag.Title</h2>
+	</header>
+
+	<section>
+		<p style="float: left">View, add, edit and activate forum badges</p>
+		<a href="#" style="float: right" class="button-link blue" id="create-badge">Add Badge</a>
+	</section>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Active</th>
+				<th>Name</th>
+				<th>Trigger</th>
+				<th>Image</th>
+				<th></th>
+			</tr>
+		</thead>
+		@if (Model.TotalBadges == 0)
+		{
+			<tbody class="no-table-data">
+				<tr>
+					<td colspan="5">There are no badges in this forum, create one using the blue button above.</td>
+				</tr>
+			</tbody>
+		}
+		else
+		{
+			<tfoot>
+				<tr>
+					<td>
+						<ul class="button-switch">
+							<li><button type="button" id="save">Save</button></li>
+						</ul>
+					</td>
+					@Html.Partial("_pagination")
+				</tr>
+			</tfoot>
+			<tbody>
+				@foreach (var badge in Model.Badges)
+				{
+					<tr>
+						<td>@Html.CheckBoxFor(m => badge.Active, new { @class = "badge-active", data_item_id = @badge.Identifier, data_item_name = @badge.Name })</td>
+						<td>@badge.Name</td>
+						<td>@badge.Field @badge.Operator @badge.Value</td>
+						<td>@if (!string.IsNullOrEmpty(badge.ImageUrl))
+								{
+									<text><img src="@badge.ImageUrl" alt="badge image" class="badge-preview"/></text>
+								}
+								else
+								{
+									<text>&nbsp;</text>
+								}</td>
+						<td>
+							<ul class="actions">
+								<li><a class="edit" rel="tooltip" href="#" data-item-id="@badge.Identifier" original-title="Edit">Edit</a></li>
+							</ul>
+						</td>
+					</tr>
+				}
+
+			</tbody>
+		}
+	</table>
+</article>
+@section Breadcrumbs {
+	<ul id="breadcrumbs">
+		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
+		<li>@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
+		<li>@ViewBag.Title</li>
+	</ul>
+}

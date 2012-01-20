@@ -1,0 +1,225 @@
+﻿@using System.Globalization
+@using AdminComposite.Areas.Forum.InputModels
+@using AdminComposite.Extensions
+@model ForumAgent.ReadModels.ForumUsers
+@{
+	ViewBag.Title = "Manage Forum Users";
+	((PaginationModel)ViewBag.Pagination).ColSpan = 6;
+	((PaginationModel)ViewBag.Pagination).WriteTFoot = false;
+	((PaginationModel)ViewBag.Pagination).WriteTable = false;
+	((PaginationModel)ViewBag.Pagination).WriteTr = false;
+}
+
+<script type="text/javascript" src="@Url.Content("~/Content/jquery.timers-1.2.js")"> </script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#invite-users").click(function() {
+			$("<div></div>")
+				.load("@Url.Action("Invite", "UserProfile", new { forumId = Model.ForumIdentifier })")
+				.modal({
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
+					containerCss: { height: 400, width: 650 }
+				});
+
+			return false;
+		});
+
+		$(".user-details").click(function() {
+			var userId = $(this).attr("data-user-id");
+			$("<div></div>")
+				.load("@Url.Action("Details", "UserProfile")?userId=" + userId)
+				.modal({
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
+					containerCss: { height: 400, width: 650 }
+				});
+		});
+
+		$("#save").click(function() {
+			$("#save").attr("disabled", "disabled");
+
+			var inputModel;
+			try {
+				inputModel = EUCLID.getModel({ commandName: "ActivateForumUser" });
+			} catch(e) {
+				EUCLID.displayError("Unable to get model for command ActivateUser", e.name + "<br />" + e.message);
+				return false;
+			}
+
+			$(".activate-user").each(function(index, item) {
+				var userId = $(item).attr("data-item-id");
+				var active = $(item).is(":checked");
+				var currentName = -$(item).attr("data-item-name");
+
+				try {
+					inputModel.UserIdentifier = userId;
+					inputModel.Active = active;
+					EUCLID.publish(inputModel);
+				} catch(e) {
+					EUCLID.displayError("Unable to activate user '" + currentName + "'", e.name + "<br />" + e.message);
+				}
+			});
+
+			setTimeout('$("#save").removeAttr("disabled");', 750);
+			return false;
+		});
+	});
+
+	function blockUser(userId) {
+		var inputModel;
+
+		try {
+			inputModel = EUCLID.getModel({ commandName: "BlockUser" });
+		} catch(e) {
+			EUCLID.displayError("Unable to get model for command BlockUser", e.name + "<br />" + e.message);
+			return false;
+		}
+
+		try {
+			inputModel.UserIdentifier = userId;
+			EUCLID.publish(inputModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to block user", e.name + "<br />" + e.message);
+			return false;
+		}
+
+		$(".block-user[data-item-id='" + userId + "']").parent().addClass("hidden");
+		$(".unblock-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
+		$(".activate-user[data-user-id='" + userId + "']").removeAttr("checked").attr("disabled", "disabled");
+	}
+
+	function unblockUser(userId) {
+		var inputModel;
+
+		try {
+			inputModel = EUCLID.getModel({ commandName: "UnblockUser" });
+		} catch(e) {
+			EUCLID.displayError("Unable to get model for command UnblockUser", e.name + "<br />" + e.message);
+			return false;
+		}
+
+		try {
+			inputModel.UserIdentifier = userId;
+			EUCLID.publish(inputModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to unblock user", e.name + "<br />" + e.message);
+			return false;
+		}
+
+		$(".block-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
+		$(".unblock-user[data-item-id='" + userId + "']").parent().addClass("hidden");
+		$(".activate-user[data-user-id='" + userId + "']").removeAttr("disabled");
+	}
+
+	function deleteUser(userId) {
+		var inputModel;
+
+		try {
+			inputModel = EUCLID.getModel({ commandName: "DeleteForumUser" });
+			inputModel.UserIdentifier = userId;
+			EUCLID.publish(inputModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to get delete user", e.name + "<br />" + e.message);
+			return false;
+		}
+
+		window.location.reload();
+	}
+</script>
+
+<div class="article-container">
+	<article>
+		<header>
+			<h2>@ViewBag.Title</h2>
+		</header>
+
+		<section>
+			<p style="float: left">View, invite and block users to this forum</p>
+			<a href="#" style="float: right" class="button-link blue" id="invite-users">Invite User</a>
+		</section>
+		
+		<table>
+			<thead>
+				<tr>
+					<th>Active</th>	
+					<th>Name</th>
+					<th>Username</th>
+					<th># Posts</th>
+					<th># Votes</th>
+					<th>Last Login</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			@if (Model.TotalUsers == 0)
+			{
+				<tbody class="no-table-data">
+					<tr>
+						<td colspan="7">There are no users in this forum, invite one using the blue button above.</td>
+					</tr>
+				</tbody>
+			}
+			else
+			{
+				<tfoot>
+					<tr>
+						<td><button type="button" id="save">Save</button></td>
+						@Html.Partial("_Pagination")
+					</tr>
+				</tfoot>
+				<tbody>
+					@foreach (var user in Model.Users)
+					{
+						<tr>
+							<td>
+								<input type="checkbox" class="activate-user" data-item-id="@user.Identifier" data-item-name="@user.FirstName @user.LastName" @if (user.Active)
+																																																																						 {
+																																																																						 	<text>checked="checked"</text>
+																																																																						 } @if (user.IsBlocked)
+																																																																							 {
+																																																																							 	<text>disabled="disabled"</text>
+																																																																							 } />
+							</td>
+							<td>@user.FirstName @user.LastName</td>
+							<td>@user.Username</td>
+							<td>@user.PostCount</td>
+							<td>
+								<ul class="actions">
+									<li>@user.NumberVotes</li>
+									<li><a href="#" class="reset-votes" rel="tooltip" original-title="Reset Vote Count">Reset Vote Count</a></li>
+								</ul>
+							</td>
+							<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
+							<td>
+								<ul class="actions">
+									<li><a class="admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete" data-confirmation-message="Do you want to delete the user @user.FirstName @user.LastName?" data-confirm-function="deleteUser" data-item-id="@user.Identifier">Delete</a></li>
+									<li @if (user.IsBlocked)
+											{
+												<text>class="hidden"</text>
+											}><a href="#" class="block-user confirmation-dialog" rel="tooltip" original-title="Block @user.FirstName @user.LastName" data-item-id="@user.Identifier" data-confirmation-message="Really block @user.FirstName @user.LastName?" data-confirm-function="blockUser">Block User</a></li>
+									<li @if (!user.IsBlocked)
+											{
+												<text>class="hidden"</text>
+											}><a href="#" class="unblock-user confirmation-dialog" rel="tooltip" original-title="Unblock @user.FirstName @user.LastName" data-item-id="@user.Identifier" data-confirmation-message="Really unblock @user.FirstName @user.LastName?" data-confirm-function="unblockUser">Unblock User</a></li>
+									<li><a href="#" class="user-details view" rel="tooltip" original-title="View @user.FirstName @user.LastName's Profile" data-user-id="@user.Identifier">View Profile</a></li>
+								</ul>
+							</td>
+						</tr>
+					}
+				</tbody>
+			}
+		</table>
+	</article>
+</div>
+
+@section Breadcrumbs {
+	<ul id="breadcrumbs">
+		<li><a href="/" title="Back to Homepage">Home</a></li>
+		<li>@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
+		<li>@ViewBag.Title</li>
+	</ul>
+}

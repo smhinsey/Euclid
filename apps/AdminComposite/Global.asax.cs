@@ -10,6 +10,7 @@ namespace AdminComposite
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
 			filters.Add(new HandleErrorAttribute());
+			filters.Add(new PopulateAdminWideViewBag());
 		}
 
 		public static void RegisterRoutes(RouteCollection routes)
@@ -26,10 +27,10 @@ namespace AdminComposite
 
 		protected void Application_Start()
 		{
+			RegisterGlobalFilters(GlobalFilters.Filters);
+
 			AreaRegistration.RegisterAllAreas();
 
-			GlobalFilters.Filters.Add(new PopulateAdminWideViewBag());
-			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
 			WebRole.GetInstance().Init();

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Web.Mvc;
-using AdminComposite.Models;
-using Euclid.Common.Messaging;
+using AdminComposite.Areas.Forum.InputModels;
+using AdminComposite.InputModels;
 using ForumAgent;
-using ForumAgent.Commands;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Controllers

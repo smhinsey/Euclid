@@ -1,0 +1,213 @@
+﻿@using System.Globalization
+@model ForumAgent.ReadModels.ModeratedItems
+@{
+	ViewBag.Title = "Moderate Posts & Comments";
+	var action = (string)ViewContext.Controller.ValueProvider.GetValue("action").RawValue;
+	var controller = (string)ViewContext.Controller.ValueProvider.GetValue("controller").RawValue;
+	var rejectAction = (ViewBag.ItemType == "posts") ? Url.Action("RejectPost") : Url.Action("RejectComment");
+	var approveAction = (ViewBag.ItemType == "posts") ? Url.Action("ApprovePost") : Url.Action("ApproveComment");
+
+	var rejectCommand = (ViewBag.ItemType == "posts") ? "RejectPost" : "RejectComment";
+	var approveCommand = (ViewBag.ItemType == "posts") ? "ApprovePost" : "ApproveComment";
+}
+
+<script type="text/javascript" src="@Url.Content("~/Content/date.js")"> </script>
+<script type="text/javascript">
+	var MODERATION = { approveModel: null, rejectModel: null, blockModel: null };
+	$(document).ready(function() {
+		$($(".moderation-item.unread")[0]).addClass("current-unread");
+
+		try {
+			MODERATION.blockModel = EUCLID.getModel({ commandName: "BlockUser" });
+		} catch(e) {
+			EUCLID.displayError("Unable to get input model for command BlockUser", e.name + "<br />" + e.message);
+		}
+
+		try {
+			MODERATION.approveModel = EUCLID.getModel({ commandName: "@approveCommand"});
+		} catch(e) {
+			EUCLID.displayError("Unable to get input model for command @approveCommand", e.name + "<br />" + e.message);
+		}
+
+		try {
+			MODERATION.rejectModel = EUCLID.getModel({ commandName: "@rejectCommand"});
+		} catch(e) {
+			EUCLID.displayError("Unable to get input model for command @rejectCommand", e.name + "<br />" + e.message);
+		}
+
+		$(document).keydown(function(event) {
+			var bubble = true;
+
+			var postId = $(".current-unread").attr("data-post-id");
+
+			if (event.which == 40) { // down arrow
+				if (!$(".current-unread").length) {
+
+					console.log("loading next page");
+					window.location.href = "@Url.Action(action, controller, new { offset = Model.Offset + Model.PageSize, pageSize = Model.PageSize })";
+					return false;
+				}
+				;
+
+				approveItem(postId);
+				advanceSelection();
+
+				bubble = false;
+			} else if (event.which == 82) { // R (for remove)
+				rejectItem(postId);
+				advanceSelection();
+
+				bubble = false;
+			}
+
+			ensureVisibility();
+
+			return bubble;
+		});
+
+		$(".approve").click(function() {
+			var postId = $(this).attr("data-post-id");
+
+			if ($(".moderation-item[data-post-id='" + postId + "']").hasClass("moderator-removed")) {
+				$(".moderation-item[data-post-id='" + postId + "']").removeClass("moderator-removed");
+			}
+
+			approveItem(postId);
+
+			$(".moderation-item.unread[data-post-id='" + postId + "']").removeClass("unread").addClass("read");
+			return false;
+		});
+
+		$(".reject").click(function() {
+			var postId = $(this).attr("data-post-id");
+
+			if ($(".moderation-item[data-post-id='" + postId + "']").hasClass("moderator-approved")) {
+				$(".moderation-item[data-post-id='" + postId + "']").removeClass("moderator-approved");
+			}
+
+			rejectItem(postId);
+
+			$(".moderation-item[data-post-id='" + postId + "']").removeClass("unread").addClass("read");
+			return false;
+		});
+
+		$(".tab-selector").click(function() {
+			var itemToModerate = $(this).text().toLowerCase();
+			window.location.href = "/Moderation/Items/@Model.ForumIdentifier?type=" + itemToModerate;
+		});
+	});
+
+	function blockUser(userId) {
+		try {
+			MODERATION.blockModel.UserIdentifier = userId;
+			EUCLID.publish(MODERATION.blockModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to block user", e.name + "<br />" + e.message);
+		}
+	}
+
+	function rejectItem(postId) {
+		try {
+			MODERATION.rejectModel.PostIdentifier = postId;
+			MODERATION.rejectModel.CreatedBy = "@Model.CurrentUserId";
+			EUCLID.publish(MODERATION.rejectModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to reject item", e.name + "<br />" + e.message);
+		}
+
+		updateItem(postId, "moderator-removed", "rejected");
+	}
+
+	function approveItem(postId) {
+		try {
+			MODERATION.approveModel.PostIdentifier = postId;
+			MODERATION.approveModel.CreatedBy = "@Model.CurrentUserId";
+			MODERATION.approveModel.ApprovedBy = "@Model.CurrentUserId";
+			EUCLID.publish(MODERATION.approveModel);
+		} catch(e) {
+			EUCLID.displayError("Unable to approve item", e.name + "<br />" + e.message);
+		}
+
+		updateItem(postId, "moderator-approved", "approved");
+	}
+
+	function updateItem(postId, itemClass, text) {
+		$(".last-action[data-post-id='" + postId + "']").text(text);
+		$(".moderation-item[data-post-id='" + postId + "']").addClass(itemClass);
+	}
+
+	function advanceSelection() {
+		$(".current-unread").removeClass("unread").removeClass("current-unread").addClass("read");
+
+		$($(".moderation-item.unread")[0]).addClass("current-unread");
+	}
+
+	function ensureVisibility() {
+		if (!$(".current-unread").length) return;
+
+		var top = parseInt($(".current-unread").position().top);
+
+		if (!$(".current-unread:in-viewport").length) {
+			console.log("off the screen");
+
+			$(window).scrollTop(top - 25);
+		}
+	}
+</script>
+
+<div class="article-container">
+	<article>
+		<header>
+			<h2>@ViewBag.Title</h2>
+			<nav>
+				<ul class="tab-switch">
+					<li><a href="#posts" class="tab-selector @if (ViewBag.ItemType == "posts")
+																									 {
+																									 	<text>default-tab</text>
+																									 }">Posts</a></li>
+					<li><a href="#comments" class="tab-selector  @if (ViewBag.ItemType == "comments")
+																											 {
+																											 	<text>default-tab</text>
+																											 }">Comments</a></li>
+				</ul>
+			</nav>
+		</header>
+	</article>
+
+	<article>
+		<section>
+			<p>Press the down arrow to approve and the 'R' key to reject @ViewBag.ItemType</p>
+		</section>
+	</article>
+
+	<article>
+		<section>
+			<h3>Latest Activity</h3>
+
+			@if (Model.TotalPosts == 0)
+			{
+				<p class="no-moderation-items">
+					There are no @ViewBag.ItemType to moderate at this time.
+				</p>
+			}
+			else
+			{
+				<ul class="logs" id="item-list" @if (Model.TotalPosts == 0)
+																				{
+																					<text>style="display: none"</text>
+																				}>
+					@Html.Partial("_list", Model.Posts)
+				</ul>
+				@Html.Partial("_pagination")
+			}
+		</section>
+	</article>
+</div>
+
+@section Breadcrumbs {
+	<ul id="breadcrumbs">
+		<li><a href="/" title="Back to Homepage">Home</a></li>
+		<li>@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
+		<li>@ViewBag.Title</li>
+	</ul>
+}

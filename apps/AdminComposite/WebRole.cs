@@ -2,7 +2,8 @@
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using AdminComposite.Models;
+using AdminComposite.Areas.Forum.InputModels;
+using AdminComposite.InputModels;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Logging;
