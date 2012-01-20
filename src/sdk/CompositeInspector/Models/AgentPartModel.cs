@@ -1,6 +1,6 @@
 using Euclid.Framework.AgentMetadata;
 
-namespace CompositeInspector.Models
+namespace JsonCompositeInspector.Models
 {
 	public class AgentPartModel
 	{

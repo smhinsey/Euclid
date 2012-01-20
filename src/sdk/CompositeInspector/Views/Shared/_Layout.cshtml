@@ -1,82 +1,24 @@
-@{
-	var controller = ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString();
-	var action = ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
-}
+﻿<!DOCTYPE html>
 
-<!DOCTYPE html>
 <html>
 	<head>
-		<title>@ViewBag.CompositeName Inspector - @ViewBag.Title</title>
-		@RenderPage("Styles.cshtml")
-		@RenderPage("Scripts.cshtml")
+		<meta charset="utf-8" />
+		<title>
+			Composite Inspector
+		</title>
+		<script type="text/javascript" src="/composite/js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="/composite/js/jquery-ui-1.8.16.custom.min.js"></script>
+		<script type="text/javascript" src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-alerts.js"></script>
+		<script type="text/javascript" src="/composite/js/euclid-0.9.js" ></script>
+
+		<link rel="Stylesheet" type="text/css" href="/composite/css/composite-inspector.css" />
+		<link rel="Stylesheet" type="text/css" href="/composite/css/smoothness/jquery-ui-1.8.16.custom.css" />
+		<link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-1.1.0.min.css" />
 	</head>
+
 	<body>
-
-		<div class="container">
-
-			<div class="row show-grid">
-
-				<div class="span16 columns">
-
-					<div class="topbar">
-
-						<div class="fill">
-
-							<div class="container">
-								<h3><a href="@Url.Action("Index", "Composite")">@ViewBag.CompositeName Inspector</a></h3>
-								<ul>
-									<li @if (controller == "Composite")
-											{
-												<text>class="active"</text>
-											}><a href="@Url.Action("Index", "Composite")">Composite details</a></li>
-									<li @if (controller == "CommandRegistry")
-											{
-												<text>class="active"</text>
-											}><a  href="@Url.Action("Index", "CommandRegistry")">Command registry</a></li>
-									<li @if (controller == "Logging")
-											{
-												<text>class="active"</text>
-											}><a href="@Url.Action("Index", "Logging")">Logs</a></li>
-								</ul>
-								<ul class="nav secondary-nav">
-									<li><a href="@Url.Action("Remove", "Frame")" target="_parent">Hide Inspector</a></li>
-								</ul>
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</div>
-
-			<div class="span16 columns" style="min-height: 258px;">
-				@RenderBody()
-			</div>
-
+		<div class="row">
+			@RenderBody()
 		</div>
-		<!-- this can be stuck to the bottom with  position:absolute; bottom: 0; -->
-		<div style="width: 100%; background-color: #F8F8F8; padding-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #CCC;">
-
-			<div class="container">
-
-				<div class="row show-grid footer">
-
-					<div class="span5 columns">
-						<a href="@Url.Action("Remove", "Frame")" class="btn small" id="remove-frame" target="_parent">Hide Inspector</a>
-					</div>
-
-					<div class="span11 columns" style="text-align: right;">
-						<input type="text" placeholder="Get publication by id" id="publication-record-id"
-									 class="guid-input" />&nbsp;<a href="#" class="btn">Go</a>
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
 	</body>
 </html>
