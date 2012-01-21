@@ -15,7 +15,7 @@
 	var forumId = "@Model.ForumIdentifier";
 	$(document).ready(function() {
 		$(".create-avatar").click(function() {
-			EUCLID.showModalForm({ Url: "/Avatar/NewAvatar/" + forumId });
+			EUCLID.showModalForm({ Url: "@Url.Action("NewAvatar", new { forumId = Model.ForumIdentifier})" });
 
 			return false;
 		});

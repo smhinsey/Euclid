@@ -12,7 +12,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".add-content").click(function() {
-			$EUCLID.showModalForm("@Url.Action("NewStopWord", "ProfanityFilter", new { forumId = Model.ForumIdentifier })");
+			EUCLID.showModalForm({ Url:"@Url.Action("NewStopWord", "ProfanityFilter", new { forumId = Model.ForumIdentifier })"});
 			return false;
 		});
 
