@@ -1,0 +1,22 @@
+﻿@using Euclid.Composites.Mvc.Extensions
+@model AdminComposite.Areas.Forum.InputModels.UpdateTagInputModel
+
+<section>
+	@using (Html.BeginFormForInputModel(Model))
+	{
+		@Html.HiddenFor(m => m.TagIdentifier)
+		;
+		<fieldset>
+			<legend>Update Tag</legend>
+		
+			<dl>
+				<dt><label for="tag-name">Name</label></dt>
+				<dd>@Html.TextBoxFor(m => m.Name, new { id = "tag-name" })</dd>
+
+				<dt class="checkbox"><label for="tag-active">Active</label></dt>
+				<dd>@Html.CheckBoxFor(m => m.Active, new { id = "tag-active" })</dd>
+			</dl>
+		</fieldset>
+		<button type="submit">Save</button>
+	}
+</section>

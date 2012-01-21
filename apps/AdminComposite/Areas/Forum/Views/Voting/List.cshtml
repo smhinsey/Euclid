@@ -1,0 +1,80 @@
+﻿@using System.Globalization
+@using ForumAgent
+@model ForumAgent.ReadModels.ForumVotingScheme
+@{
+	ViewBag.Title = "Manage Forum Voting";
+}
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#save-voting-scheme").click(function() {
+			$("#save-voting-scheme").attr("disabled", "disabled");
+
+			var inputModel;
+			try {
+				inputModel = EUCLID.getModel({ commandName: "UpdateForumVotingScheme" });
+			} catch(e) {
+				EUCLID.displayError("Unable to get model for command UpdateVotingScheme", e.name + "<br />" + e.message);
+			}
+
+			try {
+				inputModel.ForumIdentifier = "@Model.ForumIdentifier";
+				inputModel.SelectedScheme = $("input:radio[name='CurrentScheme']:checked").val();
+				EUCLID.publish(inputModel);
+			} catch(e) {
+				EUCLID.displayError("Unable to set voting scheme", e.name + "<br />" + e.message);
+			}
+
+			setTimeout('$("#save-voting-scheme").removeAttr("disabled");', 750);
+			return false;
+		});
+	});
+</script>
+
+<article>
+	<header>
+		<h2>@ViewBag.Title</h2>
+	</header>
+	<p>Select how forum members vote on posts and comments</p>
+	<table>
+		<thead>
+			<tr>
+				<th>Active</th>
+				<th>Name</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="3">
+					<ul class="button-switch">
+						<li><button type="button" id="save-voting-scheme">Save</button></li>
+					</ul>
+				</td>
+			</tr>
+		</tfoot>
+		<tbody>
+			<tr>
+				<td>
+					@Html.RadioButtonFor(m => m.CurrentScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
+				</td>
+				<td>None</td>
+				<td>Users cannot vote on posts or comments</td>
+			</tr>
+			<tr>
+				<td>
+					@Html.RadioButtonFor(m => m.CurrentScheme, VotingScheme.UpDownVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
+				</td>
+				<td>Up / Down</td>
+				<td>Users can vote a post or comment up or down.  <br />A user can change their vote, but can only vote on a particular post or comment once</td>
+			</tr>
+		</tbody>
+	</table>
+</article>
+
+@section Breadcrumbs{
+	<ul id="breadcrumbs">
+		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
+		<li>@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
+		<li>@ViewBag.Title</li>
+	</ul>
+}

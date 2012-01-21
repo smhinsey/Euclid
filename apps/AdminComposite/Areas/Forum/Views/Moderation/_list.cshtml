@@ -1,0 +1,32 @@
+﻿@model IList<dynamic>
+@{
+	Layout = null;
+}
+@foreach (var post in Model)
+{
+	<li class="moderation-item unread" data-post-id="@post.Identifier">
+		<div style="float: left; width: 85%">
+			<span class="logs-timestamp">@post.Created</span>
+			
+			<div>
+				<h4>@post.Title</h4>
+				<p class="note last-action" data-post-id="@post.Identifier"></p>
+			</div>
+
+			<div style="clear: both"></div>
+			<p>
+				@post.Body
+			</p>
+
+			<em class="logs-meta">posted by @post.AuthorDisplayName</em>
+		</div>
+
+		<div style="float: left; margin-left: 25px;">
+			<a href="#" class="approve" data-post-id="@post.Identifier"><img src="@Url.Content("~/Content/thumb-up.png")" alt="approve" rel="tooltip" original-title="Approve this @ViewBag.ModerationType"/></a>
+			<br/>
+			<a href="#" class="reject" data-post-id="@post.Identifier"><img src="@Url.Content("~/Content/thumb-down.png")" alt="reject" rel="tooltip" original-title="Reject this @ViewBag.ModerationType"/></a>
+			<br/>
+			<a href="#" class="block-user confirmation-dialog" data-confirmation-message="Really Block @post.AuthorDisplayName?" data-confirm-function="blockUser" data-item-id="@post.AuthorIdentifier"><img src="@Url.Content("~/Content/chromatron/img/icons/icon_table_delete.png")" alt="block author" rel="tooltip" original-title="Block this author"/></a>
+		</div>
+	</li>
+}

@@ -1,0 +1,133 @@
+﻿@using System.Globalization
+@using AdminComposite.Areas.Forum.InputModels
+@model ForumAgent.ReadModels.AvailableCategories
+@{
+	ViewBag.Title = "Manage Forum Categories";
+	((PaginationModel)ViewBag.Pagination).ColSpan = 3;
+	((PaginationModel)ViewBag.Pagination).WriteTFoot = false;
+	((PaginationModel)ViewBag.Pagination).WriteTable = false;
+	((PaginationModel)ViewBag.Pagination).WriteTr = false;
+}
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#create-category").click(function() {
+			EUCLID.showModalForm({ Url: "@Url.Action("NewCategory", "Category")?forumId=@Model.ForumIdentifier"});
+			return false;
+		});
+
+		$(".edit").click(function() {
+			var categoryId = $(this).attr("data-category-id");
+
+			$("<div></div>")
+				.load("@Url.Action("UpdateCategory", "Category")?categoryId=" + categoryId)
+				.modal({
+					autoResize: true,
+					autoPosition: true,
+					position: new Array(25, 300),
+					dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 485, width: 635 },
+					containerCss: { height: 500, width: 650 },
+					onClose: function(dialog) {
+						window.location.href = window.location.href;
+					}
+				});
+			return false;
+		});
+
+
+		$("#save").click(function() {
+			$("#save").attr("disabled", "disabled");
+			var inputModel;
+			try {
+				inputModel = EUCLID.getModel({ commandName: "ActivateCategory" });
+			} catch(e) {
+				EUCLID.displayError("Unable to get model for ActivateCategory command", e.name + "<br />" + e.message);
+				return false;
+			}
+
+			$(".category-active").each(function(index, item) {
+				var categoryId = $(item).attr("data-item-id");
+				var active = $(item).is(":checked");
+				var currentName = $(item).attr("data-item-name");
+
+				try {
+					inputModel.CategoryIdentifier = categoryId;
+					inputModel.Active = active;
+					EUCLID.publish(inputModel);
+				} catch(e) {
+					EUCLID.displayError("Unable to activate category '" + currentName + "'", e.name + "<br />" + e.message);
+				}
+			});
+
+			setTimeout("$('#save').removeAttr('disabled');", 750);
+			return false;
+		});
+	});
+</script>
+
+<article>
+	<header>
+		<h2>@ViewBag.Title</h2>
+	</header>
+
+	<section>
+		<p style="float: left">View, add, edit, and activate categories for this forum</p>
+		<a href="#" style="float: right" class="button-link blue" id="create-category">Add Category</a>
+	</section>
+	
+	<table id="category-table">
+		<thead>
+			<tr>
+				<th>Active</th>
+				<th>Name</th>
+				<th>Slug</th>
+				<th></th>
+			</tr>
+		</thead>
+		@if (Model.TotalCategories == 0)
+		{
+			<tbody class="no-table-data">
+				<tr>
+					<td colspan="4">There are no categories in this forum, create one using the blue button above.</td>
+				</tr>
+			</tbody>
+		}
+		else
+		{
+			<tfoot>
+				<tr>
+					<td>
+						<ul class="button-switch">
+							<li><button type="button" id="save">Save</button></li>
+						</ul>
+					</td>
+					@Html.Partial("_pagination")
+				</tr>
+			</tfoot>
+			<tbody>
+				@foreach (var category in Model.Categories)
+				{
+					<tr>
+						<td>@Html.CheckBoxFor(m => category.Active, new { @class = "category-active", data_item_id = @category.Identifier, data_item_name = @category.Name })</td>
+						<td><span data-category-id="@category.Identifier">@category.Name</span></td>
+						<td><span data-category-id="@category.Identifier">@category.Slug</span></td>
+						<td>
+							<ul class="actions">
+								<li><a href="#" class="edit" data-category-id="@category.Identifier" rel="tooltip" original-title="Edit Category">edit category</a></li>
+							</ul>
+						</td>
+					</tr>
+				}
+			</tbody>
+		}
+	</table>
+</article>
+
+@section Breadcrumbs{
+	<ul id="breadcrumbs">
+		<li>@Html.ActionLink("Home", "Index", "Dashboard")</li>
+		<li>@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.ForumName)</li>
+		<li>@ViewBag.Title</li>
+	</ul>
+}

@@ -1,0 +1,35 @@
+﻿@using Euclid.Composites.Mvc.Extensions
+@model AdminComposite.Areas.Forum.InputModels.CreateBadgeInputModel
+
+<section>
+	@using (Html.BeginFormForInputModel(Model))
+	{
+		@Html.HiddenFor(m => m.ForumIdentifier)
+		@Html.ValidationSummary()
+		<fieldset>
+			<legend>New Badge</legend>
+
+			<dl>
+				<dt>@Html.LabelFor(m => m.Name)</dt>
+				<dd>@Html.TextBoxFor(m => m.Name, new { id = "badge-name" })</dd>
+
+				<dt>@Html.LabelFor(m => m.Field)</dt>
+				<dd>@Html.DropDownListFor(m => m.Field, Model.Fields, "-- Select --") </dd>
+
+				<dt>@Html.LabelFor(m => m.Operator)</dt>
+				<dd>@Html.DropDownListFor(m => m.Operator, Model.Operators, "-- Select --")</dd>
+
+				<dt>@Html.LabelFor(m => m.Value)</dt>
+				<dd>@Html.TextBoxFor(m => m.Value, new { id = "award-value" })</dd>
+
+				<dt>@Html.LabelFor(m => m.Description)</dt>
+				<dd>@Html.TextAreaFor(m => m.Description, new { id = "badge-description" })</dd>
+
+				<dt><label for="badge-image">@Html.LabelFor(m => m.Image)</label></dt>
+				<dd>@Html.TextBoxFor(m => m.Image, new { id = "badge-image", type = "file" })</dd>
+			</dl>
+		</fieldset>
+
+		<button type="submit">Save</button>
+	}
+</section>
