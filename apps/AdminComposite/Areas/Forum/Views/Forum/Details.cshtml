@@ -3,7 +3,7 @@
 @model AdminComposite.Areas.Forum.InputModels.UpdateForumInputModel
 @{
 	ViewBag.Title = "Manage Forum Details";
-	var forumUrl = string.Format("http://{0}/org/{1}/forum/{2}", Model.UrlHostName, ViewBag.OrganizationSlug, Model.UrlSlug);
+	var forumUrl = string.Format("http://{0}/org/{1}/forum/{2}", Model.UrlHostName, AdminInfo.OrganizationSlug, Model.UrlSlug);
 }
 
 <script type="text/javascript" src="@Url.Content("~/Content/jeditable/jquery.jeditable.wysiwyg.js")"> </script>
@@ -165,7 +165,7 @@
 			{
 				@Html.HiddenFor(m => m.ForumIdentifier)
 				;
-				@Html.Hidden("orgSlug", (object)ViewBag.OrganizationSlug, null)
+				@Html.Hidden("orgSlug", AdminInfo.OrganizationSlug, null)
 				@Html.HiddenFor(m => m.Moderated, new { id = "update-forum-moderated" })
 				@Html.HiddenFor(m => m.Private, new { id = "update-forum-private" })
 				@Html.HiddenFor(m => m.Description, new { id = "update-forum-description" })

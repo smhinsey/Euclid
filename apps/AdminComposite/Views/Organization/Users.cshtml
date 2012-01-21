@@ -33,7 +33,7 @@
 		});
 
 		$(".edit.user").click(function () {
-			var organizationId = "@ViewBag.OrganizationId";
+			var organizationId = "@AdminInfo.OrganizationId";
 			$("<div></div>")
 				.load("/Organization/UpdateUser?organizationId=@AdminInfo.OrganizationId&userId=" + $(this).attr("data-item-id"))
 				.modal({

@@ -58,7 +58,7 @@
 		@Html.HiddenFor(m => m.CreatedBy)
 		@Html.HiddenFor(m => m.Theme)
 		@Html.ValidationSummary()
-		<input type="hidden" name="org-slug" value="@ViewBag.OrganizationSlug" id="org-slug" />
+		<input type="hidden" name="org-slug" value="@AdminInfo.OrganizationSlug" id="org-slug" />
 		<fieldset>
 			<legend>Details</legend>
 
@@ -75,7 +75,7 @@
 				<dt>@Html.LabelFor(m => m.UrlHostName)</dt>
 				<dd>
 					@Html.TextBoxFor(m => m.UrlHostName, new { id = "forum-host", @readonly = "readonly" })
-					<p>Forum url: <b><span id="forum-url">http//newco-forums.com/org/@ViewBag.OrganizationSlug/forum/{forum-slug}</span></b></p>
+					<p>Forum url: <b><span id="forum-url">http//newco-forums.com/org/@AdminInfo.OrganizationSlug/forum/{forum-slug}</span></b></p>
 				</dd>
 
 				<dt>@Html.LabelFor(m => m.Description)</dt>

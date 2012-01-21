@@ -18,7 +18,7 @@
 		});
 
 		$(".edit.user").click(function () {
-			var organizationId = "@ViewBag.OrganizationId";
+			var organizationId = "@AdminInfo.OrganizationId";
 			$("<div></div>")
 				.load("/Organization/GetUser?organizationId=" + organizationId + "&userId=" + $(this).attr("data-user-id"))
 				.modal({

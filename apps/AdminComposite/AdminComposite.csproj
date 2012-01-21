@@ -223,7 +223,6 @@
     <Compile Include="Areas\Forum\InputModels\CreateForumContentInputModel.cs" />
     <Compile Include="Areas\Forum\InputModels\CreateForumInputModel.cs" />
     <Compile Include="Areas\Forum\InputModels\CreateOrganizationAndRegisterUserInputModel.cs" />
-    <Compile Include="ActionFilters\PopulateAdminWideViewBag.cs" />
     <Compile Include="Areas\Forum\InputModels\ForumThemeInputModel.cs" />
     <Compile Include="Areas\Forum\InputModels\PaginationModel.cs" />
     <Compile Include="InputModels\RegisterOrganizationUserInputModel.cs" />

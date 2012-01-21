@@ -31,7 +31,7 @@ namespace AdminComposite.Areas.Forum.Controllers
 			return View(new CreateForumInputModel
 			            	{
 			            		UrlHostName = "newco-forums.com",
-			            		OrganizationId = ViewBag.OrganizationId,
+			            		OrganizationId = AdminInfo.OrganizationId,
 			            		Description = " ",
 								CreatedBy = userId,
 								VotingScheme = VotingScheme.UpDownVoting,

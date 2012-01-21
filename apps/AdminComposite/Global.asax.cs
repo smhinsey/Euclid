@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using AdminComposite.ActionFilters;
 
 namespace AdminComposite
 {
@@ -10,7 +9,6 @@ namespace AdminComposite
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
 			filters.Add(new HandleErrorAttribute());
-			filters.Add(new PopulateAdminWideViewBag());
 		}
 
 		public static void RegisterRoutes(RouteCollection routes)
