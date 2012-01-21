@@ -8,8 +8,8 @@
 <script type="text/javascript">
 	var forumId = "@Model.ForumIdentifier";
 	$(document).ready(function() {
-		$("#create-badge").click(function() {
-			EUCLID.showModalForm({ Url: "/Badge/NewBadge/" + forumId });
+		$(".create-badge").click(function() {
+			EUCLID.showModalForm({ Url: "/Forum/Badge/NewBadge/?forumId=" + forumId });
 
 			return false;
 		});
@@ -17,23 +17,12 @@
 		$("#save").click(function() {
 			$(this).attr("disabled", "disabled");
 
-			var inputModel = null;
-			try {
-				inputModel = EUCLID.getModel({ commandName: "ActivateBadge" });
-			} catch(e) {
-				EUCLID.displayError("Unable to fetch input model for ActivateBadge command", e.name + "<br />" + description);
-				return false;
-			}
-
+			var inputModel = EUCLID.getInputModel({ commandName: "ActivateBadge", agentSystemName: "Newco.ForumAgent" });
 			$(".badge-active").each(function(index, item) {
 				var currentName = $(item).attr("data-item-name");
-				try {
-					inputModel.BadgeIdentifier = $(item).attr("data-item-id");
-					inputModel.Active = $(item).is(":checked");
-					EUCLID.publish(inputModel);
-				} catch(e) {
-					EUCLID.displayError("Error activating badge '" + currentName + "'", e.name + "<br />" + e.message);
-				}
+				inputModel.BadgeIdentifier = $(item).attr("data-item-id");
+				inputModel.Active = $(item).is(":checked");
+				inputModel.publish();
 			});
 
 			setTimeout("enableSaveButton()", 750);
@@ -67,7 +56,7 @@
 
 	<section>
 		<p style="float: left">View, add, edit and activate forum badges</p>
-		<a href="#" style="float: right" class="button-link blue" id="create-badge">Add Badge</a>
+		<a href="#" style="float: right" class="button-link blue create-badge">Add Badge</a>
 	</section>
 
 	<table>
@@ -84,7 +73,7 @@
 		{
 			<tbody class="no-table-data">
 				<tr>
-					<td colspan="5">There are no badges in this forum, create one using the blue button above.</td>
+					<td colspan="5">This forum does not yet have any badges. <a href="#" class="create-badge">Create a badge.</a></td>
 				</tr>
 			</tbody>
 		}

@@ -12,7 +12,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$("#create-category").click(function() {
+		$(".create-category").click(function() {
 			EUCLID.showModalForm({ Url: "@Url.Action("NewCategory", "Category")?forumId=@Model.ForumIdentifier"});
 			return false;
 		});
@@ -38,26 +38,11 @@
 
 		$("#save").click(function() {
 			$("#save").attr("disabled", "disabled");
-			var inputModel;
-			try {
-				inputModel = EUCLID.getModel({ commandName: "ActivateCategory" });
-			} catch(e) {
-				EUCLID.displayError("Unable to get model for ActivateCategory command", e.name + "<br />" + e.message);
-				return false;
-			}
-
+			var inputModel = EUCLID.getInputModel({ commandName: "ActivateCategory", agentSystemName: "Newco.ForumAgent" });
 			$(".category-active").each(function(index, item) {
-				var categoryId = $(item).attr("data-item-id");
-				var active = $(item).is(":checked");
-				var currentName = $(item).attr("data-item-name");
-
-				try {
-					inputModel.CategoryIdentifier = categoryId;
-					inputModel.Active = active;
-					EUCLID.publish(inputModel);
-				} catch(e) {
-					EUCLID.displayError("Unable to activate category '" + currentName + "'", e.name + "<br />" + e.message);
-				}
+				inputModel.CategoryIdentifier = $(item).attr("data-item-id");
+				inputModel.Active = $(item).is(":checked");
+				inputModel.publish();
 			});
 
 			setTimeout("$('#save').removeAttr('disabled');", 750);
@@ -73,7 +58,7 @@
 
 	<section>
 		<p style="float: left">View, add, edit, and activate categories for this forum</p>
-		<a href="#" style="float: right" class="button-link blue" id="create-category">Add Category</a>
+		<a href="#" style="float: right" class="button-link blue create-category">Add Category</a>
 	</section>
 	
 	<table id="category-table">
@@ -89,7 +74,7 @@
 		{
 			<tbody class="no-table-data">
 				<tr>
-					<td colspan="4">There are no categories in this forum, create one using the blue button above.</td>
+					<td colspan="4">This forum does not yet have any categories.  <a href="#" class="create-category">Create a category.</a>.</td>
 				</tr>
 			</tbody>
 		}

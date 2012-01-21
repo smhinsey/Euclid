@@ -9,20 +9,10 @@
 		$("#save-voting-scheme").click(function() {
 			$("#save-voting-scheme").attr("disabled", "disabled");
 
-			var inputModel;
-			try {
-				inputModel = EUCLID.getModel({ commandName: "UpdateForumVotingScheme" });
-			} catch(e) {
-				EUCLID.displayError("Unable to get model for command UpdateVotingScheme", e.name + "<br />" + e.message);
-			}
-
-			try {
-				inputModel.ForumIdentifier = "@Model.ForumIdentifier";
-				inputModel.SelectedScheme = $("input:radio[name='CurrentScheme']:checked").val();
-				EUCLID.publish(inputModel);
-			} catch(e) {
-				EUCLID.displayError("Unable to set voting scheme", e.name + "<br />" + e.message);
-			}
+			var inputModel = EUCLID.getInputModel({ commandName: "UpdateForumVotingScheme", agentSystemName: "Newco.ForumAgent" });
+			inputModel.ForumIdentifier = "@Model.ForumIdentifier";
+			inputModel.SelectedScheme = $("input:radio[name='CurrentScheme']:checked").val();
+			inputModel.publish();
 
 			setTimeout('$("#save-voting-scheme").removeAttr("disabled");', 750);
 			return false;

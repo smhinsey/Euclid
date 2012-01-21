@@ -14,7 +14,7 @@
 <script type="text/javascript">
 	var forumId = "@Model.ForumIdentifier";
 	$(document).ready(function() {
-		$("#create-avatar").click(function() {
+		$(".create-avatar").click(function() {
 			EUCLID.showModalForm({ Url: "/Avatar/NewAvatar/" + forumId });
 
 			return false;
@@ -22,25 +22,13 @@
 
 		$("#save").click(function() {
 			$(this).attr("disabled", "disabled");
-			var inputModel = null;
-			try {
-				inputModel = EUCLID.getModel({ commandName: "ActivateAvatar" });
-			} catch(e) {
-				EUCLID.displayError("Unable to fetch input model for ActivateAvatar command", e.name + "<br />" + description);
-				return false;
-			}
+			var inputModel = EUCLID.getInputModel({ commandName: "ActivateAvatar", agentSystemName: "Newco.ForumAgent" });
 
 			$(".avatar-active").each(function(index, item) {
 				var currentName = $(item).attr("data-item-name");
-				try {
-					inputModel.AvatarIdentifier = $(item).attr("data-item-id");
-					inputModel.Active = $(item).is(":checked");
-					EUCLID.publish(inputModel);
-				} catch(e) {
-					var title = "Error activating avatar '" + currentName + "'";
-					var description = e.name + "<br />" + e.message;
-					EUCLID.displayError(title, description);
-				}
+				inputModel.AvatarIdentifier = $(item).attr("data-item-id");
+				inputModel.Active = $(item).is(":checked");
+				inputModel.publish();
 			});
 
 			setTimeout("enableSaveButton()", 750);
@@ -68,15 +56,12 @@
 	}
 
 	function deleteAvatar(avatarId) {
-		try {
-			var inputModel = EUCLID.getModel({ commandName: "DeleteAvatar" });
-			inputModel.AvatarIdentifier = avatarId;
-			EUCLID.publish(inputModel);
-		} catch(e) {
-			EUCLID.displayError("Unable to delete avatar", e.name + "<br />" + e.message);
-		}
+		var inputModel = EUCLID.getInputModel({ commandName: "DeleteAvatar", agentSystemName: "Newco.ForumAgent" });
+		inputModel.AvatarIdentifier = avatarId;
+		inputModel.publish();
 
 		$("tr[data-avatar-id='" + avatarId + "']").remove();
+		return false;
 	}
 </script>
 
@@ -87,7 +72,7 @@
 
 	<section>
 		<p style="float: left">Setting an avatar to active means it will be awarded to users when the trigger threshold is satisfied.</p>
-		<a href="#" style="float: right" class="button-link blue" id="create-avatar">Add Avatar</a>
+		<a href="#" style="float: right" class="button-link blue create-avatar">Add Avatar</a>
 	</section>
 
 	<table>
@@ -104,7 +89,7 @@
 		{
 			<tbody class="no-table-data">
 				<tr>
-					<td colspan="5">There are no avatars in this forum, create one using the blue button above.</td>
+					<td colspan="5">This forum does not yet have any avatars. <a href="#" class="create-category">Create an avatar.</a></td>
 				</tr>
 			</tbody>
 		}

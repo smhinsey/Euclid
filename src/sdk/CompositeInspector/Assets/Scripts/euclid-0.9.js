@@ -1,4 +1,13 @@
 ﻿$.getScript("/composite/js/jquery.form.js");
+$.getScript("/composite/js/simplemodal/jquery.simplemodal.1.4.1.min.js");
+
+if ($.validator == null || $.validator == undefined) {
+	$.getScript("/composite/js/jquery.validate.min.js");
+}
+
+if ($.validator.unobtrusive == null || $.validator.unobtrusive == undefined) {
+	$.getScript("/composite/js/jquery.validate.unobtrusive.min.js");
+}
 
 var EUCLID = function () {
 	/* private methods */
@@ -269,8 +278,8 @@ var EUCLID = function () {
 			return object;
 		}),
 
-		submitForm: (function (url, data) {
-			return _submitForm(url, data);
+		submitForm: (function (form, namedArguments) {
+			return _submitForm(form, namedArguments);
 		}),
 
 		getQueryForm: (function (args) {
@@ -288,7 +297,7 @@ var EUCLID = function () {
 			var fieldSet = $(form).children("fieldset");
 
 			$.each(method.Arguments, function (index, item) {
-				var forceShow = true;// methodName == "FindById" && item.ArgumentName == "id";
+				var forceShow = true; // methodName == "FindById" && item.ArgumentName == "id";
 				_addElementToForm(item.ArgumentName, item.ArgumentType, "", item.Choices, item.MultiChoice, fieldSet, forceShow);
 			});
 
@@ -298,90 +307,101 @@ var EUCLID = function () {
 		}),
 
 		getInputModel: (function (args) {
-			if (args === null || args === undefined || !args.hasOwnProperty("commandName") || !args.hasOwnProperty("agentSystemName")) {
-				throw {
-					name: "Invalid Argument Exception",
-					message: "EUCLID.getInputModel expects an an object with the properties: 'commandName' and 'agentSystemName'"
-				};
-			}
-
-			var _rawModel = _getJsonObject("/composite/commands/" + args.agentSystemName + "/" + args.commandName + ".json");
-			var _propertyNames = new Array();
-			var _model = (function () {
-				var _isInputModel = (function () {
-					return true;
-				});
-
-				var _propertyNameIsValid = (function (name) {
-					var found = ($.inArray(name, _propertyNames) > -1 || name === "PartName");
-					return found;
-				});
-
-				var _getPropertyType = (function (propertyName) {
-					if (propertyName.toLowerCase() == "partname") {
-						return "String";
+			var _model = null;
+			_displayErrorWrapper({
+				callbackArgs: args,
+				callback: function (args) {
+					if (args === null || args === undefined || !args.hasOwnProperty("commandName") || !args.hasOwnProperty("agentSystemName")) {
+						throw {
+							name: "Invalid Argument Exception",
+							message: "EUCLID.getInputModel expects an an object with the properties: 'commandName' and 'agentSystemName'"
+						};
 					}
 
-					for (i = 0; i < _rawModel.Properties.length; i++) {
-						var obj = _rawModel.Properties[i];
-						if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
-							return obj.Type;
-						}
-					}
+					var _rawModel = _getJsonObject("/composite/commands/" + args.agentSystemName + "/" + args.commandName + ".json");
+					var _propertyNames = new Array();
+					_model = (function () {
+						var _isInputModel = (function () {
+							return true;
+						});
 
-					throw {
-						name: "Invalid Property Exception",
-						message: "The property '" + propertyName + "' does not exist on the inputModel"
-					};
-				});
+						var _propertyNameIsValid = (function (name) {
+							var found = ($.inArray(name, _propertyNames) > -1 || name === "PartName");
+							return found;
+						});
 
-				var _getChoices = (function (propertyName) {
-					for (i = 0; i < _rawModel.Properties.length; i++) {
-						var obj = _rawModel.Properties[i];
-						if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
-							return (obj.Choices === null) ? null : { Values: obj.Choices, MultiChoice: obj.MultiChoice };
-						}
-					}
+						var _getPropertyType = (function (propertyName) {
+							if (propertyName.toLowerCase() == "partname") {
+								return "String";
+							}
 
-					return null;
-				});
+							for (i = 0; i < _rawModel.Properties.length; i++) {
+								var obj = _rawModel.Properties[i];
+								if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
+									return obj.Type;
+								}
+							}
 
-				return {
-					getForm: (function () {
-						var form = $("<form action='/composite/commands/publish' method='post'><legend>" + args.commandName + "</legend><fieldset></fieldset></form>");
-						var fieldSet = $(form).children("fieldset");
+							throw {
+								name: "Invalid Property Exception",
+								message: "The property '" + propertyName + "' does not exist on the inputModel"
+							};
+						});
 
-						for (propertyName in _model) {
-							if (_model.hasOwnProperty(propertyName) && typeof _model[propertyName] !== 'function') {
-								if (!_propertyNameIsValid(propertyName)) {
-									throw {
-										name: "Invalid Property Exception",
-										message: "the input model for command '" + _model.PartName + "' does not contain a property named '" + propertyName + "'"
+						var _getChoices = (function (propertyName) {
+							for (i = 0; i < _rawModel.Properties.length; i++) {
+								var obj = _rawModel.Properties[i];
+								if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
+									return (obj.Choices === null) ? null : { Values: obj.Choices, MultiChoice: obj.MultiChoice };
+								}
+							}
+
+							return null;
+						});
+
+						return {
+							getForm: (function () {
+								var form = $("<form action='/composite/commands/publish' method='post'><legend>" + args.commandName + "</legend><fieldset></fieldset></form>");
+								var fieldSet = $(form).children("fieldset");
+
+								for (propertyName in _model) {
+									if (_model.hasOwnProperty(propertyName) && typeof _model[propertyName] !== 'function') {
+										if (!_propertyNameIsValid(propertyName)) {
+											throw {
+												name: "Invalid Property Exception",
+												message: "the input model for command '" + _model.PartName + "' does not contain a property named '" + propertyName + "'"
+											}
+										}
+
+										var propertyType = _getPropertyType(propertyName);
+										var choiceObject = _getChoices(propertyName);
+										var propertyChoices = choiceObject == null ? null : choiceObject.Values;
+										var multiChoice = choiceObject == null ? false : choiceObject.MultiChoice;
+										var forceShow = propertyType.toLowerCase() == "guid";
+										_addElementToForm(propertyName, propertyType, _model[propertyName], propertyChoices, multiChoice, fieldSet, forceShow);
 									}
 								}
 
-								var propertyType = _getPropertyType(propertyName);
-								var choiceObject = _getChoices(propertyName);
-								var propertyChoices = choiceObject == null ? null : choiceObject.Values;
-								var multiChoice = choiceObject == null ? false : choiceObject.MultiChoice;
-								var forceShow = propertyType.toLowerCase() == "guid";
-								_addElementToForm(propertyName, propertyType, _model[propertyName], propertyChoices, multiChoice, fieldSet, forceShow);
-							}
+								$(form).find(".input-date").datepicker();
+								$(form).append("<input type='submit' value='" + args.commandName + "' />");
+								return form;
+							}), // end getForm
+
+							publish: (function () {
+								var form = this.getForm();
+								EUCLID.submitForm(form);
+							}) // end publish
 						}
+					})();
 
-						$(form).find(".input-date").datepicker();
-						$(form).append("<input type='submit' value='" + args.commandName + "' />");
-						return form;
-					})
+					for (i = 0; i < _rawModel.Properties.length; i++) {
+						var prop = _rawModel.Properties[i];
+						_model[prop.Name] = prop.Value;
+						_propertyNames.push(prop.Name);
+					}
+					_model["PartName"] = args.commandName;
 				}
-			})();
-
-			for (i = 0; i < _rawModel.Properties.length; i++) {
-				var prop = _rawModel.Properties[i];
-				_model[prop.Name] = prop.Value;
-				_propertyNames.push(prop.Name);
-			}
-			_model["PartName"] = args.commandName;
+			});
 
 			return _model;
 		}), // end getInputModel
@@ -395,8 +415,8 @@ var EUCLID = function () {
 				}
 			}
 
-			var PollMax = (args.PollMax == null || args.PollMax <= 0) ? 100 : args.PollMax;
-			var PollInterval = (args.PollInterval == null || args.PollInterval <= 0) ? 250 : args.PollInterval;
+			var PollMax = (args.pollMax == null || args.pollMax <= 0) ? 100 : args.pollMax;
+			var PollInterval = (args.pollInterval == null || args.pollInterval <= 0) ? 250 : args.pollInterval;
 			var PollCount = 1;
 			var PollerId = setInterval(doPoll, PollInterval);
 
@@ -406,6 +426,8 @@ var EUCLID = function () {
 				} catch (e) {
 					if (args.hasOwnProperty("onPollError")) {
 						args.onPollError(e);
+					} else {
+						EUCLID.displayError(e);
 					}
 				}
 
@@ -454,7 +476,32 @@ var EUCLID = function () {
 			message += "</div>";
 			$(error).append($(message));
 			$(window).scrollTop(0);
-		}) // end displayError
+		}), // end displayError
+
+		showModalForm: (function (args) {
+			if (args === null || args === undefined || !args.hasOwnProperty("Url")) {
+				throw new {
+					name: "Invalid Argument Exception",
+					message: "The argument object must contain a property named 'Url'"
+				};
+			};
+
+			var id = _getId();
+			var modal = $("<div id='" + id + "'></div>");
+			$(modal).load(
+					args.Url,
+					function () {
+						$.validator.unobtrusive.parse($("#" + id));
+					})
+				.modal({
+					autoResize: true,
+					autoPosition: true,
+					dataCss: { backgroundColor: "#fff" },
+					containerCss: { backgroundColor: "#fff" }
+				});
+
+			$(".simplemodal-container").css("height", "auto");
+		}) // end showModalForm
 	}
 } ();
 
