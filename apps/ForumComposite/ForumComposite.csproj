@@ -100,6 +100,9 @@
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Nancy">
+      <HintPath>..\..\packages\Nancy.0.9.0\lib\net40\Nancy.dll</HintPath>
+    </Reference>
     <Reference Include="NConfig">
       <HintPath>..\..\packages\NConfig.1.0.6\lib\Net40\NConfig.dll</HintPath>
     </Reference>
@@ -292,6 +295,10 @@
     <ProjectReference Include="..\..\src\framework\Euclid.Framework\Euclid.Framework.csproj">
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\CompositeInspector\CompositeInspector.csproj">
+      <Project>{7453ADF2-CE91-47BD-A046-003CCC90D962}</Project>
+      <Name>CompositeInspector</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\sdk\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
       <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
