@@ -12,7 +12,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$("#create-tag").click(function() {
+		$(".create-tag").click(function() {
 			EUCLID.showModalForm({ Url: "@Url.Action("NewTag", "Tag")?forumId=@Model.ForumIdentifier"});
 			return false;
 		});
@@ -38,26 +38,12 @@
 
 		$("#save").click(function() {
 			$("#save").attr("disabled", "disabled");
-			var inputModel;
-			try {
-				inputModel = EUCLID.getModel({ commandName: "ActivateTag" });
-			} catch(e) {
-				EUCLID.displayError("Unable to get model for ActivateTag command", e.name + "<br />" + e.message);
-				return false;
-			}
+			var inputModel = EUCLID.getInputModel({ commandName: "ActivateTag" });
 
 			$(".tag-active").each(function(index, item) {
-				var tagId = $(item).attr("data-item-id");
-				var active = $(item).is(":checked");
-				var currentName = $(item).attr("data-item-name");
-
-				try {
-					inputModel.TagIdentifier = tagId;
-					inputModel.Active = active;
-					EUCLID.publish(inputModel);
-				} catch(e) {
-					EUCLID.displayError("Unable to activate tag '" + currentName + "'", e.name + "<br />" + e.message);
-				}
+				inputModel.TagIdentifier = $(item).attr("data-item-id");
+				inputModel.Active = $(item).is(":checked");
+				inputModel.publish();
 			});
 
 			setTimeout("$('#save').removeAttr('disabled');", 750);
@@ -73,7 +59,7 @@
 
 	<section>
 		<p style="float: left">View, add, edit, and activate tags for this forum</p>
-		<a href="#" style="float: right" class="button-link blue" id="create-tag">Add Tag</a>
+		<a href="#" style="float: right" class="button-link blue create-tag">Add Tag</a>
 	</section>
 	
 	<table id="category-table">
@@ -89,7 +75,7 @@
 		{
 			<tbody class="no-table-data">
 				<tr>
-					<td colspan="4">There are no tags in this forum, create one using the blue button above.</td>
+					<td colspan="4">This forum does not yet have any tags. <a href="#" class="create-tag">Create a tag.</a></td>
 				</tr>
 			</tbody>
 		}

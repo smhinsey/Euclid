@@ -14,16 +14,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#invite-users").click(function() {
-			$("<div></div>")
-				.load("@Url.Action("Invite", "UserProfile", new { forumId = Model.ForumIdentifier })")
-				.modal({
-					autoResize: true,
-					autoPosition: true,
-					position: new Array(25, 300),
-					dataCss: { backgroundColor: "#fff", overflow: "auto", height: 385, width: 635 },
-					containerCss: { height: 400, width: 650 }
-				});
-
+			EUCLID.showModalForm("@Url.Action("Invite", "UserProfile", new { forumId = Model.ForumIdentifier })");
 			return false;
 		});
 
@@ -43,26 +34,11 @@
 		$("#save").click(function() {
 			$("#save").attr("disabled", "disabled");
 
-			var inputModel;
-			try {
-				inputModel = EUCLID.getModel({ commandName: "ActivateForumUser" });
-			} catch(e) {
-				EUCLID.displayError("Unable to get model for command ActivateUser", e.name + "<br />" + e.message);
-				return false;
-			}
-
+			var inputModel = EUCLID.getInputModel({ commandName: "ActivateForumUser" });
 			$(".activate-user").each(function(index, item) {
-				var userId = $(item).attr("data-item-id");
-				var active = $(item).is(":checked");
-				var currentName = -$(item).attr("data-item-name");
-
-				try {
-					inputModel.UserIdentifier = userId;
-					inputModel.Active = active;
-					EUCLID.publish(inputModel);
-				} catch(e) {
-					EUCLID.displayError("Unable to activate user '" + currentName + "'", e.name + "<br />" + e.message);
-				}
+				inputModel.UserIdentifier = $(item).attr("data-item-id");
+				inputModel.Active = $(item).is(":checked");
+				inputModel.publish();
 			});
 
 			setTimeout('$("#save").removeAttr("disabled");', 750);
@@ -71,22 +47,9 @@
 	});
 
 	function blockUser(userId) {
-		var inputModel;
-
-		try {
-			inputModel = EUCLID.getModel({ commandName: "BlockUser" });
-		} catch(e) {
-			EUCLID.displayError("Unable to get model for command BlockUser", e.name + "<br />" + e.message);
-			return false;
-		}
-
-		try {
-			inputModel.UserIdentifier = userId;
-			EUCLID.publish(inputModel);
-		} catch(e) {
-			EUCLID.displayError("Unable to block user", e.name + "<br />" + e.message);
-			return false;
-		}
+		var inputModel = EUCLID.getInputModel({ commandName: "BlockUser", agentSystemName: "Newco.ForumAgent" });
+		inputModel.UserIdentifier = userId;
+		inputModel.publish();
 
 		$(".block-user[data-item-id='" + userId + "']").parent().addClass("hidden");
 		$(".unblock-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
@@ -94,22 +57,9 @@
 	}
 
 	function unblockUser(userId) {
-		var inputModel;
-
-		try {
-			inputModel = EUCLID.getModel({ commandName: "UnblockUser" });
-		} catch(e) {
-			EUCLID.displayError("Unable to get model for command UnblockUser", e.name + "<br />" + e.message);
-			return false;
-		}
-
-		try {
-			inputModel.UserIdentifier = userId;
-			EUCLID.publish(inputModel);
-		} catch(e) {
-			EUCLID.displayError("Unable to unblock user", e.name + "<br />" + e.message);
-			return false;
-		}
+		var inputModel = EUCLID.getModel({ commandName: "UnblockUser", agentSystemName: "Newco.ForumAgent" });
+		inputModel.UserIdentifier = userId;
+		inputModel.publish();
 
 		$(".block-user[data-item-id='" + userId + "']").parent().removeClass("hidden");
 		$(".unblock-user[data-item-id='" + userId + "']").parent().addClass("hidden");
@@ -117,16 +67,9 @@
 	}
 
 	function deleteUser(userId) {
-		var inputModel;
-
-		try {
-			inputModel = EUCLID.getModel({ commandName: "DeleteForumUser" });
-			inputModel.UserIdentifier = userId;
-			EUCLID.publish(inputModel);
-		} catch(e) {
-			EUCLID.displayError("Unable to get delete user", e.name + "<br />" + e.message);
-			return false;
-		}
+		var inputModel = EUCLID.getInputModel({ commandName: "DeleteForumUser", agentSystemName: "Newco.ForumAgent" });
+		inputModel.UserIdentifier = userId;
+		inputModel.publish();
 
 		window.location.reload();
 	}
@@ -159,7 +102,7 @@
 			{
 				<tbody class="no-table-data">
 					<tr>
-						<td colspan="7">There are no users in this forum, invite one using the blue button above.</td>
+						<td colspan="7">This forum does not yet have any users. <a hre="#" class="invite-users">Invite a user to this forum.</a></td>
 					</tr>
 				</tbody>
 			}

@@ -11,42 +11,20 @@
 <script type="text/javascript" src="@Url.Content("~/Content/jquery.timers-1.2.js")"> </script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#add-content").click(function() {
-			$("<div></div>")
-				.load("@Url.Action("NewStopWord", "ProfanityFilter", new { forumId = Model.ForumIdentifier })")
-				.modal({
-					autoResize: true,
-					autoPosition: true,
-					position: new Array(25, 300),
-					dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 585, width: 525 },
-					containerCss: { height: 600, width: 540 }
-				});
-
+		$(".add-content").click(function() {
+			$EUCLID.showModalForm("@Url.Action("NewStopWord", "ProfanityFilter", new { forumId = Model.ForumIdentifier })");
 			return false;
 		});
 
 		$("#save").click(function() {
 			$("#save").attr("disabled", "disabled");
-			var inputModel;
-			try {
-				inputModel = EUCLID.getModel({ commandName: "ActivateStopWord" });
-			} catch(e) {
-				EUCLID.displayError("Unable to get model for command 'ActivateStopWord'", e.name + "<br />" + e.message);
-				return false;
-			}
+			var inputModel = EUCLID.getInputModel({ commandName: "ActivateStopWord", agentSystemName: "Newco.ForumAgent" });
 
 			$(".stopWord-active").each(function(index, item) {
-				var contentId = $(item).attr("data-item-id");
-				var active = $(item).is(":checked");
-				var currentName = $(item).attr("data-item-name");
+				inputModel.StopWordIdentifier = $(item).attr("data-item-id");
+				inputModel.Active = $(item).is(":checked");
+				inputModel.publish();
 
-				try {
-					inputModel.StopWordIdentifier = contentId;
-					inputModel.Active = active;
-					EUCLID.publish(inputModel);
-				} catch(e) {
-					EUCLID.displayError("Unable to activate stop word '" + currentName + "'", e.name + "<br />" + e.message);
-				}
 				$.get("@Url.Action("ActivateStopWord", "ProfanityFilter")", { contentId: contentId, active: active });
 			});
 
@@ -56,21 +34,9 @@
 	});
 
 	function deleteStopWord(stopWordId) {
-		var inputModel;
-		try {
-			inputModel = EUCLID.getModel({ commandName: "DeleteStopWord" });
-		} catch(e) {
-			EUCLID.displayError("Unable to get model for command DeleteStopWord", e.name + "<br />" + e.message);
-			return false;
-		}
-
-		try {
-			inputModel.StopWordIdentifier = stopWordId;
-			EUCLID.publish(inputModel);
-		} catch(e) {
-			EUCLID.displayError("Unable to delete stop word", e.name + "<br />" + e.message);
-			return false;
-		}
+		var inputModel = EUCLID.getInputModel({ commandName: "DeleteStopWord", agentSystemName: "Newco.ForumAgent" });
+		inputModel.StopWordIdentifier = stopWordId;
+		inputModel.publish();
 
 		window.location.reload();
 	}
@@ -84,7 +50,7 @@
 
 	<section>
 		<p style="float: left">Add, delete, or activate stop words in your forum's profanity filter.</p>
-		<a style="float: right" href="#" class="button-link blue" id="add-content">Add Stop Word</a>
+		<a style="float: right" href="#" class="button-link blue add-content">Add Stop Word</a>
 	</section>
 
 	<table>
@@ -100,7 +66,7 @@
 		{
 			<tbody class="no-table-data">
 				<tr>
-					<td colspan="4">There are no stop words in this forum, create one using the blue button above.</td>
+					<td colspan="4">This forum does not yet have any stop words. <a href="#" class="add-content">Add stop words</a></td>
 				</tr>
 			</tbody>
 		}

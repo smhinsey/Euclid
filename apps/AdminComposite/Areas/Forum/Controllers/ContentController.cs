@@ -73,7 +73,7 @@ namespace AdminComposite.Areas.Forum.Controllers
 			return PartialView("_preview", content);
 		}
 
-		private string getPartialViewNameForContentType(string contentType)
+		private static string getPartialViewNameForContentType(string contentType)
 		{
 			return getPartialViewNameForContentType((AvailableContentType)Enum.Parse(typeof (AvailableContentType), contentType));
 		}

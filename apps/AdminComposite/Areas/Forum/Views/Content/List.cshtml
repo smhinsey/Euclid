@@ -11,17 +11,8 @@
 <script type="text/javascript" src="@Url.Content("~/Content/jquery.timers-1.2.js")"> </script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#add-content").click(function() {
-			$("<div></div>")
-				.load("@Url.Action("NewContent", "Content", new { forumId = Model.ForumIdentifier })")
-				.modal({
-					autoResize: true,
-					autoPosition: true,
-					position: new Array(25, 300),
-					dataCss: { backgroundColor: "#fff", overflow: "hidden", height: 585, width: 525 },
-					containerCss: { height: 600, width: 540 }
-				});
-
+		$(".add-content").click(function() {
+			EUCLID.showModalForm("@Url.Action("NewContent", "Content", new { forumId = Model.ForumIdentifier })");
 			return false;
 		});
 
@@ -57,27 +48,11 @@
 
 		$("#save").click(function() {
 			$("#save").attr("disabled", "disabled");
-			var inputModel;
-			try {
-				inputModel = EUCLID.getModel({ commandName: "ActivateContent" });
-			} catch(e) {
-				EUCLID.displayError("Unable to get model for command 'ActivateContent'", e.name + "<br />" + e.message);
-				return false;
-			}
-
+			var inputModel = EUCLID.getInputModel({ commandName: "ActivateContent", agentSystemName: "NewCo.ForumAgent" });
 			$(".content-active").each(function(index, item) {
-				var contentId = $(item).attr("data-item-id");
-				var active = $(item).is(":checked");
-				var currentName = $(item).attr("data-item-name");
-
-				try {
-					inputModel.ContentIdentifier = contentId;
-					inputModel.Active = active;
-					EUCLID.publish(inputModel);
-				} catch(e) {
-					EUCLID.displayError("Unable to activate content item '" + currentName + "'", e.name + "<br />" + e.message);
-				}
-				$.get("@Url.Action("ActivateContent")", { contentId: contentId, active: active });
+				inputModel.ContentIdentifier = $(item).attr("data-item-id");
+				inputModel.Active = $(item).is(":checked");
+				inputModel.publish();
 			});
 
 			setTimeout("$('#save').removeAttr('disabled');", 750);
@@ -86,22 +61,9 @@
 	});
 
 	function deleteContent(contentId) {
-		var inputModel;
-		try {
-			inputModel = EUCLID.getModel({ commandName: "DeleteForumContent" });
-		} catch(e) {
-			EUCLID.displayError("Unable to get model for command DeleteForumContent", e.name + "<br />" + e.message);
-			return false;
-		}
-
-		try {
-			inputModel.ContentIdentifier = contentId;
-			EUCLID.publish(inputModel);
-		} catch(e) {
-			EUCLID.displayError("Unable to delete content", e.name + "<br />" + e.message);
-			return false;
-		}
-
+		var inputModel = EUCLID.getInputModel({ commandName: "DeleteForumContent", agentSystemName: "NewCo.ForumAgent" });
+		inputModel.ContentIdentifier = contentId;
+		inputModel.publish(); 
 		window.location.reload();
 	}
 </script>
@@ -113,7 +75,7 @@
 
 	<section>
 		<p style="float: left">View, add, edit, and activate content for this forum</p>
-		<a style="float: right" href="#" class="button-link blue" id="add-content">Add Content</a>
+		<a style="float: right" href="#" class="button-link blue add-content">Add Content</a>
 	</section>
 
 	<table>
@@ -129,7 +91,7 @@
 		{
 			<tbody class="no-table-data">
 				<tr>
-					<td colspan="4">There are no content items in this forum, create one using the blue button above.</td>
+					<td colspan="4">This forum does not yet have any custom content. <a href="#" class="add-content">Create custom content.</a></td>
 				</tr>
 			</tbody>
 		}

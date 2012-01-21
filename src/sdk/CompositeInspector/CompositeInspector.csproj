@@ -155,6 +155,13 @@
     <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <EmbeddedResource Include="Assets\Styles\smoothness\jquery-ui-1.8.16.custom.css" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\jquery.validate.min.js" />
+    <EmbeddedResource Include="Assets\Scripts\jquery.validate.unobtrusive.min.js" />
+    <EmbeddedResource Include="Assets\Scripts\simplemodal\jquery.simplemodal.1.4.1-close.png" />
+    <EmbeddedResource Include="Assets\Scripts\simplemodal\jquery.simplemodal.1.4.1.css" />
+    <EmbeddedResource Include="Assets\Scripts\simplemodal\jquery.simplemodal.1.4.1.min.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
