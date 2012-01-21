@@ -10,15 +10,15 @@
 	});
 </script>
 <ul>
-	<li @Html.GetClassWhenControllerIsCurrent("dashboard", "current")><a href="@Url.Action("Index", "Dashboard")" title="Home" class="dashboard no-submenu">
+	<li @Html.GetClassWhenControllerIsCurrent("dashboard", "current")><a href="@Url.Action("Index", "Dashboard", new { Area = ""})" title="Home" class="dashboard no-submenu">
 																																			Dashboard</a> </li>
 	<li @Html.GetClassWhenControllerIsCurrent("organization", "current")><a title="Home" class="dashboard">Organization</a>
 		<ul class="expand">
 			<li @Html.GetClassWhenControllerAndActionAreCurrent("organization", "details", "current")>
-				<a href="@Url.Action("Details", "Organization", new { organizationId = AdminInfo.OrganizationId })">
+				<a href="@Url.Action("Details", "Organization", new { organizationId = AdminInfo.OrganizationId, Area = "" })">
 					Details</a> </li>
 			<li @Html.GetClassWhenControllerAndActionAreCurrent("organization", "users", "current")>
-				<a href="@Url.Action("Users", "Organization", new { organizationId = AdminInfo.OrganizationId })">
+				<a href="@Url.Action("Users", "Organization", new { organizationId = AdminInfo.OrganizationId, Area = "" })">
 					Users</a> </li>
 		</ul>
 	</li>
