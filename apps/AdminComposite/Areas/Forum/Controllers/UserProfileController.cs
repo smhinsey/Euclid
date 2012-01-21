@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Areas.Forum.InputModels;
+using AdminComposite.Controllers;
 using AdminComposite.Extensions;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Areas.Forum.Controllers
 {
 	[Authorize]
-	public class UserProfileController : Controller
+	public class UserProfileController : AdminController
 	{
 		private readonly UserQueries _forumUserQueries;
 

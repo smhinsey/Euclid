@@ -169,6 +169,8 @@
     <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.min.js" />
     <Content Include="Content\admin-ui.js" />
     <Compile Include="Areas\Forum\ForumAreaRegistration.cs" />
+    <Compile Include="CommonAdminInfo.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Areas\Forum\Controllers\AvailableContentType.cs" />
     <Compile Include="Areas\Forum\Controllers\AvatarController.cs" />
@@ -186,6 +188,7 @@
     <Compile Include="Areas\Forum\Controllers\UserProfileController.cs" />
     <Compile Include="Areas\Forum\Controllers\VotingController.cs" />
     <Compile Include="Extensions\RequestExtensions.cs" />
+    <Compile Include="AdminViewPage.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

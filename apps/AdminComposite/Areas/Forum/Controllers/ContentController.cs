@@ -1,12 +1,13 @@
 using System;
 using System.Web.Mvc;
 using AdminComposite.Areas.Forum.InputModels;
+using AdminComposite.Controllers;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Areas.Forum.Controllers
 {
 	[Authorize]
-	public class ContentController : Controller
+	public class ContentController : AdminController
 	{
 		private readonly ContentQueries _contentQueries;
 

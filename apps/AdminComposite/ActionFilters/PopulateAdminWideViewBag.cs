@@ -30,51 +30,51 @@ namespace AdminComposite.ActionFilters
 
 		public void OnActionExecuting(ActionExecutingContext filterContext)
 		{
-			if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName == "Authentication")
-			{
-				return;
-			}
+			//if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerName == "Authentication")
+			//{
+			//  return;
+			//}
 
-			if (filterContext.HttpContext.Request.IsAjaxRequest())
-			{
-				return;
-			}
+			//if (filterContext.HttpContext.Request.IsAjaxRequest())
+			//{
+			//  return;
+			//}
 
-			if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly != _currentAssembly)
-			{
-				return;
-			}
+			//if (filterContext.ActionDescriptor.ControllerDescriptor.ControllerType.Assembly != _currentAssembly)
+			//{
+			//  return;
+			//}
 
-			if (!HttpContext.Current.User.Identity.IsAuthenticated)
-			{
-				return;
-			}
+			//if (!HttpContext.Current.User.Identity.IsAuthenticated)
+			//{
+			//  return;
+			//}
 
-			var currentUser = UserQueries.FindByUsername(HttpContext.Current.User.Identity.Name);
+			//var currentUser = UserQueries.FindByUsername(HttpContext.Current.User.Identity.Name);
 
-			if (currentUser == null)
-			{
-				filterContext.Result =
-					new RedirectToRouteResult(new RouteValueDictionary { { "action", "SignOut" }, { "controller", "Authentication" } });
-			}
-			else
-			{
-				var organization = OrganizationQueries.FindById(currentUser.OrganizationIdentifier);
+			//if (currentUser == null)
+			//{
+			//  filterContext.Result =
+			//    new RedirectToRouteResult(new RouteValueDictionary { { "action", "SignOut" }, { "controller", "Authentication" } });
+			//}
+			//else
+			//{
+			//  var organization = OrganizationQueries.FindById(currentUser.OrganizationIdentifier);
 
-				if (organization == null)
-				{
-					throw new OrganizationNotFoundException(currentUser.OrganizationIdentifier);
-				}
+			//  if (organization == null)
+			//  {
+			//    throw new OrganizationNotFoundException(currentUser.OrganizationIdentifier);
+			//  }
 
-				filterContext.Controller.ViewBag.Forums = ForumQueries.FindByOrganization(organization.Identifier);
-				filterContext.Controller.ViewBag.CurrentForumId = filterContext.GetRequestValue("forumId");
-				filterContext.Controller.ViewBag.OrganizationId = organization.Identifier;
-				filterContext.Controller.ViewBag.OrganizationSlug = organization.Slug;
-				filterContext.Controller.ViewBag.UserId = currentUser.Identifier;
-				filterContext.Controller.ViewBag.FirstName = currentUser.FirstName;
-				filterContext.Controller.ViewBag.LastName = currentUser.LastName;
-				filterContext.Controller.ViewBag.Gravatar = string.Format("http://www.gravatar.com/avatar/{0}?s=45", currentUser.Email.GetMd5());
-			}
+			//  filterContext.Controller.ViewBag.Forums = ForumQueries.FindByOrganization(organization.Identifier);
+			//  filterContext.Controller.ViewBag.CurrentForumId = filterContext.GetRequestValue("forumId");
+			//  filterContext.Controller.ViewBag.OrganizationId = organization.Identifier;
+			//  filterContext.Controller.ViewBag.OrganizationSlug = organization.Slug;
+			//  filterContext.Controller.ViewBag.UserId = currentUser.Identifier;
+			//  filterContext.Controller.ViewBag.FirstName = currentUser.FirstName;
+			//  filterContext.Controller.ViewBag.LastName = currentUser.LastName;
+			//  filterContext.Controller.ViewBag.Gravatar = string.Format("http://www.gravatar.com/avatar/{0}?s=45", currentUser.Email.GetMd5());
+			//}
 		}
 	}
 }

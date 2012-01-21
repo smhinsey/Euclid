@@ -1,6 +1,5 @@
 ﻿@using AdminComposite.Areas.Forum.InputModels
 @using AdminComposite.Extensions
-@using AdminComposite.Models
 @using ForumAgent.ReadModels
 @model OrganizationUsers
 @{
@@ -21,7 +20,7 @@
 
 		$("#add-user").click(function () {
 			$("<div></div>")
-				.load("/Organization/RegisterUser?organizationId=@ViewBag.OrganizationId&currentUserId=@ViewBag.UserId")
+				.load("/Organization/RegisterUser?organizationId=@AdminInfo.OrganizationId&currentUserId=@AdminInfo.AuthenticatedUserIdentifier")
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -36,7 +35,7 @@
 		$(".edit.user").click(function () {
 			var organizationId = "@ViewBag.OrganizationId";
 			$("<div></div>")
-				.load("/Organization/UpdateUser?organizationId=@ViewBag.OrganizationId&userId=" + $(this).attr("data-item-id"))
+				.load("/Organization/UpdateUser?organizationId=@AdminInfo.OrganizationId&userId=" + $(this).attr("data-item-id"))
 				.modal({
 					autoResize: true,
 					autoPosition: true,
@@ -153,7 +152,7 @@
 @section Breadcrumbs {
 	<ul id="breadcrumbs">
 		<li><a href="@Url.Action("Index", "Dashboard")" title="Back to Homepage">Home</a></li>
-		<li>@ViewBag.OrganizationName</li>
+		<li>@AdminInfo.OrganizationName</li>
 		<li>Manage Organization Users</li>
 	</ul>
 }

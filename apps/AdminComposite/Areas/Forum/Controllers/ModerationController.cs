@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Web.Mvc;
 using AdminComposite.Areas.Forum.InputModels;
+using AdminComposite.Controllers;
 using AdminComposite.Extensions;
 using ForumAgent.Queries;
 using ForumAgent.ReadModels;
@@ -9,7 +10,7 @@ using ForumAgent.ReadModels;
 namespace AdminComposite.Areas.Forum.Controllers
 {
 	[Authorize]
-	public class ModerationController : Controller
+	public class ModerationController : AdminController
 	{
 		private readonly ModeratedPostQueries _postQueries;
 		private readonly ModeratedCommentQueries _commentQueries;

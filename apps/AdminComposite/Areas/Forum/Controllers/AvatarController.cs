@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Areas.Forum.InputModels;
+using AdminComposite.Controllers;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Areas.Forum.Controllers
 {
 	[Authorize]
-	public class AvatarController : Controller
+	public class AvatarController : AdminController
 	{
 		private readonly AvatarQueries _avatarQueries;
 		public AvatarController(AvatarQueries avatarQueries)

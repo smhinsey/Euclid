@@ -8,7 +8,7 @@ using ForumAgent.Queries;
 namespace AdminComposite.Controllers
 {
 	[Authorize]
-	public class OrganizationController : Controller
+	public class OrganizationController : AdminController
 	{
 		private readonly OrganizationQueries _organizationQueries;
 		private readonly OrganizationUserQueries _userQueries;

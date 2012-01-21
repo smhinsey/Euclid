@@ -2,12 +2,13 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using AdminComposite.Areas.Forum.InputModels;
+using AdminComposite.Controllers;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Areas.Forum.Controllers
 {
 	[Authorize]
-	public class ThemeController : Controller
+	public class ThemeController : AdminController
 	{
 		private readonly ForumQueries _forumQueries;
 		private readonly ThemeQueries _themeQueries;

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Areas.Forum.InputModels;
+using AdminComposite.Controllers;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Areas.Forum.Controllers
 {
 	[Authorize]
-	public class BadgeController : Controller
+	public class BadgeController : AdminController
 	{
 		private readonly BadgeQueries _badgeQueries;
 

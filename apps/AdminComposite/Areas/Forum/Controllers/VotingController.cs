@@ -1,10 +1,11 @@
 using System;
 using System.Web.Mvc;
+using AdminComposite.Controllers;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Areas.Forum.Controllers
 {
-	public class VotingController : Controller
+	public class VotingController : AdminController
 	{
 		private readonly ForumQueries _forumQueries;
 		public VotingController(ForumQueries forumQueries)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Areas.Forum.InputModels;
+using AdminComposite.Controllers;
 using AdminComposite.Extensions;
 using ForumAgent;
 using ForumAgent.Queries;
@@ -8,7 +9,7 @@ using ForumAgent.Queries;
 namespace AdminComposite.Areas.Forum.Controllers
 {
 	[Authorize]
-	public class ForumController : Controller
+	public class ForumController : AdminController
 	{
 		private readonly ForumQueries _forumQueries;
 		

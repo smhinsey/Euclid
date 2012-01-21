@@ -9,7 +9,7 @@ using ForumAgent.Queries;
 
 namespace AdminComposite.Controllers
 {
-	public class AuthenticationController : Controller
+	public class AuthenticationController : AdminController
 	{
 		private readonly OrganizationUserQueries _organizationUserQueries;
 		private readonly IPublisher _commandPublisher;

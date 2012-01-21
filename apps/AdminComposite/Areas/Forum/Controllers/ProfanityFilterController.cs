@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Web.Mvc;
 using AdminComposite.Areas.Forum.InputModels;
+using AdminComposite.Controllers;
 using ForumAgent.Queries;
 
 namespace AdminComposite.Areas.Forum.Controllers
 {
-	public class ProfanityFilterController : Controller
+	public class ProfanityFilterController : AdminController
 	{
 		private readonly ProfanityFilterQueries _profanityFilterQueries;
 

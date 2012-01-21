@@ -15,18 +15,18 @@
 	<li @Html.GetClassWhenControllerIsCurrent("organization", "current")><a title="Home" class="dashboard">Organization</a>
 		<ul class="expand">
 			<li @Html.GetClassWhenControllerAndActionAreCurrent("organization", "details", "current")>
-				<a href="@Url.Action("Details", "Organization", new { organizationId = ViewBag.OrganizationId })">
+				<a href="@Url.Action("Details", "Organization", new { organizationId = AdminInfo.OrganizationId })">
 					Details</a> </li>
 			<li @Html.GetClassWhenControllerAndActionAreCurrent("organization", "users", "current")>
-				<a href="@Url.Action("Users", "Organization", new { organizationId = ViewBag.OrganizationId })">
+				<a href="@Url.Action("Users", "Organization", new { organizationId = AdminInfo.OrganizationId })">
 					Users</a> </li>
 		</ul>
 	</li>
 	<li @Html.GetClassWhenControllerAndActionAreCurrent("forum", "create", "current")><a href="@Url.Action("Create", "Forum")" class="new-forum no-submenu">
 																																											Add Forum</a> </li>
 	@{
-		IList<Forum> forums = ViewBag.Forums;
-		string selectedForumId = ViewBag.CurrentForumId;
+		IList<Forum> forums = AdminInfo.Forums;
+		string selectedForumId = AdminInfo.CurrentForumId;
 
 		foreach (var forum in forums)
 		{
