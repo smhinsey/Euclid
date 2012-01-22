@@ -151,6 +151,7 @@
     <Content Include="Content\chromatron\img\forum-themes\test-theme2.png" />
     <Content Include="Content\chromatron\js\jquery\jquery.nyroModal.custom.js" />
     <Content Include="Content\chromatron\js\jquery\jquery.nyromodal.js" />
+    <Content Include="Content\chromatron\js\jquery\jquery.wysiwyg.js" />
     <Content Include="Content\clear.gif" />
     <Content Include="Content\date.js" />
     <Content Include="Content\jeditable\jquery.jeditable.wysiwyg.js" />
@@ -166,7 +167,6 @@
     <Content Include="Content\chromatron\img\logo2.jpg" />
     <Content Include="Content\logo_3.jpg" />
     <Content Include="Content\logo_3.png" />
-    <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.min.js" />
     <Content Include="Content\admin-ui.js" />
     <Compile Include="Areas\Forum\ForumAreaRegistration.cs" />
     <Compile Include="CommonAdminInfo.cs" />
@@ -339,14 +339,11 @@
     <Content Include="Content\chromatron\js\jquery\jquery.fullcalendar.min.js" />
     <Content Include="Content\chromatron\js\jquery\jquery.tipsy.js" />
     <Content Include="Content\chromatron\js\jquery\jquery.visualize.js" />
-    <Content Include="Content\chromatron\js\jquery\jquery.wysiwyg.js" />
     <Content Include="Content\chromatron\js\libs\modernizr-1.7.min.js" />
     <Content Include="Content\chromatron\js\libs\selectivizr.js" />
     <Content Include="Content\chromatron\js\login.js" />
     <Content Include="Content\chromatron\js\script.js" />
     <Content Include="Content\sample_user_icon.png" />
-    <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.css" />
-    <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1-close.png" />
     <Content Include="Content\chromatron\img\forum-themes\swiss.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />

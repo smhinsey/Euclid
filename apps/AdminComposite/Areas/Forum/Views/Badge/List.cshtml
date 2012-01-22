@@ -25,7 +25,7 @@
 				inputModel.publish();
 			});
 
-			setTimeout("enableSaveButton()", 750);
+			window.location.reload();
 		});
 
 		$(".edit").click(function() {
@@ -42,12 +42,19 @@
 				});
 			return false;
 		});
+
+		$("#edit").click(function() {
+			$(".badge-active").removeAttr("disabled");
+			$(".actions").removeClass("hidden");
+			$("#edit").hide();
+			$("#save").show();
+			$("#cancel").show();
+		});
+
+		$("#cancel").click(function() {
+			window.location.reload();
+		});
 	});
-
-
-	function enableSaveButton() {
-		$("#save").removeAttr('disabled');
-	}
 </script>
 <article>
 	<header>
@@ -83,7 +90,9 @@
 				<tr>
 					<td>
 						<ul class="button-switch">
-							<li><button type="button" id="save">Save</button></li>
+							<li><button type="button" id="edit">Edit</button></li>
+							<li><button type="submit" id="save" class="green" style="display: none">Save</button></li>
+							<li><button type="button" id="cancel"  style="display: none">Cancel</button></li>
 						</ul>
 					</td>
 					@Html.Partial("_pagination")
@@ -93,7 +102,7 @@
 				@foreach (var badge in Model.Badges)
 				{
 					<tr>
-						<td>@Html.CheckBoxFor(m => badge.Active, new { @class = "badge-active", data_item_id = @badge.Identifier, data_item_name = @badge.Name })</td>
+						<td>@Html.CheckBoxFor(m => badge.Active, new { @class = "badge-active", disabled="disabled", data_item_id = @badge.Identifier, data_item_name = @badge.Name })</td>
 						<td>@badge.Name</td>
 						<td>@badge.Field @badge.Operator @badge.Value</td>
 						<td>@if (!string.IsNullOrEmpty(badge.ImageUrl))
@@ -105,7 +114,7 @@
 									<text>&nbsp;</text>
 								}</td>
 						<td>
-							<ul class="actions">
+							<ul class="actions hidden">
 								<li><a class="edit" rel="tooltip" href="#" data-item-id="@badge.Identifier" original-title="Edit">Edit</a></li>
 							</ul>
 						</td>

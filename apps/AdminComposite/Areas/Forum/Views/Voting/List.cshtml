@@ -14,8 +14,18 @@
 			inputModel.SelectedScheme = $("input:radio[name='CurrentScheme']:checked").val();
 			inputModel.publish();
 
-			setTimeout('$("#save-voting-scheme").removeAttr("disabled");', 750);
-			return false;
+			window.location.reload();
+		});
+
+		$("#edit").click(function () {
+			$(".voting-scheme").removeAttr("disabled");
+			$("#edit").hide();
+			$("#save").show();
+			$("#cancel").show();
+		});
+
+		$("#cancel").click(function () {
+			window.location.reload();
 		});
 	});
 </script>
@@ -37,7 +47,9 @@
 			<tr>
 				<td colspan="3">
 					<ul class="button-switch">
-						<li><button type="button" id="save-voting-scheme">Save</button></li>
+						<li><button type="button" id="edit">Edit</button></li>
+						<li><button type="submit" id="save" class="green" style="display: none">Save</button></li>
+						<li><button type="button" id="cancel"  style="display: none">Cancel</button></li>
 					</ul>
 				</td>
 			</tr>
@@ -45,14 +57,14 @@
 		<tbody>
 			<tr>
 				<td>
-					@Html.RadioButtonFor(m => m.CurrentScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", id = "forum-voting-disabled" })
+					@Html.RadioButtonFor(m => m.CurrentScheme, VotingScheme.NoVoting, new { @class = "voting-scheme", disabled="disabled", id = "forum-voting-disabled" })
 				</td>
 				<td>None</td>
 				<td>Users cannot vote on posts or comments</td>
 			</tr>
 			<tr>
 				<td>
-					@Html.RadioButtonFor(m => m.CurrentScheme, VotingScheme.UpDownVoting, new { @class = "voting-scheme", id = "forum-voting-updown" })
+					@Html.RadioButtonFor(m => m.CurrentScheme, VotingScheme.UpDownVoting, new { @class = "voting-scheme", disabled = "disabled", id = "forum-voting-updown" })
 				</td>
 				<td>Up / Down</td>
 				<td>Users can vote a post or comment up or down.  <br />A user can change their vote, but can only vote on a particular post or comment once</td>

@@ -17,6 +17,18 @@
 			return false;
 		});
 
+		$("#edit").click(function() {
+			$(".tag-active").removeAttr("disabled");
+			$(".actions").removeClass("hidden");
+			$("#edit").hide();
+			$("#save").show();
+			$("#cancel").show();
+		});
+
+		$("#cancel").click(function() {
+			window.location.reload();
+		});
+
 		$(".edit").click(function() {
 			var categoryId = $(this).attr("data-tag-id");
 
@@ -38,7 +50,7 @@
 
 		$("#save").click(function() {
 			$("#save").attr("disabled", "disabled");
-			var inputModel = EUCLID.getInputModel({ commandName: "ActivateTag" });
+			var inputModel = EUCLID.getInputModel({ commandName: "ActivateTag", agentSystemName: "Newco.ForumAgent" });
 
 			$(".tag-active").each(function(index, item) {
 				inputModel.TagIdentifier = $(item).attr("data-item-id");
@@ -46,8 +58,7 @@
 				inputModel.publish();
 			});
 
-			setTimeout("$('#save').removeAttr('disabled');", 750);
-			return false;
+			window.location.href = window.location.href;
 		});
 	});
 </script>
@@ -85,7 +96,9 @@
 				<tr>
 					<td>
 						<ul class="button-switch">
-							<li><button type="button" id="save">Save</button></li>
+							<li><button type="button" id="edit">Edit</button></li>
+							<li><button type="submit" id="save" class="green" style="display: none">Save</button></li>
+							<li><button type="button" id="cancel"  style="display: none">Cancel</button></li>
 						</ul>
 					</td>
 					@Html.Partial("_pagination")
@@ -95,11 +108,11 @@
 				@foreach (var tag in Model.Tags)
 				{
 					<tr>
-						<td>@Html.CheckBoxFor(m => tag.Active, new { @class = "tag-active", data_item_id = tag.Identifier, data_item_name = tag.Name })</td>
+						<td>@Html.CheckBoxFor(m => tag.Active, new { @class = "tag-active", disabled="disabled", data_item_id = tag.Identifier, data_item_name = tag.Name })</td>
 						<td><span data-category-id="@tag.Identifier">@tag.Name</span></td>
 						<td>@tag.TotalPosts</td>
 						<td>
-							<ul class="actions">
+							<ul class="actions hidden">
 								<li><a href="#" class="edit" data-tag-id="@tag.Identifier" rel="tooltip" original-title="Edit Tag">edit tag</a></li>
 							</ul>
 						</td>

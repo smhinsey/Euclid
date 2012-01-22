@@ -155,7 +155,7 @@ var EUCLID = function () {
 
 		} else if (type == "checkbox") {
 			var inputElement = "";
-			if (propertyValue.toLowerCase() == "true" || propertyValue.toLowerCase() == "yes" || propertyValue.toLowerCase() == "on" || propertyValue.toLowerCase() == "1") {
+			if (("" + propertyValue).toLowerCase() == "true" || ("" + propertyValue).toLowerCase() == "yes" || ("" + propertyValue).toLowerCase() == "on" || ("" + propertyValue).toLowerCase() == "1") {
 				inputElement = "<input id='" + inputId + "' type='checkbox' name='" + propertyName + "'  checked='checked' />";
 			} else {
 				inputElement = "<input id='" + inputId + "' type='checkbox' name='" + propertyName + "' />";

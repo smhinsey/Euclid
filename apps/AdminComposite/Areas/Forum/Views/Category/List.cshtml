@@ -17,6 +17,18 @@
 			return false;
 		});
 
+		$("#edit").click(function() {
+			$(".category-active").removeAttr("disabled");
+			$(".actions").removeClass("hidden");
+			$("#edit").hide();
+			$("#save").show();
+			$("#cancel").show();
+		});
+
+		$("#cancel").click(function() {
+			window.location.reload();
+		});
+
 		$(".edit").click(function() {
 			var categoryId = $(this).attr("data-category-id");
 
@@ -45,8 +57,7 @@
 				inputModel.publish();
 			});
 
-			setTimeout("$('#save').removeAttr('disabled');", 750);
-			return false;
+			window.location.href = window.location.href;
 		});
 	});
 </script>
@@ -84,7 +95,9 @@
 				<tr>
 					<td>
 						<ul class="button-switch">
-							<li><button type="button" id="save">Save</button></li>
+							<li><button type="button" id="edit">Edit</button></li>
+							<li><button type="submit" id="save" class="green" style="display: none">Save</button></li>
+							<li><button type="button" id="cancel"  style="display: none">Cancel</button></li>
 						</ul>
 					</td>
 					@Html.Partial("_pagination")
@@ -94,11 +107,11 @@
 				@foreach (var category in Model.Categories)
 				{
 					<tr>
-						<td>@Html.CheckBoxFor(m => category.Active, new { @class = "category-active", data_item_id = @category.Identifier, data_item_name = @category.Name })</td>
+						<td>@Html.CheckBoxFor(m => category.Active, new { @class = "category-active", disabled="disabled", data_item_id = @category.Identifier, data_item_name = @category.Name })</td>
 						<td><span data-category-id="@category.Identifier">@category.Name</span></td>
 						<td><span data-category-id="@category.Identifier">@category.Slug</span></td>
 						<td>
-							<ul class="actions">
+							<ul class="actions hidden">
 								<li><a href="#" class="edit" data-category-id="@category.Identifier" rel="tooltip" original-title="Edit Category">edit category</a></li>
 							</ul>
 						</td>

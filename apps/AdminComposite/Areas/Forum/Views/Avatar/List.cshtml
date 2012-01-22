@@ -31,8 +31,7 @@
 				inputModel.publish();
 			});
 
-			setTimeout("enableSaveButton()", 750);
-			return false;
+			window.location.reload();
 		});
 
 		$(".edit").click(function() {
@@ -49,11 +48,19 @@
 				});
 			return false;
 		});
-	});
 
-	function enableSaveButton() {
-		$("#save").removeAttr('disabled');
-	}
+		$("#edit").click(function() {
+			$(".avatar-active").removeAttr("disabled");
+			$(".actions").removeClass("hidden");
+			$("#edit").hide();
+			$("#save").show();
+			$("#cancel").show();
+		});
+
+		$("#cancel").click(function() {
+			window.location.reload();
+		});
+	});
 
 	function deleteAvatar(avatarId) {
 		var inputModel = EUCLID.getInputModel({ commandName: "DeleteAvatar", agentSystemName: "Newco.ForumAgent" });
@@ -99,7 +106,9 @@
 				<tr>
 					<td>
 						<ul class="button-switch">
-							<li><button type="button" id="save">Save</button></li>
+							<li><button type="button" id="edit">Edit</button></li>
+							<li><button type="submit" id="save" class="green" style="display: none">Save</button></li>
+							<li><button type="button" id="cancel"  style="display: none">Cancel</button></li>
 						</ul>
 					</td>
 					@Html.Partial("_pagination")
@@ -109,7 +118,7 @@
 				@foreach (var avatar in Model.Avatars)
 				{
 					<tr data-avatar-id="@avatar.Identifier">
-						<td>@Html.CheckBoxFor(m => avatar.Active, new { @class = "avatar-active", data_item_id = @avatar.Identifier, data_item_name = @avatar.Name })</td>
+						<td>@Html.CheckBoxFor(m => avatar.Active, new { @class = "avatar-active", disabled="disabled", data_item_id = @avatar.Identifier, data_item_name = @avatar.Name })</td>
 						<td>@avatar.Name</td>
 						<td>@if (!string.IsNullOrEmpty(avatar.Url))
 								{

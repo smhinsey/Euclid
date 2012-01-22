@@ -3,6 +3,20 @@
 @{
 	ViewBag.Title = "Configure Authentication Providers";
 }
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#edit").click(function () {
+			$("#edit").hide();
+			$("#save").show();
+			$("#cancel").show();
+		});
+
+		$("#cancel").click(function () {
+			window.location.reload();
+		});
+	});
+</script>
 <article>
 	<header>
 		<h2>@ViewBag.Title</h2>
@@ -18,7 +32,9 @@
 		<tfoot>
 			<td colspan="2">
 				<ul class="button-switch">
-					<li><button type="button">Save</button></li>
+					<li><button type="button" id="edit">Edit</button></li>
+					<li><button type="submit" id="save" class="green" style="display: none">Save</button></li>
+					<li><button type="button" id="cancel"  style="display: none">Cancel</button></li>
 				</ul>
 			</td>
 		</tfoot>

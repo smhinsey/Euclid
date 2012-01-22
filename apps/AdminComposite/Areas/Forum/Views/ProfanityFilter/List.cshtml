@@ -28,8 +28,19 @@
 				$.get("@Url.Action("ActivateStopWord", "ProfanityFilter")", { contentId: contentId, active: active });
 			});
 
-			setTimeout("$('#save').removeAttr('disabled');", 750);
-			return false;
+			window.location.reload();
+		});
+
+		$("#edit").click(function() {
+			$(".stopWord-active").removeAttr("disabled");
+			$(".actions").removeClass("hidden");
+			$("#edit").hide();
+			$("#save").show();
+			$("#cancel").show();
+		});
+
+		$("#cancel").click(function() {
+			window.location.reload();
 		});
 	});
 
@@ -76,7 +87,9 @@
 				<tr>
 					<td>
 						<ul class="button-switch">
-							<li><button type="button" id="save">Save</button></li>
+							<li><button type="button" id="edit">Edit</button></li>
+							<li><button type="submit" id="save" class="green" style="display: none">Save</button></li>
+							<li><button type="button" id="cancel"  style="display: none">Cancel</button></li>
 						</ul>
 					</td>
 					@Html.Partial("_Pagination")
