@@ -18,6 +18,18 @@ namespace CompositeInspector.Module
 {
 	public class CommandModule : NancyModule
 	{
+		private const string BaseRoute = "composite/commands";
+
+		private const string CommandRoute = "/{agentSystemName}/{commandName}";
+
+		private const string CommandView = "Commands/view-command.cshtml";
+
+		private const string IndexRoute = "";
+
+		private const string PublicationStatusRoute = "/status/{publicationId}";
+
+		private const string PublishRoute = "/publish";
+
 		private readonly ICompositeApp _compositeApp;
 
 		private readonly IWindsorContainer _container;
@@ -27,16 +39,16 @@ namespace CompositeInspector.Module
 		private readonly ICommandRegistry _registry;
 
 		public CommandModule(IWindsorContainer container)
-			: base("composite/commands")
+			: base(BaseRoute)
 		{
 			_container = container;
 			_compositeApp = _container.Resolve<ICompositeApp>();
 			_publisher = _container.Resolve<IPublisher>();
 			_registry = _container.Resolve<ICommandRegistry>();
 
-			Get[""] = _ => "Command API";
+			Get[IndexRoute] = _ => "Command API";
 
-			Get["/{agentSystemName}/{commandName}"] = p =>
+			Get[CommandRoute] = p =>
 				{
 					var agentSystemName = (string)p.agentSystemName;
 					var commandName = (string)p.commandName;
@@ -44,7 +56,7 @@ namespace CompositeInspector.Module
 					return GetCommand(agentSystemName, commandName);
 				};
 
-			Post["/publish"] = p =>
+			Post[PublishRoute] = p =>
 				{
 					var inputModel = this.Bind<IInputModel>();
 					if (inputModel == null)
@@ -55,12 +67,13 @@ namespace CompositeInspector.Module
 					return ExecuteCommand(inputModel);
 				};
 
-			Get["/status/{publicationId}"] = p => { return GetCommandStatus((Guid)p.publicationId); };
+			Get[PublicationStatusRoute] = p => GetCommandStatus((Guid)p.publicationId);
 		}
 
 		public Response ExecuteCommand(IInputModel inputModel)
 		{
 			Exception publishingException = null;
+
 			Guid publicationId;
 			try
 			{
@@ -75,22 +88,38 @@ namespace CompositeInspector.Module
 
 			if (Request.IsAjaxRequest())
 			{
-				return (publishingException == null)
-				       	? Response.AsJson(new { publicationId })
-				       	: Response.AsJson(
-				       		new
-				       			{
-				       				name = publishingException.GetType().Name,
-				       				message = publishingException.Message,
-				       				callStack = publishingException.StackTrace
-				       			},
-				       		HttpStatusCode.InternalServerError);
+				if (publishingException == null)
+				{
+					return Response.AsJson(new { publicationId });
+				}
+
+				var exceptionModel =
+					new
+						{
+							name = publishingException.GetType().Name,
+							message = publishingException.Message,
+							callStack = publishingException.StackTrace
+						};
+
+				return Response.AsJson(exceptionModel, HttpStatusCode.InternalServerError);
 			}
 
-			var redirectUrl = !string.IsNullOrEmpty(Request.Form["alternateRedirectUrl"].Value)
-			                  	? (string)Request.Form["alternateRedirectUrl"].Value
-			                  	: Request.Headers["REFERER"].FirstOrDefault()
-			                  	  ?? string.Format("/commands/status/{0}", publicationId);
+			string redirectUrl;
+
+			var incomingAlternateRedirectUrl = Request.Form["alternateRedirectUrl"].Value;
+
+			if (!string.IsNullOrEmpty(incomingAlternateRedirectUrl))
+			{
+				redirectUrl = (string)incomingAlternateRedirectUrl;
+			}
+			else
+			{
+				var commandStatusUrl = string.Format("/commands/status/{0}", publicationId);
+
+				var referringUrl = Request.Headers["REFERER"].FirstOrDefault();
+
+				redirectUrl = referringUrl ?? commandStatusUrl;
+			}
 
 			return Response.AsRedirect(redirectUrl);
 		}
@@ -98,6 +127,7 @@ namespace CompositeInspector.Module
 		public Response GetCommand(string agentSystemName, string commandName)
 		{
 			var asJson = false;
+
 			if (commandName.EndsWith(".json"))
 			{
 				asJson = true;
@@ -119,15 +149,16 @@ namespace CompositeInspector.Module
 				return Response.FromStream(s, "application/json");
 			}
 
-			return
-				View[
-					"Commands/view-command.cshtml", new CommandModel { AgentSystemName = agentSystemName, CommandName = commandName }];
+			var commandModel = new CommandModel { AgentSystemName = agentSystemName, CommandName = commandName };
+
+			return View[CommandView, commandModel];
 		}
 
 		public Response GetCommandStatus(Guid publicationId)
 		{
-			Exception fetchRegistryError = null;
+			Exception exceptionThrownDuringRegistryQuery = null;
 			ICommandPublicationRecord record = null;
+
 			try
 			{
 				record = _registry.GetPublicationRecord(publicationId);
@@ -138,21 +169,25 @@ namespace CompositeInspector.Module
 			}
 			catch (Exception e)
 			{
-				fetchRegistryError = e;
+				exceptionThrownDuringRegistryQuery = e;
 			}
 
 			if (Request.IsAjaxRequest())
 			{
-				return fetchRegistryError == null
-				       	? Response.AsJson(record)
-				       	: Response.AsJson(
-				       		new
-				       			{
-				       				name = fetchRegistryError.GetType().Name,
-				       				message = fetchRegistryError.Message,
-				       				callStack = fetchRegistryError.StackTrace
-				       			},
-				       		HttpStatusCode.InternalServerError);
+				if (exceptionThrownDuringRegistryQuery == null)
+				{
+					return Response.AsJson(record);
+				}
+
+				var exceptionModel =
+					new
+						{
+							name = exceptionThrownDuringRegistryQuery.GetType().Name,
+							message = exceptionThrownDuringRegistryQuery.Message,
+							callStack = exceptionThrownDuringRegistryQuery.StackTrace
+						};
+
+				return Response.AsJson(exceptionModel, HttpStatusCode.InternalServerError);
 			}
 
 			var model = new PublishedCommandModel { PublicationId = publicationId.ToString(), Record = record };
@@ -161,17 +196,19 @@ namespace CompositeInspector.Module
 
 		private IInputModel getInputModel(string agentSystemName, string commandName)
 		{
+			var agents = _compositeApp.Agents;
+
 			var agent =
-				_compositeApp.Agents.Where(a => a.SystemName.Equals(agentSystemName, StringComparison.InvariantCultureIgnoreCase)).
-					FirstOrDefault();
+				agents.FirstOrDefault(a => a.SystemName.Equals(agentSystemName, StringComparison.InvariantCultureIgnoreCase));
 
 			if (agent == null)
 			{
 				return null;
 			}
 
-			var command =
-				agent.Commands.Where(c => c.Name.Equals(commandName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+			var commands = agent.Commands;
+
+			var command = commands.FirstOrDefault(c => c.Name.Equals(commandName, StringComparison.InvariantCultureIgnoreCase));
 
 			if (command == null)
 			{
@@ -181,6 +218,7 @@ namespace CompositeInspector.Module
 			try
 			{
 				var inputModelType = _compositeApp.GetInputModelTypeForCommandName(command.Name);
+
 				return _container.Resolve<IInputModel>(inputModelType.Name);
 			}
 			catch (CannotMapCommandException)
