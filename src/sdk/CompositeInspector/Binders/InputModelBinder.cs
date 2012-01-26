@@ -6,11 +6,12 @@ using Euclid.Framework.Models;
 using Nancy;
 using Nancy.ModelBinding;
 
-namespace JsonCompositeInspector.Views.Commands.Binders
+namespace CompositeInspector.Binders
 {
 	public class InputModelBinder : IModelBinder
 	{
 		private readonly ICompositeApp _compositeApp;
+
 		private readonly IWindsorContainer _container;
 
 		public InputModelBinder(ICompositeApp compositeApp, IWindsorContainer container)
@@ -29,19 +30,22 @@ namespace JsonCompositeInspector.Views.Commands.Binders
 
 			var properties = inputModelType.GetProperties();
 			var form = context.Request.Form as DynamicDictionary;
-			if (form == null) return null;
+			if (form == null)
+			{
+				return null;
+			}
 			foreach (var key in form)
 			{
 				var formName = key;
-				var propertyInfo = properties
-									.Where(p => p.Name.Equals(formName, StringComparison.InvariantCultureIgnoreCase) && p.CanWrite)
-									.FirstOrDefault();
+				var propertyInfo =
+					properties.Where(p => p.Name.Equals(formName, StringComparison.InvariantCultureIgnoreCase) && p.CanWrite).
+						FirstOrDefault();
 
 				if (propertyInfo != null && form[key] != null)
 				{
 					var postedValue = (string)form[key];
 					var expectedType = propertyInfo.PropertyType;
-					object typedValue = ValueConverter.GetValueAs(postedValue, expectedType);
+					var typedValue = ValueConverter.GetValueAs(postedValue, expectedType);
 					propertyInfo.SetValue(inputModel, typedValue, null);
 				}
 			}

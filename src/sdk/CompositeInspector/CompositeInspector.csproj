@@ -8,8 +8,8 @@
     <ProjectGuid>{7453ADF2-CE91-47BD-A046-003CCC90D962}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JsonCompositeInspector</RootNamespace>
-    <AssemblyName>JsonCompositeInspector</AssemblyName>
+    <RootNamespace>CompositeInspector</RootNamespace>
+    <AssemblyName>CompositeInspector</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

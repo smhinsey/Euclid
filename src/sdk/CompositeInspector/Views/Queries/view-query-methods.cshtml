@@ -1,7 +1,7 @@
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
 @{
 	Layout = "Shared/_Layout.cshtml";
-	string model = (string)@Model;
+	var model = (string)@Model;
 }
 
 @section page_title {
@@ -9,13 +9,19 @@
 }
 
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		var queryMetadata = null;
 		try {
-			queryMetadata = EUCLID.getQueryMetadata({ queryName: "@model" });
-			if (queryMetadata == null || queryMetadata === undefined) {
+			queryMetadata = EUCLID.getQueryMetadata({
+				queryName: "@model" });
+				if (queryMetadata == null || queryMetadata === undefined) {
 				$("#list-container").html("<p class='alert-message warning'>The query @model contains no query methods</p>");
-			} else {
+			}
+		
+	
+
+
+	else {
 				var list = $("<ul></ul>");
 				$.each(queryMetadata.Methods, function (index, method) {
 					list.append($("<li><a data-index='" + index + "' class='execute' href='#'>" + method.Name + "</a></li>"));

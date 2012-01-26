@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
@@ -15,23 +14,11 @@ using Nancy.Bootstrappers.Windsor;
 using Nancy.Session;
 using Nancy.ViewEngines;
 
-namespace JsonCompositeInspector
+namespace CompositeInspector
 {
 	public class CompositeInspectorBootstrapper : WindsorNancyAspNetBootstrapper
 	{
-		private byte[] _icon = null;
-
-		protected override IWindsorContainer GetApplicationContainer()
-		{
-			if (ApplicationContainer == null)
-			{
-				var container = DependencyResolver.Current.GetService<IWindsorContainer>();
-				container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel, true));
-				return container;
-			}
-
-			return ApplicationContainer;
-		}
+		private byte[] _icon;
 
 		protected override byte[] DefaultFavIcon
 		{
@@ -62,9 +49,46 @@ namespace JsonCompositeInspector
 		{
 			get
 			{
-				return NancyInternalConfiguration
-						.WithOverrides(x => x.ViewLocationProvider = typeof(ResourceViewLocationProvider));
+				return NancyInternalConfiguration.WithOverrides(x => x.ViewLocationProvider = typeof(ResourceViewLocationProvider));
 			}
+		}
+
+		protected override void ApplicationStartup(IWindsorContainer container, IPipelines pipelines)
+		{
+			CookieBasedSessions.Enable(pipelines);
+
+			//pipelines.BeforeRequest.AddItemToEndOfPipeline(ctx =>
+			//                                                {
+			//                                                    var compositeApp = container.Resolve<ICompositeApp>();
+			//                                                    ctx.Request.Session["Title"] = string.Format("Inspecting Composite: {0}", compositeApp.Name);
+			//                                                    return null;
+			//                                                });
+
+			pipelines.BeforeRequest.AddItemToEndOfPipeline(
+				ctx =>
+					{
+						var blobStorage = container.Resolve<IBlobStorage>();
+
+						foreach (var file in ctx.Request.Files)
+						{
+							var key = file.Key + "Url";
+							var blob = container.Resolve<IBlob>();
+							Uri blobUrl;
+							using (var ms = new MemoryStream())
+							{
+								file.Value.CopyTo(ms);
+								blob.Content = ms.ToArray();
+								blob.ContentType = file.ContentType;
+								blobUrl = blobStorage.Put(blob, file.Name);
+							}
+
+							ctx.Request.Form[key] = blobUrl.AbsoluteUri;
+						}
+
+						return null;
+					});
+
+			base.ApplicationStartup(container, pipelines);
 		}
 
 		protected override void ConfigureApplicationContainer(IWindsorContainer existingContainer)
@@ -86,46 +110,21 @@ namespace JsonCompositeInspector
 			//This should be the assembly your views are embedded in
 			var assembly = GetType().Assembly;
 
-			ResourceViewLocationProvider.RootNamespaces.Add(assembly, "JsonCompositeInspector.Views");
+			ResourceViewLocationProvider.RootNamespaces.Add(assembly, "CompositeInspector.Views");
 
 			base.ConfigureApplicationContainer(existingContainer);
 		}
 
-		protected override void ApplicationStartup(IWindsorContainer container, IPipelines pipelines)
+		protected override IWindsorContainer GetApplicationContainer()
 		{
-			CookieBasedSessions.Enable(pipelines);
+			if (ApplicationContainer == null)
+			{
+				var container = DependencyResolver.Current.GetService<IWindsorContainer>();
+				container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel, true));
+				return container;
+			}
 
-			//pipelines.BeforeRequest.AddItemToEndOfPipeline(ctx =>
-			//                                                {
-			//                                                    var compositeApp = container.Resolve<ICompositeApp>();
-			//                                                    ctx.Request.Session["Title"] = string.Format("Inspecting Composite: {0}", compositeApp.Name);
-			//                                                    return null;
-			//                                                });
-
-			pipelines.BeforeRequest.AddItemToEndOfPipeline(ctx =>
-			                                               	{
-			                                               		var blobStorage = container.Resolve<IBlobStorage>();
-
-																foreach (var file in ctx.Request.Files)
-																{
-																	var key = file.Key + "Url";
-																	var blob = container.Resolve<IBlob>();
-																	Uri blobUrl;
-																	using (var ms = new MemoryStream())
-																	{
-																		file.Value.CopyTo(ms);
-																		blob.Content = ms.ToArray();
-																		blob.ContentType = file.ContentType;
-																		blobUrl = blobStorage.Put(blob, file.Name);
-																	}
-
-																	ctx.Request.Form[key] = blobUrl.AbsoluteUri;
-																}
-
-			                                               		return null;
-			                                               	});
-
-			base.ApplicationStartup(container, pipelines);
+			return ApplicationContainer;
 		}
 	}
 }

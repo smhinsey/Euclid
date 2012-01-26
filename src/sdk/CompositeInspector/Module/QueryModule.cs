@@ -1,39 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using Castle.Windsor;
 using Euclid.Composites;
-using JsonCompositeInspector.Views.Commands.Binders;
 using Nancy;
 
-namespace JsonCompositeInspector.Module
+namespace CompositeInspector.Module
 {
 	public class QueryModule : NancyModule
 	{
 		private readonly ICompositeApp _compositeApp;
+
 		private readonly IWindsorContainer _container;
 
-		public QueryModule(ICompositeApp compositeApp, IWindsorContainer container): base("composite/queries")
+		public QueryModule(ICompositeApp compositeApp, IWindsorContainer container)
+			: base("composite/queries")
 		{
 			_compositeApp = compositeApp;
 			_container = container;
 
 			Get[""] = _ => "Query API";
 
-			Get["/{queryName}"] = p =>
-									{
-										return GetQueryByName((string) p.queryName);
-									};
+			Get["/{queryName}"] = p => { return GetQueryByName((string)p.queryName); };
 
 			Post["/{queryName}/{methodName}"] = p =>
-													{
-														var queryName = (string)p.queryName;
-														var methodName = (string)p.methodName;
+				{
+					var queryName = (string)p.queryName;
+					var methodName = (string)p.methodName;
 
-														return ExecuteQueryMethod(queryName, methodName);
-													};
+					return ExecuteQueryMethod(queryName, methodName);
+				};
+		}
+
+		public Response ExecuteQueryMethod(string queryName, string methodName)
+		{
+			try
+			{
+				var form = (DynamicDictionary)Context.Request.Form;
+				var argumentCount = form.Count();
+				var results = _compositeApp.ExecuteQuery(queryName, methodName, argumentCount, paramName => form[paramName]);
+				return Response.AsJson(results);
+			}
+			catch (Exception e)
+			{
+				return Response.AsJson(
+					new { name = e.GetType().Name, message = e.Message, callStack = e.StackTrace }, HttpStatusCode.InternalServerError);
+			}
 		}
 
 		public Response GetQueryByName(string queryName)
@@ -46,9 +59,7 @@ namespace JsonCompositeInspector.Module
 			}
 
 			var query =
-				_compositeApp.Queries.Where(
-					q =>
-					q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase)).
+				_compositeApp.Queries.Where(q => q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase)).
 					FirstOrDefault();
 
 			if (asJson)
@@ -64,29 +75,13 @@ namespace JsonCompositeInspector.Module
 								},
 							HttpStatusCode.InternalServerError);
 				}
-				
+
 				var json = query.GetFormatter().GetRepresentation("json");
 				var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
 				return Response.FromStream(ms, "application/json");
 			}
 
 			return View["Queries/view-query-methods.cshtml", queryName];
-		}
-
-		public Response ExecuteQueryMethod(string queryName, string methodName)
-		{
-			try
-			{
-				var form = (DynamicDictionary) Context.Request.Form;
-				var argumentCount = form.Count();
-				var results = _compositeApp.ExecuteQuery(queryName, methodName, argumentCount, paramName => form[paramName]);
-				return Response.AsJson(results);
-			}
-			catch (Exception e)
-			{
-				return Response.AsJson(new { name = e.GetType().Name, message = e.Message, callStack = e.StackTrace }, HttpStatusCode.InternalServerError);
-			}
-
 		}
 	}
 }

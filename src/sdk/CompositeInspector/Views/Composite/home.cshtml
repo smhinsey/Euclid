@@ -1,9 +1,9 @@
-﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
-@using JsonCompositeInspector.Models;
+﻿@using CompositeInspector.Models
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
 
 @{
 	Layout = "Shared/_Layout.cshtml";
-	CompositeHome model = (CompositeHome)@Model;
+	var model = (CompositeHome)@Model;
 }
 
 <div class="pageheader">
@@ -22,8 +22,8 @@
 			<li>
 				@agent.DescriptiveName - @agent.SystemName 
 				(
-					<a href="/composite/agent/@agent.SystemName">html</a> |
-					<a href="/composite/agent/@string.Format("{0}.json", agent.SystemName)">json</a>
+				<a href="/composite/agent/@agent.SystemName">html</a> |
+				<a href="/composite/agent/@string.Format("{0}.json", agent.SystemName)">json</a>
 				)
 			</li>
 		}
@@ -33,7 +33,7 @@ else
 {
 	<p>The composite application not configured correctly</p>
 	<ul>
-		@foreach(var error in Model.ConfigurationErrors)
+		@foreach (var error in Model.ConfigurationErrors)
 		{
 			<li>error</li>
 		}

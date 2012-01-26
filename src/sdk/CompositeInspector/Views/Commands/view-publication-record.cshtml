@@ -1,75 +1,73 @@
+@using CompositeInspector.Models
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
-@using JsonCompositeInspector.Models;
-@using Euclid.Framework;
-@using Euclid.Common.Messaging;
 @{
 	Layout = "Shared/_Layout.cshtml";
-	PublishedCommandModel model = (PublishedCommandModel)@Model;
+	var model = (PublishedCommandModel)@Model;
 }
 
 <div class="row show-grid">
 
-@if (Model.Record == null)
-{
-	<div>
-		No publication record exists with Id @Model.PublicationId
-	</div>
-}
-else
-{
-	<h5>Command Details</h5>
-	<div class="row property-set">
-		<div class="span5 columns">
-			<h6>Id</h6>
-			<span id="id">@Model.Record.Identifier</span>
+	@if (Model.Record == null)
+	{
+		<div>
+			No publication record exists with Id @Model.PublicationId
 		</div>
-
-		<div class="span5 columns">
-			<h6>Created</h6>
-			<span id="created">@Model.Record.Created</span>
-		</div>
-
-		<div class="span5 columns">
-			<h6>Location</h6>
-			<span id="location"><a href="@Model.Record.MessageLocation">@Model.Record.MessageLocation</a></span>
-		</div>
-	</div>
-
-	<div class="row property-set">
-		<div class="span5 columns">
-			<h6>Type</h6>
-			<span id="type">@Model.Record.MessageType</span>
-		</div>
-
-		<div class="span5 columns">
-			<h6>Dispatched</h6>    
-			<span id="dispatched">@Model.Record.Dispatched</span>
-		</div>
-
-		<div class="span5 columns">
-			<h6>Completed</h6>
-			<span id="completed">@Model.Record.Completed</span>
-		</div>
-	</div>
-
-	<div class="row property-set">
-		<div class="span5 columns">
-			<h6>Error</h6>
-			<span id="error">@Model.Record.Error</span>
-		</div>
-
-		@if (@Model.Record.Error)
-		{
+	}
+	else
+	{
+		<h5>Command Details</h5>
+		<div class="row property-set">
 			<div class="span5 columns">
-				<h6>Error Message</h6>
-				<span id="error-message">@Model.Record.ErrorMessage</span>
+				<h6>Id</h6>
+				<span id="id">@Model.Record.Identifier</span>
 			</div>
 
 			<div class="span5 columns">
-				<h6>Call Stack</h6>
-				<span id="call-stack">@Model.Record.CallStack</span>
+				<h6>Created</h6>
+				<span id="created">@Model.Record.Created</span>
 			</div>
-		}
-	</div>
-}
+
+			<div class="span5 columns">
+				<h6>Location</h6>
+				<span id="location"><a href="@Model.Record.MessageLocation">@Model.Record.MessageLocation</a></span>
+			</div>
+		</div>
+
+		<div class="row property-set">
+			<div class="span5 columns">
+				<h6>Type</h6>
+				<span id="type">@Model.Record.MessageType</span>
+			</div>
+
+			<div class="span5 columns">
+				<h6>Dispatched</h6>    
+				<span id="dispatched">@Model.Record.Dispatched</span>
+			</div>
+
+			<div class="span5 columns">
+				<h6>Completed</h6>
+				<span id="completed">@Model.Record.Completed</span>
+			</div>
+		</div>
+
+		<div class="row property-set">
+			<div class="span5 columns">
+				<h6>Error</h6>
+				<span id="error">@Model.Record.Error</span>
+			</div>
+
+			@if (@Model.Record.Error)
+			{
+				<div class="span5 columns">
+					<h6>Error Message</h6>
+					<span id="error-message">@Model.Record.ErrorMessage</span>
+				</div>
+
+				<div class="span5 columns">
+					<h6>Call Stack</h6>
+					<span id="call-stack">@Model.Record.CallStack</span>
+				</div>
+			}
+		</div>
+	}
 </div>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using LoggingAgent.ReadModels;
 
-namespace JsonCompositeInspector.Models
+namespace CompositeInspector.Models
 {
 	public class LogModel
 	{

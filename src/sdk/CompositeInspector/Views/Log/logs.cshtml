@@ -1,8 +1,8 @@
+@using CompositeInspector.Models
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
-@using JsonCompositeInspector.Models;
 @{
 	Layout = "Shared/_Layout.cshtml";
-	LogModel model = (LogModel)@Model;
+	var model = (LogModel)@Model;
 }
 
 @section page_title {
@@ -10,9 +10,9 @@
 }
 
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$("#exception").dialog({ autoOpen: false, modal: true, title: "Exception" });
-		$(".exception").click(function () {
+		$(".exception").click(function() {
 			var msg = $(this).attr("message");
 			$("#exception-text").html(msg);
 			$("#exception").dialog('open');
