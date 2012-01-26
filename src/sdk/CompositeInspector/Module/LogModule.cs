@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using CompositeInspector.Models;
-using Euclid.Composites;
 using LoggingAgent.Queries;
 using Nancy;
 
@@ -9,17 +8,20 @@ namespace CompositeInspector.Module
 {
 	public class LogModule : NancyModule
 	{
-		private readonly ICompositeApp _compositeApp;
+		private const string BaseRoute = "composite/logs";
+
+		private const string IndexRoute = "/";
+
+		private const string IndexViewPath = "logs.cshtml";
 
 		private readonly LogQueries _logQueries;
 
-		public LogModule(ICompositeApp compositeApp, LogQueries logQueries)
-			: base("composite/logs")
+		public LogModule(LogQueries logQueries)
+			: base(BaseRoute)
 		{
-			_compositeApp = compositeApp;
 			_logQueries = logQueries;
 
-			Get["/"] = p =>
+			Get[IndexRoute] = p =>
 				{
 					var filterBy = (string)p.filterBy ?? string.Empty;
 					var pageSize = p.pageSize != null ? (int)p.pageSize : 25;
@@ -42,7 +44,7 @@ namespace CompositeInspector.Module
 							SelectedSource = filterBy
 						};
 
-					return View["logs.cshtml", model];
+					return View[IndexViewPath, model];
 				};
 		}
 	}

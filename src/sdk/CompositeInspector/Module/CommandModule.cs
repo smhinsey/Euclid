@@ -22,7 +22,7 @@ namespace CompositeInspector.Module
 
 		private const string CommandRoute = "/{agentSystemName}/{commandName}";
 
-		private const string CommandView = "Commands/view-command.cshtml";
+		private const string CommandViewPath = "Commands/view-command.cshtml";
 
 		private const string IndexRoute = "";
 
@@ -98,7 +98,7 @@ namespace CompositeInspector.Module
 
 			var commandModel = new CommandModel { AgentSystemName = agentSystemName, CommandName = commandName };
 
-			return View[CommandView, commandModel];
+			return View[CommandViewPath, commandModel];
 		}
 
 		public Response GetCommandStatus(Guid publicationId)

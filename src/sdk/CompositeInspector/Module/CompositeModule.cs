@@ -9,16 +9,30 @@ namespace CompositeInspector.Module
 {
 	public class CompositeModule : NancyModule
 	{
+		private const string AgentDetailRoute = "/agent/{agentSystemName}";
+
+		private const string AgentDetailViewPath = "Composite/view-agent.cshtml";
+
+		private const string BaseRoute = "composite";
+
+		private const string HomeRoute = "/home";
+
+		private const string HomeViewPath = "Composite/home.cshtml";
+
+		private const string IndexRoute = "";
+
+		private const string IndexViewPath = "Shared/Frameset.cshtml";
+
 		private readonly ICompositeApp _compositeApp;
 
 		public CompositeModule(ICompositeApp compositeApp)
-			: base("composite")
+			: base(BaseRoute)
 		{
 			_compositeApp = compositeApp;
 
-			Get[""] = _ => { return View["Shared/Frameset.cshtml"]; };
+			Get[IndexRoute] = _ => View[IndexViewPath];
 
-			Get["/home"] = _ =>
+			Get[HomeRoute] = _ =>
 				{
 					var model = new CompositeHome
 						{
@@ -28,14 +42,15 @@ namespace CompositeInspector.Module
 							CompositeDescription = _compositeApp.Description,
 							CompositeName = _compositeApp.Name
 						};
-					return View["Composite/home.cshtml", model];
+					return View[HomeViewPath, model];
 				};
 
-			Get["/agent/{agentSystemName}"] = p =>
+			Get[AgentDetailRoute] = p =>
 				{
+					var agents = compositeApp.Agents;
+
 					var agent =
-						compositeApp.Agents.Where(
-							a => a.SystemName.Equals(p.agentSystemName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+						agents.FirstOrDefault(a => a.SystemName.Equals(p.agentSystemName, StringComparison.InvariantCultureIgnoreCase));
 
 					if (agent == null)
 					{
@@ -52,7 +67,7 @@ namespace CompositeInspector.Module
 							ReadModels = agent.ReadModels
 						};
 
-					return View["Composite/view-agent.cshtml", model];
+					return View[AgentDetailViewPath, model];
 				};
 		}
 	}

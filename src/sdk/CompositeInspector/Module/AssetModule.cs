@@ -4,16 +4,17 @@ namespace CompositeInspector.Module
 {
 	public class AssetModule : NancyModule
 	{
-		private const string ImageRoute = "/image/{file}";
+		private const string AssetRootNamespace = "CompositeInspector.Assets";
 
 		private const string BaseRoute = "composite";
 
-		private const string JsRoute = "/js/{file}";
-
 		private const string CssRoute = "/css/{file}";
 
+		private const string ImageRoute = "/image/{file}";
+
+		private const string JsRoute = "/js/{file}";
+
 		// TODO: we should probably do better than this
-		private const string AssetRootNamespace = "CompositeInspector.Assets";
 
 		public AssetModule()
 			: base(BaseRoute)
