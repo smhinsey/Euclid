@@ -64,70 +64,17 @@ namespace CompositeInspector.Module
 						throw new InvalidOperationException("Unable to retrieve input model from form");
 					}
 
-					return ExecuteCommand(inputModel);
+					return PublishCommand(inputModel);
 				};
 
 			Get[PublicationStatusRoute] = p => GetCommandStatus((Guid)p.publicationId);
-		}
-
-		public Response ExecuteCommand(IInputModel inputModel)
-		{
-			Exception publishingException = null;
-
-			Guid publicationId;
-			try
-			{
-				var command = _compositeApp.GetCommandForInputModel(inputModel);
-				publicationId = _publisher.PublishMessage(command);
-			}
-			catch (Exception e)
-			{
-				publishingException = e;
-				publicationId = Guid.Empty;
-			}
-
-			if (Request.IsAjaxRequest())
-			{
-				if (publishingException == null)
-				{
-					return Response.AsJson(new { publicationId });
-				}
-
-				var exceptionModel =
-					new
-						{
-							name = publishingException.GetType().Name,
-							message = publishingException.Message,
-							callStack = publishingException.StackTrace
-						};
-
-				return Response.AsJson(exceptionModel, HttpStatusCode.InternalServerError);
-			}
-
-			string redirectUrl;
-
-			var incomingAlternateRedirectUrl = Request.Form["alternateRedirectUrl"].Value;
-
-			if (!string.IsNullOrEmpty(incomingAlternateRedirectUrl))
-			{
-				redirectUrl = (string)incomingAlternateRedirectUrl;
-			}
-			else
-			{
-				var commandStatusUrl = string.Format("/commands/status/{0}", publicationId);
-
-				var referringUrl = Request.Headers["REFERER"].FirstOrDefault();
-
-				redirectUrl = referringUrl ?? commandStatusUrl;
-			}
-
-			return Response.AsRedirect(redirectUrl);
 		}
 
 		public Response GetCommand(string agentSystemName, string commandName)
 		{
 			var asJson = false;
 
+			// TODO: how can we eliminate this sort of thing?
 			if (commandName.EndsWith(".json"))
 			{
 				asJson = true;
@@ -156,12 +103,13 @@ namespace CompositeInspector.Module
 
 		public Response GetCommandStatus(Guid publicationId)
 		{
-			Exception exceptionThrownDuringRegistryQuery = null;
+			Exception registryException = null;
 			ICommandPublicationRecord record = null;
 
 			try
 			{
 				record = _registry.GetPublicationRecord(publicationId);
+
 				if (record == null)
 				{
 					throw new CommandNotFoundInRegistryException(publicationId);
@@ -169,12 +117,12 @@ namespace CompositeInspector.Module
 			}
 			catch (Exception e)
 			{
-				exceptionThrownDuringRegistryQuery = e;
+				registryException = e;
 			}
 
 			if (Request.IsAjaxRequest())
 			{
-				if (exceptionThrownDuringRegistryQuery == null)
+				if (registryException == null)
 				{
 					return Response.AsJson(record);
 				}
@@ -182,9 +130,9 @@ namespace CompositeInspector.Module
 				var exceptionModel =
 					new
 						{
-							name = exceptionThrownDuringRegistryQuery.GetType().Name,
-							message = exceptionThrownDuringRegistryQuery.Message,
-							callStack = exceptionThrownDuringRegistryQuery.StackTrace
+							name = registryException.GetType().Name,
+							message = registryException.Message,
+							callStack = registryException.StackTrace
 						};
 
 				return Response.AsJson(exceptionModel, HttpStatusCode.InternalServerError);
@@ -192,6 +140,63 @@ namespace CompositeInspector.Module
 
 			var model = new PublishedCommandModel { PublicationId = publicationId.ToString(), Record = record };
 			return View["Commands/view-publication-record.cshtml", model];
+		}
+
+		public Response PublishCommand(IInputModel inputModel)
+		{
+			Exception publishingException = null;
+
+			Guid publicationId;
+			try
+			{
+				var command = _compositeApp.GetCommandForInputModel(inputModel);
+
+				publicationId = _publisher.PublishMessage(command);
+			}
+			catch (Exception e)
+			{
+				publishingException = e;
+				publicationId = Guid.Empty;
+			}
+
+			// TODO: how can we eliminate this sort of thing?
+			if (Request.IsAjaxRequest())
+			{
+				if (publishingException == null)
+				{
+					return Response.AsJson(new { publicationId });
+				}
+
+				var exceptionModel =
+					new
+						{
+							name = publishingException.GetType().Name,
+							message = publishingException.Message,
+							callStack = publishingException.StackTrace
+						};
+
+				return Response.AsJson(exceptionModel, HttpStatusCode.InternalServerError);
+			}
+
+			string redirectUrl;
+
+			var incomingAlternateRedirectUrl = Request.Form["alternateRedirectUrl"].Value;
+
+			if (!string.IsNullOrEmpty(incomingAlternateRedirectUrl))
+			{
+				redirectUrl = (string)incomingAlternateRedirectUrl;
+			}
+			else
+			{
+				// TODO: i find myself missing mvc's routing engine, surprisingly.
+				var publicationStatusUrl = string.Format("/commands/status/{0}", publicationId);
+
+				var referringUrl = Request.Headers["REFERER"].FirstOrDefault();
+
+				redirectUrl = referringUrl ?? publicationStatusUrl;
+			}
+
+			return Response.AsRedirect(redirectUrl);
 		}
 
 		private IInputModel getInputModel(string agentSystemName, string commandName)
