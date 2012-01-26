@@ -155,7 +155,7 @@ var EUCLID = function () {
 
 		} else if (type == "checkbox") {
 			var inputElement = "";
-			if (propertyValue.toLowerCase() == "true" || propertyValue.toLowerCase() == "yes" || propertyValue.toLowerCase() == "on" || propertyValue.toLowerCase() == "1") {
+			if (("" + propertyValue).toLowerCase() == "true" || ("" + propertyValue).toLowerCase() == "yes" || ("" + propertyValue).toLowerCase() == "on" || ("" + propertyValue).toLowerCase() == "1") {
 				inputElement = "<input id='" + inputId + "' type='checkbox' name='" + propertyName + "'  checked='checked' />";
 			} else {
 				inputElement = "<input id='" + inputId + "' type='checkbox' name='" + propertyName + "' />";
@@ -501,7 +501,7 @@ var EUCLID = function () {
 				});
 
 			$(".simplemodal-container").css("height", "auto");
-		}) // end showModalForm
+		}), // end showModalForm
 	}
 } ();
 
@@ -536,5 +536,56 @@ $(document).ready(function () {
 	$(window).scroll(function () {
 		var top = $("body").scrollTop() + "px";
 		$("#euclid-error-display").css("top", top);
+	});
+
+	$(".confirmation-dialog").live("click", function () {
+		var msg = $(this).attr("data-confirmation-message");
+		var confirmFunction = $(this).attr("data-confirm-function");
+		var itemId = $(this).attr("data-item-id");
+		var override = $(this).attr("data-override");
+
+		if (override == true) return true;
+
+		if (isNullOrEmpty(msg) || isNullOrEmpty(confirmFunction) || isNullOrEmpty(itemId)) {
+			$("<div id='delete-usage-error'>" +
+				"<div class='notification error' >" +
+				"	<div><strong>Required Attributes Missing</strong></div>" +
+				"	<p>" +
+				"		<b>data-confirmation-message</b>: the message to display in the confirmation pop-up." +
+				"	</p>" +
+				"	<p>" +
+				"		<b>data-confirm-function</b>: the name of the function to execute once the user confirms the deletion." +
+				"	</p>" +
+				"	<p>" +
+				"		<b>data-item-id</b>: the id of the element to delete." +
+				"	</p>" +
+				"</div>" +
+			"</div>").modal();
+		} else {
+			$("<div id='confirm' class='notification attention' style='height: 300px'> " +
+				"<p> " +
+				"	<strong>Confirmation</strong>" +
+					msg +
+				"</p> " +
+				"<a href='#' class='yes button-link' style='float: right; margin-left: 10px'>Yes</a> " +
+				"<a href='#' class='no simplemodal-close button-link' style='float: right'>No</a> " +
+			"</div>")
+				.modal({
+					onShow: function (dialog) {
+						var modal = this;
+
+						// if the user clicks "yes"
+						$('.yes', dialog.data[0]).live('click', function () {
+							// call the callback
+							eval(confirmFunction)(itemId);
+
+							// close the dialog
+							modal.close(); // or $.modal.close();
+						});
+					}
+				});
+		}
+
+		return false;
 	});
 });

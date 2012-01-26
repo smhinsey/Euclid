@@ -12,56 +12,53 @@
 	var closeTr = (paginationModel.WriteTr) ? "</tr>" : string.Empty;
 }
 
-@if (paginationModel.TotalPages > 1)
-{ 
-
-
 @Html.Raw(openTable)
 	@Html.Raw(openTFoot)
 		@Html.Raw(openTr)
-			<td @if (paginationModel.ColSpan > 0)
-	   { <text>colspan="@paginationModel.ColSpan"</text>}>
+			<td @if (paginationModel.ColSpan > 0){ <text>colspan="@paginationModel.ColSpan"</text>}>
+			@if (paginationModel.TotalPages > 1)
+		{ 
 				<ul class="pagination">
 					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new RouteValueDictionary { { paginationModel.IdentifierParameterName, paginationModel.Identifier } })" class="button gray"><< first</a></li>
 					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new RouteValueDictionary { { "offset", paginationModel.PreviousPageOffset }, { "pageSize", paginationModel.PageSize }, { paginationModel.IdentifierParameterName, paginationModel.Identifier } })" class="button gray">< prev</a></li>
 
 					@if (paginationModel.ShowLeadingEllipsis)
-	 {
+					{
 						<li class="hellip">...</li>
-	 }
+					}
 
 					@for (var i = -2; i < 0; i++)
-	 {
-		 var offset = paginationModel.GetOffsetForPage(i);
+					{
+					var offset = paginationModel.GetOffsetForPage(i);
 
-		 if (offset >= 0)
-		 {
-							<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new RouteValueDictionary { { "offset", offset }, { "pageSize", paginationModel.PageSize }, { paginationModel.IdentifierParameterName, paginationModel.Identifier } })" class="button gray">@(paginationModel.CurrentPage + i)</a></li>
-		 }
-	 }
+					if (offset >= 0)
+					{
+						<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new RouteValueDictionary { { "offset", offset }, { "pageSize", paginationModel.PageSize }, { paginationModel.IdentifierParameterName, paginationModel.Identifier } })" class="button gray">@(paginationModel.CurrentPage + i)</a></li>
+						}
+					}
 
 					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new RouteValueDictionary { { "offset", paginationModel.Offset }, { "pageSize", paginationModel.PageSize }, { paginationModel.IdentifierParameterName, paginationModel.Identifier } })" class="button">@paginationModel.CurrentPage</a></li>
 
 					@for (var i = 1; i < 3; i++)
-	 {
-		 var offset = paginationModel.GetOffsetForPage(i);
+					{
+						var offset = paginationModel.GetOffsetForPage(i);
 
-		 if (offset >= 0)
-		 {
+						if (offset >= 0)
+						{
 							<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new RouteValueDictionary { { "offset", offset }, { "pageSize", paginationModel.PageSize }, { paginationModel.IdentifierParameterName, paginationModel.Identifier } })" class="button gray">@(paginationModel.CurrentPage + i)</a></li>
-		 }
-	 }
+						}
+					}
 
 					@if (paginationModel.ShowTrailingEllipsis)
-	 {
+					{
 						<li class="hellip">...</li>
-	 }
+					}
 							
 					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new RouteValueDictionary { { "offset", paginationModel.NextPageOffset }, { "pageSize", paginationModel.PageSize }, { paginationModel.IdentifierParameterName, paginationModel.Identifier } })" class="button gray">next ></a></li>
 					<li><a href="@Url.Action(paginationModel.ActionName, paginationModel.ControllerName, new RouteValueDictionary { { "offset", paginationModel.LastPageOffset }, { "pageSize", paginationModel.PageSize }, { paginationModel.IdentifierParameterName, paginationModel.Identifier } })" class="button gray">last >></a></li>
 				</ul>
+			}
 			</td>
 		@Html.Raw(closeTr)
 	@Html.Raw(closeTFoot)
 @Html.Raw(closeTable)
-}

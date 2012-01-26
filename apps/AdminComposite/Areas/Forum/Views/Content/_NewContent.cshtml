@@ -18,16 +18,9 @@
 			}
 		});
 
-		$("#create-form").live('submit', function() {
-			var submit = true;
-			if ($("#content-input").length == 0) {
-				$("#error").removeClass("hidden");
-				submit = false;
-			} else {
-				$("#content-value").val($("#content-input").val());
-			}
-
-			return submit;
+		$("#save-content").live("click", function() {
+			$("#content-value").val($("#content-input").val());
+			console.log($("#content-value").val());
 		});
 	});
 </script>
@@ -71,7 +64,7 @@
 					Provide a value for this content
 				</p>
 			</div>
-			<button type="submit">Create</button>
+			<button type="submit" id="save-content">Create</button>
 		</fieldset>
 	}
 </section>

@@ -12,12 +12,6 @@
 <script type="text/javascript">
 	var ORGANIZATIONUSER = { deleteUserModel : null };
 	$(document).ready(function () {
-		try {
-			ORGANIZATIONUSER.deleteUserModel = EUCLID.getModel({ commandName: "DeleteOrganizationUser" });
-		} catch (e) {
-			EUCLID.displayError("Unable to get model for command DeleteOrganizationUser", e.name + "<br />" + e.message);
-		}
-
 		$("#add-user").click(function () {
 			$("<div></div>")
 				.load("/Organization/RegisterUser?organizationId=@AdminInfo.OrganizationId&currentUserId=@AdminInfo.AuthenticatedUserIdentifier")
@@ -47,41 +41,36 @@
 
 		$("#save").click(function () {
 			$("#save").attr("disabled", "disabled");
-			var inputModel;
-
-			try {
-				inputModel = EUCLID.getModel({ commandName: "ActivateOrganizationUser" });
-			} catch (e) {
-				EUCLID.displayError("Unable to get model for command ActivateOrganizationUser", e.name + "<br />" + e.message);
-				return false;
-			}
+			var inputModel = UCLID.getInputModel({ commandName: "ActivateOrganizationUser", agentSystemName: "Newco.ForumAgent" });
 
 			$(".activate-user").each(function (index, item) {
 				var currentName = $(item).attr("data-item-name");
-
-				try {
-					inputModel.UserIdentifier = $(item).attr("data-item-id");
-					inputModel.Active = $(item).is(":checked");
-					EUCLID.publish(inputModel);
-				} catch (e) {
-					EUCLID.displayError("Unable to activate user " + currentName, e.name + "<br />" + e.message);
-				}
+				inputModel.UserIdentifier = $(item).attr("data-item-id");
+				inputModel.Active = $(item).is(":checked");
+				inputModel.publish();
 			});
 
-			setTimeout('$("#save").removeAttr("disabled");', 750);
-			return false;
+			window.location.reload();
 		});
-	});     //document.ready
+
+		$("#edit").click(function () {
+			$(".activate-user").removeAttr("disabled");
+			$(".actions").removeClass("hidden");
+			$("#edit").hide();
+			$("#save").show();
+			$("#cancel").show();
+		});
+
+		$("#cancel").click(function () {
+			window.location.reload();
+		});
+	}); //document.ready
 
 	function deleteUser(userId) {
-		ORGANIZATIONUSER.deleteUserModel.UserIdentifier = userId;
-		try {
-			EUCLID.publish(ORGANIZATIONUSER.deleteUserModel);
-		} catch (e) {
-			EUCLID.displayError("Unable to delete user", e.name + "<br />" + e.message);
-		}
+		var inputModel = EUCLID.getInputModel({ commandName: "DeleteOrganizationUser", agentSystemName: "Newco.ForumAgent" });
+		inputModel.deleteUserModel.UserIdentifier = userId;
+		inputModel.publish();
 		window.location.reload();
-
 	}
 </script>
 
@@ -117,7 +106,13 @@
 		{
 			<tfoot>
 				<tr>
-					<td><button type="button" id="save">Save</button></td>
+					<td>
+						<ul class="button-switch">
+							<li><button type="button" id="edit">Edit</button></li>
+							<li><button type="submit" id="save" class="green" style="display: none">Save</button></li>
+							<li><button type="button" id="cancel"  style="display: none">Cancel</button></li>
+						</ul>
+					</td>
 					@Html.Partial("_pagination")
 				</tr>
 			</tfoot>
@@ -126,7 +121,7 @@
 				{
 					var isCurrentUser = (HttpContext.Current.User.Identity.Name == user.Username);
 					<tr>
-						<td><input type="checkbox" @if (user.Active) { <text>checked="checked"</text> } @if (isCurrentUser) {<text>disabled="disabled"</text>} class="activate-user" data-item-id="@user.Identifier" data-item-name="@user.FirstName @user.LastName"/></td>
+						<td><input type="checkbox" disabled="disabled" @if (user.Active) { <text>checked="checked"</text> } @if (isCurrentUser) {<text>class="activate-current-user"</text>}else{<text>class="activate-user"</text>} data-item-id="@user.Identifier" data-item-name="@user.FirstName @user.LastName"/></td>
 						<td>
 							@if (isCurrentUser)
 							{
@@ -137,7 +132,7 @@
 						<td><a href="mailto:@user.Email">@user.Email</a></td>
 						<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
 						<td>
-							<ul class="actions">
+							<ul class="actions hidden">
 								<li><a class="@if (isCurrentUser) { <text>hidden</text>} admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete" data-confirmation-message="Do you want to delete the user @user.FirstName @user.LastName?" data-confirm-function="deleteUser" data-item-id="@user.Identifier">Delete</a></li>
 								<li><a class="edit user" rel="tooltip" href="#" original-title="Edit" data-user-name="@user.FirstName @user.LastName" data-user-id="@user.Identifier">Edit</a></li>
 							</ul>

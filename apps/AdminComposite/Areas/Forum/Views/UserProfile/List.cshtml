@@ -34,15 +34,26 @@
 		$("#save").click(function() {
 			$("#save").attr("disabled", "disabled");
 
-			var inputModel = EUCLID.getInputModel({ commandName: "ActivateForumUser" });
+			var inputModel = EUCLID.getInputModel({ commandName: "ActivateForumUser", agentSystemName: "Newco.ForumAgent" });
 			$(".activate-user").each(function(index, item) {
 				inputModel.UserIdentifier = $(item).attr("data-item-id");
 				inputModel.Active = $(item).is(":checked");
 				inputModel.publish();
 			});
 
-			setTimeout('$("#save").removeAttr("disabled");', 750);
-			return false;
+			window.location.reload();
+		});
+
+		$("#edit").click(function() {
+			$(".activate-user").removeAttr("disabled");
+			$(".actions").removeClass("hidden");
+			$("#edit").hide();
+			$("#save").show();
+			$("#cancel").show();
+		});
+
+		$("#cancel").click(function() {
+			window.location.reload();
 		});
 	});
 
@@ -110,7 +121,14 @@
 			{
 				<tfoot>
 					<tr>
-						<td><button type="button" id="save">Save</button></td>
+						<td>
+							<ul class="button-switch">
+								<li><button type="button" id="edit">Edit</button></li>
+								<li><button type="submit" id="save" class="green" style="display: none">Save</button></li>
+								<li><button type="button" id="cancel"  style="display: none">Cancel</button></li>
+							</ul>
+						</td>
+
 						@Html.Partial("_Pagination")
 					</tr>
 				</tfoot>
@@ -119,26 +137,26 @@
 					{
 						<tr>
 							<td>
-								<input type="checkbox" class="activate-user" data-item-id="@user.Identifier" data-item-name="@user.FirstName @user.LastName" @if (user.Active)
-																																																																						 {
-																																																																						 	<text>checked="checked"</text>
-																																																																						 } @if (user.IsBlocked)
-																																																																							 {
-																																																																							 	<text>disabled="disabled"</text>
-																																																																							 } />
+								<input 
+									type="checkbox" 
+									class="activate-user" 
+									data-item-id="@user.Identifier" 
+									data-item-name="@user.FirstName @user.LastName"
+									disabled="disabled"
+									@if (user.Active) {<text>checked="checked"</text>} @if (user.IsBlocked){<text>disabled="disabled"</text>} />
 							</td>
 							<td>@user.FirstName @user.LastName</td>
 							<td>@user.Username</td>
 							<td>@user.PostCount</td>
 							<td>
-								<ul class="actions">
+								<ul class="actions hidden">
 									<li>@user.NumberVotes</li>
 									<li><a href="#" class="reset-votes" rel="tooltip" original-title="Reset Vote Count">Reset Vote Count</a></li>
 								</ul>
 							</td>
 							<td>@user.LastLogin.GetFriendlyRelativeTime()</td>
 							<td>
-								<ul class="actions">
+								<ul class="actions hidden">
 									<li><a class="admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete" data-confirmation-message="Do you want to delete the user @user.FirstName @user.LastName?" data-confirm-function="deleteUser" data-item-id="@user.Identifier">Delete</a></li>
 									<li @if (user.IsBlocked)
 											{

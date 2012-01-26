@@ -16,6 +16,18 @@
 			return false;
 		});
 
+		$("#edit").click(function() {
+			$(".content-active").removeAttr("disabled");
+			$(".actions").removeClass("hidden");
+			$("#edit").hide();
+			$("#save").show();
+			$("#cancel").show();
+		});
+
+		$("#cancel").click(function() {
+			window.location.reload();
+		});
+
 		$(".edit").click(function() {
 			var contentId = $(this).attr("data-item-id");
 			$("<div></div>")
@@ -55,8 +67,7 @@
 				inputModel.publish();
 			});
 
-			setTimeout("$('#save').removeAttr('disabled');", 750);
-			return false;
+			window.location.reload();
 		});
 	});
 
@@ -101,7 +112,9 @@
 				<tr>
 					<td>
 						<ul class="button-switch">
-							<li><button type="button" id="save">Save</button></li>
+							<li><button type="button" id="edit">Edit</button></li>
+							<li><button type="submit" id="save" class="green" style="display: none">Save</button></li>
+							<li><button type="button" id="cancel"  style="display: none">Cancel</button></li>
 						</ul>
 					</td>
 					@Html.Partial("_Pagination")
@@ -111,11 +124,11 @@
 				@foreach (var content in Model.ContentItems)
 				{
 					<tr>
-						<td>@Html.CheckBoxFor(m => content.Active, new { @class = "content-active", data_item_id = @content.Identifier, data_item_name = string.Format("{0} - {1}", @content.Identifier, @content.ContentLocation) })</td>
+						<td>@Html.CheckBoxFor(m => content.Active, new { @class = "content-active", disabled="disabled", data_item_id = @content.Identifier, data_item_name = string.Format("{0} - {1}", @content.Identifier, @content.ContentLocation) })</td>
 						<td>@content.ContentLocation</td>
 						<td>@content.ContentType</td>
 						<td>
-							<ul class="actions">
+							<ul class="actions hidden">
 								<li><a class="edit" rel="tooltip" href="#" original-title="Edit" data-item-id="@content.Identifier">Edit</a></li>
 								<li><a class="admin-delete confirmation-dialog" href="#" rel="tooltip" original-title="Delete" data-confirmation-message="Do you want to delete this content?" data-confirm-function="deleteContent" data-item-id="@content.Identifier">Delete</a></li>
 								<li><a class="preview" data-item-id="@content.Identifier" href="#" rel="tooltip" original-title="Preview">Delete</a></li>
