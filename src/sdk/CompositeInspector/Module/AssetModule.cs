@@ -4,30 +4,55 @@ namespace CompositeInspector.Module
 {
 	public class AssetModule : NancyModule
 	{
+		private const string ImageRoute = "/image/{file}";
+
+		private const string BaseRoute = "composite";
+
+		private const string JsRoute = "/js/{file}";
+
+		private const string CssRoute = "/css/{file}";
+
+		// TODO: we should probably do better than this
+		private const string AssetRootNamespace = "CompositeInspector.Assets";
+
 		public AssetModule()
-			: base("composite")
+			: base(BaseRoute)
 		{
-			Get["/js/{file}"] = p =>
+			Get[JsRoute] = p =>
 				{
-					var resx = string.Format("CompositeInspector.Assets.Scripts.{0}", ((string)p.file).Replace("/", "."));
-					var s = GetType().Assembly.GetManifestResourceStream(resx);
-					return Response.FromStream(s, "text/javascript");
+					var convertedFilePath = ((string)p.file).Replace("/", ".");
+
+					var resourcePath = string.Format("{0}.Scripts.{1}", AssetRootNamespace, convertedFilePath);
+
+					var resourceStream = GetType().Assembly.GetManifestResourceStream(resourcePath);
+
+					return Response.FromStream(resourceStream, "text/javascript");
 				};
 
-			Get["/css/{file}"] = p =>
+			Get[CssRoute] = p =>
 				{
-					var resx = string.Format("CompositeInspector.Assets.Styles.{0}", ((string)p.file).Replace("/", "."));
-					var s = GetType().Assembly.GetManifestResourceStream(resx);
-					return Response.FromStream(s, "text/css");
+					var convertedFilePath = ((string)p.file).Replace("/", ".");
+
+					var resourcePath = string.Format("{0}.Styles.{1}", AssetRootNamespace, convertedFilePath);
+
+					var resourceStream = GetType().Assembly.GetManifestResourceStream(resourcePath);
+
+					return Response.FromStream(resourceStream, "text/css");
 				};
 
-			Get["/image/{file}"] = p =>
+			Get[ImageRoute] = p =>
 				{
-					var resx = string.Format("CompositeInspector.Assets.Images.{0}", ((string)p.file).Replace("/", "."));
-					var extension = resx.Substring(resx.Length - 3, 3);
-					var contentType = string.Format("image/{0}", extension);
-					var s = GetType().Assembly.GetManifestResourceStream(resx);
-					return Response.FromStream(s, contentType);
+					var convertedFilePath = ((string)p.file).Replace("/", ".");
+
+					var resourcePath = string.Format("{0}.Images.{1}", AssetRootNamespace, convertedFilePath);
+
+					var fileExtension = resourcePath.Substring(resourcePath.Length - 3, 3);
+
+					var contentType = string.Format("image/{0}", fileExtension);
+
+					var resourceStream = GetType().Assembly.GetManifestResourceStream(resourcePath);
+
+					return Response.FromStream(resourceStream, contentType);
 				};
 		}
 	}
