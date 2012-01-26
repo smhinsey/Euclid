@@ -1,4 +1,9 @@
 ﻿namespace AdminComposite.Areas.Forum.Controllers
 {
-	public enum AvailableContentType { RichText, EmbeddedYouTube }
+	public enum AvailableContentType
+	{
+		RichText,
+
+		EmbeddedYouTube
+	}
 }

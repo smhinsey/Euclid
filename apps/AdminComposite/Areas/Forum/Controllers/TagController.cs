@@ -50,8 +50,7 @@ namespace AdminComposite.Areas.Forum.Controllers
 				throw new CategoryNotFoundException(string.Format("Could not find a tag with id {0}", tagId));
 			}
 
-			var model = new UpdateTagInputModel
-				{ TagIdentifier = tagId, Name = tag.Name, Active = tag.Active};
+			var model = new UpdateTagInputModel { TagIdentifier = tagId, Name = tag.Name, Active = tag.Active };
 
 			return PartialView("_UpdateTag", model);
 		}

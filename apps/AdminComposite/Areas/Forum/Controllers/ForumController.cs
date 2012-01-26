@@ -12,7 +12,7 @@ namespace AdminComposite.Areas.Forum.Controllers
 	public class ForumController : AdminController
 	{
 		private readonly ForumQueries _forumQueries;
-		
+
 		public ForumController(ForumQueries forumQueries)
 		{
 			_forumQueries = forumQueries;
@@ -28,30 +28,32 @@ namespace AdminComposite.Areas.Forum.Controllers
 		{
 			var userId = Request.GetLoggedInUserId();
 
-			return View(new CreateForumInputModel
-			            	{
-			            		UrlHostName = "newco-forums.com",
-			            		OrganizationId = AdminInfo.OrganizationId,
-			            		Description = " ",
-								CreatedBy = userId,
-								VotingScheme = VotingScheme.UpDownVoting,
-								Theme = "Default"
-			            	});
+			return
+				View(
+					new CreateForumInputModel
+						{
+							UrlHostName = "newco-forums.com",
+							OrganizationId = AdminInfo.OrganizationId,
+							Description = " ",
+							CreatedBy = userId,
+							VotingScheme = VotingScheme.UpDownVoting,
+							Theme = "Default"
+						});
 		}
 
 		public ActionResult Details(Guid forumId)
 		{
 			var forum = _forumQueries.FindById(forumId);
 			var model = new UpdateForumInputModel
-							{
-								Description = forum.Description,
-								Name = forum.Name,
-								UrlSlug = forum.UrlSlug,
-								UrlHostName = forum.UrlHostName,
-								ForumIdentifier = forum.Identifier,
-								Moderated = forum.Moderated,
-								Private = forum.Private,
-							};
+				{
+					Description = forum.Description,
+					Name = forum.Name,
+					UrlSlug = forum.UrlSlug,
+					UrlHostName = forum.UrlHostName,
+					ForumIdentifier = forum.Identifier,
+					Moderated = forum.Moderated,
+					Private = forum.Private,
+				};
 
 			return View(model);
 		}

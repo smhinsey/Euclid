@@ -20,14 +20,14 @@ namespace AdminComposite.Areas.Forum.Controllers
 		{
 			var model = _contentQueries.List(forumId, offset, pageSize);
 			ViewBag.Pagination = new PaginationModel
-			                     	{
-			                     		ActionName = "List",
-			                     		ControllerName = "Content",
-			                     		Identifier = forumId,
-			                     		Offset = offset,
-			                     		PageSize = pageSize,
-			                     		TotalItems = model.TotalContentItems
-			                     	};
+				{
+					ActionName = "List",
+					ControllerName = "Content",
+					Identifier = forumId,
+					Offset = offset,
+					PageSize = pageSize,
+					TotalItems = model.TotalContentItems
+				};
 
 			return View(model);
 		}
@@ -36,34 +36,8 @@ namespace AdminComposite.Areas.Forum.Controllers
 		{
 			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
 
-			return PartialView("_NewContent", new CreateForumContentInputModel
-			                                  	{
-			                                  		ForumIdentifier = forumId,
-													CreatedBy = userId,
-			                                  	});
-		}
-
-		public PartialViewResult UpdateContent(Guid contentId)
-		{
-			var content = _contentQueries.FindById(contentId);
-
-			return PartialView("_UpdateContent", new UpdateForumContentInputModel
-			                                     	{
-														ForumIdentifier =  content.ForumIdentifier,
-			                                     		ContentIdentifier = contentId,
-			                                     		Active = content.Active,
-			                                     		Location = content.ContentLocation,
-			                                     		Type = content.ContentType,
-			                                     		Value = content.Value,
-														PartialView = getPartialViewNameForContentType(content.ContentType)
-			                                     	});
-		}
-
-		public PartialViewResult TypeSpecificInput(AvailableContentType contentType, string value)
-		{
-			var name = getPartialViewNameForContentType(contentType);
-
-			return PartialView(name, value);
+			return PartialView(
+				"_NewContent", new CreateForumContentInputModel { ForumIdentifier = forumId, CreatedBy = userId, });
 		}
 
 		public PartialViewResult Preview(Guid contentId)
@@ -73,9 +47,34 @@ namespace AdminComposite.Areas.Forum.Controllers
 			return PartialView("_preview", content);
 		}
 
+		public PartialViewResult TypeSpecificInput(AvailableContentType contentType, string value)
+		{
+			var name = getPartialViewNameForContentType(contentType);
+
+			return PartialView(name, value);
+		}
+
+		public PartialViewResult UpdateContent(Guid contentId)
+		{
+			var content = _contentQueries.FindById(contentId);
+
+			return PartialView(
+				"_UpdateContent",
+				new UpdateForumContentInputModel
+					{
+						ForumIdentifier = content.ForumIdentifier,
+						ContentIdentifier = contentId,
+						Active = content.Active,
+						Location = content.ContentLocation,
+						Type = content.ContentType,
+						Value = content.Value,
+						PartialView = getPartialViewNameForContentType(content.ContentType)
+					});
+		}
+
 		private static string getPartialViewNameForContentType(string contentType)
 		{
-			return getPartialViewNameForContentType((AvailableContentType)Enum.Parse(typeof (AvailableContentType), contentType));
+			return getPartialViewNameForContentType((AvailableContentType)Enum.Parse(typeof(AvailableContentType), contentType));
 		}
 
 		private static string getPartialViewNameForContentType(AvailableContentType contentType)

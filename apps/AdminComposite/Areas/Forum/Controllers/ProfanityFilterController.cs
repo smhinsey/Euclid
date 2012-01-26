@@ -20,14 +20,14 @@ namespace AdminComposite.Areas.Forum.Controllers
 			var model = _profanityFilterQueries.List(forumId, offset, pageSize);
 
 			ViewBag.Pagination = new PaginationModel
-			{
-				ActionName = "List",
-				ControllerName = "Content",
-				Identifier = forumId,
-				Offset = offset,
-				PageSize = pageSize,
-				TotalItems = model.TotalStopWords
-			};
+				{
+					ActionName = "List",
+					ControllerName = "Content",
+					Identifier = forumId,
+					Offset = offset,
+					PageSize = pageSize,
+					TotalItems = model.TotalStopWords
+				};
 
 			return View(model);
 		}
@@ -36,11 +36,7 @@ namespace AdminComposite.Areas.Forum.Controllers
 		{
 			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
 
-			return PartialView("_NewStopWord", new CreateStopWordInputModel
-			{
-				ForumIdentifier = forumId,
-				CreatedBy = userId,
-			});
+			return PartialView("_NewStopWord", new CreateStopWordInputModel { ForumIdentifier = forumId, CreatedBy = userId, });
 		}
 	}
 }

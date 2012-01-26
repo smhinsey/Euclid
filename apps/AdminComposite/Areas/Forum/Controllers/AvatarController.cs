@@ -10,6 +10,7 @@ namespace AdminComposite.Areas.Forum.Controllers
 	public class AvatarController : AdminController
 	{
 		private readonly AvatarQueries _avatarQueries;
+
 		public AvatarController(AvatarQueries avatarQueries)
 		{
 			_avatarQueries = avatarQueries;
@@ -18,42 +19,35 @@ namespace AdminComposite.Areas.Forum.Controllers
 		public ActionResult List(Guid forumId, int offset = 0, int pageSize = 25)
 		{
 			var model = _avatarQueries.FindAvatarsForForum(forumId, offset, pageSize);
-			
+
 			ViewBag.Pagination = new PaginationModel
-			                     	{
-			                     		ActionName = "List",
-			                     		ControllerName = "Avatar",
-			                     		Identifier = forumId,
-			                     		Offset = offset,
-			                     		PageSize = pageSize,
-			                     		TotalItems = model.TotalAvatars,
-			                     	};
+				{
+					ActionName = "List",
+					ControllerName = "Avatar",
+					Identifier = forumId,
+					Offset = offset,
+					PageSize = pageSize,
+					TotalItems = model.TotalAvatars,
+				};
 
 			return View(model);
-		}
-
-		public PartialViewResult UpdateAvatar(Guid avatarId)
-		{
-			var avatar = _avatarQueries.FindById(avatarId);
-
-			return PartialView("_UpdateAvatar", new UpdateForumAvatarInputModel
-			                              	{
-			                              		AvatarIdentifier = avatarId,
-			                              		Description = avatar.Description,
-			                              		Name = avatar.Name,
-			                              		ImageUrl = avatar.Url
-			                              	});
 		}
 
 		public PartialViewResult NewAvatar(Guid forumId)
 		{
 			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
 
-			return PartialView("_NewAvatar", new CreateForumAvatarInputModel
-			                                 	{
-			                                 		ForumIdentifier = forumId,
-													CreatedBy = userId,
-			                                 	});
+			return PartialView("_NewAvatar", new CreateForumAvatarInputModel { ForumIdentifier = forumId, CreatedBy = userId, });
+		}
+
+		public PartialViewResult UpdateAvatar(Guid avatarId)
+		{
+			var avatar = _avatarQueries.FindById(avatarId);
+
+			return PartialView(
+				"_UpdateAvatar",
+				new UpdateForumAvatarInputModel
+					{ AvatarIdentifier = avatarId, Description = avatar.Description, Name = avatar.Name, ImageUrl = avatar.Url });
 		}
 	}
 }

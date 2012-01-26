@@ -12,8 +12,9 @@ namespace AdminComposite.Areas.Forum.Controllers
 	[Authorize]
 	public class ModerationController : AdminController
 	{
-		private readonly ModeratedPostQueries _postQueries;
 		private readonly ModeratedCommentQueries _commentQueries;
+
+		private readonly ModeratedPostQueries _postQueries;
 
 		public ModerationController(ModeratedPostQueries postQueries, ModeratedCommentQueries commentQueries)
 		{
@@ -49,17 +50,17 @@ namespace AdminComposite.Areas.Forum.Controllers
 		private PaginationModel getPagination(int offset, int totalPosts, int pageSize, Guid forumId)
 		{
 			return new PaginationModel
-										{
-											ActionName = "Items",
-											ControllerName = "Moderation",
-											Offset = offset,
-											TotalItems = totalPosts,
-											PageSize = pageSize,
-											WriteTFoot = true,
-											WriteTable = true,
-											WriteTr = true,
-											Identifier = forumId
-										};
+				{
+					ActionName = "Items",
+					ControllerName = "Moderation",
+					Offset = offset,
+					TotalItems = totalPosts,
+					PageSize = pageSize,
+					WriteTFoot = true,
+					WriteTable = true,
+					WriteTr = true,
+					Identifier = forumId
+				};
 		}
 	}
 }

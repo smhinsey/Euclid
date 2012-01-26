@@ -21,14 +21,14 @@ namespace AdminComposite.Areas.Forum.Controllers
 		{
 			var model = _categoryQueries.List(forumId, offset, pageSize);
 			ViewBag.Pagination = new PaginationModel
-			                     	{
-			                     		ActionName = "List",
-			                     		ControllerName = "Category",
-			                     		Identifier = forumId,
-			                     		PageSize = pageSize,
-			                     		Offset = offset,
-			                     		TotalItems = model.TotalCategories
-			                     	};
+				{
+					ActionName = "List",
+					ControllerName = "Category",
+					Identifier = forumId,
+					PageSize = pageSize,
+					Offset = offset,
+					TotalItems = model.TotalCategories
+				};
 
 			return View(model);
 		}
@@ -37,11 +37,7 @@ namespace AdminComposite.Areas.Forum.Controllers
 		{
 			var userId = Guid.Parse(Request.Cookies["OrganizationUserId"].Value);
 
-			return PartialView("_NewCategory", new CreateCategoryInputModel
-			                                   	{
-			                                   		ForumIdentifier = forumId, 
-													CreatedBy = userId
-			                                   	});
+			return PartialView("_NewCategory", new CreateCategoryInputModel { ForumIdentifier = forumId, CreatedBy = userId });
 		}
 
 		public PartialViewResult UpdateCategory(Guid categoryId)
@@ -53,12 +49,9 @@ namespace AdminComposite.Areas.Forum.Controllers
 				throw new CategoryNotFoundException(string.Format("Could not find the category with id {0}", categoryId));
 			}
 
-			return PartialView("_UpdateCategory", new UpdateCategoryInputModel
-			                                      	{
-			                                      		CategoryIdentifier = categoryId,
-			                                      		Name = category.Name,
-			                                      		Active = category.Active
-			                                      	});
+			return PartialView(
+				"_UpdateCategory",
+				new UpdateCategoryInputModel { CategoryIdentifier = categoryId, Name = category.Name, Active = category.Active });
 		}
 	}
 }

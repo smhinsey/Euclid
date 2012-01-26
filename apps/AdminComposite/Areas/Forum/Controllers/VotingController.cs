@@ -8,6 +8,7 @@ namespace AdminComposite.Areas.Forum.Controllers
 	public class VotingController : AdminController
 	{
 		private readonly ForumQueries _forumQueries;
+
 		public VotingController(ForumQueries forumQueries)
 		{
 			_forumQueries = forumQueries;

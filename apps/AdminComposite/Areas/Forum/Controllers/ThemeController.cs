@@ -11,8 +11,9 @@ namespace AdminComposite.Areas.Forum.Controllers
 	public class ThemeController : AdminController
 	{
 		private readonly ForumQueries _forumQueries;
+
 		private readonly ThemeQueries _themeQueries;
-		
+
 		public ThemeController(ForumQueries forumQueries, ThemeQueries themeQueries)
 		{
 			_forumQueries = forumQueries;
@@ -21,19 +22,21 @@ namespace AdminComposite.Areas.Forum.Controllers
 
 		public ActionResult List(Guid forumId)
 		{
-			ForumAgent.ReadModels.Forum forum = _forumQueries.FindById(forumId);
+			var forum = _forumQueries.FindById(forumId);
 
 			var forumThemes = _themeQueries.GetForumThemes(forumId);
 			var currentTheme = forumThemes.Where(t => t.IsCurrent).FirstOrDefault();
 
-			return View(new ForumThemeInputModel
-			            	{
-			            		ForumIdentifier = forumId,
-								AvailableThemes = forumThemes,
-								ForumName = forum.Name,
-								SelectedTheme = (currentTheme == null) ? string.Empty : currentTheme.Name,
-								SelectedPreviewUrl = (currentTheme == null) ? string.Empty : currentTheme.PreviewUrl
-			            	});
+			return
+				View(
+					new ForumThemeInputModel
+						{
+							ForumIdentifier = forumId,
+							AvailableThemes = forumThemes,
+							ForumName = forum.Name,
+							SelectedTheme = (currentTheme == null) ? string.Empty : currentTheme.Name,
+							SelectedPreviewUrl = (currentTheme == null) ? string.Empty : currentTheme.PreviewUrl
+						});
 		}
 	}
 }
