@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Euclid.Composites.Mvc.Models;
@@ -47,5 +48,7 @@ namespace AdminComposite.Areas.Forum.InputModels
 		public bool Moderated { get; set; }
 
 		public bool Private { get; set; }
+
+		public IList<string> AvailableHosts { get; set; }
 	}
 }

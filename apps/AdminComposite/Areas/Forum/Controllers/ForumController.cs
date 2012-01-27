@@ -12,10 +12,12 @@ namespace AdminComposite.Areas.Forum.Controllers
 	public class ForumController : AdminController
 	{
 		private readonly ForumQueries _forumQueries;
+		private readonly ForumHostQueries _forumHostQueries;
 
-		public ForumController(ForumQueries forumQueries)
+		public ForumController(ForumQueries forumQueries, ForumHostQueries forumHostQueries)
 		{
 			_forumQueries = forumQueries;
+			_forumHostQueries = forumHostQueries;
 		}
 
 		public ActionResult AuthenticationProviders(Guid forumId)
@@ -32,7 +34,8 @@ namespace AdminComposite.Areas.Forum.Controllers
 				View(
 					new CreateForumInputModel
 						{
-							UrlHostName = "newco-forums.com",
+							AvailableHosts = _forumHostQueries.GetHosts(),
+							UrlHostName = string.Empty,
 							OrganizationId = AdminInfo.OrganizationId,
 							Description = " ",
 							CreatedBy = userId,
