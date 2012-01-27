@@ -10,6 +10,7 @@ using Euclid.Composites.Conversion;
 using Euclid.Framework.AgentMetadata.Formatters;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
+using JsonCompositeInspector.Module;
 using Nancy;
 using Nancy.Extensions;
 using Nancy.ModelBinding;

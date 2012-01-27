@@ -73,8 +73,8 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 																	Choices = a.PropertyType.IsEnum ? Enum.GetNames(a.PropertyType) : null,
 																	MultiChoice = a.PropertyType.GetCustomAttributes(typeof(FlagsAttribute), false).Length > 0
 																}),
-													ReturnType = getFormattedReturnType(method), 
-													method.Name
+										ReturnType = getFormattedReturnType(method), 
+										method.Name
 									})
 					};
 		}
