@@ -8,7 +8,7 @@ namespace ForumAgent.Queries
 	{
 		public List<string> GetHosts()
 		{
-			return System.Configuration.ConfigurationManager.AppSettings["Hosts"].Split(new[] {';'}).ToList();
+			return System.Configuration.ConfigurationManager.AppSettings["AdminComposite.AvailableHosts"].Split(new[] {';'}).ToList();
 		}
 	}
 }
