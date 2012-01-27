@@ -91,9 +91,9 @@ namespace CompositeInspector.Module
 
 			if (asJson)
 			{
-				var f = new InputModelFormatter(inputModel);
-				var s = new MemoryStream(Encoding.UTF8.GetBytes(f.GetAsJson()));
-				return Response.FromStream(s, "application/json");
+				var modelFormatter = new InputModelFormatter(inputModel);
+				var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(modelFormatter.GetAsJson()));
+				return Response.FromStream(memoryStream, "application/json");
 			}
 
 			var commandModel = new CommandModel { AgentSystemName = agentSystemName, CommandName = commandName };
