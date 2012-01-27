@@ -71,7 +71,7 @@
   <ItemGroup>
     <Compile Include="Models\LogModel.cs" />
     <Compile Include="Module\AssetModule.cs" />
-    <Compile Include="CommandNotFoundInRegistryException.cs" />
+    <Compile Include="Module\CommandNotFoundInRegistryException.cs" />
     <Compile Include="Module\LogModule.cs" />
     <Compile Include="CompositeInspectorBootstrapper.cs" />
     <Compile Include="Models\AgentModel.cs" />
