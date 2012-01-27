@@ -661,6 +661,7 @@
   <ItemGroup>
     <Content Include="Config\jason-mbp.custom.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -36,7 +36,7 @@ namespace AdminComposite.Extensions
 		public static string GetClassWhenControllerAndActionAreCurrent(
 			this HtmlHelper helper, bool performCheck, string expectedController, string expectedAction, string className)
 		{
-			return (helper.AreControllerAndActionAreCurrent(expectedController, expectedAction))
+			return (performCheck && helper.AreControllerAndActionAreCurrent(expectedController, expectedAction))
 			       	? string.Format(@"class={0}", className)
 			       	: string.Empty;
 		}
