@@ -22,7 +22,7 @@
 					Users</a> </li>
 		</ul>
 	</li>
-	<li @Html.GetClassWhenControllerAndActionAreCurrent("forum", "create", "current")><a href="@Url.Action("Create", "Forum")" class="new-forum no-submenu">
+	<li @Html.GetClassWhenControllerAndActionAreCurrent("forum", "create", "current")><a href="@Url.Action("Create", "Forum", new { Area = "Forum" })" class="new-forum no-submenu">
 																																											Add Forum</a> </li>
 	@{
 		IList<Forum> forums = AdminInfo.Forums;
