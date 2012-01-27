@@ -44,6 +44,7 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\..\packages\Castle.Windsor.2.5.4\lib\net40-client\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="JsonCompositeInspector, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Nancy">
       <HintPath>..\..\..\packages\Nancy.0.9.0\lib\net40\Nancy.dll</HintPath>
     </Reference>

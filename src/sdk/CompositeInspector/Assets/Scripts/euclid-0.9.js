@@ -205,6 +205,24 @@ var EUCLID = function () {
 
 	return {
 		getQueryMetadata: (function (args) {
+		/// <summary>
+		/// Retrieve a JSON representation of a query
+		///  &#10; .AgentSystemName
+		///  &#10; .Namespace
+		///  &#10; .Name
+		///  &#10; .Methods (an array of method objects)
+		///  &#10;  .Name
+		///  &#10;  .ReturnType
+		///  &#10;  .Arguments (an array of parameters to execute this query)
+		///  &#10;    .ArgumentName
+		///  &#10;    .ArgumentType, 
+		///  &#10;    .Choices,
+		///  &#10;    .MultiChoice (boolean indicates if multiple choices are allowed)
+		/// </summary>
+		/// <param name='args'>a JSON object with the following properties
+		/// &#10; queryName: the name of the query object
+		/// &#10; methodName: the name of the method that executes the query
+		/// </param>
 			var model = null;
 			_displayErrorWrapper({
 				callback: function (args) {
@@ -234,6 +252,12 @@ var EUCLID = function () {
 		}), // end getQueryMethods
 
 		executeQuery: (function (args) {
+		/// <summary>Executes an agent query and returns a JSON encoded representation of the results</summary>
+		/// <param name='args'>a JSON object with the following properties
+		/// &#10; queryName: the name of the query object
+		/// &#10; methodName: the name of the method that executes the query
+		/// &#10; parameters: an array of arguments represented as a JSON name value pair
+		/// </param>
 			var model = null;
 			_displayErrorWrapper({
 				callback: function (args) {
@@ -255,6 +279,7 @@ var EUCLID = function () {
 		}), // end executeQuery
 
 		getId: (function () {
+			///<summary>returns a pseudo-random GUID</summary>
 			var id = "";
 			_displayErrorWrapper({
 				callback: function (args) {
@@ -267,6 +292,8 @@ var EUCLID = function () {
 		}),
 
 		getJsonObject: (function (url) {
+			///<summary>synchrnously retrieves a JSON object from the specified URL</summary>
+			///<param name='url'>the url that provides the required data</param>
 			var object = null;
 			_displayErrorWrapper({
 				callback: function (args) {
@@ -279,10 +306,18 @@ var EUCLID = function () {
 		}),
 
 		submitForm: (function (form, namedArguments) {
+			///<summary>submits a form</summary>
+			///<param name='form'>a jquery form object</param>
+			///<param name='namedArguments'>an array of JSON encoded name/value pairs</param>
 			return _submitForm(form, namedArguments);
 		}),
 
 		getQueryForm: (function (args) {
+			///<summary>retrieves a form object for collecting arguments for the specified query</summary>
+			///<param name='args'>a JSON object containing the properties
+			/// &#10; method - the name of the method to execute
+			/// &#10; queryName - the name fo the query
+			/// </param>
 			if (args == null || args === undefined || !args.hasOwnProperty("method") || !args.hasOwnProperty("queryName")) {
 				throw {
 					name: "Invalid Argument Exception",
@@ -307,6 +342,15 @@ var EUCLID = function () {
 		}),
 
 		getInputModel: (function (args) {
+			///<summary>retrieves a JSON representation of an input model for a command
+			/// &#10; the returned object supports the following methods:
+			/// &#10;  getForm() to retrieve a form for executing the command
+			/// &#10;  publish() to publish the command
+			///</summary>
+			///<param name='args'>a JSON object containing the properties
+			/// &#10; commandName - the name of the command to execute
+			/// &#10; agentSystemName - the name of the agent that supports the command
+			/// </param>
 			var _model = null;
 			_displayErrorWrapper({
 				callbackArgs: args,
@@ -407,6 +451,17 @@ var EUCLID = function () {
 		}), // end getInputModel
 
 		pollForCommandStatus: (function (args) {
+			///<summary>naviely polls the composite for the status of a given command
+			/// &#10;  this implementation creates a new request for each poll, and is not appropriate for use in a high volume situation
+			///</summary>
+			///<param name='args'>a JSON object containing the properties
+			/// &#10; publicationId- the id of the command
+			/// &#10; pollMax - the maximum number of times to poll (optional, default = 100)
+			/// &#10; pollInterval - the time between requests (optional, default 250ms)
+			/// &#10; onCommandComplete - a callback function that is called if the command has completed succesfully (accepts a JSON representation of a CommandPublicationRecord)
+			/// &#10; onCommandError - a callback function that is called if the command has errored (accepts a JSON representation of a CommandPublicationRecord)
+			/// &#10; onPollError - a callback function that is called if an error occurs during the polling operation (accepts a JSON object with .name, .message & .callStack)
+			/// </param>
 			// publicationId, onOpportunityToCancelPolling, onCommandComplete, onCommandError, onPollError
 			if (!args.hasOwnProperty("publicationId") || !args.hasOwnProperty("onCommandComplete") || !args.hasOwnProperty("onCommandError")) {
 				throw {
@@ -462,6 +517,9 @@ var EUCLID = function () {
 		}), // end pollForCommandStatus
 
 		displayError: (function (e) {
+			///<summary>displays an error</summary>
+			///<param name='e'>an object containing the error information expected properties are .name, .message & .callstack</param>
+			// publicationId, onOpportunityToCancelPolling, onCommandComplete, onCommandError, onPollError
 			if ($("#euclid-error-display").length == 0) {
 				$("body").prepend("<div id='euclid-error-display' style='z-index:auto'></div>");
 			}
@@ -507,10 +565,14 @@ var EUCLID = function () {
 
 // extension methods
 $.fn.hasAttr = function(name) {
+	///<summary>easily check if an element contains an attribute<summary>
+	///<param name='name'>The name of the attribute to check for</param>
 	return this.attr(name) !== undefined;
 };
 
 String.prototype.endsWith = function(suffix) {
+	///<summary>returns true if the string ends with the specified suffix (case sensitive)</summary>
+	///<param name='suffix'>the string the check for</param>
 	return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
 

@@ -10,21 +10,24 @@ namespace CompositeInspector.Module
 {
 	public class QueryModule : NancyModule
 	{
+		private const string BasePath = "composite/queries";
+
+		private const string QueryMetadataRoute = "/{queryName}";
+
+		private const string ExecuteQueryRoute = "/{queryName}/{methodName}";
+
 		private readonly ICompositeApp _compositeApp;
 
-		private readonly IWindsorContainer _container;
-
-		public QueryModule(ICompositeApp compositeApp, IWindsorContainer container)
-			: base("composite/queries")
+		public QueryModule(ICompositeApp compositeApp)
+			: base(BasePath)
 		{
 			_compositeApp = compositeApp;
-			_container = container;
+			
+			Get[string.Empty] = _ => "Query API";
 
-			Get[""] = _ => "Query API";
+			Get[QueryMetadataRoute] = p => { return GetQueryByName((string)p.queryName); };
 
-			Get["/{queryName}"] = p => { return GetQueryByName((string)p.queryName); };
-
-			Post["/{queryName}/{methodName}"] = p =>
+			Post[ExecuteQueryRoute] = p =>
 				{
 					var queryName = (string)p.queryName;
 					var methodName = (string)p.methodName;
