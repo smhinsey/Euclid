@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using Castle.Windsor;
 using Euclid.Composites;
 using Nancy;
 
@@ -12,9 +11,13 @@ namespace CompositeInspector.Module
 	{
 		private const string BasePath = "composite/queries";
 
+		private const string ExecuteQueryRoute = "/{queryName}/{methodName}";
+
+		private const string IndexRoute = "";
+
 		private const string QueryMetadataRoute = "/{queryName}";
 
-		private const string ExecuteQueryRoute = "/{queryName}/{methodName}";
+		private const string QueryMetadataViewPath = "Queries/view-query-metadata.cshtml";
 
 		private readonly ICompositeApp _compositeApp;
 
@@ -22,10 +25,10 @@ namespace CompositeInspector.Module
 			: base(BasePath)
 		{
 			_compositeApp = compositeApp;
-			
-			Get[string.Empty] = _ => "Query API";
 
-			Get[QueryMetadataRoute] = p => { return GetQueryByName((string)p.queryName); };
+			Get[IndexRoute] = _ => "Query API";
+
+			Get[QueryMetadataRoute] = p => GetQueryMetadataByName((string)p.queryName);
 
 			Post[ExecuteQueryRoute] = p =>
 				{
@@ -41,50 +44,54 @@ namespace CompositeInspector.Module
 			try
 			{
 				var form = (DynamicDictionary)Context.Request.Form;
+
 				var argumentCount = form.Count();
+
 				var results = _compositeApp.ExecuteQuery(queryName, methodName, argumentCount, paramName => form[paramName]);
+
 				return Response.AsJson(results);
 			}
 			catch (Exception e)
 			{
-				return Response.AsJson(
-					new { name = e.GetType().Name, message = e.Message, callStack = e.StackTrace }, HttpStatusCode.InternalServerError);
+				var model = new { name = e.GetType().Name, message = e.Message, callStack = e.StackTrace };
+
+				return Response.AsJson(model, HttpStatusCode.InternalServerError);
 			}
 		}
 
-		public Response GetQueryByName(string queryName)
+		public Response GetQueryMetadataByName(string queryName)
 		{
 			var asJson = false;
+
 			if (queryName.EndsWith("json"))
 			{
 				asJson = true;
 				queryName = queryName.Substring(0, queryName.Length - 5);
 			}
 
-			var query =
-				_compositeApp.Queries.Where(q => q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase)).
-					FirstOrDefault();
+			var queries = _compositeApp.Queries;
+
+			var query = queries.FirstOrDefault(q => q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase));
 
 			if (asJson)
 			{
 				if (query == null)
 				{
-					return
-						Response.AsJson(
-							new
-								{
-									name = "Invalid QueryName Exception",
-									message = string.Format("The composite {0} has no query named {1}", _compositeApp.Name, queryName)
-								},
-							HttpStatusCode.InternalServerError);
+					var errorMessage = string.Format("The composite {0} has no query named {1}", _compositeApp.Name, queryName);
+
+					var model = new { name = "Invalid QueryName Exception", message = errorMessage };
+
+					return Response.AsJson(model, HttpStatusCode.InternalServerError);
 				}
 
-				var json = query.GetFormatter().GetRepresentation("json");
-				var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
-				return Response.FromStream(ms, "application/json");
+				var representation = query.GetFormatter().GetRepresentation("json");
+
+				var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(representation));
+
+				return Response.FromStream(memoryStream, "application/json");
 			}
 
-			return View["Queries/view-query-methods.cshtml", queryName];
+			return View[QueryMetadataViewPath, queryName];
 		}
 	}
 }
