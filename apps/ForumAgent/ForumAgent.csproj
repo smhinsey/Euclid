@@ -46,6 +46,7 @@
       <HintPath>..\..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -93,6 +94,7 @@
     <Compile Include="Processors\ActivateStopWordProcessor.cs" />
     <Compile Include="Processors\DeleteStopWordProcessor.cs" />
     <Compile Include="Processors\CreateStopWordProcessor.cs" />
+    <Compile Include="Queries\ForumHostQueries.cs" />
     <Compile Include="Queries\ProfanityFilterQueries.cs" />
     <Compile Include="ReadModels\AvailableStopWords.cs" />
     <Compile Include="ReadModels\ForumUserListing.cs" />
