@@ -3,26 +3,19 @@
 @model AdminComposite.Areas.Forum.InputModels.CreateForumInputModel
 		   
 <script type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function () {
 		$("#forum-name").focus();
 
-		$("#forum-host").keyup(function() {
-			var forumSlug = $("#forum-slug").val();
-			var orgSlug = $("#org-slug").val();
-			var host = $("#forum-host").val();
-			setForumUrl(host, orgSlug, forumSlug);
-		});
-
-		$("#generate-slug").click(function() {
+		$("#generate-slug").click(function () {
 			var forumSlug = slugify($("#forum-name").val());
 			$("#forum-slug").val(forumSlug);
 
 			var orgSlug = $("#org-slug").val();
 			var host = $("#forum-host").val();
-			setForumUrl(host, orgSlug, forumSlug);
+			setForumUrl(host, forumSlug);
 		});
 
-		$("#forum-name, #forum-slug").blur(function() {
+		$("#forum-name, #forum-slug").blur(function () {
 			var slug = $("#forum-slug").val();
 
 			if (isNullOrEmpty(slug)) {
@@ -30,19 +23,38 @@
 			}
 
 			$("#forum-slug").val(slug);
-			var orgSlug = $("#org-slug").val();
 			var host = $("#forum-host").val();
-			setForumUrl(host, orgSlug, slug);
+			setForumUrl(host, slug);
 		});
 
-		$("#forum-slug").focus(function() {
+		$("#forum-slug").focus(function () {
 			$(this).selectRange(0, $(this).val().length);
 		});
 
-		$("#forum-slug").mouseup(function() {
+		$("#forum-slug").mouseup(function () {
 			return false;
 		});
+
+		$("#sumbit-create-command").click(function () {
+			$("#forum-host-name").val($("#available-hosts"));
+		});
+
+		$("#available-hosts").change(function () {
+			var host = $("#available-hosts").val();
+			var slug = $("#forum-slug").val();
+			setForumUrl(host, slug);
+		});
 	});
+
+	function setForumUrl(host, slug) {
+		if (!host || !slug) {
+			$("#forum-preview-url").hide();
+		} else {
+			url = "http//" + host + "/org/@AdminInfo.OrganizationSlug/forum/" + slug;
+			$("#forum-preview-url").html("Forum url: <b><span>" + url + "</span></b></p>");
+			$("#forum-preview-url").show();
+		}
+	}
 </script>
 
 <article>
@@ -57,6 +69,7 @@
 		@Html.HiddenFor(m => m.OrganizationId)
 		@Html.HiddenFor(m => m.CreatedBy)
 		@Html.HiddenFor(m => m.Theme)
+		@Html.HiddenFor(m => m.UrlHostName, new { id = "forum-host-name" })
 		@Html.ValidationSummary()
 		<input type="hidden" name="org-slug" value="@AdminInfo.OrganizationSlug" id="org-slug" />
 		<fieldset>
@@ -72,10 +85,16 @@
 					<p><a href="#" id="generate-slug">generate slug</a></p>
 				</dd>
 
-				<dt>@Html.LabelFor(m => m.UrlHostName)</dt>
+				<dt><label for="available-hosts">Host Name</label></dt>
 				<dd>
-					@Html.TextBoxFor(m => m.UrlHostName, new { id = "forum-host", @readonly = "readonly" })
-					<p>Forum url: <b><span id="forum-url">http//newco-forums.com/org/@AdminInfo.OrganizationSlug/forum/{forum-slug}</span></b></p>
+					<select name="hosts" id="available-hosts">
+						<option value="">-- Select a Host --</option>
+						@foreach (var host in Model.AvailableHosts)
+						{
+							<option value="@host">@host</option>
+						}
+					</select>
+					<p id="forum-preview-url" style="display:none">Forum url: <b><span id="forum-url">http//newco-forums.com/org/@AdminInfo.OrganizationSlug/forum/{forum-slug}</span></b></p>
 				</dd>
 
 				<dt>@Html.LabelFor(m => m.Description)</dt>
