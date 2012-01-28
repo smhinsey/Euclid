@@ -145,23 +145,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\dynamicAdmin.css" />
+    <Content Include="Content\css\storefrontAdmin.css" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
-    <Content Include="Content\js\backbone-min.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-alert.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-button.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-carousel.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-collapse.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-dropdown.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-modal.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-popover.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-scrollspy.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-tab.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-tooltip.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-transition.js" />
-    <Content Include="Content\js\bootstrap\bootstrap-typeahead.js" />
-    <Content Include="Content\js\handlebars-1.0.0.beta.6.js" />
+    <Content Include="Content\js\lib\backbone-min.js" />
+    <Content Include="Content\js\lib\bootstrap-alert.js" />
+    <Content Include="Content\js\lib\bootstrap-button.js" />
+    <Content Include="Content\js\lib\bootstrap-carousel.js" />
+    <Content Include="Content\js\lib\bootstrap-collapse.js" />
+    <Content Include="Content\js\lib\bootstrap-dropdown.js" />
+    <Content Include="Content\js\lib\bootstrap-modal.js" />
+    <Content Include="Content\js\lib\bootstrap-popover.js" />
+    <Content Include="Content\js\lib\bootstrap-scrollspy.js" />
+    <Content Include="Content\js\lib\bootstrap-tab.js" />
+    <Content Include="Content\js\lib\bootstrap-tooltip.js" />
+    <Content Include="Content\js\lib\bootstrap-transition.js" />
+    <Content Include="Content\js\lib\bootstrap-typeahead.js" />
+    <Content Include="Content\js\lib\handlebars-1.0.0.beta.6.js" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ShellController.cs" />
     <Compile Include="CommonStorefrontAdminInfo.cs" />
@@ -173,6 +173,7 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\js\storefrontadmin.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
