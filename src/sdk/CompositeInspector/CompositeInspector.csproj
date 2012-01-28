@@ -94,9 +94,9 @@
     <EmbeddedResource Include="Views\Composite\view-agent.cshtml" />
     <EmbeddedResource Include="Views\Shared\Frameset.cshtml" />
     <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
-    <EmbeddedResource Include="Views\Queries\view-query-methods.cshtml" />
     <EmbeddedResource Include="Views\Commands\view-publication-record.cshtml" />
     <EmbeddedResource Include="Views\Log\logs.cshtml" />
+    <None Include="Views\Queries\view-query-metadata.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common\Euclid.Common.csproj">

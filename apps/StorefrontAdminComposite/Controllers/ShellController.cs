@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace AdminComposite.Areas.DynamicAdmin.Controllers
+namespace StorefrontAdminComposite.Controllers
 {
 	public class ShellController : Controller
 	{
