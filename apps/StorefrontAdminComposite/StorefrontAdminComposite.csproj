@@ -145,9 +145,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\storefrontAdmin.css" />
+    <Content Include="Content\css\app.css" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\js\euclid.admin.js" />
     <Content Include="Content\js\lib\backbone-min.js" />
     <Content Include="Content\js\lib\bootstrap-alert.js" />
     <Content Include="Content\js\lib\bootstrap-button.js" />
@@ -173,7 +174,7 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\js\storefrontadmin.js" />
+    <Content Include="Content\js\app.js" />
     <None Include="Content\app\templates\company\Employees.handlebars" />
     <None Include="Content\app\templates\company\Financials.handlebars" />
     <Content Include="Global.asax" />
