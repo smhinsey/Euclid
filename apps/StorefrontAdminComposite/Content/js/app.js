@@ -8,6 +8,9 @@
 		this.get('/#company/:companySlug/financials', function () {
 			
 			var model = { title: "Company Financials "};
+
+			// this approximately simulates executing a query and adding the results to the model
+			model.body = "Maecenas nunc augue, fermentum ac gravida a, tempus ut neque. Nullam ut neque justo.";
 			
 			this.trigger('render-model', {templateName: 'company/Financials', model: model});
 			
@@ -95,7 +98,7 @@
 			console.log("render-model rendering using template" + templateName);
 			console.log(model);
 
-			getTemplateAjax('content/app/templates/' + templateName + '.handlebars', function(template) {
+			fetchHandlebarsTemplate('content/app/templates/' + templateName + '.handlebars', function(template) {
 				var renderedOutput = template(model);
 				$('#app-content').html(renderedOutput);
 			});
@@ -112,19 +115,21 @@
 
 	});
 	
-	function getTemplateAjax(path, callback) {
+	function fetchHandlebarsTemplate(path, callback) {
 		var source;
 		var template;
  
 		$.ajax({
 			url: path,
 			success: function(data) {
+				
 				source = $(data).html();
 
 				template = Handlebars.compile(source);
 				
-				//execute the callback if passed
-				if (callback) callback(template);
+				if (callback) {
+					callback(template);
+				};
 			}
 		});
 	}
