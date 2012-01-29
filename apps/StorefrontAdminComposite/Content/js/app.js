@@ -6,60 +6,103 @@
 		});
 
 		this.get('/#company/:companySlug/financials', function () {
-			$('#app-content').text('Company Financials');
 			
-			this.trigger('set-nav', {slug: this.params['companySlug'], current: 'Financials'});
+			var model = { title: "Company Financials "};
+			
+			this.trigger('render-model', {templateName: 'company/Financials', model: model});
+			
+			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'Financials'});
 		});
 
 		this.get('/#company/:companySlug/allTransactions', function () {
-			$('#app-content').text('Company All Transactions');
 			
-			this.trigger('set-nav', {slug: this.params['companySlug'], current: 'AllTransactions'});
+			var model = { title: "Company All Transactions"};
+			
+			this.trigger('render-model', {templateName: 'company/AllTransactions', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'AllTransactions'});
 		});
 		
 		this.get('/#company/:companySlug/employees', function () {
-			$('#app-content').text('Company Employees');
 			
-			this.trigger('set-nav', {slug: this.params['companySlug'], current: 'Employees'});
+			var model = { title: "Company Employees"};
+			
+			this.trigger('render-model', {templateName: 'company/Employees', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'Employees'});
 		});
 
 		this.get('/#store/:storeSlug/financials', function () {
-			$('#app-content').text('Store Financials');
 			
-			this.trigger('set-nav', {slug: this.params['storeSlug'], current: 'Financials'});
+			var model = { title: "Store Financials "};
+
+			this.trigger('render-model', {templateName: 'store/Financials', model: model});
+			
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Financials'});
 		});
 
 		this.get('/#store/:storeSlug/orders', function () {
-			$('#app-content').text('Store Orders');
+
+			var model = { title: "Store Orders"};
+
+			this.trigger('render-model', {templateName: 'store/Orders', model: model});
 			
-			this.trigger('set-nav', {slug: this.params['storeSlug'], current: 'Orders'});
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Orders'});
 		});
 
 		this.get('/#store/:storeSlug/customers', function () {
-			$('#app-content').text('Store Customers');
+
+			var model = { title: "Store Customers"};
+
+			this.trigger('render-model', {templateName: 'store/Customers', model: model});
 			
-			this.trigger('set-nav', {slug: this.params['storeSlug'], current: 'Customers'});
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Customers'});
 		});
 
 		this.get('/#store/:storeSlug/productCatalog', function () {
-			$('#app-content').text('Store Product Catalog');
-			
-			this.trigger('set-nav', {slug: this.params['storeSlug'], current: 'ProductCatalog'});
+
+			var model = { title: "Store Product Catalog"};
+
+			this.trigger('render-model', {templateName: 'store/ProductCatalog', model: model});			
+
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'ProductCatalog'});
 		});
 
 		this.get('/#store/:storeSlug/promotions', function() {
-			$('#app-content').text('Store Promotions');
 
-			this.trigger('set-nav', {slug: this.params['storeSlug'], current: 'Promotions'});
+			var model = { title: "Store Promotions"};
+
+			this.trigger('render-model', {templateName: 'store/Promotions', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Promotions'});
 		});
 
 		this.get('/#store/:storeSlug/discountCodes', function () {
-			$('#app-content').text('Store Discount Codes');
 
-			this.trigger('set-nav', {slug: this.params['storeSlug'], current: 'DiscountCodes'});
+			var model = { title: "Store Discount Codes"};
+
+			this.trigger('render-model', {templateName: 'store/DiscountCodes', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'DiscountCodes'});
 		});
 		
-		this.bind('set-nav', function(e, data) {
+		this.bind('render-model', function(e, data) {
+
+			var templateName = data['templateName'];
+
+			var model = data['model'];
+
+			console.log("render-model rendering using template" + templateName);
+			console.log(model);
+
+			getTemplateAjax('content/app/templates/' + templateName + '.handlebars', function(template) {
+				var renderedOutput = template(model);
+				$('#app-content').html(renderedOutput);
+			});
+			
+		});
+
+		this.bind('highlight-nav', function(e, data) {
 			var navSelector = "#nav-" + data['slug'] + data['current'];
 
 			$(".nav-item").removeClass("active");
@@ -68,6 +111,23 @@
 		});
 
 	});
+	
+	function getTemplateAjax(path, callback) {
+		var source;
+		var template;
+ 
+		$.ajax({
+			url: path,
+			success: function(data) {
+				source = $(data).html();
+
+				template = Handlebars.compile(source);
+				
+				//execute the callback if passed
+				if (callback) callback(template);
+			}
+		});
+	}
 
 	$(function () {
 		app.run();
