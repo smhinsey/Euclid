@@ -19,7 +19,9 @@
 
 		this.get('/#company/:companySlug/allTransactions', function () {
 			
-			var model = { title: "Company All Transactions"};
+			var model = { companyName: "{Company Name}"};
+
+			model.transactions = modelForCompanyAllTransactions();
 			
 			this.trigger('render-model', {templateName: 'company/AllTransactions', model: model});
 
@@ -132,6 +134,26 @@
 				};
 			}
 		});
+	}
+	
+	// temporary, just for use during prototyping
+	
+	function modelForCompanyAllTransactions() {
+		
+		var results = [];
+
+		for (var i = 0; i < 10; i++) {
+			results.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
+		}
+
+		return results;
+	}
+
+	function s4() {
+		return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+	}
+	function guid() {
+		return (s4()+s4()+"-"+s4()+"-"+s4()+"-"+s4()+"-"+s4()+s4()+s4());
 	}
 
 	$(function () {
