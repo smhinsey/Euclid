@@ -269,6 +269,7 @@
     <None Include="Content\app\templates\store\Customers.handlebars" />
     <None Include="Content\app\templates\store\Orders.handlebars" />
     <None Include="Content\app\templates\store\Financials.handlebars" />
+    <Content Include="Views\Shared\LeftNav.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
