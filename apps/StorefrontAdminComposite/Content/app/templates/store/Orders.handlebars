@@ -1,3 +1,33 @@
 ﻿<script id="template-storeOrders" type="text/x-handlebars-template">
-	<h3>{{title}}</h3>
+	<h3>{{storeName}} Orders</h3>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				{{#each tableHeaders}}
+				<th>{{this}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+
+			{{#each tableData}}
+			<tr>
+				<td>{{this.id}}...</td>
+				<td>{{this.dateTime}}</td>
+				<td>{{this.type}}</td>
+				<td>{{this.amount}}</td>
+				<td>(buttons)</td>
+			</tr>
+			{{/each}}
+
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					<button class="btn pull-right">Add Manual Order</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
 </script>

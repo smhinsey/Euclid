@@ -2,7 +2,7 @@
 
 namespace StorefrontAdminComposite.Controllers
 {
-	public class ShellController : Controller
+	public class ShellController : AdminController
 	{
 		public ActionResult Index()
 		{

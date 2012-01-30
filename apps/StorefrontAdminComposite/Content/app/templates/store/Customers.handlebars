@@ -1,3 +1,33 @@
 ﻿<script id="template-Customers" type="text/x-handlebars-template">
-	<h3>{{title}}</h3>
+	<h3>{{storeName}} Customers</h3>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				{{#each tableHeaders}}
+				<th>{{this}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+
+			{{#each tableData}}
+			<tr>
+				<td>{{this.email}}</td>
+				<td>{{this.username}}</td>
+				<td>{{this.signupDate}}</td>
+				<td>{{this.totalPurchaseAmount}}</td>
+				<td>(buttons)</td>
+			</tr>
+			{{/each}}
+
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					<button class="btn primary pull-right">Invite Customer</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
 </script>

@@ -9,8 +9,7 @@
 			
 			var model = { title: "Company Financials "};
 
-			// this approximately simulates executing a query and adding the results to the model
-			model.body = "Maecenas nunc augue, fermentum ac gravida a, tempus ut neque. Nullam ut neque justo.";
+			model.body = "(Coming soon.)";
 			
 			this.trigger('render-model', {templateName: 'company/Financials', model: model});
 			
@@ -19,9 +18,7 @@
 
 		this.get('/#company/:companySlug/allTransactions', function () {
 			
-			var model = { companyName: "{Company Name}"};
-
-			model.transactions = modelForCompanyAllTransactions();
+			var model = modelForCompanyAllTransactions();
 			
 			this.trigger('render-model', {templateName: 'company/AllTransactions', model: model});
 
@@ -30,7 +27,7 @@
 		
 		this.get('/#company/:companySlug/employees', function () {
 			
-			var model = { title: "Company Employees"};
+			var model = modelForCompanyEmployees();
 			
 			this.trigger('render-model', {templateName: 'company/Employees', model: model});
 
@@ -48,7 +45,7 @@
 
 		this.get('/#store/:storeSlug/orders', function () {
 
-			var model = { title: "Store Orders"};
+			var model = modelForStoreOrders();
 
 			this.trigger('render-model', {templateName: 'store/Orders', model: model});
 			
@@ -57,7 +54,7 @@
 
 		this.get('/#store/:storeSlug/customers', function () {
 
-			var model = { title: "Store Customers"};
+			var model = modelForStoreCustomers();
 
 			this.trigger('render-model', {templateName: 'store/Customers', model: model});
 			
@@ -139,14 +136,108 @@
 	// temporary, just for use during prototyping
 	
 	function modelForCompanyAllTransactions() {
+
+		var viewModel = { companyName: "{Company Name}" };
+
+		viewModel.tableHeaders = [ "Id", "Date/Time", "Type", "Amount", ""];
 		
-		var results = [];
+		viewModel.tableData = [];
 
 		for (var i = 0; i < 10; i++) {
-			results.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
+			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
 		}
 
-		return results;
+		return viewModel;
+	}
+
+	function modelForCompanyEmployees() {
+
+		var viewModel = { companyName: "{Company Name}" };
+
+		viewModel.tableHeaders = [ "Last Name", "First Name", "Type", "Hire Date", "Location", ""];
+		
+		viewModel.tableData = [];
+
+		for (var i = 0; i < 10; i++) {
+			viewModel.tableData.push({ firstName: "{First}", lastName: "{Last}", type: "{Type}", hireDate: "12/25/2012", location: "{Location}"});
+		}
+
+		return viewModel;
+	}
+	
+	function modelForStoreOrders() {
+
+		var viewModel = { storeName: "{Store Name}" };
+
+		viewModel.tableHeaders = [ "Id", "Date/Time", "Type", "Amount", ""];
+		
+		viewModel.tableData = [];
+
+		for (var i = 0; i < 10; i++) {
+			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
+		}
+
+		return viewModel;
+	}
+
+	function modelForStoreCustomers() {
+
+		var viewModel = { storeName: "{Store Name}" };
+
+		viewModel.tableHeaders = [ "Email", "User Name", "Sign up Date", "Purchase Total", ""];
+		
+		viewModel.tableData = [];
+
+		for (var i = 0; i < 10; i++) {
+			viewModel.tableData.push({ email: "{email}", username: "{username}", signupDate: "12/25/2012", totalPurchaseAmount: "$X,XXX.00"});
+		}
+
+		return viewModel;
+	}
+	
+	function modelForStoreProductCatalog() {
+
+		var viewModel = { storeName: "{Store Name}" };
+
+		viewModel.tableHeaders = [ "Id", "Date/Time", "Type", "Amount", ""];
+		
+		viewModel.tableData = [];
+
+		for (var i = 0; i < 10; i++) {
+			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
+		}
+
+		return viewModel;
+	}
+	
+	function modelForStorePromotions() {
+
+		var viewModel = { storeName: "{Store Name}" };
+
+		viewModel.tableHeaders = [ "Id", "Date/Time", "Type", "Amount", ""];
+		
+		viewModel.tableData = [];
+
+		for (var i = 0; i < 10; i++) {
+			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
+		}
+
+		return viewModel;
+	}
+	
+	function modelForStoreDiscountCodes() {
+
+		var viewModel = { storeName: "{Store Name}" };
+
+		viewModel.tableHeaders = [ "Id", "Date/Time", "Type", "Amount", ""];
+		
+		viewModel.tableData = [];
+
+		for (var i = 0; i < 10; i++) {
+			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
+		}
+
+		return viewModel;
 	}
 
 	function s4() {

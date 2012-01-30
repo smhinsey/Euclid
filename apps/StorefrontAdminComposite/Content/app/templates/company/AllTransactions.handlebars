@@ -1,19 +1,17 @@
 ﻿<script id="template-companyAllTransactions" type="text/x-handlebars-template">
 	<h3>{{companyName}} Transactions</h3>
 
-	<table class="table table-striped table-condensed">
+	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>Date/Time</th>
-				<th>Type</th>
-				<th>Amount</th>
-				<th></th>
+				{{#each tableHeaders}}
+				<th>{{this}}</th>
+				{{/each}}
 			</tr>
 		</thead>
 		<tbody>
 
-			{{#each transactions}}
+			{{#each tableData}}
 			<tr>
 				<td>{{this.id}}...</td>
 				<td>{{this.dateTime}}</td>
