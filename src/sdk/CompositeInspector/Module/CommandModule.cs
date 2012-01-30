@@ -1,7 +1,5 @@
 using System;
-using System.IO;
 using System.Linq;
-using System.Text;
 using Castle.Windsor;
 using CompositeInspector.Models;
 using Euclid.Common.Messaging;
@@ -11,20 +9,23 @@ using Euclid.Framework.AgentMetadata.Formatters;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 using Nancy;
-using Nancy.Extensions;
 using Nancy.ModelBinding;
 
 namespace CompositeInspector.Module
 {
 	public class CommandModule : NancyModule
 	{
+		private const string IndexRoute = "";
+
 		private const string BaseRoute = "composite/commands";
 
 		private const string CommandRoute = "/{agentSystemName}/{commandName}";
 
-		private const string CommandViewPath = "Commands/view-command.cshtml";
+		// NOTE: work around until Nancy is fixed to handle the route assignments a bit better -  we are looking for /{agentSystemName}/{commandName}.{extension}
+		private const string CommandRouteWithFormat =
+			"/{agentSystemName}/(?<commandName>[A-Za-z0-9]*)\\.(?<extension>[A-Za-z0-9]*)";
 
-		private const string IndexRoute = "";
+		private const string CommandViewPath = "Commands/view-command.cshtml";
 
 		private const string PublicationStatusRoute = "/status/{publicationId}";
 
@@ -46,157 +47,104 @@ namespace CompositeInspector.Module
 			_publisher = _container.Resolve<IPublisher>();
 			_registry = _container.Resolve<ICommandRegistry>();
 
-			Get[IndexRoute] = _ => "Command API";
+			Get[IndexRoute] = _ => HttpStatusCode.NoContent;
 
-			Get[CommandRoute] = p =>
-				{
-					var agentSystemName = (string)p.agentSystemName;
-					var commandName = (string)p.commandName;
+			Get[CommandRouteWithFormat] = p => GetCommand((string) p.agentSystemName, (string) p.commandName);
 
-					return GetCommand(agentSystemName, commandName);
-				};
+			Get[CommandRoute] = p => GetCommand((string) p.agentSystemName, (string) p.commandName);
 
-			Post[PublishRoute] = p =>
-				{
-					var inputModel = this.Bind<IInputModel>();
-					if (inputModel == null)
-					{
-						throw new InvalidOperationException("Unable to retrieve input model from form");
-					}
+			Post[PublishRoute] = p => PublishCommand(this.Bind<IInputModel>());
 
-					return PublishCommand(inputModel);
-				};
-
-			Get[PublicationStatusRoute] = p => GetCommandStatus((Guid)p.publicationId);
+			Get[PublicationStatusRoute] = p => GetCommandStatus((Guid) p.publicationId);
 		}
 
 		public Response GetCommand(string agentSystemName, string commandName)
 		{
-			var asJson = false;
-
-			// TODO: how can we eliminate this sort of thing?
-			if (commandName.EndsWith(".json"))
-			{
-				asJson = true;
-				commandName = commandName.Substring(0, commandName.Length - 5);
-			}
-
 			var inputModel = getInputModel(agentSystemName, commandName);
 
 			if (inputModel == null)
 			{
-				return string.Format(
-					"The {0} composite application does not support the command '{1}'", _compositeApp.Name, commandName);
+				throw new CommandNotPresentInAgentException(commandName);
 			}
 
-			if (asJson)
+			var format = this.GetResponseFormat();
+
+			if (format == ResponseFormat.Html)
 			{
-				var modelFormatter = new InputModelFormatter(inputModel);
-				var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(modelFormatter.GetAsJson()));
-				return Response.FromStream(memoryStream, "application/json");
+				var commandModel = new CommandModel {AgentSystemName = agentSystemName, CommandName = commandName};
+				return View[CommandViewPath, commandModel];
 			}
 
-			var commandModel = new CommandModel { AgentSystemName = agentSystemName, CommandName = commandName };
-
-			return View[CommandViewPath, commandModel];
+			return this.GetFormattedMetadata(new InputModelFormatter(inputModel));
 		}
 
 		public Response GetCommandStatus(Guid publicationId)
 		{
-			Exception registryException = null;
 			ICommandPublicationRecord record = null;
 
-			try
-			{
-				record = _registry.GetPublicationRecord(publicationId);
+			record = _registry.GetPublicationRecord(publicationId);
 
-				if (record == null)
-				{
-					throw new CommandNotFoundInRegistryException(publicationId);
-				}
-			}
-			catch (Exception e)
+			if (record == null)
 			{
-				registryException = e;
+				throw new CommandNotFoundInRegistryException(publicationId);
 			}
 
-			if (Request.IsAjaxRequest())
+			var format = this.GetResponseFormat();
+			Response response;
+			if (format == ResponseFormat.Html)
 			{
-				if (registryException == null)
-				{
-					return Response.AsJson(record);
-				}
-
-				var exceptionModel =
-					new
-						{
-							name = registryException.GetType().Name,
-							message = registryException.Message,
-							callStack = registryException.StackTrace
-						};
-
-				return Response.AsJson(exceptionModel, HttpStatusCode.InternalServerError);
+				var model = new PublishedCommandModel {PublicationId = publicationId.ToString(), Record = record};
+				response = View["Commands/view-publication-record.cshtml", model];
+			}
+			else if (format == ResponseFormat.Json)
+			{
+				response = Response.AsJson(record);
+			}
+			else
+			{
+				response = Response.AsXml(record);
 			}
 
-			var model = new PublishedCommandModel { PublicationId = publicationId.ToString(), Record = record };
-			return View["Commands/view-publication-record.cshtml", model];
+			return response;
 		}
 
 		public Response PublishCommand(IInputModel inputModel)
 		{
-			Exception publishingException = null;
-
-			Guid publicationId;
-			try
+			if (inputModel == null)
 			{
-				var command = _compositeApp.GetCommandForInputModel(inputModel);
-
-				publicationId = _publisher.PublishMessage(command);
-			}
-			catch (Exception e)
-			{
-				publishingException = e;
-				publicationId = Guid.Empty;
+				throw new InvalidOperationException("Unable to retrieve input model from form");
 			}
 
-			// TODO: how can we eliminate this sort of thing?
-			if (Request.IsAjaxRequest())
+			var command = _compositeApp.GetCommandForInputModel(inputModel);
+
+			var publicationId = _publisher.PublishMessage(command);
+
+			var format = this.GetResponseFormat();
+
+			if (format == ResponseFormat.Html)
 			{
-				if (publishingException == null)
+				string redirectUrl;
+
+				var incomingAlternateRedirectUrl = Request.Form["alternateRedirectUrl"].Value;
+
+				if (!string.IsNullOrEmpty(incomingAlternateRedirectUrl))
 				{
-					return Response.AsJson(new { publicationId });
+					redirectUrl = (string) incomingAlternateRedirectUrl;
+				}
+				else
+				{
+					// TODO: i find myself missing mvc's routing engine, surprisingly.
+					var publicationStatusUrl = string.Format("/commands/status/{0}", publicationId);
+
+					var referringUrl = Request.Headers["REFERER"].FirstOrDefault();
+
+					redirectUrl = referringUrl ?? publicationStatusUrl;
 				}
 
-				var exceptionModel =
-					new
-						{
-							name = publishingException.GetType().Name,
-							message = publishingException.Message,
-							callStack = publishingException.StackTrace
-						};
-
-				return Response.AsJson(exceptionModel, HttpStatusCode.InternalServerError);
+				return Response.AsRedirect(redirectUrl);
 			}
 
-			string redirectUrl;
-
-			var incomingAlternateRedirectUrl = Request.Form["alternateRedirectUrl"].Value;
-
-			if (!string.IsNullOrEmpty(incomingAlternateRedirectUrl))
-			{
-				redirectUrl = (string)incomingAlternateRedirectUrl;
-			}
-			else
-			{
-				// TODO: i find myself missing mvc's routing engine, surprisingly.
-				var publicationStatusUrl = string.Format("/commands/status/{0}", publicationId);
-
-				var referringUrl = Request.Headers["REFERER"].FirstOrDefault();
-
-				redirectUrl = referringUrl ?? publicationStatusUrl;
-			}
-
-			return Response.AsRedirect(redirectUrl);
+			return GetCommandStatus(publicationId);
 		}
 
 		private IInputModel getInputModel(string agentSystemName, string commandName)

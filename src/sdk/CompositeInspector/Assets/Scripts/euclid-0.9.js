@@ -1,33 +1,39 @@
-﻿$.getScript("/composite/js/jquery.form.js");
-$.getScript("/composite/js/simplemodal/jquery.simplemodal.1.4.1.min.js");
+﻿$.getScript("/composite/js/jquery/jquery.form.js");
 
 if ($.validator == null || $.validator == undefined) {
-	$.getScript("/composite/js/jquery.validate.min.js");
-}
-
-if ($.validator.unobtrusive == null || $.validator.unobtrusive == undefined) {
-	$.getScript("/composite/js/jquery.validate.unobtrusive.min.js");
+	$.ajaxSetup({ "async": false });
+		$.getScript("/composite/js/jquery/jquery.validate.min.js");
+		$.getScript("/composite/js/jquery/jquery.validate.unobtrusive.min.js");
+		$.ajaxSetup({ "async": true });
+		
 }
 
 var EUCLID = function () {
 	/* private methods */
 	var _getJsonObject = (function (url) {
-		$.ajaxSetup({ "async": false });
-		var jqHxr = jQuery.getJSON(url);
+		$.ajaxSetup({ "async": false })
+
+		var jqHxr = $.ajax({
+						url: url,
+						dataType: 'json',
+						headers: {
+							Accept : "application/json; charset=utf-8"
+						}
+					});
 		var _model = $.parseJSON(jqHxr.responseText);
 		$.ajaxSetup({ "async": true });
 
+		if (jqHxr.status == 500) {
+			throw _model;
+		} 
+		
 		if (_model === null) {
 			throw {
 				name: "Invalid QueryName Exception",
 				message: "Could not GET JSON from url : " + url
 			};
-		} else if (jqHxr.status == 500) {
-			throw {
-				name: _model.name,
-				message: _model.message + "\n\n" + _model.callstack
-			}
 		}
+
 		return _model;
 	}); // end getJsonObject
 
@@ -47,6 +53,10 @@ var EUCLID = function () {
 
 		$.ajaxSetup({ async: false });
 		$(form).ajaxSubmit({
+			headers: {
+				Accept : "application/json; charset=utf-8"
+			},
+
 			success: function (responseText, statusText, jqHxr, $form) {
 				if (jqHxr.status == 500) {
 					throw {
@@ -405,6 +415,7 @@ var EUCLID = function () {
 
 						return {
 							getForm: (function () {
+								///<summary>returns a jquery object containing a form that can be used to collect data for this command</summary>
 								var form = $("<form action='/composite/commands/publish' method='post'><legend>" + args.commandName + "</legend><fieldset></fieldset></form>");
 								var fieldSet = $(form).children("fieldset");
 
@@ -427,11 +438,12 @@ var EUCLID = function () {
 								}
 
 								$(form).find(".input-date").datepicker();
-								$(form).append("<input type='submit' value='" + args.commandName + "' />");
+								// $(form).append("<input type='submit' value='" + args.commandName + "' />");
 								return form;
 							}), // end getForm
 
 							publish: (function () {
+								/// <summary> publishes this command for processing</summary>
 								var form = this.getForm();
 								EUCLID.submitForm(form);
 							}) // end publish
@@ -463,17 +475,27 @@ var EUCLID = function () {
 			/// &#10; onPollError - a callback function that is called if an error occurs during the polling operation (accepts a JSON object with .name, .message & .callStack)
 			/// </param>
 			// publicationId, onOpportunityToCancelPolling, onCommandComplete, onCommandError, onPollError
-			if (!args.hasOwnProperty("publicationId") || !args.hasOwnProperty("onCommandComplete") || !args.hasOwnProperty("onCommandError")) {
-				throw {
-					name: "Invalid Argument Exception",
-					message: "EUCLID.pollForCommandStatus expects an object that contains: publicationId and the functions onCommandCompleted & onCommandError.  Optionally you may specify the property Interval (number of ms between status requests) and the functions onOpportunityToCancelPolling (a function that accepts the number of times the registry has been polled, and returns false to stop polling), and the function onPollError (accepts a standard error object)"
-				}
-			}
+			var _pollMax = 0;
+			var _pollInterval = 0;
+			var _pollCount = 0;
+			var _pollerId = -1;
 
-			var PollMax = (args.pollMax == null || args.pollMax <= 0) ? 100 : args.pollMax;
-			var PollInterval = (args.pollInterval == null || args.pollInterval <= 0) ? 250 : args.pollInterval;
-			var PollCount = 1;
-			var PollerId = setInterval(doPoll, PollInterval);
+			_displayErrorWrapper({
+				callbackArgs: args,
+				callback: function() {
+					if (!args.hasOwnProperty("publicationId") || !args.hasOwnProperty("onCommandComplete") || !args.hasOwnProperty("onCommandError")) {
+						throw {
+							name: "Invalid Argument Exception",
+							message: "EUCLID.pollForCommandStatus expects an object that contains: publicationId and the functions onCommandCompleted & onCommandError.  Optionally you may specify the property Interval (number of ms between status requests) and the functions onOpportunityToCancelPolling (a function that accepts the number of times the registry has been polled, and returns false to stop polling), and the function onPollError (accepts a standard error object)"
+						}
+					}
+
+					_pollMax = (args.pollMax == null || args.pollMax <= 0) ? 100 : args.pollMax;
+					_pollInterval = (args.pollInterval == null || args.pollInterval <= 0) ? 250 : args.pollInterval;
+
+					_pollerId = setInterval(doPoll, _pollInterval);
+				}
+			});
 
 			function doPoll() {
 				try {
@@ -486,28 +508,30 @@ var EUCLID = function () {
 					}
 				}
 
-				PollCount++;
+				_pollCount++;
 				complete = result.Completed;
 				if (result.Error) {
-					clearInterval(PollerId);
+					clearInterval(_pollerId);
 					args.onCommandError(result);
 				} else if (result.Completed) {
-					clearInterval(PollerId);
+					clearInterval(_pollerId);
 					args.onCommandComplete(result);
 				} else {
 					var e = { name: "", message: "" };
 					if (args.hasOwnProperty("onOpportunityToCancelPolling")) {
-						continuePolling = args.onOpportunityToCancelPolling(PollCount);
+						continuePolling = args.onOpportunityToCancelPolling(_pollCount);
 						e.name = "Polling Aborted Exception";
 						e.message = "Polling cancelled by caller";
-					} else {
-						continuePolling = pollCount <= PollMax;
+					} 
+					
+					if (continuePolling) {
+						continuePolling = _pollCount < _pollMax;
 						e.name = "Polling Max Reached";
-						e.message = "Polled maximum number of time: " + PollMax;
+						e.message = "Polled maximum number of time: " + _pollMax;
 					}
 
 					if (!continuePolling) {
-						clearInterval(PollerId);
+						clearInterval(_pollerId);
 						if (args.hasOwnProperty("onPollError")) {
 							args.onPollError(e);
 						}
@@ -525,15 +549,34 @@ var EUCLID = function () {
 			}
 
 			var error = $("#euclid-error-display");
-			var message = "<div class='alert-message error' data-alert='alert'><a class='close' href='#'>×</a><p><strong>" + e.name.replace(/\n/g, "<br />") + "</strong> " + e.message.replace(/\n/g, "<br />") + ".</p>";
 
-			if (e.hasOwnProperty("callStack")) {
-				message += "<p>" + e.callStack.replace(/\n/g, "<br/>") + "</p>";
+			var errorName = "";
+			var errorMessage = "";
+			var callStack = "";
+
+			if (e.hasOwnProperty("name")){
+				errorName = e.name.replace(/\n/g, "<br />");
 			}
 
-			message += "</div>";
+			if (e.hasOwnProperty("message")) {
+				errorMessage = e.message.replace(/\n/g, "<br />");
+			}
+
+			if (e.hasOwnProperty("callStack")) {
+				callStack = e.callStack.replace(/\n/g, "<br/>");
+			}
+
+			var message =  "<div class='alert alert-block alert-error' data-alert='alert'>" +
+								"<a class='close' href='#' data-dismiss='alert'>×</a>" +
+								"<h4 class='alert-heading'>" + errorName + "</h4>" +
+								"<p>" + errorMessage + ".</p>" +
+								"<p>" + callStack + "</p>" +
+							"</div>";
+
 			$(error).append($(message));
 			$(window).scrollTop(0);
+
+			return false;
 		}), // end displayError
 
 		showModalForm: (function (args) {

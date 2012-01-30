@@ -64,7 +64,7 @@ namespace Euclid.Composites
 
 		public IEnumerable<IPartMetadata> Commands
 		{
-			get { return _agents.SelectMany(a=>a.Commands); }
+			get { return _inputModelMap.Commands; }
 		}
 
 		public IEnumerable<IPartMetadata> Queries
