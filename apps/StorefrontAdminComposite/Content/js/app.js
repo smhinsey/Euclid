@@ -139,12 +139,12 @@
 
 		var viewModel = { companyName: "{Company Name}" };
 
-		viewModel.tableHeaders = [ "Id", "Date/Time", "Type", "Amount", ""];
+		viewModel.tableHeaders = [ "Id", "State", "Date/Time", "Type", "Amount", ""];
 		
 		viewModel.tableData = [];
 
 		for (var i = 0; i < 10; i++) {
-			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
+			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}", state: "{State}"});
 		}
 
 		return viewModel;

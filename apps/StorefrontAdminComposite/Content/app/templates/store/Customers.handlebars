@@ -17,7 +17,28 @@
 				<td>{{this.username}}</td>
 				<td>{{this.signupDate}}</td>
 				<td>{{this.totalPurchaseAmount}}</td>
-				<td>(buttons)</td>
+				<td>
+					<div class="btn-group">
+						<a class="btn small" href="#">Action</a>
+						<a class="btn small dropdown-toggle" data-toggle="dropdown" href="#">
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a>View Profile</a>
+							</li>
+							<li>
+								<a>Ban</a>
+							</li>
+							<li>
+								<a>Reset Password</a>
+							</li>
+							<li>
+								<a>Reset Email</a>
+							</li>
+						</ul>
+					</div>
+				</td>
 			</tr>
 			{{/each}}
 

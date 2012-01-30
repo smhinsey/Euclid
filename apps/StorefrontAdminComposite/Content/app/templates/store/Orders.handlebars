@@ -17,7 +17,31 @@
 				<td>{{this.dateTime}}</td>
 				<td>{{this.type}}</td>
 				<td>{{this.amount}}</td>
-				<td>(buttons)</td>
+				<td>
+					<div class="btn-group">
+						<a class="btn small" href="#">Action</a>
+						<a class="btn small dropdown-toggle" data-toggle="dropdown" href="#">
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a>View Details</a>
+							</li>
+							<li>
+								<a>Discount</a>
+							</li>
+							<li>
+								<a>Modify</a>
+							</li>
+							<li>
+								<a>Freeze</a>
+							</li>
+							<li>
+								<a>Refund</a>
+							</li>
+						</ul>
+					</div>
+				</td>
 			</tr>
 			{{/each}}
 
