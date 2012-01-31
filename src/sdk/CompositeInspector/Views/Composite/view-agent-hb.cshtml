@@ -137,7 +137,7 @@
 
 	function finishPolling(formContainer, form) {
 		$(formContainer).find("#poll-count").remove();
-		$(formContainer).find(".close").show();
+		//$(formContainer).find(".close").show();
 		$(form).remove();
 
 	}
@@ -152,7 +152,7 @@
 
 		$.get("/composite/ui/partial/publication-record",
 			function (source) {
-				var details = $("<div class='alert " + alertClass + "'></div>");
+				var details = $("<div class='alert " + alertClass + "'><div class='row'><a href='#' data-dismiss='modal' class='close'>x</a></div></div>");
 				var template = Handlebars.compile(source);
 				$(details).append(template(result));
 				$(formContainer).append($(details));
