@@ -63,7 +63,7 @@
 
 		this.get('/#store/:storeSlug/productCatalog', function () {
 
-			var model = { title: "Store Product Catalog"};
+			var model = modelForStoreProductCatalog();
 
 			this.trigger('render-model', {templateName: 'store/ProductCatalog', model: model});			
 
@@ -199,12 +199,12 @@
 
 		var viewModel = { storeName: "{Store Name}" };
 
-		viewModel.tableHeaders = [ "Id", "Date/Time", "Type", "Amount", ""];
+		viewModel.tableHeaders = [ "Category", "Name", "For Sale", "Stock", "Price", "Discount", ""];
 		
 		viewModel.tableData = [];
 
 		for (var i = 0; i < 10; i++) {
-			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
+			viewModel.tableData.push({ category: "{Category}", name: "{Name}", forSale: true, stock: "X,XXX", price: "${XX.XX}", discount:"{X}%"});
 		}
 
 		return viewModel;

@@ -1,3 +1,59 @@
 ﻿<script id="template-ProductCatalog" type="text/x-handlebars-template">
-	<h3>{{title}}</h3>
+	<h3>{{storeName}} Product Catalog</h3>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				{{#each tableHeaders}}
+				<th>{{this}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+
+			{{#each tableData}}
+			<tr>
+				<td>{{this.category}}</td>
+				<td>{{this.name}}</td>
+				<td>{{this.forSale}}</td>
+				<td>{{this.stock}}</td>
+				<td>{{this.price}}</td>
+				<td>{{this.discount}}</td>
+				<td>
+					<div class="btn-group">
+						<a class="btn small" href="#">Action</a>
+						<a class="btn small dropdown-toggle" data-toggle="dropdown" href="#">
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a>View Details</a>
+							</li>
+							<li>
+								<a>Set Discount</a>
+							</li>
+							<li>
+								<a>Modify</a>
+							</li>
+							<li>
+								<a>Freeze</a>
+							</li>
+							<li>
+								<a>Refund</a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+			{{/each}}
+
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="7">
+					<button class="btn pull-right">Add Product</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
 </script>
