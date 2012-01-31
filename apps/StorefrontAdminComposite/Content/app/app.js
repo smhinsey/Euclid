@@ -9,7 +9,7 @@
 			
 			var model = { title: "Company Financials "};
 
-			model.body = "(Coming soon.)";
+			model.body = "<i>Pretty graphs and reports go here.</i>";
 			
 			this.trigger('render-model', {templateName: 'company/Financials', model: model});
 			
@@ -36,7 +36,9 @@
 
 		this.get('/#store/:storeSlug/financials', function () {
 			
-			var model = { title: "Store Financials "};
+			var model = { storeName: "{Store Name}"};
+
+			model.body = "<i>Pretty graphs and reports go here.</i>";
 
 			this.trigger('render-model', {templateName: 'store/Financials', model: model});
 			
@@ -72,7 +74,7 @@
 
 		this.get('/#store/:storeSlug/promotions', function() {
 
-			var model = { title: "Store Promotions"};
+			var model = modelForStorePromotions();
 
 			this.trigger('render-model', {templateName: 'store/Promotions', model: model});
 
@@ -81,7 +83,7 @@
 
 		this.get('/#store/:storeSlug/discountCodes', function () {
 
-			var model = { title: "Store Discount Codes"};
+			var model = modelForStoreDiscountCodes();
 
 			this.trigger('render-model', {templateName: 'store/DiscountCodes', model: model});
 
@@ -214,12 +216,12 @@
 
 		var viewModel = { storeName: "{Store Name}" };
 
-		viewModel.tableHeaders = [ "Id", "Date/Time", "Type", "Amount", ""];
+		viewModel.tableHeaders = [ "Name", "Start Date", "End Date", "Type", "Discount", ""];
 		
 		viewModel.tableData = [];
 
 		for (var i = 0; i < 10; i++) {
-			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
+			viewModel.tableData.push({ name: "{Name}", startDate: "10/01/2012", endDate:"12/25/2012", type: "{type}", discount:"{XX}%"});
 		}
 
 		return viewModel;
@@ -229,12 +231,12 @@
 
 		var viewModel = { storeName: "{Store Name}" };
 
-		viewModel.tableHeaders = [ "Id", "Date/Time", "Type", "Amount", ""];
+		viewModel.tableHeaders = [ "Name", "Code", "Usage Type", "Usage Count", "Discount", ""];
 		
 		viewModel.tableData = [];
 
 		for (var i = 0; i < 10; i++) {
-			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}"});
+			viewModel.tableData.push({ name: "{Name}", code: s4() + s4(), usageType: "{Type}", usageCount:"{XX}", discount: "{X}%" });
 		}
 
 		return viewModel;

@@ -264,7 +264,9 @@
     <None Include="Content\app\templates\partials\inputModel\StringProperty.handlebars" />
     <None Include="Content\app\templates\store\DiscountCodes.handlebars" />
     <None Include="Content\app\templates\store\Promotions.handlebars" />
-    <None Include="Content\app\templates\store\ProductCatalog.handlebars" />
+    <None Include="Content\app\templates\store\ProductCatalog.handlebars">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Content\app\templates\store\Customers.handlebars" />
     <None Include="Content\app\templates\store\Orders.handlebars" />
     <None Include="Content\app\templates\store\Financials.handlebars" />
