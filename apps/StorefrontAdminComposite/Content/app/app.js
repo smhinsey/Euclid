@@ -89,52 +89,14 @@
 
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'DiscountCodes'});
 		});
-		
-		this.bind('render-model', function(e, data) {
-
-			var templateName = data['templateName'];
-
-			var model = data['model'];
-
-			console.log("render-model rendering using template" + templateName);
-			console.log(model);
-
-			fetchHandlebarsTemplate('content/app/templates/' + templateName + '.handlebars', function(template) {
-				var renderedOutput = template(model);
-				$('#app-content').html(renderedOutput);
-			});
-			
-		});
-
-		this.bind('highlight-nav', function(e, data) {
-			var navSelector = "#nav-" + data['slug'] + data['current'];
-
-			$(".nav-item").removeClass("active");
-
-			$(navSelector).addClass("active");
-		});
 
 	});
 	
-	function fetchHandlebarsTemplate(path, callback) {
-		var source;
-		var template;
- 
-		$.ajax({
-			url: path,
-			success: function(data) {
-				
-				source = $(data).html();
+	$(function () {
+		app.run();
+	});
+})(jQuery);
 
-				template = Handlebars.compile(source);
-				
-				if (callback) {
-					callback(template);
-				};
-			}
-		});
-	}
-	
 	// temporary, just for use during prototyping
 	
 	function modelForCompanyAllTransactions() {
@@ -248,8 +210,3 @@
 	function guid() {
 		return (s4()+s4()+"-"+s4()+"-"+s4()+"-"+s4()+"-"+s4()+s4()+s4());
 	}
-
-	$(function () {
-		app.run();
-	});
-})(jQuery);

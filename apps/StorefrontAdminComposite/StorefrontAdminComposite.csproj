@@ -144,6 +144,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\app\events.js" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\app.css" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
