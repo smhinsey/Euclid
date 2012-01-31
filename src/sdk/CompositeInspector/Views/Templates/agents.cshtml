@@ -1,9 +1,10 @@
 ﻿<h5>Agents</h5>
-<dl>
+<ul>
 {{#Agents}}
-	<dt id="{{../SystemName}}-command-{{Name}}">
+	<li>
 		<a class="agent" href="/composite/agent/{{SystemName}}">{{DescriptiveName}}</a>
-	</dt>
-	<dd><small>{{Description}}</small></dd>
+		<br />
+		<small>{{Description}}</small>
+	</li>
 {{/Agents}}
-</dl>
+</ul>

@@ -30,6 +30,7 @@
 
 		$(document).on("click", "#dismiss-modal", function () {
 			$(modal).modal("hide");
+			return false;
 		});
 
 		$(document).on("click", "#submit-modal-form", function () {
@@ -47,6 +48,7 @@
 
 		$(document).on("click", "#stop-polling", function () {
 			continuePolling = false;
+			return false;
 		});
 
 	});

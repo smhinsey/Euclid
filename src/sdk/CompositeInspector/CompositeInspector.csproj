@@ -113,6 +113,7 @@
     <EmbeddedResource Include="Views\Templates\agents.cshtml" />
     <EmbeddedResource Include="Views\Templates\euclid-error-modal.cshtml" />
     <EmbeddedResource Include="Views\Templates\polling-modal.cshtml" />
+    <EmbeddedResource Include="Views\Templates\composite-link.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
