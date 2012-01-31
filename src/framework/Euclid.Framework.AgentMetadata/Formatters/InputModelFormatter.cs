@@ -38,7 +38,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			                                               	{
 			                                               		Name = pi.Name,
 			                                               		Type = pi.PropertyType.Name,
-			                                               		Value = null
+																Value = pi.PropertyType.GetDefaultValue()
 			                                               	}).ToList();
 		}
 

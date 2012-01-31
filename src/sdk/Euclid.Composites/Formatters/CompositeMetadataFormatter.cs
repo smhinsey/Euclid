@@ -44,11 +44,14 @@ namespace Euclid.Composites.Formatters
 			return
 				new
 					{
-						Agents = _compositeApp.Agents.Select(a => new { a.DescriptiveName, a.SystemName }),
-						InputModels = _compositeApp.InputModels.Select(im => new { im.Name, im.Namespace }),
+						_compositeApp.Name,
+						_compositeApp.Description,
+						IsValid = _compositeApp.IsValid(),
+						Agents = _compositeApp.Agents.Select(a => new { a.DescriptiveName, a.SystemName, a.Description }),
 						ConfigurationErrors = _compositeApp.GetConfigurationErrors(),
-						_compositeApp.Commands,
-						_compositeApp.Queries
+						Commands = _compositeApp.Commands.OrderBy(x=>x.Name).Select(x=> new {x.Namespace, x.Name}),
+						Queries = _compositeApp.Queries.OrderBy(x => x.Name).Select(x => new { x.Namespace, x.Name }),
+						InputModels = _compositeApp.InputModels.OrderBy(x=>x.Name).Select(x=>new {x.Namespace, x.Name})
 					};
 		}
 	}

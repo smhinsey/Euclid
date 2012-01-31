@@ -14,19 +14,19 @@ var EUCLID = function () {
 		$.ajaxSetup({ "async": false })
 
 		var jqHxr = $.ajax({
-						url: url,
-						dataType: 'json',
-						headers: {
-							Accept : "application/json; charset=utf-8"
-						}
-					});
+			url: url,
+			dataType: 'json',
+			headers: {
+				Accept: "application/json; charset=utf-8"
+			}
+		});
 		var _model = $.parseJSON(jqHxr.responseText);
 		$.ajaxSetup({ "async": true });
 
 		if (jqHxr.status == 500) {
 			throw _model;
-		} 
-		
+		}
+
 		if (_model === null) {
 			throw {
 				name: "Invalid QueryName Exception",
@@ -54,7 +54,7 @@ var EUCLID = function () {
 		$.ajaxSetup({ async: false });
 		$(form).ajaxSubmit({
 			headers: {
-				Accept : "application/json; charset=utf-8"
+				Accept: "application/json; charset=utf-8"
 			},
 
 			success: function (responseText, statusText, jqHxr, $form) {
@@ -68,11 +68,7 @@ var EUCLID = function () {
 				}
 			},
 			error: function (jqHxr, statusText) {
-				var model = $.parseJSON(jqHxr.responseText);
-				throw {
-					name: model.name,
-					message: model.message + "\n\n" + _model.callstack
-				}
+				throw $.parseJSON(jqHxr.responseText);
 			}
 		});
 		$.ajaxSetup({ async: true });
@@ -215,24 +211,24 @@ var EUCLID = function () {
 
 	return {
 		getQueryMetadata: (function (args) {
-		/// <summary>
-		/// Retrieve a JSON representation of a query
-		///  &#10; .AgentSystemName
-		///  &#10; .Namespace
-		///  &#10; .Name
-		///  &#10; .Methods (an array of method objects)
-		///  &#10;  .Name
-		///  &#10;  .ReturnType
-		///  &#10;  .Arguments (an array of parameters to execute this query)
-		///  &#10;    .ArgumentName
-		///  &#10;    .ArgumentType, 
-		///  &#10;    .Choices,
-		///  &#10;    .MultiChoice (boolean indicates if multiple choices are allowed)
-		/// </summary>
-		/// <param name='args'>a JSON object with the following properties
-		/// &#10; queryName: the name of the query object
-		/// &#10; methodName: the name of the method that executes the query
-		/// </param>
+			/// <summary>
+			/// Retrieve a JSON representation of a query
+			///  &#10; .AgentSystemName
+			///  &#10; .Namespace
+			///  &#10; .Name
+			///  &#10; .Methods (an array of method objects)
+			///  &#10;  .Name
+			///  &#10;  .ReturnType
+			///  &#10;  .Arguments (an array of parameters to execute this query)
+			///  &#10;    .ArgumentName
+			///  &#10;    .ArgumentType, 
+			///  &#10;    .Choices,
+			///  &#10;    .MultiChoice (boolean indicates if multiple choices are allowed)
+			/// </summary>
+			/// <param name='args'>a JSON object with the following properties
+			/// &#10; queryName: the name of the query object
+			/// &#10; methodName: the name of the method that executes the query
+			/// </param>
 			var model = null;
 			_displayErrorWrapper({
 				callback: function (args) {
@@ -262,12 +258,12 @@ var EUCLID = function () {
 		}), // end getQueryMethods
 
 		executeQuery: (function (args) {
-		/// <summary>Executes an agent query and returns a JSON encoded representation of the results</summary>
-		/// <param name='args'>a JSON object with the following properties
-		/// &#10; queryName: the name of the query object
-		/// &#10; methodName: the name of the method that executes the query
-		/// &#10; parameters: an array of arguments represented as a JSON name value pair
-		/// </param>
+			/// <summary>Executes an agent query and returns a JSON encoded representation of the results</summary>
+			/// <param name='args'>a JSON object with the following properties
+			/// &#10; queryName: the name of the query object
+			/// &#10; methodName: the name of the method that executes the query
+			/// &#10; parameters: an array of arguments represented as a JSON name value pair
+			/// </param>
 			var model = null;
 			_displayErrorWrapper({
 				callback: function (args) {
@@ -315,11 +311,20 @@ var EUCLID = function () {
 			return object;
 		}),
 
-		submitForm: (function (form, namedArguments) {
+		submitForm: (function (form, namedArguments, handleError) {
 			///<summary>submits a form</summary>
 			///<param name='form'>a jquery form object</param>
 			///<param name='namedArguments'>an array of JSON encoded name/value pairs</param>
-			return _submitForm(form, namedArguments);
+			///<param name='handleError'>an optional error handler</param>
+			var results = null;
+			_displayErrorWrapper({
+				callbackArgs: ({ form: form, namedArguments: namedArguments, handleError: handleError }),
+				callback: function (args) {
+					results = _submitForm(args.form, args.namedArguments);
+				}
+			});
+
+			return results;
 		}),
 
 		getQueryForm: (function (args) {
@@ -365,14 +370,14 @@ var EUCLID = function () {
 			_displayErrorWrapper({
 				callbackArgs: args,
 				callback: function (args) {
-					if (args === null || args === undefined || !args.hasOwnProperty("commandName") || !args.hasOwnProperty("agentSystemName")) {
+					if (args === null || args === undefined || !args.hasOwnProperty("commandName")) {
 						throw {
 							name: "Invalid Argument Exception",
-							message: "EUCLID.getInputModel expects an an object with the properties: 'commandName' and 'agentSystemName'"
+							message: "EUCLID.getInputModel expects an an object with the properties: 'commandName'"
 						};
 					}
 
-					var _rawModel = _getJsonObject("/composite/commands/" + args.agentSystemName + "/" + args.commandName + ".json");
+					var _rawModel = _getJsonObject("/composite/api/command/" + args.commandName);
 					var _propertyNames = new Array();
 					_model = (function () {
 						var _isInputModel = (function () {
@@ -416,7 +421,7 @@ var EUCLID = function () {
 						return {
 							getForm: (function () {
 								///<summary>returns a jquery object containing a form that can be used to collect data for this command</summary>
-								var form = $("<form action='/composite/commands/publish' method='post'><legend>" + args.commandName + "</legend><fieldset></fieldset></form>");
+								var form = $("<form action='/composite/commands/publish' method='post'><fieldset></fieldset></form>");
 								var fieldSet = $(form).children("fieldset");
 
 								for (propertyName in _model) {
@@ -482,7 +487,7 @@ var EUCLID = function () {
 
 			_displayErrorWrapper({
 				callbackArgs: args,
-				callback: function() {
+				callback: function () {
 					if (!args.hasOwnProperty("publicationId") || !args.hasOwnProperty("onCommandComplete") || !args.hasOwnProperty("onCommandError")) {
 						throw {
 							name: "Invalid Argument Exception",
@@ -522,8 +527,8 @@ var EUCLID = function () {
 						continuePolling = args.onOpportunityToCancelPolling(_pollCount);
 						e.name = "Polling Aborted Exception";
 						e.message = "Polling cancelled by caller";
-					} 
-					
+					}
+
 					if (continuePolling) {
 						continuePolling = _pollCount < _pollMax;
 						e.name = "Polling Max Reached";
@@ -550,31 +555,14 @@ var EUCLID = function () {
 
 			var error = $("#euclid-error-display");
 
-			var errorName = "";
-			var errorMessage = "";
-			var callStack = "";
-
-			if (e.hasOwnProperty("name")){
-				errorName = e.name.replace(/\n/g, "<br />");
-			}
-
-			if (e.hasOwnProperty("message")) {
-				errorMessage = e.message.replace(/\n/g, "<br />");
-			}
-
-			if (e.hasOwnProperty("callStack")) {
-				callStack = e.callStack.replace(/\n/g, "<br/>");
-			}
-
-			var message =  "<div class='alert alert-block alert-error' data-alert='alert'>" +
-								"<a class='close' href='#' data-dismiss='alert'>×</a>" +
-								"<h4 class='alert-heading'>" + errorName + "</h4>" +
-								"<p>" + errorMessage + ".</p>" +
-								"<p>" + callStack + "</p>" +
-							"</div>";
-
-			$(error).append($(message));
-			$(window).scrollTop(0);
+			EUCLID.populateTemplate({
+				templateUrl: "/composite/ui/template/euclid-error",
+				data: e,
+				onComplete: function (content) {
+					$(error).append($(content));
+					$(window).scrollTop(0);
+				}
+			});
 
 			return false;
 		}), // end displayError
@@ -603,6 +591,52 @@ var EUCLID = function () {
 
 			$(".simplemodal-container").css("height", "auto");
 		}), // end showModalForm
+
+		populateTemplate: (function (args) {
+			///<summary>fetch a handlebars template, and populate with the provided data, returns a jquery object containing the content</summary>
+			///<param name='args'>a JSON object containing the properties:
+			/// &#10; templateUrl - the url from which to fetch the template
+			/// &#10; dataUrl - the url from which to fetch the data (must be null if data is provided)
+			/// &#10; data - the data to bind (must be null if dataUrl is provided)
+			/// &#10; onComplete - a callback function that receives the populated template
+			/// &#10; handleError - (optional) to override the default error handling
+			///<param>
+
+			_displayErrorWrapper({
+				callbackArgs: args,
+				callback: function () {
+					if (!args.hasOwnProperty("onComplete") || typeof args.onComplete != 'function') {
+						throw {
+							name: "Invalid Argument Exception",
+							message: "The parameter onComplete - a callback for receiving the populated template - must be provided"
+						}
+					}
+
+					if (!args.hasOwnProperty("dataUrl") && !args.hasOwnProperty("data")) {
+						throw {
+							name: "Invalid Argument Exception",
+							message: "Either dataUrl or data must be specified"
+						}
+					}
+
+					if (args.hasOwnProperty("dataUrl") && args.hasOwnProperty("data")) {
+						throw {
+							name: "Invalid Argument Exception",
+							message: "Both dataUrl and data contain values, only one can be specified"
+						}
+					}
+
+					if (args.dataUrl != null) {
+						args.data = _getJsonObject(args.dataUrl);
+					}
+
+					$.get(args.templateUrl, function (source) {
+						var template = Handlebars.compile(source);
+						args.onComplete($(template(args.data)));
+					});
+				}
+			});
+		})
 	}
 } ();
 
@@ -634,6 +668,14 @@ if (jQuery.validator != null) {
 	jQuery.validator.unobtrusive.adapters.add('uniquevalue', {}, function (options) {
 		options.rules['uniquevalue'] = true;
 		options.messages['uniquevalue'] = options.message;
+	});
+}
+
+if (Handlebars) {
+	Handlebars.registerHelper('convert-breaks', function (value) {
+		var replaced = value.replace(/\n/g, "<br />");
+		console.log("convert-breaks: " + Handlebars.SafeString(replaced));
+		return new Handlebars.SafeString(replaced);
 	});
 }
 

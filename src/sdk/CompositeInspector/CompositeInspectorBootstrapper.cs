@@ -16,8 +16,6 @@ using Euclid.Framework.Models;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Windsor;
-using Nancy.Extensions;
-using Nancy.Responses;
 using Nancy.Session;
 using Nancy.ViewEngines;
 
@@ -71,6 +69,11 @@ namespace CompositeInspector
 						uploader.UploadFiles(ctx);
 						return null;
 					});
+
+			pipelines.BeforeRequest.AddItemToEndOfPipeline(
+				ctx => (ctx.Request.Path.StartsWith("composite/api") && ctx.GetResponseFormat() == ResponseFormat.Html)
+				       	? HttpStatusCode.NoContent
+				       	: (Response) null);
 
 			pipelines.OnError.AddItemToEndOfPipeline((ctx, e) =>
 			                                         	{
@@ -185,14 +188,14 @@ namespace CompositeInspector
 			return format;
 		}
 
-		public static Response GetFormattedMetadata(this NancyModule module, IMetadataFormatter formatter)
+		public static Response WriteTo(this IMetadataFormatter formatter, IResponseFormatter response)
 		{
-			var format = module.GetResponseFormat();
+			var format = response.Context.GetResponseFormat();
 
 			var representation = format == ResponseFormat.Json ? "json" : "xml";
 			var encodedString = formatter.GetRepresentation(representation);
 			var stream = new MemoryStream(Encoding.UTF8.GetBytes(encodedString));
-			return module.Response.FromStream(stream, Euclid.Common.Extensions.MimeTypes.GetByExtension(representation));
+			return response.FromStream(stream, Euclid.Common.Extensions.MimeTypes.GetByExtension(representation));
 		}
 	}
 

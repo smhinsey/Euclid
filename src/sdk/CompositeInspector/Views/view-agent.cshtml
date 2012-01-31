@@ -1,0 +1,73 @@
+@{
+	Layout = "Shared/_Layout.cshtml";
+}
+	
+@if (false)
+{ 
+	// this will not get compiled by the razor view engine, but gives us access to intellisense for the EUCLID js library
+	<script type="text/javascript" src="../../Assets/Scripts/euclid-0.9.js"></script>
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		pageInit();
+
+		$(".query").click(function () {
+			var queryName = $(this).text();
+			alert(queryName);
+		});
+	});
+
+	function pageInit() {
+		var agent = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+		var data = EUCLID.getJsonObject("/composite/api/agent/" + agent);
+		if (data != null) {
+
+			EUCLID.populateTemplate({
+				templateUrl: "/composite/ui/template/agent",
+				data: data,
+				onComplete: function (content) { $("#agent").append($(content)); }
+			});
+
+			EUCLID.populateTemplate({
+				templateUrl: "/composite/ui/template/commands",
+				data: data,
+				onComplete: function (content) { $("#commands").append($(content)); }
+			});
+
+			EUCLID.populateTemplate({
+				templateUrl: "/composite/ui/template/queries",
+				data: data,
+				onComplete: function (content) { $("#queries").append($(content)); }
+			});
+
+			EUCLID.populateTemplate({
+				templateUrl: "/composite/ui/template/read-models",
+				data: data,
+				onComplete: function (content) { $("#read-models").append($(content)); }
+			});
+
+			EUCLID.populateTemplate({
+				templateUrl: "/composite/ui/template/composite-link",
+				data: EUCLID.getJsonObject("/composite/api/"),
+				onComplete: function (content) { $("#composite").append($(content)); }
+			});
+		}
+
+		return false;
+	}
+</script>
+
+<div class="row">
+	<div class="span16" id="agent"></div>
+</div>
+
+<div class="row">
+	<div class="span3" id="commands"></div>
+
+	<div class="span3" id="queries"></div>
+
+	<div class="span3" id="read-models"></div>
+
+	<div class="span3" id="composite"></div>
+</div>

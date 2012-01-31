@@ -173,9 +173,9 @@ namespace Euclid.Framework.AgentMetadata
 							_agentMetadata.DescriptiveName,
 							_agentMetadata.SystemName,
 							_agentMetadata.Description,
-							Commands = _agentMetadata.Commands.Select(x => new { x.Namespace, x.Name }),
-							ReadModels = _agentMetadata.ReadModels.Select(x => new { x.Namespace, x.Name }),
-							Queries = _agentMetadata.Queries.Select(x => new { x.Namespace, x.Name })
+							Commands = _agentMetadata.Commands.OrderBy(x=>x.Name).Select(x => new { x.Namespace, x.Name }),
+							ReadModels = _agentMetadata.ReadModels.OrderBy(x => x.Name).Select(x => new { x.Namespace, x.Name }),
+							Queries = _agentMetadata.Queries.OrderBy(x => x.Name).Select(x => new { x.Namespace, x.Name })
 						};
 			}
 		}

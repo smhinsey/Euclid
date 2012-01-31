@@ -1,0 +1,68 @@
+@{
+	Layout = "Shared/_Layout.cshtml";
+}
+	
+@if (false)
+{ 
+	// this will not get compiled by the razor view engine, but gives us access to intellisense for the EUCLID js library
+	<script type="text/javascript" src="../../Assets/Scripts/euclid-0.9.js"></script>
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		pageInit();
+
+		$(".query").click(function () {
+			var queryName = $(this).text();
+			alert(queryName);
+		});
+	});
+
+	function pageInit() {
+		var data = EUCLID.getJsonObject("/composite/api");
+
+		EUCLID.populateTemplate({
+			templateUrl: "/composite/ui/template/composite",
+			data: data, 
+			onComplete: function (content) { $("#composite").append($(content)); }
+		});
+
+		EUCLID.populateTemplate({ 
+			templateUrl: "/composite/ui/template/commands",
+			data: data, 
+			onComplete: function (content) { $("#commands").append($(content)); } 
+		});
+
+		EUCLID.populateTemplate({
+			templateUrl: "/composite/ui/template/queries",
+			data: data, 
+			onComplete: function (content) { $("#queries").append($(content)); }
+		});
+
+		EUCLID.populateTemplate({
+			templateUrl: "/composite/ui/template/input-models",
+			data: data,
+			onComplete: function (content) { $("#input-models").append($(content)); }
+		});
+
+		EUCLID.populateTemplate({
+			templateUrl: "/composite/ui/template/agents",
+			data: data,
+			onComplete: function (content) { $("#agents").append($(content)); }
+		});
+	}
+</script>
+
+<div class="row">
+	<div class="span16" id="composite"></div>
+</div>
+
+<div class="row">
+	<div class="span3" id="commands"></div>
+
+	<div class="span3" id="queries"></div>
+
+	<div class="span3" id="input-models"></div>
+
+	<div class="span3" id="agents"></div>
+</div>
