@@ -98,6 +98,7 @@
 })(jQuery);
 
 	// temporary, just for use during prototyping
+	// in practice, this data would all come from queries (with the possible exception of table headers)
 	
 	function modelForCompanyAllTransactions() {
 
