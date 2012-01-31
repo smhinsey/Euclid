@@ -100,8 +100,8 @@
     <EmbeddedResource Include="Views\view-agent.cshtml" />
     <EmbeddedResource Include="Views\Queries\view-query-metadata.cshtml" />
     <EmbeddedResource Include="Views\Templates\read-model.cshtml" />
-    <EmbeddedResource Include="Views\Templates\form-container.cshtml" />
-    <EmbeddedResource Include="Views\Templates\publication-record.cshtml" />
+    <EmbeddedResource Include="Views\Templates\form-container-modal.cshtml" />
+    <EmbeddedResource Include="Views\Templates\publication-record-modal.cshtml" />
     <EmbeddedResource Include="Views\Templates\commands.cshtml" />
     <EmbeddedResource Include="Views\Templates\queries.cshtml" />
     <EmbeddedResource Include="Views\Templates\read-models.cshtml" />
@@ -111,6 +111,8 @@
     <EmbeddedResource Include="Views\Templates\input-models.cshtml" />
     <EmbeddedResource Include="Views\Templates\input-model.cshtml" />
     <EmbeddedResource Include="Views\Templates\agents.cshtml" />
+    <EmbeddedResource Include="Views\Templates\euclid-error-modal.cshtml" />
+    <EmbeddedResource Include="Views\Templates\polling-modal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj">

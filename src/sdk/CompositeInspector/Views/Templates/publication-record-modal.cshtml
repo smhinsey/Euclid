@@ -1,0 +1,71 @@
+﻿<script type="text/javascript">
+	$(document).ready(function () {
+		$(".message-location").tooltip();
+	});
+</script>
+
+<div>
+	<div class="modal-header">
+		<a href="#" class="close" data-dismiss="modal">×</a>
+		<h3>{{#if record.Error}}Error Occurred{{else}}Success{{/if}}</h3>
+	</div>
+	<div class="modal-body" id="form-content">
+		<div id="publication-record" class="alert {{class}}">
+			<div class="row">
+				<div class="span3">
+					<strong>Completed</strong>
+					<br />
+					{{record.Completed}}
+				</div>
+				<div class="span3">
+					<strong>Dispatched</strong>
+					<br />
+					{{record.Dispatched}}
+				</div>
+				<div class="span3">
+					<strong>Identifier</strong>
+					<br />
+					{{record.Identifier}}
+				</div>
+				<div class="span3">
+					<strong>Created</strong>
+					<br />
+					{{record.Created}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="span8">
+					<strong>Message</strong>
+					<br />
+					<a class="message-location" href="{{record.MessageLocation}}" rel="tooltip" data-original-title="click to open the serialized message">{{record.MessageLocation}}</a>
+				</div>
+				<div class="span4">
+					<strong>Message Type</strong>
+					<br />
+					{{record.MessageType}}
+				</div>
+			</div>
+
+			{{#if record.Error}}
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="span3">
+					<strong>Error Message</strong>
+					<br />
+					{{record.ErrorMessage}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="span6">
+					<strong>CallStack</strong>
+					<br />
+					{{convert-breaks record.CallStack}}
+				</div>
+			</div>
+			{{/if}}
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn secondary" id="dismiss-modal">Cancel</a>
+	</div>
+</div>

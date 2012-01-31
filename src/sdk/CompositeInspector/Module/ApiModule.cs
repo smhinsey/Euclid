@@ -46,6 +46,11 @@ namespace CompositeInspector.Module
 		{
 			try
 			{
+				if (commandName.EndsWith(".json"))
+				{
+					commandName = commandName.Substring(0, commandName.LastIndexOf("."));
+				}
+
 				var inputModelType = _compositeApp.GetInputModelTypeForCommandName(commandName);
 
 				return inputModelType.GetMetadata().GetFormatter().WriteTo(Response);

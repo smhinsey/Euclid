@@ -68,11 +68,7 @@ var EUCLID = function () {
 				}
 			},
 			error: function (jqHxr, statusText) {
-				var model = $.parseJSON(jqHxr.responseText);
-				throw {
-					name: model.name,
-					message: model.message + "\n\n" + _model.callstack
-				}
+				throw $.parseJSON(jqHxr.responseText);
 			}
 		});
 		$.ajaxSetup({ async: true });
@@ -315,11 +311,20 @@ var EUCLID = function () {
 			return object;
 		}),
 
-		submitForm: (function (form, namedArguments) {
+		submitForm: (function (form, namedArguments, handleError) {
 			///<summary>submits a form</summary>
 			///<param name='form'>a jquery form object</param>
 			///<param name='namedArguments'>an array of JSON encoded name/value pairs</param>
-			return _submitForm(form, namedArguments);
+			///<param name='handleError'>an optional error handler</param>
+			var results = null;
+			_displayErrorWrapper({
+				callbackArgs: ({ form: form, namedArguments: namedArguments, handleError: handleError }),
+				callback: function (args) {
+					results = _submitForm(args.form, args.namedArguments);
+				}
+			});
+
+			return results;
 		}),
 
 		getQueryForm: (function (args) {
@@ -365,7 +370,7 @@ var EUCLID = function () {
 			_displayErrorWrapper({
 				callbackArgs: args,
 				callback: function (args) {
-					if (args === null || args === undefined || !args.hasOwnProperty("commandName") ) {
+					if (args === null || args === undefined || !args.hasOwnProperty("commandName")) {
 						throw {
 							name: "Invalid Argument Exception",
 							message: "EUCLID.getInputModel expects an an object with the properties: 'commandName'"
@@ -416,7 +421,7 @@ var EUCLID = function () {
 						return {
 							getForm: (function () {
 								///<summary>returns a jquery object containing a form that can be used to collect data for this command</summary>
-								var form = $("<form action='/composite/commands/publish' method='post'><legend>" + args.commandName + "</legend><fieldset></fieldset></form>");
+								var form = $("<form action='/composite/commands/publish' method='post'><fieldset></fieldset></form>");
 								var fieldSet = $(form).children("fieldset");
 
 								for (propertyName in _model) {
@@ -550,31 +555,14 @@ var EUCLID = function () {
 
 			var error = $("#euclid-error-display");
 
-			var errorName = "";
-			var errorMessage = "";
-			var callStack = "";
-
-			if (e.hasOwnProperty("name")) {
-				errorName = e.name.replace(/\n/g, "<br />");
-			}
-
-			if (e.hasOwnProperty("message")) {
-				errorMessage = e.message.replace(/\n/g, "<br />");
-			}
-
-			if (e.hasOwnProperty("callStack")) {
-				callStack = e.callStack.replace(/\n/g, "<br/>");
-			}
-
-			var message = "<div class='alert alert-block alert-error' data-alert='alert'>" +
-								"<a class='close' href='#' data-dismiss='alert'>×</a>" +
-								"<h4 class='alert-heading'>" + errorName + "</h4>" +
-								"<p>" + errorMessage + ".</p>" +
-								"<p>" + callStack + "</p>" +
-							"</div>";
-
-			$(error).append($(message));
-			$(window).scrollTop(0);
+			EUCLID.populateTemplate({
+				templateUrl: "/composite/ui/template/euclid-error",
+				data: e,
+				onComplete: function (content) {
+					$(error).append($(content));
+					$(window).scrollTop(0);
+				}
+			});
 
 			return false;
 		}), // end displayError
@@ -616,7 +604,7 @@ var EUCLID = function () {
 
 			_displayErrorWrapper({
 				callbackArgs: args,
-				callback: function() {
+				callback: function () {
 					if (!args.hasOwnProperty("onComplete") || typeof args.onComplete != 'function') {
 						throw {
 							name: "Invalid Argument Exception",
@@ -636,16 +624,16 @@ var EUCLID = function () {
 							name: "Invalid Argument Exception",
 							message: "Both dataUrl and data contain values, only one can be specified"
 						}
-					} 
-					
+					}
+
 					if (args.dataUrl != null) {
 						args.data = _getJsonObject(args.dataUrl);
 					}
 
 					$.get(args.templateUrl, function (source) {
-							var template = Handlebars.compile(source);
-							args.onComplete($(template(args.data)));
-						});
+						var template = Handlebars.compile(source);
+						args.onComplete($(template(args.data)));
+					});
 				}
 			});
 		})
@@ -680,6 +668,14 @@ if (jQuery.validator != null) {
 	jQuery.validator.unobtrusive.adapters.add('uniquevalue', {}, function (options) {
 		options.rules['uniquevalue'] = true;
 		options.messages['uniquevalue'] = options.message;
+	});
+}
+
+if (Handlebars) {
+	Handlebars.registerHelper('convert-breaks', function (value) {
+		var replaced = value.replace(/\n/g, "<br />");
+		console.log("convert-breaks: " + Handlebars.SafeString(replaced));
+		return new Handlebars.SafeString(replaced);
 	});
 }
 

@@ -24,5 +24,20 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 
 			return new PartMetadata(type);
 		}
+
+		public static string GetDefaultValue(this Type type)
+		{
+			string value = null;
+			if (type.IsValueType)
+			{
+				value = Activator.CreateInstance(type).ToString();
+			}
+			else if (type == typeof(string))
+			{
+				value = string.Empty;
+			}
+
+			return value;
+		}
 	}
 }

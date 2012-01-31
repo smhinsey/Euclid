@@ -4,6 +4,7 @@
 }
 
 <script type="text/javascript">
+	var modal = $("<div id='content' class='modal'></div>");
 	$(document).ready(function () {
 		$(document).on("click", ".command", function () {
 			var commandName = $(this).text();
@@ -13,37 +14,32 @@
 				var form = inputModel.getForm(false);
 				$(form).attr("id", "the-form");
 				$(form).attr("data-command-name", commandName);
-				if ($("#form-container-modal").length) {
-					$("#form-container-modal").remove(); //there can be only one
-				}
 
-				$("<div id='form-container-modal' class='modal' data-form-type='command'></div>")
-					.load("/composite/ui/template/form-container",
-					function () {
-						$(this).find("#form-container").append($(form));
-						$(this).modal("show");
-					});
+				EUCLID.populateTemplate({
+					templateUrl: "/composite/ui/template/form-container-modal",
+					data: { Name: commandName },
+					onComplete: function (formContainer) {
+						$(formContainer).find("#form-content").append(form);
+						setModalContent(formContainer, true);
+					}
+				});
 			}
 
 			return false;
 		});
 
-		$(document).on("click", "#hide-modal-form", function () {
-			$("#form-container-modal").modal("hide");
-
-			if ($("#form-container-modal").length) {
-				$("#form-container-modal").remove();
-			}
-			return false;
+		$(document).on("click", "#dismiss-modal", function () {
+			$(modal).modal("hide");
 		});
 
 		$(document).on("click", "#submit-modal-form", function () {
-			var form = $("#form-container-modal").find("#the-form");
+			var form = $(modal).find("#the-form");
 
 			if (form.length == 0) {
 				EUCLID.displayError({ name: "Could not find form", message: "no form with id 'the-form' could be found in the modal form container" });
 			} else {
-				submitForm(form, commandName);
+				var commandName = $(form).attr("data-command-name");
+				submitForm($(form).clone(), commandName);
 			}
 
 			return false;
@@ -55,51 +51,74 @@
 
 	});
 
+	function setModalContent(content, show) {
+		$(modal).html("");
+		$(modal).append($(content));
+
+		if (show) {
+			$(modal).modal("show");
+			$(modal).on("hidden", function () { $(modal).remove(); });
+		}
+	}
+
 	var continuePolling = true;
 	function submitForm(form, commandName) {
 		continuePolling = true;
-		var formContainer = $(form).parent();
-		$(form).hide();
-		$(formContainer).parent().find(".modal-footer").hide();
-		$(formContainer).find(".close").hide();
+		EUCLID.populateTemplate({
+			templateUrl: "/composite/ui/template/polling-modal",
+			data: { Name: commandName },
+			onComplete: function (content) {
+				setModalContent(content, false);
+				try {
+					var publicationRecord = EUCLID.submitForm($(form), null, function (e) { throw e; });
+					pollForStatus(publicationRecord.Identifier);
+				} catch (e) {
+					EUCLID.displayError(e);
+					$(modal).modal("hide");
+				}
+			}
+		});
 
-		var publicationRecord = EUCLID.submitForm($(form));
+		return false;
+	}
 
-		$(formContainer).append("<div class='alert alert-info' id='poll-count'><strong><p id='poll-status'></p><a href='#' class='btn primary' id='stop-polling'>Stop Polling</a></strong></div>");
+	function pollForStatus(publicationRecordIdentifier) {
 		EUCLID.pollForCommandStatus({
-			publicationId: publicationRecord.Identifier,
+			publicationId: publicationRecordIdentifier,
 			pollMax: 25,
 
 			onOpportunityToCancelPolling: function (pollCount) {
 				var msg = "Polled " + ((pollCount == 1) ? "1 time" : (pollCount + " times"));
-				$(formContainer).find("#poll-status").text(msg);
+				$(modal).find("#poll-status").text(msg);
 
 				return continuePolling;
 			},
 
 			onCommandComplete: function (result) {
-				finishPolling(formContainer, form);
-				displayResult(formContainer, form, result);
+				displayResult(result);
 			},
 
 			onCommandError: function (result) {
-				finishPolling(formContainer, form);
-				displayResult(formContainer, form, result);
+				displayResult(result);
 			},
 
 			onPollError: function (e) {
-				finishPolling(formContainer, form);
-				$(formContainer).append("<div class='alert alert-error'><div class='row'><a href='#' data-dismiss='modal' class='close'>x</a></div><div class='row'><p><strong>" + e.name + "</strong> <span>" + e.message + "</span></p></div></div>");
+				EUCLID.populateTemplate({
+					templateUrl: "/composite/ui/template/euclid-error-modal",
+					data: e,
+					onComplete: function (content) {
+						var parent = $("<div></div>");
+						$(parent).append(content);
+						setModalContent(parent, false);
+					}
+				});
 			}
 		});
+
+		return false;
 	}
 
-	function finishPolling(formContainer, form) {
-		$(formContainer).find("#poll-count").remove();
-		$(form).remove();
-	}
-
-	function displayResult(formContainer, form, result) {
+	function displayResult(result) {
 		var alertClass = "alert-success";
 		if (result.Error) {
 			alertClass = "alert-error";
@@ -108,9 +127,11 @@
 		}
 
 		EUCLID.populateTemplate({
-			templateUrl: "/composite/ui/template/publication-record",
-			data: result,
-			onComplete: function (content) { $(formContainer).append($(content)); }
+			templateUrl: "/composite/ui/template/publication-record-modal",
+			data: { class: alertClass, record: result },
+			onComplete: function (content) {
+				setModalContent(content, false);
+			}
 		});
 	}
 </script>
