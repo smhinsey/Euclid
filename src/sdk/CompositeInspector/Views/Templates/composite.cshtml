@@ -1,0 +1,14 @@
+﻿<h5>{{Name}} <small>{{Description}}</small></h5>
+<h5>Configuration is valid <small>{{IsValid}}</small></h5>
+{{#unless IsValid}}
+<div class="row">
+	<div class="span3">
+		<dl>
+			<dt>Confiuration Errors</dt>
+			{{#each ConfigurationErrors}}
+			<dd>{{this}}</dd>
+			{{/each}}
+		</dl>
+	</div>
+</div>
+{{/unless}}

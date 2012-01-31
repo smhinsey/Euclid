@@ -1,0 +1,33 @@
+﻿@if (false) { 
+	// enable intellisense for EUCLID.js
+	<script type="text/javascript" src="../../Assets/Scripts/euclid-0.9.js"></script>
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".input-model").click(function () {
+			var inputModelName = $(this).text();
+			var target = $(this);
+
+			EUCLID.populateTemplate({
+				templateUrl: "/composite/ui/template/input-model",
+				dataUrl: "/composite/api/inputModel/" + inputModelName,
+				onComplete: function (content) {
+					$(target).popover({ placement: "left", html: "true", title: inputModelName, content: $(content).html() });
+					$(target).popover("show");
+				}
+			});
+
+			return false;
+		});
+	});
+</script>
+
+<h5>Input Models</h5>
+<ul>
+{{#InputModels}}
+	<li id="{{../SystemName}}-input-model-{{Name}}">
+		<a href="#" class="input-model">{{Name}}</a>
+	</li>
+{{/InputModels}}
+</ul>

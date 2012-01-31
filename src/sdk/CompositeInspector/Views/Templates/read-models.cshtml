@@ -1,0 +1,34 @@
+﻿@if (false) { 
+	// enable intellisense for EUCLID.js
+	<script type="text/javascript" src="../../Assets/Scripts/euclid-0.9.js"></script>
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".read-model").click(function () {
+			var systemName = $(this).attr("data-agent-system-name");
+			var readModelName = $(this).text();
+			var target = $(this);
+
+			EUCLID.populateTemplate({
+				templateUrl: "/composite/ui/template/read-model",
+				data: { Properties: EUCLID.getJsonObject("/composite/api/readmodel/" + systemName + "/" + readModelName) },
+				onComplete: function (content) {
+					$(target).popover({ placement: "left", html: "true", title: readModelName, content: $(content).html() });
+					$(target).popover("show");
+				}
+			});
+
+			return false;
+		});
+	});
+</script>
+
+<h5>Read Models</h5>
+<ul>
+{{#ReadModels}}
+	<li id="{{../SystemName}}-readmodel-{{Name}}">
+		<a href="#" class="read-model" data-agent-system-name="{{../SystemName}}">{{Name}}</a>
+	</li>
+{{/ReadModels}}
+</ul>

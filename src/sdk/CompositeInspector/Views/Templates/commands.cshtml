@@ -1,0 +1,124 @@
+﻿@if (false) { 
+	// enable intellisense for EUCLID.js
+	<script type="text/javascript" src="../../Assets/Scripts/euclid-0.9.js"></script>
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(document).on("click", ".command", function () {
+			var commandName = $(this).text();
+
+			var inputModel = EUCLID.getInputModel({ commandName: commandName });
+			if (inputModel != null) {
+				var form = inputModel.getForm(false);
+				$(form).attr("id", "the-form");
+				$(form).attr("data-command-name", commandName);
+				if ($("#form-container-modal").length) {
+					$("#form-container-modal").remove(); //there can be only one
+				}
+
+				$("<div id='form-container-modal' class='modal' data-form-type='command'></div>")
+					.load("/composite/ui/template/form-container",
+					function () {
+						$(this).find("#form-container").append($(form));
+						$(this).modal("show");
+					});
+			}
+
+			return false;
+		});
+
+		$(document).on("click", "#hide-modal-form", function () {
+			$("#form-container-modal").modal("hide");
+
+			if ($("#form-container-modal").length) {
+				$("#form-container-modal").remove();
+			}
+			return false;
+		});
+
+		$(document).on("click", "#submit-modal-form", function () {
+			var form = $("#form-container-modal").find("#the-form");
+
+			if (form.length == 0) {
+				EUCLID.displayError({ name: "Could not find form", message: "no form with id 'the-form' could be found in the modal form container" });
+			} else {
+				submitForm(form, commandName);
+			}
+
+			return false;
+		});
+
+		$(document).on("click", "#stop-polling", function () {
+			continuePolling = false;
+		});
+
+	});
+
+	var continuePolling = true;
+	function submitForm(form, commandName) {
+		continuePolling = true;
+		var formContainer = $(form).parent();
+		$(form).hide();
+		$(formContainer).parent().find(".modal-footer").hide();
+		$(formContainer).find(".close").hide();
+
+		var publicationRecord = EUCLID.submitForm($(form));
+
+		$(formContainer).append("<div class='alert alert-info' id='poll-count'><strong><p id='poll-status'></p><a href='#' class='btn primary' id='stop-polling'>Stop Polling</a></strong></div>");
+		EUCLID.pollForCommandStatus({
+			publicationId: publicationRecord.Identifier,
+			pollMax: 25,
+
+			onOpportunityToCancelPolling: function (pollCount) {
+				var msg = "Polled " + ((pollCount == 1) ? "1 time" : (pollCount + " times"));
+				$(formContainer).find("#poll-status").text(msg);
+
+				return continuePolling;
+			},
+
+			onCommandComplete: function (result) {
+				finishPolling(formContainer, form);
+				displayResult(formContainer, form, result);
+			},
+
+			onCommandError: function (result) {
+				finishPolling(formContainer, form);
+				displayResult(formContainer, form, result);
+			},
+
+			onPollError: function (e) {
+				finishPolling(formContainer, form);
+				$(formContainer).append("<div class='alert alert-error'><div class='row'><a href='#' data-dismiss='modal' class='close'>x</a></div><div class='row'><p><strong>" + e.name + "</strong> <span>" + e.message + "</span></p></div></div>");
+			}
+		});
+	}
+
+	function finishPolling(formContainer, form) {
+		$(formContainer).find("#poll-count").remove();
+		$(form).remove();
+	}
+
+	function displayResult(formContainer, form, result) {
+		var alertClass = "alert-success";
+		if (result.Error) {
+			alertClass = "alert-error";
+		} else if (!result.Dispatched) {
+			alertClass = "alert-block";
+		}
+
+		EUCLID.populateTemplate({
+			templateUrl: "/composite/ui/template/publication-record",
+			data: result,
+			onComplete: function (content) { $(formContainer).append($(content)); }
+		});
+	}
+</script>
+<h5>Commands</h5>
+<ul>
+{{#Commands}}
+	<li id="{{../SystemName}}-command-{{Name}}">
+		<a href="#" class="command">{{Name}}</a>
+	</li>
+{{/Commands}}
+</ul>

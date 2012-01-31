@@ -5,7 +5,7 @@ using CompositeInspector.Models;
 using Euclid.Common.Messaging;
 using Euclid.Composites;
 using Euclid.Composites.Conversion;
-using Euclid.Framework.AgentMetadata.Formatters;
+using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 using Nancy;
@@ -24,6 +24,8 @@ namespace CompositeInspector.Module
 		// NOTE: work around until Nancy is fixed to handle the route assignments a bit better -  we are looking for /{agentSystemName}/{commandName}.{extension}
 		private const string CommandRouteWithFormat =
 			"/{agentSystemName}/(?<commandName>[A-Za-z0-9]*)\\.(?<extension>[A-Za-z0-9]*)";
+
+		private const string CommandWithoutAgentRoute = "/(?<commandName>[A-Za-z0-9]*)\\.(?<extension>[A-Za-z0-9]*)";
 
 		private const string CommandViewPath = "Commands/view-command.cshtml";
 
@@ -49,6 +51,8 @@ namespace CompositeInspector.Module
 
 			Get[IndexRoute] = _ => HttpStatusCode.NoContent;
 
+			Get[CommandWithoutAgentRoute] = p => GetCommandFromComposite((string) p.commandName);
+
 			Get[CommandRouteWithFormat] = p => GetCommand((string) p.agentSystemName, (string) p.commandName);
 
 			Get[CommandRoute] = p => GetCommand((string) p.agentSystemName, (string) p.commandName);
@@ -58,31 +62,48 @@ namespace CompositeInspector.Module
 			Get[PublicationStatusRoute] = p => GetCommandStatus((Guid) p.publicationId);
 		}
 
-		public Response GetCommand(string agentSystemName, string commandName)
+		public Response GetCommandFromComposite(string commandName)
 		{
-			var inputModel = getInputModel(agentSystemName, commandName);
+			try
+			{
+				var inputModelType = _compositeApp.GetInputModelTypeForCommandName(commandName);
 
-			if (inputModel == null)
+				return inputModelType.GetMetadata().GetFormatter().WriteTo(Response);
+			}
+			catch (CannotMapCommandException)
 			{
 				throw new CommandNotPresentInAgentException(commandName);
 			}
+		}
 
-			var format = this.GetResponseFormat();
+		public Response GetCommand(string agentSystemName, string commandName)
+		{
+			return GetCommandFromComposite(commandName);
+			//var inputModel = getInputModel(agentSystemName, commandName);
 
-			if (format == ResponseFormat.Html)
-			{
-				var commandModel = new CommandModel {AgentSystemName = agentSystemName, CommandName = commandName};
-				return View[CommandViewPath, commandModel];
-			}
+			//if (inputModel == null)
+			//{
+			//    throw new CommandNotPresentInAgentException(commandName);
+			//}
 
-			return this.GetFormattedMetadata(new InputModelFormatter(inputModel));
+			//var format = this.GetResponseFormat();
+
+			//if (format == ResponseFormat.Html)
+			//{
+			//    var commandModel = new CommandModel {AgentSystemName = agentSystemName, CommandName = commandName};
+			//    return View[CommandViewPath, commandModel];
+			//}
+
+			//return inputModel
+			//        .GetType()
+			//        .GetMetadata()
+			//        .GetFormatter()
+			//        .WriteTo(Response);
 		}
 
 		public Response GetCommandStatus(Guid publicationId)
 		{
-			ICommandPublicationRecord record = null;
-
-			record = _registry.GetPublicationRecord(publicationId);
+			var record = _registry.GetPublicationRecord(publicationId);
 
 			if (record == null)
 			{
@@ -91,18 +112,21 @@ namespace CompositeInspector.Module
 
 			var format = this.GetResponseFormat();
 			Response response;
-			if (format == ResponseFormat.Html)
+
+			switch (format)
 			{
-				var model = new PublishedCommandModel {PublicationId = publicationId.ToString(), Record = record};
-				response = View["Commands/view-publication-record.cshtml", model];
-			}
-			else if (format == ResponseFormat.Json)
-			{
-				response = Response.AsJson(record);
-			}
-			else
-			{
-				response = Response.AsXml(record);
+				case ResponseFormat.Html:
+					{
+						var model = new PublishedCommandModel {PublicationId = publicationId.ToString(), Record = record};
+						response = View["Commands/view-publication-record.cshtml", model];
+					}
+					break;
+				case ResponseFormat.Json:
+					response = Response.AsJson(record);
+					break;
+				default:
+					response = Response.AsXml(record);
+					break;
 			}
 
 			return response;
