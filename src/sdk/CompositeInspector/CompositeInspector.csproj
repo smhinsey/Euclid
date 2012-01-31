@@ -44,7 +44,6 @@
     <Reference Include="Castle.Windsor">
       <HintPath>..\..\..\packages\Castle.Windsor.2.5.4\lib\net40-client\Castle.Windsor.dll</HintPath>
     </Reference>
-    <Reference Include="JsonCompositeInspector, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Nancy">
       <HintPath>..\..\..\packages\Nancy.0.9.0\lib\net40\Nancy.dll</HintPath>
     </Reference>
@@ -68,9 +67,11 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\LogModel.cs" />
+    <Compile Include="Module\AgentModule.cs" />
     <Compile Include="Module\AssetModule.cs" />
     <Compile Include="Module\CommandNotFoundInRegistryException.cs" />
     <Compile Include="Module\LogModule.cs" />
@@ -89,16 +90,24 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="Views\Commands\view-command.cshtml" />
+    <EmbeddedResource Include="Views\Composite\command-orig.cshtml" />
     <EmbeddedResource Include="Views\Composite\home.cshtml" />
     <EmbeddedResource Include="Views\Composite\view-agent.cshtml" />
     <EmbeddedResource Include="Views\Shared\Frameset.cshtml" />
     <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
     <EmbeddedResource Include="Views\Commands\view-publication-record.cshtml" />
     <EmbeddedResource Include="Views\Log\logs.cshtml" />
-    <None Include="Views\Queries\view-query-metadata.cshtml" />
+    <EmbeddedResource Include="Views\Composite\view-agent-hb.cshtml" />
+    <EmbeddedResource Include="Views\Queries\view-query-metadata.cshtml" />
+    <EmbeddedResource Include="Views\Composite\read-model.cshtml" />
+    <EmbeddedResource Include="Views\Composite\form-container.cshtml" />
+    <EmbeddedResource Include="Views\Composite\publication-record.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
+      <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>
+      <Name>Euclid.Common.Storage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
@@ -129,18 +138,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\jquery.form.js" />
+    <EmbeddedResource Include="Assets\Scripts\jquery\jquery.form.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Images\1.jpg" />
-    <EmbeddedResource Include="Assets\Images\test\2.jpg" />
     <EmbeddedResource Include="Assets\NewCo.ico" />
     <EmbeddedResource Include="Assets\Scripts\euclid-0.9.js" />
-    <EmbeddedResource Include="Assets\Scripts\jquery-1.7.1.min.js" />
+    <EmbeddedResource Include="Assets\Scripts\jquery\jquery-1.7.1.min.js" />
     <EmbeddedResource Include="Assets\Styles\composite-inspector.css" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\jquery-ui-1.8.16.custom.min.js" />
+    <EmbeddedResource Include="Assets\Scripts\jquery\jquery-ui-1.8.16.custom.min.js" />
     <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <EmbeddedResource Include="Assets\Styles\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -157,11 +164,39 @@
     <EmbeddedResource Include="Assets\Styles\smoothness\jquery-ui-1.8.16.custom.css" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\jquery.validate.min.js" />
-    <EmbeddedResource Include="Assets\Scripts\jquery.validate.unobtrusive.min.js" />
+    <EmbeddedResource Include="Assets\Scripts\jquery\jquery.validate.min.js" />
+    <EmbeddedResource Include="Assets\Scripts\jquery\jquery.validate.unobtrusive.min.js" />
     <EmbeddedResource Include="Assets\Scripts\simplemodal\jquery.simplemodal.1.4.1-close.png" />
     <EmbeddedResource Include="Assets\Scripts\simplemodal\jquery.simplemodal.1.4.1.css" />
     <EmbeddedResource Include="Assets\Scripts\simplemodal\jquery.simplemodal.1.4.1.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\handlebars-1.0.0.beta.6.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-alert.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-button.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-carousel.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-collapse.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-dropdown.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-modal.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-popover.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-scrollspy.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-tab.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-tooltip.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-transition.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-typeahead.js" />
+    <EmbeddedResource Include="Assets\Styles\bootstrap.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-twipsy.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\img\glyphicons-halflings-white.png" />
+    <EmbeddedResource Include="Assets\Scripts\img\glyphicons-halflings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Images\ajax-waiting.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

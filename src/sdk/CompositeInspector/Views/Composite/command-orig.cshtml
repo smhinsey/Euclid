@@ -1,0 +1,81 @@
+@if (false)
+{ 
+	// this will not get compiled by the razor view engine, but gives us access to intellisense for the EUCLID js library
+	<script type="text/javascript" src="../../Assets/Scripts/euclid-0.9.js"></script>
+}
+
+
+<script type="text/javascript">
+	var agentSystemName = "";
+	var commandName = "";
+	$(document).ready(function () {
+		$("#stop-polling-button").hide();
+		agentSystemName = $("#agent-system-name").val();
+		commandName = $("#command-name").val();
+		alert(agentSystemName + "\n" + commandName);
+
+		var model = EUCLID.getInputModel({ agentSystemName: agentSystemName, commandName: commandName });
+		var form = model.getForm();
+		$("#form-container").append(form);
+		$(form).attr("id", "command-form");
+
+		var continuePolling = true;
+		$(document).on("submit", "#command-form", function () {
+			$("#stop-polling-button").hide();
+			event.preventDefault();
+			continuePolling = true;
+			$("#publication-record").html("");
+			$("#poll-count").text("0 times");
+
+			var publicationRecord = EUCLID.submitForm($("#command-form"));
+
+			$("#stop-polling-button").show();
+			$("#poll-count").text("1 time");
+			EUCLID.pollForCommandStatus({
+				publicationId: publicationRecord.Identifier,
+				pollMax: 10,
+
+				onOpportunityToCancelPolling: function (pollCount) {
+					$("#poll-count").text(pollCount + " times");
+
+					return true;
+				},
+
+				onCommandComplete: function (result) {
+					$("#stop-polling-button").hide();
+					$("#publication-record").html("<div class='alert-message success'><p><strong>Complete</strong> <span>the command <a href='" + result.MessageLocation + "'>" + result.MessageType + "</a> has been processed</span></p></div>");
+				},
+
+				onCommandError: function (result) {
+					$("#stop-polling-button").hide();
+					$("#publication-record").html("<div class='alert-message warning'><p><strong>Error processing command</strong> <span>" + result.ErrorMessage + "</span><span>" + result.CallStack + "</span></p></div>");
+				},
+
+				onPollError: function (e) {
+					$("#stop-polling-button").hide();
+					$("#publication-record").html("<div class='alert-message warning'><p><strong>" + e.name + "</strong> <span>" + e.message + "</span></p></div>");
+				}
+			});
+
+			return false;
+		});
+
+		$("#stop-polling-button").click(function () {
+			continuePolling = false;
+		});
+	});
+</script>
+
+<div class="row show-grid">
+
+	<div class="span5 columns">
+		<div id="form-container" ></div>
+	</div>
+
+	<div class="span7 offset4" id="results-container">
+		<div>Polled <span id="poll-count">0 times</span></div>
+		<div id="publication-record"></div>
+		<button type="button" class="btn small" id="stop-polling-button">Stop Polling</button>
+	</div>
+
+</div>

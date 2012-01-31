@@ -1,0 +1,55 @@
+﻿<div id="publication-record">
+	<div class="row show-grid">
+		<div class="span16 columns">
+			<div>
+				<strong>Completed</strong>
+				<br />
+				{{Completed}}
+			</div>
+			<div>
+				<strong>Dispatched</strong>
+				<br />
+				{{Dispatched}}
+			</div>
+			<div>
+				<strong>Error</strong>
+				<br />
+				{{Error}}
+			</div>
+			<div>
+				<strong>Identifier</strong>
+				<br />
+				{{Identifier}}
+			</div>
+			<div>
+				<strong>Message</strong>
+				<br />
+				<a href="{{MessageLocation}}">{{MessageLocation}}</a>
+			</div>
+			<div>
+				<strong>Message Type</strong>
+				<br />
+				{{MessageType}}
+			</div>
+			<div>
+				<strong>Created</strong>
+				<br />
+				{{Created}}
+			</div>
+
+			{{#if Error}}
+			<div>
+				<strong>Message</strong>
+				<br />
+				{{ErrorMessage}}
+			</div>
+
+			<div>
+				<strong>CallStack</strong>
+				<br />
+				{{CallStack}}
+			</div>
+			{{/if}}
+		</div>
+	</div>
+</div>

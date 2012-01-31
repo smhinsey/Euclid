@@ -135,7 +135,8 @@ namespace Euclid.Framework.AgentMetadata
 				var xml = new XElement(
 					"Agent",
 					new XElement("DescriptiveName", _agentMetadata.DescriptiveName),
-					new XElement("SystemName", _agentMetadata.SystemName));
+					new XElement("SystemName", _agentMetadata.SystemName),
+					new XElement("Description", _agentMetadata.Description));
 
 				var commands = new XElement("Commands");
 				foreach (var c in _agentMetadata.Commands)
@@ -171,6 +172,7 @@ namespace Euclid.Framework.AgentMetadata
 						{
 							_agentMetadata.DescriptiveName,
 							_agentMetadata.SystemName,
+							_agentMetadata.Description,
 							Commands = _agentMetadata.Commands.Select(x => new { x.Namespace, x.Name }),
 							ReadModels = _agentMetadata.ReadModels.Select(x => new { x.Namespace, x.Name }),
 							Queries = _agentMetadata.Queries.Select(x => new { x.Namespace, x.Name })

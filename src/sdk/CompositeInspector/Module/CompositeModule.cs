@@ -9,9 +9,15 @@ namespace CompositeInspector.Module
 {
 	public class CompositeModule : NancyModule
 	{
+		private const string AgentDetailRouteHb = "/ui/{agentSystemName}";
+
+		private const string HbPath = "Composite/view-agent-hb.cshtml";
+
 		private const string AgentDetailRoute = "/agent/{agentSystemName}";
 
 		private const string AgentDetailViewPath = "Composite/view-agent.cshtml";
+
+		private const string PartialRoute = "/ui/partial/{viewName}";
 
 		private const string BaseRoute = "composite";
 
@@ -31,6 +37,10 @@ namespace CompositeInspector.Module
 			_compositeApp = compositeApp;
 
 			Get[IndexRoute] = _ => View[IndexViewPath];
+
+			Get[PartialRoute] = p => View[(string) p.viewName + ".cshtml"];
+
+			Get[AgentDetailRouteHb] = p => View[HbPath];
 
 			Get[HomeRoute] = _ =>
 				{

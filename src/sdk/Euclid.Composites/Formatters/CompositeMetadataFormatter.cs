@@ -46,7 +46,9 @@ namespace Euclid.Composites.Formatters
 					{
 						Agents = _compositeApp.Agents.Select(a => new { a.DescriptiveName, a.SystemName }),
 						InputModels = _compositeApp.InputModels.Select(im => new { im.Name, im.Namespace }),
-						ConfigurationErrors = _compositeApp.GetConfigurationErrors()
+						ConfigurationErrors = _compositeApp.GetConfigurationErrors(),
+						_compositeApp.Commands,
+						_compositeApp.Queries
 					};
 		}
 	}
