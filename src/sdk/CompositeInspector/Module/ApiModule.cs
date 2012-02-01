@@ -91,7 +91,7 @@ namespace CompositeInspector.Module
 
 			if (command == null)
 			{
-				throw new CommandNotPresentInAgentException(commandName);
+				throw new CommandNotFoundInAgentException(commandName);
 			}
 
 			return command.GetFormatter().WriteTo(Response);
@@ -112,7 +112,7 @@ namespace CompositeInspector.Module
 			}
 			catch (CannotMapCommandException)
 			{
-				throw new CommandNotPresentInCompositeException(commandName);
+				throw new CommandNotFoundInCompositeException(commandName);
 			}
 		}
 

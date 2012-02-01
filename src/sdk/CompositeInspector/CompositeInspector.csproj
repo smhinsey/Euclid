@@ -76,7 +76,7 @@
     <Compile Include="Module\ApiModule.cs" />
     <Compile Include="Module\AssetModule.cs" />
     <Compile Include="CommandNotFoundInRegistryException.cs" />
-    <Compile Include="CommandNotPresentInAgentException.cs" />
+    <Compile Include="CommandNotFoundInAgentException.cs" />
     <Compile Include="CompositeInspectorBootstrapper.cs" />
     <Compile Include="ReadModelNotFoundException.cs" />
     <Compile Include="Module\UserInterfaceModule.cs" />

@@ -29,7 +29,7 @@ namespace Euclid.Composites.Mvc.Validation
 				.FirstOrDefault();
 			if (query == null)
 			{
-				throw new QueryNotPresentInCompositeException(queryName);
+				throw new QueryNotFoundInCompositeException(queryName);
 			}
 
 			var method =
