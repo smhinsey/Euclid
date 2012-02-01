@@ -147,21 +147,11 @@
     <Content Include="Content\app\events.js" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\app.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
-    <Content Include="Content\js\backbone-min.js" />
-    <Content Include="Content\js\bootstrap-alert.js" />
-    <Content Include="Content\js\bootstrap-button.js" />
-    <Content Include="Content\js\bootstrap-carousel.js" />
-    <Content Include="Content\js\bootstrap-collapse.js" />
-    <Content Include="Content\js\bootstrap-dropdown.js" />
-    <Content Include="Content\js\bootstrap-modal.js" />
-    <Content Include="Content\js\bootstrap-popover.js" />
-    <Content Include="Content\js\bootstrap-scrollspy.js" />
-    <Content Include="Content\js\bootstrap-tab.js" />
-    <Content Include="Content\js\bootstrap-tooltip.js" />
-    <Content Include="Content\js\bootstrap-transition.js" />
-    <Content Include="Content\js\bootstrap-typeahead.js" />
+    <Content Include="Content\js\bootstrap.js" />
+    <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\handlebars-1.0.0.beta.6.js" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ShellController.cs" />
@@ -263,6 +253,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Content\app\templates\company\AllTransactions.handlebars" />
     <None Include="Content\app\templates\partials\inputModel\StringProperty.handlebars" />
+    <None Include="Content\app\templates\store\AddOrder.handlebars" />
     <None Include="Content\app\templates\store\DiscountCodes.handlebars" />
     <None Include="Content\app\templates\store\Promotions.handlebars" />
     <None Include="Content\app\templates\store\ProductCatalog.handlebars">
@@ -272,6 +263,8 @@
     <None Include="Content\app\templates\store\Orders.handlebars" />
     <None Include="Content\app\templates\store\Financials.handlebars" />
     <Content Include="Views\Shared\LeftNav.cshtml" />
+    <None Include="Content\css\bootstrap.min.responsive" />
+    <None Include="Content\css\bootstrap.responsive" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
