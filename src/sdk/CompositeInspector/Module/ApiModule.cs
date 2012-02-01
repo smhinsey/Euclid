@@ -147,18 +147,4 @@ namespace CompositeInspector.Module
 			return agent;
 		}
 	}
-
-	public class CommandNotPresentInAgentException : Exception
-	{
-		public CommandNotPresentInAgentException(string commandName) : base(commandName)
-		{
-		}
-	}
-
-	public class ReadModelNotFoundExceptin : Exception
-	{
-		public ReadModelNotFoundExceptin(string readModelName) : base(readModelName)
-		{
-		}
-	}
 }

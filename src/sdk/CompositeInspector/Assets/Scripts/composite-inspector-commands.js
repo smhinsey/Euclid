@@ -13,7 +13,7 @@ $(document).ready(function () {
 					$(form).attr("data-command-name", commandName);
 
 					Using({ Name: commandName })
-						.Render("/composite/ui/template/form-container-modal")
+						.Render("/composite/ui/template/modal/form-container")
 						.Manipulate(function (template) {
 							$(template).find("#form-content").append($(form));
 							setModalContent(template, true);
@@ -26,7 +26,7 @@ $(document).ready(function () {
 							function (data) {
 								data["PresentInComposite"] = false;
 								Using(data)
-									.Render("/composite/ui/template/command-modal")
+									.Render("/composite/ui/template/modal/command")
 									.Manipulate(function (content) {
 										setModalContent($(content), true);
 									});
@@ -78,7 +78,7 @@ var continuePolling = true;
 function submitForm(form, commandName) {
 	continuePolling = true;
 	Using({ Name: commandName })
-			.Render("/composite/ui/template/polling-modal")
+			.Render("/composite/ui/template/modal/polling")
 			.Manipulate(function (template) {
 				setModalContent(template, false);
 				EUCLID.withFormResults(form,
@@ -118,7 +118,7 @@ function pollForStatus(publicationRecordIdentifier) {
 
 		onPollError: function (e) {
 			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/euclid-error-modal",
+				templateUrl: "/composite/ui/template/modal/euclid-error",
 				data: e,
 				onComplete: function (content) {
 					var parent = $("<div></div>");
@@ -141,7 +141,7 @@ function displayResult(result) {
 	}
 
 	EUCLID.populateTemplate({
-		templateUrl: "/composite/ui/template/publication-record-modal",
+		templateUrl: "/composite/ui/template/modal/publication-record",
 		data: { class: alertClass, record: result },
 		onComplete: function (content) {
 			setModalContent(content, false);

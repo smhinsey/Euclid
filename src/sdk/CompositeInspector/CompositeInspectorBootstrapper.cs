@@ -1,16 +1,8 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Web.Mvc;
-using System.Xml.Serialization;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
-using Euclid.Common.Storage;
-using Euclid.Common.Storage.Binary;
 using Euclid.Composites;
-using Euclid.Framework.AgentMetadata;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 using Nancy;
@@ -62,52 +54,8 @@ namespace CompositeInspector
 		{
 			CookieBasedSessions.Enable(pipelines);
 
-			pipelines.BeforeRequest.AddItemToEndOfPipeline(
-				ctx =>
-					{
-						var uploader = container.Resolve<FileUploader>();
-						uploader.UploadFiles(ctx);
-						return null;
-					});
-
-			pipelines.BeforeRequest.AddItemToEndOfPipeline(
-				ctx => (ctx.Request.Path.StartsWith("composite/api") && ctx.GetResponseFormat() == ResponseFormat.Html)
-				       	? HttpStatusCode.NoContent
-				       	: (Response) null);
-
-			pipelines.OnError.AddItemToEndOfPipeline((ctx, e) =>
-			                                         	{
-			                                         		var format = ctx.GetResponseFormat();
-															var formatter = container.Resolve<IResponseFormatterFactory>().Create(ctx);
-
-			                                         		var exception = new FormattedException
-			                                         		                	{
-			                                         		                		name = e.GetType().Name,
-			                                         		                		message = e.Message,
-			                                         		                		callStack = e.StackTrace
-			                                         		                	};
-
-			                                         		Response r;
-			                                         		switch (format)
-			                                         		{
-			                                         			case ResponseFormat.Json:
-																	r = formatter.AsJson(exception, HttpStatusCode.InternalServerError);
-																	break;
-																case ResponseFormat.Xml:
-																	r = formatter.AsXml(exception);
-			                                         				break;
-																default:
-			                                         				r = null;
-			                                         				break;
-			                                         		}
-
-															if (r != null)
-															{
-																r.StatusCode = HttpStatusCode.InternalServerError;
-															}
-
-															return r;
-			                                         	});
+			// upload posted files to blob storage (configured via the composite)
+			configurePipelines(pipelines, container);
 
 			base.ApplicationStartup(container, pipelines);
 		}
@@ -149,96 +97,58 @@ namespace CompositeInspector
 
 			return ApplicationContainer;
 		}
-	}
-
-	public enum ResponseFormat
-	{
-		Json,
-		Xml,
-		Html
-	}
-
-	public static class FormatExtensions
-	{
-		public static ResponseFormat GetResponseFormat(this NancyModule module)
+		
+		private static void configurePipelines(IPipelines pipelines, IWindsorContainer container)
 		{
-			return module.Context.GetResponseFormat();
-		}
-
-		public static ResponseFormat GetResponseFormat(this NancyContext ctx)
-		{
-			var format = ResponseFormat.Html;
-			if (
-					ctx.Request.Headers.Accept.Any(a => a.IndexOf("application/json", StringComparison.CurrentCultureIgnoreCase) >= 0)
-					||
-					ctx.Request.Path.EndsWith(".json", StringComparison.CurrentCultureIgnoreCase)
-				)
-			{
-				format = ResponseFormat.Json;
-			}
-			else if (
-				ctx.Request.Headers.Accept.Any(a => a.IndexOf("application/xml", StringComparison.CurrentCultureIgnoreCase) >= 0)
-				||
-				ctx.Request.Path.EndsWith(".xml", StringComparison.CurrentCultureIgnoreCase)
-			)
-			{
-				format = ResponseFormat.Xml;
-			}
-
-			return format;
-		}
-
-		public static Response WriteTo(this IMetadataFormatter formatter, IResponseFormatter response)
-		{
-			var format = response.Context.GetResponseFormat();
-
-			var representation = format == ResponseFormat.Json ? "json" : "xml";
-			var encodedString = formatter.GetRepresentation(representation);
-			var stream = new MemoryStream(Encoding.UTF8.GetBytes(encodedString));
-			return response.FromStream(stream, Euclid.Common.Extensions.MimeTypes.GetByExtension(representation));
-		}
-	}
-
-	public class FileUploader
-	{
-		private readonly IBlobStorage _blobStorage;
-
-		public FileUploader(IBlobStorage blobStorage)
-		{
-			_blobStorage = blobStorage;
-		}
-
-		public void UploadFiles(NancyContext context)
-		{
-			foreach (var file in context.Request.Files)
-			{
-				var key = file.Key + "Url";
-				
-				Uri blobUrl;
-				using (var ms = new MemoryStream())
+			pipelines.BeforeRequest.AddItemToEndOfPipeline(
+				ctx =>
 				{
-					file.Value.CopyTo(ms);
-					var blob = new Blob
-								{
-									Content = ms.ToArray(), 
-									ContentType = file.ContentType
-								};
-					blobUrl = _blobStorage.Put(blob, file.Name);
+					var uploader = container.Resolve<FileUploader>();
+					uploader.UploadFiles(ctx);
+					return null;
+				});
+
+			// only allow requests for json/xml through to the apis
+			pipelines.BeforeRequest.AddItemToEndOfPipeline(
+				ctx => (ctx.Request.Path.StartsWith("composite/api") && ctx.GetResponseFormat() == ResponseFormat.Html)
+						? HttpStatusCode.NoContent
+						: (Response)null);
+
+			// return errors in the same format requested
+			pipelines.OnError.AddItemToEndOfPipeline((ctx, e) =>
+			{
+				var format = ctx.GetResponseFormat();
+				var formatter = container.Resolve<IResponseFormatterFactory>().Create(ctx);
+
+				// dumb ugliness b/c MSFT's xml serializer can't handle anonymous objects
+				var exception = new FormattedException
+				{
+					name = e.GetType().Name,
+					message = e.Message,
+					callStack = e.StackTrace
+				};
+
+				Response r;
+				switch (format)
+				{
+					case ResponseFormat.Json:
+						r = formatter.AsJson(exception, HttpStatusCode.InternalServerError);
+						break;
+					case ResponseFormat.Xml:
+						r = formatter.AsXml(exception);
+						break;
+					default:
+						r = null;
+						break;
 				}
 
-				context.Request.Form[key] = blobUrl.AbsoluteUri;
-			}
-		}
-	}
+				if (r != null)
+				{
+					r.StatusCode = HttpStatusCode.InternalServerError;
+				}
 
-	[XmlRoot("Exception")]
-	public class FormattedException
-	{
-		public FormattedException()
-		{
+				return r;
+			});
 		}
-		public string name { get; set; }
-		public string message { get; set; }
-		public string callStack { get; set; }
 	}
 }
