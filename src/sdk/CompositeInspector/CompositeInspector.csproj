@@ -73,33 +73,13 @@
     <Compile Include="FileUploader.cs" />
     <Compile Include="FormatExtensions.cs" />
     <Compile Include="FormattedException.cs" />
-    <Compile Include="Models\AgentModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\AgentPartModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\CommandModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\CompositeHome.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\LogModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\PublishedCommandModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Module\ApiModule.cs" />
     <Compile Include="Module\AssetModule.cs" />
     <Compile Include="CommandNotFoundInRegistryException.cs" />
     <Compile Include="CommandNotPresentInAgentException.cs" />
-    <Compile Include="Module\LogModule.cs" />
     <Compile Include="CompositeInspectorBootstrapper.cs" />
     <Compile Include="ReadModelNotFoundException.cs" />
     <Compile Include="Module\UserInterfaceModule.cs" />
-    <Compile Include="Module\QueryModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Binders\InputModelBinder.cs" />
     <Compile Include="ResponseFormat.cs" />
@@ -110,7 +90,6 @@
     <EmbeddedResource Include="Views\Shared\Frameset.cshtml" />
     <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
     <EmbeddedResource Include="Views\view-agent.cshtml" />
-    <EmbeddedResource Include="Views\Queries\view-query-metadata.cshtml" />
     <EmbeddedResource Include="Views\templates\modal\read-model.cshtml" />
     <EmbeddedResource Include="Views\templates\modal\form-container.cshtml" />
     <EmbeddedResource Include="Views\templates\modal\publication-record.cshtml" />
