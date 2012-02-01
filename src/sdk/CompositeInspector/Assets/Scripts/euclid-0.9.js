@@ -59,25 +59,6 @@ var EUCLID = function () {
 		return model;
 	}); // end submitForm
 
-	var _displayErrorWrapper = (function (args) {
-		if (args === null || args === undefined || !args.hasOwnProperty("callbackArgs") || !args.hasOwnProperty("callback")) {
-			throw {
-				name: "Invalid Argument Exception",
-				message: "_displayErrorWrapper exepects the parameters 'callback' - the function to execute, and 'callbackArgs' - an object containing the arguments to pass into the function"
-			}
-		}
-
-		try {
-			args.callback(args.callbackArgs);
-		} catch (e) {
-			if (args.callbackArgs.hasOwnProperty("handleError")) {
-				args.callbackArgs.handleError(e);
-			} else {
-				EUCLID.displayError(e);
-			}
-		}
-	});
-
 	return {
 		getQueryMetadata: (function (args) {
 			/// <summary>
@@ -98,7 +79,8 @@ var EUCLID = function () {
 			/// &#10; queryName: the name of the query object
 			/// &#10; methodName: the name of the method that executes the query
 			/// </param>
-			EUCLID.displayError({ name: "Not Implemented Exception", message: "In progress" });
+			throw { name: "Not Implemented Exception", message: "executeQuery is not implemented" };
+
 			var model = null;
 			_displayErrorWrapper({
 				callback: function (args) {
@@ -134,6 +116,7 @@ var EUCLID = function () {
 			/// &#10; methodName: the name of the method that executes the query
 			/// &#10; parameters: an array of arguments represented as a JSON name value pair
 			/// </param>
+			throw { name: "Not Implemented Exception", message: "executeQuery is not implemented" };
 			var model = null;
 			_displayErrorWrapper({
 				callback: function (args) {
@@ -192,6 +175,8 @@ var EUCLID = function () {
 			/// &#10; method - the name of the method to execute
 			/// &#10; queryName - the name fo the query
 			/// </param>
+			throw { name: "Not Implemented Exception", message: "getQueryForm is not implemented" };
+
 			if (args == null || args === undefined || !args.hasOwnProperty("method") || !args.hasOwnProperty("queryName")) {
 				throw {
 					name: "Invalid Argument Exception",
@@ -372,51 +357,48 @@ var EUCLID = function () {
 			/// &#10; dataUrl - the url from which to fetch the data (must be null if data is provided)
 			/// &#10; data - the data to bind (must be null if dataUrl is provided)
 			/// &#10; onComplete - a callback function that receives the populated template
-			/// &#10; handleError - (optional) to override the default error handling
+			/// &#10; onError - (optional) to override the default error handling
 			///<param>
+			var onError = args.hasOwnProperty("onError") ? args.onError : EUCLID.displayError;
 
 			// TODO: clean up this method
-			_displayErrorWrapper({
-				callbackArgs: args,
-				callback: function () {
-					if (!args.hasOwnProperty("onComplete") || typeof args.onComplete != 'function') {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "The parameter onComplete - a callback for receiving the populated template - must be provided"
-						}
-					}
+			if (!args.hasOwnProperty("onComplete") || typeof args.onComplete != 'function') {
+				onError({
+					name: "Invalid Argument Exception",
+					message: "The parameter onComplete - a callback for receiving the populated template - must be provided"
+				});
+			}
 
-					if (!args.hasOwnProperty("dataUrl") && !args.hasOwnProperty("data")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "Either dataUrl or data must be specified"
-						}
-					}
+			if (!args.hasOwnProperty("dataUrl") && !args.hasOwnProperty("data")) {
+				onError({
+					name: "Invalid Argument Exception",
+					message: "Either dataUrl or data must be specified"
+				});
+			}
 
-					if (args.hasOwnProperty("dataUrl") && args.hasOwnProperty("data")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "Both dataUrl and data contain values, only one can be specified"
-						}
-					}
+			if (args.hasOwnProperty("dataUrl") && args.hasOwnProperty("data")) {
+				onError({
+					name: "Invalid Argument Exception",
+					message: "Both dataUrl and data contain values, only one can be specified"
+				});
+			}
 
-					if (args.dataUrl != null) {
-						GetData(args.DataUrl,
-							function (data) {
-								$.get(args.templateUrl, function (source) {
-									var template = Handlebars.compile(source);
-									args.onComplete($(template(args.data)));
-								});
-							});
-					} else {
+			if (args.dataUrl != null) {
+				GetData(args.DataUrl,
+					function (data) {
 						$.get(args.templateUrl, function (source) {
 							var template = Handlebars.compile(source);
 							args.onComplete($(template(args.data)));
 						});
-					}
-				}
-			});
-		})
+					}),
+					onError;
+			} else {
+				$.get(args.templateUrl, function (source) {
+					var template = Handlebars.compile(source);
+					args.onComplete($(template(args.data)));
+				});
+			}
+		}) // populateTemplate
 	}
 } ();
 
