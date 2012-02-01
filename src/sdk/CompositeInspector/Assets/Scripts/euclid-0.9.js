@@ -1,10 +1,8 @@
 ﻿$.getScript("/composite/js/jquery/jquery.form.js");
 
 if ($.validator == null || $.validator == undefined) {
-	$.ajaxSetup({ "async": false });
-		$.getScript("/composite/js/jquery/jquery.validate.min.js");
-		$.getScript("/composite/js/jquery/jquery.validate.unobtrusive.min.js");
-		$.ajaxSetup({ "async": true });
+	$.getScript("/composite/js/jquery/jquery.validate.min.js");
+	$.getScript("/composite/js/jquery/jquery.validate.unobtrusive.min.js");
 }
 
 var EUCLID = function () {
@@ -505,14 +503,13 @@ var EUCLID = function () {
 
 			var error = $("#euclid-error-display");
 
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/euclid-error",
-				data: e,
-				onComplete: function (content) {
+			Using(e)
+				.Render("/composite/ui/template/euclid-error")
+				.Manipulate(function (content) {
 					$(error).append($(content));
 					$(window).scrollTop(0);
 				}
-			});
+			);
 
 			return false;
 		}), // end displayError
@@ -541,111 +538,41 @@ var EUCLID = function () {
 
 			$(".simplemodal-container").css("height", "auto");
 		}), // end showModalForm
-
-		populateTemplate: (function (args) {
-			///<summary>fetch a handlebars template, and populate with the provided data, returns a jquery object containing the content</summary>
-			///<param name='args'>a JSON object containing the properties:
-			/// &#10; templateUrl - the url from which to fetch the template
-			/// &#10; dataUrl - the url from which to fetch the data (must be null if data is provided)
-			/// &#10; data - the data to bind (must be null if dataUrl is provided)
-			/// &#10; onComplete - a callback function that receives the populated template
-			/// &#10; onError - (optional) to override the default error handling
-			///<param>
-			var onError = args.hasOwnProperty("onError") ? args.onError : EUCLID.displayError;
-
-			// TODO: clean up this method
-			if (!args.hasOwnProperty("onComplete") || typeof args.onComplete != 'function') {
-				onError({
-					name: "Invalid Argument Exception",
-					message: "The parameter onComplete - a callback for receiving the populated template - must be provided"
-				});
-			}
-
-			if (!args.hasOwnProperty("dataUrl") && !args.hasOwnProperty("data")) {
-				onError({
-					name: "Invalid Argument Exception",
-					message: "Either dataUrl or data must be specified"
-				});
-			}
-
-			if (args.hasOwnProperty("dataUrl") && args.hasOwnProperty("data")) {
-				onError({
-					name: "Invalid Argument Exception",
-					message: "Both dataUrl and data contain values, only one can be specified"
-				});
-			}
-
-			if (args.dataUrl != null) {
-				WorkWithDataFromUrl(args.DataUrl,
-					function (data) {
-						$.get(args.templateUrl, function (source) {
-							var template = Handlebars.compile(source);
-							args.onComplete($(template(args.data)));
-						});
-					}),
-					onError;
-			} else {
-				$.get(args.templateUrl, function (source) {
-					var template = Handlebars.compile(source);
-					args.onComplete($(template(args.data)));
-				});
-			}
-		}) // populateTemplate
 	}
-} ();
-
-// extension methods
-$.fn.hasAttr = function(name) {
-	///<summary>easily check if an element contains an attribute<summary>
-	///<param name='name'>The name of the attribute to check for</param>
-	return this.attr(name) !== undefined;
-};
-
-String.prototype.endsWith = function(suffix) {
-	///<summary>returns true if the string ends with the specified suffix (case sensitive)</summary>
-	///<param name='suffix'>the string the check for</param>
-	return this.indexOf(suffix, this.length - suffix.length) !== -1;
-};
-
-if (jQuery.validator != null) {
-	jQuery.validator.addMethod('uniquevalue', function (value, element, params) {
-		var query = $(element).attr("data-val-uniquevalue-query");
-		var method = $(element).attr("data-val-uniquevalue-method");
-		var argument = $(element).attr("data-val-uniquevalue-argument");
-		var argumentObject = $.parseJSON("{ \"" + argument + "\": \"" + value + "\"}")
-		var results = EUCLID.executeQuery({ queryName: query, methodName: method, parameters: argumentObject });
-
-		return results == null;
-	}, '');
-
-	// and an unobtrusive adapter
-	jQuery.validator.unobtrusive.adapters.add('uniquevalue', {}, function (options) {
-		options.rules['uniquevalue'] = true;
-		options.messages['uniquevalue'] = options.message;
-	});
-}
-
-if (Handlebars) {
-	Handlebars.registerHelper('convert-breaks', function (value) {
-		var replaced = value.replace(/\n/g, "<br />");
-		console.log("convert-breaks: " + Handlebars.SafeString(replaced));
-		return new Handlebars.SafeString(replaced);
-	});
-
-	Handlebars.registerHelper('bold-selected', function (current, selected) {
-		var handlebarValue = new Handlebars.SafeString(current);
-
-		if (selected && current.toLowerCase() == selected.toLowerCase()) {
-			handlebarValue = new Handlebars.SafeString("<strong>" + current + "</strong>");
-		}
-
-		return handlebarValue;
-	});
-}
+} (); // EUCLID
 
 var Using = function (jsonObject) {
-	///<sumary> Operate on a data</summary>
+	///<sumary>Use JSON data for UI elements</summary>
 	///<param name='jsonObject'>A JSON data structure</param>
+
+	var _populateTemplate = (function (templateUrl, data, onComplete, onError) {
+		///<summary>fetch a handlebars template, and populate with the provided data, returns a jquery object containing the content</summary>
+		///<param name='templateUrl'>the url from which to fetch the template</param>
+		///<param name='data'>the data to bind (must be null if dataUrl is provided)</param>
+		///<param name='onComplete'>a callback function that receives the populated template</parama>
+		///<param name='onError'>(optional) to override the default error handling</param>
+		var onError = onError ? onError : EUCLID.displayError;
+
+		if (onComplete == null) {
+			onError({
+				name: "Invalid Argument Exception",
+				message: "The parameter onComplete must be provided"
+			});
+		}
+
+		if (data == null) {
+			onError({
+				name: "Invalid Argument Exception",
+				message: "Either data must be specified"
+			});
+		}
+
+		$.get(args.templateUrl, function (source) {
+			var template = Handlebars.compile(source);
+			args.onComplete($(template(args.data)));
+		});
+	}) // populateTemplate
+
 	var _data = jsonObject;
 	return {
 		Fill: function (elementId) {
@@ -661,7 +588,7 @@ var Using = function (jsonObject) {
 				With: function (templateUrl) {
 					/// <summary> Get a template for rendering the JSON data structure</summary>
 					/// <param name='templateUrl'> the Url of the template to render the data structure</param>
-					EUCLID.populateTemplate({
+					_populateTemplate({
 						templateUrl: templateUrl,
 						data: _data,
 						onComplete: function (content) {
@@ -682,7 +609,7 @@ var Using = function (jsonObject) {
 				Manipulate: function (callback) {
 					/// <summary>Do something with the rendered template</summary>
 					/// <param name='callback'>function that receives the completed template</param>
-					EUCLID.populateTemplate({
+					_populateTemplate({
 						templateUrl: _templateUrl,
 						data: _data,
 						onComplete: function (content) {
@@ -691,7 +618,7 @@ var Using = function (jsonObject) {
 					});
 				}
 			}
-		} // in
+		} // Render
 	}
 };
 

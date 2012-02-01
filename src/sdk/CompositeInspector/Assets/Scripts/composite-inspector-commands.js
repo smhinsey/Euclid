@@ -117,15 +117,14 @@ function pollForStatus(publicationRecordIdentifier) {
 		},
 
 		onPollError: function (e) {
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/modal/euclid-error",
-				data: e,
-				onComplete: function (content) {
+			Using(e)
+				.Render("/composite/ui/template/modal/euclid-error")
+				.Manipulate(function(content) {
 					var parent = $("<div></div>");
 					$(parent).append(content);
 					setModalContent(parent, false);
 				}
-			});
+			); // using
 		}
 	});
 
@@ -140,11 +139,11 @@ function displayResult(result) {
 		alertClass = "alert-block";
 	}
 
-	EUCLID.populateTemplate({
-		templateUrl: "/composite/ui/template/modal/publication-record",
-		data: { class: alertClass, record: result },
-		onComplete: function (content) {
+	Using({ class: alertClass, record: result })
+		.Render("/composite/ui/template/modal/publication-record")
+		.Manipulate(function (content) {
 			setModalContent(content, false);
 		}
-	});
+	); // using
+
 }
