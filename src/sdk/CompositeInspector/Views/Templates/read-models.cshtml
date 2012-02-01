@@ -10,9 +10,9 @@
 			var readModelName = $(this).text();
 			var target = $(this);
 
-			GetData("/composite/api/readmodel/" + systemName + "/" + readModelName,
+			WorkWithDataFromUrl("/composite/api/readmodel/" + systemName + "/" + readModelName,
 				function (readModel) {
-					With({ Properties: readModel })
+					Using({ Properties: readModel })
 						.Render("/composite/ui/template/read-model")
 						.Manipulate(function (content) {
 							$(target).popover({ placement: "left", html: "true", title: readModelName, content: $(content).html() });

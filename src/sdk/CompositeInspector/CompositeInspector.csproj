@@ -109,7 +109,7 @@
     <EmbeddedResource Include="Views\view-composite.cshtml" />
     <EmbeddedResource Include="Views\Templates\composite.cshtml" />
     <EmbeddedResource Include="Views\Templates\input-models.cshtml" />
-    <EmbeddedResource Include="Views\Templates\input-model.cshtml" />
+    <EmbeddedResource Include="Views\Templates\input-model-modal.cshtml" />
     <EmbeddedResource Include="Views\Templates\agents.cshtml" />
     <EmbeddedResource Include="Views\Templates\euclid-error-modal.cshtml" />
     <EmbeddedResource Include="Views\Templates\polling-modal.cshtml" />
@@ -214,6 +214,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Images\ajax-waiting.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\composite-inspector-commands.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

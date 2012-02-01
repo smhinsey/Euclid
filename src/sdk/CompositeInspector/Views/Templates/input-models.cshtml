@@ -5,20 +5,39 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		$(".input-model").click(function () {
-			var inputModelName = $(this).text();
+		if (typeof commandScript === "undefined") {
+			$.getScript("/composite/js/composite-inspector-commands.js", function (data, textStatus, jqxhr) { $(".command").removeAttr("disabled"); });
+		} else {
+			$(".command").removeAttr("disabled");
+		}
+
+		$(".input-model-properties").click(function () {
+			var inputModelName = $(this).attr("data-input-model-name");
 			var target = $(this);
 
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/input-model",
-				dataUrl: "/composite/api/inputModel/" + inputModelName,
-				onComplete: function (content) {
-					$(target).popover({ placement: "left", html: "true", title: inputModelName, content: $(content).html() });
-					$(target).popover("show");
+			WorkWithDataFromUrl("/composite/api/inputModel/" + inputModelName,
+				function (inputModel) {
+					Using(inputModel)
+						.Render("/composite/ui/template/input-model-modal")
+						.Manipulate(function (template) {
+							$(modal).html("");
+							$(modal).append($(template));
+							$(modal).modal("show");
+						});
 				}
-			});
+			);
 
 			return false;
+		});
+
+		$(".input-model-form").click(function () {
+			EUCLID.displayError({ name: "Not Implemented Exception", message: "Method not implemented" });
+			return false;
+		});
+
+		$("#dismiss-modal").click(function () {
+			$(modal).hide();
+			$(modal).remove();
 		});
 	});
 </script>
@@ -26,8 +45,11 @@
 <h5>Input Models</h5>
 <ul>
 {{#InputModels}}
-	<li id="{{../SystemName}}-input-model-{{Name}}">
-		<a href="#" class="input-model">{{Name}}</a>
+	<li id="input-model-{{Name}}">
+		{{Name}} 
+		(<a href="#" class="input-model-properties" data-input-model-name="{{Name}}">properties</a>
+		|
+		<a href="#" class="command" disabled="disabled" data-command-name="{{CommandName}}">submit</a>)
 	</li>
 {{/InputModels}}
 </ul>

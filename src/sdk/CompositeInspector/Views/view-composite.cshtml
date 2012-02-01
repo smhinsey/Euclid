@@ -14,13 +14,13 @@
 	});
 
 	function pageInit() {
-		GetData("/composite/api",
+		WorkWithDataFromUrl("/composite/api",
 			function (data) {
-				With(data).Fill("#composite").From("/composite/ui/template/composite");
-				With(data).Fill("#commands").From("/composite/ui/template/commands");
-				With(data).Fill("#queries").From("/composite/ui/template/queries");
-				With(data).Fill("#input-models").From("/composite/ui/template/input-models");
-				With(data).Fill("#agents").From("/composite/ui/template/agents");
+				Using(data).Fill("#composite").With("/composite/ui/template/composite");
+//				Using(data).Fill("#commands").With("/composite/ui/template/commands");
+				Using(data).Fill("#queries").With("/composite/ui/template/queries");
+				Using(data).Fill("#input-models").With("/composite/ui/template/input-models");
+				Using(data).Fill("#agents").With("/composite/ui/template/agents");
 			});
 	}
 </script>
@@ -30,11 +30,9 @@
 </div>
 
 <div class="row">
-	<div class="span3" id="commands"></div>
+	<div class="span4" id="queries"></div>
 
-	<div class="span3" id="queries"></div>
+	<div class="span4" id="input-models"></div>
 
-	<div class="span3" id="input-models"></div>
-
-	<div class="span3" id="agents"></div>
+	<div class="span4" id="agents"></div>
 </div>

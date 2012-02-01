@@ -69,7 +69,7 @@ namespace CompositeInspector.Module
 
 			if (inputModel == null)
 			{
-				throw new CannotRetrieveInputModelException();
+				throw new CannotRetrieveInputModelException(inputModelName);
 			}
 
 			return inputModel.GetFormatter().WriteTo(Response);
