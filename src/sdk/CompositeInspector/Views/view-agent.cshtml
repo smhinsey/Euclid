@@ -10,52 +10,17 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		pageInit();
-
-		$(".query").click(function () {
-			var queryName = $(this).text();
-			alert(queryName);
-		});
+		var agentSystemName = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+		GetData("/composite/api/agent/" + agentSystemName,
+			function (data) {
+				With(data).Fill("#agent").From("/composite/ui/template/agent");
+				With(data).Fill("#commands").From("/composite/ui/template/commands");
+				With(data).Fill("#queries").From("/composite/ui/template/queries");
+				With(data).Fill("#read-models").From("/composite/ui/template/read-models");
+				With(data).Fill("#composite").From("/composite/ui/template/composite-link");
+			}
+		);
 	});
-
-	function pageInit() {
-		var agent = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
-		var data = EUCLID.getJsonObject("/composite/api/agent/" + agent);
-		if (data != null) {
-
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/agent",
-				data: data,
-				onComplete: function (content) { $("#agent").append($(content)); }
-			});
-
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/commands",
-				data: data,
-				onComplete: function (content) { $("#commands").append($(content)); }
-			});
-
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/queries",
-				data: data,
-				onComplete: function (content) { $("#queries").append($(content)); }
-			});
-
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/read-models",
-				data: data,
-				onComplete: function (content) { $("#read-models").append($(content)); }
-			});
-
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/composite-link",
-				data: EUCLID.getJsonObject("/composite/api/"),
-				onComplete: function (content) { $("#composite").append($(content)); }
-			});
-		}
-
-		return false;
-	}
 </script>
 
 <div class="row">

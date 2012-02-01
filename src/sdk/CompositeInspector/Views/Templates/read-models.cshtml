@@ -10,14 +10,15 @@
 			var readModelName = $(this).text();
 			var target = $(this);
 
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/read-model",
-				data: { Properties: EUCLID.getJsonObject("/composite/api/readmodel/" + systemName + "/" + readModelName) },
-				onComplete: function (content) {
-					$(target).popover({ placement: "left", html: "true", title: readModelName, content: $(content).html() });
-					$(target).popover("show");
-				}
-			});
+			GetData("/composite/api/readmodel/" + systemName + "/" + readModelName,
+				function (readModel) {
+					With({ Properties: readModel })
+						.Render("/composite/ui/template/read-model")
+						.Manipulate(function (content) {
+							$(target).popover({ placement: "left", html: "true", title: readModelName, content: $(content).html() });
+							$(target).popover("show");
+						});
+				});
 
 			return false;
 		});

@@ -10,33 +10,6 @@ if ($.validator == null || $.validator == undefined) {
 
 var EUCLID = function () {
 	/* private methods */
-	var _getJsonObject = (function (url) {
-		$.ajaxSetup({ "async": false })
-
-		var jqHxr = $.ajax({
-			url: url,
-			dataType: 'json',
-			headers: {
-				Accept: "application/json; charset=utf-8"
-			}
-		});
-		var _model = $.parseJSON(jqHxr.responseText);
-		$.ajaxSetup({ "async": true });
-
-		if (jqHxr.status == 500) {
-			throw _model;
-		}
-
-		if (_model === null) {
-			throw {
-				name: "Invalid QueryName Exception",
-				message: "Could not GET JSON from url : " + url
-			};
-		}
-
-		return _model;
-	}); // end getJsonObject
-
 	var _submitForm = (function (form, values) {
 		var model = null;
 
@@ -86,110 +59,6 @@ var EUCLID = function () {
 		return model;
 	}); // end submitForm
 
-	var _getId = (function () {
-		function S4() {
-			return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-		}
-		return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-	}); // end getId
-
-	var _addElementToForm = (function (propertyName, propertyType, propertyValue, choices, allowMultiChoice, fieldSet, forceShow) {
-		var inputClass = "xlarge";
-		switch (propertyType.toLowerCase()) {
-			case "httppostedfilebase":
-			case "byte[]":
-				$(fieldSet).parent().attr("enctype", "multipart/form-data");
-				type = "file";
-				inputClass = "input-file";
-				break;
-			case "boolean":
-			case "bool":
-				type = "checkbox";
-				break;
-			case "date":
-			case "datetime":
-				type = "text";
-				inputClass = "input-date";
-				break;
-			case "guid":
-			case "type":
-				type = "hidden";
-				break;
-			default:
-				type = (propertyName.toLowerCase() == "agentsystemname" || propertyName.toLowerCase() == "partname")
-						? "hidden"
-						: "text";
-				break;
-		}
-
-		if (forceShow && type == "hidden") {
-			type = "text";
-		}
-
-		if (propertyType == "string" && propertyName.toLowerCase().endsWith("url")) {
-			// check to see if there is an associated file upload
-			var filePropertyName = propertyName.substr(0, propertyName.toLowerCase().lastIndexOf("url"));
-			var element = $(form).find("input[name='" + filePropertyName + "']");
-
-			// if so, hide it
-			if ($(element).length > 0 && $(element).hasAttr("file")) {
-				type = "hidden";
-			}
-		}
-
-		var inputId = _getId();
-		var html = "";
-		if (choices != null) {
-			var options = "";
-			$.each(choices, function (index, item) {
-				options += "<option value='" + item + "'";
-				if (propertyValue == item) {
-					options += " selected='selected'";
-				}
-
-				options += ">" + item + "</option>";
-			});
-
-			html = "<div class='clearfix'>" +
-						"<label for='" + inputId + "'>" + propertyName + "</label>" +
-						"<div class='input'>" +
-							"<select class='" + inputClass + "' name='" + propertyName + "'>" +
-								options +
-							"</select>" +
-						"</div>" +
-					"</div>";
-
-		} else if (type == "checkbox") {
-			var inputElement = "";
-			if (("" + propertyValue).toLowerCase() == "true" || ("" + propertyValue).toLowerCase() == "yes" || ("" + propertyValue).toLowerCase() == "on" || ("" + propertyValue).toLowerCase() == "1") {
-				inputElement = "<input id='" + inputId + "' type='checkbox' name='" + propertyName + "'  checked='checked' />";
-			} else {
-				inputElement = "<input id='" + inputId + "' type='checkbox' name='" + propertyName + "' />";
-			}
-
-			html = "<div class='clearfix'>" +
-								"<label for='" + inputId + "'>" + propertyName + "</label>" +
-								"<div class='input'> " +
-									"<div class='input-prepend'>" +
-										"<label class='add-on'>" + inputElement + "</label>" +
-										"<input type='text' disabled='disabled' />" +
-									"</div>" +
-								"</div>" +
-							"</div>";
-		} else if (type == "hidden") {
-			html = "<input type='hidden' name='" + propertyName + "' value='" + propertyValue + "' />";
-		} else {
-			html = "<div class='clearfix'>" +
-						"<label for='" + inputId + "'>" + propertyName + "</label>" +
-						"<div class='input'>" +
-							"<input class='" + inputClass + "' type='" + type + "' id='" + inputId + "' name='" + propertyName + "' value='" + propertyValue + "' />" +
-						"</div>" +
-					"</div>";
-		}
-
-		$(fieldSet).append($(html));
-	}); //end addElementToForm
-
 	var _displayErrorWrapper = (function (args) {
 		if (args === null || args === undefined || !args.hasOwnProperty("callbackArgs") || !args.hasOwnProperty("callback")) {
 			throw {
@@ -229,6 +98,7 @@ var EUCLID = function () {
 			/// &#10; queryName: the name of the query object
 			/// &#10; methodName: the name of the method that executes the query
 			/// </param>
+			EUCLID.displayError({ name: "Not Implemented Exception", message: "In progress" });
 			var model = null;
 			_displayErrorWrapper({
 				callback: function (args) {
@@ -240,7 +110,7 @@ var EUCLID = function () {
 					}
 
 					var queryName = args.queryName;
-					var getQueryMethodsUrl = "/composite/queries/" + queryName + ".json";
+					var getQueryMethodsUrl = "/composite/queries/" + queryName;
 					model = _getJsonObject(getQueryMethodsUrl);
 					if (args.hasOwnProperty("methodName")) {
 						$.each(model.Methods, function (index, item) {
@@ -286,45 +156,34 @@ var EUCLID = function () {
 
 		getId: (function () {
 			///<summary>returns a pseudo-random GUID</summary>
-			var id = "";
-			_displayErrorWrapper({
-				callback: function (args) {
-					id = _getId();
-				},
-				callbackArgs: null
-			});
-
-			return id;
+			return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 		}),
 
-		getJsonObject: (function (url) {
-			///<summary>synchrnously retrieves a JSON object from the specified URL</summary>
-			///<param name='url'>the url that provides the required data</param>
-			var object = null;
-			_displayErrorWrapper({
-				callback: function (args) {
-					object = _getJsonObject(args);
-				},
-				callbackArgs: url
-			});
-
-			return object;
-		}),
-
-		submitForm: (function (form, namedArguments, handleError) {
+		withFormResults: (function (form, onComplete, onError) {
 			///<summary>submits a form</summary>
 			///<param name='form'>a jquery form object</param>
-			///<param name='namedArguments'>an array of JSON encoded name/value pairs</param>
-			///<param name='handleError'>an optional error handler</param>
-			var results = null;
-			_displayErrorWrapper({
-				callbackArgs: ({ form: form, namedArguments: namedArguments, handleError: handleError }),
-				callback: function (args) {
-					results = _submitForm(args.form, args.namedArguments);
+			///<param name='onComplete'>callback for handling the results</param>
+			///<param name='onError'>an optional error handler</param>
+			var errorHandler = onError == null ? EUCLID.displayError : onError;
+
+			$(form).ajaxSubmit({
+				headers: {
+					Accept: "application/json; charset=utf-8"
+				},
+
+				success: function (responseText, statusText, jqHxr, $form) {
+					var data = $.parseJSON(jqHxr.responseText);
+
+					if (jqHxr.status == 500) {
+						errorHandler(data);
+					} else {
+						onComplete(data);
+					}
+				},
+				error: function (jqHxr, statusText) {
+					errorHandler($.parseJSON(jqHxr.responseText));
 				}
 			});
-
-			return results;
 		}),
 
 		getQueryForm: (function (args) {
@@ -356,116 +215,37 @@ var EUCLID = function () {
 			return form;
 		}),
 
-		getInputModel: (function (args) {
-			///<summary>retrieves a JSON representation of an input model for a command
-			/// &#10; the returned object supports the following methods:
+		withInputModel: (function (commandName, onSuccess, onError) {
+			///<summary>retrieves a JSON representation of an input model and executes a callback</summary>
+			///<param name='commandName'>the name of the command</param>
+			///<param name='onSuccess'>a function that accepts an input model
+			/// &#10; the input model object supports the following methods:
 			/// &#10;  getForm() to retrieve a form for executing the command
 			/// &#10;  publish() to publish the command
-			///</summary>
-			///<param name='args'>a JSON object containing the properties
-			/// &#10; commandName - the name of the command to execute
-			/// &#10; agentSystemName - the name of the agent that supports the command
 			/// </param>
-			var _model = null;
-			_displayErrorWrapper({
-				callbackArgs: args,
-				callback: function (args) {
-					if (args === null || args === undefined || !args.hasOwnProperty("commandName")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "EUCLID.getInputModel expects an an object with the properties: 'commandName'"
-						};
+			///<param name='onError'>optional error handler</param>
+			/// </param>
+			var errorHandler = (onError == null) ? EUCLID.displayError : onError;
+
+			if (commandName == null) {
+				var e = {
+					name: "Invalid Argument Exception",
+					message: "A command name must be specified"
+				};
+
+				errorHandler(e);
+			}
+
+			GetData("/composite/api/command/" + commandName,
+				function (data) {
+					try {
+						var inputModel = GetInputModel(commandName, data);
+						onSuccess(inputModel);
+					} catch (e) {
+						errorHandler(e);
 					}
-
-					var _rawModel = _getJsonObject("/composite/api/command/" + args.commandName);
-					var _propertyNames = new Array();
-					_model = (function () {
-						var _isInputModel = (function () {
-							return true;
-						});
-
-						var _propertyNameIsValid = (function (name) {
-							var found = ($.inArray(name, _propertyNames) > -1 || name === "PartName");
-							return found;
-						});
-
-						var _getPropertyType = (function (propertyName) {
-							if (propertyName.toLowerCase() == "partname") {
-								return "String";
-							}
-
-							for (i = 0; i < _rawModel.Properties.length; i++) {
-								var obj = _rawModel.Properties[i];
-								if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
-									return obj.Type;
-								}
-							}
-
-							throw {
-								name: "Invalid Property Exception",
-								message: "The property '" + propertyName + "' does not exist on the inputModel"
-							};
-						});
-
-						var _getChoices = (function (propertyName) {
-							for (i = 0; i < _rawModel.Properties.length; i++) {
-								var obj = _rawModel.Properties[i];
-								if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
-									return (obj.Choices === null) ? null : { Values: obj.Choices, MultiChoice: obj.MultiChoice };
-								}
-							}
-
-							return null;
-						});
-
-						return {
-							getForm: (function () {
-								///<summary>returns a jquery object containing a form that can be used to collect data for this command</summary>
-								var form = $("<form action='/composite/commands/publish' method='post'><fieldset></fieldset></form>");
-								var fieldSet = $(form).children("fieldset");
-
-								for (propertyName in _model) {
-									if (_model.hasOwnProperty(propertyName) && typeof _model[propertyName] !== 'function') {
-										if (!_propertyNameIsValid(propertyName)) {
-											throw {
-												name: "Invalid Property Exception",
-												message: "the input model for command '" + _model.PartName + "' does not contain a property named '" + propertyName + "'"
-											}
-										}
-
-										var propertyType = _getPropertyType(propertyName);
-										var choiceObject = _getChoices(propertyName);
-										var propertyChoices = choiceObject == null ? null : choiceObject.Values;
-										var multiChoice = choiceObject == null ? false : choiceObject.MultiChoice;
-										var forceShow = propertyType.toLowerCase() == "guid";
-										_addElementToForm(propertyName, propertyType, _model[propertyName], propertyChoices, multiChoice, fieldSet, forceShow);
-									}
-								}
-
-								$(form).find(".input-date").datepicker();
-								// $(form).append("<input type='submit' value='" + args.commandName + "' />");
-								return form;
-							}), // end getForm
-
-							publish: (function () {
-								/// <summary> publishes this command for processing</summary>
-								var form = this.getForm();
-								EUCLID.submitForm(form);
-							}) // end publish
-						}
-					})();
-
-					for (i = 0; i < _rawModel.Properties.length; i++) {
-						var prop = _rawModel.Properties[i];
-						_model[prop.Name] = prop.Value;
-						_propertyNames.push(prop.Name);
-					}
-					_model["PartName"] = args.commandName;
-				}
-			});
-
-			return _model;
-		}), // end getInputModel
+				});
+		}), // with getInputModel
 
 		pollForCommandStatus: (function (args) {
 			///<summary>naviely polls the composite for the status of a given command
@@ -485,64 +265,57 @@ var EUCLID = function () {
 			var _pollCount = 0;
 			var _pollerId = -1;
 
-			_displayErrorWrapper({
-				callbackArgs: args,
-				callback: function () {
-					if (!args.hasOwnProperty("publicationId") || !args.hasOwnProperty("onCommandComplete") || !args.hasOwnProperty("onCommandError")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "EUCLID.pollForCommandStatus expects an object that contains: publicationId and the functions onCommandCompleted & onCommandError.  Optionally you may specify the property Interval (number of ms between status requests) and the functions onOpportunityToCancelPolling (a function that accepts the number of times the registry has been polled, and returns false to stop polling), and the function onPollError (accepts a standard error object)"
-						}
-					}
-
-					_pollMax = (args.pollMax == null || args.pollMax <= 0) ? 100 : args.pollMax;
-					_pollInterval = (args.pollInterval == null || args.pollInterval <= 0) ? 250 : args.pollInterval;
-
-					_pollerId = setInterval(doPoll, _pollInterval);
-				}
-			});
-
-			function doPoll() {
-				try {
-					var result = _getJsonObject("/composite/commands/status/" + args.publicationId);
-				} catch (e) {
-					if (args.hasOwnProperty("onPollError")) {
-						args.onPollError(e);
-					} else {
-						EUCLID.displayError(e);
-					}
-				}
-
-				_pollCount++;
-				complete = result.Completed;
-				if (result.Error) {
-					clearInterval(_pollerId);
-					args.onCommandError(result);
-				} else if (result.Completed) {
-					clearInterval(_pollerId);
-					args.onCommandComplete(result);
-				} else {
-					var e = { name: "", message: "" };
-					if (args.hasOwnProperty("onOpportunityToCancelPolling")) {
-						continuePolling = args.onOpportunityToCancelPolling(_pollCount);
-						e.name = "Polling Aborted Exception";
-						e.message = "Polling cancelled by caller";
-					}
-
-					if (continuePolling) {
-						continuePolling = _pollCount < _pollMax;
-						e.name = "Polling Max Reached";
-						e.message = "Polled maximum number of time: " + _pollMax;
-					}
-
-					if (!continuePolling) {
-						clearInterval(_pollerId);
-						if (args.hasOwnProperty("onPollError")) {
-							args.onPollError(e);
-						}
-					}
+			if (!args.hasOwnProperty("publicationId") || !args.hasOwnProperty("onCommandComplete") || !args.hasOwnProperty("onCommandError")) {
+				throw {
+					name: "Invalid Argument Exception",
+					message: "EUCLID.pollForCommandStatus expects an object that contains: publicationId and the functions onCommandCompleted & onCommandError.  Optionally you may specify the property Interval (number of ms between status requests) and the functions onOpportunityToCancelPolling (a function that accepts the number of times the registry has been polled, and returns false to stop polling), and the function onPollError (accepts a standard error object)"
 				}
 			}
+
+			_pollMax = (args.pollMax == null || args.pollMax <= 0) ? 100 : args.pollMax;
+			_pollInterval = (args.pollInterval == null || args.pollInterval <= 0) ? 250 : args.pollInterval;
+			_pollerId = setInterval(doPoll, _pollInterval);
+
+			function doPoll() {
+				var errorHandler = args.hasOwnProperty("onPollError") ? args.onPollError : EUCLID.displayError;
+
+				GetData(
+					"/composite/commands/status/" + args.publicationId,
+					function (result) {
+						_pollCount++;
+						complete = result.Completed;
+
+						if (result.Error) {
+							clearInterval(_pollerId);
+							args.onCommandError(result);
+						} else if (result.Completed) {
+							clearInterval(_pollerId);
+							args.onCommandComplete(result);
+						} else {
+							var e = { name: "", message: "" };
+							if (args.hasOwnProperty("onOpportunityToCancelPolling")) {
+								continuePolling = args.onOpportunityToCancelPolling(_pollCount);
+								e.name = "Polling Aborted Exception";
+								e.message = "Polling cancelled by caller";
+							}
+
+							if (continuePolling) {
+								continuePolling = _pollCount < _pollMax;
+								e.name = "Polling Max Reached";
+								e.message = "Polled maximum number of time: " + _pollMax;
+							}
+
+							if (!continuePolling) {
+								clearInterval(_pollerId);
+								if (args.hasOwnProperty("onPollError")) {
+									args.onPollError(e);
+								}
+							}
+						}
+					},
+					errorHandler
+				);
+			} // doPoll
 		}), // end pollForCommandStatus
 
 		displayError: (function (e) {
@@ -575,7 +348,7 @@ var EUCLID = function () {
 				};
 			};
 
-			var id = _getId();
+			var id = EUCLID.getId();
 			var modal = $("<div id='" + id + "'></div>");
 			$(modal).load(
 					args.Url,
@@ -602,6 +375,7 @@ var EUCLID = function () {
 			/// &#10; handleError - (optional) to override the default error handling
 			///<param>
 
+			// TODO: clean up this method
 			_displayErrorWrapper({
 				callbackArgs: args,
 				callback: function () {
@@ -627,13 +401,19 @@ var EUCLID = function () {
 					}
 
 					if (args.dataUrl != null) {
-						args.data = _getJsonObject(args.dataUrl);
+						GetData(args.DataUrl,
+							function (data) {
+								$.get(args.templateUrl, function (source) {
+									var template = Handlebars.compile(source);
+									args.onComplete($(template(args.data)));
+								});
+							});
+					} else {
+						$.get(args.templateUrl, function (source) {
+							var template = Handlebars.compile(source);
+							args.onComplete($(template(args.data)));
+						});
 					}
-
-					$.get(args.templateUrl, function (source) {
-						var template = Handlebars.compile(source);
-						args.onComplete($(template(args.data)));
-					});
 				}
 			});
 		})
@@ -679,12 +459,93 @@ if (Handlebars) {
 	});
 }
 
-$(document).ready(function () {
-	$(window).scroll(function () {
-		var top = $("body").scrollTop() + "px";
-		$("#euclid-error-display").css("top", top);
-	});
+var With = function (jsonObject) {
+	///<sumary> Operate on a data</summary>
+	///<param name='jsonObject'>A JSON data structure</param>
+	var _data = jsonObject;
+	return {
+		Fill: function (elementId) {
+			/// <summary> Add data to the element with the specified id</summary>
+			/// <param name='elementId'> The id of the container element </param>
+			if (elementId.substr(0, 1) != "#") {
+				elementId = "#" + elementId;
+			}
 
+			var _element = $(elementId);
+
+			return {
+				From: function (templateUrl) {
+					/// <summary> Get a template for rendering the JSON data structure</summary>
+					/// <param name='templateUrl'> the Url of the template to render the data structure</param>
+					EUCLID.populateTemplate({
+						templateUrl: templateUrl,
+						data: _data,
+						onComplete: function (content) {
+							$(_element).html("");
+							$(_element).append($(content));
+						}
+					});
+				}
+			}
+		}, // fill
+
+		Render: function (templateUrl) {
+			/// <summary> Renders a template for the data</summary>
+			/// <param name='templateUrl'> the url of the template</param>
+			var _templateUrl = templateUrl;
+
+			return {
+				Manipulate: function (callback) {
+					/// <summary>Do something with the rendered template</summary>
+					/// <param name='callback'>function that receives the completed template</param>
+					EUCLID.populateTemplate({
+						templateUrl: _templateUrl,
+						data: _data,
+						onComplete: function (content) {
+							callback(content);
+						}
+					});
+				}
+			}
+		} // in
+	}
+};
+
+var GetData = function (url, onSuccess, onError) {
+	/// <summary> fetches a json object and executes a callback </summary>
+	/// <param name='url'>the url from which to fetch the data</param>
+	/// <param name='onSuccess'>a callback that accepts the json object</param>
+	/// <param name='onError'>optional error handler</param>
+	$.ajax({
+		url: url,
+		dataType: 'json',
+		headers: {
+			Accept: "application/json; charset=utf-8"
+		},
+		success: function (obj) {
+			var re = new RegExp("\\/Date\\((-?\\d+)\\)\\/");
+			for (property in obj) {
+				if (obj.hasOwnProperty(property) && typeof property != "function") {
+					var m = re.exec(obj[property]);
+					if (m != null) {
+						obj[property] = new Date(parseInt(m[1]));
+					}
+				}
+			}
+
+			onSuccess(obj);
+		},
+		error: function (e) {
+			if (onError != null) {
+				onError(e);
+			} else {
+				EUCLID.displayError(e);
+			}
+		}
+	});
+}
+
+$(document).ready(function () {
 	$(".confirmation-dialog").live("click", function () {
 		var msg = $(this).attr("data-confirmation-message");
 		var confirmFunction = $(this).attr("data-confirm-function");
@@ -736,3 +597,193 @@ $(document).ready(function () {
 		return false;
 	});
 });
+
+var GetInputModel = function (commandName, data) {
+	///<summary>gets an input model object</summary>
+	/// <param name='commandName'>the command associated with this input model</param>
+	/// <param name='data'>the json representation of the input model properties</param>
+	if (data == null) {
+		throw ({
+			name: "Invalid Argument Exception",
+			message: "The parameter data cannot be null"
+		});
+	}
+
+	var _propertyNames = new Array();
+	var _model = (function () {
+		var _propertyNameIsValid = (function (name) {
+			var found = ($.inArray(name, _propertyNames) > -1 || name === "PartName");
+			return found;
+		});
+
+		var _getPropertyType = (function (propertyName) {
+			if (propertyName.toLowerCase() == "partname") {
+				return "String";
+			}
+
+			for (i = 0; i < data.Properties.length; i++) {
+				var obj = data.Properties[i];
+				if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
+					return obj.Type;
+				}
+			}
+
+			throw ({
+				name: "Invalid Property Exception",
+				message: "The property '" + propertyName + "' does not exist on the inputModel"
+			});
+		});
+
+		var _getChoices = (function (propertyName) {
+			for (i = 0; i < data.Properties.length; i++) {
+				var obj = data.Properties[i];
+				if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
+					return (obj.Choices === null) ? null : { Values: obj.Choices, MultiChoice: obj.MultiChoice };
+				}
+			}
+
+			return null;
+		});
+
+		return {
+			getForm: (function () {
+				///<summary>returns a jquery object containing a form that can be used to collect data for this command</summary>
+				var form = $("<form action='/composite/commands/publish' method='post'><fieldset></fieldset></form>");
+				var fieldSet = $(form).children("fieldset");
+
+				for (propertyName in _model) {
+					if (_model.hasOwnProperty(propertyName) && typeof _model[propertyName] !== 'function') {
+						if (!_propertyNameIsValid(propertyName)) {
+							throw {
+								name: "Invalid Property Exception",
+								message: "the input model for command '" + _model.PartName + "' does not contain a property named '" + propertyName + "'"
+							}
+						}
+
+						var propertyType = _getPropertyType(propertyName);
+						var choiceObject = _getChoices(propertyName);
+						var propertyChoices = choiceObject == null ? null : choiceObject.Values;
+						var multiChoice = choiceObject == null ? false : choiceObject.MultiChoice;
+						var forceShow = propertyType.toLowerCase() == "guid";
+						_addElementToForm(propertyName, propertyType, _model[propertyName], propertyChoices, multiChoice, fieldSet, forceShow);
+					}
+				}
+
+				$(form).find(".input-date").datepicker();
+				return form;
+			}), // end getForm
+
+			publish: (function () {
+				/// <summary> publishes this command for processing</summary>
+				var form = this.getForm();
+				EUCLID.submitForm(form);
+			}) // end publish
+		}
+	})(); // end model definiton
+
+	for (i = 0; i < data.Properties.length; i++) {
+		var prop = data.Properties[i];
+		_model[prop.Name] = prop.Value;
+		_propertyNames.push(prop.Name);
+	}
+
+	_model["PartName"] = commandName;
+	return _model;
+}
+
+var _addElementToForm = (function (propertyName, propertyType, propertyValue, choices, allowMultiChoice, fieldSet, forceShow) {
+	var inputClass = "xlarge";
+	switch (propertyType.toLowerCase()) {
+		case "httppostedfilebase":
+		case "byte[]":
+			$(fieldSet).parent().attr("enctype", "multipart/form-data");
+			type = "file";
+			inputClass = "input-file";
+			break;
+		case "boolean":
+		case "bool":
+			type = "checkbox";
+			break;
+		case "date":
+		case "datetime":
+			type = "text";
+			inputClass = "input-date";
+			break;
+		case "guid":
+		case "type":
+			type = "hidden";
+			break;
+		default:
+			type = (propertyName.toLowerCase() == "agentsystemname" || propertyName.toLowerCase() == "partname")
+						? "hidden"
+						: "text";
+			break;
+	}
+
+	if (forceShow && type == "hidden") {
+		type = "text";
+	}
+
+	if (propertyType == "string" && propertyName.toLowerCase().endsWith("url")) {
+		// check to see if there is an associated file upload
+		var filePropertyName = propertyName.substr(0, propertyName.toLowerCase().lastIndexOf("url"));
+		var element = $(form).find("input[name='" + filePropertyName + "']");
+
+		// if so, hide it
+		if ($(element).length > 0 && $(element).hasAttr("file")) {
+			type = "hidden";
+		}
+	}
+
+	var inputId = EUCLID.getId();
+	var html = "";
+	if (choices != null) {
+		var options = "";
+		$.each(choices, function (index, item) {
+			options += "<option value='" + item + "'";
+			if (propertyValue == item) {
+				options += " selected='selected'";
+			}
+
+			options += ">" + item + "</option>";
+		});
+
+		html = "<div class='clearfix'>" +
+						"<label for='" + inputId + "'>" + propertyName + "</label>" +
+						"<div class='input'>" +
+							"<select class='" + inputClass + "' name='" + propertyName + "'>" +
+								options +
+							"</select>" +
+						"</div>" +
+					"</div>";
+
+	} else if (type == "checkbox") {
+		var inputElement = "";
+		if (("" + propertyValue).toLowerCase() == "true" || ("" + propertyValue).toLowerCase() == "yes" || ("" + propertyValue).toLowerCase() == "on" || ("" + propertyValue).toLowerCase() == "1") {
+			inputElement = "<input id='" + inputId + "' type='checkbox' name='" + propertyName + "'  checked='checked' />";
+		} else {
+			inputElement = "<input id='" + inputId + "' type='checkbox' name='" + propertyName + "' />";
+		}
+
+		html = "<div class='clearfix'>" +
+								"<label for='" + inputId + "'>" + propertyName + "</label>" +
+								"<div class='input'> " +
+									"<div class='input-prepend'>" +
+										"<label class='add-on'>" + inputElement + "</label>" +
+										"<input type='text' disabled='disabled' />" +
+									"</div>" +
+								"</div>" +
+							"</div>";
+	} else if (type == "hidden") {
+		html = "<input type='hidden' name='" + propertyName + "' value='" + propertyValue + "' />";
+	} else {
+		html = "<div class='clearfix'>" +
+						"<label for='" + inputId + "'>" + propertyName + "</label>" +
+						"<div class='input'>" +
+							"<input class='" + inputClass + "' type='" + type + "' id='" + inputId + "' name='" + propertyName + "' value='" + propertyValue + "' />" +
+						"</div>" +
+					"</div>";
+	}
+
+	$(fieldSet).append($(html));
+}); //end addElementToForm

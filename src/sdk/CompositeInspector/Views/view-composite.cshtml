@@ -11,45 +11,17 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		pageInit();
-
-		$(".query").click(function () {
-			var queryName = $(this).text();
-			alert(queryName);
-		});
 	});
 
 	function pageInit() {
-		var data = EUCLID.getJsonObject("/composite/api");
-
-		EUCLID.populateTemplate({
-			templateUrl: "/composite/ui/template/composite",
-			data: data, 
-			onComplete: function (content) { $("#composite").append($(content)); }
-		});
-
-		EUCLID.populateTemplate({ 
-			templateUrl: "/composite/ui/template/commands",
-			data: data, 
-			onComplete: function (content) { $("#commands").append($(content)); } 
-		});
-
-		EUCLID.populateTemplate({
-			templateUrl: "/composite/ui/template/queries",
-			data: data, 
-			onComplete: function (content) { $("#queries").append($(content)); }
-		});
-
-		EUCLID.populateTemplate({
-			templateUrl: "/composite/ui/template/input-models",
-			data: data,
-			onComplete: function (content) { $("#input-models").append($(content)); }
-		});
-
-		EUCLID.populateTemplate({
-			templateUrl: "/composite/ui/template/agents",
-			data: data,
-			onComplete: function (content) { $("#agents").append($(content)); }
-		});
+		GetData("/composite/api",
+			function (data) {
+				With(data).Fill("#composite").From("/composite/ui/template/composite");
+				With(data).Fill("#commands").From("/composite/ui/template/commands");
+				With(data).Fill("#queries").From("/composite/ui/template/queries");
+				With(data).Fill("#input-models").From("/composite/ui/template/input-models");
+				With(data).Fill("#agents").From("/composite/ui/template/agents");
+			});
 	}
 </script>
 

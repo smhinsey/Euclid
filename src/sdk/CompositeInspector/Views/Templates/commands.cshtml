@@ -9,22 +9,21 @@
 		$(document).on("click", ".command", function () {
 			var commandName = $(this).text();
 
-			var inputModel = EUCLID.getInputModel({ commandName: commandName });
-			if (inputModel != null) {
-				var form = inputModel.getForm(false);
-				$(form).attr("id", "the-form");
-				$(form).attr("data-command-name", commandName);
+			EUCLID.withInputModel(
+				commandName,
+				function (inputModel) {
+					var form = inputModel.getForm(false);
+					$(form).attr("id", "the-form");
+					$(form).attr("data-command-name", commandName);
 
-				EUCLID.populateTemplate({
-					templateUrl: "/composite/ui/template/form-container-modal",
-					data: { Name: commandName },
-					onComplete: function (formContainer) {
-						$(formContainer).find("#form-content").append(form);
-						setModalContent(formContainer, true);
-					}
+					//With({ Name: commandName }).Fill("#form-content").From("/composite/ui/template/form-container-modal");
+					With({ Name: commandName })
+						.Render("/composite/ui/template/form-container-modal")
+						.Manipulate(function (template) {
+							$(template).find("#form-content").append($(form));
+							setModalContent(template, true);
+						});
 				});
-			}
-
 			return false;
 		});
 
@@ -66,20 +65,21 @@
 	var continuePolling = true;
 	function submitForm(form, commandName) {
 		continuePolling = true;
-		EUCLID.populateTemplate({
-			templateUrl: "/composite/ui/template/polling-modal",
-			data: { Name: commandName },
-			onComplete: function (content) {
-				setModalContent(content, false);
-				try {
-					var publicationRecord = EUCLID.submitForm($(form), null, function (e) { throw e; });
-					pollForStatus(publicationRecord.Identifier);
-				} catch (e) {
-					EUCLID.displayError(e);
-					$(modal).modal("hide");
-				}
-			}
-		});
+		With({ Name: commandName })
+			.Render("/composite/ui/template/polling-modal")
+			.Manipulate(function (template) {
+				setModalContent(template, false);
+				EUCLID.withFormResults(form,
+					function (publicationRecord) {
+						pollForStatus(publicationRecord.Identifier);
+					},
+
+					function (e) {
+						EUCLID.displayError(e);
+						$(modal).modal("hide");
+					}
+				); // EUCLID.withFormResults
+			}); // Manipulate
 
 		return false;
 	}
