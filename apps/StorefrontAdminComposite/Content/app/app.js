@@ -47,9 +47,18 @@
 
 		this.get('/#store/:storeSlug/orders', function () {
 
-			var model = modelForStoreOrders();
+			var model = modelForStoreOrders(this.params['storeSlug']);
 
 			this.trigger('render-model', {templateName: 'store/Orders', model: model});
+			
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Orders'});
+		});
+		
+		this.get('/#store/:storeSlug/orders/add', function () {
+
+			var model = modelForStoreAddOrder();
+
+			this.trigger('render-model', {templateName: 'store/AddOrder', model: model});
 			
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Orders'});
 		});
@@ -130,9 +139,9 @@
 		return viewModel;
 	}
 	
-	function modelForStoreOrders() {
+	function modelForStoreOrders(storeSlug) {
 
-		var viewModel = { storeName: "{Store Name}" };
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
 
 		viewModel.tableHeaders = [ "Id", "Date/Time", "Type", "Amount", ""];
 		
@@ -201,6 +210,14 @@
 		for (var i = 0; i < 10; i++) {
 			viewModel.tableData.push({ name: "{Name}", code: s4() + s4(), usageType: "{Type}", usageCount:"{XX}", discount: "{X}%" });
 		}
+
+		return viewModel;
+	}
+	
+	function modelForStoreAddOrder() {
+
+		var viewModel = { storeName: "{Store Name}" };
+
 
 		return viewModel;
 	}
