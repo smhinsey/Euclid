@@ -19,7 +19,8 @@ namespace CompositeInspector.Module
 		private const string ReadModelMetadataRoute = "/readModel/{agentSystemName}/{readModelName}";
 		private const string InputModelMetadataRoute = "/inputModel/{inputModelName}";
 		private const string PublicationRecordRoute = "/publicationRecord/{identifier}";
-		private const string CommandMetadataRoute = "/command/{commandName}";
+		private const string InputModelForCommandRoute = "/command/{commandName}";
+		private const string CommandMetadataRoute = "/command-metadata/{commandName}";
 
 		private const string BaseRoute = "composite/api";
 
@@ -39,10 +40,27 @@ namespace CompositeInspector.Module
 
 			Get[PublicationRecordRoute] = p => GetPublicationRecord((Guid) p.identifier);
 
+			Get[InputModelForCommandRoute] = p => GetInputModelForCommand((string) p.commandName);
+
 			Get[CommandMetadataRoute] = p => GetCommandMetadata((string) p.commandName);
 		}
 
 		public Response GetCommandMetadata(string commandName)
+		{
+			var agentCommands = _compositeApp.Agents.SelectMany(x => x.Commands);
+
+			var command =
+				agentCommands.Where(c => c.Name.Equals(commandName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+
+			if (command == null)
+			{
+				throw new CommandNotPresentInAgentException(commandName);
+			}
+
+			return command.GetFormatter().WriteTo(Response);
+		}
+
+		public Response GetInputModelForCommand(string commandName)
 		{
 			try
 			{
@@ -57,7 +75,7 @@ namespace CompositeInspector.Module
 			}
 			catch (CannotMapCommandException)
 			{
-				throw new CommandNotPresentInAgentException(commandName);
+				throw new CommandNotPresentInCompositeException(commandName);
 			}
 		}
 
@@ -127,6 +145,13 @@ namespace CompositeInspector.Module
 			}
 
 			return agent;
+		}
+	}
+
+	public class CommandNotPresentInAgentException : Exception
+	{
+		public CommandNotPresentInAgentException(string commandName) : base(commandName)
+		{
 		}
 	}
 

@@ -4,11 +4,11 @@ using Newtonsoft.Json;
 
 namespace Euclid.Framework.AgentMetadata.Formatters
 {
-	internal class CommandFormatter : MetadataFormatter
+	internal class CommandMetadataFormatter : MetadataFormatter
 	{
 		private readonly ITypeMetadata _typeMetadata;
 
-		public CommandFormatter(ITypeMetadata typeMetadata)
+		public CommandMetadataFormatter(ITypeMetadata typeMetadata)
 		{
 			_typeMetadata = typeMetadata;
 		}
@@ -28,7 +28,12 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		protected override object GetJsonObject(JsonSerializer serializer)
 		{
-			return _typeMetadata.Properties.Select(p => new { PropertyName = p.Name, PropertyType = p.PropertyType.Name });
+			return new
+			       	{
+			       		Properties =
+			       			_typeMetadata.Properties.Select(p => new {PropertyName = p.Name, PropertyType = p.PropertyType.Name}),
+			       		_typeMetadata.Name,
+			       	};
 		}
 	}
 }

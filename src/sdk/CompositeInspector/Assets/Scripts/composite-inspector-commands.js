@@ -1,4 +1,5 @@
-﻿var commandScript = true;
+﻿/// <reference path="/Assets/Scripts/euclid-0.9.js" />
+var commandScript = true;
 var modal = $("<div id='content' class='modal'></div>");
 $(document).ready(function () {
 	$(document).on("click", ".command", function () {
@@ -17,6 +18,23 @@ $(document).ready(function () {
 							$(template).find("#form-content").append($(form));
 							setModalContent(template, true);
 						});
+				},
+
+				function (e) {
+					if (e.name == "CommandNotPresentInCompositeException") {
+						WorkWithDataFromUrl("/composite/api/command-metadata/" + commandName,
+							function (data) {
+								data["PresentInComposite"] = false;
+								Using(data)
+									.Render("/composite/ui/template/command-modal")
+									.Manipulate(function (content) {
+										setModalContent($(content), true);
+									});
+							}
+						);
+					} else {
+						EUCLID.displayError(e);
+					}
 				});
 		return false;
 	});

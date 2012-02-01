@@ -115,6 +115,7 @@
     <EmbeddedResource Include="Views\Templates\polling-modal.cshtml" />
     <EmbeddedResource Include="Views\Templates\composite-link.cshtml" />
     <EmbeddedResource Include="Views\Templates\euclid-error.cshtml" />
+    <EmbeddedResource Include="Views\Templates\command-modal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj">

@@ -53,7 +53,7 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="FormattableMetadataFactory.cs" />
     <Compile Include="Formatters\CommandCollectionFormatter.cs" />
-    <Compile Include="Formatters\CommandFormatter.cs" />
+    <Compile Include="Formatters\CommandMetadataFormatter.cs" />
     <Compile Include="Formatters\MetadataFormatter.cs" />
     <Compile Include="Formatters\QueryCollectionFormatter.cs" />
     <Compile Include="Formatters\QueryFormatter.cs" />

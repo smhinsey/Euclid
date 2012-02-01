@@ -18,7 +18,7 @@ namespace Euclid.Framework.AgentMetadata
 		{
 			if (typeof(ICommand).IsAssignableFrom(metadata.Type))
 			{
-				return new CommandFormatter(metadata);
+				return new CommandMetadataFormatter(metadata);
 			}
 			else if (typeof(IReadModel).IsAssignableFrom(metadata.Type))
 			{

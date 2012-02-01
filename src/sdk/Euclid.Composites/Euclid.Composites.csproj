@@ -107,7 +107,7 @@
     <Compile Include="Conversion\CommandAlreadyMappedException.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CommandNotPresentInAgentException.cs" />
+    <Compile Include="CommandNotPresentInCompositeException.cs" />
     <Compile Include="CompositeApplicationState.cs" />
     <Compile Include="CompositeAppSettings.cs" />
     <Compile Include="BasicCompositeApp.cs" />
