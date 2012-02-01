@@ -246,9 +246,13 @@ var EUCLID = function () {
 		return model;
 	}); // end submitForm
 
-	var self = this;
 	return {
-		getQueryMetadata: (function (args) {
+		getId: (function () {
+			///<summary>returns a pseudo-random GUID</summary>
+			return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+		}),
+
+		withQueryMethod: (function (query, onComplete, onError) {
 			/// <summary>
 			/// Retrieve a JSON representation of a query
 			///  &#10; .AgentSystemName
@@ -263,38 +267,29 @@ var EUCLID = function () {
 			///  &#10;    .Choices,
 			///  &#10;    .MultiChoice (boolean indicates if multiple choices are allowed)
 			/// </summary>
-			/// <param name='args'>a JSON object with the following properties
-			/// &#10; queryName: the name of the query object
-			/// &#10; methodName: the name of the method that executes the query
-			/// </param>
-			throw { name: "Not Implemented Exception", message: "executeQuery is not implemented" };
+			/// <param name='query'>the name of the query object</param>
+			/// <param name='onComplete'>a callback that accepts the query metadata</param>
+			/// <param name='onError'>optional - error handler</param>
+			var errorHandler = onError ? onError : EUCLID.displayError;
 
-			var model = null;
-			_displayErrorWrapper({
-				callback: function (args) {
-					if (args === null || args === undefined || !args.hasOwnProperty("queryName")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "EUCLID.getQueryMethods expects an object with the properties: 'queryName'"
-						};
-					}
+			if (query == null || onComplete == null) {
+				errorHandler(new {name: "Invalid Argument Exception", message: "both 'query' and 'onComplete' are required parameters to EUCLID.withQueryMetadata"});
+				return null;
+			}
 
-					var queryName = args.queryName;
-					var getQueryMethodsUrl = "/composite/queries/" + queryName;
-					model = _getJsonObject(getQueryMethodsUrl);
-					if (args.hasOwnProperty("methodName")) {
-						$.each(model.Methods, function (index, item) {
-							if (item.Name.toLowerCase() == args.methodName.toLowerCase()) {
-								model = item;
-								return;
-							}
-						});
-					}
+			var executeQuery = function() { console.log('executing query: ' + query + "." + this.Name); }
+			var getForm = function() { console.log('getting form for: ' + query + "." + this.Name); }
+
+			WorkWithDataFromUrl("/composite/api/query-metadata/" + query,
+				function(data) {
+					$.each(data.Methods, function(idx, item) {
+						item.executeQuery = executeQuery;
+						item.getForm = getForm;
+					});
+
+					onComplete(data);
 				},
-				callbackArgs: args
-			});
-
-			return model;
+				errorHandler);
 		}), // end getQueryMethods
 
 		executeQuery: (function (args) {
@@ -324,11 +319,6 @@ var EUCLID = function () {
 
 			return model;
 		}), // end executeQuery
-
-		getId: (function () {
-			///<summary>returns a pseudo-random GUID</summary>
-			return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-		}),
 
 		withFormResults: (function (form, onComplete, onError) {
 			///<summary>submits a form</summary>
@@ -420,77 +410,73 @@ var EUCLID = function () {
 					}
 				},
 				errorHandler);
-		}), // with getInputModel
+		}), // end withInputModel
 
-		pollForCommandStatus: (function (args) {
+		pollForCommandStatus: (function (publicationId, onCommandComplete, onCommandError, pollMax, pollInterval, onPollError, onBeforePoll) {
 			///<summary>naviely polls the composite for the status of a given command
 			/// &#10;  this implementation creates a new request for each poll, and is not appropriate for use in a high volume situation
 			///</summary>
-			///<param name='args'>a JSON object containing the properties
-			/// &#10; publicationId- the id of the command
-			/// &#10; pollMax - the maximum number of times to poll (optional, default = 100)
-			/// &#10; pollInterval - the time between requests (optional, default 250ms)
-			/// &#10; onCommandComplete - a callback function that is called if the command has completed succesfully (accepts a JSON representation of a CommandPublicationRecord)
-			/// &#10; onCommandError - a callback function that is called if the command has errored (accepts a JSON representation of a CommandPublicationRecord)
-			/// &#10; onPollError - a callback function that is called if an error occurs during the polling operation (accepts a JSON object with .name, .message & .callStack)
-			/// </param>
-			// publicationId, onOpportunityToCancelPolling, onCommandComplete, onCommandError, onPollError
-			var _pollMax = 0;
-			var _pollInterval = 0;
-			var _pollCount = 0;
-			var _pollerId = -1;
-
-			if (!args.hasOwnProperty("publicationId") || !args.hasOwnProperty("onCommandComplete") || !args.hasOwnProperty("onCommandError")) {
+			///<param name='publicationId'>the id of the command</param>
+			///<param name='onCommandComplete'>a callback function that is called if the command has completed succesfully (accepts a JSON representation of a CommandPublicationRecord)</param>
+			///<param name='onCommandError'>optional - a callback function that is called if the command has errored, if none is specified, then onCommandComplete is called</param>
+			///<param name='pollMax'>optional - the maximum number of times to poll (default = 100)</param>
+			///<param name='pollInterval'>optional - the time between requests (default 250ms)</param>
+			///<param name='onPollError'>optional - a callback function that is called if an error occurs during the polling operation</param>
+			///<param name='onBeforePoll'>optional - a callback function that recieves the number of times polled, and can cancel polling by returning false</param>
+			if (publicationId == null || onCommandComplete == null ) {
 				throw {
 					name: "Invalid Argument Exception",
 					message: "EUCLID.pollForCommandStatus expects an object that contains: publicationId and the functions onCommandCompleted & onCommandError.  Optionally you may specify the property Interval (number of ms between status requests) and the functions onOpportunityToCancelPolling (a function that accepts the number of times the registry has been polled, and returns false to stop polling), and the function onPollError (accepts a standard error object)"
 				}
 			}
 
-			_pollMax = (args.pollMax == null || args.pollMax <= 0) ? 100 : args.pollMax;
-			_pollInterval = (args.pollInterval == null || args.pollInterval <= 0) ? 250 : args.pollInterval;
-			_pollerId = setInterval(doPoll, _pollInterval);
+			var _pollMax = pollMax ? pollMax : 100;
+			var _pollInterval = pollInterval ? pollInterval : 250;
+			var _pollCount = 0;
+			var _errorHandler = onPollError ? onPollError : EUCLID.displayError;
+			var _commandErrorHandler = onCommandError ? onCommandError : onCommandComplete;
+			var _poll = function() {
+					WorkWithDataFromUrl(
+						"/composite/commands/status/" + args.publicationId,
+						function (result) {
+							_pollCount++;
+							complete = result.Completed;
 
-			function doPoll() {
-				var errorHandler = args.hasOwnProperty("onPollError") ? args.onPollError : EUCLID.displayError;
+							if (result.Error) {
+								_commandErrorHandler(result);
+							} else if (result.Completed) {
+								onCommandComplete(result);
+							} else {
+								var e = { name: "", message: "" };
+								if (onBeforePoll) {
+									continuePolling = onBeforePoll(_pollCount);
+									e.name = "Polling Aborted Exception";
+									e.message = "Polling cancelled by caller";
+								}
 
-				WorkWithDataFromUrl(
-					"/composite/commands/status/" + args.publicationId,
-					function (result) {
-						_pollCount++;
-						complete = result.Completed;
+								if (continuePolling) {
+									continuePolling = _pollCount < _pollMax;
+									e.name = "Polling Max Reached";
+									e.message = "Polled maximum number of time: " + _pollMax;
+								}
 
-						if (result.Error) {
-							clearInterval(_pollerId);
-							args.onCommandError(result);
-						} else if (result.Completed) {
-							clearInterval(_pollerId);
-							args.onCommandComplete(result);
-						} else {
-							var e = { name: "", message: "" };
-							if (args.hasOwnProperty("onOpportunityToCancelPolling")) {
-								continuePolling = args.onOpportunityToCancelPolling(_pollCount);
-								e.name = "Polling Aborted Exception";
-								e.message = "Polling cancelled by caller";
-							}
-
-							if (continuePolling) {
-								continuePolling = _pollCount < _pollMax;
-								e.name = "Polling Max Reached";
-								e.message = "Polled maximum number of time: " + _pollMax;
-							}
-
-							if (!continuePolling) {
-								clearInterval(_pollerId);
-								if (args.hasOwnProperty("onPollError")) {
-									args.onPollError(e);
+								if (!continuePolling) {
+									complete = true;
+									if (args.hasOwnProperty("onPollError")) {
+										args.onPollError(e);
+									}
 								}
 							}
-						}
-					},
-					errorHandler
-				);
-			} // doPoll
+
+							if (complete) {
+								clearInterval(_pollerId);
+							}
+						},
+						_errorHandler
+					);
+				};;// _poll
+
+				var _pollerId = setInterval(_poll, _pollInterval);
 		}), // end pollForCommandStatus
 
 		displayError: (function (e) {
@@ -513,32 +499,7 @@ var EUCLID = function () {
 
 			return false;
 		}), // end displayError
-
-		showModalForm: (function (args) {
-			if (args === null || args === undefined || !args.hasOwnProperty("Url")) {
-				throw new {
-					name: "Invalid Argument Exception",
-					message: "The argument object must contain a property named 'Url'"
-				};
-			};
-
-			var id = EUCLID.getId();
-			var modal = $("<div id='" + id + "'></div>");
-			$(modal).load(
-					args.Url,
-					function () {
-						$.validator.unobtrusive.parse($("#" + id));
-					})
-				.modal({
-					autoResize: true,
-					autoPosition: true,
-					dataCss: { backgroundColor: "#fff" },
-					containerCss: { backgroundColor: "#fff" }
-				});
-
-			$(".simplemodal-container").css("height", "auto");
-		}), // end showModalForm
-	}
+	} // return
 } (); // EUCLID
 
 var Using = function (jsonObject) {
@@ -558,6 +519,8 @@ var Using = function (jsonObject) {
 				name: "Invalid Argument Exception",
 				message: "The parameter onComplete must be provided"
 			});
+
+			return false;
 		}
 
 		if (data == null) {
@@ -565,11 +528,13 @@ var Using = function (jsonObject) {
 				name: "Invalid Argument Exception",
 				message: "Either data must be specified"
 			});
+
+			return false;
 		}
 
-		$.get(args.templateUrl, function (source) {
+		$.get(templateUrl, function (source) {
 			var template = Handlebars.compile(source);
-			args.onComplete($(template(args.data)));
+			onComplete($(template(data)));
 		});
 	}) // populateTemplate
 
@@ -588,14 +553,14 @@ var Using = function (jsonObject) {
 				With: function (templateUrl) {
 					/// <summary> Get a template for rendering the JSON data structure</summary>
 					/// <param name='templateUrl'> the Url of the template to render the data structure</param>
-					_populateTemplate({
-						templateUrl: templateUrl,
-						data: _data,
-						onComplete: function (content) {
+					_populateTemplate(
+						templateUrl,
+						_data,
+						function (content) {
 							$(_element).html("");
 							$(_element).append($(content));
 						}
-					});
+					);
 				}
 			}
 		}, // fill
@@ -609,13 +574,13 @@ var Using = function (jsonObject) {
 				Manipulate: function (callback) {
 					/// <summary>Do something with the rendered template</summary>
 					/// <param name='callback'>function that receives the completed template</param>
-					_populateTemplate({
-						templateUrl: _templateUrl,
-						data: _data,
-						onComplete: function (content) {
+					_populateTemplate(
+						_templateUrl,
+						_data,
+						function (content) {
 							callback(content);
 						}
-					});
+					);
 				}
 			}
 		} // Render

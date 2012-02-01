@@ -83,8 +83,16 @@ function submitForm(form, commandName) {
 				setModalContent(template, false);
 				EUCLID.withFormResults(form,
 					function (publicationRecord) {
-						pollForStatus(publicationRecord.Identifier);
-					},
+						EUCLID.pollForCommandStatus(
+							publicationRecord.Identifier,
+							function (publicationRecord) { display(publicationRecord); },
+							null,
+							25,
+							250,
+							function (e) { displayError(e); },
+							function (count) { onBeforePoll(count); }
+						); // EUCLID.pollForCommandStatus
+					}, 
 
 					function (e) {
 						EUCLID.displayError(e);
@@ -96,42 +104,7 @@ function submitForm(form, commandName) {
 	return false;
 }
 
-function pollForStatus(publicationRecordIdentifier) {
-	EUCLID.pollForCommandStatus({
-		publicationId: publicationRecordIdentifier,
-		pollMax: 25,
-
-		onOpportunityToCancelPolling: function (pollCount) {
-			var msg = "Polled " + ((pollCount == 1) ? "1 time" : (pollCount + " times"));
-			$(modal).find("#poll-status").text(msg);
-
-			return continuePolling;
-		},
-
-		onCommandComplete: function (result) {
-			displayResult(result);
-		},
-
-		onCommandError: function (result) {
-			displayResult(result);
-		},
-
-		onPollError: function (e) {
-			Using(e)
-				.Render("/composite/ui/template/modal/euclid-error")
-				.Manipulate(function(content) {
-					var parent = $("<div></div>");
-					$(parent).append(content);
-					setModalContent(parent, false);
-				}
-			); // using
-		}
-	});
-
-	return false;
-}
-
-function displayResult(result) {
+function display(publicationRecord) {
 	var alertClass = "alert-success";
 	if (result.Error) {
 		alertClass = "alert-error";
@@ -139,11 +112,27 @@ function displayResult(result) {
 		alertClass = "alert-block";
 	}
 
-	Using({ class: alertClass, record: result })
+	Using({ class: alertClass, record: publicationRecord })
 		.Render("/composite/ui/template/modal/publication-record")
 		.Manipulate(function (content) {
 			setModalContent(content, false);
 		}
-	); // using
+	);
+} // displayPublicationRecord
 
+function displayError(e) {
+	Using(e)
+		.Render("/composite/ui/template/modal/euclid-error")
+		.Manipulate(function (content) {
+			var parent = $("<div></div>");
+			$(parent).append(content);
+			setModalContent(parent, false);
+		}
+	);
+} // displayError
+
+function onBeforePoll(count) {
+	var msg = "Polled " + ((count == 1) ? "1 time" : (count + " times"));
+	$(modal).find("#poll-status").text(msg);
+	return continuePolling;
 }

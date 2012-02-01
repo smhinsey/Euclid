@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Linq;
+using Euclid.Common.Messaging;
 using Euclid.Composites;
 using Euclid.Composites.AgentResolution;
 using Euclid.Composites.Conversion;
@@ -7,7 +9,9 @@ using Euclid.Composites.Mvc.ActionFilters;
 using Euclid.Framework.AgentMetadata;
 using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Cqrs;
+using Euclid.Framework.Models;
 using Nancy;
+using Nancy.ModelBinding;
 
 namespace CompositeInspector.Module
 {
@@ -15,20 +19,24 @@ namespace CompositeInspector.Module
 	{
 		private readonly ICompositeApp _compositeApp;
 		private readonly ICommandRegistry _registry;
-		private const string AgentMetadataRoute = "/agent/{agentSystemName}";
-		private const string ReadModelMetadataRoute = "/readModel/{agentSystemName}/{readModelName}";
-		private const string InputModelMetadataRoute = "/inputModel/{inputModelName}";
-		private const string PublicationRecordRoute = "/publicationRecord/{identifier}";
+		private readonly IPublisher _publisher;
+		private const string AgentMetadataRoute        = "/agent/{agentSystemName}";
+		private const string ReadModelMetadataRoute    = "/readModel/{agentSystemName}/{readModelName}";
+		private const string InputModelMetadataRoute   = "/inputModel/{inputModelName}";
+		private const string PublicationRecordRoute    = "/publicationRecord/{identifier}";
 		private const string InputModelForCommandRoute = "/command/{commandName}";
-		private const string CommandMetadataRoute = "/command-metadata/{commandName}";
+		private const string CommandMetadataRoute      = "/command-metadata/{commandName}";
+		private const string QueryMetadataRoute        = "/query-metadata/{queryName}";
+		private const string ExecuteQueryRoute         = "/execute/query/{queryName}/{methodName}";
+		private const string PublishCommandRoute       = "/publish";
+		private const string BaseRoute                 = "composite/api";
 
-		private const string BaseRoute = "composite/api";
-
-		public ApiModule(ICompositeApp compositeApp, ICommandRegistry registry)
+		public ApiModule(ICompositeApp compositeApp, ICommandRegistry registry, IPublisher publisher)
 			: base(BaseRoute)
 		{
 			_compositeApp = compositeApp;
 			_registry = registry;
+			_publisher = publisher;
 
 			Get[string.Empty] = _ => GetComposite();
 
@@ -43,8 +51,37 @@ namespace CompositeInspector.Module
 			Get[InputModelForCommandRoute] = p => GetInputModelForCommand((string) p.commandName);
 
 			Get[CommandMetadataRoute] = p => GetCommandMetadata((string) p.commandName);
+
+			Get[QueryMetadataRoute] = p => GetQueryMetadata((string) p.queryName);
+
+			Post[ExecuteQueryRoute] = p => ExecuteQuery((string) p.queryName, (string) p.methodName);
+
+			Post[PublishCommandRoute] = p => PublishCommand(this.Bind<IInputModel>());
 		}
 
+		public Response PublishCommand(IInputModel inputModel)
+		{
+			if (inputModel == null)
+			{
+				throw new InvalidOperationException("Input Model was not posted");
+			}
+
+			var command = _compositeApp.GetCommandForInputModel(inputModel);
+
+			var publicationId = _publisher.PublishMessage(command);
+
+			return GetPublicationRecord(publicationId);
+		}
+
+		public Response ExecuteQuery(string queryName, string methodName)
+		{
+			var form = (DynamicDictionary)Context.Request.Form;
+			var argumentCount = form.Count();
+			var results = _compositeApp.ExecuteQuery(queryName, methodName, argumentCount, paramName => form[paramName]);
+
+			return Response.AsJson(results);
+		}
+		
 		public Response GetCommandMetadata(string commandName)
 		{
 			var agentCommands = _compositeApp.Agents.SelectMany(x => x.Commands);
@@ -132,6 +169,16 @@ namespace CompositeInspector.Module
 		{
 			return _compositeApp.GetFormatter().WriteTo(Response);
 		}
+
+		public Response GetQueryMetadata(string queryName)
+		{
+			var queries = _compositeApp.Queries;
+
+			var query = queries.FirstOrDefault(q => q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase));
+
+			return query.GetFormatter().WriteTo(Response);
+		}
+
 
 		private IAgentMetadata getAgent(string agentSystemName)
 		{

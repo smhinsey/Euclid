@@ -1,8 +1,25 @@
-﻿<h5>Queries</h5>
+﻿@if (false)
+{ 
+	<script type="text/javascript" src="../../Assets/Scripts/euclid-0.9.js"></script>
+}
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".query").click(function () {
+			var queryName = $(this).attr("data-query-name");
+			EUCLID.withQueryMethod(queryName, function (query) {
+				$.each(query.Methods, function (idx, item) {
+					item.getForm();
+					item.executeQuery();
+				});
+			});
+		});
+	});
+</script>
+<h5>Queries</h5>
 <ul>
 {{#Queries}}
 	<li id="{{../SystemName}}-query-{{Name}}">
-		<a href="#" class="query">{{Name}}</a>
+		<a href="#" class="query" data-query-name="{{Name}}">{{Name}}</a>
 	</li>
 {{/Queries}}
 </ul>

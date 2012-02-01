@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using CompositeInspector.Models;
 using LoggingAgent.Queries;
 using Nancy;
 
@@ -37,14 +36,14 @@ namespace CompositeInspector.Module
 						entries = entries.Where(e => e.LoggingSource == filterBy).ToList();
 					}
 
-					var model = new LogModel
-						{
-							AvailableSources = sources,
-							Entries = entries.Skip(offset * pageSize).Take(pageSize).OrderByDescending(e => e.Created),
-							SelectedSource = filterBy
-						};
+					//var model = new LogModel
+					//    {
+					//        AvailableSources = sources,
+					//        Entries = entries.Skip(offset * pageSize).Take(pageSize).OrderByDescending(e => e.Created),
+					//        SelectedSource = filterBy
+					//    };
 
-					return View[IndexViewPath, model];
+					return View[IndexViewPath];//, model];
 				};
 		}
 	}
