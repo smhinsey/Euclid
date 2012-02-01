@@ -229,7 +229,8 @@ var EUCLID = function () {
 					} catch (e) {
 						errorHandler(e);
 					}
-				});
+				},
+				errorHandler);
 		}), // with getInputModel
 
 		pollForCommandStatus: (function (args) {
@@ -517,7 +518,12 @@ var GetData = function (url, onSuccess, onError) {
 
 			onSuccess(obj);
 		},
-		error: function (e) {
+		error: function (err) {
+			var e = err;
+			if (err.hasOwnProperty("responseText")) {
+				e = $.parseJSON(err.responseText);
+			}
+
 			if (onError != null) {
 				onError(e);
 			} else {
