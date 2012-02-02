@@ -1,10 +1,6 @@
 ﻿;(function ($) {
 	var app = $.sammy(function () {
 
-		this.get('/', function () {
-			$('#app-content').text('Hello');
-		});
-
 		this.get('/#company/:companySlug/financials', function () {
 			
 			var model = { title: "Company Financials "};
@@ -97,6 +93,10 @@
 			this.trigger('render-model', {templateName: 'store/DiscountCodes', model: model});
 
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'DiscountCodes'});
+		});
+
+		this.get('/', function () {
+			this.redirect('#company/exampleCompany/financials');
 		});
 
 	});
