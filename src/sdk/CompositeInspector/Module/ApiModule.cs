@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using CompositeInspector.Extensions;
 using Euclid.Common.Messaging;
 using Euclid.Composites;
 using Euclid.Composites.AgentResolution;
@@ -24,7 +25,7 @@ namespace CompositeInspector.Module
 		private const string ReadModelMetadataRoute    = "/readModel/{agentSystemName}/{readModelName}";
 		private const string InputModelMetadataRoute   = "/inputModel/{inputModelName}";
 		private const string PublicationRecordRoute    = "/publicationRecord/{identifier}";
-		private const string InputModelForCommandRoute = "/command/{commandName}";
+		private const string InputModelMetadataForCommandRoute = "/command/{commandName}";
 		private const string CommandMetadataRoute      = "/command-metadata/{commandName}";
 		private const string QueryMetadataRoute        = "/query-metadata/{queryName}";
 		private const string ExecuteQueryRoute         = "/execute/query/{queryName}/{methodName}";
@@ -48,7 +49,7 @@ namespace CompositeInspector.Module
 
 			Get[PublicationRecordRoute] = p => GetPublicationRecord((Guid) p.identifier);
 
-			Get[InputModelForCommandRoute] = p => GetInputModelForCommand((string) p.commandName);
+			Get[InputModelMetadataForCommandRoute] = p => GetInputModelMetadata((string) p.commandName);
 
 			Get[CommandMetadataRoute] = p => GetCommandMetadata((string) p.commandName);
 
@@ -97,7 +98,7 @@ namespace CompositeInspector.Module
 			return command.GetFormatter().WriteTo(Response);
 		}
 
-		public Response GetInputModelForCommand(string commandName)
+		public Response GetInputModelMetadata(string commandName)
 		{
 			try
 			{
@@ -178,7 +179,6 @@ namespace CompositeInspector.Module
 
 			return query.GetFormatter().WriteTo(Response);
 		}
-
 
 		private IAgentMetadata getAgent(string agentSystemName)
 		{

@@ -2,6 +2,7 @@ using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
+using CompositeInspector.Extensions;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
@@ -120,34 +121,7 @@ namespace CompositeInspector
 				var format = ctx.GetResponseFormat();
 				var formatter = container.Resolve<IResponseFormatterFactory>().Create(ctx);
 
-				// dumb ugliness b/c MSFT's xml serializer can't handle anonymous objects
-				var exception = new FormattedException
-				{
-					name = e.GetType().Name,
-					message = e.Message,
-					callStack = e.StackTrace
-				};
-
-				Response r;
-				switch (format)
-				{
-					case ResponseFormat.Json:
-						r = formatter.AsJson(exception, HttpStatusCode.InternalServerError);
-						break;
-					case ResponseFormat.Xml:
-						r = formatter.AsXml(exception);
-						break;
-					default:
-						r = null;
-						break;
-				}
-
-				if (r != null)
-				{
-					r.StatusCode = HttpStatusCode.InternalServerError;
-				}
-
-				return r;
+				return e.CreateResponse(format, formatter);
 			});
 		}
 	}

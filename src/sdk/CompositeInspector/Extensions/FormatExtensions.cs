@@ -5,7 +5,7 @@ using System.Text;
 using Euclid.Framework.AgentMetadata;
 using Nancy;
 
-namespace CompositeInspector
+namespace CompositeInspector.Extensions
 {
 	public static class FormatExtensions
 	{
@@ -26,6 +26,8 @@ namespace CompositeInspector
 				format = ResponseFormat.Json;
 			}
 			else if (
+				ctx.Request.Headers.Accept.Any(a => a.IndexOf("text/xml", StringComparison.CurrentCultureIgnoreCase) >= 0)
+				||
 				ctx.Request.Headers.Accept.Any(a => a.IndexOf("application/xml", StringComparison.CurrentCultureIgnoreCase) >= 0)
 				||
 				ctx.Request.Path.EndsWith(".xml", StringComparison.CurrentCultureIgnoreCase)
