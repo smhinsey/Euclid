@@ -23,9 +23,18 @@
 		
 		this.get('/#company/:companySlug/employees', function () {
 			
-			var model = modelForCompanyEmployees();
+			var model = modelForCompanyEmployees(this.params['companySlug']);
 			
 			this.trigger('render-model', {templateName: 'company/Employees', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'Employees'});
+		});
+		
+		this.get('/#company/:companySlug/employees/add', function () {
+			
+			var model = modelForCompanyEmployees();
+			
+			this.trigger('render-model', {templateName: 'company/AddEmployee', model: model});
 
 			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'Employees'});
 		});
@@ -61,36 +70,72 @@
 
 		this.get('/#store/:storeSlug/customers', function () {
 
-			var model = modelForStoreCustomers();
+			var model = modelForStoreCustomers(this.params['storeSlug']);
 
 			this.trigger('render-model', {templateName: 'store/Customers', model: model});
+			
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Customers'});
+		});
+		
+		this.get('/#store/:storeSlug/customers/invite', function () {
+
+			var model = modelForStoreInviteCustomer();
+
+			this.trigger('render-model', {templateName: 'store/InviteCustomer', model: model});
 			
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Customers'});
 		});
 
 		this.get('/#store/:storeSlug/productCatalog', function () {
 
-			var model = modelForStoreProductCatalog();
+			var model = modelForStoreProductCatalog(this.params['storeSlug']);
 
 			this.trigger('render-model', {templateName: 'store/ProductCatalog', model: model});			
+
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'ProductCatalog'});
+		});
+		
+		this.get('/#store/:storeSlug/productCatalog/add', function () {
+
+			var model = modelForStoreAddProduct();
+
+			this.trigger('render-model', {templateName: 'store/AddProduct', model: model});			
 
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'ProductCatalog'});
 		});
 
 		this.get('/#store/:storeSlug/promotions', function() {
 
-			var model = modelForStorePromotions();
+			var model = modelForStorePromotions(this.params['storeSlug']);
 
 			this.trigger('render-model', {templateName: 'store/Promotions', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Promotions'});
+		});
+		
+		this.get('/#store/:storeSlug/promotions/add', function() {
+
+			var model = modelForStoreAddPromotion();
+
+			this.trigger('render-model', {templateName: 'store/AddPromotion', model: model});
 
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Promotions'});
 		});
 
 		this.get('/#store/:storeSlug/discountCodes', function () {
 
-			var model = modelForStoreDiscountCodes();
+			var model = modelForStoreDiscountCodes(this.params['storeSlug']);
 
 			this.trigger('render-model', {templateName: 'store/DiscountCodes', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'DiscountCodes'});
+		});
+		
+		this.get('/#store/:storeSlug/discountCodes/add', function () {
+
+			var model = modelForStoreAddDiscountCode();
+
+			this.trigger('render-model', {templateName: 'store/AddDiscountCode', model: model});
 
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'DiscountCodes'});
 		});
@@ -124,9 +169,9 @@
 		return viewModel;
 	}
 
-	function modelForCompanyEmployees() {
+	function modelForCompanyEmployees(companySlug) {
 
-		var viewModel = { companyName: "{Company Name}" };
+		var viewModel = { companyName: "{Company Name}", companySlug: companySlug };
 
 		viewModel.tableHeaders = [ "Last Name", "First Name", "Type", "Hire Date", "Location", ""];
 		
@@ -154,9 +199,9 @@
 		return viewModel;
 	}
 
-	function modelForStoreCustomers() {
+	function modelForStoreCustomers(storeSlug) {
 
-		var viewModel = { storeName: "{Store Name}" };
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
 
 		viewModel.tableHeaders = [ "Email", "User Name", "Sign up Date", "Purchase Total", ""];
 		
@@ -169,9 +214,9 @@
 		return viewModel;
 	}
 	
-	function modelForStoreProductCatalog() {
+	function modelForStoreProductCatalog(storeSlug) {
 
-		var viewModel = { storeName: "{Store Name}" };
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
 
 		viewModel.tableHeaders = [ "Category", "Name", "For Sale", "Stock", "Price", "Discount", ""];
 		
@@ -184,9 +229,9 @@
 		return viewModel;
 	}
 	
-	function modelForStorePromotions() {
+	function modelForStorePromotions(storeSlug) {
 
-		var viewModel = { storeName: "{Store Name}" };
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
 
 		viewModel.tableHeaders = [ "Name", "Start Date", "End Date", "Type", "Discount", ""];
 		
@@ -199,9 +244,9 @@
 		return viewModel;
 	}
 	
-	function modelForStoreDiscountCodes() {
+	function modelForStoreDiscountCodes(storeSlug) {
 
-		var viewModel = { storeName: "{Store Name}" };
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
 
 		viewModel.tableHeaders = [ "Name", "Code", "Usage Type", "Usage Count", "Discount", ""];
 		
@@ -218,6 +263,33 @@
 
 		var viewModel = { storeName: "{Store Name}" };
 
+		return viewModel;
+	}
+
+	function modelForStoreInviteCustomer() {
+
+		var viewModel = { storeName: "{Store Name}" };
+
+		return viewModel;
+	}
+	
+	function modelForStoreAddProduct() {
+
+		var viewModel = { storeName: "{Store Name}" };
+
+		return viewModel;
+	}
+	
+	function modelForStoreAddPromotion() {
+
+		var viewModel = { storeName: "{Store Name}" };
+
+		return viewModel;
+	}
+	
+	function modelForStoreAddDiscountCode() {
+
+		var viewModel = { storeName: "{Store Name}" };
 
 		return viewModel;
 	}
