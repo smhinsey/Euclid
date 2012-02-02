@@ -3,14 +3,18 @@
 	<script type="text/javascript" src="../../Assets/Scripts/euclid-0.9.js"></script>
 }
 <script type="text/javascript">
+	var modal = $("<div id='modal'></div>");
 	$(document).ready(function () {
 		$(".query").click(function () {
 			var queryName = $(this).attr("data-query-name");
-			EUCLID.withQueryMethod(queryName, function (query) {
-				$.each(query.Methods, function (idx, item) {
-					item.getForm();
-					item.executeQuery();
-				});
+			EUCLID.withQuery(queryName, function (query) {
+				Using(query)
+					.Render("/composite/ui/template/modal/query")
+					.Manipulate(function (content) {
+						$(modal).html("");
+						$(modal).append(content);
+						$(modal).modal("show");
+					});
 			});
 		});
 	});

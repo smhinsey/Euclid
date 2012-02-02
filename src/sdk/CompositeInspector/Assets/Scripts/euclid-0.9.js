@@ -7,6 +7,19 @@ if ($.validator == null || $.validator == undefined) {
 
 var EUCLID = function () {
 	/* private methods */
+	var _getQueryForm = function() {
+			var form = $("<form action='/composite/api/exeucte/query/" + queryName + "/" + Name + "' method='post'><legend></legend><fieldset></fieldset></form>");
+			var fieldSet = $(form).children("fieldset");
+
+			$.each(method.Arguments, function (index, item) {
+				var forceShow = true; // methodName == "FindById" && item.ArgumentName == "id";
+				_addElementToForm(item.ArgumentName, item.ArgumentType, "", item.Choices, item.MultiChoice, fieldSet, forceShow);
+			});
+
+			$(form).find(".input-date").datepicker();
+			return form;
+	} // end _getQueryForm
+
 	var _getInputModel = function (commandName, data) {
 		///<summary>gets an input model object</summary>
 		/// <param name='commandName'>the command associated with this input model</param>
@@ -197,75 +210,29 @@ var EUCLID = function () {
 		$(fieldSet).append($(html));
 	}); //end addElementToForm
 
-	var _submitForm = (function (form, values) {
-		var model = null;
-
-		if (values != null && typeof values == "object") {
-			for (valueName in values) {
-				if (values.hasOwnProperty(valueName)) {
-					var element = $(form).find("[name='" + valueName + "']");
-					if ($(element).length > 0) {
-						element.attr("value", values[valueName]);
-					}
-				}
-			}
-		}
-
-		$.ajaxSetup({ async: false });
-		$(form).ajaxSubmit({
-			headers: {
-				Accept: "application/json; charset=utf-8"
-			},
-
-			success: function (responseText, statusText, jqHxr, $form) {
-				if (jqHxr.status == 500) {
-					throw {
-						name: model.name,
-						message: model.message + "\n\n" + _model.callstack
-					}
-				} else {
-					model = $.parseJSON(jqHxr.responseText);
-				}
-			},
-			error: function (jqHxr, statusText) {
-				throw $.parseJSON(jqHxr.responseText);
-			}
-		});
-		$.ajaxSetup({ async: true });
-
-		var re = new RegExp("\\/Date\\((-?\\d+)\\)\\/");
-		for (property in model) {
-			if (model.hasOwnProperty(property) && typeof property != "function") {
-				var m = re.exec(model[property]);
-				if (m != null) {
-					model[property] = new Date(parseInt(m[1]));
-				}
-			}
-		}
-
-		return model;
-	}); // end submitForm
-
 	return {
 		getId: (function () {
 			///<summary>returns a pseudo-random GUID</summary>
 			return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 		}),
 
-		withQueryMethod: (function (query, onComplete, onError) {
+		withQuery: (function (query, onComplete, onError) {
 			/// <summary>
 			/// Retrieve a JSON representation of a query
-			///  &#10; .AgentSystemName
-			///  &#10; .Namespace
-			///  &#10; .Name
-			///  &#10; .Methods (an array of method objects)
-			///  &#10;  .Name
-			///  &#10;  .ReturnType
-			///  &#10;  .Arguments (an array of parameters to execute this query)
-			///  &#10;    .ArgumentName
-			///  &#10;    .ArgumentType, 
-			///  &#10;    .Choices,
-			///  &#10;    .MultiChoice (boolean indicates if multiple choices are allowed)
+			///  &#10; Properties:
+			///  &#10;   .AgentSystemName
+			///  &#10;   .Namespace
+			///  &#10;   .Name
+			///  &#10;   .Methods (an array of method objects)
+			///  &#10;    .Name
+			///  &#10;    .ReturnType
+			///  &#10;    .Arguments (an array of parameters to execute this query)
+			///  &#10;      .ArgumentName
+			///  &#10;      .ArgumentType, 
+			///  &#10;      .Choices,
+			///  &#10;      .MultiChoice (boolean indicates if multiple choices are allowed)
+			///  &#10; Methods:
+			///  &#10;  .getForm
 			/// </summary>
 			/// <param name='query'>the name of the query object</param>
 			/// <param name='onComplete'>a callback that accepts the query metadata</param>
@@ -277,48 +244,17 @@ var EUCLID = function () {
 				return null;
 			}
 
-			var executeQuery = function() { console.log('executing query: ' + query + "." + this.Name); }
-			var getForm = function() { console.log('getting form for: ' + query + "." + this.Name); }
-
 			WorkWithDataFromUrl("/composite/api/query-metadata/" + query,
 				function(data) {
 					$.each(data.Methods, function(idx, item) {
-						item.executeQuery = executeQuery;
-						item.getForm = getForm;
+						item.queryName = query;
+						item.getForm = _getQueryForm;
 					});
 
 					onComplete(data);
 				},
 				errorHandler);
 		}), // end getQueryMethods
-
-		executeQuery: (function (args) {
-			/// <summary>Executes an agent query and returns a JSON encoded representation of the results</summary>
-			/// <param name='args'>a JSON object with the following properties
-			/// &#10; queryName: the name of the query object
-			/// &#10; methodName: the name of the method that executes the query
-			/// &#10; parameters: an array of arguments represented as a JSON name value pair
-			/// </param>
-			throw { name: "Not Implemented Exception", message: "executeQuery is not implemented" };
-			var model = null;
-			_displayErrorWrapper({
-				callback: function (args) {
-					if (args == null || args === undefined || !args.hasOwnProperty("queryName") || !args.hasOwnProperty("methodName") || !args.hasOwnProperty("parameters")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "EUCLID.executeQuery expects an object with the properties: \nqueryName: the name of the query object\nmethodName: the name of the method to execute\nparameters: a JSON representation of the query parameters"
-						}
-					}
-
-					var method = EUCLID.getQueryMetadata(args);
-					var form = EUCLID.getQueryForm({ queryName: args.queryName, method: method });
-					model = _submitForm(form, args.parameters);
-				},
-				callbackArgs: args
-			});
-
-			return model;
-		}), // end executeQuery
 
 		withFormResults: (function (form, onComplete, onError) {
 			///<summary>submits a form</summary>
@@ -345,37 +281,6 @@ var EUCLID = function () {
 					errorHandler($.parseJSON(jqHxr.responseText));
 				}
 			});
-		}),
-
-		getQueryForm: (function (args) {
-			///<summary>retrieves a form object for collecting arguments for the specified query</summary>
-			///<param name='args'>a JSON object containing the properties
-			/// &#10; method - the name of the method to execute
-			/// &#10; queryName - the name fo the query
-			/// </param>
-			throw { name: "Not Implemented Exception", message: "getQueryForm is not implemented" };
-
-			if (args == null || args === undefined || !args.hasOwnProperty("method") || !args.hasOwnProperty("queryName")) {
-				throw {
-					name: "Invalid Argument Exception",
-					message: "EUCLID.getQueryForm exepcts an object with the properties: 'method' and 'query'"
-				}
-			}
-
-			var method = args.method;
-			var queryName = args.queryName;
-			var methodName = method.Name
-			var form = $("<form action='/composite/queries/" + queryName + "/" + method.Name + "' method='post'><legend>" + method.Name + "</legend><fieldset></fieldset></form>");
-			var fieldSet = $(form).children("fieldset");
-
-			$.each(method.Arguments, function (index, item) {
-				var forceShow = true; // methodName == "FindById" && item.ArgumentName == "id";
-				_addElementToForm(item.ArgumentName, item.ArgumentType, "", item.Choices, item.MultiChoice, fieldSet, forceShow);
-			});
-
-			$(form).find(".input-date").datepicker();
-			$(form).append("<input type='submit' value='" + method.Name + "' />");
-			return form;
 		}),
 
 		withInputModel: (function (commandName, onSuccess, onError) {

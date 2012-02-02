@@ -17,7 +17,6 @@
 		WorkWithDataFromUrl("/composite/api",
 			function (data) {
 				Using(data).Fill("#composite").With("/composite/ui/template/composite");
-//				Using(data).Fill("#commands").With("/composite/ui/template/commands");
 				Using(data).Fill("#queries").With("/composite/ui/template/queries");
 				Using(data).Fill("#input-models").With("/composite/ui/template/input-models");
 				Using(data).Fill("#agents").With("/composite/ui/template/agents");
