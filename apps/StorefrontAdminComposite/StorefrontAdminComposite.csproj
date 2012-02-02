@@ -330,6 +330,10 @@
       <Project>{1FE538F6-D05D-4849-8741-F827F1B7B34F}</Project>
       <Name>LoggingAgent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StorefrontAgent\StorefrontAgent.csproj">
+      <Project>{5FFCA18F-F416-4DFC-86AF-8DA0232A66E6}</Project>
+      <Name>StorefrontAgent</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\custom.config">

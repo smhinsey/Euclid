@@ -17,6 +17,7 @@ using Microsoft.Web.Administration;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using NConfig;
+using StorefrontAgent.Commands;
 using log4net.Config;
 
 namespace StorefrontAdminComposite
@@ -71,11 +72,13 @@ namespace StorefrontAdminComposite
 
 			composite.CreateSchema(databaseConfiguration, false);
 
+			composite.AddAgent(typeof(RegisterNewCompany).Assembly);
 			composite.AddAgent(typeof(LogQueries).Assembly);
 
 			// register input model maps
 
 			setAzureCredentials(container);
+
 			_initialized = true;
 		}
 

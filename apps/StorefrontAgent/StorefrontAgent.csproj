@@ -58,6 +58,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\CompanyQueries.cs" />
     <Compile Include="ReadModels\Company.cs" />
+    <Compile Include="ReadModels\CompanyEmployee.cs" />
+    <Compile Include="ReadModels\EmployeeType.cs" />
+    <Compile Include="ReadModels\Transaction.cs" />
+    <Compile Include="ReadModels\TransactionState.cs" />
+    <Compile Include="ReadModels\TransactionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

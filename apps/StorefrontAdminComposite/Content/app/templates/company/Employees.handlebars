@@ -1,6 +1,7 @@
 ﻿<script id="template-companyEmployees" type="text/x-handlebars-template">
 	<h3>{{companyName}} Employees</h3>
 	<hr/>
+	<button class="btn-primary pull-right">Add Employee</button>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -44,9 +45,31 @@
 		<tfoot>
 			<tr>
 				<td colspan="6">
-					<button class="btn primary pull-right">Add Employee</button>
+					<div class="pagination pagination-right">
+						<ul>
+							<li>
+								<a href="#">Prev</a>
+							</li>
+							<li class="active">
+								<a href="#">1</a>
+							</li>
+							<li>
+								<a href="#">2</a>
+							</li>
+							<li>
+								<a href="#">3</a>
+							</li>
+							<li>
+								<a href="#">4</a>
+							</li>
+							<li>
+								<a href="#">Next</a>
+							</li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 		</tfoot>
 	</table>
+
 </script>

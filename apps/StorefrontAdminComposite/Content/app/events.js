@@ -20,7 +20,7 @@
 		this.bind('highlight-nav', function(e, data) {
 			var navSelector = "#nav-" + data['slug'] + data['current'];
 
-			$(".nav-item").removeClass("active");
+			$(".nav-list li").removeClass("active");
 
 			$(navSelector).addClass("active");
 		});
