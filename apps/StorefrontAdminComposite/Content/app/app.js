@@ -96,7 +96,7 @@
 		});
 
 		this.get('/', function () {
-			this.redirect('#company/exampleCompany/financials');
+			this.redirect('#company/exampleCompanySlug/financials');
 		});
 
 	});
