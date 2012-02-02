@@ -1,6 +1,7 @@
 ﻿<script id="template-ProductCatalog" type="text/x-handlebars-template">
 	<h3>{{storeName}} Product Catalog</h3>
 	<hr/>
+	<button class="btn btn-primary pull-right">Add Product</button>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -51,7 +52,28 @@
 		<tfoot>
 			<tr>
 				<td colspan="7">
-					<button class="btn pull-right">Add Product</button>
+					<div class="pagination pagination-right">
+						<ul>
+							<li>
+								<a href="#">Prev</a>
+							</li>
+							<li class="active">
+								<a href="#">1</a>
+							</li>
+							<li>
+								<a href="#">2</a>
+							</li>
+							<li>
+								<a href="#">3</a>
+							</li>
+							<li>
+								<a href="#">4</a>
+							</li>
+							<li>
+								<a href="#">Next</a>
+							</li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 		</tfoot>
