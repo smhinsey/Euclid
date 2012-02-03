@@ -31,4 +31,8 @@
 
 		return rows;
 	});
+
+	Handlebars.registerHelper("get-argument-count", function (items, options) {
+		return items.length.toString();
+	});
 }

@@ -6,9 +6,10 @@
 		$(document).on("click", ".method", function () {
 			var selectedQuery = $(this).attr("data-query-name");
 			var selectedMethod = $(this).attr("data-method-name");
+			var numberArguments = $(this).attr("data-argument-count");
+
 			$("#execute-query").attr("data-query-name", selectedQuery);
 			$("#execute-query").attr("data-method-name", selectedMethod);
-
 
 			if (!selectedMethod) {
 				alert("could not find method: " + $(this).text());
@@ -16,8 +17,10 @@
 			}
 			EUCLID.withQuery(selectedQuery,
 				function (query) {
-					var method = query.getMethodNamed(selectedMethod);
+					var method = query.getMethodNamed(selectedMethod, numberArguments);
 					var form = method.getForm("query-form");
+					console.log("the method " + selectedQuery + "." + selectedMethod + " has " + numberArguments + " arguments");
+
 					$("#query-form-container").html("");
 					$("#query-form-container").append($(form));
 					$("#query-form-container").show();
@@ -32,7 +35,7 @@
 		$(document).on("click", "#execute-query", function () {
 			var selectedQuery = $(this).attr("data-query-name");
 			var selectedMethod = $(this).attr("data-method-name");
-			
+
 			EUCLID.withFormResults($("#query-form"), function (results) {
 				var data = getQueryResultsObject(results, selectedQuery, selectedMethod);
 				Using(data).Render("/composite/ui/template/query-results-table").Manipulate(function (content) {
@@ -91,7 +94,7 @@
 	</div>
 	<div class="modal-body" id="method-names">
 		{{#Methods}}
-			<h5><a href="#" class="method" data-query-name="{{../Name}}" data-method-name="{{Name}}">{{Name}}</a></h5>
+			<h5><a href="#" class="method" data-query-name="{{../Name}}" data-method-name="{{Name}}" data-argument-count="{{#get-argument-count Arguments}}{{/get-argument-count}}">{{Name}}</a></h5>
 		{{/Methods}}
 	</div>
 	<div class="modal-body" id="query-form-container" style="display:none"></div>

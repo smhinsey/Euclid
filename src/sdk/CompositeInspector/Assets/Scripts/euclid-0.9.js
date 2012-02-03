@@ -25,10 +25,10 @@ var EUCLID = function () {
 			return form;
 	} // end _getQueryForm
 
-	var _getMethodByName = function(methodName) {
+	var _getMethodByName = function(methodName, numberArguments) {
 		var method;
 		$.each(this.Methods, function(index, item) {
-			if (item.Name == methodName) {
+			if (item.Name == methodName && item.Arguments.length == numberArguments) {
 				method = item;
 				return;
 			}
