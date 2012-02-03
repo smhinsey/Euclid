@@ -7,11 +7,16 @@ if ($.validator == null || $.validator == undefined) {
 
 var EUCLID = function () {
 	/* private methods */
-	var _getQueryForm = function() {
-			var form = $("<form action='/composite/api/exeucte/query/" + queryName + "/" + Name + "' method='post'><legend></legend><fieldset></fieldset></form>");
+	var _getQueryForm = function(id) {
+			var form = "<form ";
+			if (id) {
+				form += "id='" + id +"'";
+			}
+			form += "action='/composite/api/execute/query/" + this.queryName + "/" + this.Name + "' method='post'><legend style='display:none'>" + this.queryName + "." + this.Name + "</legend><fieldset></fieldset></form>";
+			form = $(form);
 			var fieldSet = $(form).children("fieldset");
 
-			$.each(method.Arguments, function (index, item) {
+			$.each(this.Arguments, function (index, item) {
 				var forceShow = true; // methodName == "FindById" && item.ArgumentName == "id";
 				_addElementToForm(item.ArgumentName, item.ArgumentType, "", item.Choices, item.MultiChoice, fieldSet, forceShow);
 			});
@@ -19,6 +24,18 @@ var EUCLID = function () {
 			$(form).find(".input-date").datepicker();
 			return form;
 	} // end _getQueryForm
+
+	var _getMethodByName = function(methodName) {
+		var method;
+		$.each(this.Methods, function(index, item) {
+			if (item.Name == methodName) {
+				method = item;
+				return;
+			}
+		});
+
+		return method;
+	}
 
 	var _getInputModel = function (commandName, data) {
 		///<summary>gets an input model object</summary>
@@ -210,6 +227,19 @@ var EUCLID = function () {
 		$(fieldSet).append($(html));
 	}); //end addElementToForm
 
+	var _parseDate = function(data) {
+		//parese date
+		var re = new RegExp("\\/Date\\((-?\\d+)\\)\\/");
+		for (property in data) {
+			if (data.hasOwnProperty(property) && typeof property != "function") {
+				var m = re.exec(data[property]);
+				if (m != null) {
+					data[property] = new Date(parseInt(m[1]));
+				}
+			}
+		}
+	} // end _parseDAte
+
 	return {
 		getId: (function () {
 			///<summary>returns a pseudo-random GUID</summary>
@@ -246,9 +276,11 @@ var EUCLID = function () {
 
 			WorkWithDataFromUrl("/composite/api/query-metadata/" + query,
 				function(data) {
+					data.getMethodNamed = _getMethodByName;
 					$.each(data.Methods, function(idx, item) {
 						item.queryName = query;
 						item.getForm = _getQueryForm;
+						item
 					});
 
 					onComplete(data);
@@ -262,7 +294,7 @@ var EUCLID = function () {
 			///<param name='onComplete'>callback for handling the results</param>
 			///<param name='onError'>an optional error handler</param>
 			var errorHandler = onError == null ? EUCLID.displayError : onError;
-
+			var innerParseDate = _parseDate;
 			$(form).ajaxSubmit({
 				headers: {
 					Accept: "application/json; charset=utf-8"
@@ -270,6 +302,14 @@ var EUCLID = function () {
 
 				success: function (responseText, statusText, jqHxr, $form) {
 					var data = $.parseJSON(jqHxr.responseText);
+					
+					if (data instanceof Array) {
+						$.each(data, function(index, item) {
+							innerParseDate(item);
+						});
+					} else {
+						innerParseDate(data);
+					}
 
 					if (jqHxr.status == 500) {
 						errorHandler(data);
@@ -431,7 +471,7 @@ var Using = function (jsonObject) {
 		if (data == null) {
 			onError({
 				name: "Invalid Argument Exception",
-				message: "Either data must be specified"
+				message: "_populateTemplate - the parameter data must be specified"
 			});
 
 			return false;

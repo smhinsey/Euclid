@@ -109,6 +109,7 @@
     <EmbeddedResource Include="Views\templates\euclid-error.cshtml" />
     <EmbeddedResource Include="Views\templates\modal\command.cshtml" />
     <EmbeddedResource Include="Views\templates\modal\query.cshtml" />
+    <EmbeddedResource Include="Views\templates\query-results-table.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj">

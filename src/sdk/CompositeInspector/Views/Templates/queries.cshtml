@@ -8,6 +8,10 @@
 		$(".query").click(function () {
 			var queryName = $(this).attr("data-query-name");
 			EUCLID.withQuery(queryName, function (query) {
+				for (var i = 0; i < query.Methods.length; i++) {
+					console.log(queryName + "." + query.Methods[i].Name);
+				}
+
 				Using(query)
 					.Render("/composite/ui/template/modal/query")
 					.Manipulate(function (content) {
