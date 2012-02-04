@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <PublishProfile Include="Profiles\ForumTemplateProduction.azurePubxml" />
+    <PublishProfile Include="Profiles\ForumTemplateStaging.azurePubxml" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
