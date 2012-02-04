@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="ForumAzure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
-  <WebRole name="ForumComposite" vmsize="Large">
+  <WebRole name="ForumComposite" vmsize="Medium">
 		<Runtime executionContext="elevated"/>
     <Sites>
       <Site name="Web">
@@ -20,7 +20,7 @@
       <Setting name="DataConnectionString" />
     </ConfigurationSettings>
   </WebRole>
-  <WebRole name="AdminComposite" vmsize="Medium">
+  <WebRole name="AdminComposite" vmsize="Small">
 		<Runtime executionContext="elevated"/>
     <Sites>
       <Site name="Web">
@@ -40,7 +40,7 @@
       <Setting name="DataConnectionString" />
     </ConfigurationSettings>
   </WebRole>
-  <WorkerRole name="AzureAgentHost" vmsize="Medium">
+  <WorkerRole name="AzureAgentHost" vmsize="Small">
     <Imports>
       <Import moduleName="Diagnostics" />
       <Import moduleName="RemoteAccess" />

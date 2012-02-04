@@ -20,22 +20,19 @@
 				<td>{{this.totalPurchaseAmount}}</td>
 				<td>
 					<div class="btn-group">
-						<a class="btn small" href="#">Action</a>
-						<a class="btn small dropdown-toggle" data-toggle="dropdown" href="#">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							Actions
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a>View Profile</a>
+								<a href="#store/{{../storeSlug}}/customers/exampleCustomerSlug/profile">View Profile</a>
 							</li>
 							<li>
-								<a>Ban</a>
+								<a href="#store/{{../storeSlug}}/customers/exampleCustomerSlug/reset">Reset Password</a>
 							</li>
 							<li>
-								<a>Reset Password</a>
-							</li>
-							<li>
-								<a>Reset Email</a>
+								<a href="#store/{{../storeSlug}}/customers/exampleCustomerSlug/contact">Contact</a>
 							</li>
 						</ul>
 					</div>

@@ -14,9 +14,18 @@
 
 		this.get('/#company/:companySlug/allTransactions', function () {
 			
-			var model = modelForCompanyAllTransactions();
+			var model = modelForCompanyAllTransactions(this.params['companySlug']);
 			
 			this.trigger('render-model', {templateName: 'company/AllTransactions', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'AllTransactions'});
+		});
+		
+		this.get('/#company/:companySlug/allTransactions/:transactionSlug/details', function () {
+			
+			var model = modelForCompanyTransactionDetails(this.params['companySlug']);
+			
+			this.trigger('render-model', {templateName: 'company/TransactionDetails', model: model});
 
 			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'AllTransactions'});
 		});
@@ -26,6 +35,15 @@
 			var model = modelForCompanyEmployees(this.params['companySlug']);
 			
 			this.trigger('render-model', {templateName: 'company/Employees', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'Employees'});
+		});
+		
+		this.get('/#company/:companySlug/employees/:employeeSlug/details', function () {
+			
+			var model = modelForCompanyEmployeeDetails(this.params['companySlug']);
+			
+			this.trigger('render-model', {templateName: 'company/EmployeeDetails', model: model});
 
 			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'Employees'});
 		});
@@ -77,6 +95,33 @@
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Customers'});
 		});
 		
+		this.get('/#store/:storeSlug/customers/:customerSlug/profile', function () {
+
+			var model = modelForStoreCustomerProfile(this.params['storeSlug']);
+
+			this.trigger('render-model', {templateName: 'store/CustomerProfile', model: model});
+			
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Customers'});
+		});
+		
+		this.get('/#store/:storeSlug/customers/:customerSlug/reset', function () {
+
+			var model = modelForStoreCustomerReset(this.params['storeSlug']);
+
+			this.trigger('render-model', {templateName: 'store/CustomerReset', model: model});
+			
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Customers'});
+		});
+		
+		this.get('/#store/:storeSlug/customers/:customerSlug/contact', function () {
+
+			var model = modelForStoreCustomerContact(this.params['storeSlug']);
+
+			this.trigger('render-model', {templateName: 'store/CustomerContact', model: model});
+			
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Customers'});
+		});
+		
 		this.get('/#store/:storeSlug/customers/invite', function () {
 
 			var model = modelForStoreInviteCustomer();
@@ -91,6 +136,15 @@
 			var model = modelForStoreProductCatalog(this.params['storeSlug']);
 
 			this.trigger('render-model', {templateName: 'store/ProductCatalog', model: model});			
+
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'ProductCatalog'});
+		});
+		
+		this.get('/#store/:storeSlug/productCatalog/:productSlug/details', function () {
+
+			var model = modelForStoreProductDetails(this.params['storeSlug']);
+
+			this.trigger('render-model', {templateName: 'store/ProductDetails', model: model});			
 
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'ProductCatalog'});
 		});
@@ -113,6 +167,15 @@
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Promotions'});
 		});
 		
+		this.get('/#store/:storeSlug/promotions/:promotionSlug/details', function() {
+
+			var model = modelForStorePromotionDetails(this.params['storeSlug']);
+
+			this.trigger('render-model', {templateName: 'store/PromotionDetails', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'Promotions'});
+		});
+		
 		this.get('/#store/:storeSlug/promotions/add', function() {
 
 			var model = modelForStoreAddPromotion();
@@ -127,6 +190,15 @@
 			var model = modelForStoreDiscountCodes(this.params['storeSlug']);
 
 			this.trigger('render-model', {templateName: 'store/DiscountCodes', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'DiscountCodes'});
+		});
+		
+		this.get('/#store/:storeSlug/discountCodes/:discountCodeSlug/details', function () {
+
+			var model = modelForStoreDiscountCodeDetails(this.params['storeSlug']);
+
+			this.trigger('render-model', {templateName: 'store/DiscountCodeDetails', model: model});
 
 			this.trigger('highlight-nav', {slug: this.params['storeSlug'], current: 'DiscountCodes'});
 		});
@@ -154,9 +226,9 @@
 	// temporary, just for use during prototyping
 	// in practice, this data would all come from queries (with the possible exception of table headers)
 	
-	function modelForCompanyAllTransactions() {
+	function modelForCompanyAllTransactions(companySlug) {
 
-		var viewModel = { companyName: "{Company Name}" };
+		var viewModel = { companyName: "{Company Name}", companySlug: companySlug};
 
 		viewModel.tableHeaders = [ "Id", "State", "Date/Time", "Type", "Amount", ""];
 		
@@ -165,6 +237,13 @@
 		for (var i = 0; i < 10; i++) {
 			viewModel.tableData.push({ id: s4()+s4(), dateTime: "12/25/2012 12:55 PM ET", type: "{Type}", storeName: "{Store Name}", amount: "{Amount}", state: "{State}"});
 		}
+
+		return viewModel;
+	}
+	
+	function modelForCompanyTransactionDetails() {
+
+		var viewModel = { companyName: "{Company Name}", transactionId: "{Transaction ID}" };
 
 		return viewModel;
 	}
@@ -180,6 +259,13 @@
 		for (var i = 0; i < 10; i++) {
 			viewModel.tableData.push({ firstName: "{First}", lastName: "{Last}", type: "{Type}", hireDate: "12/25/2012", location: "{Location}"});
 		}
+
+		return viewModel;
+	}
+	
+	function modelForCompanyEmployeeDetails(companySlug) {
+
+		var viewModel = { companyName: "{Company Name}", companySlug: companySlug };
 
 		return viewModel;
 	}
@@ -214,7 +300,43 @@
 		return viewModel;
 	}
 	
+	function modelForStoreCustomerProfile(storeSlug) {
+
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
+
+		return viewModel;
+	}
+	
+	function modelForStoreCustomerReset(storeSlug) {
+
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
+
+		return viewModel;
+	}
+	
+	function modelForStoreCustomerContact(storeSlug) {
+
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
+
+		return viewModel;
+	}
+
 	function modelForStoreProductCatalog(storeSlug) {
+
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
+
+		viewModel.tableHeaders = [ "Category", "Name", "For Sale", "Stock", "Price", "Discount", ""];
+		
+		viewModel.tableData = [];
+
+		for (var i = 0; i < 10; i++) {
+			viewModel.tableData.push({ category: "{Category}", name: "{Name}", forSale: true, stock: "X,XXX", price: "${XX.XX}", discount:"{X}%"});
+		}
+
+		return viewModel;
+	}
+	
+	function modelForStoreProductDetails(storeSlug) {
 
 		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
 
@@ -244,6 +366,13 @@
 		return viewModel;
 	}
 	
+	function modelForStorePromotionDetails(storeSlug) {
+
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
+
+		return viewModel;
+	}
+	
 	function modelForStoreDiscountCodes(storeSlug) {
 
 		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
@@ -255,6 +384,13 @@
 		for (var i = 0; i < 10; i++) {
 			viewModel.tableData.push({ name: "{Name}", code: s4() + s4(), usageType: "{Type}", usageCount:"{XX}", discount: "{X}%" });
 		}
+
+		return viewModel;
+	}
+	
+	function modelForStoreDiscountCodeDetails(storeSlug) {
+
+		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
 
 		return viewModel;
 	}

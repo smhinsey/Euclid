@@ -168,6 +168,8 @@
   <ItemGroup>
     <Content Include="Content\app\app.js" />
     <None Include="Content\app\templates\company\AddEmployee.handlebars" />
+    <None Include="Content\app\templates\company\EmployeeDetails.handlebars" />
+    <None Include="Content\app\templates\company\TransactionDetails.handlebars" />
     <None Include="Content\app\templates\company\Employees.handlebars" />
     <None Include="Content\app\templates\company\Financials.handlebars" />
     <Content Include="Content\js\min\plugins\sammy.cache-0.7.1.min.js" />
@@ -261,13 +263,19 @@
     <None Include="Content\app\templates\store\AddPromotion.handlebars" />
     <None Include="Content\app\templates\store\AddDiscountCode.handlebars" />
     <None Include="Content\app\templates\store\InviteCustomer.handlebars" />
-    <None Include="Content\app\templates\store\DiscountCodes.handlebars" />
-    <None Include="Content\app\templates\store\Promotions.handlebars" />
+    <None Include="Content\app\templates\store\DiscountCodes.handlebars">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Content\app\templates\store\Promotions.handlebars">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Content\app\templates\store\ProductCatalog.handlebars">
       <SubType>Designer</SubType>
     </None>
     <None Include="Content\app\templates\store\Customers.handlebars" />
-    <None Include="Content\app\templates\store\Orders.handlebars" />
+    <None Include="Content\app\templates\store\Orders.handlebars">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Content\app\templates\store\Financials.handlebars" />
     <Content Include="Views\Shared\LeftNav.cshtml" />
   </ItemGroup>
