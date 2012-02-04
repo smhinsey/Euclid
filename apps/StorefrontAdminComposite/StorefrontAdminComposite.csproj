@@ -262,6 +262,12 @@
     <None Include="Content\app\templates\store\AddProduct.handlebars" />
     <None Include="Content\app\templates\store\AddPromotion.handlebars" />
     <None Include="Content\app\templates\store\AddDiscountCode.handlebars" />
+    <None Include="Content\app\templates\store\DiscountCodeDetails.handlebars" />
+    <None Include="Content\app\templates\store\PromotionDetails.handlebars" />
+    <None Include="Content\app\templates\store\ProductDetails.handlebars" />
+    <None Include="Content\app\templates\store\CustomerContact.handlebars" />
+    <None Include="Content\app\templates\store\CustomerReset.handlebars" />
+    <None Include="Content\app\templates\store\CustomerProfile.handlebars" />
     <None Include="Content\app\templates\store\InviteCustomer.handlebars" />
     <None Include="Content\app\templates\store\DiscountCodes.handlebars">
       <SubType>Designer</SubType>
