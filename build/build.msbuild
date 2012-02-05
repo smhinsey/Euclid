@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="BuildAll">
 	<PropertyGroup>
-		<BaseDir>$(MSBuildProjectDirectory)\..</BaseDir>
+		<BaseDir>$(MSBuildProjectDirectory)</BaseDir>
 		<Configuration Condition="'$(Configuration)'==''" >Release</Configuration>
 		<OutputDir>.\output</OutputDir>
 		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -71,22 +71,26 @@
 	
 	</Target>
 
-	<Target Name="Package">
+	<Target Name="PackageSdk" DependsOnTargets="BuildAll">
 		<!-- needs to be fleshed out -->
 		<ItemGroup>
-
+			<NuSpec Include="$(MSBuildProjectDirectory)\EuclidSDK.nuspec"/>
+			<CommonOutput Include="$(OutputDir)\common\*.*"/>
+			<FrameworkOutput Include="$(OutputDir)\framework\*.*"/>
+			<SDKOutput Include="$(OutputDir)\sdk\*.*"/>
 		</ItemGroup>
 
-		<!--  insert the version number into the nuspec files 
-    <XmlUpdate
-      Namespace="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"
-      XmlFileName="$(PackageDir)\temp\FluentValidation\FluentValidation.nuspec"
-      XPath="/package/metadata/version"
-      Value="%(AsmInfo.Version)" />
-    -->
+		<Copy SourceFiles="@(NuSpec)" DestinationFolder="$(BaseDir)\package\sdk"/>
+		<Copy SourceFiles="@(CommonOutput)" DestinationFolder="$(BaseDir)\package\sdk"/>
+		<Copy SourceFiles="@(FrameworkOutput)" DestinationFolder="$(BaseDir)\package\sdk"/>
+		<Copy SourceFiles="@(SDKOutput)" DestinationFolder="$(BaseDir)\package\sdk"/>
+
+		<ItemGroup>
+			<PackageDir Include="$(BaseDir)\package\sdk"/>
+		</ItemGroup>
 
 		<Exec WorkingDirectory="$(PackageDir)"
-          Command="nuget.exe pack $(PackageDir)\temp\MetadataComposite\MetadataComposite.nuspec" />
+          Command="nuget.exe pack EuclidSDK.nuspec" />
 	</Target>
 
 </Project>
