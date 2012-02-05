@@ -20,6 +20,9 @@
 		* Create nuget package for SDK, one per composite.
 		* Update local nuget feed
 		* (CI server only) publish updated nuget feed
+
+		The below is a very rough initial draft at some of the previously mentioned steps. It should not be considered authoritative or
+		final in any way. (Remove this comment when this changes.)
 	-->
 
 	<ItemGroup>
@@ -66,6 +69,24 @@
 
 	<Target Name="BuildAll" DependsOnTargets="BuildCommon; BuildFramework; BuildSDK">
 	
+	</Target>
+
+	<Target Name="Package">
+		<!-- needs to be fleshed out -->
+		<ItemGroup>
+
+		</ItemGroup>
+
+		<!--  insert the version number into the nuspec files 
+    <XmlUpdate
+      Namespace="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"
+      XmlFileName="$(PackageDir)\temp\FluentValidation\FluentValidation.nuspec"
+      XPath="/package/metadata/version"
+      Value="%(AsmInfo.Version)" />
+    -->
+
+		<Exec WorkingDirectory="$(PackageDir)"
+          Command="nuget.exe pack $(PackageDir)\temp\MetadataComposite\MetadataComposite.nuspec" />
 	</Target>
 
 </Project>

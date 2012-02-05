@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>Euclid Composite Inspector</id>
+		<version>1.0.0.3</version>
+		<authors>Shawn Hinsey, Jason Turim</authors>
+		<owners>Shawn Hinsey, Jason Turim</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Euclid's Composite Inspector, for use in web projects.</description>
+		<tags></tags>
+	</metadata>
+</package>
