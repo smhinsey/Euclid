@@ -38,12 +38,13 @@
 
 			EUCLID.withFormResults($("#query-form"), function (results) {
 				var data = getQueryResultsObject(results, selectedQuery, selectedMethod);
-				Using(data).Render("/composite/ui/template/query-results-table").Manipulate(function (content) {
-					$("#query-results-table").show();
-					$("#execute-query").hide();
-					$("#query-results-table").html("");
-					$("#query-results-table").append($(content));
-				});
+				if (data == null) {
+					showResultsTable("<div><a href='#' class='close' data-dismiss='alert'>×</a><div class='alert alert-box'><strong>Nada</strong> The query returned no results</div></div>");
+				} else {
+					Using(data).Render("/composite/ui/template/query-results-table").Manipulate(function (content) {
+						showResultsTable(content);
+					});
+				};
 			});
 
 			return false;
@@ -62,10 +63,16 @@
 		});
 	});
 
+	function showResultsTable(content) {
+		$("#query-results-table").show();
+		$("#execute-query").hide();
+		$("#query-results-table").html("");
+		$("#query-results-table").append($(content));
+	}
 
 	function getQueryResultsObject(results, queryName, methodName) {
 		if ((results instanceof Array && results.length == 0) || !results) {
-			return;
+			return null;
 		} else if (!results instanceof Array) {
 			var tmp = new Array();
 			tmp.push(results);
