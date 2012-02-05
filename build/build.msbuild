@@ -1,9 +1,8 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="default">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="BuildAll">
 	<PropertyGroup>
-		<BaseDir>$(MSBuildProjectDirectory)\..</BaseDir>
-		<Configuration Condition="'$(Configuration)'==''" >Debug</Configuration>
-		<OutputDir>$(BaseDir)\output</OutputDir>
-		<SolutionFile>$(BaseDir)\Euclid.sln</SolutionFile>
+		<BaseDir>$(MSBuildProjectDirectory)</BaseDir>
+		<Configuration Condition="'$(Configuration)'==''" >Release</Configuration>
+		<OutputDir>.\output</OutputDir>
 		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	</PropertyGroup>
 
@@ -21,7 +20,77 @@
 		* Create nuget package for SDK, one per composite.
 		* Update local nuget feed
 		* (CI server only) publish updated nuget feed
+
+		The below is a very rough initial draft at some of the previously mentioned steps. It should not be considered authoritative or
+		final in any way. (Remove this comment when this changes.)
 	-->
 
+	<ItemGroup>
+		<CommonProjects Include="$(BaseDir)\src\common\**\*.csproj"/>
+		<FrameworkProjects Include="$(BaseDir)\src\framework\**\*.csproj"/>
+		<SDKProjects Include="$(BaseDir)\src\sdk\**\*.csproj"/>
+	</ItemGroup>
+
+	<Target Name="BuildCommon">
+		<MSBuild Projects="@(CommonProjects)" Properties="Configuration=$(Configuration)">
+			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
+		</MSBuild>
+
+		<ItemGroup>
+			<Binaries Include="$(BaseDir)\src\common\**\bin\$(Configuration)\*.dll"/>
+		</ItemGroup>
+
+		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(OutputDir)\common"/>
+	</Target>
+
+	<Target Name="BuildFramework">
+		<MSBuild Projects="@(FrameworkProjects)" Properties="Configuration=$(Configuration)">
+			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
+		</MSBuild>
+
+		<ItemGroup>
+			<Binaries Include="$(BaseDir)\src\framework\**\bin\$(Configuration)\*.dll"/>
+		</ItemGroup>
+
+		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(OutputDir)\framework"/>
+	</Target>
+
+	<Target Name="BuildSDK">
+		<MSBuild Projects="@(SDKProjects)" Properties="Configuration=$(Configuration)">
+			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
+		</MSBuild>
+
+		<ItemGroup>
+			<Binaries Include="$(BaseDir)\src\sdk\**\bin\$(Configuration)\*.dll"/>
+		</ItemGroup>
+
+		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(OutputDir)\sdk"/>
+	</Target>
+
+	<Target Name="BuildAll" DependsOnTargets="BuildCommon; BuildFramework; BuildSDK">
+	
+	</Target>
+
+	<Target Name="PackageSdk" DependsOnTargets="BuildAll">
+		<!-- needs to be fleshed out -->
+		<ItemGroup>
+			<NuSpec Include="$(MSBuildProjectDirectory)\EuclidSDK.nuspec"/>
+			<CommonOutput Include="$(OutputDir)\common\*.*"/>
+			<FrameworkOutput Include="$(OutputDir)\framework\*.*"/>
+			<SDKOutput Include="$(OutputDir)\sdk\*.*"/>
+		</ItemGroup>
+
+		<Copy SourceFiles="@(NuSpec)" DestinationFolder="$(BaseDir)\package\sdk"/>
+		<Copy SourceFiles="@(CommonOutput)" DestinationFolder="$(BaseDir)\package\sdk"/>
+		<Copy SourceFiles="@(FrameworkOutput)" DestinationFolder="$(BaseDir)\package\sdk"/>
+		<Copy SourceFiles="@(SDKOutput)" DestinationFolder="$(BaseDir)\package\sdk"/>
+
+		<ItemGroup>
+			<PackageDir Include="$(BaseDir)\package\sdk"/>
+		</ItemGroup>
+
+		<Exec WorkingDirectory="$(PackageDir)"
+          Command="nuget.exe pack EuclidSDK.nuspec" />
+	</Target>
 
 </Project>

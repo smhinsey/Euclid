@@ -1,6 +1,6 @@
 ﻿<script id="template-companyAllTransactions" type="text/x-handlebars-template">
 	<h3>{{companyName}} Transactions</h3>
-
+	<hr/>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -20,13 +20,13 @@
 				<td>{{this.amount}}</td>
 				<td>
 					<div class="btn-group">
-						<a class="btn small" href="#">Action</a>
-						<a class="btn small dropdown-toggle" data-toggle="dropdown" href="#">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							Actions
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a>View Details</a>
+								<a href="#company/{{../companySlug}}/allTransactions/myTransactionSlug/details">View Details</a>
 							</li>
 							<li>
 								<a>Freeze</a>
@@ -38,5 +38,33 @@
 			{{/each}}
 
 		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					<div class="pagination pagination-right">
+						<ul>
+							<li>
+								<a href="#">Prev</a>
+							</li>
+							<li class="active">
+								<a href="#">1</a>
+							</li>
+							<li>
+								<a href="#">2</a>
+							</li>
+							<li>
+								<a href="#">3</a>
+							</li>
+							<li>
+								<a href="#">4</a>
+							</li>
+							<li>
+								<a href="#">Next</a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </script>

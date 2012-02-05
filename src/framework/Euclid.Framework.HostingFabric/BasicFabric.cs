@@ -156,6 +156,8 @@ namespace Euclid.Framework.HostingFabric
 
 		private void extractProcessorsFromAgents()
 		{
+			var commandHost = new CommandHost(new ICommandDispatcher[] { });
+
 			foreach (var agent in Composite.Agents)
 			{
 				var processorAttribute = agent.AgentAssembly.GetAttributeValue<LocationOfProcessorsAttribute>();
@@ -185,10 +187,10 @@ namespace Euclid.Framework.HostingFabric
 
 				dispatcher.Configure(dispatcherSettings);
 
-				var commandHost = new CommandHost(new ICommandDispatcher[] { dispatcher });
-
-				Container.Register(Component.For<IHostedService>().Instance(commandHost).Forward<CommandHost>().LifeStyle.Transient);
+				commandHost.AddDispatcher(dispatcher);
 			}
+
+			Container.Register(Component.For<IHostedService>().Instance(commandHost).Forward<CommandHost>().LifeStyle.Transient);
 		}
 	}
 }

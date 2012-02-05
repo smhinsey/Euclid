@@ -14,3 +14,5 @@ nuget/Euclid.*.nupkg
 *.orig
 *.log
 csx/
+build/output
+build/package

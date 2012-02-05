@@ -19,28 +19,28 @@ namespace ForumAgent.Processors
 			_repository = new NhSimpleRepository<OrganizationEntity>(_session);
 		}
 
-		public override void Process(UpdateOrganization organizationInfo)
+		public override void Process(UpdateOrganization command)
 		{
-			var entity = _repository.FindById(organizationInfo.OrganizationIdentifier);
+			var organization = _repository.FindById(command.OrganizationIdentifier);
 
-			if (entity == null)
+			if (organization == null)
 			{
-				throw new OrganizationNotFoundException(organizationInfo.OrganizationIdentifier);
+				throw new OrganizationNotFoundException(command.OrganizationIdentifier);
 			}
 
-			entity.Address = organizationInfo.Address;
-			entity.Address2 = organizationInfo.Address2;
-			entity.City = organizationInfo.City;
-			entity.Country = organizationInfo.Country;
-			entity.Modified = DateTime.Now;
-			entity.OrganizationName = organizationInfo.OrganizationName;
-			entity.OrganizationUrl = organizationInfo.OrganizationUrl;
-			entity.PhoneNumber = organizationInfo.PhoneNumber;
-			entity.State = organizationInfo.State;
-			entity.Zip = organizationInfo.Zip;
-			entity.OrganizationSlug = organizationInfo.OrganizationSlug;
+			organization.Address = command.Address;
+			organization.Address2 = command.Address2;
+			organization.City = command.City;
+			organization.Country = command.Country;
+			organization.Modified = DateTime.Now;
+			organization.OrganizationName = command.OrganizationName;
+			organization.OrganizationUrl = command.OrganizationUrl;
+			organization.PhoneNumber = command.PhoneNumber;
+			organization.State = command.State;
+			organization.Zip = command.Zip;
+			organization.OrganizationSlug = command.OrganizationSlug.Trim();
 
-			_repository.Save(entity);
+			_repository.Save(organization);
 		}
 	}
 }

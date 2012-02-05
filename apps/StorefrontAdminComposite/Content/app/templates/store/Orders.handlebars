@@ -1,6 +1,7 @@
 ﻿<script id="template-storeOrders" type="text/x-handlebars-template">
 	<h3>{{storeName}} Orders</h3>
-
+	<hr/>
+	<a href="#store/{{storeSlug}}/orders/add" class="btn btn-primary pull-right">Add Order</a>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -19,8 +20,8 @@
 				<td>{{this.amount}}</td>
 				<td>
 					<div class="btn-group">
-						<a class="btn small" href="#">Action</a>
-						<a class="btn small dropdown-toggle" data-toggle="dropdown" href="#">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							Actions
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
@@ -49,7 +50,28 @@
 		<tfoot>
 			<tr>
 				<td colspan="6">
-					<button class="btn pull-right">Add Manual Order</button>
+					<div class="pagination pagination-right">
+						<ul>
+							<li>
+								<a href="#">Prev</a>
+							</li>
+							<li class="active">
+								<a href="#">1</a>
+							</li>
+							<li>
+								<a href="#">2</a>
+							</li>
+							<li>
+								<a href="#">3</a>
+							</li>
+							<li>
+								<a href="#">4</a>
+							</li>
+							<li>
+								<a href="#">Next</a>
+							</li>
+						</ul>
+					</div>
 				</td>
 			</tr>
 		</tfoot>

@@ -38,12 +38,13 @@ namespace Euclid.TestingSupport
 		[TestFixtureSetUp]
 		public void FixtureSetup()
 		{
-			NConfigurator.UsingFile(@"Config\custom.config").SetAsSystemDefault();
 		}
 
 		[SetUp]
 		public void SetUp()
 		{
+			NConfigurator.UsingFile(@"Config\custom.config").SetAsSystemDefault();
+
 			XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
 
 			var compositeDatabaseConnection =

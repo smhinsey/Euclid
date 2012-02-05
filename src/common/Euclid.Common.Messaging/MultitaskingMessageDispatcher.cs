@@ -111,15 +111,15 @@ namespace Euclid.Common.Messaging
 					Task.Factory.StartNew(
 						() =>
 							{
+								var registry =
+									(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
+									Container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
+
 								try
 								{
 									var handler = processor.GetType().GetMethod("Process", new[] { message.GetType() });
 
 									handler.Invoke(processor, new[] { message });
-
-									var registry =
-										(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
-										Container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
 
 									registry.MarkAsComplete(record.Identifier);
 
@@ -132,10 +132,6 @@ namespace Euclid.Common.Messaging
 										e.InnerException,
 										message.GetType().Name,
 										message.Identifier);
-
-									var registry =
-										(IPublicationRegistry<IPublicationRecord, IPublicationRecord>)
-										Container.GetInstance(typeof(IPublicationRegistry<IPublicationRecord, IPublicationRecord>));
 
 									registry.MarkAsFailed(record.Identifier, e.InnerException.Message, e.InnerException.StackTrace);
 								}

@@ -1,2 +1,8 @@
 ﻿body {
 }
+
+/* the default table display doesn't vertically align correctly when there are buttons in the row. we
+may prefer to make this opt-in at some point, but for the time being this is sufficient */
+.table td {
+	vertical-align: middle !important;
+}
