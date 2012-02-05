@@ -9,7 +9,7 @@
 			<h5>{{Name}} 
 				<small>
 					Select {{#if MultiChoice}}multiple{{else}}one{{/if}}
-					[{{#each Choices}} {{bold-selected this ../Value}} {{/each}}]
+					[{{#comma-delimited-list Choices "" Value}}{{/comma-delimited-list}}]
 				</small>
 			</h5>
 		{{else}}

@@ -94,7 +94,10 @@
 	</div>
 	<div class="modal-body" id="method-names">
 		{{#Methods}}
-			<h5><a href="#" class="method" data-query-name="{{../Name}}" data-method-name="{{Name}}" data-argument-count="{{#get-argument-count Arguments}}{{/get-argument-count}}">{{Name}}</a></h5>
+			<h5>
+				<a href="#" class="method" data-query-name="{{../Name}}" data-method-name="{{Name}}" data-argument-count="{{#get-argument-count Arguments}}{{/get-argument-count}}">{{Name}}</a>
+				<small>({{#comma-delimited-list Arguments "ArgumentName"}}{{/comma-delimited-list}})</small>
+			</h5>
 		{{/Methods}}
 	</div>
 	<div class="modal-body" id="query-form-container" style="display:none"></div>
