@@ -72,7 +72,6 @@
 	</Target>
 
 	<Target Name="PackageSdk" DependsOnTargets="BuildAll">
-		<!-- needs to be fleshed out -->
 		<ItemGroup>
 			<NuSpec Include="$(MSBuildProjectDirectory)\EuclidSDK.nuspec"/>
 			<CommonOutput Include="$(OutputDir)\common\*.*"/>
@@ -91,6 +90,10 @@
 
 		<Exec WorkingDirectory="$(PackageDir)"
           Command="nuget.exe pack EuclidSDK.nuspec" />
+	</Target>
+
+	<Target Name="PackageInspector" DependsOnTargets="BuildAll">
+		<!-- we need to get the subset of the compiled assemblies required to run the inspector -->
 	</Target>
 
 </Project>
