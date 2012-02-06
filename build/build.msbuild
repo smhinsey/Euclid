@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="BuildAll">
 	<PropertyGroup>
-		<BaseDir>$(MSBuildProjectDirectory)</BaseDir>
+		<BaseDir>$(MSBuildProjectDirectory)\..\</BaseDir>
 		<Configuration Condition="'$(Configuration)'==''" >Release</Configuration>
 		<OutputDir>.\output</OutputDir>
 		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -29,6 +29,16 @@
 		<CommonProjects Include="$(BaseDir)\src\common\**\*.csproj"/>
 		<FrameworkProjects Include="$(BaseDir)\src\framework\**\*.csproj"/>
 		<SDKProjects Include="$(BaseDir)\src\sdk\**\*.csproj"/>
+		<CompositeInspectorProjects 
+						   Include="$(BaseDir)\src\common\Euclid.Common\Euclid.Common.csproj;
+									$(BaseDir)\src\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj;
+									$(BaseDir)\src\sdk\Euclid.Composites\Euclid.Composites.csproj;
+									$(BaseDir)\src\sdk\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj;
+									$(BaseDir)\src\Framework\Euclid.Framework\Euclid.Framework.csproj;
+									$(BaseDir)\src\Framework\Euclid.Framework.AgentMetadata\Euclid.Framework.AgentMetadata.csproj;
+									$(BaseDir)\src\Framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj;
+									$(BaseDir)\src\Framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj;
+									$(BaseDir)\src\sdk\CompositeInspector\CompositeInspector.csproj" />
 	</ItemGroup>
 
 	<Target Name="BuildCommon">
@@ -89,11 +99,19 @@
 		</ItemGroup>
 
 		<Exec WorkingDirectory="$(PackageDir)"
-          Command="nuget.exe pack EuclidSDK.nuspec" />
+		  Command="nuget.exe pack EuclidSDK.nuspec" />
 	</Target>
 
-	<Target Name="PackageInspector" DependsOnTargets="BuildAll">
-		<!-- we need to get the subset of the compiled assemblies required to run the inspector -->
+	<Target Name="BuildCompositeInspector">
+		<MSBuild Projects="@(CompositeInspectorProjects)" Properties="Configuration=$(Configuration)">
+			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
+		</MSBuild>
+
+		<ItemGroup>
+			<Binaries Include="$(BaseDir)\src\sdk\CompositeInspector\bin\$(Configuration)\*.dll"/>
+		</ItemGroup>
+
+		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(OutputDir)\Composite Inspector"/>
 	</Target>
 
 </Project>
