@@ -10,52 +10,22 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		pageInit();
+		var agentSystemName = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
+		WorkWithDataFromUrl("/composite/api/agent/" + agentSystemName,
+			function (data) {
+				Using(data).Fill("#agent").With("/composite/ui/template/agent");
+				Using(data).Fill("#commands").With("/composite/ui/template/commands");
+				Using(data).Fill("#queries").With("/composite/ui/template/queries");
+				Using(data).Fill("#read-models").With("/composite/ui/template/read-models");
+			}
+		);
 
-		$(".query").click(function () {
-			var queryName = $(this).text();
-			alert(queryName);
-		});
+		WorkWithDataFromUrl("/composite/api",
+			function (data) {
+				Using(data).Fill("#composite").With("/composite/ui/template/composite-link"); ;
+			}
+		);
 	});
-
-	function pageInit() {
-		var agent = window.location.href.substr(window.location.href.lastIndexOf("/") + 1);
-		var data = EUCLID.getJsonObject("/composite/api/agent/" + agent);
-		if (data != null) {
-
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/agent",
-				data: data,
-				onComplete: function (content) { $("#agent").append($(content)); }
-			});
-
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/commands",
-				data: data,
-				onComplete: function (content) { $("#commands").append($(content)); }
-			});
-
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/queries",
-				data: data,
-				onComplete: function (content) { $("#queries").append($(content)); }
-			});
-
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/read-models",
-				data: data,
-				onComplete: function (content) { $("#read-models").append($(content)); }
-			});
-
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/composite-link",
-				data: EUCLID.getJsonObject("/composite/api/"),
-				onComplete: function (content) { $("#composite").append($(content)); }
-			});
-		}
-
-		return false;
-	}
 </script>
 
 <div class="row">

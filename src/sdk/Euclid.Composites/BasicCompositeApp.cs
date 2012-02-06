@@ -208,14 +208,14 @@ namespace Euclid.Composites
 
 			if (query == null)
 			{
-				throw new QueryNotPresentInCompositeException(queryName);
+				throw new QueryNotFoundInCompositeException(queryName);
 			}
 
 			var instance = Container.Resolve(query.Type);
 
 			if (instance == null)
 			{
-				throw new QueryNotPresentInCompositeException(queryName);
+				throw new QueryNotFoundInCompositeException(queryName);
 			}
 
 			var method = query.Type.GetMethods().Where(m => m.Name == methodName && m.GetParameters().Count() == argumentCount).FirstOrDefault();
@@ -317,13 +317,6 @@ namespace Euclid.Composites
 			}
 
 			return mcfg;
-		}
-	}
-
-	public class QueryNotPresentInCompositeException : Exception
-	{
-		public QueryNotPresentInCompositeException(string queryName) : base(queryName)
-		{
 		}
 	}
 }

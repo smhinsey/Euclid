@@ -107,7 +107,7 @@
     <Compile Include="Conversion\CommandAlreadyMappedException.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CommandNotPresentInAgentException.cs" />
+    <Compile Include="CommandNotFoundInCompositeException.cs" />
     <Compile Include="CompositeApplicationState.cs" />
     <Compile Include="CompositeAppSettings.cs" />
     <Compile Include="BasicCompositeApp.cs" />
@@ -130,6 +130,7 @@
     <Compile Include="Extensions\AgentResolversExtensions.cs" />
     <Compile Include="InvalidConfigurationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryNotFoundInCompositeException.cs" />
     <Compile Include="ValueConverter.cs" />
   </ItemGroup>
   <ItemGroup>

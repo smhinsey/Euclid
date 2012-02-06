@@ -72,7 +72,7 @@ namespace CompositeInspector.Module
 			}
 			catch (CannotMapCommandException)
 			{
-				throw new CommandNotPresentInAgentException(commandName);
+				throw new CommandNotPresentInCompositeException(commandName);
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace CompositeInspector.Module
 
 			//if (inputModel == null)
 			//{
-			//    throw new CommandNotPresentInAgentException(commandName);
+			//    throw new CommandNotPresentInCompositeException(commandName);
 			//}
 
 			//var format = this.GetResponseFormat();

@@ -1,5 +1,4 @@
 ﻿using System;
-using CompositeInspector.Models;
 using Euclid.Composites;
 using Nancy;
 
@@ -47,17 +46,18 @@ namespace CompositeInspector.Module
 			Get[CompositeDetailRoute] = _ => View[CompositeDetailView];
 
 			Get[HomeRoute] = _ =>
-				{
-					var model = new CompositeHome
-						{
-							Agents = _compositeApp.Agents,
-							ConfigurationErrors = _compositeApp.IsValid() ? null : _compositeApp.GetConfigurationErrors(),
-							IsValid = _compositeApp.IsValid(),
-							CompositeDescription = _compositeApp.Description,
-							CompositeName = _compositeApp.Name
-						};
-					return View[HomeViewPath, model];
-				};
+			                 	{
+			                 		throw new NotImplementedException();
+			                 		//var model = new CompositeHome
+			                 		//    {
+			                 		//        Agents = _compositeApp.Agents,
+			                 		//        ConfigurationErrors = _compositeApp.IsValid() ? null : _compositeApp.GetConfigurationErrors(),
+			                 		//        IsValid = _compositeApp.IsValid(),
+			                 		//        CompositeDescription = _compositeApp.Description,
+			                 		//        CompositeName = _compositeApp.Name
+			                 		//    };
+			                 		//return View[HomeViewPath, model];
+			                 	};
 		}
 	}
 }

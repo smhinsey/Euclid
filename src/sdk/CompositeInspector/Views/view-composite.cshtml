@@ -11,45 +11,16 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		pageInit();
-
-		$(".query").click(function () {
-			var queryName = $(this).text();
-			alert(queryName);
-		});
 	});
 
 	function pageInit() {
-		var data = EUCLID.getJsonObject("/composite/api");
-
-		EUCLID.populateTemplate({
-			templateUrl: "/composite/ui/template/composite",
-			data: data, 
-			onComplete: function (content) { $("#composite").append($(content)); }
-		});
-
-		EUCLID.populateTemplate({ 
-			templateUrl: "/composite/ui/template/commands",
-			data: data, 
-			onComplete: function (content) { $("#commands").append($(content)); } 
-		});
-
-		EUCLID.populateTemplate({
-			templateUrl: "/composite/ui/template/queries",
-			data: data, 
-			onComplete: function (content) { $("#queries").append($(content)); }
-		});
-
-		EUCLID.populateTemplate({
-			templateUrl: "/composite/ui/template/input-models",
-			data: data,
-			onComplete: function (content) { $("#input-models").append($(content)); }
-		});
-
-		EUCLID.populateTemplate({
-			templateUrl: "/composite/ui/template/agents",
-			data: data,
-			onComplete: function (content) { $("#agents").append($(content)); }
-		});
+		WorkWithDataFromUrl("/composite/api",
+			function (data) {
+				Using(data).Fill("#composite").With("/composite/ui/template/composite");
+				Using(data).Fill("#queries").With("/composite/ui/template/queries");
+				Using(data).Fill("#input-models").With("/composite/ui/template/input-models");
+				Using(data).Fill("#agents").With("/composite/ui/template/agents");
+			});
 	}
 </script>
 
@@ -58,11 +29,9 @@
 </div>
 
 <div class="row">
-	<div class="span3" id="commands"></div>
+	<div class="span4" id="queries"></div>
 
-	<div class="span3" id="queries"></div>
+	<div class="span4" id="input-models"></div>
 
-	<div class="span3" id="input-models"></div>
-
-	<div class="span3" id="agents"></div>
+	<div class="span4" id="agents"></div>
 </div>

@@ -1,97 +1,134 @@
 ﻿$.getScript("/composite/js/jquery/jquery.form.js");
 
 if ($.validator == null || $.validator == undefined) {
-	$.ajaxSetup({ "async": false });
-		$.getScript("/composite/js/jquery/jquery.validate.min.js");
-		$.getScript("/composite/js/jquery/jquery.validate.unobtrusive.min.js");
-		$.ajaxSetup({ "async": true });
-		
+	$.getScript("/composite/js/jquery/jquery.validate.min.js");
+	$.getScript("/composite/js/jquery/jquery.validate.unobtrusive.min.js");
 }
 
 var EUCLID = function () {
 	/* private methods */
-	var _getJsonObject = (function (url) {
-		$.ajaxSetup({ "async": false })
+	var _getQueryForm = function(id) {
+			var form = "<form ";
+			if (id) {
+				form += "id='" + id +"'";
+			}
+			form += "action='/composite/api/execute/query/" + this.queryName + "/" + this.Name + "' method='post'><legend style='display:none'>" + this.queryName + "." + this.Name + "</legend><fieldset></fieldset></form>";
+			form = $(form);
+			var fieldSet = $(form).children("fieldset");
 
-		var jqHxr = $.ajax({
-			url: url,
-			dataType: 'json',
-			headers: {
-				Accept: "application/json; charset=utf-8"
+			$.each(this.Arguments, function (index, item) {
+				var forceShow = true; // methodName == "FindById" && item.ArgumentName == "id";
+				_addElementToForm(item.ArgumentName, item.ArgumentType, "", item.Choices, item.MultiChoice, fieldSet, forceShow);
+			});
+
+			$(form).find(".input-date").datepicker();
+			return form;
+	} // end _getQueryForm
+
+	var _getMethodByName = function(methodName, numberArguments) {
+		var method;
+		$.each(this.Methods, function(index, item) {
+			if (item.Name == methodName && item.Arguments.length == numberArguments) {
+				method = item;
+				return;
 			}
 		});
-		var _model = $.parseJSON(jqHxr.responseText);
-		$.ajaxSetup({ "async": true });
 
-		if (jqHxr.status == 500) {
-			throw _model;
+		return method;
+	}
+
+	var _getInputModel = function (commandName, data) {
+		///<summary>gets an input model object</summary>
+		/// <param name='commandName'>the command associated with this input model</param>
+		/// <param name='data'>the json representation of the input model properties</param>
+		if (data == null) {
+			throw ({
+				name: "Invalid Argument Exception",
+				message: "The parameter data cannot be null"
+			});
 		}
 
-		if (_model === null) {
-			throw {
-				name: "Invalid QueryName Exception",
-				message: "Could not GET JSON from url : " + url
-			};
+		var _propertyNames = new Array();
+		var _model = (function () {
+			var _propertyNameIsValid = (function (name) {
+				var found = ($.inArray(name, _propertyNames) > -1 || name === "PartName");
+				return found;
+			});
+
+			var _getPropertyType = (function (propertyName) {
+				if (propertyName.toLowerCase() == "partname") {
+					return "String";
+				}
+
+				for (i = 0; i < data.Properties.length; i++) {
+					var obj = data.Properties[i];
+					if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
+						return obj.Type;
+					}
+				}
+
+				throw ({
+					name: "Invalid Property Exception",
+					message: "The property '" + propertyName + "' does not exist on the inputModel"
+				});
+			});
+
+			var _getChoices = (function (propertyName) {
+				for (i = 0; i < data.Properties.length; i++) {
+					var obj = data.Properties[i];
+					if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
+						return (obj.Choices === null) ? null : { Values: obj.Choices, MultiChoice: obj.MultiChoice };
+					}
+				}
+
+				return null;
+			});
+
+			return {
+				getForm: (function () {
+					///<summary>returns a jquery object containing a form that can be used to collect data for this command</summary>
+					var form = $("<form action='/composite/commands/publish' method='post'><fieldset></fieldset></form>");
+					var fieldSet = $(form).children("fieldset");
+
+					for (propertyName in _model) {
+						if (_model.hasOwnProperty(propertyName) && typeof _model[propertyName] !== 'function') {
+							if (!_propertyNameIsValid(propertyName)) {
+								throw {
+									name: "Invalid Property Exception",
+									message: "the input model for command '" + _model.PartName + "' does not contain a property named '" + propertyName + "'"
+								}
+							}
+
+							var propertyType = _getPropertyType(propertyName);
+							var choiceObject = _getChoices(propertyName);
+							var propertyChoices = choiceObject == null ? null : choiceObject.Values;
+							var multiChoice = choiceObject == null ? false : choiceObject.MultiChoice;
+							var forceShow = propertyType.toLowerCase() == "guid";
+							_addElementToForm(propertyName, propertyType, _model[propertyName], propertyChoices, multiChoice, fieldSet, forceShow);
+						}
+					}
+
+					$(form).find(".input-date").datepicker();
+					return form;
+				}), // end getForm
+
+				publish: (function () {
+					/// <summary> publishes this command for processing</summary>
+					var form = this.getForm();
+					EUCLID.submitForm(form);
+				}) // end publish
+			}
+		})(); // end model definiton
+
+		for (i = 0; i < data.Properties.length; i++) {
+			var prop = data.Properties[i];
+			_model[prop.Name] = prop.Value;
+			_propertyNames.push(prop.Name);
 		}
 
+		_model["PartName"] = commandName;
 		return _model;
-	}); // end getJsonObject
-
-	var _submitForm = (function (form, values) {
-		var model = null;
-
-		if (values != null && typeof values == "object") {
-			for (valueName in values) {
-				if (values.hasOwnProperty(valueName)) {
-					var element = $(form).find("[name='" + valueName + "']");
-					if ($(element).length > 0) {
-						element.attr("value", values[valueName]);
-					}
-				}
-			}
-		}
-
-		$.ajaxSetup({ async: false });
-		$(form).ajaxSubmit({
-			headers: {
-				Accept: "application/json; charset=utf-8"
-			},
-
-			success: function (responseText, statusText, jqHxr, $form) {
-				if (jqHxr.status == 500) {
-					throw {
-						name: model.name,
-						message: model.message + "\n\n" + _model.callstack
-					}
-				} else {
-					model = $.parseJSON(jqHxr.responseText);
-				}
-			},
-			error: function (jqHxr, statusText) {
-				throw $.parseJSON(jqHxr.responseText);
-			}
-		});
-		$.ajaxSetup({ async: true });
-
-		var re = new RegExp("\\/Date\\((-?\\d+)\\)\\/");
-		for (property in model) {
-			if (model.hasOwnProperty(property) && typeof property != "function") {
-				var m = re.exec(model[property]);
-				if (m != null) {
-					model[property] = new Date(parseInt(m[1]));
-				}
-			}
-		}
-
-		return model;
-	}); // end submitForm
-
-	var _getId = (function () {
-		function S4() {
-			return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-		}
-		return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-	}); // end getId
+	}
 
 	var _addElementToForm = (function (propertyName, propertyType, propertyValue, choices, allowMultiChoice, fieldSet, forceShow) {
 		var inputClass = "xlarge";
@@ -137,7 +174,7 @@ var EUCLID = function () {
 			}
 		}
 
-		var inputId = _getId();
+		var inputId = EUCLID.getId();
 		var html = "";
 		if (choices != null) {
 			var options = "";
@@ -190,359 +227,201 @@ var EUCLID = function () {
 		$(fieldSet).append($(html));
 	}); //end addElementToForm
 
-	var _displayErrorWrapper = (function (args) {
-		if (args === null || args === undefined || !args.hasOwnProperty("callbackArgs") || !args.hasOwnProperty("callback")) {
-			throw {
-				name: "Invalid Argument Exception",
-				message: "_displayErrorWrapper exepects the parameters 'callback' - the function to execute, and 'callbackArgs' - an object containing the arguments to pass into the function"
+	var _parseDate = function(data) {
+		//parese date
+		var re = new RegExp("\\/Date\\((-?\\d+)\\)\\/");
+		for (property in data) {
+			if (data.hasOwnProperty(property) && typeof property != "function") {
+				var m = re.exec(data[property]);
+				if (m != null) {
+					data[property] = new Date(parseInt(m[1]));
+				}
 			}
 		}
-
-		try {
-			args.callback(args.callbackArgs);
-		} catch (e) {
-			if (args.callbackArgs.hasOwnProperty("handleError")) {
-				args.callbackArgs.handleError(e);
-			} else {
-				EUCLID.displayError(e);
-			}
-		}
-	});
+	} // end _parseDAte
 
 	return {
-		getQueryMetadata: (function (args) {
-			/// <summary>
-			/// Retrieve a JSON representation of a query
-			///  &#10; .AgentSystemName
-			///  &#10; .Namespace
-			///  &#10; .Name
-			///  &#10; .Methods (an array of method objects)
-			///  &#10;  .Name
-			///  &#10;  .ReturnType
-			///  &#10;  .Arguments (an array of parameters to execute this query)
-			///  &#10;    .ArgumentName
-			///  &#10;    .ArgumentType, 
-			///  &#10;    .Choices,
-			///  &#10;    .MultiChoice (boolean indicates if multiple choices are allowed)
-			/// </summary>
-			/// <param name='args'>a JSON object with the following properties
-			/// &#10; queryName: the name of the query object
-			/// &#10; methodName: the name of the method that executes the query
-			/// </param>
-			var model = null;
-			_displayErrorWrapper({
-				callback: function (args) {
-					if (args === null || args === undefined || !args.hasOwnProperty("queryName")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "EUCLID.getQueryMethods expects an object with the properties: 'queryName'"
-						};
-					}
-
-					var queryName = args.queryName;
-					var getQueryMethodsUrl = "/composite/queries/" + queryName + ".json";
-					model = _getJsonObject(getQueryMethodsUrl);
-					if (args.hasOwnProperty("methodName")) {
-						$.each(model.Methods, function (index, item) {
-							if (item.Name.toLowerCase() == args.methodName.toLowerCase()) {
-								model = item;
-								return;
-							}
-						});
-					}
-				},
-				callbackArgs: args
-			});
-
-			return model;
-		}), // end getQueryMethods
-
-		executeQuery: (function (args) {
-			/// <summary>Executes an agent query and returns a JSON encoded representation of the results</summary>
-			/// <param name='args'>a JSON object with the following properties
-			/// &#10; queryName: the name of the query object
-			/// &#10; methodName: the name of the method that executes the query
-			/// &#10; parameters: an array of arguments represented as a JSON name value pair
-			/// </param>
-			var model = null;
-			_displayErrorWrapper({
-				callback: function (args) {
-					if (args == null || args === undefined || !args.hasOwnProperty("queryName") || !args.hasOwnProperty("methodName") || !args.hasOwnProperty("parameters")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "EUCLID.executeQuery expects an object with the properties: \nqueryName: the name of the query object\nmethodName: the name of the method to execute\nparameters: a JSON representation of the query parameters"
-						}
-					}
-
-					var method = EUCLID.getQueryMetadata(args);
-					var form = EUCLID.getQueryForm({ queryName: args.queryName, method: method });
-					model = _submitForm(form, args.parameters);
-				},
-				callbackArgs: args
-			});
-
-			return model;
-		}), // end executeQuery
-
 		getId: (function () {
 			///<summary>returns a pseudo-random GUID</summary>
-			var id = "";
-			_displayErrorWrapper({
-				callback: function (args) {
-					id = _getId();
-				},
-				callbackArgs: null
-			});
-
-			return id;
+			return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 		}),
 
-		getJsonObject: (function (url) {
-			///<summary>synchrnously retrieves a JSON object from the specified URL</summary>
-			///<param name='url'>the url that provides the required data</param>
-			var object = null;
-			_displayErrorWrapper({
-				callback: function (args) {
-					object = _getJsonObject(args);
-				},
-				callbackArgs: url
-			});
+		withQuery: (function (query, onComplete, onError) {
+			/// <summary>
+			/// Retrieve a JSON representation of a query
+			///  &#10; Properties:
+			///  &#10;   .AgentSystemName
+			///  &#10;   .Namespace
+			///  &#10;   .Name
+			///  &#10;   .Methods (an array of method objects)
+			///  &#10;    .Name
+			///  &#10;    .ReturnType
+			///  &#10;    .Arguments (an array of parameters to execute this query)
+			///  &#10;      .ArgumentName
+			///  &#10;      .ArgumentType, 
+			///  &#10;      .Choices,
+			///  &#10;      .MultiChoice (boolean indicates if multiple choices are allowed)
+			///  &#10; Methods:
+			///  &#10;  .getForm
+			/// </summary>
+			/// <param name='query'>the name of the query object</param>
+			/// <param name='onComplete'>a callback that accepts the query metadata</param>
+			/// <param name='onError'>optional - error handler</param>
+			var errorHandler = onError ? onError : EUCLID.displayError;
 
-			return object;
-		}),
-
-		submitForm: (function (form, namedArguments, handleError) {
-			///<summary>submits a form</summary>
-			///<param name='form'>a jquery form object</param>
-			///<param name='namedArguments'>an array of JSON encoded name/value pairs</param>
-			///<param name='handleError'>an optional error handler</param>
-			var results = null;
-			_displayErrorWrapper({
-				callbackArgs: ({ form: form, namedArguments: namedArguments, handleError: handleError }),
-				callback: function (args) {
-					results = _submitForm(args.form, args.namedArguments);
-				}
-			});
-
-			return results;
-		}),
-
-		getQueryForm: (function (args) {
-			///<summary>retrieves a form object for collecting arguments for the specified query</summary>
-			///<param name='args'>a JSON object containing the properties
-			/// &#10; method - the name of the method to execute
-			/// &#10; queryName - the name fo the query
-			/// </param>
-			if (args == null || args === undefined || !args.hasOwnProperty("method") || !args.hasOwnProperty("queryName")) {
-				throw {
-					name: "Invalid Argument Exception",
-					message: "EUCLID.getQueryForm exepcts an object with the properties: 'method' and 'query'"
-				}
+			if (query == null || onComplete == null) {
+				errorHandler(new {name: "Invalid Argument Exception", message: "both 'query' and 'onComplete' are required parameters to EUCLID.withQueryMetadata"});
+				return null;
 			}
 
-			var method = args.method;
-			var queryName = args.queryName;
-			var methodName = method.Name
-			var form = $("<form action='/composite/queries/" + queryName + "/" + method.Name + "' method='post'><legend>" + method.Name + "</legend><fieldset></fieldset></form>");
-			var fieldSet = $(form).children("fieldset");
+			WorkWithDataFromUrl("/composite/api/query-metadata/" + query,
+				function(data) {
+					data.getMethodNamed = _getMethodByName;
+					$.each(data.Methods, function(idx, item) {
+						item.queryName = query;
+						item.getForm = _getQueryForm;
+						item
+					});
 
-			$.each(method.Arguments, function (index, item) {
-				var forceShow = true; // methodName == "FindById" && item.ArgumentName == "id";
-				_addElementToForm(item.ArgumentName, item.ArgumentType, "", item.Choices, item.MultiChoice, fieldSet, forceShow);
-			});
+					onComplete(data);
+				},
+				errorHandler);
+		}), // end getQueryMethods
 
-			$(form).find(".input-date").datepicker();
-			$(form).append("<input type='submit' value='" + method.Name + "' />");
-			return form;
-		}),
+		withFormResults: (function (form, onComplete, onError) {
+			///<summary>submits a form</summary>
+			///<param name='form'>a jquery form object</param>
+			///<param name='onComplete'>callback for handling the results</param>
+			///<param name='onError'>an optional error handler</param>
+			var errorHandler = onError == null ? EUCLID.displayError : onError;
+			var innerParseDate = _parseDate;
+			$(form).ajaxSubmit({
+				headers: {
+					Accept: "application/json; charset=utf-8"
+				},
 
-		getInputModel: (function (args) {
-			///<summary>retrieves a JSON representation of an input model for a command
-			/// &#10; the returned object supports the following methods:
-			/// &#10;  getForm() to retrieve a form for executing the command
-			/// &#10;  publish() to publish the command
-			///</summary>
-			///<param name='args'>a JSON object containing the properties
-			/// &#10; commandName - the name of the command to execute
-			/// &#10; agentSystemName - the name of the agent that supports the command
-			/// </param>
-			var _model = null;
-			_displayErrorWrapper({
-				callbackArgs: args,
-				callback: function (args) {
-					if (args === null || args === undefined || !args.hasOwnProperty("commandName")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "EUCLID.getInputModel expects an an object with the properties: 'commandName'"
-						};
+				success: function (responseText, statusText, jqHxr, $form) {
+					var data = $.parseJSON(jqHxr.responseText);
+					
+					if (data instanceof Array) {
+						$.each(data, function(index, item) {
+							innerParseDate(item);
+						});
+					} else {
+						innerParseDate(data);
 					}
 
-					var _rawModel = _getJsonObject("/composite/api/command/" + args.commandName);
-					var _propertyNames = new Array();
-					_model = (function () {
-						var _isInputModel = (function () {
-							return true;
-						});
-
-						var _propertyNameIsValid = (function (name) {
-							var found = ($.inArray(name, _propertyNames) > -1 || name === "PartName");
-							return found;
-						});
-
-						var _getPropertyType = (function (propertyName) {
-							if (propertyName.toLowerCase() == "partname") {
-								return "String";
-							}
-
-							for (i = 0; i < _rawModel.Properties.length; i++) {
-								var obj = _rawModel.Properties[i];
-								if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
-									return obj.Type;
-								}
-							}
-
-							throw {
-								name: "Invalid Property Exception",
-								message: "The property '" + propertyName + "' does not exist on the inputModel"
-							};
-						});
-
-						var _getChoices = (function (propertyName) {
-							for (i = 0; i < _rawModel.Properties.length; i++) {
-								var obj = _rawModel.Properties[i];
-								if (obj.Name.toLowerCase() == propertyName.toLowerCase()) {
-									return (obj.Choices === null) ? null : { Values: obj.Choices, MultiChoice: obj.MultiChoice };
-								}
-							}
-
-							return null;
-						});
-
-						return {
-							getForm: (function () {
-								///<summary>returns a jquery object containing a form that can be used to collect data for this command</summary>
-								var form = $("<form action='/composite/commands/publish' method='post'><fieldset></fieldset></form>");
-								var fieldSet = $(form).children("fieldset");
-
-								for (propertyName in _model) {
-									if (_model.hasOwnProperty(propertyName) && typeof _model[propertyName] !== 'function') {
-										if (!_propertyNameIsValid(propertyName)) {
-											throw {
-												name: "Invalid Property Exception",
-												message: "the input model for command '" + _model.PartName + "' does not contain a property named '" + propertyName + "'"
-											}
-										}
-
-										var propertyType = _getPropertyType(propertyName);
-										var choiceObject = _getChoices(propertyName);
-										var propertyChoices = choiceObject == null ? null : choiceObject.Values;
-										var multiChoice = choiceObject == null ? false : choiceObject.MultiChoice;
-										var forceShow = propertyType.toLowerCase() == "guid";
-										_addElementToForm(propertyName, propertyType, _model[propertyName], propertyChoices, multiChoice, fieldSet, forceShow);
-									}
-								}
-
-								$(form).find(".input-date").datepicker();
-								// $(form).append("<input type='submit' value='" + args.commandName + "' />");
-								return form;
-							}), // end getForm
-
-							publish: (function () {
-								/// <summary> publishes this command for processing</summary>
-								var form = this.getForm();
-								EUCLID.submitForm(form);
-							}) // end publish
-						}
-					})();
-
-					for (i = 0; i < _rawModel.Properties.length; i++) {
-						var prop = _rawModel.Properties[i];
-						_model[prop.Name] = prop.Value;
-						_propertyNames.push(prop.Name);
+					if (jqHxr.status == 500) {
+						errorHandler(data);
+					} else {
+						onComplete(data);
 					}
-					_model["PartName"] = args.commandName;
+				},
+				error: function (jqHxr, statusText) {
+					errorHandler($.parseJSON(jqHxr.responseText));
 				}
 			});
+		}),
 
-			return _model;
-		}), // end getInputModel
+		withInputModel: (function (commandName, onSuccess, onError) {
+			///<summary>retrieves a JSON representation of an input model and executes a callback</summary>
+			///<param name='commandName'>the name of the command</param>
+			///<param name='onSuccess'>a function that accepts an input model
+			/// &#10; the input model object supports the following methods:
+			/// &#10;  getForm() to retrieve a form for executing the command
+			/// &#10;  publish() to publish the command
+			/// </param>
+			///<param name='onError'>optional error handler</param>
+			/// </param>
+			var errorHandler = (onError == null) ? EUCLID.displayError : onError;
+			var getInputModel = _getInputModel;
 
-		pollForCommandStatus: (function (args) {
+			if (commandName == null) {
+				var e = {
+					name: "Invalid Argument Exception",
+					message: "A command name must be specified"
+				};
+
+				errorHandler(e);
+			}
+
+			WorkWithDataFromUrl("/composite/api/command/" + commandName,
+				function (data) {
+					try {
+						var inputModel = getInputModel(commandName, data);
+						onSuccess(inputModel);
+					} catch (e) {
+						errorHandler(e);
+					}
+				},
+				errorHandler);
+		}), // end withInputModel
+
+		pollForCommandStatus: (function (publicationId, onCommandComplete, onCommandError, pollMax, pollInterval, onPollError, onBeforePoll) {
 			///<summary>naviely polls the composite for the status of a given command
 			/// &#10;  this implementation creates a new request for each poll, and is not appropriate for use in a high volume situation
 			///</summary>
-			///<param name='args'>a JSON object containing the properties
-			/// &#10; publicationId- the id of the command
-			/// &#10; pollMax - the maximum number of times to poll (optional, default = 100)
-			/// &#10; pollInterval - the time between requests (optional, default 250ms)
-			/// &#10; onCommandComplete - a callback function that is called if the command has completed succesfully (accepts a JSON representation of a CommandPublicationRecord)
-			/// &#10; onCommandError - a callback function that is called if the command has errored (accepts a JSON representation of a CommandPublicationRecord)
-			/// &#10; onPollError - a callback function that is called if an error occurs during the polling operation (accepts a JSON object with .name, .message & .callStack)
-			/// </param>
-			// publicationId, onOpportunityToCancelPolling, onCommandComplete, onCommandError, onPollError
-			var _pollMax = 0;
-			var _pollInterval = 0;
-			var _pollCount = 0;
-			var _pollerId = -1;
-
-			_displayErrorWrapper({
-				callbackArgs: args,
-				callback: function () {
-					if (!args.hasOwnProperty("publicationId") || !args.hasOwnProperty("onCommandComplete") || !args.hasOwnProperty("onCommandError")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "EUCLID.pollForCommandStatus expects an object that contains: publicationId and the functions onCommandCompleted & onCommandError.  Optionally you may specify the property Interval (number of ms between status requests) and the functions onOpportunityToCancelPolling (a function that accepts the number of times the registry has been polled, and returns false to stop polling), and the function onPollError (accepts a standard error object)"
-						}
-					}
-
-					_pollMax = (args.pollMax == null || args.pollMax <= 0) ? 100 : args.pollMax;
-					_pollInterval = (args.pollInterval == null || args.pollInterval <= 0) ? 250 : args.pollInterval;
-
-					_pollerId = setInterval(doPoll, _pollInterval);
-				}
-			});
-
-			function doPoll() {
-				try {
-					var result = _getJsonObject("/composite/commands/status/" + args.publicationId);
-				} catch (e) {
-					if (args.hasOwnProperty("onPollError")) {
-						args.onPollError(e);
-					} else {
-						EUCLID.displayError(e);
-					}
-				}
-
-				_pollCount++;
-				complete = result.Completed;
-				if (result.Error) {
-					clearInterval(_pollerId);
-					args.onCommandError(result);
-				} else if (result.Completed) {
-					clearInterval(_pollerId);
-					args.onCommandComplete(result);
-				} else {
-					var e = { name: "", message: "" };
-					if (args.hasOwnProperty("onOpportunityToCancelPolling")) {
-						continuePolling = args.onOpportunityToCancelPolling(_pollCount);
-						e.name = "Polling Aborted Exception";
-						e.message = "Polling cancelled by caller";
-					}
-
-					if (continuePolling) {
-						continuePolling = _pollCount < _pollMax;
-						e.name = "Polling Max Reached";
-						e.message = "Polled maximum number of time: " + _pollMax;
-					}
-
-					if (!continuePolling) {
-						clearInterval(_pollerId);
-						if (args.hasOwnProperty("onPollError")) {
-							args.onPollError(e);
-						}
-					}
+			///<param name='publicationId'>the id of the command</param>
+			///<param name='onCommandComplete'>a callback function that is called if the command has completed succesfully (accepts a JSON representation of a CommandPublicationRecord)</param>
+			///<param name='onCommandError'>optional - a callback function that is called if the command has errored, if none is specified, then onCommandComplete is called</param>
+			///<param name='pollMax'>optional - the maximum number of times to poll (default = 100)</param>
+			///<param name='pollInterval'>optional - the time between requests (default 250ms)</param>
+			///<param name='onPollError'>optional - a callback function that is called if an error occurs during the polling operation</param>
+			///<param name='onBeforePoll'>optional - a callback function that recieves the number of times polled, and can cancel polling by returning false</param>
+			if (publicationId == null || onCommandComplete == null ) {
+				throw {
+					name: "Invalid Argument Exception",
+					message: "EUCLID.pollForCommandStatus expects an object that contains: publicationId and the functions onCommandCompleted & onCommandError.  Optionally you may specify the property Interval (number of ms between status requests) and the functions onOpportunityToCancelPolling (a function that accepts the number of times the registry has been polled, and returns false to stop polling), and the function onPollError (accepts a standard error object)"
 				}
 			}
+
+			var _pollMax = pollMax ? pollMax : 100;
+			var _pollInterval = pollInterval ? pollInterval : 250;
+			var _pollCount = 0;
+			var _errorHandler = onPollError ? onPollError : EUCLID.displayError;
+			var _commandErrorHandler = onCommandError ? onCommandError : onCommandComplete;
+			var _poll = function() {
+					WorkWithDataFromUrl(
+						"/composite/commands/status/" + args.publicationId,
+						function (result) {
+							_pollCount++;
+							complete = result.Completed;
+
+							if (result.Error) {
+								_commandErrorHandler(result);
+							} else if (result.Completed) {
+								onCommandComplete(result);
+							} else {
+								var e = { name: "", message: "" };
+								if (onBeforePoll) {
+									continuePolling = onBeforePoll(_pollCount);
+									e.name = "Polling Aborted Exception";
+									e.message = "Polling cancelled by caller";
+								}
+
+								if (continuePolling) {
+									continuePolling = _pollCount < _pollMax;
+									e.name = "Polling Max Reached";
+									e.message = "Polled maximum number of time: " + _pollMax;
+								}
+
+								if (!continuePolling) {
+									complete = true;
+									if (args.hasOwnProperty("onPollError")) {
+										args.onPollError(e);
+									}
+								}
+							}
+
+							if (complete) {
+								clearInterval(_pollerId);
+							}
+						},
+						_errorHandler
+					);
+				};;// _poll
+
+				var _pollerId = setInterval(_poll, _pollInterval);
 		}), // end pollForCommandStatus
 
 		displayError: (function (e) {
@@ -555,136 +434,144 @@ var EUCLID = function () {
 
 			var error = $("#euclid-error-display");
 
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/euclid-error",
-				data: e,
-				onComplete: function (content) {
+			Using(e)
+				.Render("/composite/ui/template/euclid-error")
+				.Manipulate(function (content) {
 					$(error).append($(content));
 					$(window).scrollTop(0);
 				}
-			});
+			);
 
 			return false;
 		}), // end displayError
+	} // return
+} (); // EUCLID
 
-		showModalForm: (function (args) {
-			if (args === null || args === undefined || !args.hasOwnProperty("Url")) {
-				throw new {
-					name: "Invalid Argument Exception",
-					message: "The argument object must contain a property named 'Url'"
-				};
-			};
+var Using = function (jsonObject) {
+	///<sumary>Use JSON data for UI elements</summary>
+	///<param name='jsonObject'>A JSON data structure</param>
 
-			var id = _getId();
-			var modal = $("<div id='" + id + "'></div>");
-			$(modal).load(
-					args.Url,
-					function () {
-						$.validator.unobtrusive.parse($("#" + id));
-					})
-				.modal({
-					autoResize: true,
-					autoPosition: true,
-					dataCss: { backgroundColor: "#fff" },
-					containerCss: { backgroundColor: "#fff" }
-				});
+	var _populateTemplate = (function (templateUrl, data, onComplete, onError) {
+		///<summary>fetch a handlebars template, and populate with the provided data, returns a jquery object containing the content</summary>
+		///<param name='templateUrl'>the url from which to fetch the template</param>
+		///<param name='data'>the data to bind (must be null if dataUrl is provided)</param>
+		///<param name='onComplete'>a callback function that receives the populated template</parama>
+		///<param name='onError'>(optional) to override the default error handling</param>
+		var onError = onError ? onError : EUCLID.displayError;
 
-			$(".simplemodal-container").css("height", "auto");
-		}), // end showModalForm
-
-		populateTemplate: (function (args) {
-			///<summary>fetch a handlebars template, and populate with the provided data, returns a jquery object containing the content</summary>
-			///<param name='args'>a JSON object containing the properties:
-			/// &#10; templateUrl - the url from which to fetch the template
-			/// &#10; dataUrl - the url from which to fetch the data (must be null if data is provided)
-			/// &#10; data - the data to bind (must be null if dataUrl is provided)
-			/// &#10; onComplete - a callback function that receives the populated template
-			/// &#10; handleError - (optional) to override the default error handling
-			///<param>
-
-			_displayErrorWrapper({
-				callbackArgs: args,
-				callback: function () {
-					if (!args.hasOwnProperty("onComplete") || typeof args.onComplete != 'function') {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "The parameter onComplete - a callback for receiving the populated template - must be provided"
-						}
-					}
-
-					if (!args.hasOwnProperty("dataUrl") && !args.hasOwnProperty("data")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "Either dataUrl or data must be specified"
-						}
-					}
-
-					if (args.hasOwnProperty("dataUrl") && args.hasOwnProperty("data")) {
-						throw {
-							name: "Invalid Argument Exception",
-							message: "Both dataUrl and data contain values, only one can be specified"
-						}
-					}
-
-					if (args.dataUrl != null) {
-						args.data = _getJsonObject(args.dataUrl);
-					}
-
-					$.get(args.templateUrl, function (source) {
-						var template = Handlebars.compile(source);
-						args.onComplete($(template(args.data)));
-					});
-				}
+		if (onComplete == null) {
+			onError({
+				name: "Invalid Argument Exception",
+				message: "The parameter onComplete must be provided"
 			});
-		})
+
+			return false;
+		}
+
+		if (data == null) {
+			onError({
+				name: "Invalid Argument Exception",
+				message: "_populateTemplate - the parameter data must be specified"
+			});
+
+			return false;
+		}
+
+		$.get(templateUrl, function (source) {
+			var template = Handlebars.compile(source);
+			onComplete($(template(data)));
+		});
+	}) // populateTemplate
+
+	var _data = jsonObject;
+	return {
+		Fill: function (elementId) {
+			/// <summary> Add data to the element with the specified id</summary>
+			/// <param name='elementId'> The id of the container element </param>
+			if (elementId.substr(0, 1) != "#") {
+				elementId = "#" + elementId;
+			}
+
+			var _element = $(elementId);
+
+			return {
+				With: function (templateUrl) {
+					/// <summary> Get a template for rendering the JSON data structure</summary>
+					/// <param name='templateUrl'> the Url of the template to render the data structure</param>
+					_populateTemplate(
+						templateUrl,
+						_data,
+						function (content) {
+							$(_element).html("");
+							$(_element).append($(content));
+						}
+					);
+				}
+			}
+		}, // fill
+
+		Render: function (templateUrl) {
+			/// <summary> Renders a template for the data</summary>
+			/// <param name='templateUrl'> the url of the template</param>
+			var _templateUrl = templateUrl;
+
+			return {
+				Manipulate: function (callback) {
+					/// <summary>Do something with the rendered template</summary>
+					/// <param name='callback'>function that receives the completed template</param>
+					_populateTemplate(
+						_templateUrl,
+						_data,
+						function (content) {
+							callback(content);
+						}
+					);
+				}
+			}
+		} // Render
 	}
-} ();
-
-// extension methods
-$.fn.hasAttr = function(name) {
-	///<summary>easily check if an element contains an attribute<summary>
-	///<param name='name'>The name of the attribute to check for</param>
-	return this.attr(name) !== undefined;
 };
 
-String.prototype.endsWith = function(suffix) {
-	///<summary>returns true if the string ends with the specified suffix (case sensitive)</summary>
-	///<param name='suffix'>the string the check for</param>
-	return this.indexOf(suffix, this.length - suffix.length) !== -1;
-};
+var WorkWithDataFromUrl = function (url, onSuccess, onError) {
+	/// <summary> fetches a json object and executes a callback </summary>
+	/// <param name='url'>the url from which to fetch the data</param>
+	/// <param name='onSuccess'>a callback that accepts the json object</param>
+	/// <param name='onError'>optional error handler</param>
+	$.ajax({
+		url: url,
+		dataType: 'json',
+		headers: {
+			Accept: "application/json; charset=utf-8"
+		},
+		success: function (obj) {
+			var re = new RegExp("\\/Date\\((-?\\d+)\\)\\/");
+			for (property in obj) {
+				if (obj.hasOwnProperty(property) && typeof property != "function") {
+					var m = re.exec(obj[property]);
+					if (m != null) {
+						obj[property] = new Date(parseInt(m[1]));
+					}
+				}
+			}
 
-if (jQuery.validator != null) {
-	jQuery.validator.addMethod('uniquevalue', function (value, element, params) {
-		var query = $(element).attr("data-val-uniquevalue-query");
-		var method = $(element).attr("data-val-uniquevalue-method");
-		var argument = $(element).attr("data-val-uniquevalue-argument");
-		var argumentObject = $.parseJSON("{ \"" + argument + "\": \"" + value + "\"}")
-		var results = EUCLID.executeQuery({ queryName: query, methodName: method, parameters: argumentObject });
+			onSuccess(obj);
+		},
+		error: function (err) {
+			var e = err;
+			if (err.hasOwnProperty("responseText")) {
+				e = $.parseJSON(err.responseText);
+			}
 
-		return results == null;
-	}, '');
-
-	// and an unobtrusive adapter
-	jQuery.validator.unobtrusive.adapters.add('uniquevalue', {}, function (options) {
-		options.rules['uniquevalue'] = true;
-		options.messages['uniquevalue'] = options.message;
-	});
-}
-
-if (Handlebars) {
-	Handlebars.registerHelper('convert-breaks', function (value) {
-		var replaced = value.replace(/\n/g, "<br />");
-		console.log("convert-breaks: " + Handlebars.SafeString(replaced));
-		return new Handlebars.SafeString(replaced);
+			if (onError != null) {
+				onError(e);
+			} else {
+				EUCLID.displayError(e);
+			}
+		}
 	});
 }
 
 $(document).ready(function () {
-	$(window).scroll(function () {
-		var top = $("body").scrollTop() + "px";
-		$("#euclid-error-display").css("top", top);
-	});
-
 	$(".confirmation-dialog").live("click", function () {
 		var msg = $(this).attr("data-confirmation-message");
 		var confirmFunction = $(this).attr("data-confirm-function");

@@ -28,7 +28,7 @@ namespace CompositeInspector.Module
 
 			Get[IndexRoute] = _ => "Query API";
 
-			Get[QueryMetadataRoute] = p => GetQueryMetadataByName((string)p.queryName);
+			//Get[QueryMetadataRoute] = p => GetQueryMetadataByName((string)p.queryName);
 
 			Post[ExecuteQueryRoute] = p =>
 				{
@@ -57,41 +57,6 @@ namespace CompositeInspector.Module
 
 				return Response.AsJson(model, HttpStatusCode.InternalServerError);
 			}
-		}
-
-		public Response GetQueryMetadataByName(string queryName)
-		{
-			var asJson = false;
-
-			if (queryName.EndsWith("json"))
-			{
-				asJson = true;
-				queryName = queryName.Substring(0, queryName.Length - 5);
-			}
-
-			var queries = _compositeApp.Queries;
-
-			var query = queries.FirstOrDefault(q => q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase));
-
-			if (asJson)
-			{
-				if (query == null)
-				{
-					var errorMessage = string.Format("The composite {0} has no query named {1}", _compositeApp.Name, queryName);
-
-					var model = new { name = "Invalid QueryName Exception", message = errorMessage };
-
-					return Response.AsJson(model, HttpStatusCode.InternalServerError);
-				}
-
-				var representation = query.GetFormatter().GetRepresentation("json");
-
-				var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(representation));
-
-				return Response.FromStream(memoryStream, "application/json");
-			}
-
-			return View[QueryMetadataViewPath, queryName];
 		}
 	}
 }

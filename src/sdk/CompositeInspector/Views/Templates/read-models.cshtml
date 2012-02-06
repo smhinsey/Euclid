@@ -4,22 +4,30 @@
 }
 
 <script type="text/javascript">
+	var modal = $("<div id='modal'></div>");
 	$(document).ready(function () {
 		$(".read-model").click(function () {
 			var systemName = $(this).attr("data-agent-system-name");
 			var readModelName = $(this).text();
 			var target = $(this);
 
-			EUCLID.populateTemplate({
-				templateUrl: "/composite/ui/template/read-model",
-				data: { Properties: EUCLID.getJsonObject("/composite/api/readmodel/" + systemName + "/" + readModelName) },
-				onComplete: function (content) {
-					$(target).popover({ placement: "left", html: "true", title: readModelName, content: $(content).html() });
-					$(target).popover("show");
-				}
-			});
+			WorkWithDataFromUrl("/composite/api/readmodel/" + systemName + "/" + readModelName,
+				function (readModel) {
+					Using({ Properties: readModel })
+						.Render("/composite/ui/template/modal/read-model")
+						.Manipulate(function (content) {
+							$(modal).html("");
+							$(modal).append($(content));
+							$(modal).modal("show");
+						});
+				});
 
 			return false;
+		});
+
+		$(document).on("click", "#dismiss-modal", function () {
+			$("#modal").modal("hide");
+			$("#modal").remove();
 		});
 	});
 </script>

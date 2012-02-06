@@ -1,6 +1,6 @@
 using System;
 
-namespace CompositeInspector.Module
+namespace CompositeInspector
 {
 	public class CommandNotFoundInRegistryException : Exception
 	{

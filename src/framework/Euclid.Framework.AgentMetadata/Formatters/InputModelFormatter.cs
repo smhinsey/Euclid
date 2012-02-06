@@ -11,8 +11,12 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 	public class InputModelFormatter : MetadataFormatter
 	{
 		private readonly IList<Property> _properties;
+		private readonly string _commandName;
+		private readonly string _modelName;
 		public InputModelFormatter(IInputModel inputModel)
 		{
+			_modelName = inputModel.GetType().Name;
+			_commandName = inputModel.CommandType.Name;
 			_properties = inputModel
 							.GetType()
 							.GetProperties()
@@ -34,11 +38,17 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public InputModelFormatter(ITypeMetadata metadata)
 		{
+			var model = Activator.CreateInstance(metadata.Type);
+			var propInfo = metadata.Type.GetProperties().Where(x => x.Name == "CommandType").FirstOrDefault();
+			_commandName = ((Type)propInfo.GetValue(model, null)).Name;
+			_modelName = metadata.Type.Name;
 			_properties = metadata.Properties.Select(pi => new Property
 			                                               	{
 			                                               		Name = pi.Name,
 			                                               		Type = pi.PropertyType.Name,
-																Value = pi.PropertyType.GetDefaultValue()
+																Value = pi.PropertyType.GetDefaultValue(),
+																Choices = pi.PropertyType.IsEnum ? Enum.GetNames(pi.PropertyType) : null,
+																MultiChoice = pi.PropertyType.GetCustomAttributes(typeof(FlagsAttribute), false).Length > 0
 			                                               	}).ToList();
 		}
 
@@ -60,6 +70,8 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 		{
 			return new
 					{
+						CommandName = _commandName,
+						ModelName = _modelName,
 						Properties = _properties.Select(p => new {p.Name, p.Type, p.Value, p.Choices, p.MultiChoice})
 					};
 		}

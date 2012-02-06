@@ -70,50 +70,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\LogModel.cs" />
+    <Compile Include="Extensions\ExceptionExtensions.cs" />
+    <Compile Include="FileUploader.cs" />
+    <Compile Include="Extensions\FormatExtensions.cs" />
+    <Compile Include="FormattedException.cs" />
     <Compile Include="Module\ApiModule.cs" />
     <Compile Include="Module\AssetModule.cs" />
-    <Compile Include="Module\CommandNotFoundInRegistryException.cs" />
-    <Compile Include="Module\LogModule.cs" />
+    <Compile Include="CommandNotFoundInRegistryException.cs" />
+    <Compile Include="CommandNotFoundInAgentException.cs" />
     <Compile Include="CompositeInspectorBootstrapper.cs" />
-    <Compile Include="Models\AgentModel.cs" />
-    <Compile Include="Models\AgentPartModel.cs" />
-    <Compile Include="Models\CommandModel.cs" />
-    <Compile Include="Models\CompositeHome.cs" />
-    <Compile Include="Models\PublishedCommandModel.cs" />
-    <Compile Include="Module\CommandModule.cs" />
+    <Compile Include="ReadModelNotFoundException.cs" />
     <Compile Include="Module\UserInterfaceModule.cs" />
-    <Compile Include="Module\QueryModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Binders\InputModelBinder.cs" />
+    <Compile Include="ResponseFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="Views\Composite\command-orig.cshtml" />
-    <EmbeddedResource Include="Views\Composite\home.cshtml" />
-    <EmbeddedResource Include="Views\Composite\view-agent.cshtml" />
     <EmbeddedResource Include="Views\Shared\Frameset.cshtml" />
     <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
-    <EmbeddedResource Include="Views\Commands\view-publication-record.cshtml" />
-    <EmbeddedResource Include="Views\Log\logs.cshtml" />
     <EmbeddedResource Include="Views\view-agent.cshtml" />
-    <EmbeddedResource Include="Views\Queries\view-query-metadata.cshtml" />
-    <EmbeddedResource Include="Views\Templates\read-model.cshtml" />
-    <EmbeddedResource Include="Views\Templates\form-container-modal.cshtml" />
-    <EmbeddedResource Include="Views\Templates\publication-record-modal.cshtml" />
-    <EmbeddedResource Include="Views\Templates\commands.cshtml" />
-    <EmbeddedResource Include="Views\Templates\queries.cshtml" />
-    <EmbeddedResource Include="Views\Templates\read-models.cshtml" />
-    <EmbeddedResource Include="Views\Templates\agent.cshtml" />
+    <EmbeddedResource Include="Views\templates\modal\read-model.cshtml" />
+    <EmbeddedResource Include="Views\templates\modal\form-container.cshtml" />
+    <EmbeddedResource Include="Views\templates\modal\publication-record.cshtml" />
+    <EmbeddedResource Include="Views\templates\commands.cshtml" />
+    <EmbeddedResource Include="Views\templates\queries.cshtml" />
+    <EmbeddedResource Include="Views\templates\read-models.cshtml" />
+    <EmbeddedResource Include="Views\templates\agent.cshtml" />
     <EmbeddedResource Include="Views\view-composite.cshtml" />
-    <EmbeddedResource Include="Views\Templates\composite.cshtml" />
-    <EmbeddedResource Include="Views\Templates\input-models.cshtml" />
-    <EmbeddedResource Include="Views\Templates\input-model.cshtml" />
-    <EmbeddedResource Include="Views\Templates\agents.cshtml" />
-    <EmbeddedResource Include="Views\Templates\euclid-error-modal.cshtml" />
-    <EmbeddedResource Include="Views\Templates\polling-modal.cshtml" />
-    <EmbeddedResource Include="Views\Templates\composite-link.cshtml" />
+    <EmbeddedResource Include="Views\templates\composite.cshtml" />
+    <EmbeddedResource Include="Views\templates\input-models.cshtml" />
+    <EmbeddedResource Include="Views\templates\modal\input-model.cshtml" />
+    <EmbeddedResource Include="Views\templates\agents.cshtml" />
+    <EmbeddedResource Include="Views\templates\modal\euclid-error.cshtml" />
+    <EmbeddedResource Include="Views\templates\modal\polling.cshtml" />
+    <EmbeddedResource Include="Views\templates\composite-link.cshtml" />
+    <EmbeddedResource Include="Views\templates\euclid-error.cshtml" />
+    <EmbeddedResource Include="Views\templates\modal\command.cshtml" />
+    <EmbeddedResource Include="Views\templates\modal\query.cshtml" />
+    <EmbeddedResource Include="Views\templates\query-results-table.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
@@ -182,12 +178,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\jquery\jquery.validate.min.js" />
     <EmbeddedResource Include="Assets\Scripts\jquery\jquery.validate.unobtrusive.min.js" />
-    <EmbeddedResource Include="Assets\Scripts\simplemodal\jquery.simplemodal.1.4.1-close.png" />
-    <EmbeddedResource Include="Assets\Scripts\simplemodal\jquery.simplemodal.1.4.1.css" />
-    <EmbeddedResource Include="Assets\Scripts\simplemodal\jquery.simplemodal.1.4.1.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\handlebars-1.0.0.beta.6.js" />
+    <EmbeddedResource Include="Assets\Scripts\handlebars\handlebars-1.0.0.beta.6.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-alert.js" />
@@ -212,7 +205,19 @@
     <EmbeddedResource Include="Assets\Scripts\img\glyphicons-halflings.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Images\ajax-waiting.gif" />
+    <EmbeddedResource Include="Assets\Scripts\composite-inspector-commands.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\handlebars\euclid-handlebars-extensions.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\jquery\euclid-jquery-extensions.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\euclid-prototype-extensions.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
