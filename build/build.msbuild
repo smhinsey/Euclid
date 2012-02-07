@@ -29,7 +29,7 @@
 		<CommonProjects Include="$(BaseDir)\src\common\**\*.csproj"/>
 		<FrameworkProjects Include="$(BaseDir)\src\framework\**\*.csproj"/>
 		<SDKProjects Include="$(BaseDir)\src\sdk\**\*.csproj"/>
-		<CompositeInspectorProjects 
+		<InspectorProjects 
 						   Include="$(BaseDir)\src\common\Euclid.Common\Euclid.Common.csproj;
 									$(BaseDir)\src\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj;
 									$(BaseDir)\src\sdk\Euclid.Composites\Euclid.Composites.csproj;
@@ -77,33 +77,8 @@
 		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(OutputDir)\sdk"/>
 	</Target>
 
-	<Target Name="BuildAll" DependsOnTargets="BuildCommon; BuildFramework; BuildSDK">
-	
-	</Target>
-
-	<Target Name="PackageSdk" DependsOnTargets="BuildAll">
-		<ItemGroup>
-			<NuSpec Include="$(MSBuildProjectDirectory)\EuclidSDK.nuspec"/>
-			<CommonOutput Include="$(OutputDir)\common\*.*"/>
-			<FrameworkOutput Include="$(OutputDir)\framework\*.*"/>
-			<SDKOutput Include="$(OutputDir)\sdk\*.*"/>
-		</ItemGroup>
-
-		<Copy SourceFiles="@(NuSpec)" DestinationFolder="$(BaseDir)\package\sdk"/>
-		<Copy SourceFiles="@(CommonOutput)" DestinationFolder="$(BaseDir)\package\sdk"/>
-		<Copy SourceFiles="@(FrameworkOutput)" DestinationFolder="$(BaseDir)\package\sdk"/>
-		<Copy SourceFiles="@(SDKOutput)" DestinationFolder="$(BaseDir)\package\sdk"/>
-
-		<ItemGroup>
-			<PackageDir Include="$(BaseDir)\package\sdk"/>
-		</ItemGroup>
-
-		<Exec WorkingDirectory="$(PackageDir)"
-		  Command="nuget.exe pack EuclidSDK.nuspec" />
-	</Target>
-
-	<Target Name="BuildCompositeInspector">
-		<MSBuild Projects="@(CompositeInspectorProjects)" Properties="Configuration=$(Configuration)">
+	<Target Name="BuildInspector">
+		<MSBuild Projects="@(InspectorProjects)" Properties="Configuration=$(Configuration)">
 			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
 		</MSBuild>
 
@@ -111,7 +86,42 @@
 			<Binaries Include="$(BaseDir)\src\sdk\CompositeInspector\bin\$(Configuration)\*.dll"/>
 		</ItemGroup>
 
-		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(OutputDir)\Composite Inspector"/>
+		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(OutputDir)\inspector"/>
+	</Target>
+
+	<Target Name="BuildAll" DependsOnTargets="BuildCommon; BuildFramework; BuildSDK; BuildInspector">
+		<Message Text="Compiling Euclid Common, Framework, SDK, and Inspector."/>
+	</Target>
+
+	<Target Name="PackageEverything" DependsOnTargets="BuildAll">
+
+		<Message Text="Packaging Euclid SDK and Inspector."/>
+
+		<ItemGroup>
+			<SdkNuSpec Include="$(MSBuildProjectDirectory)\EuclidSDK.nuspec"/>
+			<InspectorNuSpec Include="$(MSBuildProjectDirectory)\EuclidCompositeInspector.nuspec"/>
+			<CommonOutput Include="$(OutputDir)\common\*.*"/>
+			<FrameworkOutput Include="$(OutputDir)\framework\*.*"/>
+			<SDKOutput Include="$(OutputDir)\sdk\*.*"/>
+			<InspectorOutput Include="$(OutputDir)\inspector\*.*"/>
+		</ItemGroup>
+
+		<Copy SourceFiles="@(SdkNuSpec)" DestinationFolder=".\package\sdk"/>
+		<Copy SourceFiles="@(CommonOutput)" DestinationFolder=".\package\sdk"/>
+		<Copy SourceFiles="@(FrameworkOutput)" DestinationFolder=".\package\sdk"/>
+		<Copy SourceFiles="@(SDKOutput)" DestinationFolder=".\package\sdk"/>
+
+		<Copy SourceFiles="@(InspectorNuSpec)" DestinationFolder=".\package\inspector"/>
+		<Copy SourceFiles="@(InspectorOutput)" DestinationFolder=".\package\inspector"/>
+
+		<ItemGroup>
+			<SdkPackageDir Include="$(BaseDir)\package\sdk"/>
+			<InspectorPackageDir Include="$(BaseDir)\package\inspector"/>
+		</ItemGroup>
+
+		<Exec WorkingDirectory="$(SdkPackageDir)" Command="nuget.exe pack EuclidSDK.nuspec" />
+
+		<Exec WorkingDirectory="$(InspectorPackageDir)" Command="nuget.exe pack EuclidCompositeInspector.nuspec" />
 	</Target>
 
 </Project>
