@@ -35,7 +35,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -103,8 +103,9 @@
     <Reference Include="Nancy">
       <HintPath>..\..\packages\Nancy.0.9.0\lib\net40\Nancy.dll</HintPath>
     </Reference>
-    <Reference Include="NConfig">
-      <HintPath>..\..\packages\NConfig.1.0.6\lib\Net40\NConfig.dll</HintPath>
+    <Reference Include="NConfig, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\NConfig.1.0.12\lib\Net40\NConfig.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
