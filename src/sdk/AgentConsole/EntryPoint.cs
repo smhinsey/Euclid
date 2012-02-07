@@ -18,7 +18,6 @@ using ForumAgent.Commands;
 using LoggingAgent.ReadModels;
 using Microsoft.WindowsAzure;
 using NConfig;
-using StorefrontAgent.Commands;
 using log4net.Config;
 
 namespace AgentConsole

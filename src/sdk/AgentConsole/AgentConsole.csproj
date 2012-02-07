@@ -116,10 +116,6 @@
       <Project>{7C5DC02C-5E2E-46A2-8343-ADE8035F141B}</Project>
       <Name>ForumAgent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\apps\StorefrontAgent\StorefrontAgent.csproj">
-      <Project>{5FFCA18F-F416-4DFC-86AF-8DA0232A66E6}</Project>
-      <Name>StorefrontAgent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\tests\Euclid.Sdk.TestAgent\Euclid.Sdk.TestAgent.csproj">
       <Project>{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C}</Project>
       <Name>Euclid.Sdk.TestAgent</Name>

@@ -43,9 +43,7 @@ namespace StorefrontAdminComposite
 			if (!RoleEnvironment.IsAvailable)
 			{
 				NConfigurator.UsingFile(@"~\Config\custom.config").SetAsSystemDefault();
-				XmlConfigurator.Configure(
-					new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
-				;
+				XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
 			}
 			else
 			{

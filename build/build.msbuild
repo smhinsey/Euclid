@@ -89,7 +89,19 @@
 		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(OutputDir)\inspector"/>
 	</Target>
 
-	<Target Name="BuildAll" DependsOnTargets="BuildCommon; BuildFramework; BuildSDK; BuildInspector">
+	<Target Name="CleanAll">
+		<ItemGroup>
+			<OutputDir Include=".\output\**\*.*" />
+			<PackageDir Include=".\package\**\*.*" />
+		</ItemGroup>
+
+		<Delete Files="@(OutputDir)" />
+		<Delete Files="@(PackageDir)" />
+		<RemoveDir Directories=".\output" />
+		<RemoveDir Directories=".\package" />
+	</Target>
+
+	<Target Name="BuildAll" DependsOnTargets="CleanAll; BuildCommon; BuildFramework; BuildSDK; BuildInspector">
 		<Message Text="Compiling Euclid Common, Framework, SDK, and Inspector."/>
 	</Target>
 
@@ -107,21 +119,23 @@
 		</ItemGroup>
 
 		<Copy SourceFiles="@(SdkNuSpec)" DestinationFolder=".\package\sdk"/>
-		<Copy SourceFiles="@(CommonOutput)" DestinationFolder=".\package\sdk"/>
-		<Copy SourceFiles="@(FrameworkOutput)" DestinationFolder=".\package\sdk"/>
-		<Copy SourceFiles="@(SDKOutput)" DestinationFolder=".\package\sdk"/>
+		<Copy SourceFiles="@(CommonOutput)" DestinationFolder=".\package\sdk\lib\NET40"/>
+		<Copy SourceFiles="@(FrameworkOutput)" DestinationFolder=".\package\sdk\lib\NET40"/>
+		<Copy SourceFiles="@(SDKOutput)" DestinationFolder=".\package\sdk\lib\NET40"/>
 
 		<Copy SourceFiles="@(InspectorNuSpec)" DestinationFolder=".\package\inspector"/>
-		<Copy SourceFiles="@(InspectorOutput)" DestinationFolder=".\package\inspector"/>
+		<Copy SourceFiles="@(InspectorOutput)" DestinationFolder=".\package\inspector\lib\NET40"/>
 
 		<ItemGroup>
 			<SdkPackageDir Include="$(BaseDir)\package\sdk"/>
 			<InspectorPackageDir Include="$(BaseDir)\package\inspector"/>
 		</ItemGroup>
 
-		<Exec WorkingDirectory="$(SdkPackageDir)" Command="nuget.exe pack EuclidSDK.nuspec" />
+		<Exec WorkingDirectory="." Command="nuget.exe update -self" />
 
-		<Exec WorkingDirectory="$(InspectorPackageDir)" Command="nuget.exe pack EuclidCompositeInspector.nuspec" />
+		<Exec WorkingDirectory="." Command="nuget.exe pack .\package\sdk\EuclidSDK.nuspec" />
+
+		<Exec WorkingDirectory="." Command="nuget.exe pack .\package\inspector\EuclidCompositeInspector.nuspec" />
 	</Target>
 
 </Project>
