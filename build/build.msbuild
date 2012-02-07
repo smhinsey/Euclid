@@ -28,7 +28,8 @@
 	<ItemGroup>
 		<CommonProjects Include="$(BaseDir)\src\common\**\*.csproj"/>
 		<FrameworkProjects Include="$(BaseDir)\src\framework\**\*.csproj"/>
-		<SDKProjects Include="$(BaseDir)\src\sdk\**\*.csproj"/>
+		<SDKProjects Include="$(BaseDir)\src\sdk\Euclid.Composites\*.csproj;
+									$(BaseDir)\src\sdk\Euclid.Composites.Mvc\*.csproj"/>
 		<InspectorProjects 
 						   Include="$(BaseDir)\src\common\Euclid.Common\Euclid.Common.csproj;
 									$(BaseDir)\src\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj;
@@ -42,7 +43,7 @@
 	</ItemGroup>
 
 	<Target Name="BuildCommon">
-		<MSBuild Projects="@(CommonProjects)" Properties="Configuration=$(Configuration)">
+		<MSBuild Projects="@(CommonProjects)" Properties="Configuration=$(Configuration);Platform=$(Platform)">
 			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
 		</MSBuild>
 
@@ -54,7 +55,7 @@
 	</Target>
 
 	<Target Name="BuildFramework">
-		<MSBuild Projects="@(FrameworkProjects)" Properties="Configuration=$(Configuration)">
+		<MSBuild Projects="@(FrameworkProjects)" Properties="Configuration=$(Configuration);Platform=$(Platform)">
 			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
 		</MSBuild>
 
@@ -66,7 +67,7 @@
 	</Target>
 
 	<Target Name="BuildSDK">
-		<MSBuild Projects="@(SDKProjects)" Properties="Configuration=$(Configuration)">
+		<MSBuild Projects="@(SDKProjects)" Properties="Configuration=$(Configuration);Platform=$(Platform)">
 			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
 		</MSBuild>
 
