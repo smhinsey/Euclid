@@ -68,6 +68,8 @@ namespace AgentConsole
 
 				composite.AddAgent(typeof(PublishPost).Assembly);
 
+				composite.AddAgent(typeof(LogEntry).Assembly);
+
 				composite.Configure(getCompositeSettings());
 
 				composite.RegisterNh(databaseConfiguration, false);

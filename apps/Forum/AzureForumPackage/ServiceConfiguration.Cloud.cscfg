@@ -3,22 +3,22 @@
 	<Role name="AdminComposite">
 		<Instances count="1" />
 		<ConfigurationSettings>
-			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=http;AccountName=forumskeleton;AccountKey=MgN4yRPRSqXGTAuJ0gyH5KWjWRNr7XTuNffMhCJ+k4qDCq6N+1j021Y4oRKqee1ZElfPr83zxHhpLqdCPjfKjQ==" />
 			<Setting name="DataConnectionString" value="DefaultEndpointsProtocol=http;AccountName=forumskeleton;AccountKey=MgN4yRPRSqXGTAuJ0gyH5KWjWRNr7XTuNffMhCJ+k4qDCq6N+1j021Y4oRKqee1ZElfPr83zxHhpLqdCPjfKjQ==" />
+			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
 		</ConfigurationSettings>
 	</Role>
 	<Role name="ForumComposite">
 		<Instances count="1" />
 		<ConfigurationSettings>
-			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=http;AccountName=forumskeleton;AccountKey=MgN4yRPRSqXGTAuJ0gyH5KWjWRNr7XTuNffMhCJ+k4qDCq6N+1j021Y4oRKqee1ZElfPr83zxHhpLqdCPjfKjQ==" />
 			<Setting name="DataConnectionString" value="DefaultEndpointsProtocol=http;AccountName=forumskeleton;AccountKey=MgN4yRPRSqXGTAuJ0gyH5KWjWRNr7XTuNffMhCJ+k4qDCq6N+1j021Y4oRKqee1ZElfPr83zxHhpLqdCPjfKjQ==" />
+			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
 		</ConfigurationSettings>
 	</Role>
 	<Role name="AzureForumHost">
 		<Instances count="1" />
 		<ConfigurationSettings>
-			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=http;AccountName=forumskeleton;AccountKey=MgN4yRPRSqXGTAuJ0gyH5KWjWRNr7XTuNffMhCJ+k4qDCq6N+1j021Y4oRKqee1ZElfPr83zxHhpLqdCPjfKjQ==" />
 			<Setting name="DataConnectionString" value="DefaultEndpointsProtocol=http;AccountName=forumskeleton;AccountKey=MgN4yRPRSqXGTAuJ0gyH5KWjWRNr7XTuNffMhCJ+k4qDCq6N+1j021Y4oRKqee1ZElfPr83zxHhpLqdCPjfKjQ==" />
+			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
 		</ConfigurationSettings>
 	</Role>
 </ServiceConfiguration>

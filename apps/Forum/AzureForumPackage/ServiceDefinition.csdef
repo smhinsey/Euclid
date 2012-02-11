@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="AzureForumPackage" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
 	<WebRole name="AdminComposite" vmsize="Small">
+		<Runtime executionContext="elevated" />
 		<Sites>
 			<Site name="Web">
 				<Bindings>
@@ -19,6 +20,7 @@
 		</ConfigurationSettings>
 	</WebRole>
 	<WebRole name="ForumComposite" vmsize="Small">
+		<Runtime executionContext="elevated" />
 		<Sites>
 			<Site name="Web">
 				<Bindings>
@@ -37,6 +39,7 @@
 		</ConfigurationSettings>
 	</WebRole>
 	<WorkerRole name="AzureForumHost" vmsize="Small">
+		<Runtime executionContext="elevated" />
 		<Imports>
 			<Import moduleName="Diagnostics" />
 		</Imports>

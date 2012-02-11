@@ -16,6 +16,7 @@ using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.HostingFabric;
 using FluentNHibernate.Cfg.Db;
+using ForumAgent.Commands;
 using LoggingAgent.ReadModels;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.ServiceRuntime;
@@ -67,9 +68,9 @@ namespace AzureAgentHost
 				var composite = new BasicCompositeApp(container)
 					{ Name = "AgentConsole Composite", Description = "The composite app used by the agent console" };
 
-				composite.AddAgent(typeof(LogEntry).Assembly);
+				composite.AddAgent(typeof(PublishPost).Assembly);
 
-				//composite.AddAgent(typeof(TestCommand).Assembly);
+				composite.AddAgent(typeof(LogEntry).Assembly);
 
 				composite.Configure(getCompositeSettings());
 
