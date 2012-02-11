@@ -10,7 +10,7 @@
 			console.log("render-model rendering using template" + templateName);
 			console.log(model);
 
-			fetchHandlebarsTemplate('content/app/templates/' + templateName + '.handlebars', function(template) {
+			fetchHandlebarsTemplate('content/app/templates/' + templateName + '.html', function(template) {
 				var renderedOutput = template(model);
 				$('#app-content').html(renderedOutput);
 			});
