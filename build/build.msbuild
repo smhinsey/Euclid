@@ -29,7 +29,8 @@
 		<CommonProjects Include="$(BaseDir)\src\common\**\*.csproj"/>
 		<FrameworkProjects Include="$(BaseDir)\src\framework\**\*.csproj"/>
 		<SDKProjects Include="$(BaseDir)\src\sdk\Euclid.Composites\*.csproj;
-									$(BaseDir)\src\sdk\Euclid.Composites.Mvc\*.csproj"/>
+									$(BaseDir)\src\sdk\Euclid.Composites.Mvc\*.csproj;
+									$(BaseDir)\src\sdk\Euclid.TestingSupport\*.csproj"/>
 		<InspectorProjects 
 						   Include="$(BaseDir)\src\common\Euclid.Common\Euclid.Common.csproj;
 									$(BaseDir)\src\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj;

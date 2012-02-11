@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using AgentConsole;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging;

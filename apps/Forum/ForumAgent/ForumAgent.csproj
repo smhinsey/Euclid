@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5FFCA18F-F416-4DFC-86AF-8DA0232A66E6}</ProjectGuid>
+    <ProjectGuid>{7C5DC02C-5E2E-46A2-8343-ADE8035F141B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StorefrontAgent</RootNamespace>
-    <AssemblyName>StorefrontAgent</AssemblyName>
+    <RootNamespace>ForumAgent</RootNamespace>
+    <AssemblyName>ForumAgent</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -36,16 +36,13 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Debug\StorefrontAgent.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisLogFile>bin\Debug\ForumAgent.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -53,15 +50,14 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Release\StorefrontAgent.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisLogFile>bin\Release\ForumAgent.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -70,15 +66,14 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Debug\StorefrontAgent.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisLogFile>bin\Debug\ForumAgent.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -86,7 +81,7 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisLogFile>bin\Release\StorefrontAgent.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisLogFile>bin\Release\ForumAgent.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
@@ -167,6 +162,9 @@
     <Reference Include="Euclid.Framework.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\Euclid.Framework.Models.dll</HintPath>
     </Reference>
+    <Reference Include="Euclid.TestingSupport">
+      <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\Euclid.TestingSupport.dll</HintPath>
+    </Reference>
     <Reference Include="EventStore, Version=2.0.11157.39, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\EventStore.dll</HintPath>
     </Reference>
@@ -212,34 +210,210 @@
     <Reference Include="Nancy.ViewEngines.Razor, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\Nancy.ViewEngines.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="NConfig">
+      <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\NConfig.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\pnunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="RouteDebugger, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\RouteDebugger.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\System.Web.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\..\packages\Euclid-SDK.1.0.0.0\lib\NET40\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentInfo.cs" />
-    <Compile Include="Commands\RegisterNewCompany.cs" />
-    <Compile Include="Processors\RegisterNewCompanyProcessor.cs" />
+    <Compile Include="CategoryNotFoundException.cs" />
+    <Compile Include="Commands\ActivateAvatar.cs" />
+    <Compile Include="Commands\ActivateBadge.cs" />
+    <Compile Include="Commands\ActivateCategory.cs" />
+    <Compile Include="Commands\ActivateContent.cs" />
+    <Compile Include="Commands\ActivateForumUser.cs" />
+    <Compile Include="Commands\ActivateOrganizationUser.cs" />
+    <Compile Include="Commands\AddForumUserAsFriend.cs" />
+    <Compile Include="Commands\ApproveComment.cs" />
+    <Compile Include="Commands\ApprovePost.cs" />
+    <Compile Include="Commands\AwardBadge.cs" />
+    <Compile Include="Commands\ActivateTag.cs" />
+    <Compile Include="Commands\ActivateStopWord.cs" />
+    <Compile Include="Commands\DeleteStopWord.cs" />
+    <Compile Include="Commands\CreateStopWord.cs" />
+    <Compile Include="Commands\UpdateTag.cs" />
+    <Compile Include="Commands\CreateTag.cs" />
+    <Compile Include="Commands\CreateAvatar.cs" />
+    <Compile Include="Commands\CreateBadge.cs" />
+    <Compile Include="Commands\CreateOrganization.cs" />
+    <Compile Include="Commands\DeleteAvatar.cs" />
+    <Compile Include="Commands\DeleteForumUser.cs" />
+    <Compile Include="Commands\DeleteOrganizationUser.cs" />
+    <Compile Include="Commands\ForumModerated.cs" />
+    <Compile Include="Commands\MarkCommentAsFavorite.cs" />
+    <Compile Include="Commands\MarkPostAsFavorite.cs" />
+    <Compile Include="Commands\RejectComment.cs" />
+    <Compile Include="Commands\RejectPost.cs" />
+    <Compile Include="Commands\RemoveForumUserFriend.cs" />
+    <Compile Include="Commands\SetForumTheme.cs" />
+    <Compile Include="Commands\UpdateAvatar.cs" />
+    <Compile Include="Commands\UpdateBadge.cs" />
+    <Compile Include="CommentNotFoundException.cs" />
+    <Compile Include="ContentNotFoundException.cs" />
+    <Compile Include="Processors\ActivateTagProcessor.cs" />
+    <Compile Include="Processors\ActivateStopWordProcessor.cs" />
+    <Compile Include="Processors\DeleteStopWordProcessor.cs" />
+    <Compile Include="Processors\CreateStopWordProcessor.cs" />
+    <Compile Include="Queries\ForumHostQueries.cs" />
+    <Compile Include="Queries\ProfanityFilterQueries.cs" />
+    <Compile Include="ReadModels\AvailableStopWords.cs" />
+    <Compile Include="ReadModels\ForumUserListing.cs" />
+    <Compile Include="ReadModels\StopWord.cs" />
+    <Compile Include="ReadModels\TagDetail.cs" />
+    <Compile Include="TagNotFoundException.cs" />
+    <Compile Include="ForumContentNotFoundException.cs" />
+    <Compile Include="ForumNotFoundException.cs" />
+    <Compile Include="OrganizationNotFoundException.cs" />
+    <Compile Include="PostNotFoundException.cs" />
+    <Compile Include="Processors\ActivateAvatarProcessor.cs" />
+    <Compile Include="Processors\ActivateBadgeProcessor.cs" />
+    <Compile Include="Processors\ActivateForumUserProcessor.cs" />
+    <Compile Include="Processors\ActivateOrganizationUserProcessor.cs" />
+    <Compile Include="Processors\AddForumUserAsFriendProcessor.cs" />
+    <Compile Include="Processors\ApproveCommentProcessor.cs" />
+    <Compile Include="Processors\ApprovePostProcessor.cs" />
+    <Compile Include="Processors\UpdateTagProcessor.cs" />
+    <Compile Include="Processors\CreateTagProcessor.cs" />
+    <Compile Include="Processors\CreateAvatarProcessor.cs" />
+    <Compile Include="Processors\CreateBadgeProcessor.cs" />
+    <Compile Include="Processors\DeleteAvatarProcessor.cs" />
+    <Compile Include="Processors\DeleteForumUserProcessor.cs" />
+    <Compile Include="Processors\DeleteOrganizationUser.cs" />
+    <Compile Include="Processors\MarkPostAsFavoriteProcessor.cs" />
+    <Compile Include="Processors\RejectCommentProcessor.cs" />
+    <Compile Include="Processors\RejectPostProcessor.cs" />
+    <Compile Include="Processors\RemoveForumUserFriendProcessor.cs" />
+    <Compile Include="Processors\SetForumThemeProcessor.cs" />
+    <Compile Include="Processors\ActivateCategoryProcessor.cs" />
+    <Compile Include="Processors\ActivateContentProcessor.cs" />
+    <Compile Include="Commands\BlockUser.cs" />
+    <Compile Include="Commands\CreateCategory.cs" />
+    <Compile Include="Processors\CreateForumContentProcessor.cs" />
+    <Compile Include="Commands\CreateForumContent.cs" />
+    <Compile Include="Processors\DeleteForumContentProcessor.cs" />
+    <Compile Include="Commands\DeleteForumContent.cs" />
+    <Compile Include="Processors\UnblockUserProcessor.cs" />
+    <Compile Include="Processors\UpdateAvatarProcessor.cs" />
+    <Compile Include="Processors\UpdateBadgeProcessor.cs" />
+    <Compile Include="Processors\UpdateForumContentProcessor.cs" />
+    <Compile Include="Commands\UpdateForumContent.cs" />
+    <Compile Include="Processors\CreateCategoryProcessor.cs" />
+    <Compile Include="Commands\CreateOrganizationAndRegisterUser.cs" />
+    <Compile Include="Commands\RegisterForumUser.cs" />
+    <Compile Include="Commands\RegisterOrganizationUser.cs" />
+    <Compile Include="Commands\CommentOnPost.cs" />
+    <Compile Include="Commands\CreateForum.cs" />
+    <Compile Include="Commands\PublishPost.cs" />
+    <Compile Include="Commands\UpdateCategory.cs" />
+    <Compile Include="Processors\UpdateCategoryProcessor.cs" />
+    <Compile Include="Commands\UpdateForum.cs" />
+    <Compile Include="Commands\UpdateForumVotingScheme.cs" />
+    <Compile Include="Commands\UpdateOrganizationUserLastLogin.cs" />
+    <Compile Include="Commands\UpdateOrganization.cs" />
+    <Compile Include="Commands\UpdateOrganizationUser.cs" />
+    <Compile Include="Domain\MyAggregateRoot.cs" />
+    <Compile Include="Processors\BlockUserProcessor.cs" />
+    <Compile Include="Processors\CreateForumProcessor.cs" />
+    <Compile Include="Processors\CreateOrganizationAndRegisterUserProcessor.cs" />
+    <Compile Include="Processors\RegisterForumUserProcessor.cs" />
+    <Compile Include="Commands\UpdateUserProfile.cs" />
+    <Compile Include="Processors\RegisterOrganizationUserProcessor.cs" />
+    <Compile Include="Processors\UpdateForumDetailsProcessor.cs" />
+    <Compile Include="Processors\UpdateForumVotingSchemeProcessor.cs" />
+    <Compile Include="Processors\UpdateOrganizationUserLastLoginProcessor.cs" />
+    <Compile Include="Processors\UpdateOrganizationProcessor.cs" />
+    <Compile Include="Processors\UpdateUserProfileProcessor.cs" />
+    <Compile Include="Commands\VoteOnComment.cs" />
+    <Compile Include="Commands\VoteOnPost.cs" />
+    <Compile Include="Processors\CommentOnPostProcessor.cs" />
+    <Compile Include="Processors\PublishPostProcessor.cs" />
+    <Compile Include="Queries\AvatarQueries.cs" />
+    <Compile Include="Queries\BadgeQueries.cs" />
+    <Compile Include="Queries\ModeratedCommentQueries.cs" />
+    <Compile Include="Queries\ModeratedPostQueries.cs" />
+    <Compile Include="Queries\TagQueries.cs" />
+    <Compile Include="Queries\ThemeQueries.cs" />
+    <Compile Include="ReadModels\AvailableAvatars.cs" />
+    <Compile Include="ReadModels\AvailableBadges.cs" />
+    <Compile Include="ReadModels\AvailableCategories.cs" />
+    <Compile Include="ReadModels\AvailableContent.cs" />
+    <Compile Include="ReadModels\AvailableTags.cs" />
+    <Compile Include="ReadModels\AwardedBadge.cs" />
+    <Compile Include="ReadModels\CategoryDetail.cs" />
+    <Compile Include="ReadModels\ForumAvatar.cs" />
+    <Compile Include="ReadModels\ForumBadge.cs" />
+    <Compile Include="ReadModels\ForumTheme.cs" />
+    <Compile Include="ReadModels\ForumUserAction.cs" />
+    <Compile Include="ReadModels\ForumUserFavorite.cs" />
+    <Compile Include="ReadModels\ForumUserFriend.cs" />
+    <Compile Include="ReadModels\ForumUsers.cs" />
+    <Compile Include="ReadModels\ForumVotingScheme.cs" />
+    <Compile Include="ReadModels\ModeratedComment.cs" />
+    <Compile Include="ReadModels\ModeratedItems.cs" />
+    <Compile Include="ReadModels\ModeratedPost.cs" />
+    <Compile Include="Processors\VoteOnCommentProcessor.cs" />
+    <Compile Include="Processors\VoteOnPostProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\CompanyQueries.cs" />
-    <Compile Include="ReadModels\Company.cs" />
-    <Compile Include="ReadModels\CompanyEmployee.cs" />
-    <Compile Include="ReadModels\EmployeeType.cs" />
-    <Compile Include="ReadModels\Transaction.cs" />
-    <Compile Include="ReadModels\TransactionState.cs" />
-    <Compile Include="ReadModels\TransactionType.cs" />
+    <Compile Include="Queries\CategoryQueries.cs" />
+    <Compile Include="Queries\CommentQueries.cs" />
+    <Compile Include="Queries\ContentQueries.cs" />
+    <Compile Include="Queries\ForumQueries.cs" />
+    <Compile Include="Queries\OrganizationQueries.cs" />
+    <Compile Include="Queries\OrganizationUserQueries.cs" />
+    <Compile Include="Queries\PostQueries.cs" />
+    <Compile Include="Queries\UserQueries.cs" />
+    <Compile Include="ReadModels\Category.cs" />
+    <Compile Include="ReadModels\Comment.cs" />
+    <Compile Include="ReadModels\ForumContent.cs" />
+    <Compile Include="ReadModels\Forum.cs" />
+    <Compile Include="ReadModels\Organization.cs" />
+    <Compile Include="ReadModels\OrganizationUser.cs" />
+    <Compile Include="ReadModels\OrganizationUsers.cs" />
+    <Compile Include="ReadModels\Post.cs" />
+    <Compile Include="ReadModels\PostDetail.cs" />
+    <Compile Include="ReadModels\PostListing.cs" />
+    <Compile Include="ReadModels\ForumUser.cs" />
+    <Compile Include="ReadModels\Tag.cs" />
+    <Compile Include="ReadModels\UserProfile.cs" />
+    <Compile Include="Domain\Entities\OrganizationUserEntity.cs" />
+    <Compile Include="Domain\Entities\OrganizationEntity.cs" />
+    <Compile Include="Domain\Entities\Maps\OrganizationMap.cs" />
+    <Compile Include="Domain\Entities\Maps\OrganizationUserMap.cs" />
+    <Compile Include="VotingScheme.cs" />
+    <Compile Include="UserNotFoundException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

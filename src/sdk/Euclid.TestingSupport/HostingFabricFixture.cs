@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using AgentConsole;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging;

@@ -6,12 +6,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2E0C711F-58D8-49B9-BB15-B5D821BB2750}</ProjectGuid>
+    <ProjectGuid>{0B928411-185B-4E52-A583-8E1B7EF26AB3}</ProjectGuid>
     <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StorefrontAdminComposite</RootNamespace>
-    <AssemblyName>StorefrontAdminComposite</AssemblyName>
+    <RootNamespace>ForumComposite</RootNamespace>
+    <AssemblyName>ForumComposite</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -38,7 +38,8 @@
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <CodeAnalysisLogFile>bin\Euclid.Console.Web.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\PublicForum.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
@@ -53,12 +54,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <CodeAnalysisLogFile>bin\Euclid.Console.Web.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\PublicForum.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
@@ -132,6 +135,9 @@
     <Reference Include="Euclid.Framework.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\Euclid.Framework.Models.dll</HintPath>
     </Reference>
+    <Reference Include="Euclid.TestingSupport">
+      <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\Euclid.TestingSupport.dll</HintPath>
+    </Reference>
     <Reference Include="EventStore, Version=2.0.11157.39, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\EventStore.dll</HintPath>
     </Reference>
@@ -186,9 +192,19 @@
     <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework">
+      <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\pnunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="RouteDebugger, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\RouteDebugger.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -199,116 +215,110 @@
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.WebPages.Deployment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\app\events.js" />
-    <Content Include="Content\css\bootstrap-responsive.css" />
-    <Content Include="Content\css\bootstrap-responsive.min.css" />
-    <Content Include="Content\css\bootstrap.css" />
-    <Content Include="Content\css\app.css" />
-    <Content Include="Content\css\bootstrap.min.css" />
-    <Content Include="Content\img\glyphicons-halflings-white.png" />
-    <Content Include="Content\img\glyphicons-halflings.png" />
-    <Content Include="Content\js\bootstrap.js" />
-    <Content Include="Content\js\bootstrap.min.js" />
-    <Content Include="Content\js\handlebars-1.0.0.beta.6.js" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\ShellController.cs" />
-    <Compile Include="CommonStorefrontAdminInfo.cs" />
-    <Compile Include="AdminViewPage.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ForumController.cs" />
+    <Compile Include="Controllers\PagesController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\PostListingController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="CommonForumInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddForumUserAsFriendInputModel.cs" />
+    <Compile Include="Models\CommentOnPostInputModel.cs" />
+    <Compile Include="Models\MarkCommentAsFavoriteInputModel.cs" />
+    <Compile Include="Models\MarkPostAsFavoriteInputModel.cs" />
+    <Compile Include="Models\PublishPostInputModel.cs" />
+    <Compile Include="Models\RegisterForumUserInputModel.cs" />
+    <Compile Include="Models\RemoveForumUserFriendInputModel.cs" />
+    <Compile Include="Models\SignInInputModel.cs" />
+    <Compile Include="Models\UpdateUserProfileInputModel.cs" />
+    <Compile Include="Models\VoteOnCommentInputModel.cs" />
+    <Compile Include="Models\VoteOnPostInputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Category\AllCategoriesViewModel.cs" />
+    <Compile Include="ViewModels\Category\CategoryDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Pages\InfoPageViewModel.cs" />
+    <Compile Include="ViewModels\PostListing\AllPostsViewModel.cs" />
+    <Compile Include="ViewModels\PostListing\ControversialPostsViewModel.cs" />
+    <Compile Include="ViewModels\PostListing\PopularPostsViewModel.cs" />
+    <Compile Include="ViewModels\Post\CreatePostViewModel.cs" />
+    <Compile Include="ViewModels\Post\PostDetailViewModel.cs" />
+    <Compile Include="ViewModels\Profile\AllProfilesViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileBadgesViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileFavoritesViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileFriendsViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Profile\ProfileRecentActivityViewModel.cs" />
+    <Compile Include="ViewModels\Tag\AllTagsViewModel.cs" />
+    <Compile Include="ViewModels\Tag\TagDetailViewModel.cs" />
+    <Compile Include="ForumViewPage.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\app\app.js" />
-    <Content Include="Content\app\templates\company\AddEmployee.html" />
-    <Content Include="Content\app\templates\company\EmployeeDetails.html" />
-    <Content Include="Content\app\templates\company\TransactionDetails.html" />
-    <Content Include="Content\app\templates\company\Employees.html" />
-    <Content Include="Content\app\templates\company\Financials.html" />
-    <Content Include="Content\js\min\plugins\sammy.cache-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.cache-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.data_location_proxy-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.data_location_proxy-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.ejs-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.ejs-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.exceptional-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.exceptional-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.flash-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.flash-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.form-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.form-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.form_2_json-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.form_2_json-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.googleanalytics-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.googleanalytics-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.haml-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.haml-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.handlebars-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.handlebars-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.hoptoad-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.hoptoad-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.json-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.json-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.meld-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.meld-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.mustache-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.mustache-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.nested_params-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.nested_params-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.oauth2-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.oauth2-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.path_location_proxy-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.path_location_proxy-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.pure-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.pure-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.push_location_proxy-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.push_location_proxy-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.storage-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.storage-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.template-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.template-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.title-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.title-latest.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.tmpl-0.7.1.min.js" />
-    <Content Include="Content\js\min\plugins\sammy.tmpl-latest.min.js" />
-    <Content Include="Content\js\min\sammy-0.7.1.min.js" />
-    <Content Include="Content\js\min\sammy-latest.min.js" />
-    <Content Include="Content\js\plugins\sammy.cache.js" />
-    <Content Include="Content\js\plugins\sammy.data_location_proxy.js" />
-    <Content Include="Content\js\plugins\sammy.ejs.js" />
-    <Content Include="Content\js\plugins\sammy.exceptional.js" />
-    <Content Include="Content\js\plugins\sammy.flash.js" />
-    <Content Include="Content\js\plugins\sammy.form.js" />
-    <Content Include="Content\js\plugins\sammy.form_2_json.js" />
-    <Content Include="Content\js\plugins\sammy.googleanalytics.js" />
-    <Content Include="Content\js\plugins\sammy.haml.js" />
-    <Content Include="Content\js\plugins\sammy.handlebars.js" />
-    <Content Include="Content\js\plugins\sammy.hoptoad.js" />
-    <Content Include="Content\js\plugins\sammy.json.js" />
-    <Content Include="Content\js\plugins\sammy.meld.js" />
-    <Content Include="Content\js\plugins\sammy.mustache.js" />
-    <Content Include="Content\js\plugins\sammy.nested_params.js" />
-    <Content Include="Content\js\plugins\sammy.oauth2.js" />
-    <Content Include="Content\js\plugins\sammy.path_location_proxy.js" />
-    <Content Include="Content\js\plugins\sammy.pure.js" />
-    <Content Include="Content\js\plugins\sammy.push_location_proxy.js" />
-    <Content Include="Content\js\plugins\sammy.storage.js" />
-    <Content Include="Content\js\plugins\sammy.template.js" />
-    <Content Include="Content\js\plugins\sammy.title.js" />
-    <Content Include="Content\js\plugins\sammy.tmpl.js" />
-    <Content Include="Content\js\sammy.js" />
+    <Content Include="Content\themes\default\images\star-empty.png" />
+    <Content Include="Content\themes\default\images\star.png" />
+    <Content Include="Content\themes\default\scripts\tagit.js" />
+    <Content Include="Content\themes\default\styles\tagit.css" />
     <Content Include="Global.asax" />
+    <Content Include="Content\themes\default\images\arrow-090-medium.png" />
+    <Content Include="Content\themes\default\images\arrow-090-small.png" />
+    <Content Include="Content\themes\default\images\arrow-090.png" />
+    <Content Include="Content\themes\default\images\arrow-270-medium.png" />
+    <Content Include="Content\themes\default\images\arrow-270-small.png" />
+    <Content Include="Content\themes\default\images\arrow-270.png" />
+    <Content Include="Content\themes\default\images\balloon-white.png" />
+    <Content Include="Content\themes\default\images\exclamation-white.png" />
+    <Content Include="Content\themes\default\scripts\bootstrap-alerts.js" />
+    <Content Include="Content\themes\default\scripts\bootstrap-buttons.js" />
+    <Content Include="Content\themes\default\scripts\bootstrap-dropdown.js" />
+    <Content Include="Content\themes\default\scripts\bootstrap-modal.js" />
+    <Content Include="Content\themes\default\scripts\bootstrap-popover.js" />
+    <Content Include="Content\themes\default\scripts\bootstrap-scrollspy.js" />
+    <Content Include="Content\themes\default\scripts\bootstrap-tabs.js" />
+    <Content Include="Content\themes\default\scripts\bootstrap-twipsy.js" />
+    <Content Include="Content\themes\default\scripts\jqcloud-0.2.8.js" />
+    <Content Include="Content\themes\default\scripts\jqcloud-0.2.8.min.js" />
+    <Content Include="Content\themes\default\styles\bootstrap.css" />
+    <Content Include="Content\themes\default\styles\custom.css" />
+    <Content Include="Content\themes\default\styles\jqcloud.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -318,82 +328,82 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Content\app\templates\company\AllTransactions.html" />
-    <Content Include="Content\app\templates\partials\inputModel\StringProperty.html" />
-    <Content Include="Content\app\templates\store\AddOrder.html" />
-    <Content Include="Content\app\templates\store\AddProduct.html" />
-    <Content Include="Content\app\templates\store\AddPromotion.html" />
-    <Content Include="Content\app\templates\store\AddDiscountCode.html" />
-    <Content Include="Content\app\templates\store\DiscountCodeDetails.html" />
-    <Content Include="Content\app\templates\store\PromotionDetails.html" />
-    <Content Include="Content\app\templates\store\ProductDetails.html" />
-    <Content Include="Content\app\templates\store\CustomerContact.html" />
-    <Content Include="Content\app\templates\store\CustomerReset.html" />
-    <Content Include="Content\app\templates\store\CustomerProfile.html" />
-    <Content Include="Content\app\templates\store\InviteCustomer.html" />
-    <Content Include="Content\app\templates\store\DiscountCodes.html">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Content\app\templates\store\Promotions.html">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Content\app\templates\store\ProductCatalog.html">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Content\app\templates\store\Customers.html" />
-    <Content Include="Content\app\templates\store\Orders.html">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Content\app\templates\store\Financials.html" />
-    <Content Include="Views\Shared\LeftNav.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Web.config" />
     <Content Include="Config\custom.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Config\sparrow.custom.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Config\djlancerock.custom.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Config\bluejay.custom.config">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ForumAgent\ForumAgent.csproj">
+      <Project>{7C5DC02C-5E2E-46A2-8343-ADE8035F141B}</Project>
+      <Name>ForumAgent</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Category\All.cshtml" />
+    <Content Include="Views\Category\Detail.cshtml" />
+    <Content Include="Views\Pages\Info.cshtml" />
+    <Content Include="Views\PostListing\All.cshtml" />
+    <Content Include="Views\PostListing\Controversial.cshtml" />
+    <Content Include="Views\PostListing\Popular.cshtml" />
+    <Content Include="Views\Post\Detail.cshtml" />
+    <Content Include="Views\Profile\All.cshtml" />
+    <Content Include="Views\Profile\Badges.cshtml" />
+    <Content Include="Views\Profile\Favorites.cshtml" />
+    <Content Include="Views\Profile\Friends.cshtml" />
+    <Content Include="Views\Profile\Overview.cshtml" />
+    <Content Include="Views\Profile\RecentActivity.cshtml" />
+    <Content Include="Views\Profile\_Tabs.cshtml" />
+    <Content Include="Views\Shared\Layout\Scripts.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\Badge.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\Tags.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\TopUsers.cshtml" />
+    <Content Include="Views\Shared\Layout\Styles.cshtml" />
+    <Content Include="Views\Shared\Layout\TopBar.cshtml" />
+    <Content Include="Views\Shared\PostTile.cshtml" />
+    <Content Include="Views\Shared\_ForumLayout.cshtml" />
+    <Content Include="Views\Tag\All.cshtml" />
+    <Content Include="Views\Tag\Detail.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\jason-mbp.custom.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shell\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\Categories.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Styles.cshtml" />
+    <Content Include="Views\Shared\Layout\SignIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\Scripts.cshtml" />
+    <Content Include="Views\Shared\Layout\SideBar\NewPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StorefrontAgent\StorefrontAgent.csproj">
-      <Project>{5FFCA18F-F416-4DFC-86AF-8DA0232A66E6}</Project>
-      <Name>StorefrontAgent</Name>
-    </ProjectReference>
+    <Content Include="Views\Post\NewComment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Layout\CustomContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
