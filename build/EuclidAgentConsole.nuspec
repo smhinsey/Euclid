@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>Euclid-SDK</id>
-		<!-- rename me to Euclid-AgentSDK -->
+		<id>Euclid-AgentConsole</id>
 		<version>1.0.0.0</version>
 		<authors>NewCo</authors>
 		<owners>NewCo</owners>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Euclid's client SDK, including Euclid.Common, Euclid.Framework, and libraries for use in the development of Agents and Composites.</description>
+		<description>Provides support for hosting Euclid Agents within a Windows Console.</description>
 		<tags></tags>
 	</metadata>
 </package>
