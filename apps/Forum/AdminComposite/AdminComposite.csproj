@@ -134,7 +134,7 @@
     <Reference Include="Euclid.Framework.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\Euclid.Framework.Models.dll</HintPath>
     </Reference>
-    <Reference Include="Euclid.TestingSupport">
+    <Reference Include="Euclid.TestingSupport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\Euclid.TestingSupport.dll</HintPath>
     </Reference>
     <Reference Include="EventStore, Version=2.0.11157.39, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
@@ -191,13 +191,13 @@
     <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.mocks">
+    <Reference Include="nunit.mocks, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\nunit.mocks.dll</HintPath>
     </Reference>
-    <Reference Include="pnunit.framework">
+    <Reference Include="pnunit.framework, Version=1.0.4109.34242, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="RouteDebugger, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
@@ -242,7 +242,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="TechTalk.SpecFlow">
+    <Reference Include="TechTalk.SpecFlow, Version=1.7.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-Composite-Inspector.1.0.0.0\lib\NET40\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
   </ItemGroup>
