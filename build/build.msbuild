@@ -85,9 +85,12 @@
 	</Target>
 
 	<Target Name="BuildInspector">
-		<MSBuild Projects="@(InspectorProjects)" Properties="Configuration=$(Configuration);Platform=$(Platform)">
+		<MSBuild Projects="@(InspectorProjects)" Properties="Configuration=$(Configuration);Platform=x64">
 			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
 		</MSBuild>
+
+		<!-- this breaks when referenced directly for whatever reason -->
+		<Delete Files="$(BaseDir)\src\sdk\CompositeInspector\bin\$(Configuration)\msshrtmi.dll"/>
 
 		<ItemGroup>
 			<Binaries Include="$(BaseDir)\src\common\Euclid.Common\bin\$(Configuration)\*.dll;
@@ -146,11 +149,13 @@
 			<InspectorPackageDir Include="$(BaseDir)\package\inspector"/>
 		</ItemGroup>
 
-		<Exec WorkingDirectory="." Command="nuget.exe update -self" />
-
 		<Exec WorkingDirectory="." Command="nuget.exe pack .\package\sdk\EuclidSDK.nuspec" />
 
 		<Exec WorkingDirectory="." Command="nuget.exe pack .\package\inspector\EuclidCompositeInspector.nuspec" />
+	</Target>
+
+	<Target Name="UpdateNuget">
+		<Exec WorkingDirectory="." Command="nuget.exe update -self" />
 	</Target>
 
 </Project>

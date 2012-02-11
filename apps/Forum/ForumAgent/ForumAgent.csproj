@@ -105,7 +105,7 @@
     <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\CommonServiceLocator.WindsorAdapter.dll</HintPath>
     </Reference>
-    <Reference Include="CompositeInspector, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CompositeInspector, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\CompositeInspector.dll</HintPath>
     </Reference>
     <Reference Include="Euclid.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
