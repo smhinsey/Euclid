@@ -75,6 +75,9 @@
     <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\CommonServiceLocator.WindsorAdapter.dll</HintPath>
     </Reference>
+    <Reference Include="CompositeInspector, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\CompositeInspector.dll</HintPath>
+    </Reference>
     <Reference Include="Euclid.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\Euclid.Common.dll</HintPath>
     </Reference>
@@ -100,7 +103,10 @@
       <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\Euclid.Common.Storage.NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Euclid.Composites, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>../../../packages/Euclid-CompositeInspector.1.0.0.0/lib/NET40/Euclid.Composites.dll</HintPath>
+      <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\Euclid.Composites.dll</HintPath>
+    </Reference>
+    <Reference Include="Euclid.Composites.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\Euclid.Composites.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Euclid.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\Euclid.Framework.dll</HintPath>
@@ -128,6 +134,9 @@
     </Reference>
     <Reference Include="Euclid.TestingSupport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\Euclid.TestingSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="EventStore, Version=2.0.11157.39, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\EventStore.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=1.3.0.717, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\FluentNHibernate.dll</HintPath>
@@ -161,6 +170,15 @@
     <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="pnunit.framework, Version=1.0.4109.34242, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\pnunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -169,6 +187,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow, Version=1.7.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

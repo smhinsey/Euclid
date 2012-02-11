@@ -109,7 +109,7 @@
     <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\CommonServiceLocator.WindsorAdapter.dll</HintPath>
     </Reference>
-    <Reference Include="CompositeInspector, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+    <Reference Include="CompositeInspector, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\CompositeInspector.dll</HintPath>
     </Reference>
     <Reference Include="Euclid.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -211,9 +211,6 @@
     </Reference>
     <Reference Include="pnunit.framework, Version=1.0.4109.34242, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\pnunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="RouteDebugger, Version=2.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Euclid-AgentSDK.1.0.0.0\lib\NET40\RouteDebugger.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

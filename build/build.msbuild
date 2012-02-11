@@ -87,7 +87,7 @@
 	</Target>
 
 	<Target Name="BuildInspector">
-		<MSBuild Projects="@(InspectorProjects)" Properties="Configuration=$(Configuration);Platform=x64">
+		<MSBuild Projects="@(InspectorProjects)" Properties="Configuration=$(Configuration);Platform=$(Platform)">
 			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
 		</MSBuild>
 
