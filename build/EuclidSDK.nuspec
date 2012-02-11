@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>Euclid-AgentSDK</id>
-		<version>1.0.0.0</version>
+		<version>1.0.0-replaceMe</version>
 		<authors>NewCo</authors>
 		<owners>NewCo</owners>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>

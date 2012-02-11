@@ -2,9 +2,12 @@
 	<PropertyGroup>
 		<BaseDir>$(MSBuildProjectDirectory)\..\</BaseDir>
 		<Configuration Condition="'$(Configuration)'==''" >Release</Configuration>
-		<OutputDir>.\output</OutputDir>
+		<OutputDir>.\buildoutput</OutputDir>
 		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<MSBuildExtensions>.\MSBuild.Community.Tasks.dll</MSBuildExtensions>
 	</PropertyGroup>
+
+	<UsingTask AssemblyFile="$(MSBuildExtensions)" TaskName="MSBuild.Community.Tasks.XmlUpdate" />
 
 	<!-- 
 		Can be run in a local dev environment or on a CI server.
@@ -77,7 +80,6 @@
 
 		<ItemGroup>
 			<Binaries Include="$(BaseDir)\src\sdk\Euclid.Composites\bin\$(Configuration)\*.dll;
-									$(BaseDir)\src\sdk\Euclid.Composites.Mvc\bin\$(Configuration)\*.dll;
 									$(BaseDir)\src\sdk\Euclid.TestingSupport\bin\$(Configuration)\*.dll"/>
 		</ItemGroup>
 
@@ -109,14 +111,14 @@
 
 	<Target Name="CleanAll">
 		<ItemGroup>
-			<OutputDir Include=".\output\**\*.*" />
-			<PackageDir Include=".\package\**\*.*" />
+			<OutputDir Include=".\buildoutput\**\*.*" />
+			<PackageDir Include=".\prepackage\**\*.*" />
 		</ItemGroup>
 
 		<Delete Files="@(OutputDir)" />
 		<Delete Files="@(PackageDir)" />
 		<RemoveDir Directories=".\output" />
-		<RemoveDir Directories=".\package" />
+		<RemoveDir Directories=".\prepackage" />
 	</Target>
 
 	<Target Name="BuildAll" DependsOnTargets="CleanAll; BuildCommon; BuildFramework; BuildSDK; BuildInspector">
@@ -136,22 +138,26 @@
 			<InspectorOutput Include="$(OutputDir)\inspector\*.*"/>
 		</ItemGroup>
 
-		<Copy SourceFiles="@(SdkNuSpec)" DestinationFolder=".\package\sdk"/>
-		<Copy SourceFiles="@(CommonOutput)" DestinationFolder=".\package\sdk\lib\NET40"/>
-		<Copy SourceFiles="@(FrameworkOutput)" DestinationFolder=".\package\sdk\lib\NET40"/>
-		<Copy SourceFiles="@(SDKOutput)" DestinationFolder=".\package\sdk\lib\NET40"/>
+		<Copy SourceFiles="@(SdkNuSpec)" DestinationFolder=".\prepackage\sdk"/>
+		<Copy SourceFiles="@(CommonOutput)" DestinationFolder=".\prepackage\sdk\lib\NET40"/>
+		<Copy SourceFiles="@(FrameworkOutput)" DestinationFolder=".\prepackage\sdk\lib\NET40"/>
+		<Copy SourceFiles="@(SDKOutput)" DestinationFolder=".\prepackage\sdk\lib\NET40"/>
 
-		<Copy SourceFiles="@(InspectorNuSpec)" DestinationFolder=".\package\inspector"/>
-		<Copy SourceFiles="@(InspectorOutput)" DestinationFolder=".\package\inspector\lib\NET40"/>
+		<Copy SourceFiles="@(InspectorNuSpec)" DestinationFolder=".\prepackage\inspector"/>
+		<Copy SourceFiles="@(InspectorOutput)" DestinationFolder=".\prepackage\inspector\lib\NET40"/>
 
 		<ItemGroup>
-			<SdkPackageDir Include="$(BaseDir)\package\sdk"/>
-			<InspectorPackageDir Include="$(BaseDir)\package\inspector"/>
+			<SdkPackageDir Include="$(BaseDir)\prepackage\sdk"/>
+			<InspectorPackageDir Include="$(BaseDir)\prepackage\inspector"/>
 		</ItemGroup>
 
-		<Exec WorkingDirectory="." Command="nuget.exe pack .\package\sdk\EuclidSDK.nuspec" />
+		<GetAssemblyIdentity AssemblyFiles="$(OutputDir)\inspector\Euclid.Common.dll">
+			<Output TaskParameter="Assemblies" ItemName="EuclidCommonAssembly"/>
+		</GetAssemblyIdentity>
 
-		<Exec WorkingDirectory="." Command="nuget.exe pack .\package\inspector\EuclidCompositeInspector.nuspec" />
+		<Exec WorkingDirectory="." Command="nuget.exe pack .\prepackage\sdk\EuclidSDK.nuspec -Version %(EuclidCommonAssembly.Version)" />
+
+		<Exec WorkingDirectory="." Command="nuget.exe pack .\prepackage\inspector\EuclidCompositeInspector.nuspec -Version %(EuclidCommonAssembly.Version)" />
 	</Target>
 
 	<Target Name="UpdateNuget">
