@@ -221,6 +221,10 @@
       <Project>{8BA2EA0C-2220-4390-A87C-79E96E40DFD0}</Project>
       <Name>Euclid.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LoggingAgent\LoggingAgent.csproj">
+      <Project>{1FE538F6-D05D-4849-8741-F827F1B7B34F}</Project>
+      <Name>LoggingAgent</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>Euclid-Composite-Inspector</id>
-		<!-- Rename me to Euclid-CompositeInspector -->
+		<id>Euclid-CompositeInspector</id>
 		<version>1.0.0.0</version>
 		<authors>NewCo</authors>
 		<owners>NewCo</owners>

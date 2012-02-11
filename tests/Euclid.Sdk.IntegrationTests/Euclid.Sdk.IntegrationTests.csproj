@@ -154,9 +154,6 @@
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\..\packages\SpecFlow.1.7.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
-    <Reference Include="WatiN.Core">
-      <HintPath>..\..\packages\WatiN.2.1.0\lib\net40\WatiN.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HostingFabricTests.cs" />
