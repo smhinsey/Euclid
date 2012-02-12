@@ -35,7 +35,7 @@ namespace Euclid.Composites.Mvc.Extensions
 
 			var tagBuilder = new TagBuilder("form");
 			tagBuilder.Attributes.Add("method", "post");
-			tagBuilder.Attributes.Add("action", "/composite/commands/publish");
+			tagBuilder.Attributes.Add("action", "/composite/api/publish");
 			tagBuilder.Attributes.Add("id", formId);
 			tagBuilder.Attributes.Add("encType", "multipart/form-data");
 			helper.ViewContext.Writer.Write(tagBuilder.ToString(TagRenderMode.StartTag));

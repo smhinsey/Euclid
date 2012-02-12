@@ -106,9 +106,9 @@ function submitForm(form, commandName) {
 
 function display(publicationRecord) {
 	var alertClass = "alert-success";
-	if (result.Error) {
+	if (publicationRecord.Error) {
 		alertClass = "alert-error";
-	} else if (!result.Dispatched) {
+	} else if (!publicationRecord.Dispatched) {
 		alertClass = "alert-block";
 	}
 

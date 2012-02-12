@@ -87,7 +87,7 @@ var EUCLID = function () {
 			return {
 				getForm: (function () {
 					///<summary>returns a jquery object containing a form that can be used to collect data for this command</summary>
-					var form = $("<form action='/composite/commands/publish' method='post'><fieldset></fieldset></form>");
+					var form = $("<form action='/composite/api/publish' method='post'><fieldset></fieldset></form>");
 					var fieldSet = $(form).children("fieldset");
 
 					for (propertyName in _model) {
@@ -382,7 +382,7 @@ var EUCLID = function () {
 			var _commandErrorHandler = onCommandError ? onCommandError : onCommandComplete;
 			var _poll = function() {
 					WorkWithDataFromUrl(
-						"/composite/commands/status/" + args.publicationId,
+						"/composite/api/publicationRecord/" + publicationId,
 						function (result) {
 							_pollCount++;
 							complete = result.Completed;
@@ -407,9 +407,7 @@ var EUCLID = function () {
 
 								if (!continuePolling) {
 									complete = true;
-									if (args.hasOwnProperty("onPollError")) {
-										args.onPollError(e);
-									}
+									_errorHandler(e);
 								}
 							}
 
@@ -443,7 +441,7 @@ var EUCLID = function () {
 			);
 
 			return false;
-		}), // end displayError
+		}) // end displayError
 	} // return
 } (); // EUCLID
 
@@ -537,6 +535,9 @@ var WorkWithDataFromUrl = function (url, onSuccess, onError) {
 	/// <param name='url'>the url from which to fetch the data</param>
 	/// <param name='onSuccess'>a callback that accepts the json object</param>
 	/// <param name='onError'>optional error handler</param>
+
+	var _errorHandler = onError ? onError : EUCLID.displayError;
+
 	$.ajax({
 		url: url,
 		dataType: 'json',
@@ -558,14 +559,10 @@ var WorkWithDataFromUrl = function (url, onSuccess, onError) {
 		},
 		error: function (err) {
 			var e = err;
-			if (err.hasOwnProperty("responseText")) {
-				e = $.parseJSON(err.responseText);
-			}
-
-			if (onError != null) {
-				onError(e);
-			} else {
-				EUCLID.displayError(e);
+			if (e.hasOwnProperty("status") && e.status == 404) {
+				_errorHandler({ name: "Not found", message: "Unable to fetch JSON from the url '" + url + "'" });
+			} else if (err.hasOwnProperty("responseText")) {
+				_errorHandler($.parseJSON(err.responseText));
 			}
 		}
 	});

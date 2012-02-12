@@ -1,7 +1,9 @@
 ﻿if (Handlebars) {
 	Handlebars.registerHelper("convert-breaks", function (value) {
+		if (!value) return "";
+		
 		var replaced = value.replace(/\n/g, "<br />");
-		console.log("convert-breaks: " + Handlebars.SafeString(replaced));
+		
 		return new Handlebars.SafeString(replaced);
 	});
 
