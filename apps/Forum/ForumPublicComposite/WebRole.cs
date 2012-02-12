@@ -21,7 +21,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using NConfig;
 using log4net.Config;
 
-namespace ForumComposite
+namespace ForumPublicComposite
 {
 	public class WebRole : RoleEntryPoint, ILoggingSource
 	{

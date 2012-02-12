@@ -4,14 +4,14 @@
     <AzureCredentials>Azdem169M47219W</AzureCredentials>
     <AzureHostedServiceName>forumtemplate</AzureHostedServiceName>
     <AzureHostedServiceLabel>ForumTemplate</AzureHostedServiceLabel>
-    <AzureSlot>Staging</AzureSlot>
+    <AzureSlot>Production</AzureSlot>
     <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureStorageAccountName>forumskeleton</AzureStorageAccountName>
     <AzureStorageAccountLabel>ForumSkeleton</AzureStorageAccountLabel>
     <AzureDeploymentLabel>AzureForumPackage</AzureDeploymentLabel>
-    <AzureSolutionConfiguration>Debug</AzureSolutionConfiguration>
+    <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
     <AzureAllowUpgrade>True</AzureAllowUpgrade>

@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using Euclid.Common.Logging;
 
-namespace ForumComposite
+namespace ForumPublicComposite
 {
-	public class MvcApplication : HttpApplication, ILoggingSource
+	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+	// visit http://go.microsoft.com/?LinkId=9394801
+
+	public class MvcApplication : System.Web.HttpApplication, ILoggingSource
 	{
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
@@ -139,6 +144,7 @@ namespace ForumComposite
 				"org/{org}/forum/{forum}/authenticate/signout",
 				new { controller = "Authentication", action = "SignOut" }
 				);
+
 		}
 
 		protected void Application_Start()
@@ -150,6 +156,7 @@ namespace ForumComposite
 
 			WebRole.GetInstance().Init();
 		}
+
 
 		protected void Application_AuthenticateRequest(object sender, EventArgs e)
 		{
@@ -172,11 +179,11 @@ namespace ForumComposite
 
 			var rawData = identity.Ticket.UserData;
 
-			if(rawData.Contains("^"))
+			if (rawData.Contains("^"))
 			{
 				var orgForumCombo = rawData.Split(new[] { "^" }, StringSplitOptions.None);
 
-				if(orgForumCombo.Length < 2)
+				if (orgForumCombo.Length < 2)
 				{
 					this.WriteErrorMessage("User {0}'s forms authentication ticket did not contain org/forum data.", identity.Name);
 

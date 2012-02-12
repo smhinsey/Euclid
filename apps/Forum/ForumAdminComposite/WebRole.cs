@@ -23,7 +23,7 @@ using Microsoft.WindowsAzure.ServiceRuntime;
 using NConfig;
 using log4net.Config;
 
-namespace AdminComposite
+namespace ForumAdminComposite
 {
 	public class WebRole : RoleEntryPoint, ILoggingSource
 	{

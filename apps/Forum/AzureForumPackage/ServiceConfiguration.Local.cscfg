@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ServiceConfiguration serviceName="AzureForumPackage" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="1" osVersion="*">
-  <Role name="AdminComposite">
+  <Role name="ForumAdminComposite">
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
@@ -14,7 +14,7 @@
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="3DF264B412A08FB82494E3073CADE9F6220F1D06" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
-  <Role name="ForumComposite">
+  <Role name="ForumPublicComposite">
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />

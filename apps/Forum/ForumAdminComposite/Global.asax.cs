@@ -1,10 +1,16 @@
-﻿using System.Web;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace AdminComposite
+namespace ForumAdminComposite
 {
-	public class MvcApplication : HttpApplication
+	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+	// visit http://go.microsoft.com/?LinkId=9394801
+
+	public class MvcApplication : System.Web.HttpApplication
 	{
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
@@ -19,16 +25,16 @@ namespace AdminComposite
 			routes.IgnoreRoute("composite/{*pathInfo}");
 
 			routes.MapRoute(
-				"Default", "{controller}/{action}/{forumId}", 
+				"Default", "{controller}/{action}/{forumId}",
 				new { controller = "Authentication", action = "Signin", forumId = UrlParameter.Optional });
+
 		}
 
 		protected void Application_Start()
 		{
-			RegisterGlobalFilters(GlobalFilters.Filters);
-
 			AreaRegistration.RegisterAllAreas();
 
+			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
 			WebRole.GetInstance().Init();
