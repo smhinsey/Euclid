@@ -1,5 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0" DefaultTargets="BuildAll">
-	<PropertyGroup>
+  	<PropertyGroup>
 		<BaseDir>$(MSBuildProjectDirectory)\..\</BaseDir>
 		<Configuration Condition="'$(Configuration)'==''" >Release</Configuration>
 		<OutputDir>.\buildoutput</OutputDir>
@@ -91,9 +91,6 @@
 			<Output TaskParameter="TargetOutputs" ItemName="CommonOutput"/>
 		</MSBuild>
 
-		<!-- this breaks when referenced directly for whatever reason -->
-		<Delete Files="$(BaseDir)\src\sdk\CompositeInspector\bin\$(Configuration)\msshrtmi.dll"/>
-
 		<ItemGroup>
 			<Binaries Include="$(BaseDir)\src\common\Euclid.Common\bin\$(Configuration)\*.dll;
 									$(BaseDir)\src\common\Euclid.Common.Storage\bin\$(Configuration)\*.dll;
@@ -107,6 +104,15 @@
 		</ItemGroup>
 
 		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(OutputDir)\inspector"/>
+
+		<!-- these can't/shouldn't be part of our nuget package -->
+		<Delete Files="$(OutputDir)\inspector\msshrtmi.dll"/>		
+		<Delete Files="$(OutputDir)\inspector\System.Web.Razor.dll"/>		
+		<Delete Files="$(OutputDir)\inspector\RouteDebugger.dll"/>		
+		<Delete Files="$(OutputDir)\inspector\pnunit.framework.dll"/>		
+		<Delete Files="$(OutputDir)\inspector\nunit.framework.dll"/>		
+		<Delete Files="$(OutputDir)\inspector\nunit.mocks.dll"/>		
+		<Delete Files="$(OutputDir)\inspector\TechTalk.Specflow.dll"/>		
 	</Target>
 
 	<Target Name="CleanAll">
@@ -117,7 +123,7 @@
 
 		<Delete Files="@(OutputDir)" />
 		<Delete Files="@(PackageDir)" />
-		<RemoveDir Directories=".\output" />
+		<RemoveDir Directories=".\buildoutput" />
 		<RemoveDir Directories=".\prepackage" />
 	</Target>
 

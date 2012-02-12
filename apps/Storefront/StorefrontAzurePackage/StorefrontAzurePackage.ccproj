@@ -39,10 +39,18 @@
   <ItemGroup>
     <ProjectReference Include="..\StorefrontAdminComposite\StorefrontAdminComposite.csproj">
       <Name>StorefrontAdminComposite</Name>
-      <Project>{2e0c711f-58d8-49b9-bb15-b5d821bb2750}</Project>
+      <Project>{49a196e6-e81e-4cf7-9750-be394307b2e9}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
       <RoleName>StorefrontAdminComposite</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
+    <ProjectReference Include="..\StorefrontPublicComposite\StorefrontPublicComposite.csproj">
+      <Name>StorefrontPublicComposite</Name>
+      <Project>{f59ab963-cd43-4d3f-8d04-7f3521487212}</Project>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <RoleName>StorefrontPublicComposite</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>

@@ -55,8 +55,7 @@ namespace StorefrontAdminComposite
 
 			var container = new WindsorContainer();
 
-			var composite = new MvcCompositeApp(container)
-				{ Name = "Newco Storefront Admin", Description = "Create and manage custom storefronts." };
+			var composite = new MvcCompositeApp(container) { Name = "Newco Storefront Admin", Description = "Create and manage custom storefronts." };
 
 			composite.RegisterNh(databaseConfiguration, true);
 
@@ -104,13 +103,13 @@ namespace StorefrontAdminComposite
 		{
 			CloudStorageAccount.SetConfigurationSettingPublisher(
 				(configurationKey, publishConfigurationValue) =>
-					{
-						var connectionString = RoleEnvironment.IsAvailable
-						                       	? RoleEnvironment.GetConfigurationSettingValue(configurationKey)
-						                       	: ConfigurationManager.AppSettings[configurationKey];
+				{
+					var connectionString = RoleEnvironment.IsAvailable
+																	? RoleEnvironment.GetConfigurationSettingValue(configurationKey)
+																	: ConfigurationManager.AppSettings[configurationKey];
 
-						publishConfigurationValue(connectionString);
-					});
+					publishConfigurationValue(connectionString);
+				});
 
 			var storageAccount = CloudStorageAccount.FromConfigurationSetting("DataConnectionString");
 

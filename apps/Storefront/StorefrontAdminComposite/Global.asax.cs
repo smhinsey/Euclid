@@ -1,10 +1,16 @@
-﻿using System.Web;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace StorefrontAdminComposite
 {
-	public class MvcApplication : HttpApplication
+	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+	// visit http://go.microsoft.com/?LinkId=9394801
+
+	public class MvcApplication : System.Web.HttpApplication
 	{
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 		{
@@ -14,20 +20,21 @@ namespace StorefrontAdminComposite
 		public static void RegisterRoutes(RouteCollection routes)
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-			routes.IgnoreRoute("favicon.ico");
+			routes.IgnoreRoute("composite/{*pathInfo}");
 
 			routes.MapRoute(
-				"Default",
-				"{controller}/{action}",
-				new { controller = "Shell", action = "Index" });
+					"Default", // Route name
+					"{controller}/{action}/{id}", // URL with parameters
+					new { controller = "Shell", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+			);
+
 		}
 
 		protected void Application_Start()
 		{
-			RegisterGlobalFilters(GlobalFilters.Filters);
-
 			AreaRegistration.RegisterAllAreas();
 
+			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 
 			WebRole.GetInstance().Init();
