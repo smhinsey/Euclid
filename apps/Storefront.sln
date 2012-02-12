@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorefrontAgent", "Storefro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorefrontAdminComposite", "Storefront\StorefrontAdminComposite\StorefrontAdminComposite.csproj", "{2E0C711F-58D8-49B9-BB15-B5D821BB2750}"
 EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "StorefrontAzurePackage", "Storefront\StorefrontAzurePackage\StorefrontAzurePackage.ccproj", "{FFCEC7EA-1CD5-4CA4-925A-2F31A19A6EAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,14 @@ Global
 		{2E0C711F-58D8-49B9-BB15-B5D821BB2750}.Release|x64.ActiveCfg = Release|x64
 		{2E0C711F-58D8-49B9-BB15-B5D821BB2750}.Release|x64.Build.0 = Release|x64
 		{2E0C711F-58D8-49B9-BB15-B5D821BB2750}.Release|x86.ActiveCfg = Release|x64
+		{FFCEC7EA-1CD5-4CA4-925A-2F31A19A6EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCEC7EA-1CD5-4CA4-925A-2F31A19A6EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFCEC7EA-1CD5-4CA4-925A-2F31A19A6EAA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FFCEC7EA-1CD5-4CA4-925A-2F31A19A6EAA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FFCEC7EA-1CD5-4CA4-925A-2F31A19A6EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCEC7EA-1CD5-4CA4-925A-2F31A19A6EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCEC7EA-1CD5-4CA4-925A-2F31A19A6EAA}.Release|x64.ActiveCfg = Release|Any CPU
+		{FFCEC7EA-1CD5-4CA4-925A-2F31A19A6EAA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

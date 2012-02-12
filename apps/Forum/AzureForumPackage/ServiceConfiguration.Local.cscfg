@@ -1,24 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ServiceConfiguration serviceName="AzureForumPackage" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="1" osVersion="*">
-	<Role name="AdminComposite">
-		<Instances count="1" />
-		<ConfigurationSettings>
-			<Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
-			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-		</ConfigurationSettings>
-	</Role>
-	<Role name="ForumComposite">
-		<Instances count="1" />
-		<ConfigurationSettings>
-			<Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
-			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-		</ConfigurationSettings>
-	</Role>
-	<Role name="AzureForumHost">
-		<Instances count="1" />
-		<ConfigurationSettings>
-			<Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
-			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-		</ConfigurationSettings>
-	</Role>
+  <Role name="AdminComposite">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="smhinsey" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCECmCTt/RCZqpRwfm/Rg4fRowDQYJKoZIhvcNAQEBBQAEggEAWPt4H2p8QWQ3115U//5vajNHh6uj/wBwbcSBkwOhoc6AQ+oyzu0vWQpGPoAj4umw04HfgAIVHeIwQ+22gkZOYYmDPiquxSiGkFP7uJN2TFMwRC9mdG7bb1osTpuEB/i/sYaw75VUsgKt/3jfcaPh6VEh/mIMLN6Ts1MyjDSXF/Rj1NsjuJ79fmIq5FBtJrfsBQ5OSX0zzh3BCp+XBR0qgZbR8baB3K7Yb3qaq9wZT/0iverI9yq26VMJIGA1MI6dPRf6Kzj90E2lJIxi0Pen2/kvKKe/d+dctJU/za049wy6mTYWLA8KCQpLdMoiu3w1XA9mQbEVf2nPj1DYj5giTzAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECNljva53e7TzgBCNJ8rptLEPwdfRHixuG0yv" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2013-02-11T23:59:59.0000000-05:00" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="3DF264B412A08FB82494E3073CADE9F6220F1D06" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <Role name="ForumComposite">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="smhinsey" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCECmCTt/RCZqpRwfm/Rg4fRowDQYJKoZIhvcNAQEBBQAEggEAWPt4H2p8QWQ3115U//5vajNHh6uj/wBwbcSBkwOhoc6AQ+oyzu0vWQpGPoAj4umw04HfgAIVHeIwQ+22gkZOYYmDPiquxSiGkFP7uJN2TFMwRC9mdG7bb1osTpuEB/i/sYaw75VUsgKt/3jfcaPh6VEh/mIMLN6Ts1MyjDSXF/Rj1NsjuJ79fmIq5FBtJrfsBQ5OSX0zzh3BCp+XBR0qgZbR8baB3K7Yb3qaq9wZT/0iverI9yq26VMJIGA1MI6dPRf6Kzj90E2lJIxi0Pen2/kvKKe/d+dctJU/za049wy6mTYWLA8KCQpLdMoiu3w1XA9mQbEVf2nPj1DYj5giTzAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECNljva53e7TzgBCNJ8rptLEPwdfRHixuG0yv" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2013-02-11T23:59:59.0000000-05:00" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="3DF264B412A08FB82494E3073CADE9F6220F1D06" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+  <Role name="AzureForumHost">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="smhinsey" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCECmCTt/RCZqpRwfm/Rg4fRowDQYJKoZIhvcNAQEBBQAEggEAWPt4H2p8QWQ3115U//5vajNHh6uj/wBwbcSBkwOhoc6AQ+oyzu0vWQpGPoAj4umw04HfgAIVHeIwQ+22gkZOYYmDPiquxSiGkFP7uJN2TFMwRC9mdG7bb1osTpuEB/i/sYaw75VUsgKt/3jfcaPh6VEh/mIMLN6Ts1MyjDSXF/Rj1NsjuJ79fmIq5FBtJrfsBQ5OSX0zzh3BCp+XBR0qgZbR8baB3K7Yb3qaq9wZT/0iverI9yq26VMJIGA1MI6dPRf6Kzj90E2lJIxi0Pen2/kvKKe/d+dctJU/za049wy6mTYWLA8KCQpLdMoiu3w1XA9mQbEVf2nPj1DYj5giTzAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECNljva53e7TzgBCNJ8rptLEPwdfRHixuG0yv" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2013-02-11T23:59:59.0000000-05:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="3DF264B412A08FB82494E3073CADE9F6220F1D06" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
 </ServiceConfiguration>

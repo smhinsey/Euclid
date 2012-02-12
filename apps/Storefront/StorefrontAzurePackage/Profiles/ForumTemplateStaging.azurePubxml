@@ -10,11 +10,11 @@
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureStorageAccountName>forumskeleton</AzureStorageAccountName>
     <AzureStorageAccountLabel>ForumSkeleton</AzureStorageAccountLabel>
-    <AzureDeploymentLabel>AzureForumPackage</AzureDeploymentLabel>
+    <AzureDeploymentLabel>StorefrontAzurePackage</AzureDeploymentLabel>
     <AzureSolutionConfiguration>Debug</AzureSolutionConfiguration>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
     <AzureAllowUpgrade>True</AzureAllowUpgrade>
-    <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
+    <AzureEnableRemoteDesktop>False</AzureEnableRemoteDesktop>
   </PropertyGroup>
 </Project>

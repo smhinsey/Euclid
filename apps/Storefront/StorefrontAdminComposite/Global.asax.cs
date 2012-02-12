@@ -15,8 +15,6 @@ namespace StorefrontAdminComposite
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.IgnoreRoute("favicon.ico");
-			routes.IgnoreRoute("composite/{*route}");
-			routes.IgnoreRoute("composite/{*pathInfo}");
 
 			routes.MapRoute(
 				"Default",
