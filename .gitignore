@@ -14,5 +14,6 @@ nuget/Euclid.*.nupkg
 *.orig
 *.log
 csx/
-build/buildoutput
-build/prepackage
+build/output
+build/package
+_bin_*

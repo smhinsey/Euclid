@@ -1,4 +1,6 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using System;
+using System.IO;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Euclid.Common.Messaging.Azure;
 using Euclid.Common.Storage.Azure;
@@ -11,6 +13,9 @@ using Euclid.Sdk.TestComposite.Models;
 using FluentNHibernate.Cfg.Db;
 using LoggingAgent.Queries;
 using Microsoft.WindowsAzure;
+using Microsoft.WindowsAzure.ServiceRuntime;
+using NConfig;
+using log4net.Config;
 
 namespace Euclid.Sdk.TestComposite
 {
@@ -34,6 +39,16 @@ namespace Euclid.Sdk.TestComposite
 			if (_initialized)
 			{
 				return;
+			}
+
+			if (!RoleEnvironment.IsAvailable)
+			{
+				NConfigurator.UsingFile(@"~\Config\custom.config").SetAsSystemDefault();
+				XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0]))); ;
+			}
+			else
+			{
+				XmlConfigurator.Configure();
 			}
 
 			var compositeDatabaseConnection =

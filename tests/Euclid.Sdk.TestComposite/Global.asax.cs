@@ -19,6 +19,7 @@ namespace Euclid.Sdk.TestComposite
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.IgnoreRoute("favicon.ico");
+			routes.IgnoreRoute("{composite}/{*pathInfo}");
 			routes.MapRoute("Default", "{controller}/{action}", new { controller = "Home", action = "Index" });
 		}
 
@@ -28,9 +29,6 @@ namespace Euclid.Sdk.TestComposite
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
-
-			// configure log4net
-			XmlConfigurator.Configure();
 
 			WebRole.GetInstance().Init();
 		}
