@@ -86,6 +86,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompositeInspector", "src\s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.UnitTests", "tests\Euclid.Sdk.UnitTests\Euclid.Sdk.UnitTests.csproj", "{00DCECE0-96B8-4286-B57C-581D97411DA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Euclid.Sdk.TestHostingFabric", "tests\Euclid.Sdk.TestHostingFabric\Euclid.Sdk.TestHostingFabric.csproj", "{1F644F8B-941C-4D35-972F-2660F59E8E32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -610,6 +612,19 @@ Global
 		{00DCECE0-96B8-4286-B57C-581D97411DA8}.Release|x64.Build.0 = Release|x64
 		{00DCECE0-96B8-4286-B57C-581D97411DA8}.Release|x86.ActiveCfg = Release|x86
 		{00DCECE0-96B8-4286-B57C-581D97411DA8}.Release|x86.Build.0 = Release|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Debug|Any CPU.Build.0 = Debug|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Debug|x64.ActiveCfg = Debug|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Debug|x86.ActiveCfg = Debug|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Debug|x86.Build.0 = Debug|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Release|Any CPU.ActiveCfg = Release|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Release|Mixed Platforms.Build.0 = Release|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Release|x64.ActiveCfg = Release|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Release|x86.ActiveCfg = Release|x86
+		{1F644F8B-941C-4D35-972F-2660F59E8E32}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -650,5 +665,6 @@ Global
 		{F2CA2CE6-3D33-4FF2-8E8B-8B16E571F98C} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 		{00DCECE0-96B8-4286-B57C-581D97411DA8} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 		{780B3603-392F-4C71-BBE1-87477248D1A8} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
+		{1F644F8B-941C-4D35-972F-2660F59E8E32} = {7A99E385-CC40-4F2F-B301-EEF6C4664ECC}
 	EndGlobalSection
 EndGlobal

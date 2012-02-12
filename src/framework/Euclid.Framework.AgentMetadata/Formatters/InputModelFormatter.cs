@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Euclid.Common.Configuration;
 using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Models;
 using Newtonsoft.Json;
@@ -38,9 +39,20 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public InputModelFormatter(ITypeMetadata metadata)
 		{
-			var model = Activator.CreateInstance(metadata.Type);
-			var propInfo = metadata.Type.GetProperties().Where(x => x.Name == "CommandType").FirstOrDefault();
-			_commandName = ((Type)propInfo.GetValue(model, null)).Name;
+			var model = (IInputModel)Activator.CreateInstance(metadata.Type);
+
+			if (model == null)
+			{
+				throw new InvalidTypeSettingException(metadata.Name, typeof(IInputModel), metadata.Type);
+			}
+
+			if (model.CommandType == null || string.IsNullOrEmpty(model.CommandType.Name))
+			{
+				throw new CommandTypeNotSpecifiedException(string.Format(
+					"The input model {0} has not set it's CommandType property", metadata.Name));
+			}
+
+			_commandName = model.CommandType.Name;
 			_modelName = metadata.Type.Name;
 			_properties = metadata.Properties.Select(pi => new Property
 			                                               	{
@@ -83,6 +95,13 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			internal string Value { get; set; }
 			internal string[] Choices { get; set; }
 			internal bool MultiChoice { get; set; }
+		}
+	}
+
+	public class CommandTypeNotSpecifiedException : Exception
+	{
+		public CommandTypeNotSpecifiedException(string message) : base(message)
+		{
 		}
 	}
 }

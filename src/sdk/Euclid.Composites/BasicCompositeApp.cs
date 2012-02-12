@@ -201,10 +201,7 @@ namespace Euclid.Composites
 
 		public object ExecuteQuery(string queryName, string methodName, int argumentCount, Func<string, string> getArgumentValue)
 		{
-			var query = Queries.Where(
-				q =>
-				q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase)).
-				FirstOrDefault();
+			var query = Queries.FirstOrDefault(q => q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase));
 
 			if (query == null)
 			{
@@ -218,7 +215,7 @@ namespace Euclid.Composites
 				throw new QueryNotFoundInCompositeException(queryName);
 			}
 
-			var method = query.Type.GetMethods().Where(m => m.Name == methodName && m.GetParameters().Count() == argumentCount).FirstOrDefault();
+			var method = query.Type.GetMethods().FirstOrDefault(m => m.Name == methodName && m.GetParameters().Count() == argumentCount);
 
 			if (method == null)
 			{

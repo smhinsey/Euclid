@@ -1,4 +1,5 @@
-﻿using Euclid.Framework.Cqrs;
+﻿using System.Data;
+using Euclid.Framework.Cqrs;
 
 namespace Euclid.Sdk.TestAgent.Commands
 {
