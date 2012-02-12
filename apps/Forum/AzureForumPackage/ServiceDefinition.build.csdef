@@ -9,7 +9,7 @@
   **********************************************************************************************
 -->
 <ServiceDefinition name="AzureForumPackage" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
-  <WebRole name="AdminComposite" vmsize="Small">
+  <WebRole name="ForumAdminComposite" vmsize="Small">
     <Runtime executionContext="elevated" />
     <Sites>
       <Site name="Web">
@@ -29,7 +29,7 @@
       <Setting name="DataConnectionString" />
     </ConfigurationSettings>
   </WebRole>
-  <WebRole name="ForumComposite" vmsize="Small">
+  <WebRole name="ForumPublicComposite" vmsize="Small">
     <Runtime executionContext="elevated" />
     <Sites>
       <Site name="Web">

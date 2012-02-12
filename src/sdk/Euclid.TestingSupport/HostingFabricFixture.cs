@@ -32,6 +32,10 @@ namespace Euclid.TestingSupport
 		public HostingFabricFixture(params Assembly[] agentAssemblies)
 		{
 			_agentAssemblies = agentAssemblies;
+
+			NConfigurator.UsingFile(@"Config\custom.config").SetAsSystemDefault();
+
+			XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
 		}
 
 		[TestFixtureSetUp]
@@ -42,10 +46,6 @@ namespace Euclid.TestingSupport
 		[SetUp]
 		public void SetUp()
 		{
-			NConfigurator.UsingFile(@"Config\custom.config").SetAsSystemDefault();
-
-			XmlConfigurator.Configure(new FileInfo(Path.Combine(Environment.CurrentDirectory, NConfigurator.Default.FileNames[0])));
-
 			var compositeDatabaseConnection =
 				MsSqlConfiguration.MsSql2008.ConnectionString(c => c.FromConnectionStringWithKey("test-db"));
 

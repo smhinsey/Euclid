@@ -144,19 +144,24 @@ namespace Euclid.Framework.UnitTests.Cqrs
 		private void ConfigureContainer()
 		{
 			_container = new WindsorContainer();
-			_container.Register(
-				Component.For<IRecordMapper<CommandPublicationRecord>>().Instance(
-					new InMemoryRecordMapper<CommandPublicationRecord>()));
 
-			_container.Register(Component.For<IBlobStorage>().Instance(new InMemoryBlobStorage()));
+			var recordMapper = new InMemoryRecordMapper<CommandPublicationRecord>();
+			var blobStorage = new InMemoryBlobStorage();
+			var messageSerializer = new JsonMessageSerializer();
 
-			_container.Register(Component.For<IMessageSerializer>().Instance(new JsonMessageSerializer()));
+			_container.Register(Component.For<IRecordMapper<CommandPublicationRecord>>().Instance(recordMapper));
+
+			_container.Register(Component.For<IBlobStorage>().Instance(blobStorage));
+
+			_container.Register(Component.For<IMessageSerializer>().Instance(messageSerializer));
 
 			_container.Register(Component.For<IMessageChannel>().Instance(new InMemoryMessageChannel()).Named("input"));
 
 			_container.Register(Component.For<IMessageChannel>().Instance(new InMemoryMessageChannel()).Named("invalid"));
 
 			_container.Register(Component.For<FakeCommandProcessor>().ImplementedBy(typeof(FakeCommandProcessor)));
+
+			_container.Register(Component.For<ICommandRegistry>().Instance(new CommandRegistry(recordMapper, blobStorage, messageSerializer)).Forward<IPublicationRegistry<IPublicationRecord, IPublicationRecord>>());
 		}
 
 		private CommandHost GetCommandHost()
@@ -173,11 +178,11 @@ namespace Euclid.Framework.UnitTests.Cqrs
 
 		private ICommandRegistry GetRegistry()
 		{
-			var repo = _locator.GetInstance<IRecordMapper<CommandPublicationRecord>>();
-			var blob = _locator.GetInstance<IBlobStorage>();
-			var serializer = _locator.GetInstance<IMessageSerializer>();
+			var recordMapper = _locator.GetInstance<IRecordMapper<CommandPublicationRecord>>();
+			var blobStorage = _locator.GetInstance<IBlobStorage>();
+			var messageSerializer = _locator.GetInstance<IMessageSerializer>();
 
-			return new CommandRegistry(repo, blob, serializer);
+			return new CommandRegistry(recordMapper, blobStorage, messageSerializer);
 		}
 	}
 }

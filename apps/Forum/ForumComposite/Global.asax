@@ -1,1 +1,0 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="ForumComposite.MvcApplication" Language="C#" %>

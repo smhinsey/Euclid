@@ -37,14 +37,6 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdminComposite\AdminComposite.csproj">
-      <Name>AdminComposite</Name>
-      <Project>{00b808ba-b466-42c3-8663-8a465997fbf0}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>AdminComposite</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
     <ProjectReference Include="..\azure\AzureForumHost\AzureForumHost.csproj">
       <Name>AzureForumHost</Name>
       <Project>{67eb33c1-88dd-458a-bac9-66d7a8401301}</Project>
@@ -53,12 +45,20 @@
       <RoleName>AzureForumHost</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-    <ProjectReference Include="..\ForumComposite\ForumComposite.csproj">
-      <Name>ForumComposite</Name>
-      <Project>{0b928411-185b-4e52-a583-8e1b7ef26ab3}</Project>
+    <ProjectReference Include="..\ForumAdminComposite\ForumAdminComposite.csproj">
+      <Name>ForumAdminComposite</Name>
+      <Project>{8f5b2386-4aef-48a8-a71e-91531387612e}</Project>
       <Private>True</Private>
       <RoleType>Web</RoleType>
-      <RoleName>ForumComposite</RoleName>
+      <RoleName>ForumAdminComposite</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
+    <ProjectReference Include="..\ForumPublicComposite\ForumPublicComposite.csproj">
+      <Name>ForumPublicComposite</Name>
+      <Project>{0ab8e9f6-075f-47af-96fc-aa21ea4563b3}</Project>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <RoleName>ForumPublicComposite</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>
