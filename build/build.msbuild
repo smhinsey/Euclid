@@ -106,13 +106,14 @@
 		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(OutputDir)\inspector"/>
 
 		<!-- these can't/shouldn't be part of our nuget package -->
-		<Delete Files="$(OutputDir)\inspector\msshrtmi.dll"/>		
-		<Delete Files="$(OutputDir)\inspector\System.Web.Razor.dll"/>		
-		<Delete Files="$(OutputDir)\inspector\RouteDebugger.dll"/>		
-		<Delete Files="$(OutputDir)\inspector\pnunit.framework.dll"/>		
-		<Delete Files="$(OutputDir)\inspector\nunit.framework.dll"/>		
-		<Delete Files="$(OutputDir)\inspector\nunit.mocks.dll"/>		
-		<Delete Files="$(OutputDir)\inspector\TechTalk.Specflow.dll"/>		
+		<Delete Files="$(OutputDir)\inspector\msshrtmi.dll"/>
+		<Delete Files="$(OutputDir)\inspector\System.Web.Razor.dll"/>
+		<Delete Files="$(OutputDir)\inspector\RouteDebugger.dll"/>
+		<Delete Files="$(OutputDir)\inspector\pnunit.framework.dll"/>
+		<Delete Files="$(OutputDir)\inspector\nunit.framework.dll"/>
+		<Delete Files="$(OutputDir)\inspector\nunit.mocks.dll"/>
+		<Delete Files="$(OutputDir)\inspector\TechTalk.Specflow.dll"/>
+		<Delete Files="$(OutputDir)\inspector\Euclid.TestingSupport.dll" />
 	</Target>
 
 	<Target Name="CleanAll">

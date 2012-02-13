@@ -38,8 +38,7 @@ namespace CompositeInspector.Binders
 			{
 				var formName = key;
 				var propertyInfo =
-					properties.Where(p => p.Name.Equals(formName, StringComparison.InvariantCultureIgnoreCase) && p.CanWrite).
-						FirstOrDefault();
+					properties.FirstOrDefault(p => p.Name.Equals(formName, StringComparison.InvariantCultureIgnoreCase) && p.CanWrite);
 
 				if (propertyInfo != null && form[key] != null)
 				{

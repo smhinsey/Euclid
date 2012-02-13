@@ -43,6 +43,11 @@ namespace CompositeInspector.Extensions
 		{
 			var format = response.Context.GetResponseFormat();
 
+			if (format == ResponseFormat.Html)
+			{
+				return HttpStatusCode.NoContent;
+			}
+
 			var representation = format == ResponseFormat.Json ? "json" : "xml";
 			var encodedString = formatter.GetRepresentation(representation);
 			var stream = new MemoryStream(Encoding.UTF8.GetBytes(encodedString));

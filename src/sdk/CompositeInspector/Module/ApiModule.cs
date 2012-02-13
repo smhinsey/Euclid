@@ -13,6 +13,7 @@ using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 using Nancy;
 using Nancy.ModelBinding;
+using Nancy.Responses;
 
 namespace CompositeInspector.Module
 {
@@ -21,16 +22,16 @@ namespace CompositeInspector.Module
 		private readonly ICompositeApp _compositeApp;
 		private readonly ICommandRegistry _registry;
 		private readonly IPublisher _publisher;
-		private const string AgentMetadataRoute        = "/agent/{agentSystemName}";
-		private const string ReadModelMetadataRoute    = "/readModel/{agentSystemName}/{readModelName}";
-		private const string InputModelMetadataRoute   = "/inputModel/{inputModelName}";
-		private const string PublicationRecordRoute    = "/publicationRecord/{identifier}";
+		private const string AgentMetadataRoute                = "/agent/{agentSystemName}";
+		private const string ReadModelMetadataRoute            = "/readModel/{agentSystemName}/{readModelName}";
+		private const string InputModelMetadataRoute           = "/inputModel/{inputModelName}";
+		private const string PublicationRecordRoute            = "/publicationRecord/{identifier}";
 		private const string InputModelMetadataForCommandRoute = "/command/{commandName}";
-		private const string CommandMetadataRoute      = "/command-metadata/{commandName}";
-		private const string QueryMetadataRoute        = "/query-metadata/{queryName}";
-		private const string ExecuteQueryRoute         = "/execute/query/{queryName}/{methodName}";
-		private const string PublishCommandRoute       = "/publish";
-		private const string BaseRoute                 = "composite/api";
+		private const string CommandMetadataRoute              = "/command-metadata/{commandName}";
+		private const string QueryMetadataRoute                = "/query-metadata/{queryName}";
+		private const string ExecuteQueryRoute                 = "/execute/query/{queryName}/{methodName}";
+		private const string PublishCommandRoute               = "/publish";
+		private const string BaseRoute                         = "composite/api";
 
 		public ApiModule(ICompositeApp compositeApp, ICommandRegistry registry, IPublisher publisher)
 			: base(BaseRoute)
@@ -41,19 +42,19 @@ namespace CompositeInspector.Module
 
 			Get[string.Empty] = _ => GetComposite();
 
-			Get[AgentMetadataRoute] = p => GetAgent((string) p.agentSystemName);
+			Get[AgentMetadataRoute] = p => GetAgent(stripExtension((string) p.agentSystemName));
 
-			Get[ReadModelMetadataRoute] = p => GetReadModel((string) p.agentSystemName, (string) p.readModelName);
+			Get[ReadModelMetadataRoute] = p => GetReadModel((string) p.agentSystemName, stripExtension((string) p.readModelName));
 
-			Get[InputModelMetadataRoute] = p => GetInputModel((string) p.inputModelName);
+			Get[InputModelMetadataRoute] = p => GetInputModel(stripExtension((string) p.inputModelName));
 
 			Get[PublicationRecordRoute] = p => GetPublicationRecord((Guid) p.identifier);
 
-			Get[InputModelMetadataForCommandRoute] = p => GetInputModelMetadata((string) p.commandName);
+			Get[InputModelMetadataForCommandRoute] = p => GetInputModelMetadata(stripExtension((string) p.commandName));
 
-			Get[CommandMetadataRoute] = p => GetCommandMetadata((string) p.commandName);
+			Get[CommandMetadataRoute] = p => GetCommandMetadata(stripExtension((string) p.commandName));
 
-			Get[QueryMetadataRoute] = p => GetQueryMetadata((string) p.queryName);
+			Get[QueryMetadataRoute] = p => GetQueryMetadata(stripExtension((string) p.queryName));
 
 			Post[ExecuteQueryRoute] = p => ExecuteQuery((string) p.queryName, (string) p.methodName);
 
@@ -71,7 +72,11 @@ namespace CompositeInspector.Module
 
 			var publicationId = _publisher.PublishMessage(command);
 
-			return GetPublicationRecord(publicationId);
+			var alternateRedirectUrl = Context.Request.Form["alternateRedirectUrl"];
+
+			return !string.IsNullOrEmpty(alternateRedirectUrl)
+						? new RedirectResponse(alternateRedirectUrl)
+						: GetPublicationRecord(publicationId);
 		}
 
 		public Response ExecuteQuery(string queryName, string methodName)
@@ -80,15 +85,14 @@ namespace CompositeInspector.Module
 			var argumentCount = form.Count();
 			var results = _compositeApp.ExecuteQuery(queryName, methodName, argumentCount, paramName => form[paramName]);
 
-			return Response.AsJson(results);
+			return formatReturnData(results);
 		}
 		
 		public Response GetCommandMetadata(string commandName)
 		{
 			var agentCommands = _compositeApp.Agents.SelectMany(x => x.Commands);
 
-			var command =
-				agentCommands.Where(c => c.Name.Equals(commandName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+			var command = agentCommands.FirstOrDefault(c => c.Name.Equals(commandName, StringComparison.CurrentCultureIgnoreCase));
 
 			if (command == null)
 			{
@@ -102,11 +106,6 @@ namespace CompositeInspector.Module
 		{
 			try
 			{
-				if (commandName.EndsWith(".json"))
-				{
-					commandName = commandName.Substring(0, commandName.LastIndexOf("."));
-				}
-
 				var inputModelType = _compositeApp.GetInputModelTypeForCommandName(commandName);
 
 				return inputModelType.GetMetadata().GetFormatter().WriteTo(Response);
@@ -120,8 +119,7 @@ namespace CompositeInspector.Module
 		public Response GetInputModel(string inputModelName)
 		{
 			var inputModel =
-				_compositeApp.InputModels.Where(x => x.Name.Equals(inputModelName, StringComparison.CurrentCultureIgnoreCase)).
-					FirstOrDefault();
+				_compositeApp.InputModels.FirstOrDefault(x => x.Name.Equals(inputModelName, StringComparison.CurrentCultureIgnoreCase));
 
 			if (inputModel == null)
 			{
@@ -139,7 +137,7 @@ namespace CompositeInspector.Module
 				throw new CommandNotFoundInRegistryException(identifier);
 			}
 
-			return this.GetResponseFormat() == ResponseFormat.Json ? Response.AsJson(record) : Response.AsXml(record);
+			return formatReturnData(record);
 		}
 
 		public Response GetAgent(string agentSystemName)
@@ -156,7 +154,7 @@ namespace CompositeInspector.Module
 		public Response GetReadModel(string agentSystemName, string readModelName)
 		{
 			var agent = getAgent(agentSystemName);
-			var model = agent.ReadModels.Where(r => r.Name.Equals(readModelName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+			var model = agent.ReadModels.FirstOrDefault(r => r.Name.Equals(readModelName, StringComparison.CurrentCultureIgnoreCase));
 
 			if (model == null)
 			{
@@ -177,14 +175,18 @@ namespace CompositeInspector.Module
 
 			var query = queries.FirstOrDefault(q => q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase));
 
+			if (query == null)
+			{
+				throw new QueryNotFoundInCompositeException(queryName);
+			}
+
 			return query.GetFormatter().WriteTo(Response);
 		}
 
 		private IAgentMetadata getAgent(string agentSystemName)
 		{
 			var agent =
-				_compositeApp.Agents.Where(a => a.SystemName.Equals(agentSystemName, StringComparison.CurrentCultureIgnoreCase)).
-					FirstOrDefault();
+				_compositeApp.Agents.FirstOrDefault(a => a.SystemName.Equals(agentSystemName, StringComparison.CurrentCultureIgnoreCase));
 
 			if (agent == null)
 			{
@@ -192,6 +194,38 @@ namespace CompositeInspector.Module
 			}
 
 			return agent;
+		}
+
+		private Response formatReturnData(object data)
+		{
+			Response response;
+			var format = Context.GetResponseFormat();
+			switch (format)
+			{
+				case ResponseFormat.Json:
+					response = Response.AsJson(data);
+					break;
+				case ResponseFormat.Xml:
+					response = Response.AsXml(data);
+					break;
+				default:
+					response = HttpStatusCode.NoContent;
+					break;
+			}
+
+			return response;
+		}
+
+		private string stripExtension(string name)
+		{
+			var format = this.GetResponseFormat();
+			if ((format == ResponseFormat.Json || format == ResponseFormat.Xml) && (name.EndsWith(".json") || name.EndsWith(".xml")))
+			{
+				var pos = name.LastIndexOf('.');
+				return pos >= 0 ? name.Substring(0, pos) : name;
+			}
+
+			return name;
 		}
 	}
 }

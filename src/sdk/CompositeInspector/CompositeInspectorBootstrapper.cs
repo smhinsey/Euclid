@@ -109,12 +109,6 @@ namespace CompositeInspector
 					return null;
 				});
 
-			// only allow requests for json/xml through to the apis
-			pipelines.BeforeRequest.AddItemToEndOfPipeline(
-				ctx => (ctx.Request.Path.StartsWith("composite/api") && ctx.GetResponseFormat() == ResponseFormat.Html)
-						? HttpStatusCode.NoContent
-						: (Response)null);
-
 			// return errors in the same format requested
 			pipelines.OnError.AddItemToEndOfPipeline((ctx, e) =>
 			{
