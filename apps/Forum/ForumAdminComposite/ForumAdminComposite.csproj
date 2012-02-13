@@ -103,9 +103,6 @@
     <Reference Include="Euclid.Framework.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-CompositeInspector.1.0.0.0\lib\NET40\Euclid.Framework.Models.dll</HintPath>
     </Reference>
-    <Reference Include="Euclid.TestingSupport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Euclid-CompositeInspector.1.0.0.0\lib\NET40\Euclid.TestingSupport.dll</HintPath>
-    </Reference>
     <Reference Include="EventStore, Version=2.0.11157.39, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Euclid-CompositeInspector.1.0.0.0\lib\NET40\EventStore.dll</HintPath>
     </Reference>

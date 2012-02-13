@@ -12,7 +12,7 @@ $(function() {
 	$('[rel=tooltip], #main-nav span, .loader').tipsy({ gravity: 's', fade: true }); // Tooltip Gravity Orientation: n | w | e | s
 
 	// jQuery Facebox Modal
-	$('a[rel*=modal]').facebox();
+	$('.open-modal').nyroModal( { sizes: {initW: 1024, initH: 768, w: 1024, h: 768, wMargin: 5, hMargin: 5}} );// $('a[rel*=modal]').facebox();
 	
 	// jQuery jWYSIWYG Editor
 	$('.wysiwyg').wysiwyg({ iFrameClass: 'wysiwyg-iframe' });
