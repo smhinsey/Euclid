@@ -215,6 +215,7 @@
     <Content Include="Content\app\events.js" />
     <Content Include="Content\app\templates\company\AddEmployee.html" />
     <Content Include="Content\app\templates\company\AllTransactions.html" />
+    <Content Include="Content\app\templates\company\NewStore.html" />
     <Content Include="Content\app\templates\company\EmployeeDetails.html" />
     <Content Include="Content\app\templates\company\Employees.html" />
     <Content Include="Content\app\templates\company\Financials.html" />
