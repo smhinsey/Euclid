@@ -56,6 +56,15 @@
 
 			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'Employees'});
 		});
+		
+		this.get('/#company/:companySlug/newStore', function () {
+			
+			var model = modelForCompanyNewStore();
+			
+			this.trigger('render-model', {templateName: 'company/NewStore', model: model});
+
+			this.trigger('highlight-nav', {slug: this.params['companySlug'], current: 'NewStore'});
+		});
 
 		this.get('/#store/:storeSlug/financials', function () {
 			
@@ -270,6 +279,13 @@
 		return viewModel;
 	}
 	
+	function modelForCompanyNewStore(companySlug) {
+
+		var viewModel = { companyName: "{Company Name}", companySlug: companySlug };
+
+		return viewModel;
+	}
+
 	function modelForStoreOrders(storeSlug) {
 
 		var viewModel = { storeName: "{Store Name}", storeSlug: storeSlug };
