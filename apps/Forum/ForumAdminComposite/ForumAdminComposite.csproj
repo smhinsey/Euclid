@@ -399,6 +399,9 @@
     <Content Include="Content\logo_3.jpg" />
     <Content Include="Content\logo_3.png" />
     <Content Include="Content\sample_user_icon.png" />
+    <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1-close.png" />
+    <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.css" />
+    <Content Include="Content\simplemodal\jquery.simplemodal.1.4.1.min.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
