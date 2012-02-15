@@ -1,5 +1,5 @@
 ﻿@using AdminComposite.Models
-@using Euclid.Composites.Mvc.Extensions
+@using Euclid.Composites.Mvc
 @model AdminComposite.InputModels.RegisterOrganizationUserInputModel
 
 @using (Html.BeginFormForInputModel(Model, true, Url.Action("Users", "Organization", new {organizationId = Model.OrganizationId})))
