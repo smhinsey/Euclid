@@ -158,6 +158,7 @@
     <Compile Include="NhTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCategories.cs" />
+    <Compile Include="XElementExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common.Configuration\Euclid.Common.Configuration.csproj">

@@ -1,35 +1,17 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Xml.Linq;
 using Euclid.Composites.Mvc;
-using Euclid.Composites.Mvc.Extensions;
 using Euclid.Sdk.TestComposite.Models;
+using Euclid.TestingSupport;
 using FakeItEasy;
 using NUnit.Framework;
 
 namespace Euclid.Sdk.UnitTests
 {
-	public static class XElementExtensions
-	{
-		public static void AssertAttributeValue(this XElement element, string name, string value)
-		{
-			Assert.NotNull(element.Attribute(name));
-			Assert.True(element.Attribute(name).Value.Equals(value, StringComparison.CurrentCultureIgnoreCase));
-		}
-
-		public static XElement GetElementById(this XElement root, string id)
-		{
-			var element = root.Descendants().FirstOrDefault(x => x.Attribute("id") != null && x.Attribute("id").Value.Equals(id, StringComparison.CurrentCultureIgnoreCase));
-			Assert.NotNull(element, string.Format("No element exists with id {0}", id));
-
-			return element;
-		}
-	}
-
 	public class HtmlHelperFixture
 	{
 		[Test]
