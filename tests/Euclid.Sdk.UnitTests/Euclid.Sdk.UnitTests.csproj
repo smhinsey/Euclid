@@ -116,6 +116,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -124,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompositeInspectorApiTests.cs" />
+    <Compile Include="HtmlHelperFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +149,10 @@
       <Project>{7453ADF2-CE91-47BD-A046-003CCC90D962}</Project>
       <Name>CompositeInspector</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\sdk\Euclid.Composites.Mvc\Euclid.Composites.Mvc.csproj">
+      <Project>{F0842E3B-1F25-4D42-B25D-758B8FCBDCC3}</Project>
+      <Name>Euclid.Composites.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\sdk\Euclid.Composites\Euclid.Composites.csproj">
       <Project>{12029AA6-F05C-4DC6-B76E-C3798BCAC68D}</Project>
       <Name>Euclid.Composites</Name>
@@ -153,6 +160,10 @@
     <ProjectReference Include="..\..\src\sdk\Euclid.TestingSupport\Euclid.TestingSupport.csproj">
       <Project>{4390CD07-BCBD-417F-B6FE-85A5CAABDFE5}</Project>
       <Name>Euclid.TestingSupport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Euclid.Sdk.TestComposite\Euclid.Sdk.TestComposite.csproj">
+      <Project>{780B3603-392F-4C71-BBE1-87477248D1A8}</Project>
+      <Name>Euclid.Sdk.TestComposite</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -154,7 +154,8 @@
     <Compile Include="ActionFilters\CommandPublisherAttribute.cs" />
     <Compile Include="Extensions\CompositeAppExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
-    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="HtmlHelperExtensions.cs" />
+    <Compile Include="Extensions\RequiredInputModelFieldIsEmptyException.cs" />
     <Compile Include="Extensions\WindsorContainerExtensions.cs" />
     <Compile Include="Binders\AgentMetadataBinder.cs">
       <SubType>Code</SubType>

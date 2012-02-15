@@ -4,17 +4,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web.Mvc;
+using System.Xml.Linq;
 using CompositeInspector;
 using CompositeInspector.Extensions;
 using CompositeInspector.Module;
 using Euclid.Common.Extensions;
 using Euclid.Common.Messaging;
 using Euclid.Composites;
+using Euclid.Composites.Mvc.Extensions;
 using Euclid.Framework.AgentMetadata;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
+using Euclid.Sdk.TestComposite.Models;
 using Euclid.TestingSupport;
 using FakeItEasy;
+using FakeItEasy.Creation;
 using Nancy;
 using Nancy.Responses;
 using NUnit.Framework;
@@ -33,15 +38,16 @@ namespace Euclid.Sdk.UnitTests
 		private ApiModule _euclidApi;
 		private DefaultJsonSerializer _jsonSerializer;
 		private DefaultXmlSerializer _xmlSerializer;
-		
-		private readonly IEnumerable<string> _acceptHtmlHeaders = new[] {"text/html"};
-		private readonly IEnumerable<string> _acceptJsonHeaders = new[] {"application/json"};
+
+		private readonly IEnumerable<string> _acceptHtmlHeaders = new[] { "text/html" };
+		private readonly IEnumerable<string> _acceptJsonHeaders = new[] { "application/json" };
 		private readonly IEnumerable<string> _acceptXmlHeaders = new[] { "text/xml" };
 		private readonly Guid _publicationId = new Guid("0489bc65-f1fc-4dbd-bcd2-711287a7b7c9");
+
 		[SetUp]
 		public void Setup()
 		{
-			
+
 			_testCommand = A.Fake<ICommand>();
 			_publisher = A.Fake<IPublisher>();
 			_compositeApp = A.Fake<ICompositeApp>();
@@ -72,24 +78,27 @@ namespace Euclid.Sdk.UnitTests
 		private void configureResponse(ResponseFormat expectedFormat)
 		{
 			Request req;
-			var url = new Url {Scheme="http", Path="/"};
-			switch(expectedFormat)
+			var url = new Url { Scheme = "http", Path = "/" };
+			switch (expectedFormat)
 			{
 				case ResponseFormat.Html:
-					req = new Request("GET", url, null, new Dictionary<string, IEnumerable<string>>{ {"Accept", _acceptHtmlHeaders} }, null);
+					req = new Request("GET", url, null, new Dictionary<string, IEnumerable<string>> { { "Accept", _acceptHtmlHeaders } },
+									  null);
 					break;
 				case ResponseFormat.Json:
-					req = new Request("GET", url, null, new Dictionary<string, IEnumerable<string>> { { "Accept", _acceptJsonHeaders } }, null);
+					req = new Request("GET", url, null, new Dictionary<string, IEnumerable<string>> { { "Accept", _acceptJsonHeaders } },
+									  null);
 					break;
 				case ResponseFormat.Xml:
-					req = new Request("GET", url, null, new Dictionary<string, IEnumerable<string>> { { "Accept", _acceptXmlHeaders } }, null);
+					req = new Request("GET", url, null, new Dictionary<string, IEnumerable<string>> { { "Accept", _acceptXmlHeaders } },
+									  null);
 					break;
 				default:
 					Assert.Fail("Invalid response format");
 					return;
 			}
 
-			_euclidApi.Context = new NancyContext {Request = req};
+			_euclidApi.Context = new NancyContext { Request = req };
 			_euclidApi.Response = _formatter;
 			A.CallTo(() => _formatter.Context).Returns(_euclidApi.Context);
 		}
@@ -107,15 +116,15 @@ namespace Euclid.Sdk.UnitTests
 		[Test]
 		public void Exceptions_are_returned_in_the_requested_format()
 		{
-			const string expectedJson = 
-@"{
+			const string expectedJson =
+				@"{
 	""name"":""InvalidOperationException"",
 	""message"":""FakeException"",
 	""callStack"":null
 }";
 
-			const string expectedXml = 
-@"<?xml version=""1.0""?>
+			const string expectedXml =
+				@"<?xml version=""1.0""?>
 <Exception xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
 	<name>InvalidOperationException</name>
 	<message>FakeException</message>
@@ -154,7 +163,8 @@ namespace Euclid.Sdk.UnitTests
 				Console.WriteLine(expected);
 				value = Regex.Replace(value, @"\s", "");
 				expected = Regex.Replace(expected, @"\s", "");
-				Assert.True(expected.Equals(value, StringComparison.OrdinalIgnoreCase), string.Format("{1}expected: {0}{1}  actual: {2}", expected, Environment.NewLine, value));
+				Assert.True(expected.Equals(value, StringComparison.OrdinalIgnoreCase),
+							string.Format("{1}expected: {0}{1}  actual: {2}", expected, Environment.NewLine, value));
 			}
 		}
 
@@ -178,26 +188,28 @@ namespace Euclid.Sdk.UnitTests
 
 				configureResponse(format);
 				var response = _euclidApi.PublishCommand(A.Dummy<IInputModel>());
-				
+
 				Assert.IsNotNull(response);
 				Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 				Assert.AreEqual(contentType, response.ContentType);
 			}
 
 			A.CallTo(() => _publisher.PublishMessage(null)).WithAnyArguments().MustHaveHappened(Repeated.Exactly.Twice);
-			A.CallTo(() => _registry.GetPublicationRecord(_publicationId)).WithAnyArguments().MustHaveHappened(Repeated.Exactly.Twice);
+			A.CallTo(() => _registry.GetPublicationRecord(_publicationId)).WithAnyArguments().MustHaveHappened(
+				Repeated.Exactly.Twice);
 		}
 
 		[Test]
 		public void Get_command_metadata_returns_formatted_itypemetadata()
 		{
-			
+
 		}
 
 		[Test]
 		public void Get_inputmodel_metadata_returns_formatted_itypemetadata()
 		{
-			
+
 		}
 	}
 }
+

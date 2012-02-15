@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Models;
 
-namespace Euclid.Composites.Mvc.Extensions
+namespace Euclid.Composites.Mvc
 {
 	public static class HtmlHelperExtensions
 	{
+		public const string PublishCommandRoute = "/composite/api/publish";
+
 		public static MvcForm BeginFormForInputModel(
 			this HtmlHelper helper,
 			IInputModel inputModel,
@@ -35,7 +36,7 @@ namespace Euclid.Composites.Mvc.Extensions
 
 			var tagBuilder = new TagBuilder("form");
 			tagBuilder.Attributes.Add("method", "post");
-			tagBuilder.Attributes.Add("action", "/composite/api/publish");
+			tagBuilder.Attributes.Add("action", PublishCommandRoute);
 			tagBuilder.Attributes.Add("id", formId);
 			tagBuilder.Attributes.Add("encType", "multipart/form-data");
 			helper.ViewContext.Writer.Write(tagBuilder.ToString(TagRenderMode.StartTag));
@@ -71,14 +72,6 @@ namespace Euclid.Composites.Mvc.Extensions
 			helper.ViewContext.Writer.Write(Environment.NewLine);
 
 			return new MvcForm(helper.ViewContext);
-		}
-	}
-
-	public class RequiredInputModelFieldIsEmptyException : Exception
-	{
-		public RequiredInputModelFieldIsEmptyException(string fieldName)
-			: base(fieldName)
-		{
 		}
 	}
 }
