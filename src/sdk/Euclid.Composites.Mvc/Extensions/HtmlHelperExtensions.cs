@@ -57,16 +57,16 @@ namespace Euclid.Composites.Mvc.Extensions
 			helper.ViewContext.Writer.Write(tagBuilder.ToString(TagRenderMode.SelfClosing));
 			helper.ViewContext.Writer.Write(Environment.NewLine);
 
-			if (string.IsNullOrEmpty(alternateRedirectUrl))
+			if (string.IsNullOrEmpty(alternateRedirectUrl) || !overrideRedirect)
 			{
-				alternateRedirectUrl = helper.ViewContext.RequestContext.HttpContext.Request.Headers["Referer"];
+				alternateRedirectUrl = helper.ViewContext.RequestContext.HttpContext.Request.RawUrl;
 			}
 
 			tagBuilder = new TagBuilder("input");
 			tagBuilder.Attributes.Add("type", "hidden");
-			tagBuilder.Attributes.Add("name", "alternateRedirectUrl");
+			tagBuilder.Attributes.Add("name", "redirectUrl");
 			tagBuilder.Attributes.Add("value", alternateRedirectUrl);
-			tagBuilder.Attributes.Add("id", "inputmodel-alternateRedirectUrl");
+			tagBuilder.Attributes.Add("id", "inputmodel-redirectUrl");
 			helper.ViewContext.Writer.Write(tagBuilder.ToString(TagRenderMode.SelfClosing));
 			helper.ViewContext.Writer.Write(Environment.NewLine);
 

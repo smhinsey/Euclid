@@ -72,10 +72,10 @@ namespace CompositeInspector.Module
 
 			var publicationId = _publisher.PublishMessage(command);
 
-			var alternateRedirectUrl = Context.Request.Form["alternateRedirectUrl"];
+			var redirectUrl = Context.Request.Form["redirectUrl"];
 
-			return !string.IsNullOrEmpty(alternateRedirectUrl)
-						? new RedirectResponse(alternateRedirectUrl)
+			return !string.IsNullOrEmpty(redirectUrl)
+						? new RedirectResponse(redirectUrl)
 						: GetPublicationRecord(publicationId);
 		}
 
