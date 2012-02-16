@@ -11,6 +11,7 @@ using Euclid.Framework.AgentMetadata;
 using Euclid.Framework.AgentMetadata.Extensions;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
+using LoggingAgent.Queries;
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses;
@@ -22,6 +23,7 @@ namespace CompositeInspector.Module
 		private readonly ICompositeApp _compositeApp;
 		private readonly ICommandRegistry _registry;
 		private readonly IPublisher _publisher;
+
 		private const string AgentMetadataRoute                = "/agent/{agentSystemName}";
 		private const string ReadModelMetadataRoute            = "/readModel/{agentSystemName}/{readModelName}";
 		private const string InputModelMetadataRoute           = "/inputModel/{inputModelName}";
@@ -72,7 +74,7 @@ namespace CompositeInspector.Module
 
 			var publicationId = _publisher.PublishMessage(command);
 
-			var redirectUrl = Context.Request.Form["redirectUrl"];
+			var redirectUrl = Context.Request.Form["redirectUrl"].Value;
 
 			return !string.IsNullOrEmpty(redirectUrl)
 						? new RedirectResponse(redirectUrl)

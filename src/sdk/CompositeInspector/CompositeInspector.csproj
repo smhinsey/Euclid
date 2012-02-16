@@ -181,8 +181,13 @@
     <EmbeddedResource Include="Views\templates\modal\command.cshtml" />
     <EmbeddedResource Include="Views\templates\modal\query.cshtml" />
     <EmbeddedResource Include="Views\templates\query-results-table.cshtml" />
+    <EmbeddedResource Include="Views\view-command-registry.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
+      <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
+      <Name>Euclid.Common.Storage.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common.Storage\Euclid.Common.Storage.csproj">
       <Project>{9E2D08E0-0A3D-46D1-BCD6-D85ADE871118}</Project>
       <Name>Euclid.Common.Storage</Name>

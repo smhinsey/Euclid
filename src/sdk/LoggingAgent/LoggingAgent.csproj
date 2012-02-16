@@ -116,11 +116,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentInfo.cs" />
+    <Compile Include="Queries\CommandRegistryQueries.cs" />
     <Compile Include="Queries\LogQueries.cs" />
     <Compile Include="ReadModels\LogEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadModels\PublicationRecords.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
+      <Project>{A5B72DFB-6698-420C-ADCC-3F2D28C4F65E}</Project>
+      <Name>Euclid.Common.Storage.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\common\Euclid.Common\Euclid.Common.csproj">
       <Project>{F3A0C178-15D9-4E18-B673-28B80F40E665}</Project>
       <Name>Euclid.Common</Name>
@@ -132,6 +138,10 @@
     <ProjectReference Include="..\..\framework\Euclid.Framework.Cqrs.NHibernate\Euclid.Framework.Cqrs.NHibernate.csproj">
       <Project>{5A255BCD-5858-4CB3-BE76-177E65048D4F}</Project>
       <Name>Euclid.Framework.Cqrs.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\framework\Euclid.Framework.Cqrs\Euclid.Framework.Cqrs.csproj">
+      <Project>{58D2349E-9C39-485E-861E-E337ACF186B6}</Project>
+      <Name>Euclid.Framework.Cqrs</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\framework\Euclid.Framework.Models\Euclid.Framework.Models.csproj">
       <Project>{7BBC7165-5E13-4802-B79F-00E754319F0B}</Project>

@@ -12,6 +12,7 @@
 	<div class="modal-body" id="form-content">
 		<div id="publication-record" class="alert {{class}}">
 			<table class="table-condensed">
+				{{#unless showErrorOnly}}
 				<tr>
 					<td><strong>Completed</strong></td>
 					<td>{{#if record.Completed}}True{{else}}False{{/if}}</td>
@@ -31,6 +32,7 @@
 					<td><strong>Command</strong></td>
 					<td><a class="message-location" href="{{record.MessageLocation}}" rel="tooltip" data-original-title="click to open the serialized message">{{record.MessageLocation}}</a></td>
 				</tr>
+				{{/unless}}
 
 				{{#if record.Error}}
 				<tr>

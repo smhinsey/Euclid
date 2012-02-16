@@ -7,31 +7,43 @@ if ($.validator == null || $.validator == undefined) {
 
 var EUCLID = function () {
 	/* private methods */
-	var _getQueryForm = function(id) {
-			var form = "<form ";
-			if (id) {
-				form += "id='" + id +"'";
-			}
-			form += "action='/composite/api/execute/query/" + this.queryName + "/" + this.Name + "' method='post'><legend style='display:none'>" + this.queryName + "." + this.Name + "</legend><fieldset></fieldset></form>";
-			form = $(form);
-			var fieldSet = $(form).children("fieldset");
+	var _getQueryForm = function (id) {
+		var form = "<form ";
+		if (id) {
+			form += "id='" + id + "'";
+		}
+		form += "action='/composite/api/execute/query/" + this.queryName + "/" + this.Name + "' method='post'><legend style='display:none'>" + this.queryName + "." + this.Name + "</legend><fieldset></fieldset></form>";
+		form = $(form);
+		var fieldSet = $(form).children("fieldset");
 
-			$.each(this.Arguments, function (index, item) {
-				var forceShow = true; // methodName == "FindById" && item.ArgumentName == "id";
-				_addElementToForm(item.ArgumentName, item.ArgumentType, "", item.Choices, item.MultiChoice, fieldSet, forceShow);
-			});
+		var method = this;
+		$.each(this.Arguments, function (index, item) {
+			var forceShow = true; // methodName == "FindById" && item.ArgumentName == "id";
+			_addElementToForm(item.ArgumentName, item.ArgumentType, method[item.ArgumentName], item.Choices, item.MultiChoice, fieldSet, forceShow);
+		});
 
-			$(form).find(".input-date").datepicker();
-			return form;
+		$(form).find(".input-date").datepicker();
+		return form;
 	} // end _getQueryForm
 
-	var _getMethodByName = function(methodName, numberArguments) {
+	var _getMethodByName = function (methodName, numberArguments) {
 		var method;
-		$.each(this.Methods, function(index, item) {
+		$.each(this.Methods, function (index, item) {
 			if (item.Name == methodName && item.Arguments.length == numberArguments) {
 				method = item;
 				return;
 			}
+		});
+
+		if (!method) {
+			throw {
+				name: "Method Not Found Exception",
+				message: "There is not method named '" + methodName + "' with " + numberArguments + " on the query '" + this.Name + "'"
+			};
+		}
+
+		$.each(method.Arguments, function (index, item) {
+			method[item.ArgumentName] = "";
 		});
 
 		return method;
@@ -227,7 +239,7 @@ var EUCLID = function () {
 		$(fieldSet).append($(html));
 	}); //end addElementToForm
 
-	var _parseDate = function(data) {
+	var _parseDate = function (data) {
 		//parese date
 		var re = new RegExp("\\/Date\\((-?\\d+)\\)\\/");
 		for (property in data) {
@@ -236,6 +248,12 @@ var EUCLID = function () {
 				if (m != null) {
 					data[property] = new Date(parseInt(m[1]));
 				}
+			}
+
+			if (data[property] instanceof Array) {
+				$.each(data[property], function (index, item) {
+					 _parseDate(item);
+				});
 			}
 		}
 	} // end _parseDAte
@@ -270,17 +288,16 @@ var EUCLID = function () {
 			var errorHandler = onError ? onError : EUCLID.displayError;
 
 			if (query == null || onComplete == null) {
-				errorHandler(new {name: "Invalid Argument Exception", message: "both 'query' and 'onComplete' are required parameters to EUCLID.withQueryMetadata"});
+				errorHandler(new { name: "Invalid Argument Exception", message: "both 'query' and 'onComplete' are required parameters to EUCLID.withQueryMetadata" });
 				return null;
 			}
 
 			WorkWithDataFromUrl("/composite/api/query-metadata/" + query,
-				function(data) {
+				function (data) {
 					data.getMethodNamed = _getMethodByName;
-					$.each(data.Methods, function(idx, item) {
+					$.each(data.Methods, function (idx, item) {
 						item.queryName = query;
 						item.getForm = _getQueryForm;
-						item
 					});
 
 					onComplete(data);
@@ -302,9 +319,9 @@ var EUCLID = function () {
 
 				success: function (responseText, statusText, jqHxr, $form) {
 					var data = $.parseJSON(jqHxr.responseText);
-					
+
 					if (data instanceof Array) {
-						$.each(data, function(index, item) {
+						$.each(data, function (index, item) {
 							innerParseDate(item);
 						});
 					} else {
@@ -368,7 +385,7 @@ var EUCLID = function () {
 			///<param name='pollInterval'>optional - the time between requests (default 250ms)</param>
 			///<param name='onPollError'>optional - a callback function that is called if an error occurs during the polling operation</param>
 			///<param name='onBeforePoll'>optional - a callback function that recieves the number of times polled, and can cancel polling by returning false</param>
-			if (publicationId == null || onCommandComplete == null ) {
+			if (publicationId == null || onCommandComplete == null) {
 				throw {
 					name: "Invalid Argument Exception",
 					message: "EUCLID.pollForCommandStatus expects an object that contains: publicationId and the functions onCommandCompleted & onCommandError.  Optionally you may specify the property Interval (number of ms between status requests) and the functions onOpportunityToCancelPolling (a function that accepts the number of times the registry has been polled, and returns false to stop polling), and the function onPollError (accepts a standard error object)"
@@ -380,8 +397,8 @@ var EUCLID = function () {
 			var _pollCount = 0;
 			var _errorHandler = onPollError ? onPollError : EUCLID.displayError;
 			var _commandErrorHandler = onCommandError ? onCommandError : onCommandComplete;
-			var _poll = function() {
-					WorkWithDataFromUrl(
+			var _poll = function () {
+				WorkWithDataFromUrl(
 						"/composite/api/publicationRecord/" + publicationId,
 						function (result) {
 							_pollCount++;
@@ -417,9 +434,9 @@ var EUCLID = function () {
 						},
 						_errorHandler
 					);
-				};;// _poll
+			}; ; // _poll
 
-				var _pollerId = setInterval(_poll, _pollInterval);
+			var _pollerId = setInterval(_poll, _pollInterval);
 		}), // end pollForCommandStatus
 
 		displayError: (function (e) {
@@ -443,7 +460,7 @@ var EUCLID = function () {
 			return false;
 		}) // end displayError
 	} // return
-} (); // EUCLID
+} ();       // EUCLID
 
 var Using = function (jsonObject) {
 	///<sumary>Use JSON data for UI elements</summary>

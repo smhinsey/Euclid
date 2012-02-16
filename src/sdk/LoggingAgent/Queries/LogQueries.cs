@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Euclid.Common.Messaging;
 using Euclid.Framework.Cqrs.NHibernate;
 using LoggingAgent.ReadModels;
 using NHibernate;
