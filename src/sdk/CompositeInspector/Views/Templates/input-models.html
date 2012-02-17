@@ -1,9 +1,6 @@
-﻿@if (false) { 
-	// enable intellisense for EUCLID.js
-	<script type="text/javascript" src="../../Assets/Scripts/euclid-0.9.js"></script>
-}
+﻿<script type="text/javascript">
+	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
 
-<script type="text/javascript">
 	$(document).ready(function () {
 		if (typeof commandScript === "undefined") {
 			$.getScript("/composite/js/composite-inspector-commands.js", function (data, textStatus, jqxhr) { $(".command").removeAttr("disabled"); });

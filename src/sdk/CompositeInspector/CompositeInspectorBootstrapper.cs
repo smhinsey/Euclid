@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
@@ -11,6 +14,7 @@ using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Windsor;
 using Nancy.Conventions;
+using Nancy.Responses;
 using Nancy.Routing;
 using Nancy.Session;
 using Nancy.ViewEngines;
@@ -134,6 +138,8 @@ namespace CompositeInspector
 				EmbeddedStaticContentConventionBuilder.MapVirtualDirectory("composite/image",
 																		   string.Concat(assetRootNamespace, ".Images"),
 																		   assembly));
+
+			Conventions.StaticContentsConventions.Add(getTemplateConvention());
 		}
 
 		private static void configurePipelines(IPipelines pipelines, IWindsorContainer container)
@@ -154,6 +160,28 @@ namespace CompositeInspector
 
 				return e.CreateResponse(format, formatter);
 			});
+		}
+
+		private Func<NancyContext, string, Response> getTemplateConvention()
+		{
+			return (context, s) =>
+				{
+					const string templateRoot = "/composite/ui/template/";
+					const string resourceRoot = "CompositeInspector.Views.templates";
+					var assembly = GetType().Assembly;
+					var resourceName = string.Empty;
+					if (context.Request.Path.StartsWith(templateRoot))
+					{
+						var templateName = context.Request.Path.Substring(templateRoot.Length, context.Request.Path.Length - templateRoot.Length);
+
+						resourceName = String.Concat(resourceRoot, ".", templateName.Replace("/", "."), ".html");
+					}
+
+					return
+						!string.IsNullOrEmpty(resourceName) && assembly.GetManifestResourceNames().Any(n => n.Equals(resourceName, StringComparison.InvariantCulture))
+							? new StreamResponse(() => assembly.GetManifestResourceStream(resourceName), "text/html")
+							: null;
+				};
 		}
 	}
 }

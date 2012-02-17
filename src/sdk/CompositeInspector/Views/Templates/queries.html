@@ -1,8 +1,6 @@
-﻿@if (false)
-{ 
-	<script type="text/javascript" src="../../Assets/Scripts/euclid-0.9.js"></script>
-}
-<script type="text/javascript">
+﻿<script type="text/javascript">
+	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
+	
 	var modal = $("<div id='modal'></div>");
 	$(document).ready(function () {
 		$(".query").click(function () {
@@ -18,7 +16,7 @@
 						$(modal).html("");
 						$(modal).append(content);
 						$(modal).modal("show");
-				});
+					});
 			});
 
 			return false;
