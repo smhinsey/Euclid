@@ -16,9 +16,10 @@ namespace CompositeInspector.Extensions
 
 		public static ResponseFormat GetResponseFormat(this NancyContext ctx)
 		{
+			// NOTE: the headers are stored as a weighted Tuple (Item1 is the value, Item2 is the weight), this could be redone to respect the weight
 			var format = ResponseFormat.Html;
 			if (
-				ctx.Request.Headers.Accept.Any(a => a.IndexOf("application/json", StringComparison.CurrentCultureIgnoreCase) >= 0)
+				ctx.Request.Headers.Accept.Any(a => a.Item1.IndexOf("application/json", StringComparison.CurrentCultureIgnoreCase) >= 0)
 				||
 				ctx.Request.Path.EndsWith(".json", StringComparison.CurrentCultureIgnoreCase)
 				)
@@ -26,9 +27,9 @@ namespace CompositeInspector.Extensions
 				format = ResponseFormat.Json;
 			}
 			else if (
-				ctx.Request.Headers.Accept.Any(a => a.IndexOf("text/xml", StringComparison.CurrentCultureIgnoreCase) >= 0)
+				ctx.Request.Headers.Accept.Any(a => a.Item1.IndexOf("text/xml", StringComparison.CurrentCultureIgnoreCase) >= 0)
 				||
-				ctx.Request.Headers.Accept.Any(a => a.IndexOf("application/xml", StringComparison.CurrentCultureIgnoreCase) >= 0)
+				ctx.Request.Headers.Accept.Any(a => a.Item1.IndexOf("application/xml", StringComparison.CurrentCultureIgnoreCase) >= 0)
 				||
 				ctx.Request.Path.EndsWith(".xml", StringComparison.CurrentCultureIgnoreCase)
 				)

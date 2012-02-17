@@ -3,20 +3,43 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using CompositeInspector.Extensions;
+using Euclid.Common.Logging;
 using Euclid.Composites;
 using Euclid.Framework.Cqrs;
 using Euclid.Framework.Models;
 using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Bootstrappers.Windsor;
+using Nancy.Conventions;
+using Nancy.Routing;
 using Nancy.Session;
 using Nancy.ViewEngines;
+using log4net.Config;
+using DefaultViewLocationCache = Nancy.ViewEngines.DefaultViewLocationCache;
 
 namespace CompositeInspector
 {
 	public class CompositeInspectorBootstrapper : WindsorNancyAspNetBootstrapper
 	{
 		private byte[] _icon;
+
+		private readonly NancyInternalConfiguration _internalConfiguration;
+
+		public CompositeInspectorBootstrapper()
+		{
+			// NOTE: there is a bug in the Windsor Bootstrapper that prevents the types below from being registered as DiagnosticProviders - will be fixed with 0.1 release
+			_internalConfiguration = NancyInternalConfiguration.Default;
+			_internalConfiguration.InteractiveDiagnosticProviders.Remove(typeof(DefaultRouteResolver));
+			_internalConfiguration.InteractiveDiagnosticProviders.Remove(typeof(DefaultViewLocationCache));
+			_internalConfiguration.InteractiveDiagnosticProviders.Remove(typeof(DefaultRouteCacheProvider));
+			_internalConfiguration.ViewLocationProvider = typeof(ResourceViewLocationProvider);
+
+		}
+
+		protected override Nancy.Bootstrapper.NancyInternalConfiguration InternalConfiguration
+		{
+			get { return _internalConfiguration; }
+		}
 
 		protected override byte[] DefaultFavIcon
 		{
@@ -40,14 +63,6 @@ namespace CompositeInspector
 				}
 
 				return _icon;
-			}
-		}
-
-		protected override NancyInternalConfiguration InternalConfiguration
-		{
-			get
-			{
-				return NancyInternalConfiguration.WithOverrides(x => x.ViewLocationProvider = typeof(ResourceViewLocationProvider));
 			}
 		}
 
@@ -98,7 +113,29 @@ namespace CompositeInspector
 
 			return ApplicationContainer;
 		}
-		
+
+		protected override void ConfigureConventions(Nancy.Conventions.NancyConventions nancyConventions)
+		{
+			base.ConfigureConventions(nancyConventions);
+			var assembly = GetType().Assembly;
+			const string assetRootNamespace = "CompositeInspector.Assets";
+
+			Conventions.StaticContentsConventions.Add(
+				EmbeddedStaticContentConventionBuilder.MapVirtualDirectory("composite/js",
+																		   string.Concat(assetRootNamespace, ".Scripts"),
+																		   assembly));
+
+			Conventions.StaticContentsConventions.Add(
+				EmbeddedStaticContentConventionBuilder.MapVirtualDirectory("composite/css",
+																		   string.Concat(assetRootNamespace, ".Styles"),
+																		   assembly));
+
+			Conventions.StaticContentsConventions.Add(
+				EmbeddedStaticContentConventionBuilder.MapVirtualDirectory("composite/image",
+																		   string.Concat(assetRootNamespace, ".Images"),
+																		   assembly));
+		}
+
 		private static void configurePipelines(IPipelines pipelines, IWindsorContainer container)
 		{
 			pipelines.BeforeRequest.AddItemToEndOfPipeline(
