@@ -160,7 +160,6 @@
     <EmbeddedResource Include="Views\view-agent.cshtml" />
     <EmbeddedResource Include="Views\templates\modal\read-model.html" />
     <EmbeddedResource Include="Views\templates\modal\form-container.html" />
-    <EmbeddedResource Include="Views\templates\modal\publication-record.html" />
     <EmbeddedResource Include="Views\templates\commands.html" />
     <EmbeddedResource Include="Views\templates\queries.html" />
     <EmbeddedResource Include="Views\templates\read-models.html" />
@@ -287,6 +286,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\templates\modal\agents.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\templates\pager.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

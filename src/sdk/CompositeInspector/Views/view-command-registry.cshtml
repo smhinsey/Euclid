@@ -32,26 +32,26 @@
 			}
 		});
 
-		$(document).on("click", ".publication-record-detail", function () {
-			var id = $(this).attr("data-publication-identifier");
-			WorkWithDataFromUrl("/composite/api/publicationRecord/" + id, function (record) {
-				var alertClass = "alert-success";
-				if (record.Error) {
-					alertClass = "alert-error";
-				} else if (!record.Dispatched) {
-					alertClass = "alert-block";
-				}
+//		$(document).on("click", ".publication-record-detail", function () {
+//			var id = $(this).attr("data-publication-identifier");
+//			WorkWithDataFromUrl("/composite/api/publicationRecord/" + id, function (record) {
+//				var alertClass = "alert-success";
+//				if (record.Error) {
+//					alertClass = "alert-error";
+//				} else if (!record.Dispatched) {
+//					alertClass = "alert-block";
+//				}
 
-				Using({ class: alertClass, showErrorOnly: true, record: record })
-					.Render("/composite/ui/template/modal/publication-record")
-					.Manipulate(function (content) {
-						var modal = $("<div id='content' class='modal'></div>");
-						$(modal).append(content);
-						$(modal).modal("show");
-						$(modal).on("hidden", function () { $(modal).remove(); });
-					});
-			});
-		});
+//				Using({ class: alertClass, showErrorOnly: true, record: record })
+//					.Render("/composite/ui/template/modal/publication-record")
+//					.Manipulate(function (content) {
+//						var modal = $("<div id='content' class='modal'></div>");
+//						$(modal).append(content);
+//						$(modal).modal("show");
+//						$(modal).on("hidden", function () { $(modal).remove(); });
+//					});
+//			});
+//		});
 	});
 
 	function findPageNumber() {

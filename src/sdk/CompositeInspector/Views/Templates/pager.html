@@ -1,0 +1,24 @@
+﻿<div id="pager" class="pagination">
+	<ul>
+		<li><a href="#" id="first-page" class="page" data-page-number="1" title="Page 1">First Page</a></li>
+		<li><a href="#" id="prev-page" class="page" data-page-number="" title="">←</a></li>
+		<li><a href="#" class="disabled">
+		    	<input type="text" id="page-number" value="{{CurrentPage}}" style="width: 25px; padding: 0px; margin-bottom: 5px;" data-max-page="">
+		    	<span id="display-total">of {{TotalPages}}</span></a></li>
+		<li><a href="#" id="next-page" class="page" data-page-number="" title="">→</a></li>
+		<li><a href="#" id="last-page" class="page" data-page-number="{{TotalPages}}" title="Page {{TotalPages}}">Last Page</a></li>
+	</ul>
+</div>
+<script type="text/javascript">
+	var prevPage = ({{CurrentPage}} > 1) ? {{CurrentPage}} - 1 : 1;
+	var nextPage = ({{CurrentPage}} < {{TotalPages}}) ? {{CurrentPage}} + 1 : {{TotalPages}};
+	var maxPage =  {{TotalPages}} - 1;
+
+	$("#prev-page").attr("data-page-number", prevPage);
+	$("#prev-page").attr("title", "Page " + prevPage);
+
+	$("#next-page").attr("data-page-number", nextPage);
+	$("#next-page").attr("title", "Page " + nextPage);
+
+	$("#page-number").attr("data-max-page", maxPage);
+</script>

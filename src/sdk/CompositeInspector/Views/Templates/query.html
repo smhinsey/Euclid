@@ -1,4 +1,40 @@
-﻿<script type="text/javascript">
+﻿<div id="query-container">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#query-methods" data-toggle="tab" id="view-methods">{{Name}}</a></li>
+		<li><a href="#form-container" data-toggle="tab" id="view-form">Form</a></li>
+		<li><a href="#results" data-toggle="tab" id="view-results">Results</a></li>
+	</ul>
+	
+	<div class="tab-content">
+		<div id="query-methods" class="tab-pane active">
+			<h3>{{Name}}</h3>
+			<div class="well">
+				{{#Methods}}
+				<div>
+					<a href="#" class="method" data-query-name="{{queryName}}" data-method-name="{{Name}}" data-argument-count="{{#get-argument-count Arguments}}{{/get-argument-count}}">{{Name}}</a>
+					<small>({{#comma-delimited-list Arguments "ArgumentName"}}{{/comma-delimited-list}})</small>
+				</div>
+				{{/Methods}}
+			</div>
+		</div>
+
+		<div id="form-container" class="tab-pane">No query selected</div>
+	
+		<div id="results" class="tab-pane">
+			<div id="table-container">
+				
+			</div>
+
+			<div id="pager" class="pagination">
+				
+			</div>
+			
+			<div id="results-error"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
 	var queryContainer = "#query-container";
 	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
 	$(queryContainer).on("click", ".method", function () {
@@ -10,22 +46,23 @@
 		$("#execute-query").attr("data-method-name", selectedMethod);
 
 		if (!selectedMethod) {
-			alert("could not find method: " + $(this).text());
-			return;
-		}
-		EUCLID.withQuery(selectedQuery,
-			function (query) {
-				var method = query.getMethodNamed(selectedMethod, numberArguments);
-				var form = method.getForm("query-form");
-				console.log("the method " + selectedQuery + "." + selectedMethod + " has " + numberArguments + " arguments");
+			EUCLID.displayError({ name: "Method Not Found Exception", message: "The method '" + selectedMethod + "' could not be found on query '" + selectedQuery + "'" });
+		} else {
+			EUCLID.withQuery(selectedQuery,
+				function (query) {
+					var method = query.getMethodNamed(selectedMethod, numberArguments);
+					var form = method.getForm("query-form");
+					console.log("the method " + selectedQuery + "." + selectedMethod + " has " + numberArguments + " arguments");
 
-				$("#query-form-container").html("");
-				$("#query-form-container").append($(form));
-				$("#query-form-container").show();
-				$("#view-list").show();
-				$("#execute-query").show();
-				$("#method-names").hide();
-			});
+					$(form).addClass("well");
+					$(form).append("<input type='submit' class='btn btn-primary' value='Execute Query' id='execute-query' data-query-name='" + selectedQuery + "' data-method-name='" + selectedMethod + "' />");
+
+					$("#form-container").html("");
+					$("#form-container").append("<h3>" + selectedQuery + "</h3>");
+					$("#form-container").append($(form));
+					$("#view-form").click();
+				});
+		}
 
 		return false;
 	});
@@ -35,37 +72,20 @@
 		var selectedMethod = $(this).attr("data-method-name");
 
 		EUCLID.withFormResults($("#query-form"), function (results) {
-			var data = getQueryResultsObject(results, selectedQuery, selectedMethod);
-			if (data == null) {
-				showResultsTable("<div><a href='#' class='close' data-dismiss='alert'>×</a><div class='alert alert-box'><strong>Nada</strong> The query returned no results</div></div>");
+			if (results == null) {
+				_//displayResults("<div class='alert alert-box'><strong>Nada</strong> The query returned no results</div>");
 			} else {
-				Using(data).Render("/composite/ui/template/query-results-table").Manipulate(function (content) {
-					showResultsTable(content);
-				});
-			};
+				var data = getQueryResultsObject(results, selectedQuery, selectedMethod);
+				setupPaging(data);
+				Using(data).Fill("#pager").With("/composite/ui/template/pager");
+				Using(data).Fill("#table-container").With("/composite/ui/template/query-results-table");
+			}
+
+			$("#view-results").click();
 		});
 
 		return false;
 	});
-
-	$(queryContainer).on("click", "#view-list", function () {
-		$("#query-form-container").hide();
-		$("#view-list").hide();
-		$("#execute-query").hide();
-		$("#execute-query").removeAttr("data-query-name");
-		$("#execute-query").removeAttr("data-method-name");
-		$("#query-results-table").hide();
-		$("#method-names").show();
-
-		return false;
-	});
-
-	function showResultsTable(content) {
-		$("#query-results-table").show();
-		$("#execute-query").hide();
-		$("#query-results-table").html("");
-		$("#query-results-table").append($(content));
-	}
 
 	function getQueryResultsObject(results, queryName, methodName) {
 		if ((results instanceof Array && results.length == 0) || !results) {
@@ -89,18 +109,23 @@
 
 		return { Headers: headers, Results: results, NumberResults: numberResults, FullQueryName: queryName + "." + methodName };
 	}
-</script>
 
-<div id="query-container">
-	<h3>{{Name}}</h3>
-	<ul>
-		{{#Methods}}
-		<li>
-			<a href="#" class="method" data-query-name="{{../Name}}" data-method-name="{{Name}}" data-argument-count="{{#get-argument-count Arguments}}{{/get-argument-count}}">{{Name}}</a>
-			<small>({{#comma-delimited-list Arguments "ArgumentName"}}{{/comma-delimited-list}})</small>
-		</li>
-		{{/Methods}}
-	</ul>
-	<div id="query-form-container" style="display:none"></div>
-	<div id="query-results-table" style="display:none"></div>
-</div>
+	function setupPaging(results) {
+		var prevPage = (results.CurrentPage > 1) ? results.CurrentPage - 1 : 1;
+		$("#prev-page").attr("data-page-number", prevPage);
+		$("#prev-page").attr("title", "Page " + prevPage);
+
+		var nextPage = (results.CurrentPage < results.TotalPages) ? results.CurrentPage + 1 : results.TotalPages;
+		$("#next-page").attr("data-page-number", nextPage);
+		$("#next-page").attr("title", "Page " + nextPage);
+
+		$("#page-number").val(results.CurrentPage);
+		$("#page-number").attr("data-current-page", results.CurrentPage);
+		$("#page-number").attr("data-max-page", results.TotalPages - 1);
+
+		$("#display-total").text("of " + results.TotalPages);
+
+		$("#last-page").attr("data-page-number", results.TotalPages);
+		$("#last-page").attr("title", "Page " + results.TotalPages);
+	}
+</script>

@@ -104,21 +104,21 @@ function submitForm(form, commandName) {
 	return false;
 }
 
-function display(publicationRecord) {
-	var alertClass = "alert-success";
-	if (publicationRecord.Error) {
-		alertClass = "alert-error";
-	} else if (!publicationRecord.Dispatched) {
-		alertClass = "alert-block";
-	}
+//function display(publicationRecord) {
+//	var alertClass = "alert-success";
+//	if (publicationRecord.Error) {
+//		alertClass = "alert-error";
+//	} else if (!publicationRecord.Dispatched) {
+//		alertClass = "alert-block";
+//	}
 
-	Using({ class: alertClass, record: publicationRecord })
-		.Render("/composite/ui/template/modal/publication-record")
-		.Manipulate(function (content) {
-			setModalContent(content, false);
-		}
-	);
-} // displayPublicationRecord
+//	Using({ class: alertClass, record: publicationRecord })
+//		.Render("/composite/ui/template/modal/publication-record")
+//		.Manipulate(function (content) {
+//			setModalContent(content, false);
+//		}
+//	);
+//} // displayPublicationRecord
 
 function displayError(e) {
 	Using(e)

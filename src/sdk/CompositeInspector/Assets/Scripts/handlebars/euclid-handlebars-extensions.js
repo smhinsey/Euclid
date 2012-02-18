@@ -59,4 +59,8 @@
 
 		return list;
 	});
+
+	Handlebars.registerHelper("format-date", function (date) {
+		return date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + " [" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "]";
+	});
 }
