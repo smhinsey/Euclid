@@ -125,6 +125,11 @@ namespace CompositeInspector
 			const string assetRootNamespace = "CompositeInspector.Assets";
 
 			Conventions.StaticContentsConventions.Add(
+				EmbeddedStaticContentConventionBuilder.MapVirtualDirectory("composite/_debug_",
+																		   string.Concat(assetRootNamespace, "._debug_"),
+																		   assembly));
+
+			Conventions.StaticContentsConventions.Add(
 				EmbeddedStaticContentConventionBuilder.MapVirtualDirectory("composite/js",
 																		   string.Concat(assetRootNamespace, ".Scripts"),
 																		   assembly));

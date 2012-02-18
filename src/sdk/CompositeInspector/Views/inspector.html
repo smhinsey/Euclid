@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Composite Inspector</title>
+		<script type="text/javascript" src="/composite/js/jquery/jquery-1.7.1.min.js"> </script>
+		<script type="text/javascript" src="/composite/js/jquery/jquery-ui-1.8.16.custom.min.js"> </script>
+		<script type="text/javascript" src="/composite/js/jquery/euclid-jquery-extensions.js"> </script>
+		<script type="text/javascript" src="/composite/js/bootstrap/bootstrap.min.js"> </script>
+		<script type="text/javascript" src="/composite/js/handlebars/handlebars-1.0.0.beta.6.js"> </script>
+		<script type="text/javascript" src="/composite/js/handlebars/euclid-handlebars-extensions.js"></script>
+		<script type="text/javascript" src="/composite/js/euclid-0.9.js" ></script>
+
+		<link rel="Stylesheet" type="text/css" href="/composite/css/composite-inspector.css" />
+		<link rel="Stylesheet" type="text/css" href="/composite/css/smoothness/jquery-ui-1.8.16.custom.css" />
+		<link rel="stylesheet" type="text/css" href="/composite/css/bootstrap/bootstrap.min.css" />
+	</head>
+
+	<body style="padding-top:60px">
+		<div class="navbar navbar-fixed-top" id="navbar-container"></div>
+
+		<div id="display-panel" class="row">
+			<div id="part-output" class="span8"></div>
+			
+			<div id="agent-output" class="span4">
+				<div class="row">
+					<div class="span12" id="queries"></div>
+				</div>
+				
+				<div class="row">
+					<div class="span12" id="read-models"></div>
+				</div>
+				
+				<div class="row">
+					<div class="span12" id="composite"></div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div id="euclid-error-output" class="span12 hide">
+				<h4 class="left">Error</h4>
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		/// <reference path="/Assets/Scripts/euclid-0.9.js" />
+
+		WorkWithDataFromUrl(
+			"/composite/api",
+			function (compositeData) { Using(compositeData).Fill("#navbar-container").With("/composite/ui/template/navbar"); }
+		);
+	</script>
+</html>

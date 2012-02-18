@@ -1,0 +1,119 @@
+﻿<div class="navbar-inner">
+	<div class="container">
+		<div>
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+
+			<a class="brand" href="/composite/details">{{Name}} </a>
+			<ul class="nav">
+				<li class="dropdown composite-dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Queries <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						{{#Queries}}
+						<li id="{{../SystemName}}-query-{{Name}}">
+							<a href="#" class="query" data-query-name="{{Name}}">{{Name}}</a>
+						</li>
+						{{/Queries}}
+					</ul>
+				</li>
+
+				<li class="dropdown composite-dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Input Models <b class="caret"></b></a>
+						
+					<ul class="dropdown-menu">
+						{{#InputModels}}
+						<li id="input-model-{{Name}}" class="input-model">
+							<i class="icon icon-list view-input-model-properties" style="cursor: pointer" title="Properties"></i><!--<a href="#" style-="display:inline" class="input-model-properties" data-input-model-name="{{Name}}" title="properties"></a>-->
+							<i class="icon icon-pencil" id="view-input-model-form" style="cursor: pointer" title="Submit Form"></i><!--<a href="#" style-="display:inline" class="command" data-command-name="{{CommandName}}" title="submit"><i class="icon-pencil"></i></a>-->
+							<span class="view-input-model-properties" style="cursor:pointer" title="View Properties" >{{Name}}</span>
+						</li>
+						{{/InputModels}}
+					</ul>
+				</li>
+					
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Agents <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						{{#each Agents}}
+						<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">{{DescriptiveName}}</a></li>
+						{{/each}}
+					</ul>
+				</li>
+
+				<li><a href="/composite/command-registry">Command Registry</a></li>
+				<li><a href="/composite/logs">Logs</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+{{Description}}
+
+
+<script type="text/javascript">
+	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
+	var agentOutput = "#agent-output";
+	var partOutput = "#part-output";
+
+	$('.dropdown-toggle').dropdown();
+
+	//$(document).on("click", ".query", function () {
+	$(".query").click(function () {
+		var queryName = $(this).attr("data-query-name");
+		EUCLID.withQuery(queryName, function (query) {
+			Using(query)
+				.Render("/composite/ui/template/query")
+				.Manipulate(function (content) {
+					$(partOutput).html("");
+					$(partOutput).append(content);
+				});
+		});
+	});
+
+	//$(document).bind("click", ".agent", function () {
+	$(".agent").click(function () {
+		$(partOutput).html("&nbsp;");
+		var systemName = $(this).attr("data-agent-system-name");
+		WorkWithDataFromUrl("/composite/api/agent/" + systemName, function(agentMetadata) {
+
+			Using(agentMetadata).Fill("#agent-output #commands").With("/composite/ui/template/commands");
+			Using(agentMetadata).Fill("#agent-output #queries").With("/composite/ui/template/queries");
+			Using(agentMetadata).Fill("#agent-output #read-models").With("/composite/ui/template/read-models");
+		});
+	});
+	
+	//$(document).bind("mouseover", ".input-model", function () {
+	$(".input-model").mouseover(function () {
+		$(this).css("background-color", "#0088CC");
+		$(this).css("color", "#ffffff");
+
+		$(this).find(".icon").each(function (index) { $(this).addClass("icon-white"); });
+	});
+
+	//$(document).bind("mouseout", ".input-model", function () {
+	$(".input-model").mouseout(function () {
+		$(this).css("background-color", "#ffffff");
+		$(this).css("color", "#333333");
+
+		$(this).find(".icon").each(function (index) { $(this).removeClass("icon-white"); });
+	});
+
+	$("#view-input-model-form").click(function () {
+		alert("#view-input-model-form");
+	});
+
+	$(".view-input-model-properties").click(function () {
+		alert(".view-input-model-properties");
+	});
+
+	//$(document).bind("click", ".composite-dropdown", function () {
+	$(".composite-dropdown").click(function () {
+		$("#agent-output #commands").html("&nbsp;");
+		$("#agent-output #queries").html("&nbsp;");
+		$("#agent-output #read-models").html("&nbsp;");
+
+		return false;
+	});
+</script>

@@ -164,20 +164,16 @@
     <EmbeddedResource Include="Views\templates\commands.html" />
     <EmbeddedResource Include="Views\templates\queries.html" />
     <EmbeddedResource Include="Views\templates\read-models.html" />
-    <EmbeddedResource Include="Views\templates\agent.html" />
-    <EmbeddedResource Include="Views\view-composite.cshtml" />
-    <EmbeddedResource Include="Views\templates\composite.html" />
     <EmbeddedResource Include="Views\templates\input-models.html" />
-    <EmbeddedResource Include="Views\templates\modal\input-model.html" />
+    <EmbeddedResource Include="Views\templates\input-model.html" />
     <EmbeddedResource Include="Views\templates\agents.html" />
-    <EmbeddedResource Include="Views\templates\modal\euclid-error.html" />
     <EmbeddedResource Include="Views\templates\modal\polling.html" />
-    <EmbeddedResource Include="Views\templates\composite-link.html" />
     <EmbeddedResource Include="Views\templates\euclid-error.html" />
     <EmbeddedResource Include="Views\templates\modal\command.html" />
-    <EmbeddedResource Include="Views\templates\modal\query.html" />
+    <EmbeddedResource Include="Views\templates\query.html" />
     <EmbeddedResource Include="Views\templates\query-results-table.html" />
     <EmbeddedResource Include="Views\view-command-registry.cshtml" />
+    <EmbeddedResource Include="Views\view-logs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
@@ -255,26 +251,8 @@
     <EmbeddedResource Include="Assets\Scripts\handlebars\handlebars-1.0.0.beta.6.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-alert.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-button.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-carousel.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-collapse.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-dropdown.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-modal.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-popover.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-scrollspy.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-tab.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-tooltip.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-transition.js" />
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-typeahead.js" />
-    <EmbeddedResource Include="Assets\Styles\bootstrap.css" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap-twipsy.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\img\glyphicons-halflings-white.png" />
-    <EmbeddedResource Include="Assets\Scripts\img\glyphicons-halflings.png" />
+    <EmbeddedResource Include="Assets\Styles\img\glyphicons-halflings-white.png" />
+    <EmbeddedResource Include="Assets\Styles\img\glyphicons-halflings.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\composite-inspector-commands.js" />
@@ -290,6 +268,25 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\euclid-prototype-extensions.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\inspector.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Styles\bootstrap\bootstrap-responsive.css" />
+    <EmbeddedResource Include="Assets\Styles\bootstrap\bootstrap-responsive.min.css" />
+    <EmbeddedResource Include="Assets\Styles\bootstrap\bootstrap.css" />
+    <EmbeddedResource Include="Assets\Styles\bootstrap\bootstrap.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap.js" />
+    <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\templates\navbar.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\templates\modal\agents.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

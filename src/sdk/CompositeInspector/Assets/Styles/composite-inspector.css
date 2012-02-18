@@ -1,28 +1,12 @@
-﻿.close 
+﻿.error-output .error-text
 {
-	float: right;
-	width: 25px;
-	height: 25px;
-	font-size: x-large;
-	text-transform: uppercase;
-	font-weight:bold;
-	top: 12px;
-	left: 12px;
-}
-
-.error-message 
-{
-	position:relative;
-	z-index:9999;
 	border: 1px black solid;
 	width:100%;
 	background-color: #FF6666;
 	color: #331414;
-	margin-top:2px;
-	margin-bottom:2px;
 }
 
-.hidden 
+.hidden
 {
 	display:none;
 }

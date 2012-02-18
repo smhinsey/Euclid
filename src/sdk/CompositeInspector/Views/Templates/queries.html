@@ -1,29 +1,4 @@
-﻿<script type="text/javascript">
-	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
-	
-	var modal = $("<div id='modal'></div>");
-	$(document).ready(function () {
-		$(".query").click(function () {
-			var queryName = $(this).attr("data-query-name");
-			EUCLID.withQuery(queryName, function (query) {
-				for (var i = 0; i < query.Methods.length; i++) {
-					console.log(queryName + "." + query.Methods[i].Name);
-				}
-
-				Using(query)
-					.Render("/composite/ui/template/modal/query")
-					.Manipulate(function (content) {
-						$(modal).html("");
-						$(modal).append(content);
-						$(modal).modal("show");
-					});
-			});
-
-			return false;
-		});
-	});
-</script>
-<h5>Queries</h5>
+﻿<h5>Queries</h5>
 <ul>
 {{#Queries}}
 	<li id="{{../SystemName}}-query-{{Name}}">
@@ -31,3 +6,21 @@
 	</li>
 {{/Queries}}
 </ul>
+<script type="text/javascript">
+	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
+	var agentOutput = "#agent-output";
+	var partOutput = "#part-output";
+
+	//$(document).on("click", ".query", function () {
+	$(".query").click(function () {
+		var queryName = $(this).attr("data-query-name");
+		EUCLID.withQuery(queryName, function (query) {
+			Using(query)
+				.Render("/composite/ui/template/query")
+				.Manipulate(function (content) {
+					$(partOutput).html("");
+					$(partOutput).append(content);
+				});
+		});
+	});
+</script>

@@ -18,7 +18,11 @@ namespace Euclid.Composites.Formatters
 		protected override string GetAsXml()
 		{
 			var root = new XElement(
-				"Composite", XElement.Parse(_compositeApp.Agents.GetBasicMetadataFormatter().GetRepresentation("xml")));
+				"Composite", 
+				new XAttribute("Name", _compositeApp.Name),
+				new XAttribute("Description", _compositeApp.Description),
+				new XAttribute("IsValid", _compositeApp.IsValid()),
+				XElement.Parse(_compositeApp.Agents.GetBasicMetadataFormatter().GetRepresentation("xml")));
 
 			var inputModels = new XElement("InputModels");
 			foreach (var m in _compositeApp.InputModels)

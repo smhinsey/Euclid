@@ -5,6 +5,8 @@ if ($.validator == null || $.validator == undefined) {
 	$.getScript("/composite/js/jquery/jquery.validate.unobtrusive.min.js");
 }
 
+$.ajaxSetup({ cache: false });
+
 var EUCLID = function () {
 	/* private methods */
 	var _getQueryForm = function (id) {
@@ -252,7 +254,7 @@ var EUCLID = function () {
 
 			if (data[property] instanceof Array) {
 				$.each(data[property], function (index, item) {
-					 _parseDate(item);
+					_parseDate(item);
 				});
 			}
 		}
@@ -439,20 +441,30 @@ var EUCLID = function () {
 			var _pollerId = setInterval(_poll, _pollInterval);
 		}), // end pollForCommandStatus
 
-		displayError: (function (e) {
+		displayError: (function (e, outputId) {
 			///<summary>displays an error</summary>
 			///<param name='e'>an object containing the error information expected properties are .name, .message & .callstack</param>
 			// publicationId, onOpportunityToCancelPolling, onCommandComplete, onCommandError, onPollError
-			if ($("#euclid-error-display").length == 0) {
-				$("body").prepend("<div id='euclid-error-display' style='z-index:auto'></div>");
+			if (!outputId) { // set up an output
+				if ($("#euclid-error-output").length == 0) {
+					$("body").append("<div id='error-output' style='z-index:auto'></div>");
+				}
+
+				outputId = "#euclid-error-output";
 			}
-
-			var error = $("#euclid-error-display");
-
+			else {
+				if (!outputId.startsWith("#")) {
+					outputId = "#" + outputId;
+				}
+			}
+			
+			var errorConsole = $(outputId);
+			$(errorConsole).show();
+			// TODO: clear & append error console
 			Using(e)
 				.Render("/composite/ui/template/euclid-error")
 				.Manipulate(function (content) {
-					$(error).append($(content));
+					$(errorConsole).append($(content));
 					$(window).scrollTop(0);
 				}
 			);
@@ -460,7 +472,7 @@ var EUCLID = function () {
 			return false;
 		}) // end displayError
 	} // return
-} ();       // EUCLID
+} ();          // EUCLID
 
 var Using = function (jsonObject) {
 	///<sumary>Use JSON data for UI elements</summary>
@@ -493,10 +505,26 @@ var Using = function (jsonObject) {
 		}
 
 		$.get(templateUrl, function (source) {
-			var template = Handlebars.compile(source);
-			onComplete($(template(data)));
+			try {
+				var template = Handlebars.compile(source);
+				onComplete($(template(data)));
+			} catch (e) {
+				onError(e);
+			}
+		}).error(function (e) {
+			var err = {};
+			if (e.status == 404) {
+				err = {
+					name: "HTTP404 Not Found",
+					message: "Could not GET template: " + templateUrl
+				};
+			} else {
+				err = $.parseJSON(e.responseText);
+			}
+
+			onError(err);
 		});
-	}) // populateTemplate
+	}); // populateTemplate
 
 	var _data = jsonObject;
 	return {
@@ -508,6 +536,16 @@ var Using = function (jsonObject) {
 			}
 
 			var _element = $(elementId);
+
+			if (!$(_element)) {
+				onError({
+					name: "Invalid HTML Element Exception",
+					message: "Could not find element with id '" + elementId + "'",
+					callstack: "Using.Fill"
+				});
+
+				return false;
+			}
 
 			return {
 				With: function (templateUrl) {
@@ -572,7 +610,11 @@ var WorkWithDataFromUrl = function (url, onSuccess, onError) {
 				}
 			}
 
-			onSuccess(obj);
+			if (typeof onSuccess == "function") {
+				onSuccess(obj);
+			} else {
+				eval("onSuccess(obj);");
+			}
 		},
 		error: function (err) {
 			var e = err;
