@@ -1,79 +1,55 @@
-﻿<script id="template-storeOrders" type="text/x-handlebars-template">
-	<h3>{{storeName}} Orders</h3>
-	<hr/>
-	<a href="#store/{{storeSlug}}/orders/add" class="btn btn-primary pull-right">Add Order</a>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				{{#each tableHeaders}}
-				<th>{{this}}</th>
-				{{/each}}
-			</tr>
-		</thead>
-		<tbody>
-
-			{{#each tableData}}
-			<tr>
-				<td>{{this.id}}...</td>
-				<td>{{this.dateTime}}</td>
-				<td>{{this.type}}</td>
-				<td>{{this.amount}}</td>
-				<td>
-					<div class="btn-group">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-							Actions
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a>View Details</a>
-							</li>
-							<li>
-								<a>Discount</a>
-							</li>
-							<li>
-								<a>Modify</a>
-							</li>
-							<li>
-								<a>Freeze</a>
-							</li>
-							<li>
-								<a>Refund</a>
-							</li>
-						</ul>
-					</div>
-				</td>
-			</tr>
+﻿<h3>{{storeName}} Orders</h3>
+<hr />
+<a href="#store/{{storeSlug}}/orders/add" class="btn btn-primary pull-right">Add Order</a>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			{{#each tableHeaders}}
+			<th>{{this}}</th>
 			{{/each}}
+		</tr>
+	</thead>
+	<tbody>
+		{{#each tableData}}
+		<tr>
+			<td>{{this.id}}...</td>
+			<td>{{this.dateTime}}</td>
+			<td>{{this.type}}</td>
+			<td>{{this.amount}}</td>
+			<td>
 
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="6">
-					<div class="pagination pagination-right">
-						<ul>
-							<li>
-								<a href="#">Prev</a>
-							</li>
-							<li class="active">
-								<a href="#">1</a>
-							</li>
-							<li>
-								<a href="#">2</a>
-							</li>
-							<li>
-								<a href="#">3</a>
-							</li>
-							<li>
-								<a href="#">4</a>
-							</li>
-							<li>
-								<a href="#">Next</a>
-							</li>
-						</ul>
-					</div>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-</script>
+				<div class="btn-group">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Actions <span class="caret">
+					</span></a>
+					<ul class="dropdown-menu">
+						<li><a>View Details</a> </li>
+						<li><a>Discount</a> </li>
+						<li><a>Modify</a> </li>
+						<li><a>Freeze</a> </li>
+						<li><a>Refund</a> </li>
+					</ul>
+				</div>
+
+			</td>
+		</tr>
+		{{/each}}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="6">
+
+				<div class="pagination pagination-right">
+					<ul>
+						<li><a href="#">Prev</a> </li>
+						<li class="active"><a href="#">1</a> </li>
+						<li><a href="#">2</a> </li>
+						<li><a href="#">3</a> </li>
+						<li><a href="#">4</a> </li>
+						<li><a href="#">Next</a> </li>
+					</ul>
+				</div>
+
+			</td>
+		</tr>
+	</tfoot>
+</table>

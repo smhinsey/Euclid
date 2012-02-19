@@ -34,8 +34,11 @@
 		$.ajax({
 			url: path,
 			success: function(data) {
-				
+
+				data = "<script>" + data + "</script>";
+
 				source = $(data).html();
+
 
 				template = Handlebars.compile(source);
 				

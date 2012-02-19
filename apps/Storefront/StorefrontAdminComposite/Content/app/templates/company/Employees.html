@@ -1,75 +1,56 @@
-﻿<script id="template-companyEmployees" type="text/x-handlebars-template">
-	<h3>{{companyName}} Employees</h3>
-	<hr/>
-	<a href="#company/{{companySlug}}/employees/add" class="btn btn-primary pull-right">Add Employee</a>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				{{#each tableHeaders}}
-				<th>{{this}}</th>
-				{{/each}}
-			</tr>
-		</thead>
-		<tbody>
-
-			{{#each tableData}}
-			<tr>
-				<td>{{this.lastName}}</td>
-				<td>{{this.firstName}}</td>
-				<td>{{this.type}}</td>
-				<td>{{this.hireDate}}</td>
-				<td>{{this.location}}</td>
-				<td>
-					<div class="btn-group">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-							Actions
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="#company/{{../companySlug}}/employees/exampleEmployeeSlug/details">View Profile</a>
-							</li>
-							<li>
-								<a>Suspend/Deactivate</a>
-							</li>
-							<li>
-								<a>Delete</a>
-							</li>
-						</ul>
-					</div>
-				</td>
-			</tr>
+﻿<h3>{{companyName}} Employees</h3>
+<hr />
+<a href="#company/{{companySlug}}/employees/add" class="btn btn-primary pull-right">
+	Add Employee</a>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			{{#each tableHeaders}}
+			<th>{{this}}</th>
 			{{/each}}
+		</tr>
+	</thead>
+	<tbody>
+		{{#each tableData}}
+		<tr>
+			<td>{{this.lastName}}</td>
+			<td>{{this.firstName}}</td>
+			<td>{{this.type}}</td>
+			<td>{{this.hireDate}}</td>
+			<td>{{this.location}}</td>
+			<td>
 
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="6">
-					<div class="pagination pagination-right">
-						<ul>
-							<li>
-								<a href="#">Prev</a>
-							</li>
-							<li class="active">
-								<a href="#">1</a>
-							</li>
-							<li>
-								<a href="#">2</a>
-							</li>
-							<li>
-								<a href="#">3</a>
-							</li>
-							<li>
-								<a href="#">4</a>
-							</li>
-							<li>
-								<a href="#">Next</a>
-							</li>
-						</ul>
-					</div>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
+				<div class="btn-group">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Actions <span class="caret">
+					</span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#company/{{../companySlug}}/employees/exampleEmployeeSlug/details">View
+							Profile</a> </li>
+						<li><a>Suspend/Deactivate</a> </li>
+						<li><a>Delete</a> </li>
+					</ul>
+				</div>
 
-</script>
+			</td>
+		</tr>
+		{{/each}}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="6">
+
+				<div class="pagination pagination-right">
+					<ul>
+						<li><a href="#">Prev</a> </li>
+						<li class="active"><a href="#">1</a> </li>
+						<li><a href="#">2</a> </li>
+						<li><a href="#">3</a> </li>
+						<li><a href="#">4</a> </li>
+						<li><a href="#">Next</a> </li>
+					</ul>
+				</div>
+
+			</td>
+		</tr>
+	</tfoot>
+</table>

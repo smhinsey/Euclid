@@ -18,6 +18,15 @@
 			
 			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Administrators'});
 		});
+		
+		this.get('/#sysadmin/administrators/add', function () {
+
+			var model = modelForSysAdminAddAdministrator();
+			
+			this.trigger('render-model', {templateName: 'sysadmin/AddAdministrator', model: model});
+			
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Administrators'});
+		});
 
 		this.get('/#company/:companySlug/financials', function () {
 			
@@ -270,7 +279,7 @@
 	
 	function modelForSysAdminAdministrators() {
 
-		var viewModel = { title: "System Administrators" };
+		var viewModel = { title: "Administrators" };
 		
 		viewModel.tableHeaders = [ "Last Name", "First Name", "Email", "Status", "Last Seen", ""];
 		
@@ -280,6 +289,13 @@
 			viewModel.tableData.push({ lastName: "{Last Name}", firstName: "{First Name}", email:"{email@email.com}", status:"{Status}", lastSeen: "12/25/2012 12:55 PM ET"});
 		}
 
+		return viewModel;
+	}
+	
+	function modelForSysAdminAddAdministrator() {
+
+		var viewModel = { title: "Add Administrator" };
+		
 		return viewModel;
 	}
 
