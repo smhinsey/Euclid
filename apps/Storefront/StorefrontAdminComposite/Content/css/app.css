@@ -6,3 +6,7 @@ may prefer to make this opt-in at some point, but for the time being this is suf
 .table td {
 	vertical-align: middle !important;
 }
+
+.currentCompany {
+	display: none;
+}

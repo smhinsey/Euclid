@@ -6,20 +6,18 @@
 			"NewCo",
 			"ShawnCo"
 		];
-		
+
 		$("#companyNames").autocomplete({
 			source: companyNames,
 			minLength: 0,
 			close: function (event, ui) {
 				$("#showAllCompanies > i").removeClass("icon-chevron-down");
 				$("#showAllCompanies > i").addClass("icon-chevron-right");
-			}			
+				$("#currentCompanyName").text($("#companyNames").val());
+				$(".currentCompany").show();
+				$("#clearCompanyButton").show();
+			}
 		});
-
-//		$("#companyNames").blur(function () {
-//			$("#showAllCompanies > i").removeClass("icon-chevron-down");
-//			$("#showAllCompanies > i").addClass("icon-chevron-right");
-//		});
 
 		$("#showAllCompanies").click(function () {
 			$("#showAllCompanies > i").removeClass("icon-chevron-right");
@@ -29,6 +27,9 @@
 
 		$("#clearCompany").click(function () {
 			$("#companyForm")[0].reset();
+			$(".currentCompany").hide();
+			$("#currentCompanyName").text("");
+			$("#clearCompanyButton").hide();
 		});
 
 	});
@@ -40,39 +41,39 @@
 		<li id="nav-SysAdminSettings"><a href="#sysadmin/settings"><i class="icon-cog"></i>&nbsp;Settings</a></li>
 		<li id="nav-SysAdminAdministrators"><a href="#sysadmin/administrators"><i class="icon-user"></i>&nbsp;Administrators</a></li>
 		<li id="nav-SysAdminAddCompany"><a href="#sysadmin/companies/add"><i class="icon-plus-sign"></i>&nbsp;Add Company</a></li>
-		<li class="nav-header">{Company Name}</li>
-		<li id="nav-exampleCompanySlugFinancials"><a href="#company/exampleCompanySlug/financials"><i class="icon-signal"></i>&nbsp;Financials</a></li>
-		<li id="nav-exampleCompanySlugAllTransactions"><a href="#company/exampleCompanySlug/allTransactions"><i class="icon-eye-open"></i>&nbsp;All Transactions</a></li>
-		<li id="nav-exampleCompanySlugEmployees"><a href="#company/exampleCompanySlug/employees"><i class="icon-user"></i>&nbsp;Employees</a></li>
-		<li id="nav-exampleCompanySlugNewStore"><a href="#company/exampleCompanySlug/newStore"><i class="icon-plus-sign"></i>&nbsp;New Store</a></li>
-		<li class="nav-header">{Store Name}</li>
-		<li id="nav-exampleStoreSlug1Financials"><a href="#store/exampleStoreSlug1/financials"><i class="icon-signal"></i>&nbsp;Financials</a></li>
-		<li id="nav-exampleStoreSlug1Orders"><a href="#store/exampleStoreSlug1/orders"><i class="icon-inbox"></i>&nbsp;Orders</a></li>
-		<li id="nav-exampleStoreSlug1Customers"><a href="#store/exampleStoreSlug1/customers"><i class="icon-user"></i>&nbsp;Customers</a></li>
-		<li id="nav-exampleStoreSlug1ProductCatalog"><a href="#store/exampleStoreSlug1/productCatalog"><i class="icon-th-list"></i>&nbsp;Product Catalog</a></li>
-		<li id="nav-exampleStoreSlug1Promotions"><a href="#store/exampleStoreSlug1/promotions"><i class="icon-exclamation-sign"></i>&nbsp;Promotions</a></li>
-		<li id="nav-exampleStoreSlug1DiscountCodes"><a href="#store/exampleStoreSlug1/discountCodes"><i class="icon-qrcode"></i>&nbsp;Discount Codes</a></li>
-		<li class="nav-header">{Store Name}</li>
-		<li id="nav-exampleStoreSlug2Financials"><a href="#store/exampleStoreSlug2/financials"><i class="icon-signal"></i>&nbsp;Financials</a></li>
-		<li id="nav-exampleStoreSlug2Orders"><a href="#store/exampleStoreSlug2/orders"><i class="icon-inbox"></i>&nbsp;Orders</a></li>
-		<li id="nav-exampleStoreSlug2Customers"><a href="#store/exampleStoreSlug2/customers"><i class="icon-user"></i>&nbsp;Customers</a></li>
-		<li id="nav-exampleStoreSlug2ProductCatalog"><a href="#store/exampleStoreSlug2/productCatalog"><i class="icon-th-list"></i>&nbsp;Product Catalog</a></li>
-		<li id="nav-exampleStoreSlug2Promotions"><a href="#store/exampleStoreSlug2/promotions"><i class="icon-exclamation-sign"></i>&nbsp;Promotions</a></li>
-		<li id="nav-exampleStoreSlug2DiscountCodes"><a href="#store/exampleStoreSlug2/discountCodes"><i class="icon-qrcode"></i>&nbsp;Discount Codes</a></li>
 	
-		<li class="nav-header">Current Company</li>
-		<li style="margin-top: 10px; margin-bottom: 10px;">
+		<li class="nav-header">View Company</li>
+		<li style="margin-top: 5px; margin-bottom: 5px;">
 			<form id="companyForm" style="margin: 0px;">
 
 			<div class="input-prepend">
 				<span id="showAllCompanies" style="cursor: pointer;" class="add-on"><i class="icon-chevron-right"></i></span>
 				<input placeholder="Type company name" class="input-medium" id="companyNames" />
-				<p class="pull-right"><span id="clearCompany" style="cursor: pointer;" class="label">Clear</span></p>
+				<p id="clearCompanyButton" style="display: none;" class="pull-right"><span id="clearCompany" style="cursor: pointer;" class="label">Clear</span></p>
 			</div>
 
 			</form>
 		</li>
-	
+
+		<li class="nav-header currentCompany" id="currentCompanyName" style="margin-top: 0px; padding-top: 0px; display: none;">{Company Name}</li>
+		<li class="currentCompany" id="nav-exampleCompanySlugFinancials"><a href="#company/exampleCompanySlug/financials"><i class="icon-signal"></i>&nbsp;Financials</a></li>
+		<li class="currentCompany" id="nav-exampleCompanySlugAllTransactions"><a href="#company/exampleCompanySlug/allTransactions"><i class="icon-eye-open"></i>&nbsp;All Transactions</a></li>
+		<li class="currentCompany" id="nav-exampleCompanySlugEmployees"><a href="#company/exampleCompanySlug/employees"><i class="icon-user"></i>&nbsp;Employees</a></li>
+		<li class="currentCompany" id="nav-exampleCompanySlugNewStore"><a href="#company/exampleCompanySlug/newStore"><i class="icon-plus-sign"></i>&nbsp;New Store</a></li>
+		<li class="currentCompany nav-header" style="display: none;">{Store Name}</li>
+		<li class="currentCompany" id="nav-exampleStoreSlug1Financials"><a href="#store/exampleStoreSlug1/financials"><i class="icon-signal"></i>&nbsp;Financials</a></li>
+		<li class="currentCompany" id="nav-exampleStoreSlug1Orders"><a href="#store/exampleStoreSlug1/orders"><i class="icon-inbox"></i>&nbsp;Orders</a></li>
+		<li class="currentCompany" id="nav-exampleStoreSlug1Customers"><a href="#store/exampleStoreSlug1/customers"><i class="icon-user"></i>&nbsp;Customers</a></li>
+		<li class="currentCompany" id="nav-exampleStoreSlug1ProductCatalog"><a href="#store/exampleStoreSlug1/productCatalog"><i class="icon-th-list"></i>&nbsp;Product Catalog</a></li>
+		<li class="currentCompany" id="nav-exampleStoreSlug1Promotions"><a href="#store/exampleStoreSlug1/promotions"><i class="icon-exclamation-sign"></i>&nbsp;Promotions</a></li>
+		<li class="currentCompany" id="nav-exampleStoreSlug1DiscountCodes"><a href="#store/exampleStoreSlug1/discountCodes"><i class="icon-qrcode"></i>&nbsp;Discount Codes</a></li>
+		<li class="currentCompany nav-header" style="display: none;">{Store Name}</li>
+		<li class="currentCompany" id="nav-exampleStoreSlug2Financials"><a href="#store/exampleStoreSlug2/financials"><i class="icon-signal"></i>&nbsp;Financials</a></li>
+		<li class="currentCompany" id="nav-exampleStoreSlug2Orders"><a href="#store/exampleStoreSlug2/orders"><i class="icon-inbox"></i>&nbsp;Orders</a></li>
+		<li class="currentCompany" id="nav-exampleStoreSlug2Customers"><a href="#store/exampleStoreSlug2/customers"><i class="icon-user"></i>&nbsp;Customers</a></li>
+		<li class="currentCompany" id="nav-exampleStoreSlug2ProductCatalog"><a href="#store/exampleStoreSlug2/productCatalog"><i class="icon-th-list"></i>&nbsp;Product Catalog</a></li>
+		<li class="currentCompany" id="nav-exampleStoreSlug2Promotions"><a href="#store/exampleStoreSlug2/promotions"><i class="icon-exclamation-sign"></i>&nbsp;Promotions</a></li>
+		<li class="currentCompany" id="nav-exampleStoreSlug2DiscountCodes"><a href="#store/exampleStoreSlug2/discountCodes"><i class="icon-qrcode"></i>&nbsp;Discount Codes</a></li>
 	</ul>
 </div>
 
