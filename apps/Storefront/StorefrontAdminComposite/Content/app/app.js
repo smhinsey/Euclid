@@ -1,6 +1,15 @@
 ﻿;(function ($) {
 	var app = $.sammy(function () {
 
+		this.get('/#sysadmin/dashboard', function () {
+
+			var model = modelForSysAdminDashboard();
+			
+			this.trigger('render-model', {templateName: 'sysadmin/Dashboard', model: model});
+			
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Dashboard'});
+		});
+
 		this.get('/#sysadmin/settings', function () {
 
 			var model = modelForSysAdminSettings();
@@ -258,7 +267,7 @@
 		});
 
 		this.get('/', function () {
-			this.redirect('#company/exampleCompanySlug/financials');
+			this.redirect('#sysadmin/dashboard');
 		});
 
 	});
@@ -271,6 +280,13 @@
 	// temporary, just for use during prototyping
 	// in practice, this data would all come from queries (with the possible exception of table headers)
 	
+	function modelForSysAdminDashboard() {
+
+		var viewModel = { title: "Dashboard" };
+
+		return viewModel;
+	}
+
 	function modelForSysAdminSettings() {
 
 		var viewModel = { title: "Settings" };
