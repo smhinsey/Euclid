@@ -170,7 +170,7 @@
     <EmbeddedResource Include="Views\templates\euclid-error.html" />
     <EmbeddedResource Include="Views\templates\modal\command.html" />
     <EmbeddedResource Include="Views\templates\query.html" />
-    <EmbeddedResource Include="Views\templates\query-results-table.html" />
+    <EmbeddedResource Include="Views\templates\command-registry-table.html" />
     <EmbeddedResource Include="Views\view-command-registry.cshtml" />
     <EmbeddedResource Include="Views\view-logs.cshtml" />
   </ItemGroup>
@@ -289,6 +289,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\templates\pager.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\templates\query-results-table.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

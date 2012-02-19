@@ -11,6 +11,8 @@ namespace LoggingAgent.ReadModels
 		public int TotalRecords { get; set; }
 		public int TotalPages { get; set; }
 		public int CurrentPage;
+		public int NextPage { get; set; }
+		public int PreviousPage { get; set; }
 
 		public IEnumerable<IPublicationRecord> Records { get; set; }
 	}

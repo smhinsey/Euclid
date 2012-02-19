@@ -1,0 +1,65 @@
+﻿<table class="table table-bordered table-striped table-condensed" id="registry-table">
+	<caption id="table-caption"><h5>{{TotalRecords}} total command publication records</h5></caption>
+	<thead>
+		<tr>
+			<th>
+				Created
+			</th>
+			<th>
+				Dispatched
+			</th>
+			<th>
+				Completed
+			</th>
+			<th>
+				Message Type
+			</th>
+			<th>
+				Error
+			</th>
+		</tr>
+	</thead>
+	<tbody id="table-body">
+		{{#each Records}}
+		<tr>
+			<td>{{format-date Created}}</td>
+			<td>{{#if Dispatched}}True{{else}}False{{/if}}</td>
+			<td>{{#if Completed}}True{{else}}False{{/if}}</td>
+			<td><a href="{{MessageLocation}}" title="download command">{{MessageType}}</a></td>
+			{{#if Error}}
+			<td><a href='#' class="publication-record-detail" data-publication-identifier="{{Identifier}}">View</a></td>
+			{{else}}
+			<td>False</td>
+			{{/if}}
+		</tr>
+		{{#if Error}}
+		<tr class="hidden" id="error-{{Identifier}}">
+			<td colspan="6" class="alert alert-error">
+				<strong>{{ErrorMessage}}</strong>
+				{{#if CallStack}}
+				{{convert-breaks record.CallStack}}
+				{{/if}}
+			</td>
+		</tr>
+		{{/if}}
+		{{/each}}
+	</tbody>
+</table>
+
+<script type="text/javascript">
+	/// <reference path="../../Assets/euclid-0.9.js"/>
+	var root = "#registry-table";
+
+	$(root).on("click", ".publication-record-detail", function () {
+		var element = "#error-" + $(this).attr("data-publication-identifier");
+		if ($(element).hasClass("hidden")) {
+			$(element).show();
+			$(element).removeClass("hidden");
+			$(this).text("Hide");
+		} else {
+			$(element).addClass("hidden");
+			$(this).text("View");
+			$(element).hide();
+		}
+	});
+</script>

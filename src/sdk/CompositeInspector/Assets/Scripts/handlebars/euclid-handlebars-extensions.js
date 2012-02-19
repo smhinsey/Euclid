@@ -24,11 +24,17 @@
 
 			var cells = "";
 			for (property in items[i]) {
-				cells += "<td>" + items[i][property] + "</td>";
+				if (items[i][property] instanceof Array) {
+					cells += "<td>An array of " + items[i].length + " items</td>";
+				} else if (items[i][property] instanceof Date) {
+					cells += "<td>" + items[i][property].format("mm/dd/yyyy [HH:MM:ss]") + "</td>";
+				} else {
+					cells += "<td>" + items[i][property] + "</td>";
+				}
 			}
 
 
-			rows += cells + "</tr>"
+			rows += cells + "</tr>";
 		}
 
 		return rows;
@@ -61,6 +67,8 @@
 	});
 
 	Handlebars.registerHelper("format-date", function (date) {
-		return date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + " [" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "]";
+		return (date instanceof Date)
+			? date.format("mm/dd/yyyy [HH:MM:ss]")
+			: date;
 	});
 }

@@ -43,7 +43,7 @@
 					</ul>
 				</li>
 
-				<li><a href="/composite/command-registry">Command Registry</a></li>
+				<li><a href="#" id="view-command-registry">Command Registry</a></li>
 				<li><a href="/composite/logs">Logs</a></li>
 			</ul>
 		</div>
@@ -113,7 +113,36 @@
 		$("#agent-output #commands").html("&nbsp;");
 		$("#agent-output #queries").html("&nbsp;");
 		$("#agent-output #read-models").html("&nbsp;");
-
+		$("#agent-output #command-registry-table").html("&nbsp;");
 		return false;
 	});
+
+	var RECORDS_PER_PAGE = 10;
+	$(document).on("click", "#view-command-registry", function () {
+		getPublicationRecords(1);
+	});
+	
+	function getPublicationRecords(pageNumber) {
+		var offset = (pageNumber - 1) * RECORDS_PER_PAGE;
+		EUCLID.withQuery(
+			"CommandRegistryQueries",
+			function (query) {
+				var recordQuery = query.getMethodNamed("GetPublicationRecords", 2);
+				recordQuery.offset = offset;
+				recordQuery.recordsPerPage = RECORDS_PER_PAGE;
+
+				var form = recordQuery.getForm();
+
+				EUCLID.withFormResults(
+					form,
+					function (results) {
+						var pagerData = results;
+						pagerData["pageHandler"] = "getPublicationRecords";
+						Using(pagerData).Fill("#pager").With("/composite/ui/template/pager");
+
+
+						Using(results).Fill("#command-registry-table").With("/composite/ui/template/command-registry-table");
+					});
+			});
+			}
 </script>

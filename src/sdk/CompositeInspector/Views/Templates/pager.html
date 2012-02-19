@@ -1,24 +1,48 @@
-﻿<div id="pager" class="pagination">
+﻿<div class="pagination" id="euclid-pager">
 	<ul>
 		<li><a href="#" id="first-page" class="page" data-page-number="1" title="Page 1">First Page</a></li>
-		<li><a href="#" id="prev-page" class="page" data-page-number="" title="">←</a></li>
+		<li><a href="#" id="prev-page" class="page" data-page-number="{{PreviousPage}}" title="Page {{PreviousPage}}">←</a></li>
 		<li><a href="#" class="disabled">
-		    	<input type="text" id="page-number" value="{{CurrentPage}}" style="width: 25px; padding: 0px; margin-bottom: 5px;" data-max-page="">
+		    	<input type="text" id="page-number" value="{{CurrentPage}}" style="width: 25px; padding: 0px; margin-bottom: 5px;" data-max-page="{{TotalPages - 1}}">
 		    	<span id="display-total">of {{TotalPages}}</span></a></li>
-		<li><a href="#" id="next-page" class="page" data-page-number="" title="">→</a></li>
+		<li><a href="#" id="next-page" class="page" data-page-number="{{NextPage}}" title="Page {{NextPage}}">→</a></li>
 		<li><a href="#" id="last-page" class="page" data-page-number="{{TotalPages}}" title="Page {{TotalPages}}">Last Page</a></li>
 	</ul>
 </div>
 <script type="text/javascript">
-	var prevPage = ({{CurrentPage}} > 1) ? {{CurrentPage}} - 1 : 1;
-	var nextPage = ({{CurrentPage}} < {{TotalPages}}) ? {{CurrentPage}} + 1 : {{TotalPages}};
-	var maxPage =  {{TotalPages}} - 1;
+	var root = "#euclid-pager";
+	var pagerCallbackName = "{{pageHandler}}";
+	if (!pagerCallbackName) {
+		pagerCallbackName = "gotoPage";
+	}
+	
+	function pagerCallback(pageNumber)
+	{
+		eval(pagerCallbackName + "(" + pageNumber + ")");
+	}
 
-	$("#prev-page").attr("data-page-number", prevPage);
-	$("#prev-page").attr("title", "Page " + prevPage);
+	$(root).on("click", ".page", function () {
+		var pageNumber = $(this).attr("data-page-number");
+		pagerCallback(pageNumber);
+	});
 
-	$("#next-page").attr("data-page-number", nextPage);
-	$("#next-page").attr("title", "Page " + nextPage);
+	$(root).on("keydown", "#page-number", function(e) {
+		var code = (e.keyCode ? e.keyCode : e.which);
+		if (code == 13) {
+			var pageNumber = $("#page-number").val();
+			var currentPage = $("#page-number").attr("data-current-page");
+			var maxPage = $("#page-number").attr("data-max-page");
 
-	$("#page-number").attr("data-max-page", maxPage);
+			if (isNaN(pageNumber) || pageNumber == "") {
+				$("#page-number").val(currentPage);
+			} else {
+				if (pageNumber <= 0 || pageNumber > maxPage) {
+					$("#page-number").val(currentPage);
+				} else {
+					pagerCallback(pageNumber);
+				}
+			}
+			return false;
+		}
+	});
 </script>

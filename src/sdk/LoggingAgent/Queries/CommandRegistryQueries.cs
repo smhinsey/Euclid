@@ -66,13 +66,15 @@ namespace LoggingAgent.Queries
 		{
 			var totalRecords = _session.QueryOver<CommandPublicationRecord>().RowCount();
 			var totalPages = (int)Math.Ceiling((double)totalRecords / recordsPerPage);
-
+			var currentPage = offset > totalPages*recordsPerPage ? totalPages : offset/recordsPerPage + 1;
 			return new PublicationRecords
 			{
 				Records = records,
 				TotalRecords = totalRecords,
 				TotalPages = totalPages,
-				CurrentPage = offset > totalPages * recordsPerPage ? totalPages : offset/recordsPerPage + 1,
+				CurrentPage = currentPage,
+				PreviousPage = currentPage > 1 ? currentPage - 1 : 1,
+				NextPage = currentPage < totalPages ? currentPage + 1 : totalPages,
 				Offset = offset,
 				RecordsPerPage = recordsPerPage,
 				Created = DateTime.Now,
