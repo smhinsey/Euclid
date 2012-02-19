@@ -1,13 +1,22 @@
 ﻿;(function ($) {
 	var app = $.sammy(function () {
 
-		this.get('/#sysadmin/companies', function () {
+		this.get('/#sysadmin/settings', function () {
 
-			var model = modelForSysAdminCompanies();
+			var model = modelForSysAdminSettings();
 			
-			this.trigger('render-model', {templateName: 'sysadmin/Companies', model: model});
+			this.trigger('render-model', {templateName: 'sysadmin/Settings', model: model});
 			
-			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Companies'});
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Settings'});
+		});
+		
+		this.get('/#sysadmin/companies/add', function () {
+
+			var model = modelForSysAdminAddCompany();
+			
+			this.trigger('render-model', {templateName: 'sysadmin/AddCompany', model: model});
+			
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'AddCompany'});
 		});
 		
 		this.get('/#sysadmin/administrators', function () {
@@ -262,17 +271,16 @@
 	// temporary, just for use during prototyping
 	// in practice, this data would all come from queries (with the possible exception of table headers)
 	
-	function modelForSysAdminCompanies() {
+	function modelForSysAdminSettings() {
 
-		var viewModel = { title: "All Companies" };
-		
-		viewModel.tableHeaders = [ "Id", "Name", "Status", "Priority", "Sales Volume", ""];
-		
-		viewModel.tableData = [];
+		var viewModel = { title: "Settings" };
 
-		for (var i = 0; i < 10; i++) {
-			viewModel.tableData.push({ id: s4()+s4(), name: "{Company Name}", status: "{Status}", priority: "{P1}", salesVolume: "${XX,XXX.XX}"});
-		}
+		return viewModel;
+	}
+	
+	function modelForSysAdminAddCompany() {
+
+		var viewModel = { title: "Add Company" };
 
 		return viewModel;
 	}

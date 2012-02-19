@@ -1,23 +1,41 @@
-﻿<div class="well" style="padding: 8px 0;">
+﻿<script language="javascript">
+
+	$(document).ready(function () {
+		var companyNames = [
+			"Example Company",
+			"NewCo",
+			"ShawnCo"
+		];
+		$("#companyNames").autocomplete({
+			source: companyNames,
+			minLength: 0
+		});
+
+		$("#deselectCompany").click(function () {
+			$("#companyNames").autocomplete("search", "");
+		});
+
+
+	});
+</script>
+
+<div class="well" style="padding: 8px 0;">
 	<ul class="nav nav-list">
 		<li class="nav-header">System Administration</li>
-		<li id="nav-SysAdminCompanies"><a href="#sysadmin/companies"><i class="icon-plus-sign"></i>&nbsp;All Companies</a></li>
+		<li id="nav-SysAdminSettings"><a href="#sysadmin/settings"><i class="icon-cog"></i>&nbsp;Settings</a></li>
 		<li id="nav-SysAdminAdministrators"><a href="#sysadmin/administrators"><i class="icon-user"></i>&nbsp;Administrators</a></li>
-		<li class="nav-header">
+		<li id="nav-SysAdminAddCompany"><a href="#sysadmin/companies/add"><i class="icon-plus-sign"></i>&nbsp;Add Company</a></li>
+		<li class="nav-header">Companies</li>
+		<li style="margin-top: 10px; margin-bottom: 10px;">
+			<form style="margin: 0px;">
 
-			<div class="btn-group">
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">{Company Name} <b class="caret"></b></a>
-
-				<div class="dropdown-menu">
-
-					<div style="margin: 10px;">
-						<input type="text" class="span2" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]'>
-					</div>
-
-				</div>
-
+			<div class="input-prepend">
+				<span class="add-on"><i class="icon-chevron-right"></i></span>
+				<input placeholder="Type company name" class="input-medium" id="companyNames" />
+				<p class="pull-right"><span id="deselectCompany" style="cursor: pointer;" class="label">Change</span></p>
 			</div>
 
+			</form>
 		</li>
 		<li id="nav-exampleCompanySlugFinancials"><a href="#company/exampleCompanySlug/financials"><i class="icon-signal"></i>&nbsp;Financials</a></li>
 		<li id="nav-exampleCompanySlugAllTransactions"><a href="#company/exampleCompanySlug/allTransactions"><i class="icon-eye-open"></i>&nbsp;All Transactions</a></li>

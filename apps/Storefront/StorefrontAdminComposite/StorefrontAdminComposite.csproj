@@ -246,7 +246,8 @@
     <Content Include="Content\app\templates\store\Promotions.html">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\app\templates\sysadmin\Companies.html" />
+    <Content Include="Content\app\templates\sysadmin\AddCompany.html" />
+    <Content Include="Content\app\templates\sysadmin\Settings.html" />
     <Content Include="Content\app\templates\sysadmin\Administrators.html" />
     <Content Include="Content\app\templates\sysadmin\AddAdministrator.html" />
     <Content Include="Content\css\app.css" />
