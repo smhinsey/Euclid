@@ -6,12 +6,24 @@
 			"NewCo",
 			"ShawnCo"
 		];
+		
 		$("#companyNames").autocomplete({
 			source: companyNames,
-			minLength: 0
+			minLength: 0,
+			close: function (event, ui) {
+				$("#showAllCompanies > i").removeClass("icon-chevron-down");
+				$("#showAllCompanies > i").addClass("icon-chevron-right");
+			}			
 		});
 
+//		$("#companyNames").blur(function () {
+//			$("#showAllCompanies > i").removeClass("icon-chevron-down");
+//			$("#showAllCompanies > i").addClass("icon-chevron-right");
+//		});
+
 		$("#showAllCompanies").click(function () {
+			$("#showAllCompanies > i").removeClass("icon-chevron-right");
+			$("#showAllCompanies > i").addClass("icon-chevron-down");
 			$("#companyNames").autocomplete("search", "");
 		});
 
