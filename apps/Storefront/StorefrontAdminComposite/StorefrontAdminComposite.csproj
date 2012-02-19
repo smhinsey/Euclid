@@ -248,6 +248,7 @@
     </Content>
     <Content Include="Content\app\templates\sysadmin\Companies.html" />
     <Content Include="Content\app\templates\sysadmin\Administrators.html" />
+    <Content Include="Content\app\templates\sysadmin\AddAdministrator.html" />
     <Content Include="Content\css\app.css" />
     <Content Include="Content\css\bootstrap-responsive.css" />
     <Content Include="Content\css\bootstrap-responsive.min.css" />
