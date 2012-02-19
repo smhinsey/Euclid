@@ -1,0 +1,72 @@
+﻿<script id="template-companyFinancials" type="text/x-handlebars-template">
+	<h3>{{title}}</h3>
+	<hr/>
+	<a href="#sysadmin/companies/add" class="btn btn-primary pull-right">Add Company</a>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				{{#each tableHeaders}}
+				<th>{{this}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+
+			{{#each tableData}}
+			<tr>
+				<td>{{this.id}}...</td>
+				<td>{{this.name}}</td>
+				<td>{{this.status}}</td>
+				<td>{{this.priority}}</td>
+				<td>{{this.salesVolume}}</td>
+				<td>
+					<div class="btn-group">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							Actions
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a>View Details</a>
+							</li>
+							<li>
+								<a>Deactivate</a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+			{{/each}}
+
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					<div class="pagination pagination-right">
+						<ul>
+							<li>
+								<a href="#">Prev</a>
+							</li>
+							<li class="active">
+								<a href="#">1</a>
+							</li>
+							<li>
+								<a href="#">2</a>
+							</li>
+							<li>
+								<a href="#">3</a>
+							</li>
+							<li>
+								<a href="#">4</a>
+							</li>
+							<li>
+								<a href="#">Next</a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+
+</script>

@@ -1,6 +1,24 @@
 ﻿;(function ($) {
 	var app = $.sammy(function () {
 
+		this.get('/#sysadmin/companies', function () {
+
+			var model = modelForSysAdminCompanies();
+			
+			this.trigger('render-model', {templateName: 'sysadmin/Companies', model: model});
+			
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Companies'});
+		});
+		
+		this.get('/#sysadmin/administrators', function () {
+
+			var model = modelForSysAdminAdministrators();
+			
+			this.trigger('render-model', {templateName: 'sysadmin/Administrators', model: model});
+			
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Administrators'});
+		});
+
 		this.get('/#company/:companySlug/financials', function () {
 			
 			var model = { title: "Company Financials "};
@@ -235,6 +253,36 @@
 	// temporary, just for use during prototyping
 	// in practice, this data would all come from queries (with the possible exception of table headers)
 	
+	function modelForSysAdminCompanies() {
+
+		var viewModel = { title: "All Companies" };
+		
+		viewModel.tableHeaders = [ "Id", "Name", "Status", "Priority", "Sales Volume", ""];
+		
+		viewModel.tableData = [];
+
+		for (var i = 0; i < 10; i++) {
+			viewModel.tableData.push({ id: s4()+s4(), name: "{Company Name}", status: "{Status}", priority: "{P1}", salesVolume: "${XX,XXX.XX}"});
+		}
+
+		return viewModel;
+	}
+	
+	function modelForSysAdminAdministrators() {
+
+		var viewModel = { title: "System Administrators" };
+		
+		viewModel.tableHeaders = [ "Last Name", "First Name", "Email", "Status", "Last Seen", ""];
+		
+		viewModel.tableData = [];
+
+		for (var i = 0; i < 10; i++) {
+			viewModel.tableData.push({ lastName: "{Last Name}", firstName: "{First Name}", email:"{email@email.com}", status:"{Status}", lastSeen: "12/25/2012 12:55 PM ET"});
+		}
+
+		return viewModel;
+	}
+
 	function modelForCompanyAllTransactions(companySlug) {
 
 		var viewModel = { companyName: "{Company Name}", companySlug: companySlug};
