@@ -70,6 +70,7 @@ namespace CompositeInspector.Module
 		{
 			Type inputModelType = null;
 			var supported = true;
+			object commandMetadata = null;
 			try
 			{
 				inputModelType = _compositeApp.GetInputModelTypeForCommandName(commandName);
@@ -77,6 +78,9 @@ namespace CompositeInspector.Module
 			catch (CannotMapCommandException)
 			{
 				supported = false;
+				commandMetadata = _compositeApp.Agents.SelectMany(x => x.Commands).Where(x => x.Name.Equals(commandName)).Select(c => c.GetFormatter().GetJsonObject()).FirstOrDefault();
+
+				if (commandMetadata == null) throw new CommandNotFoundInAgentException(commandName);
 			}
 
 			return supported
@@ -88,7 +92,7 @@ namespace CompositeInspector.Module
 					: Response.AsJson(new
 										{
 											Supported = false,
-											Command = _compositeApp.Agents.SelectMany(x=>x.Commands).Where(x => x.Name.Equals(commandName)).Select(c => c.GetFormatter().GetJsonObject()).FirstOrDefault()
+											Command = commandMetadata
 										});
 		}
 
