@@ -1,16 +1,20 @@
 ﻿<ul class="{{ListClass}}" id="command-list">
 	{{#Commands}}
 	<li id="command-{{Name}}" class="{{../ItemClass}}">
-		<a href="#" class="command" disabled="disabled" data-command-name="{{Name}}">{{Name}}</a>
+		<a href="#" class="command"  data-command-name="{{Name}}">{{Name}}</a>
 	</li>
 	{{/Commands}}
 </ul>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
 	var root = "#command-list";
 	$(root).on("click", ".command", function () {
 		var commandName = $(this).attr("data-command-name");
-		alert("/composite/ui/template/command/" + commandName);
-
-		return false;
+		WorkWithDataFromUrl("/composite/api/command-is-supported/" + commandName, function (results) {
+			if (results.Supported) {
+				Using(results.InputModel).Fill("#output").With("/composite/ui/template/input-model");
+			} else {
+				Using(results.Command).Fill("#output").With("/composite/ui/template/command");
+			}
+		});
 	});
 </script>

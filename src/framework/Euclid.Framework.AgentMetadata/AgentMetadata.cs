@@ -165,7 +165,7 @@ namespace Euclid.Framework.AgentMetadata
 				return xml.ToString();
 			}
 
-			protected override object GetJsonObject(JsonSerializer serializer)
+			public override object GetJsonObject(JsonSerializer serializer)
 			{
 				return
 					new
@@ -199,7 +199,7 @@ namespace Euclid.Framework.AgentMetadata
 						new XElement("Description", _agentMetadata.Description)).ToString();
 			}
 
-			protected override object GetJsonObject(JsonSerializer serializer)
+			public override object GetJsonObject(JsonSerializer serializer)
 			{
 				return new { _agentMetadata.DescriptiveName, _agentMetadata.SystemName, _agentMetadata.Description };
 			}

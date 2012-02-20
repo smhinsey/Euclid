@@ -25,7 +25,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			return xml.ToString();
 		}
 
-		protected override object GetJsonObject(JsonSerializer serializer)
+		public override object GetJsonObject(JsonSerializer serializer)
 		{
 			return new { Queries = _metadata.Select(x => new { x.Namespace, x.Name }) };
 		}

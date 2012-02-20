@@ -12,5 +12,6 @@ namespace Euclid.Framework.AgentMetadata
 		IEnumerable<string> GetFormats(string contentType);
 
 		string GetRepresentation(string format);
+		object GetJsonObject();
 	}
 }

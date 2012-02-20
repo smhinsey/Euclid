@@ -1,7 +1,22 @@
-﻿<ul class="{{ListClass}}">
+﻿<ul class="{{ListClass}}" id="input-model-container">
 	{{#InputModels}}
 	<li id="input-model-{{Name}}" class="{{../ItemClass}}">
 		<a href="#" class="input-model" data-input-model-name="{{Name}}" data-input-model-command-name="{{CommandName}}">{{Name}}</a>
 	</li>
 	{{/InputModels}}
 </ul>
+<script type="text/javascript">
+	var root = "#input-model-container";
+	
+	$(root).on("click", ".input-model", function () {
+		var inputModelName = $(this).attr("data-input-model-name");
+		WorkWithDataFromUrl(
+			"/composite/api/input-model/" + inputModelName,
+			function (inputModelMetadata) {
+				Using(inputModelMetadata)
+					.Render("/composite/ui/template/input-model")
+					.ReplaceContentsOf(display);
+			}
+		);
+	});
+</script>

@@ -97,28 +97,12 @@
 			Using(compositeMetadata).Fill("#composite-agents").TargetIsTemplate();
 		});
 
-		$(document).on("click", ".input-model", function () {
-			var inputModelName = $(this).attr("data-input-model-name");
-			WorkWithDataFromUrl(
-				"/composite/api/input-model/" + inputModelName,
-				function (inputModelMetadata) {
-					Using(inputModelMetadata)
-						.Render("/composite/ui/template/input-model")
-						.ReplaceContentsOf(display);
-				}
-			);
-
-				return false;
-			});
-
 		$(document).on("click", ".agent", function () {
 			$(display).empty();
 			var systemName = $(this).attr("data-agent-system-name");
 			WorkWithDataFromUrl("/composite/api/agent/" + systemName, function (agentMetadata) {
 				Using(agentMetadata).Fill("#agent-output").With("/composite/ui/template/agent");
 			});
-
-			return false;
 		});
 
 		$(document).on("click", ".clear-agent-display", function() {

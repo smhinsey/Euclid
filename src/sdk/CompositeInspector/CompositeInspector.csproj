@@ -168,7 +168,7 @@
     <EmbeddedResource Include="Views\templates\agents.html" />
     <EmbeddedResource Include="Views\templates\modal\polling.html" />
     <EmbeddedResource Include="Views\templates\euclid-error.html" />
-    <EmbeddedResource Include="Views\templates\modal\command.html" />
+    <EmbeddedResource Include="Views\templates\command.html" />
     <EmbeddedResource Include="Views\templates\query.html" />
     <EmbeddedResource Include="Views\templates\command-registry-table.html" />
     <EmbeddedResource Include="Views\view-command-registry.cshtml" />

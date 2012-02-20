@@ -39,7 +39,7 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 				return root.ToString();
 			}
 
-			protected override object GetJsonObject(JsonSerializer serializer)
+			public override object GetJsonObject(JsonSerializer serializer)
 			{
 				return _metadataList.Select(m => new { m.DescriptiveName, m.SystemName });
 			}
@@ -66,7 +66,7 @@ namespace Euclid.Framework.AgentMetadata.Extensions
 				return root.ToString();
 			}
 
-			protected override object GetJsonObject(JsonSerializer serializer)
+			public override object GetJsonObject(JsonSerializer serializer)
 			{
 				return
 					_metadataList.Select(

@@ -8,4 +8,9 @@ namespace Euclid.Sdk.TestAgent.Commands
 
 		public string StringValue { get; set; }
 	}
+
+	public class UnsupportedCommand : DefaultCommand
+	{
+		public string SomeDate { get; set; }
+	}
 }

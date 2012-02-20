@@ -43,15 +43,11 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public string GetAsJson()
 		{
-			var serializerSettings = new JsonSerializerSettings();
-
-			serializerSettings.Converters.Add(new IsoDateTimeConverter());
+			var serializer = getJsonSerializer();
 
 			var json = new StringBuilder();
 
 			var writer = new JsonTextWriter(new StringWriter(json)) { Formatting = Formatting.Indented };
-
-			var serializer = JsonSerializer.Create(serializerSettings);
 
 			var data = GetJsonObject(serializer);
 
@@ -62,6 +58,20 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		protected abstract string GetAsXml();
 
-		protected abstract object GetJsonObject(JsonSerializer serializer);
+		public abstract object GetJsonObject(JsonSerializer serializer);
+
+		public object GetJsonObject()
+		{
+			return GetJsonObject(getJsonSerializer());
+		}
+
+		private JsonSerializer getJsonSerializer()
+		{
+			var serializerSettings = new JsonSerializerSettings();
+
+			serializerSettings.Converters.Add(new IsoDateTimeConverter());
+
+			return JsonSerializer.Create(serializerSettings);
+		}
 	}
 }

@@ -78,7 +78,7 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 			return root.ToString();
 		}
 
-		protected override object GetJsonObject(JsonSerializer serializer)
+		public override object GetJsonObject(JsonSerializer serializer)
 		{
 			return new
 					{

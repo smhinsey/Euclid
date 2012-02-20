@@ -24,16 +24,17 @@ namespace CompositeInspector.Module
 		private readonly ICommandRegistry _registry;
 		private readonly IPublisher _publisher;
 
-		private const string AgentMetadataRoute                = "/agent/{agentSystemName}";
-		private const string ReadModelMetadataRoute            = "/read-model/{agentSystemName}/{readModelName}";
-		private const string InputModelMetadataRoute           = "/input-model/{inputModelName}";
-		private const string PublicationRecordRoute            = "/publicationRecord/{identifier}";
+		private const string AgentMetadataRoute = "/agent/{agentSystemName}";
+		private const string ReadModelMetadataRoute = "/read-model/{agentSystemName}/{readModelName}";
+		private const string InputModelMetadataRoute = "/input-model/{inputModelName}";
+		private const string PublicationRecordRoute = "/publicationRecord/{identifier}";
 		private const string InputModelMetadataForCommandRoute = "/command/{commandName}";
-		private const string CommandMetadataRoute              = "/command-metadata/{commandName}";
-		private const string QueryMetadataRoute                = "/query-metadata/{queryName}";
-		private const string ExecuteQueryRoute                 = "/execute/query/{queryName}/{methodName}";
-		private const string PublishCommandRoute               = "/publish";
-		private const string BaseRoute                         = "composite/api";
+		private const string CommandMetadataRoute = "/command-metadata/{commandName}";
+		private const string QueryMetadataRoute = "/query-metadata/{queryName}";
+		private const string ExecuteQueryRoute = "/execute/query/{queryName}/{methodName}";
+		private const string CommandIsSupportedRoute = "/command-is-supported/{commandName}";
+		private const string PublishCommandRoute = "/publish";
+		private const string BaseRoute = "composite/api";
 
 		public ApiModule(ICompositeApp compositeApp, ICommandRegistry registry, IPublisher publisher)
 			: base(BaseRoute)
@@ -44,23 +45,51 @@ namespace CompositeInspector.Module
 
 			Get[string.Empty] = _ => GetComposite();
 
-			Get[AgentMetadataRoute] = p => GetAgent(stripExtension((string) p.agentSystemName));
+			Get[AgentMetadataRoute] = p => GetAgent(stripExtension((string)p.agentSystemName));
 
-			Get[ReadModelMetadataRoute] = p => GetReadModel((string) p.agentSystemName, stripExtension((string) p.readModelName));
+			Get[ReadModelMetadataRoute] = p => GetReadModel((string)p.agentSystemName, stripExtension((string)p.readModelName));
 
-			Get[InputModelMetadataRoute] = p => GetInputModel(stripExtension((string) p.inputModelName));
+			Get[InputModelMetadataRoute] = p => GetInputModel(stripExtension((string)p.inputModelName));
 
-			Get[PublicationRecordRoute] = p => GetPublicationRecord((Guid) p.identifier);
+			Get[PublicationRecordRoute] = p => GetPublicationRecord((Guid)p.identifier);
 
-			Get[InputModelMetadataForCommandRoute] = p => GetInputModelMetadata(stripExtension((string) p.commandName));
+			Get[InputModelMetadataForCommandRoute] = p => GetInputModelMetadata(stripExtension((string)p.commandName));
 
-			Get[CommandMetadataRoute] = p => GetCommandMetadata(stripExtension((string) p.commandName));
+			Get[CommandMetadataRoute] = p => GetCommandMetadata(stripExtension((string)p.commandName));
 
-			Get[QueryMetadataRoute] = p => GetQueryMetadata(stripExtension((string) p.queryName));
+			Get[QueryMetadataRoute] = p => GetQueryMetadata(stripExtension((string)p.queryName));
 
-			Post[ExecuteQueryRoute] = p => ExecuteQuery((string) p.queryName, (string) p.methodName);
+			Get[CommandIsSupportedRoute] = p => GetCommandIsSupported(stripExtension((string)p.commandName));
+
+			Post[ExecuteQueryRoute] = p => ExecuteQuery((string)p.queryName, (string)p.methodName);
 
 			Post[PublishCommandRoute] = p => PublishCommand(this.Bind<IInputModel>());
+		}
+
+		public Response GetCommandIsSupported(string commandName)
+		{
+			Type inputModelType = null;
+			var supported = true;
+			try
+			{
+				inputModelType = _compositeApp.GetInputModelTypeForCommandName(commandName);
+			}
+			catch (CannotMapCommandException)
+			{
+				supported = false;
+			}
+
+			return supported
+					? Response.AsJson(new
+										{
+											Supported = true,
+											InputModel = inputModelType.GetMetadata().GetFormatter().GetJsonObject()
+										})
+					: Response.AsJson(new
+										{
+											Supported = false,
+											Command = _compositeApp.Agents.SelectMany(x=>x.Commands).Where(x => x.Name.Equals(commandName)).Select(c => c.GetFormatter().GetJsonObject()).FirstOrDefault()
+										});
 		}
 
 		public Response PublishCommand(IInputModel inputModel)
@@ -89,7 +118,7 @@ namespace CompositeInspector.Module
 
 			return formatReturnData(results);
 		}
-		
+
 		public Response GetCommandMetadata(string commandName)
 		{
 			var agentCommands = _compositeApp.Agents.SelectMany(x => x.Commands);
