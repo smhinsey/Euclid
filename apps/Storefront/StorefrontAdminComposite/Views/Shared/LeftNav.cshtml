@@ -12,7 +12,7 @@
 			minLength: 0,
 			close: function (event, ui) {
 				$("#showAllCompanies > i").removeClass("icon-chevron-down");
-				$("#showAllCompanies > i").addClass("icon-chevron-right");
+				$("#showAllCompanies > i").addClass("icon-chevron-left");
 				$(".currentCompany").show();
 
 				location.replace("#company/exampleCompanySlug/financials");
@@ -20,7 +20,7 @@
 		});
 
 		$("#showAllCompanies").click(function () {
-			$("#showAllCompanies > i").removeClass("icon-chevron-right");
+			$("#showAllCompanies > i").removeClass("icon-chevron-left");
 			$("#showAllCompanies > i").addClass("icon-chevron-down");
 			$("#companyNames").autocomplete("search", "");
 		});
@@ -40,9 +40,9 @@
 		<li style="margin-top: 5px; margin-bottom: 10px;">
 			<form id="companyForm" style="margin: 0px;">
 
-			<div class="input-prepend">
-				<span id="showAllCompanies" style="cursor: pointer;" class="add-on"><i class="icon-chevron-right"></i></span>
+			<div class="input-append">
 				<input placeholder="Type company name" class="input-medium" id="companyNames" style="margin-bottom: 5px;" />
+				<span id="showAllCompanies" style="cursor: pointer;" class="add-on"><i class="icon-chevron-left"></i></span>
 			</div>
 
 			</form>
