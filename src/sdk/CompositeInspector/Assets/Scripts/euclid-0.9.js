@@ -531,7 +531,7 @@ var Using = function (jsonObject, onError) {
 
 	var _data = jsonObject;
 	return {
-		Fill: function (elementId, replaceContent) {
+		Fill: function (elementId) {
 			/// <summary> Add data to the element with the specified id</summary>
 			/// <param name='elementId'> The id of the container element </param>
 
@@ -573,11 +573,7 @@ var Using = function (jsonObject, onError) {
 					var template = Handlebars.compile(source);
 					var content = $(template(_data));
 
-					if (!replaceContent) {
-						$(_element).replaceWith($(content));
-					} else {
-						$(_element).replaceContent($(content));
-					}
+					$(_element).replaceWith($(content));
 				}
 			}
 		}, // fill

@@ -1,0 +1,105 @@
+﻿<div id="agent-container">
+	<div class="pull-left"  title="{{Description}}">
+		<h3>{{DescriptiveName}} <small>{{SystemName}}</small></h3>
+	</div>
+	<div class="pull-left" style="padding-left: 10px">
+		<div class="btn-group">
+			<a class="btn" href="#" id="parts-button">Parts</a>
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a class="agent-part" href="#" data-display-element="agent-commands">Commands</a></li>
+				<li><a class="agent-part" href="#" data-display-element="agent-queries">Queries</a></li>
+				<li><a class="agent-part" href="#" data-display-element="agent-read-models">Read Models</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="pull-left" style="display:none;padding-left: 10px" id="agent-queries-container">
+		<div class="btn-group">
+			<a class="btn" href="#" id="agent-queries-button">--Select--</a>
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+			<div id="agent-queries"></div>
+		</div>
+	</div>
+
+	<div class="pull-left" style="display:none;padding-left: 10px" id="agent-commands-container">
+		<div class="btn-group">
+			<a class="btn" href="#" id="agent-commands-button">--Select--</a>
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+			<div id="agent-commands"></div>
+		</div>
+	</div>
+
+	<div class="pull-left" style="display:none;padding-left: 10px" id="agent-read-models-container">
+		<div class="btn-group">
+			<a class="btn" href="#" id="agent-read-models-button">--Select--</a>
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+			<div id="agent-read-models"></div>
+		</div>
+	</div>
+
+	<div style="clear: both"></div>
+</div>
+
+<script type="text/javascript">
+	var root = "#agent-container";
+
+	WorkWithDataFromUrl("/composite/api/agent/{{SystemName}}", function (agentMetadata) {
+		var commandRenderData = { ListClass: "dropdown-menu", Commands: agentMetadata.Commands };
+		Using(commandRenderData).Render("/composite/ui/template/commands").ReplaceContentsOf("#agent-commands");
+
+		var queryRenderData = { ListClass: "dropdown-menu", Queries: agentMetadata.Queries };
+		Using(queryRenderData).Render("/composite/ui/template/queries").ReplaceContentsOf("#agent-queries");
+
+		var readModelRenderData = { ListClass: "dropdown-menu", ReadModels: agentMetadata.ReadModels};
+		Using(readModelRenderData).Render("/composite/ui/template/read-models").ReplaceContentsOf("#agent-read-models");
+	});
+
+	$(root).on("click", ".agent-part", function () {
+		var partOutput = "#" + $(this).attr("data-display-element");
+		var container = partOutput + "-container";
+		var button = partOutput + "-button";
+		
+		var selected = $(this).text();
+
+		hideAllPartDisplays();
+		$("#parts-button").text(selected);
+		$(partOutput).show();
+		$(container).show();
+	});
+
+	$(root).on("click", ".query", function () {
+		var name = $(this).attr("data-query-name");
+		$("#agent-queries-button").text(name);
+	});
+
+	$(root).on("click", ".command", function() {
+		var name = $(this).attr("data-command-name");
+		$("#agent-commands-button").text(name);
+	});
+
+	$(root).on("click", ".read-model", function () {
+		var name = $(this).attr("data-read-model-name");
+		$("#agent-read-model-button").text(name);
+	});
+
+	$(root).on("click", "#parts-button", function () {
+		$(this).text("Parts");
+		hideAllPartDisplays();
+	});
+
+	function hideAllPartDisplays() {
+		$("#output").empty();
+		$("#agent-commands").hide();
+		$("#agent-commands-container").hide();
+		$("#agent-commands-button").text("--Select--");
+
+		$("#agent-queries").hide();
+		$("#agent-queries-container").hide();
+		$("#agent-queries-button").text("--Select--");
+
+		$("#agent-read-models").hide();
+		$("#agent-read-models-container").hide();
+		$("#agent-read-models-button").text("--Select--");
+	}
+</script>

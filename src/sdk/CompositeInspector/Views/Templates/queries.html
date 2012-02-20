@@ -1,7 +1,17 @@
-﻿<ul class="{{ListClass}}">
+﻿<ul class="{{ListClass}}" id="query-list">
 {{#Queries}}
 	<li id="query-{{Name}}" class="{{../ItemClass}}">
 		<a href="#" class="query" data-query-name="{{Name}}">{{Name}}</a>
 	</li>
 {{/Queries}}
 </ul>
+<script type="text/javascript">
+	$(document).on("click", ".query", function () {
+		var queryName = $(this).attr("data-query-name");
+		EUCLID.withQuery(queryName, function (query) {
+			Using(query)
+				.Render("/composite/ui/template/query")
+				.ReplaceContentsOf(display);
+		});
+	});
+</script>

@@ -19,7 +19,7 @@
 		<link rel="stylesheet" type="text/css" href="/composite/css/bootstrap/bootstrap-subnav.css" />
 	</head>
 
-	<body style="padding-top:55px">
+	<body style="padding-top:60px">
 		
 		<div class="navbar navbar-fixed-top" id="navbar-container">
 			<div class="navbar-inner">
@@ -34,12 +34,12 @@
 						<a class="brand" href="/composite/details" id="composite-name">{{Name}}</a>
 
 						<ul class="nav">
-							<li class="dropdown composite-dropdown">
+							<li class="dropdown clear-agent-display">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Queries <b class="caret"></b></a>
 								<div id="composite-queries"></div>
 							</li>
 
-							<li class="dropdown composite-dropdown">
+							<li class="dropdown clear-agent-display">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Input Models <b class="caret"></b></a>
 								<div id="composite-inputmodels"></div>
 							</li>
@@ -57,16 +57,17 @@
 								</div>
 							</li>
 
-							<li><a href="#" id="view-command-registry">Command Registry</a></li>
-							<li><a href="/composite/logs">Logs</a></li>
+							<li><a href="#" id="view-command-registry" class="clear-agent-display">Command Registry</a></li>
+							<li><a href="/composite/logs" class="clear-agent-display">Logs</a></li>
 						</ul>
-
 					</div>
 				</div>
 			</div>
 			<span id="composite-description">{{Description}}</span>
 		</div>
-		
+
+		<div id="agent-output"></div>
+
 		<div class="row">
 			<div id="output" class="span12"></div>
 		</div>
@@ -96,40 +97,40 @@
 			Using(compositeMetadata).Fill("#composite-agents").TargetIsTemplate();
 		});
 
-		$(document).on("click", ".query", function () {
-			var queryName = $(this).attr("data-query-name");
-			EUCLID.withQuery(queryName, function (query) {
-				Using(query)
-					.Render("/composite/ui/template/query")
-					.ReplaceContentsOf(display);
-			});
-		});
-
-		$(document).on("click", ".input-model", function() {
+		$(document).on("click", ".input-model", function () {
 			var inputModelName = $(this).attr("data-input-model-name");
 			WorkWithDataFromUrl(
 				"/composite/api/input-model/" + inputModelName,
-				function(inputModelMetadata) {
+				function (inputModelMetadata) {
 					Using(inputModelMetadata)
 						.Render("/composite/ui/template/input-model")
 						.ReplaceContentsOf(display);
 				}
 			);
-		});
+
+				return false;
+			});
 
 		$(document).on("click", ".agent", function () {
 			$(display).empty();
 			var systemName = $(this).attr("data-agent-system-name");
 			WorkWithDataFromUrl("/composite/api/agent/" + systemName, function (agentMetadata) {
-
-				Using(agentMetadata).Fill(output).With("/composite/ui/template/commands");
-				Using(agentMetadata).Render("/composite/ui/template/queries").Manipulate(function (content) { $(output).append(content )});
-				Using(agentMetadata).Render("/composite/ui/template/read-models").Manipulate(function (content) { $(output).append(content) });
+				Using(agentMetadata).Fill("#agent-output").With("/composite/ui/template/agent");
 			});
+
+			return false;
 		});
 
+		$(document).on("click", ".clear-agent-display", function() {
+			$("#agent-output").empty();
+
+			return false;
+		});
+		
 		$(document).on("click", "#view-command-registry", function () {
 			getPublicationRecords(1);
+
+			return false;
 		});
 	
 		function getPublicationRecords(pageNumber) {
