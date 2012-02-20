@@ -13,9 +13,7 @@
 			close: function (event, ui) {
 				$("#showAllCompanies > i").removeClass("icon-chevron-down");
 				$("#showAllCompanies > i").addClass("icon-chevron-right");
-				$("#currentCompanyName").text($("#companyNames").val());
 				$(".currentCompany").show();
-				$("#clearCompanyButton").show();
 
 				location.replace("#company/exampleCompanySlug/financials");
 			}
@@ -27,18 +25,10 @@
 			$("#companyNames").autocomplete("search", "");
 		});
 
-		$("#clearCompany").click(function () {
-			$("#companyForm")[0].reset();
-			$(".currentCompany").hide();
-			$("#currentCompanyName").text("");
-			$("#clearCompanyButton").hide();
-			location.replace("#sysadmin/dashboard");
-		});
-
 	});
 </script>
 
-<div class="well" style="padding: 8px 0;">
+<div class="well" style="padding: 8px 0; min-height: 700px;">
 	<ul class="nav nav-list">
 		<li class="nav-header">System Administration</li>
 		<li id="nav-SysAdminDashboard"><a href="#sysadmin/dashboard"><i class="icon-list-alt"></i>&nbsp;Dashboard</a></li>
@@ -47,18 +37,17 @@
 		<li id="nav-SysAdminAddCompany"><a href="#sysadmin/companies/add"><i class="icon-plus-sign"></i>&nbsp;Add Company</a></li>
 	
 		<li class="nav-header">Company Details</li>
-		<li style="margin-top: 5px; margin-bottom: 0px;">
+		<li style="margin-top: 5px; margin-bottom: 10px;">
 			<form id="companyForm" style="margin: 0px;">
 
 			<div class="input-prepend">
 				<span id="showAllCompanies" style="cursor: pointer;" class="add-on"><i class="icon-chevron-right"></i></span>
 				<input placeholder="Type company name" class="input-medium" id="companyNames" style="margin-bottom: 5px;" />
-				<p id="clearCompanyButton" style="display: none;" class="pull-right"><span id="clearCompany" style="cursor: pointer;" class="label">Clear</span></p>
 			</div>
 
 			</form>
 		</li>
-		<li class="currentCompany" style="margin-top: -10px;" id="nav-exampleCompanySlugFinancials"><a href="#company/exampleCompanySlug/financials"><i class="icon-signal"></i>&nbsp;Financials</a></li>
+		<li class="currentCompany" style="" id="nav-exampleCompanySlugFinancials"><a href="#company/exampleCompanySlug/financials"><i class="icon-signal"></i>&nbsp;Financials</a></li>
 		<li class="currentCompany" id="nav-exampleCompanySlugAllTransactions"><a href="#company/exampleCompanySlug/allTransactions"><i class="icon-eye-open"></i>&nbsp;All Transactions</a></li>
 		<li class="currentCompany" id="nav-exampleCompanySlugEmployees"><a href="#company/exampleCompanySlug/employees"><i class="icon-user"></i>&nbsp;Employees</a></li>
 		<li class="currentCompany" id="nav-exampleCompanySlugNewStore"><a href="#company/exampleCompanySlug/newStore"><i class="icon-plus-sign"></i>&nbsp;New Store</a></li>
