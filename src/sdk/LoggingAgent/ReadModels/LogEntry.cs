@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Euclid.Framework.Models;
 
 namespace LoggingAgent.ReadModels
@@ -20,5 +21,17 @@ namespace LoggingAgent.ReadModels
 		public virtual string Message { get; set; }
 
 		public virtual string Thread { get; set; }
+	}
+
+	public class LogEntries : SyntheticReadModel
+	{
+		public int Offset { get; set; }
+		public int RecordsPerPage { get; set; }
+		public int TotalRecords { get; set; }
+		public int TotalPages { get; set; }
+		public int CurrentPage;
+		public int NextPage { get; set; }
+		public int PreviousPage { get; set; }
+		public IEnumerable<LogEntry> Entries { get; set; }
 	}
 }

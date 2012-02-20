@@ -13,7 +13,6 @@ namespace LoggingAgent.ReadModels
 		public int CurrentPage;
 		public int NextPage { get; set; }
 		public int PreviousPage { get; set; }
-
 		public IEnumerable<IPublicationRecord> Records { get; set; }
 	}
 }

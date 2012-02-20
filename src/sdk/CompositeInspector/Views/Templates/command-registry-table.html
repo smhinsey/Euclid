@@ -23,13 +23,13 @@
 		{{#each Records}}
 		<tr>
 			<td>{{format-date Created}}</td>
-			<td>{{#if Dispatched}}True{{else}}False{{/if}}</td>
-			<td>{{#if Completed}}True{{else}}False{{/if}}</td>
+			<td>{{format-bool Dispatched "Yes" "No"}}</td>
+			<td>{{format-bool Completed "Yes" "No"}}</td>
 			<td><a href="{{MessageLocation}}" title="download command">{{MessageType}}</a></td>
 			{{#if Error}}
 			<td><a href='#' class="publication-record-detail" data-publication-identifier="{{Identifier}}">View</a></td>
 			{{else}}
-			<td>False</td>
+			<td>None</td>
 			{{/if}}
 		</tr>
 		{{#if Error}}

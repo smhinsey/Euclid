@@ -1,0 +1,52 @@
+﻿<table class="table table-bordered table-striped table-condensed" id="log-entry-table">
+	<caption id="table-caption" style="horiz-align: left;text-align: left"><h3>{{TotalRecords}} log entries</h3></caption>
+	<thead>
+		<tr>
+			<th>Date</th>
+			<th>Source</th>
+			<th>Level</th>
+			<th>Message</th>
+			<th>Error</th>
+		</tr>
+	</thead>
+	<tbody id="table-body">
+		{{#each Entries}}
+		<tr>
+			<td>{{format-date Date}}</td>
+			<td>{{LoggingSource}}</td>
+			<td>{{Level}}</td>
+			<td>{{Message}}</td>
+			{{#if Exception}}
+			<td><a href='#' class="log-exception-detail" data-log-identifier="{{Identifier}}">View</a></td>
+			{{else}}
+			<td>None</td>
+			{{/if}}
+		</tr>
+		{{#if Exception}}
+		<tr class="hidden" id="error-{{Identifier}}">
+			<td colspan="5" class="alert alert-error">
+				<strong>Error Details</strong> {{convert-breaks Exception}}
+			</td>
+		</tr>
+		{{/if}}
+		{{/each}}
+	</tbody>
+</table>
+
+<script type="text/javascript">
+	/// <reference path="../../Assets/euclid-0.9.js"/>
+	var root = "#registry-table";
+
+	$(root).on("click", ".log-exception-detail", function () {
+		var element = "#error-" + $(this).attr("data-publication-identifier");
+		if ($(element).hasClass("hidden")) {
+			$(element).show();
+			$(element).removeClass("hidden");
+			$(this).text("Hide");
+		} else {
+			$(element).addClass("hidden");
+			$(this).text("View");
+			$(element).hide();
+		}
+	});
+</script>
