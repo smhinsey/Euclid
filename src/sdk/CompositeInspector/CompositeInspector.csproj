@@ -124,9 +124,6 @@
     <Reference Include="Nancy.Hosting.Aspnet, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Nancy.Hosting.Aspnet.0.9.0\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
     </Reference>
-    <Reference Include="Nancy.ViewEngines.Razor">
-      <HintPath>..\..\..\packages\Nancy.Viewengines.Razor.0.9.0\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -157,22 +154,17 @@
     <None Include="packages.config" />
     <EmbeddedResource Include="Views\Shared\Frameset.cshtml" />
     <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
-    <EmbeddedResource Include="Views\view-agent.cshtml" />
     <EmbeddedResource Include="Views\templates\read-model.html" />
-    <EmbeddedResource Include="Views\templates\modal\form-container.html" />
     <EmbeddedResource Include="Views\templates\commands.html" />
     <EmbeddedResource Include="Views\templates\queries.html" />
     <EmbeddedResource Include="Views\templates\read-models.html" />
     <EmbeddedResource Include="Views\templates\input-models.html" />
     <EmbeddedResource Include="Views\templates\input-model.html" />
     <EmbeddedResource Include="Views\templates\agents.html" />
-    <EmbeddedResource Include="Views\templates\modal\polling.html" />
     <EmbeddedResource Include="Views\templates\euclid-error.html" />
     <EmbeddedResource Include="Views\templates\command.html" />
     <EmbeddedResource Include="Views\templates\query.html" />
     <EmbeddedResource Include="Views\templates\command-registry-table.html" />
-    <EmbeddedResource Include="Views\view-command-registry.cshtml" />
-    <EmbeddedResource Include="Views\view-logs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\common\Euclid.Common.Storage.NHibernate\Euclid.Common.Storage.NHibernate.csproj">
@@ -277,9 +269,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap.js" />
     <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap.min.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\templates\modal\agents.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\templates\pager.html" />
