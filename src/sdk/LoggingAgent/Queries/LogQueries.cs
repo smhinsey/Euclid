@@ -24,7 +24,7 @@ namespace LoggingAgent.Queries
 
 			return new LogEntries
 					{
-						Entries = session.QueryOver<LogEntry>().Skip(offset * pageSize).Take(pageSize).List(),
+						Entries = session.QueryOver<LogEntry>().Skip(offset).Take(pageSize).List(),
 						TotalRecords = totalRecords,
 						TotalPages = totalPages,
 						CurrentPage = currentPage,

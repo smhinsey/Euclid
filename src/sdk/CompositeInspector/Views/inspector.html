@@ -150,8 +150,10 @@
 				function (results) {
 					var pagerData = results;
 					pagerData["pageHandler"] = "getPublicationRecords";
-					Using(results).Fill(display).With("/composite/ui/template/command-registry-table");
-					Using(pagerData).Render("/composite/ui/template/pager").Manipulate(function (content) { $(display).append(content); });
+					Using(results).Render("/composite/ui/template/command-registry-table").Manipulate(function (content) {
+						$("#output").replaceContent(content);
+						Using(pagerData).Render("/composite/ui/template/pager").Manipulate(function (pager) { $(display).append(pager); });
+					});
 				}
 			);
 		}
@@ -167,8 +169,10 @@
 				function (results) {
 					var pagerData = results;
 					pagerData["pageHandler"] = "getLogEntries";
-					Using(results).Fill(display).With("/composite/ui/template/log-entry-table");
-					Using(pagerData).Render("/composite/ui/template/pager").Manipulate(function (content) { $(display).append(content); });
+					Using(results).Render("/composite/ui/template/log-entry-table").Manipulate(function (content) {
+						$("#output").replaceContent(content);
+						Using(pagerData).Render("/composite/ui/template/pager").Manipulate(function (pager) { $(display).append(pager); });
+					});
 				}
 			);
 		}

@@ -3,7 +3,7 @@
 		<li><a href="#" id="first-page" class="page" data-page-number="1" title="Page 1">First Page</a></li>
 		<li><a href="#" id="prev-page" class="page" data-page-number="{{PreviousPage}}" title="Page {{PreviousPage}}">←</a></li>
 		<li><a href="#" class="disabled">
-		    	<input type="text" id="page-number" value="{{CurrentPage}}" style="width: 25px; padding: 0px; margin-bottom: 5px;" data-max-page="{{TotalPages - 1}}">
+		    	<input type="text" id="page-number" value="{{CurrentPage}}" style="width: 25px; padding: 0px; margin-bottom: 5px;" data-max-page="{{TotalPages - 1}}" data-current-page="{{CurrentPage}}">
 		    	<span id="display-total">of {{TotalPages}}</span></a></li>
 		<li><a href="#" id="next-page" class="page" data-page-number="{{NextPage}}" title="Page {{NextPage}}">→</a></li>
 		<li><a href="#" id="last-page" class="page" data-page-number="{{TotalPages}}" title="Page {{TotalPages}}">Last Page</a></li>
@@ -16,8 +16,8 @@
 		pagerCallbackName = "gotoPage";
 	}
 	
-	function pagerCallback(pageNumber)
-	{
+	function pagerCallback(pageNumber) {
+		$("#page-number").attr("data-current-page", pageNumber);
 		eval(pagerCallbackName + "(" + pageNumber + ")");
 	}
 
@@ -26,10 +26,11 @@
 		pagerCallback(pageNumber);
 	});
 
-	$(root).on("keydown", "#page-number", function(e) {
+	$(root).on("keydown", "#page-number", function (e) {
 		var code = (e.keyCode ? e.keyCode : e.which);
+		console.log("key struck in page number box: " + code);
 		if (code == 13) {
-			var pageNumber = $("#page-number").val();
+			var pageNumber = parseInt($("#page-number").val());
 			var currentPage = $("#page-number").attr("data-current-page");
 			var maxPage = $("#page-number").attr("data-max-page");
 
@@ -42,7 +43,8 @@
 					pagerCallback(pageNumber);
 				}
 			}
-			return false;
+
+			$("#page-number").focus();
 		}
 	});
 </script>
