@@ -1,13 +1,15 @@
-﻿<table class="table table-striped table-condensed">
-	<caption>{{NumberResults}} results for query {{FullQueryName}}</caption>
-	<thead>
-		<tr>
-		{{#each Headers}}
-			<th>{{this}}</th>
-		{{/each}}
-		</tr>
-	</thead>
-	<tbody>
-		{{#format-query-results Results}}{{/format-query-results}}
-	</tbody>
-</table>
+﻿<div style="overflow-x: scroll">
+	<table class="table table-striped table-condensed">
+		<caption>{{NumberResults}} results for query {{FullQueryName}}</caption>
+		<thead>
+			<tr>
+				{{#each Headers}}
+				<th>{{this}}</th>
+				{{/each}}
+			</tr>
+		</thead>
+		<tbody>
+			{{#format-query-results Results}}{{/format-query-results}}
+		</tbody>
+	</table>
+</div>

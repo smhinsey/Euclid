@@ -1,47 +1,7 @@
-﻿<div id="input-model-container">
-	<h5>Input Models</h5>
-	<ul>
-		{{#InputModels}}
-		<li id="input-model-{{Name}}">
-			{{Name}} 
-			(<a href="#" class="input-model-properties" data-input-model-name="{{Name}}">properties</a>
-			|
-			<a href="#" class="command" disabled="disabled" data-command-name="{{CommandName}}">submit</a>)
-		</li>
-		{{/InputModels}}
-	</ul>
-</div>
-
-<script type="text/javascript">
-	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
-	var output = "#part-output";
-	
-	if (typeof commandScript === "undefined") {
-		$.getScript("/composite/js/composite-inspector-commands.js", function (data, textStatus, jqxhr) { $(".command").removeAttr("disabled"); });
-	} else {
-		$(".command").removeAttr("disabled");
-	}
-
-	$(document).on("click", ".input-model-properties", function () {
-		var inputModelName = $(this).attr("data-input-model-name");
-		var target = $(this);
-
-		WorkWithDataFromUrl("/composite/api/inputModel/" + inputModelName,
-			function (inputModel) {
-				Using(inputModel)
-					.Render("/composite/ui/template/modal/input-model")
-					.Manipulate(function (template) {
-						$(output).html("");
-						$(output).append($(template));
-					});
-			}
-		);
-
-		return false;
-	});
-
-	$(document).on("click", ".input-model-form", function () {
-		EUCLID.displayError({ name: "Not Implemented Exception", message: "Method not implemented" });
-		return false;
-	});
-</script>
+﻿<ul class="{{ListClass}}">
+	{{#InputModels}}
+	<li id="input-model-{{Name}}" class="{{../ItemClass}}">
+		<a href="#" class="input-model" data-input-model-name="{{Name}}" data-input-model-command-name="{{CommandName}}">{{Name}}</a>
+	</li>
+	{{/InputModels}}
+</ul>

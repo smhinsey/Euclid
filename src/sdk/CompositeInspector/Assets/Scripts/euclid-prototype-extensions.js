@@ -10,6 +10,14 @@ if (typeof String.prototype.startsWith != 'function') {
 	};
 }
 
+if (typeof String.prototype.toJqueryId != 'function') {
+	String.prototype.toJqueryId = function() {
+		return (this.startsWith("#"))
+			? this.toString()
+			: ("#" + this).toString();
+	};
+}
+
 Date.prototype.format = function (mask, utc) {
 	/*
 	* Date Format 1.2.3
@@ -25,6 +33,7 @@ Date.prototype.format = function (mask, utc) {
 	* The mask defaults to dateFormat.masks.default.
 	*/
 
+	// supported formats here: http://blog.stevenlevithan.com/archives/date-time-format
 	var dateFormat = function () {
 		var token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
 		timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,

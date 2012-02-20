@@ -1,23 +1,94 @@
-﻿<div>
-	<div class="modal-header">
-		<a href="#" class="close" data-dismiss="modal">×</a>
-		<h3>{{ModelName}} <h5>for {{CommandName}}</h5></h3>
-	</div>
-	<div class="modal-body">
-		{{#Properties}}
-		{{#if Choices}}
-			<h5>{{Name}} 
-				<small>
-					Select {{#if MultiChoice}}multiple{{else}}one{{/if}}
-					[{{#comma-delimited-list Choices "" Value}}{{/comma-delimited-list}}]
-				</small>
-			</h5>
-		{{else}}
-			<h5>{{Name}} <small>{{Type}} {{#if Value}}({{Value}}){{/if}}</small></h5>
-		{{/if}}
-		{{/Properties}}
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn secondary" id="dismiss-modal">Close</a>
+﻿<div id="input-model-container">
+
+	<h3>{{ModelName}} <small>for {{CommandName}}</small></h3>
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#properties"  data-toggle="tab">Properties</a></li>
+		<li><a href="#form" data-toggle="tab" >Form</a></li>
+		<li><a href="#results" data-toggle="tab" id="view-results">Results</a></li>
+	</ul>
+	
+	<div class="tab-content">
+		<div id="properties" class="tab-pane active">
+			<div class="well">
+				{{#Properties}}
+				{{#if Choices}}
+				<h5>{{Name}} 
+					<small>
+						Select {{#if MultiChoice}}multiple{{else}}one{{/if}}
+						[{{#comma-delimited-list Choices "" Value}}{{/comma-delimited-list}}]
+					</small>
+				</h5>
+				{{else}}
+				<h5>{{Name}} <small>{{Type}} {{#if Value}}({{Value}}){{/if}}</small></h5>
+				{{/if}}
+				{{/Properties}}
+			</div>
+		</div>
+		
+		<div id="form" class="tab-pane">
+			<div class="well" id="form-container">
+				Input Model Form
+			</div>
+		</div>
+		
+		<div id="results" class="tab-pane">
+			<div class="well" id="results-container">
+				<div>Polling for command status</div>
+				<div class="progress progress-info progress-striped active">
+					<div id='bar' class="bar" style="width: 0%;"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	/// <reference path="../../Assets/euclid-0.9.js"/>
+	var root = "#input-model-container";
+
+	EUCLID.withInputModel("{{CommandName}}",
+		function (inputModel) {
+			var form = inputModel.getForm(true);
+			$(form).append("<button id='publish-command'>Publish</button>");
+			$(form).attr("id", "command-form");
+
+			$("#form-container").replaceContent(form);
+		}
+	);
+
+		$(root).on("click", "#publish-command", function () {
+			console.log("publish-command button was clicked");
+			EUCLID.withFormResults($("#command-form"),
+				function (results) {
+					console.log("form posted and returned: " + results.Identifier);
+					$("#view-results").click();
+					setTimeout("pollForStatus('" + results.Identifier + "')", 250);
+				});
+			return false;
+		});
+
+		function pollForStatus(identifier) {
+			var MAX_POLL = 20;
+			EUCLID.pollForCommandStatus(identifier,
+				function (results) {
+					Using(result).Fill("#results-container").With("/composite/ui/template/publication-record");
+				},
+				function (results) {
+					Using(result).Fill("#results-container").With("/composite/ui/template/publication-record");
+				},
+				MAX_POLL,
+				500,
+				function (error, result) {
+					$("#bar").hide();
+					if (result) {
+						Using(result).Fill("#results-container").With("/composite/ui/template/publication-record");
+					} else {
+						$("#results-container").replaceContent("<div class='alert alert-error'><strong>" + error.name + "</strong> " + error.message + "</div>");
+					}
+				},
+				function (count) {
+					$("#bar").css("width", (5 * count) + "%");
+					return true;
+				});
+		}
+</script>

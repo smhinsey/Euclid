@@ -99,8 +99,9 @@ var EUCLID = function () {
 			});
 
 			return {
-				getForm: (function () {
+				getForm: (function (showAllFields) {
 					///<summary>returns a jquery object containing a form that can be used to collect data for this command</summary>
+					///<param name="showAllFields">if true all fields are shown regardless of their data type</param>
 					var form = $("<form action='/composite/api/publish' method='post'><fieldset></fieldset></form>");
 					var fieldSet = $(form).children("fieldset");
 
@@ -117,7 +118,7 @@ var EUCLID = function () {
 							var choiceObject = _getChoices(propertyName);
 							var propertyChoices = choiceObject == null ? null : choiceObject.Values;
 							var multiChoice = choiceObject == null ? false : choiceObject.MultiChoice;
-							var forceShow = propertyType.toLowerCase() == "guid";
+							var forceShow = showAllFields; //propertyType.toLowerCase() == "guid";
 							_addElementToForm(propertyName, propertyType, _model[propertyName], propertyChoices, multiChoice, fieldSet, forceShow);
 						}
 					}
@@ -397,46 +398,50 @@ var EUCLID = function () {
 			var _pollMax = pollMax ? pollMax : 100;
 			var _pollInterval = pollInterval ? pollInterval : 250;
 			var _pollCount = 0;
-			var _errorHandler = onPollError ? onPollError : EUCLID.displayError;
+			var _pollErrorHandler = onPollError ? onPollError : EUCLID.displayError;
 			var _commandErrorHandler = onCommandError ? onCommandError : onCommandComplete;
 			var _poll = function () {
 				WorkWithDataFromUrl(
 						"/composite/api/publicationRecord/" + publicationId,
 						function (result) {
-							_pollCount++;
-							complete = result.Completed;
+							try {
+								_pollCount++;
+								complete = result.Completed;
+								var continuePolling = true;
+								if (result.Error) {
+									_commandErrorHandler(result);
+								} else if (result.Completed) {
+									onCommandComplete(result);
+								} else {
+									var e = { name: "", message: "" };
+									if (onBeforePoll) {
+										continuePolling = onBeforePoll(_pollCount);
+										e.name = "Polling Aborted Exception";
+										e.message = "Polling cancelled by caller";
+									}
 
-							if (result.Error) {
-								_commandErrorHandler(result);
-							} else if (result.Completed) {
-								onCommandComplete(result);
-							} else {
-								var e = { name: "", message: "" };
-								if (onBeforePoll) {
-									continuePolling = onBeforePoll(_pollCount);
-									e.name = "Polling Aborted Exception";
-									e.message = "Polling cancelled by caller";
+									if (continuePolling) {
+										continuePolling = _pollCount < _pollMax;
+										e.name = "Polling Max Reached";
+										e.message = "Polled maximum number of time: " + _pollMax;
+									}
+
+									if (!continuePolling) {
+										complete = true;
+										_pollErrorHandler(e, result);
+									}
 								}
 
-								if (continuePolling) {
-									continuePolling = _pollCount < _pollMax;
-									e.name = "Polling Max Reached";
-									e.message = "Polled maximum number of time: " + _pollMax;
+								if (complete) {
+									clearInterval(_pollerId);
 								}
-
-								if (!continuePolling) {
-									complete = true;
-									_errorHandler(e);
-								}
-							}
-
-							if (complete) {
-								clearInterval(_pollerId);
+							} catch (e) {
+								_pollErrorHandler(e);
 							}
 						},
-						_errorHandler
+						_pollErrorHandler
 					);
-			}; ; // _poll
+			}; // _poll
 
 			var _pollerId = setInterval(_poll, _pollInterval);
 		}), // end pollForCommandStatus
@@ -457,7 +462,7 @@ var EUCLID = function () {
 					outputId = "#" + outputId;
 				}
 			}
-			
+
 			var errorConsole = $(outputId);
 			$(errorConsole).show();
 			// TODO: clear & append error console
@@ -472,20 +477,18 @@ var EUCLID = function () {
 			return false;
 		}) // end displayError
 	} // return
-} ();          // EUCLID
+} ();             // EUCLID
 
-var Using = function (jsonObject) {
-	///<sumary>Use JSON data for UI elements</summary>
+var Using = function (jsonObject, onError) {
+	///<summary>Use JSON data for UI elements</summary>
 	///<param name='jsonObject'>A JSON data structure</param>
+	/// <param name='onError'>(optional) a callback function to handle errors</param>
+	onError = onError ? onError : EUCLID.displayError;
 
-	var _populateTemplate = (function (templateUrl, data, onComplete, onError) {
+	var _populateTemplate = (function (templateUrl, data, onComplete) {
 		///<summary>fetch a handlebars template, and populate with the provided data, returns a jquery object containing the content</summary>
 		///<param name='templateUrl'>the url from which to fetch the template</param>
 		///<param name='data'>the data to bind (must be null if dataUrl is provided)</param>
-		///<param name='onComplete'>a callback function that receives the populated template</parama>
-		///<param name='onError'>(optional) to override the default error handling</param>
-		var onError = onError ? onError : EUCLID.displayError;
-
 		if (onComplete == null) {
 			onError({
 				name: "Invalid Argument Exception",
@@ -498,7 +501,7 @@ var Using = function (jsonObject) {
 		if (data == null) {
 			onError({
 				name: "Invalid Argument Exception",
-				message: "_populateTemplate - the parameter data must be specified"
+				message: "no JSON data specified in Using.Fill or "
 			});
 
 			return false;
@@ -528,9 +531,10 @@ var Using = function (jsonObject) {
 
 	var _data = jsonObject;
 	return {
-		Fill: function (elementId) {
+		Fill: function (elementId, replaceContent) {
 			/// <summary> Add data to the element with the specified id</summary>
 			/// <param name='elementId'> The id of the container element </param>
+
 			if (elementId.substr(0, 1) != "#") {
 				elementId = "#" + elementId;
 			}
@@ -555,10 +559,25 @@ var Using = function (jsonObject) {
 						templateUrl,
 						_data,
 						function (content) {
-							$(_element).html("");
-							$(_element).append($(content));
+							$(_element).replaceContent($(content));
+						},
+						function (error) {
+							error.message = "Using.Fill.With: " + error.message;
+							onError(error);
 						}
 					);
+				},
+
+				TargetIsTemplate: function () {
+					var source = $(elementId).outerHTML();
+					var template = Handlebars.compile(source);
+					var content = $(template(_data));
+
+					if (!replaceContent) {
+						$(_element).replaceWith($(content));
+					} else {
+						$(_element).replaceContent($(content));
+					}
 				}
 			}
 		}, // fill
@@ -577,6 +596,24 @@ var Using = function (jsonObject) {
 						_data,
 						function (content) {
 							callback(content);
+						},
+						function (error) {
+							error.message = "Using.Render.Manipulate: " + error.message;
+							onError(error);
+						}
+					);
+				},
+
+				ReplaceContentsOf: function (elementToReplaceId) {
+					_populateTemplate(
+						_templateUrl,
+						_data,
+						function (content) {
+							$(elementToReplaceId.toJqueryId()).replaceContent(content);
+						},
+						function (error) {
+							error.message = "Using.Render.ReplaceContentsOf: " + error.message;
+							onError(error);
 						}
 					);
 				}

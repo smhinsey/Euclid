@@ -4,8 +4,8 @@ $.fn.hasAttr = function (name) {
 	///<param name='name'>The name of the attribute to check for</param>
 	return this.attr(name) !== undefined;
 };
-
 if (jQuery.validator != null) {
+
 	jQuery.validator.addMethod('uniquevalue', function (value, element, params) {
 		var query = $(element).attr("data-val-uniquevalue-query");
 		var method = $(element).attr("data-val-uniquevalue-method");
@@ -22,3 +22,16 @@ if (jQuery.validator != null) {
 		options.messages['uniquevalue'] = options.message;
 	});
 }
+
+(function ($) {
+	$.fn.outerHTML = function () {
+		return $(this).clone().wrap('<div></div>').parent().html();
+	}
+})(jQuery);
+
+(function($) {
+	$.fn.replaceContent = function (newContent) {
+		$(this).empty();
+		$(this).append($(newContent));
+	}
+})(jQuery);

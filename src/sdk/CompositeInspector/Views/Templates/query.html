@@ -1,13 +1,13 @@
 ﻿<div id="query-container">
+	<h3>{{Name}}</h3>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="#query-methods" data-toggle="tab" id="view-methods">{{Name}}</a></li>
+		<li class="active"><a href="#query-methods" data-toggle="tab" id="view-methods">Methods</a></li>
 		<li><a href="#form-container" data-toggle="tab" id="view-form">Form</a></li>
 		<li><a href="#results" data-toggle="tab" id="view-results">Results</a></li>
 	</ul>
 	
 	<div class="tab-content">
 		<div id="query-methods" class="tab-pane active">
-			<h3>{{Name}}</h3>
 			<div class="well">
 				{{#Methods}}
 				<div>
@@ -52,13 +52,11 @@
 				function (query) {
 					var method = query.getMethodNamed(selectedMethod, numberArguments);
 					var form = method.getForm("query-form");
-					console.log("the method " + selectedQuery + "." + selectedMethod + " has " + numberArguments + " arguments");
 
 					$(form).addClass("well");
 					$(form).append("<input type='submit' class='btn btn-primary' value='Execute Query' id='execute-query' data-query-name='" + selectedQuery + "' data-method-name='" + selectedMethod + "' />");
 
 					$("#form-container").html("");
-					$("#form-container").append("<h3>" + selectedQuery + "</h3>");
 					$("#form-container").append($(form));
 					$("#view-form").click();
 				});

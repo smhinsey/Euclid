@@ -1,0 +1,39 @@
+﻿<div class="container">
+	<div class="row">
+		<div class="span3">
+			<strong>Created</strong>
+			<br/>
+			{{format-date Created}}
+		</div>
+
+		<div class="span3">
+			<strong>Dispatched</strong>
+			<br/>
+			{{format-bool Dispatched "Yes" "No"}}
+		</div>
+
+		<div class="span3">
+			<strong>Completed</strong>
+			<br/>
+			{{format-bool Completed "Yes" "No"}}
+		</div>
+	</div>
+
+	<div class="row" style="margin-top:15px">
+		<div class="span12">
+			<strong>Message</strong>
+			<br/>
+			<a href="{{MessageLocation}}" title="download command">{{MessageType}}</a>
+		</div>
+	</div>
+	
+	{{#if Error}}
+	<div  style="margin-top:15px">
+		<strong>{{ErrorMessage}}</strong>
+		<br/>
+		{{#if CallStack}}
+		{{convert-breaks record.CallStack}}
+		{{/if}}
+	</div>
+	{{/if}}
+</div>

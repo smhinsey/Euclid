@@ -282,9 +282,6 @@
     <EmbeddedResource Include="Assets\Scripts\bootstrap\bootstrap.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\templates\navbar.html" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Views\templates\modal\agents.html" />
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +289,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\templates\query-results-table.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\templates\publication-record.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Styles\bootstrap\bootstrap-subnav.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

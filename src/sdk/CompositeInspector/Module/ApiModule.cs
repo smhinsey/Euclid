@@ -25,8 +25,8 @@ namespace CompositeInspector.Module
 		private readonly IPublisher _publisher;
 
 		private const string AgentMetadataRoute                = "/agent/{agentSystemName}";
-		private const string ReadModelMetadataRoute            = "/readModel/{agentSystemName}/{readModelName}";
-		private const string InputModelMetadataRoute           = "/inputModel/{inputModelName}";
+		private const string ReadModelMetadataRoute            = "/read-model/{agentSystemName}/{readModelName}";
+		private const string InputModelMetadataRoute           = "/input-model/{inputModelName}";
 		private const string PublicationRecordRoute            = "/publicationRecord/{identifier}";
 		private const string InputModelMetadataForCommandRoute = "/command/{commandName}";
 		private const string CommandMetadataRoute              = "/command-metadata/{commandName}";

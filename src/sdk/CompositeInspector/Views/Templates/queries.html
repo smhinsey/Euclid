@@ -1,26 +1,7 @@
-﻿<h5>Queries</h5>
-<ul>
+﻿<ul class="{{ListClass}}">
 {{#Queries}}
-	<li id="{{../SystemName}}-query-{{Name}}">
+	<li id="query-{{Name}}" class="{{../ItemClass}}">
 		<a href="#" class="query" data-query-name="{{Name}}">{{Name}}</a>
 	</li>
 {{/Queries}}
 </ul>
-<script type="text/javascript">
-	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
-	var agentOutput = "#agent-output";
-	var partOutput = "#part-output";
-
-	//$(document).on("click", ".query", function () {
-	$(".query").click(function () {
-		var queryName = $(this).attr("data-query-name");
-		EUCLID.withQuery(queryName, function (query) {
-			Using(query)
-				.Render("/composite/ui/template/query")
-				.Manipulate(function (content) {
-					$(partOutput).html("");
-					$(partOutput).append(content);
-				});
-		});
-	});
-</script>

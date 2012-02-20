@@ -1,13 +1,13 @@
 ﻿if (Handlebars) {
-	Handlebars.registerHelper("convert-breaks", function (value) {
+	Handlebars.registerHelper("convert-breaks", function(value) {
 		if (!value) return "";
-		
-		var replaced = value.replace(/\n/g, "<br />");
-		
+
+		var replaced = value.replace( /\n/g , "<br />");
+
 		return new Handlebars.SafeString(replaced);
 	});
 
-	Handlebars.registerHelper("bold-selected", function (current, selected) {
+	Handlebars.registerHelper("bold-selected", function(current, selected) {
 		var handlebarValue = new Handlebars.SafeString(current);
 
 		if (selected && current.toLowerCase() == selected.toLowerCase()) {
@@ -17,7 +17,7 @@
 		return handlebarValue;
 	});
 
-	Handlebars.registerHelper("format-query-results", function (items, options) {
+	Handlebars.registerHelper("format-query-results", function(items, options) {
 		var rows = "";
 		for (var i = 0; i < items.length; i++) {
 			rows += "<tr>";
@@ -25,7 +25,7 @@
 			var cells = "";
 			for (property in items[i]) {
 				if (items[i][property] instanceof Array) {
-					cells += "<td>An array of " + items[i].length + " items</td>";
+					cells += "<td>An array of " + items[i][property].length + " items</td>";
 				} else if (items[i][property] instanceof Date) {
 					cells += "<td>" + items[i][property].format("mm/dd/yyyy [HH:MM:ss]") + "</td>";
 				} else {
@@ -40,11 +40,11 @@
 		return rows;
 	});
 
-	Handlebars.registerHelper("get-argument-count", function (items, options) {
+	Handlebars.registerHelper("get-argument-count", function(items, options) {
 		return items.length.toString();
 	});
 
-	Handlebars.registerHelper("comma-delimited-list", function (items, propertyName, selected) {
+	Handlebars.registerHelper("comma-delimited-list", function(items, propertyName, selected) {
 		var list = "";
 		for (var i = 0; i < items.length; i++) {
 			if (list.length > 0) {
@@ -66,9 +66,13 @@
 		return list;
 	});
 
-	Handlebars.registerHelper("format-date", function (date) {
+	Handlebars.registerHelper("format-date", function (date, formatString) {
+		// supported formats here: http://blog.stevenlevithan.com/archives/date-time-format
+		formatString = (typeof formatString == 'string') ? formatString : "mm/dd/yyyy [HH:MM:ss]";
 		return (date instanceof Date)
-			? date.format("mm/dd/yyyy [HH:MM:ss]")
+			? date.format(formatString)
 			: date;
 	});
+
+	Handlebars.registerHelper("format-bool", function (value, displayWhenTrue, displayWhenFalse) { return (value) ? displayWhenTrue : displayWhenFalse; });
 }
