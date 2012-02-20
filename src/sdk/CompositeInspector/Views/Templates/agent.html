@@ -51,15 +51,14 @@
 		var queryRenderData = { ListClass: "dropdown-menu", Queries: agentMetadata.Queries };
 		Using(queryRenderData).Render("/composite/ui/template/queries").ReplaceContentsOf("#agent-queries");
 
-		var readModelRenderData = { ListClass: "dropdown-menu", ReadModels: agentMetadata.ReadModels};
+		var readModelRenderData = { ListClass: "dropdown-menu", SystemName: agentMetadata.SystemName, ReadModels: agentMetadata.ReadModels};
 		Using(readModelRenderData).Render("/composite/ui/template/read-models").ReplaceContentsOf("#agent-read-models");
 	});
 
 	$(root).on("click", ".agent-part", function () {
 		var partOutput = "#" + $(this).attr("data-display-element");
 		var container = partOutput + "-container";
-		var button = partOutput + "-button";
-		
+
 		var selected = $(this).text();
 
 		hideAllPartDisplays();
@@ -80,7 +79,7 @@
 
 	$(root).on("click", ".read-model", function () {
 		var name = $(this).attr("data-read-model-name");
-		$("#agent-read-model-button").text(name);
+		$("#agent-read-models-button").text(name);
 	});
 
 	$(root).on("click", "#parts-button", function () {

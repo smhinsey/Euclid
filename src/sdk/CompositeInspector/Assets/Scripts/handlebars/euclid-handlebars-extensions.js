@@ -75,8 +75,4 @@
 	});
 
 	Handlebars.registerHelper("format-bool", function (value, displayWhenTrue, displayWhenFalse) { return (value) ? displayWhenTrue : displayWhenFalse; });
-
-	Handlebars.registerHelper("load-template", function (context, template, replaceId) {
-		Using(context).Render(template).ReplaceContentsOf(replaceId);
-	});
 }

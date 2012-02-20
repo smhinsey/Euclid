@@ -13,8 +13,9 @@
 			var systemName = $(this).attr("data-agent-system-name");
 			var readModelName = $(this).attr("data-read-model-name");
 
-			alert("/composite/api/readmodel/" + systemName + "/" + readModelName);
-			return false;
+			WorkWithDataFromUrl("/composite/api/read-model/" + systemName + "/" + readModelName, function (readModel) {
+				Using({ Name: readModelName, Properties: readModel }).Fill("#output").With("/composite/ui/template/read-model");
+			});
 		});
 	});
 </script>

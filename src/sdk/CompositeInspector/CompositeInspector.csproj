@@ -158,7 +158,7 @@
     <EmbeddedResource Include="Views\Shared\Frameset.cshtml" />
     <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
     <EmbeddedResource Include="Views\view-agent.cshtml" />
-    <EmbeddedResource Include="Views\templates\modal\read-model.html" />
+    <EmbeddedResource Include="Views\templates\read-model.html" />
     <EmbeddedResource Include="Views\templates\modal\form-container.html" />
     <EmbeddedResource Include="Views\templates\commands.html" />
     <EmbeddedResource Include="Views\templates\queries.html" />
@@ -252,9 +252,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\Styles\img\glyphicons-halflings-white.png" />
     <EmbeddedResource Include="Assets\Styles\img\glyphicons-halflings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\composite-inspector-commands.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\handlebars\euclid-handlebars-extensions.js" />
