@@ -247,6 +247,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\app\templates\sysadmin\AddCompany.html" />
+    <Content Include="Content\app\templates\sysadmin\Dashboard.html" />
     <Content Include="Content\app\templates\sysadmin\Settings.html" />
     <Content Include="Content\app\templates\sysadmin\Administrators.html" />
     <Content Include="Content\app\templates\sysadmin\AddAdministrator.html" />
