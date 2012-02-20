@@ -48,7 +48,7 @@
 
 		this.get('/#company/:companySlug/financials', function () {
 			
-			var model = { title: "Company Financials "};
+			var model = { title: "{Company Name} Financials "};
 
 			model.body = "<i>Pretty graphs and reports go here.</i>";
 			
