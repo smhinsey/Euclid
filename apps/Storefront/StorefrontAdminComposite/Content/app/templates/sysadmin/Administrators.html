@@ -1,0 +1,53 @@
+﻿<h3>{{title}}</h3>
+<hr />
+<a href="#sysadmin/administrators/add" class="btn btn-primary pull-right">Add Administrator</a>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			{{#each tableHeaders}}
+			<th>{{this}}</th>
+			{{/each}}
+		</tr>
+	</thead>
+	<tbody>
+		{{#each tableData}}
+		<tr>
+			<td>{{this.lastName}}</td>
+			<td>{{this.firstName}}</td>
+			<td>{{this.email}}</td>
+			<td>{{this.status}}</td>
+			<td>{{this.lastSeen}}</td>
+			<td>
+
+				<div class="btn-group">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Actions <span class="caret">
+					</span></a>
+					<ul class="dropdown-menu">
+						<li><a>View Profile</a> </li>
+						<li><a>Lock Account</a> </li>
+					</ul>
+				</div>
+
+			</td>
+		</tr>
+		{{/each}}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="6">
+
+				<div class="pagination pagination-right">
+					<ul>
+						<li><a href="#">Prev</a> </li>
+						<li class="active"><a href="#">1</a> </li>
+						<li><a href="#">2</a> </li>
+						<li><a href="#">3</a> </li>
+						<li><a href="#">4</a> </li>
+						<li><a href="#">Next</a> </li>
+					</ul>
+				</div>
+
+			</td>
+		</tr>
+	</tfoot>
+</table>

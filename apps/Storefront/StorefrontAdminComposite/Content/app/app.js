@@ -1,9 +1,54 @@
 ﻿;(function ($) {
 	var app = $.sammy(function () {
 
+		this.get('/#sysadmin/dashboard', function () {
+
+			var model = modelForSysAdminDashboard();
+			
+			this.trigger('render-model', {templateName: 'sysadmin/Dashboard', model: model});
+			
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Dashboard'});
+		});
+
+		this.get('/#sysadmin/settings', function () {
+
+			var model = modelForSysAdminSettings();
+			
+			this.trigger('render-model', {templateName: 'sysadmin/Settings', model: model});
+			
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Settings'});
+		});
+		
+		this.get('/#sysadmin/companies/add', function () {
+
+			var model = modelForSysAdminAddCompany();
+			
+			this.trigger('render-model', {templateName: 'sysadmin/AddCompany', model: model});
+			
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'AddCompany'});
+		});
+		
+		this.get('/#sysadmin/administrators', function () {
+
+			var model = modelForSysAdminAdministrators();
+			
+			this.trigger('render-model', {templateName: 'sysadmin/Administrators', model: model});
+			
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Administrators'});
+		});
+		
+		this.get('/#sysadmin/administrators/add', function () {
+
+			var model = modelForSysAdminAddAdministrator();
+			
+			this.trigger('render-model', {templateName: 'sysadmin/AddAdministrator', model: model});
+			
+			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Administrators'});
+		});
+
 		this.get('/#company/:companySlug/financials', function () {
 			
-			var model = { title: "Company Financials "};
+			var model = { title: "{Company Name} Financials "};
 
 			model.body = "<i>Pretty graphs and reports go here.</i>";
 			
@@ -222,7 +267,7 @@
 		});
 
 		this.get('/', function () {
-			this.redirect('#company/exampleCompanySlug/financials');
+			this.redirect('#sysadmin/dashboard');
 		});
 
 	});
@@ -235,6 +280,49 @@
 	// temporary, just for use during prototyping
 	// in practice, this data would all come from queries (with the possible exception of table headers)
 	
+	function modelForSysAdminDashboard() {
+
+		var viewModel = { title: "Dashboard" };
+
+		return viewModel;
+	}
+
+	function modelForSysAdminSettings() {
+
+		var viewModel = { title: "Settings" };
+
+		return viewModel;
+	}
+	
+	function modelForSysAdminAddCompany() {
+
+		var viewModel = { title: "Add Company" };
+
+		return viewModel;
+	}
+	
+	function modelForSysAdminAdministrators() {
+
+		var viewModel = { title: "Administrators" };
+		
+		viewModel.tableHeaders = [ "Last Name", "First Name", "Email", "Status", "Last Seen", ""];
+		
+		viewModel.tableData = [];
+
+		for (var i = 0; i < 10; i++) {
+			viewModel.tableData.push({ lastName: "{Last Name}", firstName: "{First Name}", email:"{email@email.com}", status:"{Status}", lastSeen: "12/25/2012 12:55 PM ET"});
+		}
+
+		return viewModel;
+	}
+	
+	function modelForSysAdminAddAdministrator() {
+
+		var viewModel = { title: "Add Administrator" };
+		
+		return viewModel;
+	}
+
 	function modelForCompanyAllTransactions(companySlug) {
 
 		var viewModel = { companyName: "{Company Name}", companySlug: companySlug};
