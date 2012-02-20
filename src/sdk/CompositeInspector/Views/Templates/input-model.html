@@ -1,5 +1,4 @@
 ﻿<div id="input-model-container">
-
 	<h3>{{ModelName}} <small>for {{CommandName}}</small></h3>
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#properties"  data-toggle="tab">Properties</a></li>
@@ -56,7 +55,7 @@
 		}
 	);
 
-		$(root).on("click", "#publish-command", function () {
+		$("#form-container").on("click", "#publish-command", function () {
 			console.log("publish-command button was clicked");
 			EUCLID.withFormResults($("#command-form"),
 				function (results) {
@@ -70,11 +69,11 @@
 		function pollForStatus(identifier) {
 			var MAX_POLL = 20;
 			EUCLID.pollForCommandStatus(identifier,
-				function (results) {
-					Using(result).Fill("#results-container").With("/composite/ui/template/publication-record");
+				function (commandRecord) {
+					Using(commandRecord).Fill("#results-container").With("/composite/ui/template/publication-record");
 				},
-				function (results) {
-					Using(result).Fill("#results-container").With("/composite/ui/template/publication-record");
+				function (commandRecord) {
+					Using(commandRecord).Fill("#results-container").With("/composite/ui/template/publication-record");
 				},
 				MAX_POLL,
 				500,
