@@ -75,4 +75,11 @@
 	});
 
 	Handlebars.registerHelper("format-bool", function (value, displayWhenTrue, displayWhenFalse) { return (value) ? displayWhenTrue : displayWhenFalse; });
+
+	Handlebars.registerHelper("begin-input-model-form", function (inputModel) {
+		var form = "<form action='/composite/api/publish' method='post' enctype='multipart/form-data'>";
+		form += "<input type='hidden' name='partName' value='" + inputModel.CommandName + "'/>";
+
+		return Handlebars.SafeString(form);
+	});
 }
