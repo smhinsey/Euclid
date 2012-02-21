@@ -31,7 +31,7 @@ namespace CompositeInspector.Module
 		private const string InputModelMetadataForCommandRoute = "/command/{commandName}";
 		private const string CommandMetadataRoute = "/command-metadata/{commandName}";
 		private const string QueryMetadataRoute = "/query-metadata/{queryName}";
-		private const string ExecuteQueryRoute = "/execute/query/{queryName}/{methodName}";
+		private const string QueryForReadModelRoute = "/query/{queryName}/{methodName}";
 		private const string CommandIsSupportedRoute = "/command-is-supported/{commandName}";
 		private const string PublishCommandRoute = "/publish";
 		private const string BaseRoute = "composite/api";
@@ -61,7 +61,7 @@ namespace CompositeInspector.Module
 
 			Get[CommandIsSupportedRoute] = p => GetCommandIsSupported(stripExtension((string)p.commandName));
 
-			Post[ExecuteQueryRoute] = p => ExecuteQuery((string)p.queryName, (string)p.methodName);
+			Get[QueryForReadModelRoute] = p => QueryForReadmodel((string)p.queryName, (string)p.methodName);
 
 			Post[PublishCommandRoute] = p => PublishCommand(this.Bind<IInputModel>());
 		}
@@ -114,11 +114,11 @@ namespace CompositeInspector.Module
 						: GetPublicationRecord(publicationId);
 		}
 
-		public Response ExecuteQuery(string queryName, string methodName)
+		public Response QueryForReadmodel(string queryName, string methodName)
 		{
-			var form = (DynamicDictionary)Context.Request.Form;
-			var argumentCount = form.Count();
-			var results = _compositeApp.ExecuteQuery(queryName, methodName, argumentCount, paramName => form[paramName]);
+			var arguments = (DynamicDictionary)Context.Request.Query;
+			var argumentCount = arguments.Count(x => !x.StartsWith("_"));
+			var results = _compositeApp.ExecuteQuery(queryName, methodName, argumentCount, paramName => arguments[paramName]);
 
 			return formatReturnData(results);
 		}

@@ -14,7 +14,7 @@ var EUCLID = function () {
 		if (id) {
 			form += "id='" + id + "'";
 		}
-		form += "action='/composite/api/execute/query/" + this.queryName + "/" + this.Name + "' method='post'><legend style='display:none'>" + this.queryName + "." + this.Name + "</legend><fieldset></fieldset></form>";
+		form += "action='/composite/api/query/" + this.queryName + "/" + this.Name + "' method='get'><legend style='display:none'>" + this.queryName + "." + this.Name + "</legend><fieldset></fieldset></form>";
 		form = $(form);
 		var fieldSet = $(form).children("fieldset");
 
