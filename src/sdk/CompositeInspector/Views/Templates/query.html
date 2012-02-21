@@ -70,12 +70,13 @@
 		var selectedMethod = $(this).attr("data-method-name");
 
 		EUCLID.withFormResults($("#query-form"), function (results) {
-			if (results == null) {
+			var tableData = getQueryResultsObject(results, selectedQuery, selectedMethod);
+
+			if (tableData == null) {
 				//displayResults("<div class='alert alert-box'><strong>Nada</strong> The query returned no results</div>");
 				$("#results-error").html("");
 				$("#results-error").append("<div class='alert alert-box'><strong>Nada</strong> The query returned no results</div>");
 			} else {
-				var tableData = getQueryResultsObject(results, selectedQuery, selectedMethod);
 				Using(tableData).Fill("#table-container").With("/composite/ui/template/query-results-table");
 			}
 
@@ -86,6 +87,10 @@
 	});
 
 	function getQueryResultsObject(results, queryName, methodName) {
+		if (results == null) {
+			return null;
+		}
+		
 		if ((results instanceof Array && results.length == 0) || !results) {
 			return null;
 		} else if (!(results instanceof Array)) {

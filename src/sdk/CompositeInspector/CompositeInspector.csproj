@@ -152,8 +152,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="Views\Shared\Frameset.cshtml" />
-    <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
     <EmbeddedResource Include="Views\templates\read-model.html" />
     <EmbeddedResource Include="Views\templates\commands.html" />
     <EmbeddedResource Include="Views\templates\queries.html" />
