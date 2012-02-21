@@ -618,6 +618,7 @@ var Using = function (jsonObject, onError) {
 	}
 };
 
+var queryCache = {};
 var RunQuery = function (query, args, onSuccess, onError) {
 	onError = onError ? onError : EUCLID.displayError;
 
@@ -625,7 +626,7 @@ var RunQuery = function (query, args, onSuccess, onError) {
 	var queryName = queryArray[0];
 	var methodName = queryArray[1];
 
-	EUCLID.withQuery(queryName, function (queryObject) {
+	var executeQuery = function(queryObject) {
 		try {
 			var method = queryObject.getMethodNamed(methodName, Object.keys(args).length);
 
@@ -643,14 +644,21 @@ var RunQuery = function (query, args, onSuccess, onError) {
 
 				method[argumentName] = args[argumentName];
 			}
-			;
-
 			var form = method.getForm();
 			EUCLID.withFormResults(form, onSuccess, onError);
 		} catch (e) {
 			onError(e);
 		}
-	}, onError);
+	};
+
+	if (queryCache[queryName]) {
+		executeQuery(queryCache[queryName]);
+	} else {
+		EUCLID.withQuery(queryName, function (queryObject) {
+			queryCache[queryName] = queryObject;
+			executeQuery(queryObject);
+		}, onError);
+	}
 };
 
 var WorkWithDataFromUrl = function (url, onSuccess, onError) {

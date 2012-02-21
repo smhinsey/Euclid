@@ -113,32 +113,11 @@
 		var recordQuery;
 
 		$(document).on("click", "#view-command-registry", function () {
-//			if (!recordQuery) {
-//				EUCLID.withQuery(
-//				"CommandRegistryQueries",
-//				function (query) {
-//					recordQuery = query.getMethodNamed("GetPublicationRecords", 2);
-//					getPublicationRecords(1);
-//				});
-//			} else {
-//				getPublicationRecords(1);
-			//			}
-
 			getPublicationRecords(1);
-			
 		});
 
 		$(document).on("click", "#view-composite-logs", function () {
-			if (!logQuery) {
-				EUCLID.withQuery(
-				"LogQueries",
-				function (query) {
-					logQuery = query.getMethodNamed("GetLogEntries", 2);
-					getLogEntries(1);
-				});
-			} else {
-				getLogEntries(1);
-			}
+			getLogEntries(1);
 		});
 
 
@@ -158,30 +137,11 @@
 				});
 		}
 
-//			recordQuery.offset = offset;
-//			recordQuery.recordsPerPage = RECORDS_PER_PAGE;
-//			var form = recordQuery.getForm();
-
-//			EUCLID.withFormResults(
-//				form,
-//				function (results) {
-//					var pagerData = results;
-//					pagerData["pageHandler"] = "getPublicationRecords";
-//					Using(results).Render("/composite/ui/template/command-registry-table").Manipulate(function (content) {
-//						$("#output").replaceContent(content);
-//						Using(pagerData).Render("/composite/ui/template/pager").Manipulate(function (pager) { $(display).append(pager); });
-//					});
-//				}
-//			);
-
 		function getLogEntries(pageNumber) {
 			var offset = (pageNumber - 1) * RECORDS_PER_PAGE;
-
-			logQuery.offset = offset;
-			logQuery.pageSize = RECORDS_PER_PAGE;
-			var form = logQuery.getForm();
-			EUCLID.withFormResults(
-				form,
+			RunQuery(
+				"LogQueries.GetLogEntries",
+				{ offset: offset, pageSize: RECORDS_PER_PAGE },
 				function (results) {
 					var pagerData = results;
 					pagerData["pageHandler"] = "getLogEntries";
