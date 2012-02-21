@@ -618,6 +618,41 @@ var Using = function (jsonObject, onError) {
 	}
 };
 
+var RunQuery = function (query, args, onSuccess, onError) {
+	onError = onError ? onError : EUCLID.displayError;
+
+	var queryArray = query.split(".");
+	var queryName = queryArray[0];
+	var methodName = queryArray[1];
+
+	EUCLID.withQuery(queryName, function (queryObject) {
+		try {
+			var method = queryObject.getMethodNamed(methodName, Object.keys(args).length);
+
+			for (argumentName in args) {
+				if (!(args.hasOwnProperty(argumentName))) {
+					continue;
+				}
+
+				if (!(method.hasOwnProperty(argumentName))) {
+					throw {
+						name: "Invalid Argument Exception",
+						message: "The query " + query + " doesn't accept an argument named " + argumentName
+					};
+				}
+
+				method[argumentName] = args[argumentName];
+			}
+			;
+
+			var form = method.getForm();
+			EUCLID.withFormResults(form, onSuccess, onError);
+		} catch (e) {
+			onError(e);
+		}
+	}, onError);
+};
+
 var WorkWithDataFromUrl = function (url, onSuccess, onError) {
 	/// <summary> fetches a json object and executes a callback </summary>
 	/// <param name='url'>the url from which to fetch the data</param>
