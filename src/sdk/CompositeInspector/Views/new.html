@@ -20,20 +20,11 @@
 
 	<div id="compositeInspector" class="container-fluid" style="margin: 0px; padding: 0px;">
 
-		<div class="row-fluid" style="height: 30px;">
+		<div class="row-fluid" style="background-color: #C0C0C0; border-bottom: 1px solid darkgray">
 
-			<div class="span12">
-				<ul class="nav nav-tabs">
-					<li class="dropdown"><a href="#" class="dropdown-toggle" id="composite-name" data-toggle="dropdown">{{Name}} <b class="caret"></b></a>
-
-						<div id="composite-agents">
-							<ul class="dropdown-menu">{{#each Agents}}
-								<li class="dropdown"><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">{{DescriptiveName}}</a>
-								</li>
-								{{/each}} </ul>
-						</div>
-
-					</li>
+			<div class="span12" style="margin-top: 5px; margin-left: 5px;">
+				<ul class="nav nav-pills" style="margin-bottom: 5px;">
+					<li class="active"><a href="#" id="composite-name">{{Name}}</a></li>
 					<li><a href="#" id="view-command-registry" class="clear-agent-display">Command Registry</a></li>
 					<li><a href="#" id="view-composite-logs" class="clear-agent-display">Logs</a></li>
 				</ul>
@@ -43,23 +34,29 @@
 
 		<div class="row-fluid" style="height: 255px;">
 
-			<div class="span12" style="margin-left: 15px;">
+			<div class="span12" style="margin-left: 5px; margin-top: 5px;">
+
+				<div id="composite-agents">
+					<ul>{{#each Agents}}
+						<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">{{DescriptiveName}}</a>
+						</li>
+						{{/each}} </ul>
+				</div>
+
 				<span id="agent-output"></span><span id="output"></span><span id="euclid-error-output" class="hide"></span>
 			</div>
 
 		</div>
 
-		<div class="row-fluid" style="background-color: #CCCCCC; padding-top: 5px; padding-bottom: 5px;">
+		<div class="row-fluid" style="background-color: #C0C0C0; border-top: 1px solid darkgray; padding-top: 5px; padding-bottom: 5px;">
 
+			<div class="span6">
+				<span style="margin-left: 5px;" id="composite-description"><small>{{Description}}</small></span>
+			</div>
 
-				<div class="span6">
-					<span id="composite-description">{{Description}}</span>
-				</div>
-
-				<div class="span6">
-					<span class="pull-right">[{Status messages}]</span>
-				</div>
-
+			<div class="span6">
+				<span style="margin-right: 5px;" class="pull-right">[{Status messages}]</span>
+			</div>
 
 		</div>
 
