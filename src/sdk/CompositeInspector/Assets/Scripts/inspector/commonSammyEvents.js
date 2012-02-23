@@ -25,9 +25,16 @@
 		});
 
 		this.bind('highlight-nav', function (e, data) {
+
+			console.log("Building highlight selector");
+
 			var navSelector = "#nav-" + data['current'];
 
+			console.log("Deactivating current highlight");
+
 			$(".nav-pills li").removeClass("active");
+
+			console.log("Highlighting item at " + navSelector);
 
 			$(navSelector).addClass("active");
 		});

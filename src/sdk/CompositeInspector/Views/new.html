@@ -30,9 +30,7 @@
 
 		<div class="row-fluid" style="height: 255px;">
 
-			<div id="inspectorMain" class="span12" style="margin-left: 5px; margin-top: 5px;">
-				<span id="agent-output"></span><span id="output"></span><span id="euclid-error-output" class="hide"></span>
-			</div>
+			<div id="inspectorMain" class="span12" style="margin-left: 5px; margin-top: 5px;"><span id="euclid-error-output" class="hide"></span></div>
 
 		</div>
 
@@ -73,52 +71,6 @@
 		});
 	});
 
-	$(document).on("click", ".clear-agent-display", function () {
-		$("#agent-output").empty();
-	});
-
-	var logQuery;
-	var recordQuery;
-
-	$(document).on("click", "#view-command-registry", function () {
-		getPublicationRecords(1);
-	});
-
-	$(document).on("click", "#view-composite-logs", function () {
-		getLogEntries(1);
-	});
-
-
-	function getPublicationRecords(pageNumber) {
-		console.log("getPublicationRecords(" + pageNumber + ")");
-		var offset = (pageNumber - 1) * RECORDS_PER_PAGE;
-		RunQuery(
-				"CommandRegistryQueries.GetPublicationRecords",
-				{ offset: offset, recordsPerPage: RECORDS_PER_PAGE },
-				function (results) {
-					var pagerData = results;
-					pagerData["pageHandler"] = "getPublicationRecords";
-					Using(results).Render("/composite/ui/template/command-registry-table").Manipulate(function (content) {
-						$("#output").replaceContent(content);
-						Using(pagerData).Render("/composite/ui/template/pager").Manipulate(function (pager) { $(display).append(pager); });
-					});
-				});
-	}
-
-	function getLogEntries(pageNumber) {
-		var offset = (pageNumber - 1) * RECORDS_PER_PAGE;
-		RunQuery(
-				"LogQueries.GetLogEntries",
-				{ offset: offset, pageSize: RECORDS_PER_PAGE },
-				function (results) {
-					var pagerData = results;
-					pagerData["pageHandler"] = "getLogEntries";
-					Using(results).Render("/composite/ui/template/log-entry-table").Manipulate(function (content) {
-						$("#output").replaceContent(content);
-						Using(pagerData).Render("/composite/ui/template/pager").Manipulate(function (pager) { $(display).append(pager); });
-					});
-				}
-			);
-	}
+	
 </script>
 </html>
