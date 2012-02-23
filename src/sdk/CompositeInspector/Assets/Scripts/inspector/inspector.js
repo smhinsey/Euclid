@@ -1,5 +1,5 @@
-﻿$.getScript("/composite/js/inspector/commonSammyEvents.js");
-
+﻿	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
+$.getScript("/composite/js/inspector/commonSammyEvents.js");
 
 ; (function ($) {
 	var app = $.sammy(function () {
