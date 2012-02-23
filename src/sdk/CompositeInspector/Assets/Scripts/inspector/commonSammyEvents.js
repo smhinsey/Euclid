@@ -25,9 +25,9 @@
 		});
 
 		this.bind('highlight-nav', function (e, data) {
-			var navSelector = "#nav-" + data['slug'] + data['current'];
+			var navSelector = "#nav-" + data['current'];
 
-			$(".nav-list li").removeClass("active");
+			$(".nav-pills li").removeClass("active");
 
 			$(navSelector).addClass("active");
 		});

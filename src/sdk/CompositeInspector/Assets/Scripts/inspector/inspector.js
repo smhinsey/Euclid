@@ -14,7 +14,17 @@
 				context.trigger('render-model', {templateName: 'description', model: compositeMetadata, targetSelector: "#inspectorDescription"});
 			});
 
-			this.trigger('highlight-nav', {slug: 'SysAdmin', current: 'Dashboard'});
+			this.trigger('highlight-nav', { current: 'Composite'});
+		});
+		
+		this.get('/composite/new/#command-registry', function () {
+		
+			this.trigger('highlight-nav', { current: 'CommandRegistry'});
+		});
+		
+		this.get('/composite/new/#system-logs', function () {
+		
+			this.trigger('highlight-nav', { current: 'SystemLogs'});
 		});
 
 		this.get('/composite/new', function () {
