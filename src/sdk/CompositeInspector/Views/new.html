@@ -30,7 +30,7 @@
 
 		<div class="row-fluid" style="height: 255px;">
 
-			<div id="inspectorMain" class="span12" style="margin-left: 5px; margin-top: 5px;"><span id="euclid-error-output" class="hide"></span></div>
+			<div id="inspectorMain" class="span12"><span id="euclid-error-output" class="hide"></span></div>
 
 		</div>
 
@@ -67,7 +67,7 @@
 		$(display).empty();
 		var systemName = $(this).attr("data-agent-system-name");
 		WorkWithDataFromUrl("/composite/api/agent/" + systemName, function (agentMetadata) {
-			Using(agentMetadata).Fill("#agent-output").With("/composite/ui/template/agent");
+			Using(agentMetadata).Fill("#inspectorMain").With("/composite/ui/template/agent");
 		});
 	});
 
