@@ -1,0 +1,35 @@
+﻿<div class="row-fluid">
+
+	<div id="inspectorMainLeft" style="background-color: whitesmoke; height: 255px" class="span4">
+		<ul class="nav nav-list">
+			<li class="nav-header">Agents <i class="icon-chevron-down"></i></li>
+			{{#each Agents}}
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">{{DescriptiveName}}</a></li>
+			{{/each}} 
+			<li class="active"><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Part Name</a></li>
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Part Name</a></li>
+		</ul>
+	</div>
+
+	<div id="inspectorMainCenter" style="background-color: whitesmoke; height: 255px" class="span4">
+		<ul class="nav nav-list">
+			<li class="nav-header">Commands <i class="icon-chevron-down"></i></li>
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Command Name</a></li>
+			<li class="active"><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Command Name</a></li>
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Command Name</a></li>
+			<li class="nav-header">Queries <i class="icon-chevron-down"></i></li>
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Query Name</a></li>
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Query Name</a></li>
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Query Name</a></li>
+			<li class="nav-header">Read models <i class="icon-chevron-down"></i></li>
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Read Model Name</a></li>
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Read Model Name</a></li>
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Read Model Name</a></li>
+		</ul>
+	</div>
+
+	<div id="inspectorMainRight" style="background-color: whitesmoke; height: 255px" class="span4">
+		&nbsp;
+	</div>
+
+</div>

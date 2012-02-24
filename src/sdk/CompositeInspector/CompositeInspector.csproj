@@ -373,7 +373,7 @@
     <EmbeddedResource Include="Assets\Scripts\inspector\templates\globalNav.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\inspector\templates\compositeExplorer.html" />
+    <EmbeddedResource Include="Assets\Scripts\inspector\templates\explorer.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\inspector\templates\description.html" />
