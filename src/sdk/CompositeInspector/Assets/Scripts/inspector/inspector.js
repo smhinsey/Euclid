@@ -7,11 +7,12 @@
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
-				Using(compositeMetadata).Fill("#inspectorGlobalNav").With("/composite/js/inspector/templates/globalNav.html")
-					.Then(function () {
-						$(".nav-pills li").removeClass("active");
-						$("#nav-Agents").addClass("active");
-					});
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
+					$("#inspectorGlobalNav").replaceContent(content);
+					$(".nav-pills li").removeClass("active");
+					$("#nav-Agents").addClass("active");
+					console.log($("#nav-Agents"));
+				});
 				
 				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agents.html");
 			});
