@@ -1,5 +1,5 @@
 ﻿	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
-$.getScript("/composite/js/inspector/commonSammyEvents.js");
+$.getScript("/composite/js/inspector/common.js");
 
 ; (function ($) {
 	var app = $.sammy(function () {
@@ -10,7 +10,7 @@ $.getScript("/composite/js/inspector/commonSammyEvents.js");
 			
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 				eventContext.trigger('render-model', {templateName: 'globalNav', model: compositeMetadata, targetSelector: "#inspectorGlobalNav"});
-				eventContext.trigger('render-model', {templateName: 'explorer', model: compositeMetadata, targetSelector: "#inspectorMain"});
+				eventContext.trigger('render-model', {templateName: 'agents', model: compositeMetadata, targetSelector: "#inspectorMain"});
 				eventContext.trigger('render-model', {templateName: 'description', model: compositeMetadata, targetSelector: "#inspectorDescription"});
 			});
 			
@@ -21,10 +21,45 @@ $.getScript("/composite/js/inspector/commonSammyEvents.js");
 		this.get('/composite/new/#explorer/agent/:agentSystemName', function () {
 
 			var eventContext = this;
+			var agentSystemName = this.params['agentSystemName'];
 			
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 				eventContext.trigger('render-model', {templateName: 'globalNav', model: compositeMetadata, targetSelector: "#inspectorGlobalNav"});
-				eventContext.trigger('render-model', {templateName: 'explorer', model: compositeMetadata, targetSelector: "#inspectorMain"});
+				eventContext.trigger('render-model', {templateName: 'agentWithParts', model: compositeMetadata, targetSelector: "#inspectorMain"});
+				eventContext.trigger('render-model', {templateName: 'description', model: compositeMetadata, targetSelector: "#inspectorDescription"});
+
+				var activeAgentSelector = "#agentsNav-" + slugify(agentSystemName);
+
+				console.log("Activating " + activeAgentSelector);
+
+				$(activeAgentSelector).addClass("active");
+
+				console.log("activeSelector match next.");
+				console.log($(activeAgentSelector));
+			});
+			
+			WorkWithDataFromUrl("/composite/api/agent/" + data['agentSystemName'], function (agentMetadata) {
+				var commandRenderData = { ListClass: "dropdown-menu", Commands: agentMetadata.Commands };
+				Using(commandRenderData).Render("/composite/ui/template/commands").ReplaceContentsOf("#agent-commands");
+
+				var queryRenderData = { ListClass: "dropdown-menu", Queries: agentMetadata.Queries };
+				Using(queryRenderData).Render("/composite/ui/template/queries").ReplaceContentsOf("#agent-queries");
+
+				var readModelRenderData = { ListClass: "dropdown-menu", SystemName: agentMetadata.SystemName, ReadModels: agentMetadata.ReadModels};
+				Using(readModelRenderData).Render("/composite/ui/template/read-models").ReplaceContentsOf("#agent-read-models");
+			});
+
+			this.trigger('highlight-nav', { current: 'Agents'});
+
+		});
+		
+		this.get('/composite/new/#explorer/agent/:agentSystemName/form', function () {
+
+			var eventContext = this;
+			
+			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
+				eventContext.trigger('render-model', {templateName: 'globalNav', model: compositeMetadata, targetSelector: "#inspectorGlobalNav"});
+				eventContext.trigger('render-model', {templateName: 'agentPartForm', model: compositeMetadata, targetSelector: "#inspectorMain"});
 				eventContext.trigger('render-model', {templateName: 'description', model: compositeMetadata, targetSelector: "#inspectorDescription"});
 			});
 			

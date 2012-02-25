@@ -373,10 +373,16 @@
     <EmbeddedResource Include="Assets\Scripts\inspector\templates\globalNav.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\inspector\templates\explorer.html" />
+    <EmbeddedResource Include="Assets\Scripts\inspector\templates\agents.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\inspector\templates\description.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\inspector\templates\agentWithParts.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\inspector\templates\agentPartForm.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
