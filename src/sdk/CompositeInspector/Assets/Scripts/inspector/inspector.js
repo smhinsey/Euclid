@@ -26,17 +26,19 @@
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				
 				Using(compositeMetadata).Fill("#inspectorGlobalNav").With("/composite/js/inspector/templates/globalNav.html")
 					.Then(function () {
 						$(".nav-pills li").removeClass("active");
 						$("#nav-Agents").addClass("active");
 					});
-				
+
+				var jq = $;
+
 				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agentWithParts.html")
 					.Then(function () {
-						$(".subNav").removeClass("active");
-						$(".subNav-" + agentSystemName).addClass("active");
-						console.log($(".subNav"));
+						jq(".subNav").removeClass("active");
+						jq(".subNav-" + agentSystemName).addClass("active");
 					});
 			});
 			
