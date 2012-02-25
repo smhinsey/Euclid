@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>New Composite Inspector</title>
+	<script type="text/javascript" src="/composite/js/jquery/jquery-1.7.1.min.js"> </script>
+	<script type="text/javascript" src="/composite/js/jquery/jquery-ui-1.8.16.custom.min.js"> </script>
+	<script type="text/javascript" src="/composite/js/bootstrap/bootstrap.min.js"> </script>
+	<script type="text/javascript" src="/composite/js/handlebars/handlebars-1.0.0.beta.6.js"> </script>
+	<script type="text/javascript" src="/composite/js/handlebars/euclid-handlebars-extensions.js"></script>
+	<script type="text/javascript" src="/composite/js/euclid-prototype-extensions.js"> </script>
+	<script type="text/javascript" src="/composite/js/jquery/euclid-jquery-extensions.js"> </script>
+	<script type="text/javascript" src="/composite/js/euclid-0.9.js"></script>
+	<script type="text/javascript" src="/composite/js/sammy/sammy.js"></script>
+	<script type="text/javascript" src="/composite/js/inspector/inspector.js"></script>
+	<link rel="Stylesheet" type="text/css" href="/composite/css/composite-inspector.css" />
+	<link rel="Stylesheet" type="text/css" href="/composite/css/smoothness/jquery-ui-1.8.16.custom.css" />
+	<link rel="stylesheet" type="text/css" href="/composite/css/bootstrap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/composite/css/bootstrap/bootstrap-subnav.css" />
+</head>
+<body>
+
+	<div id="compositeInspector" class="container-fluid" style="margin: 0px; padding: 0px;">
+
+		<div class="row-fluid" style="background-color: #C0C0C0; border-bottom: 1px solid darkgray">
+
+			<div id="inspectorGlobalNav" class="span12" style="margin-top: 5px; margin-left: 5px;"></div>
+
+		</div>
+
+		<div class="row-fluid" style="height: 255px;">
+
+			<div id="inspectorMain" class="span12" style="height: 255px; overflow-y: auto; overflow-x: hidden;"><span id="euclid-error-output" class="hide"></span></div>
+
+		</div>
+
+		<div class="row-fluid" style="background-color: #C0C0C0; border-top: 1px solid darkgray; padding-top: 5px; padding-bottom: 5px;">
+
+			<div class="span6">
+				<span style="margin-left: 5px;" id="inspectorDescription"></span>
+			</div>
+
+			<div class="span6">
+				<span style="margin-right: 5px;" class="pull-right">[{Status messages}]</span>
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+<script type="text/javascript">
+	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
+	var RECORDS_PER_PAGE = 7;
+	var display = "#output";
+
+	WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
+
+		var queryRenderData = { ListClass: "dropdown-menu", ItemClass: "dropdown", Queries: compositeMetadata.Queries };
+		Using(queryRenderData).Fill("#composite-queries").With("/composite/ui/template/queries");
+
+		var inputModelRenderData = { ListClass: "dropdown-menu", ItemClass: "dropdown", InputModels: compositeMetadata.InputModels };
+		Using(inputModelRenderData).Fill("#composite-inputmodels").With("/composite/ui/template/input-models");
+	});
+
+	$(document).on("click", ".agent", function () {
+		$(display).empty();
+		var systemName = $(this).attr("data-agent-system-name");
+		WorkWithDataFromUrl("/composite/api/agent/" + systemName, function (agentMetadata) {
+			Using(agentMetadata).Fill("#inspectorMain").With("/composite/ui/template/agent");
+		});
+	});
+
+	
+</script>
+</html>

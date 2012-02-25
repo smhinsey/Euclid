@@ -14,12 +14,16 @@ namespace CompositeInspector.Module
 		private const string HomeRoute = "/inspector";
 		private const string HomeViewPath = "inspector";
 
+		private const string NewRoute = "/new";
+		private const string NewViewPath = "new";
+
 		public UserInterfaceModule()
 			: base(BaseRoute)
 		{
 			Get[IndexRoute] = _ => View[HomeViewPath];
 
 			Get[HomeRoute] = _ => View[HomeViewPath];
+			Get[NewRoute] = _ => View[NewViewPath];
 		}
 	}
 }

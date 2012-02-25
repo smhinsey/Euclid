@@ -1,0 +1,39 @@
+﻿<div class="row-fluid">
+
+	<div id="inspectorMainLeft" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span3">
+		<ul style="margin-top: 10px;" class="nav nav-list">
+			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Agents</li>
+			{{#each Agents}}
+			<li id="subNav-{{slugify SystemName}}"><a href="/composite/new/#explorer/agent/{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">
+				{{DescriptiveName}}</a> </li>
+			{{/each}} </ul>
+	</div>
+
+	<div id="inspectorMainCenter" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span3">
+		<ul style="margin-top: 10px;" class="nav nav-list">
+			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Commands</li>
+			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Command Name</a></li>
+			<li class="active"><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Command
+				Name</a></li>
+		</ul>
+		<ul class="nav nav-list">
+			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Command Name</a></li>
+			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Queries</li>
+			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Query Name</a></li>
+			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Query Name</a></li>
+			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Query Name</a></li>
+		</ul>
+		<ul class="nav nav-list">
+			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Read models</li>
+			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Read Model Name</a></li>
+			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Read Model Name</a></li>
+			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Read Model Name</a></li>
+		</ul>
+	</div>
+
+	<div id="inspectorMainRight" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span6">
+		&nbsp;
+	</div>
+
+</div>
+
