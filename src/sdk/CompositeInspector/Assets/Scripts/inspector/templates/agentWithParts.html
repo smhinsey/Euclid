@@ -4,31 +4,35 @@
 		<ul style="margin-top: 10px;" class="nav nav-list">
 			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Agents</li>
 			{{#each Agents}}
-			<li class="subNav active subNav-{{slugify SystemName}}"><a href="/composite/new/#explorer/agent/{{slugify SystemName}}" rel="tooltip" data-original-title="{{Description}}">
+			<li class="subNav subNav-{{slugify SystemName}}"><a href="/composite/new/#explorer/agent/{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">
 				{{DescriptiveName}}</a> </li>
 			{{/each}} </ul>
 	</div>
 
 	<div id="inspectorMainCenter" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span3">
 		<ul style="margin-top: 10px;" class="nav nav-list">
+			{{#if Commands}}
 			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Commands</li>
-			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Command Name</a></li>
-			<li class="active"><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Command
-				Name</a></li>
-		</ul>
+			{{/if}}
+			{{#each Commands}}
+			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{Name}}/form">
+				{{Name}}</a> </li>
+			{{/each}} </ul>
 		<ul class="nav nav-list">
-			<li><a class="agent" href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Command Name</a></li>
+			{{#if Queries}}
 			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Queries</li>
-			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Query Name</a></li>
-			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Query Name</a></li>
-			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Query Name</a></li>
+			{{/if}}
+			{{#each Queries}}
+			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{Name}}/form">{{Name}}</a> </li>
+			{{/each}} 
 		</ul>
 		<ul class="nav nav-list">
-			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Read models</li>
-			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Read Model Name</a></li>
-			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Read Model Name</a></li>
-			<li><a href="#" data-agent-system-name="{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">Read Model Name</a></li>
-		</ul>
+			{{#if ReadModels}}
+			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Read Models</li>
+			{{/if}}
+			{{#each ReadModels}}
+			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{Name}}/form">{{Name}}</a> </li>
+			{{/each}} </ul>
 	</div>
 
 	<div id="inspectorMainRight" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span6">

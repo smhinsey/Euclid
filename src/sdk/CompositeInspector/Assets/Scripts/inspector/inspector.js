@@ -10,8 +10,7 @@
 				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
 					$("#inspectorGlobalNav").replaceContent(content);
 					$(".nav-pills li").removeClass("active");
-					$("#nav-Agents").addClass("active");
-					console.log($("#nav-Agents"));
+					$("#nav-CompositeExplorer").addClass("active");
 				});
 				
 				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agents.html");
@@ -20,26 +19,33 @@
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName', function () {
 			
+			var agentSystemNameRaw = this.params['agentSystemName'];
 			var agentSystemName = slugify(this.params['agentSystemName']);
 
-			console.log("agentSystemName: " + agentSystemName);
-			
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
-				
-				Using(compositeMetadata).Fill("#inspectorGlobalNav").With("/composite/js/inspector/templates/globalNav.html")
-					.Then(function () {
-						$(".nav-pills li").removeClass("active");
-						$("#nav-Agents").addClass("active");
-					});
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
+					$("#inspectorGlobalNav").replaceContent(content);
+					$(".nav-pills li").removeClass("active");
+					$("#nav-CompositeExplorer").addClass("active");
+				});
 
+				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemNameRaw, function (agentMetadata) {
 
-				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agentWithParts.html")
-					.Then(function () {
+					var agentPartModel = {};
+					agentPartModel.Agents = compositeMetadata.Agents;
+					agentPartModel.Commands = agentMetadata.Commands;
+					agentPartModel.Queries = agentMetadata.Queries;
+					agentPartModel.ReadModels = agentMetadata.ReadModels;
+
+					Using(agentPartModel).Render("/composite/js/inspector/templates/agentWithParts.html").Manipulate(function(content) {
+						$("#inspectorMain").replaceContent(content);
 						$(".subNav").removeClass("active");
 						$(".subNav-" + agentSystemName).addClass("active");
 					});
+				});
+
 			});
 			
 //			WorkWithDataFromUrl("/composite/api/agent/" + data['agentSystemName'], function (agentMetadata) {
