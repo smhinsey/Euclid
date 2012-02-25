@@ -566,6 +566,11 @@ var Using = function (jsonObject, onError) {
 							onError(error);
 						}
 					);
+return {
+   Then: function(callback) {
+     callback(_data);
+   }
+}
 				},
 
 				TargetIsTemplate: function () {
