@@ -369,7 +369,7 @@
     <EmbeddedResource Include="Assets\Scripts\sammy\sammy.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Scripts\inspector\commonSammyEvents.js" />
+    <EmbeddedResource Include="Assets\Scripts\inspector\common.js" />
     <EmbeddedResource Include="Assets\Scripts\inspector\templates\globalNav.html" />
   </ItemGroup>
   <ItemGroup>

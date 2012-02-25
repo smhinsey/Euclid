@@ -5,13 +5,13 @@ $.getScript("/composite/js/inspector/common.js");
 	var app = $.sammy(function () {
 
 		this.get('/composite/new/#explorer', function () {
-
-			var eventContext = this;
 			
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
-				eventContext.trigger('render-model', {templateName: 'globalNav', model: compositeMetadata, targetSelector: "#inspectorGlobalNav"});
-				eventContext.trigger('render-model', {templateName: 'agents', model: compositeMetadata, targetSelector: "#inspectorMain"});
-				eventContext.trigger('render-model', {templateName: 'description', model: compositeMetadata, targetSelector: "#inspectorDescription"});
+
+				Using(compositeMetadata).Fill("#inspectorGlobalNav").With("/composite/js/inspector/templates/globalNav.html");
+				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agents.html");
+				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				
 			});
 			
 			this.trigger('highlight-nav', { current: 'Agents'});
@@ -19,38 +19,32 @@ $.getScript("/composite/js/inspector/common.js");
 		});
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName', function () {
+			
+			var agentSystemName = slugify(this.params['agentSystemName']);
 
-			var eventContext = this;
-			var agentSystemName = this.params['agentSystemName'];
+			console.log("agentSystemName: " + agentSystemName);
 			
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
-				eventContext.trigger('render-model', {templateName: 'globalNav', model: compositeMetadata, targetSelector: "#inspectorGlobalNav"});
-				eventContext.trigger('render-model', {templateName: 'agentWithParts', model: compositeMetadata, targetSelector: "#inspectorMain"});
-				eventContext.trigger('render-model', {templateName: 'description', model: compositeMetadata, targetSelector: "#inspectorDescription"});
 
-				var activeAgentSelector = "#agentsNav-" + slugify(agentSystemName);
+				Using(compositeMetadata).Fill("#inspectorGlobalNav").With("/composite/js/inspector/templates/globalNav.html");
+				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agentWithParts.html");
+				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
 
-				console.log("Activating " + activeAgentSelector);
-
-				$(activeAgentSelector).addClass("active");
-
-				console.log("activeSelector match next.");
-				console.log($(activeAgentSelector));
 			});
 			
-			WorkWithDataFromUrl("/composite/api/agent/" + data['agentSystemName'], function (agentMetadata) {
-				var commandRenderData = { ListClass: "dropdown-menu", Commands: agentMetadata.Commands };
-				Using(commandRenderData).Render("/composite/ui/template/commands").ReplaceContentsOf("#agent-commands");
+//			WorkWithDataFromUrl("/composite/api/agent/" + data['agentSystemName'], function (agentMetadata) {
+//				var commandRenderData = { ListClass: "dropdown-menu", Commands: agentMetadata.Commands };
+//				Using(commandRenderData).Render("/composite/ui/template/commands").ReplaceContentsOf("#agent-commands");
 
-				var queryRenderData = { ListClass: "dropdown-menu", Queries: agentMetadata.Queries };
-				Using(queryRenderData).Render("/composite/ui/template/queries").ReplaceContentsOf("#agent-queries");
+//				var queryRenderData = { ListClass: "dropdown-menu", Queries: agentMetadata.Queries };
+//				Using(queryRenderData).Render("/composite/ui/template/queries").ReplaceContentsOf("#agent-queries");
 
-				var readModelRenderData = { ListClass: "dropdown-menu", SystemName: agentMetadata.SystemName, ReadModels: agentMetadata.ReadModels};
-				Using(readModelRenderData).Render("/composite/ui/template/read-models").ReplaceContentsOf("#agent-read-models");
-			});
+//				var readModelRenderData = { ListClass: "dropdown-menu", SystemName: agentMetadata.SystemName, ReadModels: agentMetadata.ReadModels};
+//				Using(readModelRenderData).Render("/composite/ui/template/read-models").ReplaceContentsOf("#agent-read-models");
+//			});
 
 			this.trigger('highlight-nav', { current: 'Agents'});
-
+			this.trigger('highlight-subnav', { current: agentSystemName});
 		});
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName/form', function () {
