@@ -24,6 +24,8 @@
 
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
+				compositeMetadata.AgentSystemName = agentSystemNameRaw;
+
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
 				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
 					$("#inspectorGlobalNav").replaceContent(content);
@@ -34,6 +36,7 @@
 				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemNameRaw, function (agentMetadata) {
 
 					var agentPartModel = {};
+					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
 					agentPartModel.Agents = compositeMetadata.Agents;
 					agentPartModel.Commands = agentMetadata.Commands;
 					agentPartModel.Queries = agentMetadata.Queries;
@@ -50,9 +53,46 @@
 			
 		});
 		
-		this.get('/composite/new/#explorer/agent/:agentSystemName/form', function () {
+		this.get('/composite/new/#explorer/agent/:agentSystemName/part/:partName/form', function () {
 			
+			var agentSystemNameRaw = this.params['agentSystemName'];
+			var agentSystemName = slugify(this.params['agentSystemName']);
+
+			var partName = this.params['partName'];
+			var partNameSlug = slugify(this.params['partName']);
+
+			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
+
+				compositeMetadata.AgentSystemName = agentSystemNameRaw;
+
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
+					$("#inspectorGlobalNav").replaceContent(content);
+					$(".nav-pills li").removeClass("active");
+					$("#nav-CompositeExplorer").addClass("active");
+				});
+
+				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemNameRaw, function (agentMetadata) {
+
+					var agentPartModel = {};
+					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
+					agentPartModel.Agents = compositeMetadata.Agents;
+					agentPartModel.Commands = agentMetadata.Commands;
+					agentPartModel.Queries = agentMetadata.Queries;
+					agentPartModel.ReadModels = agentMetadata.ReadModels;
+
+					Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
+						$("#inspectorMain").replaceContent(content);
+						$(".subNav").removeClass("active");
+						$(".subNav-" + agentSystemName).addClass("active");
+						
+						$(".terNav").removeClass("active");
+						$(".terNav-" + partNameSlug).addClass("active");
+					});
+				});
+
+			});
+
 				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
 					$("#inspectorGlobalNav").replaceContent(content);
 					$(".nav-pills li").removeClass("active");
