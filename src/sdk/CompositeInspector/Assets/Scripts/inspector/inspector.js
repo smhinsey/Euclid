@@ -26,11 +26,13 @@
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				
 				Using(compositeMetadata).Fill("#inspectorGlobalNav").With("/composite/js/inspector/templates/globalNav.html")
 					.Then(function () {
 						$(".nav-pills li").removeClass("active");
 						$("#nav-Agents").addClass("active");
 					});
+
 
 				Using(compositeMetadata).Render("/composite/js/inspector/templates/agentWithParts.html").Manipulate(function(content) {
 						$(content).find(".subNav").removeClass("active");
@@ -61,42 +63,26 @@
 		});
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName/form', function () {
-
-			var eventContext = this;
 			
-			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
-				eventContext.trigger('render-model', {templateName: 'globalNav', model: compositeMetadata, targetSelector: "#inspectorGlobalNav"});
-				eventContext.trigger('render-model', {templateName: 'agentPartForm', model: compositeMetadata, targetSelector: "#inspectorMain"});
-				eventContext.trigger('render-model', {templateName: 'description', model: compositeMetadata, targetSelector: "#inspectorDescription"});
-			});
-			
-			WorkWithDataFromUrl("/composite/api/agent/" + data['agentSystemName'], function (agentMetadata) {
-				var commandRenderData = { ListClass: "dropdown-menu", Commands: agentMetadata.Commands };
-				Using(commandRenderData).Render("/composite/ui/template/commands").ReplaceContentsOf("#agent-commands");
-
-				var queryRenderData = { ListClass: "dropdown-menu", Queries: agentMetadata.Queries };
-				Using(queryRenderData).Render("/composite/ui/template/queries").ReplaceContentsOf("#agent-queries");
-
-				var readModelRenderData = { ListClass: "dropdown-menu", SystemName: agentMetadata.SystemName, ReadModels: agentMetadata.ReadModels};
-				Using(readModelRenderData).Render("/composite/ui/template/read-models").ReplaceContentsOf("#agent-read-models");
-			});
-
-			this.trigger('highlight-nav', { current: 'Agents'});
-
+			$(".nav-pills li").removeClass("active");
+			$("#nav-Agents").addClass("active");
 		});
 		
 		this.get('/composite/new/#command-registry', function () {
 
 			getPublicationRecords(1);
 
-			this.trigger('highlight-nav', { current: 'CommandRegistry'});
+			$(".nav-pills li").removeClass("active");
+			$("#nav-CommandRegistry").addClass("active");			
 		});
 		
 		this.get('/composite/new/#system-logs', function () {
 
 			getLogEntries(1);
 
-			this.trigger('highlight-nav', { current: 'SystemLogs'});
+			$(".nav-pills li").removeClass("active");
+			$("#nav-SystemLogs").addClass("active");
+
 		});
 
 		this.get('/composite/new', function () {
