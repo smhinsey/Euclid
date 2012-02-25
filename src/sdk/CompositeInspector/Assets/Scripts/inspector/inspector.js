@@ -1,4 +1,4 @@
-﻿	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
+﻿	/// <reference path="../Assets/Scripts/euclid-0.9.js" />
 ; (function ($) {
 	var app = $.sammy(function () {
 
@@ -31,13 +31,20 @@
 						$(".nav-pills li").removeClass("active");
 						$("#nav-Agents").addClass("active");
 					});
-				
-				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agentWithParts.html")
-					.Then(function () {
-						$(".subNav").removeClass("active");
-						$(".subNav-" + agentSystemName).addClass("active");
+
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/agentWithParts.html").Manipulate(function(content) {
+						$(content).find(".subNav").removeClass("active");
+						$(content).find(".subNav-" + agentSystemName).addClass("active");
+						$("#inspectorMain").replaceContent(content);
 						console.log($(".subNav"));
-					});
+				});
+
+//				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agentWithParts.html")
+//					.Then(function () {
+//						$(".subNav").removeClass("active");
+//						$(".subNav-" + agentSystemName).addClass("active");
+//						console.log($(".subNav"));
+//					});
 			});
 			
 //			WorkWithDataFromUrl("/composite/api/agent/" + data['agentSystemName'], function (agentMetadata) {
