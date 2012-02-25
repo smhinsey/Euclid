@@ -48,26 +48,21 @@
 
 			});
 			
-//			WorkWithDataFromUrl("/composite/api/agent/" + data['agentSystemName'], function (agentMetadata) {
-//				var commandRenderData = { ListClass: "dropdown-menu", Commands: agentMetadata.Commands };
-//				Using(commandRenderData).Render("/composite/ui/template/commands").ReplaceContentsOf("#agent-commands");
-
-//				var queryRenderData = { ListClass: "dropdown-menu", Queries: agentMetadata.Queries };
-//				Using(queryRenderData).Render("/composite/ui/template/queries").ReplaceContentsOf("#agent-queries");
-
-//				var readModelRenderData = { ListClass: "dropdown-menu", SystemName: agentMetadata.SystemName, ReadModels: agentMetadata.ReadModels};
-//				Using(readModelRenderData).Render("/composite/ui/template/read-models").ReplaceContentsOf("#agent-read-models");
-//			});
-
 		});
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName/form', function () {
 			
-			$(".nav-pills li").removeClass("active");
-			$("#nav-Agents").addClass("active");
+				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
+					$("#inspectorGlobalNav").replaceContent(content);
+					$(".nav-pills li").removeClass("active");
+					$("#nav-CompositeExplorer").addClass("active");
+				});
+			
 		});
 		
 		this.get('/composite/new/#command-registry', function () {
+			Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
 
 			getPublicationRecords(1);
 
@@ -76,6 +71,7 @@
 		});
 		
 		this.get('/composite/new/#system-logs', function () {
+			Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
 
 			getLogEntries(1);
 
