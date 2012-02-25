@@ -1,6 +1,4 @@
 ﻿	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
-$.getScript("/composite/js/inspector/common.js");
-
 ; (function ($) {
 	var app = $.sammy(function () {
 
@@ -8,14 +6,15 @@ $.getScript("/composite/js/inspector/common.js");
 			
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
-				Using(compositeMetadata).Fill("#inspectorGlobalNav").With("/composite/js/inspector/templates/globalNav.html");
-				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agents.html");
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				Using(compositeMetadata).Fill("#inspectorGlobalNav").With("/composite/js/inspector/templates/globalNav.html")
+					.Then(function () {
+						$(".nav-pills li").removeClass("active");
+						$("#nav-Agents").addClass("active");
+					});
 				
+				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agents.html");
 			});
-			
-			this.trigger('highlight-nav', { current: 'Agents'});
-
 		});
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName', function () {
@@ -26,10 +25,19 @@ $.getScript("/composite/js/inspector/common.js");
 			
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
-				Using(compositeMetadata).Fill("#inspectorGlobalNav").With("/composite/js/inspector/templates/globalNav.html");
-				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agentWithParts.html");
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
-
+				Using(compositeMetadata).Fill("#inspectorGlobalNav").With("/composite/js/inspector/templates/globalNav.html")
+					.Then(function () {
+						$(".nav-pills li").removeClass("active");
+						$("#nav-Agents").addClass("active");
+					});
+				
+				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agentWithParts.html")
+					.Then(function () {
+						$(".subNav").removeClass("active");
+						$(".subNav-" + agentSystemName).addClass("active");
+						console.log($(".subNav"));
+					});
 			});
 			
 //			WorkWithDataFromUrl("/composite/api/agent/" + data['agentSystemName'], function (agentMetadata) {
@@ -43,8 +51,6 @@ $.getScript("/composite/js/inspector/common.js");
 //				Using(readModelRenderData).Render("/composite/ui/template/read-models").ReplaceContentsOf("#agent-read-models");
 //			});
 
-			this.trigger('highlight-nav', { current: 'Agents'});
-			this.trigger('highlight-subnav', { current: agentSystemName});
 		});
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName/form', function () {
