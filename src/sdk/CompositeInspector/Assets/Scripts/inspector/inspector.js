@@ -19,12 +19,12 @@
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName', function () {
 			
-			var agentSystemNameRaw = this.params['agentSystemName'];
-			var agentSystemName = slugify(this.params['agentSystemName']);
+			var agentSystemName = this.params['agentSystemName'];
+			var agentSystemNameSlug = slugify(this.params['agentSystemName']);
 
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
-				compositeMetadata.AgentSystemName = agentSystemNameRaw;
+				compositeMetadata.AgentSystemName = agentSystemName;
 
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
 				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
@@ -33,7 +33,7 @@
 					$("#nav-CompositeExplorer").addClass("active");
 				});
 
-				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemNameRaw, function (agentMetadata) {
+				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemName, function (agentMetadata) {
 
 					var agentPartModel = {};
 					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
@@ -45,7 +45,7 @@
 					Using(agentPartModel).Render("/composite/js/inspector/templates/agentWithParts.html").Manipulate(function(content) {
 						$("#inspectorMain").replaceContent(content);
 						$(".subNav").removeClass("active");
-						$(".subNav-" + agentSystemName).addClass("active");
+						$(".subNav-" + agentSystemNameSlug).addClass("active");
 					});
 				});
 
@@ -55,15 +55,14 @@
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName/part/:partName/form', function () {
 			
-			var agentSystemNameRaw = this.params['agentSystemName'];
-			var agentSystemName = slugify(this.params['agentSystemName']);
+			var agentSystemName = this.params['agentSystemName'];
+			var agentSystemNameSlug = slugify(this.params['agentSystemName']);
 
-			var partName = this.params['partName'];
 			var partNameSlug = slugify(this.params['partName']);
 
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
-				compositeMetadata.AgentSystemName = agentSystemNameRaw;
+				compositeMetadata.AgentSystemName = agentSystemName;
 
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
 				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
@@ -72,7 +71,7 @@
 					$("#nav-CompositeExplorer").addClass("active");
 				});
 
-				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemNameRaw, function (agentMetadata) {
+				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemName, function (agentMetadata) {
 
 					var agentPartModel = {};
 					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
@@ -84,7 +83,7 @@
 					Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
 						$("#inspectorMain").replaceContent(content);
 						$(".subNav").removeClass("active");
-						$(".subNav-" + agentSystemName).addClass("active");
+						$(".subNav-" + agentSystemNameSlug).addClass("active");
 						
 						$(".terNav").removeClass("active");
 						$(".terNav-" + partNameSlug).addClass("active");
@@ -92,12 +91,6 @@
 				});
 
 			});
-
-				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
-					$("#inspectorGlobalNav").replaceContent(content);
-					$(".nav-pills li").removeClass("active");
-					$("#nav-CompositeExplorer").addClass("active");
-				});
 			
 		});
 		
