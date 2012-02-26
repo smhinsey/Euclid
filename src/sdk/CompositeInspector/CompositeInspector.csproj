@@ -249,7 +249,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\jquery\euclid-jquery-extensions.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\inspector\templates\forms\command.html" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\Scripts\euclid-prototype-extensions.js" />
   </ItemGroup>
@@ -385,6 +387,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\Images\gray-caret-down.png" />
     <EmbeddedResource Include="Assets\Images\gray-caret-right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\inspector\templates\forms\query.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Scripts\inspector\templates\forms\readModel.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

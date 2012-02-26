@@ -53,8 +53,9 @@
 			
 		});
 		
-		this.get('/composite/new/#explorer/agent/:agentSystemName/part/:partName/form', function () {
+		this.get('/composite/new/#explorer/agent/:agentSystemName/:partType/:partName/form', function () {
 			
+			var selectedPartType = this.params['partType'];
 			var agentSystemName = this.params['agentSystemName'];
 			var agentSystemNameSlug = slugify(this.params['agentSystemName']);
 
@@ -80,6 +81,15 @@
 					agentPartModel.Queries = agentMetadata.Queries;
 					agentPartModel.ReadModels = agentMetadata.ReadModels;
 
+					agentPartModel.SelectedPartType = selectedPartType;
+					agentPartModel.IsCommand = selectedPartType == "command";
+					agentPartModel.IsQuery = selectedPartType == "query";
+					agentPartModel.IsReadModel = selectedPartType == "readModel";
+
+//					Handlebars.registerPartial("command", "/composite/js/inspector/templates/forms/command.html");
+//					Handlebars.registerPartial("query", "/composite/js/inspector/templates/forms/query.html");
+//					Handlebars.registerPartial("readModel", "/composite/js/inspector/templates/forms/readModel.html");
+
 					Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
 						$("#inspectorMain").replaceContent(content);
 						$(".subNav").removeClass("active");
@@ -87,6 +97,7 @@
 						
 						$(".terNav").removeClass("active");
 						$(".terNav-" + partNameSlug).addClass("active");
+						console.log(partNameSlug);
 					});
 				});
 

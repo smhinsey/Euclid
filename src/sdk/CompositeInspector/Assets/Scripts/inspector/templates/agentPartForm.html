@@ -15,7 +15,7 @@
 			<li class="nav-header"><img class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Commands</li>
 			{{/if}}
 			{{#each Commands}}
-			<li class="terNav terNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/part/{{Name}}/form">
+			<li class="terNav terNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/command/{{Name}}/form">
 				{{Name}}</a> </li>
 			{{/each}} </ul>
 		<ul class="nav nav-list">
@@ -23,7 +23,7 @@
 			<li class="nav-header"><img class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Queries</li>
 			{{/if}}
 			{{#each Queries}}
-			<li class="terNav terNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/part/{{Name}}/form">{{Name}}</a> </li>
+			<li class="terNav terNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/query/{{Name}}/form">{{Name}}</a> </li>
 			{{/each}} 
 		</ul>
 		<ul class="nav nav-list">
@@ -31,7 +31,7 @@
 			<li class="nav-header"><img class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Read Models</li>
 			{{/if}}
 			{{#each ReadModels}}
-			<li class="terNav terNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/part/{{Name}}/form">{{Name}}</a> </li>
+			<li class="terNav terNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/readModel/{{Name}}/form">{{Name}}</a> </li>
 			{{/each}} </ul>
 	</div>
 
@@ -39,60 +39,7 @@
 		<form class="form-horizontal" style="margin: 15px;">
 
 		<div class="control-group">
-			<h3>Publish <em>Command Name</em></h3>
-		</div>
-
-		<div class="control-group">
-			<label class="control-label" for="input01">Property Name</label>
-
-			<div class="controls">
-				<input type="text" class="input-medium" id="input01">
-			</div>
-
-		</div>
-
-		<div class="control-group">
-			<label class="control-label" for="input02">Another Name</label>
-
-			<div class="controls">
-				<input type="text" class="input-medium" id="input02">
-			</div>
-
-		</div>
-
-		<div class="control-group">
-			<label class="control-label" for="input03">Third Name</label>
-
-			<div class="controls">
-				<input type="text" class="input-medium" id="input03">
-			</div>
-
-		</div>
-
-		<div class="control-group">
-			<label class="control-label" for="input04">Fourth Name</label>
-
-			<div class="controls">
-				<input type="text" class="input-medium" id="input04">
-			</div>
-
-		</div>
-
-		<div class="control-group">
-			<label class="control-label" for="input05">Fifth Property</label>
-
-			<div class="controls">
-				<input type="text" class="input-medium" id="input05">
-			</div>
-
-		</div>
-
-		<div class="control-group">
-
-			<div class="controls">
-				<button class="btn btn-primary">Publish</button>
-			</div>
-
+			<h3>Publish {{SelectedPartType}}</h3>
 		</div>
 
 		</form>
