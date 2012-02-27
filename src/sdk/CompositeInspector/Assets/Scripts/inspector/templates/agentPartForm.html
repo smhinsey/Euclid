@@ -37,17 +37,18 @@
 
 	<div id="inspectorMainRight" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span6">
 		{{#if IsCommand}}
-			rendering command partial
 			{{> command}}
+		{{/if}}
+		
+		{{#if IsInputModel}}
+			{{> inputModel}}
 		{{/if}}
 			
 		{{#if IsQuery}}
-			renderring query partial
 			{{> query}}
 		{{/if}}
 			
 		{{#if IsReadModel}}
-			rendering readModel partial
 			{{> readModel}}
 		{{/if}}
 	</div>

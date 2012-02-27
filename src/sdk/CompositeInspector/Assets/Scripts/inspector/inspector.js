@@ -4,6 +4,8 @@
 
 		this.get('/composite/new/#explorer', function () {
 			
+			$("#inspectorMain").empty();
+
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
@@ -19,6 +21,8 @@
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName', function () {
 			
+			$("#inspectorMain").empty();
+
 			var agentSystemName = this.params['agentSystemName'];
 			var agentSystemNameSlug = slugify(this.params['agentSystemName']);
 
@@ -55,6 +59,8 @@
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName/:partType/:partName/form', function () {
 			
+			$("#inspectorMain").empty();
+
 			var selectedPartType = this.params['partType'];
 			var agentPartName = this.params['partName'];
 			var agentSystemName = this.params['agentSystemName'];
@@ -92,22 +98,71 @@
 						agentPartModel.Command = { };
 						
 						WorkWithDataFromUrl("/composite/api/command-is-supported/" + agentPartName, function (results) {
+
+							console.log(results);
+
 							if (results.Supported) {
-								agentPartModel.Command = results.InputModel;
+								
+								agentPartModel.InputModel = results.InputModel;
+
+								agentPartModel.IsCommand = false;
+
+								agentPartModel.IsInputModel = true;
+								
+								console.log(agentPartModel);
+								
+								Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
+									
+									console.log("Rendering input model");
+									
+									$("#inspectorMain").replaceContent(content);
+									$(".subNav").removeClass("active");
+									$(".subNav-" + agentSystemNameSlug).addClass("active");
+						
+									$(".terNav").removeClass("active");
+									$(".terNav-" + partNameSlug).addClass("active");
+									console.log("partNameSlug: " + partNameSlug);
+									console.log(agentPartModel);
+								});
+
 							} else {
 								agentPartModel.Command = results.Command;
-							}
 						
+								Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
+									$("#inspectorMain").replaceContent(content);
+									$(".subNav").removeClass("active");
+									$(".subNav-" + agentSystemNameSlug).addClass("active");
+						
+									$(".terNav").removeClass("active");
+									$(".terNav-" + partNameSlug).addClass("active");
+									console.log("partNameSlug: " + partNameSlug);
+									console.log(agentPartModel);
+								});
+							}
+								
+						});
+					
+					}
+					else if(agentPartModel.IsReadModel) {
+						
+						agentPartModel.ReadModel = { };
+
+						WorkWithDataFromUrl("/composite/api/read-model/" + agentSystemName + "/" + agentPartName, function(readModel) {
+
+							agentPartModel.ReadModel = readModel;
+							agentPartModel.ReadModel.Name = agentPartName;
+
 							Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
 								$("#inspectorMain").replaceContent(content);
 								$(".subNav").removeClass("active");
 								$(".subNav-" + agentSystemNameSlug).addClass("active");
-						
+
 								$(".terNav").removeClass("active");
 								$(".terNav-" + partNameSlug).addClass("active");
 								console.log("partNameSlug: " + partNameSlug);
 								console.log(agentPartModel);
 							});
+
 						});
 					
 					}
@@ -118,6 +173,8 @@
 		});
 		
 		this.get('/composite/new/#command-registry', function () {
+
+			$("#inspectorMain").empty();
 
 			WorkWithDataFromUrl("/composite/api", function(compositeMetadata) {
 
@@ -152,6 +209,8 @@
 			});
 
 		this.get('/composite/new', function () {
+			$("#inspectorMain").empty();
+			
 			this.redirect('/composite/new/#explorer');
 		});
 
@@ -164,6 +223,7 @@
 			[
 				{name: "command", url:"/composite/js/inspector/templates/forms/command.html"},
 				{name: "query", url:"/composite/js/inspector/templates/forms/query.html"},
+				{name: "inputModel", url:"/composite/js/inspector/templates/forms/inputModel.html"},
 				{name: "readModel", url:"/composite/js/inspector/templates/forms/readModel.html"}
 			], 
 			function() {
