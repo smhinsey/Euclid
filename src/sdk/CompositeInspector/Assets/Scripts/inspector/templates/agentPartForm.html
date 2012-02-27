@@ -42,16 +42,16 @@
 			<h3>Publish {{SelectedPartType}}</h3>
 		</div>
 		
-			{{if IsCommand}}
+			{{#if IsCommand}}
 				{{> command}}
 			{{/if}}
 
-			{{if IsQuery}}
-				{{> command}}
+			{{#if IsQuery}}
+				Query
 			{{/if}}
 			
-			{{if IsCommand}}
-				{{> command}}
+			{{#if IsReadModel}}
+				ReadModel
 			{{/if}}		
 
 		</form>
