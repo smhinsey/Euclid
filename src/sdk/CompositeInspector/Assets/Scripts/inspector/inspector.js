@@ -137,7 +137,7 @@
 
 			getLogEntries(1);
 
-		});
+			});
 
 		this.get('/composite/new', function () {
 			this.redirect('/composite/new/#explorer');
