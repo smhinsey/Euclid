@@ -1,4 +1,6 @@
-﻿if (Handlebars) {
+﻿/// <reference path="handlebars-1.0.0.beta.6.js"/>
+
+if (Handlebars) {
 	Handlebars.registerHelper("convert-breaks", function(value) {
 		if (!value) return "";
 
@@ -82,4 +84,28 @@
 
 		return Handlebars.SafeString(form);
 	});
+
+	Handlebars["registerPartials"] = function (arrayOfKeyedTemplateUrls, callback, errorCallback) {
+		errorCallback = errorCallback ? errorCallback : EUCLID.displayError;
+		if (!(arrayOfKeyedTemplateUrls instanceof Array)) {
+			throw {
+				name: "Invalid Argument Exception",
+				message: "The parameter 'arrayOfKeyedTemplateUrls' is not an array"
+			};
+		}
+
+		var numberFetched = 0;
+		for (var i = 0; i < arrayOfKeyedTemplateUrls.length; i++) {
+			var key = arrayOfKeyedTemplateUrls[i].name;
+			var url = arrayOfKeyedTemplateUrls[i].url;
+			$.get(url, function (data) {
+				numberFetched++;
+				var template = Handlebars.compile(data);
+				Handlebars.registerPartial(key, template);
+				if (numberFetched == arrayOfKeyedTemplateUrls.length) {
+					callback();
+				}
+			});
+		}
+	};
 }

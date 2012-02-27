@@ -86,19 +86,22 @@
 					agentPartModel.IsQuery = selectedPartType == "query";
 					agentPartModel.IsReadModel = selectedPartType == "readModel";
 
-//					Handlebars.registerPartial("command", "/composite/js/inspector/templates/forms/command.html");
-//					Handlebars.registerPartial("query", "/composite/js/inspector/templates/forms/query.html");
-//					Handlebars.registerPartial("readModel", "/composite/js/inspector/templates/forms/readModel.html");
-
-					Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
-						$("#inspectorMain").replaceContent(content);
-						$(".subNav").removeClass("active");
-						$(".subNav-" + agentSystemNameSlug).addClass("active");
+					Handlebars.registerPartials(
+						[
+							{ name: "command", url: "/composite/js/inspector/templates/forms/command.html" },
+							{ name: "query", url: "/composite/js/inspector/templates/forms/query.html" },
+							{ name: "readModel", url: "/composite/js/inspector/templates/forms/readModel.html" }
+						], function() {
+								Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
+									$("#inspectorMain").replaceContent(content);
+									$(".subNav").removeClass("active");
+									$(".subNav-" + agentSystemNameSlug).addClass("active");
 						
-						$(".terNav").removeClass("active");
-						$(".terNav-" + partNameSlug).addClass("active");
-						console.log(partNameSlug);
-					});
+									$(".terNav").removeClass("active");
+									$(".terNav-" + partNameSlug).addClass("active");
+									console.log(partNameSlug);
+								});
+						});
 				});
 
 			});
