@@ -106,21 +106,36 @@
 		});
 		
 		this.get('/composite/new/#command-registry', function () {
-			Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+
+			WorkWithDataFromUrl("/composite/api", function(compositeMetadata) {
+
+				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
+					$("#inspectorGlobalNav").replaceContent(content);
+					$(".nav-pills li").removeClass("active");
+					$("#nav-CommandRegistry").addClass("active");
+				});
+
+			});
 
 			getPublicationRecords(1);
 
-			$(".nav-pills li").removeClass("active");
-			$("#nav-CommandRegistry").addClass("active");			
 		});
 		
 		this.get('/composite/new/#system-logs', function () {
-			Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+
+			WorkWithDataFromUrl("/composite/api", function(compositeMetadata) {
+
+				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
+					$("#inspectorGlobalNav").replaceContent(content);
+					$(".nav-pills li").removeClass("active");
+					$("#nav-SystemLogs").addClass("active");
+				});
+
+			});
 
 			getLogEntries(1);
-
-			$(".nav-pills li").removeClass("active");
-			$("#nav-SystemLogs").addClass("active");
 
 		});
 
