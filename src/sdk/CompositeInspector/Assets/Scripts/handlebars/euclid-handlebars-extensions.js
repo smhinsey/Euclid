@@ -88,24 +88,31 @@ if (Handlebars) {
 	Handlebars["registerPartials"] = function (arrayOfKeyedTemplateUrls, callback, errorCallback) {
 		errorCallback = errorCallback ? errorCallback : EUCLID.displayError;
 		if (!(arrayOfKeyedTemplateUrls instanceof Array)) {
-			throw {
+			errorCallback(new {
 				name: "Invalid Argument Exception",
 				message: "The parameter 'arrayOfKeyedTemplateUrls' is not an array"
-			};
+			});
 		}
 
 		var numberFetched = 0;
-		for (var i = 0; i < arrayOfKeyedTemplateUrls.length; i++) {
-			var key = arrayOfKeyedTemplateUrls[i].name;
-			var url = arrayOfKeyedTemplateUrls[i].url;
-			$.get(url, function (data) {
-				numberFetched++;
-				var template = Handlebars.compile(data);
-				Handlebars.registerPartial(key, template);
-				if (numberFetched == arrayOfKeyedTemplateUrls.length) {
-					callback();
-				}
-			});
+		try {
+			for (var i = 0; i < arrayOfKeyedTemplateUrls.length; i++) {
+				var key = arrayOfKeyedTemplateUrls[i].name;
+				var url = arrayOfKeyedTemplateUrls[i].url;
+				console.log("fetching template from: " + url);
+				$.get(url, function (data) {
+					numberFetched++;
+					console.log("retrieved template from " + url + " numberFetched == " + numberFetched);
+					var template = Handlebars.compile(data);
+					Handlebars.registerPartial(key, template);
+					if (numberFetched == arrayOfKeyedTemplateUrls.length) {
+						console.log("firing callback");
+						callback();
+					}
+				});
+			}
+		} catch (e) {
+			errorCallback(e);
 		}
 	};
 }
