@@ -41,6 +41,18 @@
 		<div class="control-group">
 			<h3>Publish {{SelectedPartType}}</h3>
 		</div>
+		
+			{{if IsCommand}}
+				{{> command}}
+			{{/if}}
+
+			{{if IsQuery}}
+				{{> command}}
+			{{/if}}
+			
+			{{if IsCommand}}
+				{{> command}}
+			{{/if}}		
 
 		</form>
 	</div>

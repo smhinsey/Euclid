@@ -99,7 +99,7 @@
 						
 									$(".terNav").removeClass("active");
 									$(".terNav-" + partNameSlug).addClass("active");
-									console.log(partNameSlug);
+									console.log("partNameSlug: " + partNameSlug);
 								});
 						});
 				});
