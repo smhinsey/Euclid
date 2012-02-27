@@ -1,4 +1,4 @@
-﻿	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
+﻿/// <reference path="/Assets/Scripts/euclid-0.9.js" />
 ; (function ($) {
 	var app = $.sammy(function () {
 
@@ -86,7 +86,7 @@
 					agentPartModel.IsCommand = selectedPartType == "command";
 					agentPartModel.IsQuery = selectedPartType == "query";
 					agentPartModel.IsReadModel = selectedPartType == "readModel";
-					
+
 					if(agentPartModel.IsCommand) {
 						
 						agentPartModel.Command = { };
@@ -158,7 +158,20 @@
 	});
 	
 	$(function () {
-		app.run();
+		$("#compositeInspector").hide();
+		$("#loading").show();
+		Handlebars.registerPartialsFromUrl(
+			[
+				{name: "command", url:"/composite/js/inspector/templates/forms/command.html"},
+				{name: "query", url:"/composite/js/inspector/templates/forms/query.html"},
+				{name: "readModel", url:"/composite/js/inspector/templates/forms/readModel.html"}
+			], 
+			function() {
+				$("#compositeInspector").show();
+				$("#loading").hide();
+				app.run();
+			}
+		);
 	});
 	
 	function getLogEntries(pageNumber) {

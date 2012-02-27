@@ -19,37 +19,40 @@
 	<link rel="stylesheet" type="text/css" href="/composite/css/bootstrap/bootstrap-subnav.css" />
 	<link rel="Stylesheet" type="text/css" href="/composite/css/composite-inspector.css" />
 </head>
-<body>
-
-	<div id="compositeInspector" class="container-fluid" style="margin: 0px; padding: 0px;">
-
-		<div class="row-fluid" style="background-color: #C0C0C0; border-bottom: 1px solid darkgray">
-
-			<div id="inspectorGlobalNav" class="span12" style="margin-top: 5px; margin-left: 5px;"></div>
-
+	<body>
+		<div id="loading">
+			Fetching templates...
+			<img src="http://fightcensorship.info/images/big_throbber.gif" />
 		</div>
+		<div id="compositeInspector" class="container-fluid" style="margin: 0px; padding: 0px;">
 
-		<div class="row-fluid" style="height: 255px;">
+			<div class="row-fluid" style="background-color: #C0C0C0; border-bottom: 1px solid darkgray">
 
-			<div id="inspectorMain" class="span12" style="height: 255px; overflow-y: auto; overflow-x: hidden;"><span id="euclid-error-output" class="hide"></span></div>
+				<div id="inspectorGlobalNav" class="span12" style="margin-top: 5px; margin-left: 5px;"></div>
 
-		</div>
-
-		<div class="row-fluid" style="background-color: #C0C0C0; border-top: 1px solid darkgray; padding-top: 5px; padding-bottom: 5px;">
-
-			<div class="span6">
-				<span style="margin-left: 5px;" id="inspectorDescription"></span>
 			</div>
 
-			<div class="span6">
-				<span style="margin-right: 5px;" class="pull-right">[{Status messages}]</span>
+			<div class="row-fluid" style="height: 255px;">
+
+				<div id="inspectorMain" class="span12" style="height: 255px; overflow-y: auto; overflow-x: hidden;"><span id="euclid-error-output" class="hide"></span></div>
+
+			</div>
+
+			<div class="row-fluid" style="background-color: #C0C0C0; border-top: 1px solid darkgray; padding-top: 5px; padding-bottom: 5px;">
+
+				<div class="span6">
+					<span style="margin-left: 5px;" id="inspectorDescription"></span>
+				</div>
+
+				<div class="span6">
+					<span style="margin-right: 5px;" class="pull-right">[{Status messages}]</span>
+				</div>
+
 			</div>
 
 		</div>
 
-	</div>
-
-</body>
+	</body>
 <script type="text/javascript">
 	/// <reference path="/Assets/Scripts/euclid-0.9.js" />
 	var RECORDS_PER_PAGE = 7;

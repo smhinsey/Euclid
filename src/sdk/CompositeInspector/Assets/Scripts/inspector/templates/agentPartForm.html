@@ -36,17 +36,20 @@
 	</div>
 
 	<div id="inspectorMainRight" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span6">
-			{{#if IsCommand}}
-				{{add "/composite/js/inspector/templates/forms/command.html" "inspectorMainRight"}}
-			{{/if}}
+		{{#if IsCommand}}
+			rendering command partial
+			{{> command}}
+		{{/if}}
 			
-			{{#if IsQuery}}
-				{{add "/composite/js/inspector/templates/forms/query.html" "inspectorMainRight"}}
-			{{/if}}
+		{{#if IsQuery}}
+			renderring query partial
+			{{> query}}
+		{{/if}}
 			
-			{{#if IsReadModel}}
-				{{add "/composite/js/inspector/templates/forms/readModel.html" "inspectorMainRight"}}
-			{{/if}}
+		{{#if IsReadModel}}
+			rendering readModel partial
+			{{> readModel}}
+		{{/if}}
 	</div>
 
 </div>

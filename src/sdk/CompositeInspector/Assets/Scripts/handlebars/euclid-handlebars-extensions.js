@@ -86,8 +86,27 @@ if (Handlebars) {
 	});
 
 	Handlebars.registerHelper("add", function (url, id) {
-		Using(this).Render(url).Manipulate(function(template) {
+		console.log("Handlerbars.add-on: fetching template from " + url);
+		Using(this).Render(url).Manipulate(function (template) {
 			$(id.toJqueryId()).append(template);
 		});
 	});
+
+	Handlebars.registerPartialsFromUrl = function (arrayOfTemplateUrls, onFinished) {
+		var numberOfParitals = arrayOfTemplateUrls.length;
+
+		var registerPartial = function (name, url) {
+			$.get(url, function (data) {
+				var template = Handlebars.compile(data);
+				Handlebars.registerPartial(name, template);
+				if (--numberOfParitals == 0) {
+					onFinished();
+				}
+			});
+		};
+
+		for (var i = 0; i < arrayOfTemplateUrls.length; i++) {
+			registerPartial(arrayOfTemplateUrls[i].name, arrayOfTemplateUrls[i].url);
+		}
+	};
 }
