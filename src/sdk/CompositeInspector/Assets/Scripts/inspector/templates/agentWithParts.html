@@ -2,7 +2,7 @@
 
 	<div id="inspectorMainLeft" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span3">
 		<ul style="margin-top: 10px;" class="nav nav-list">
-			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Agents</li>
+			<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Agents</li>
 			{{#each Agents}}
 			<li class="subNav subNav-{{slugify SystemName}}"><a href="/composite/new/#explorer/agent/{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">
 				{{DescriptiveName}}</a> </li>
@@ -12,26 +12,26 @@
 	<div id="inspectorMainCenter" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span3">
 		<ul style="margin-top: 10px;" class="nav nav-list">
 			{{#if Commands}}
-			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Commands</li>
+			<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Commands</li>
 			{{/if}}
 			{{#each Commands}}
-			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{Name}}/form">
+			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/command/{{Name}}/form">
 				{{Name}}</a> </li>
 			{{/each}} </ul>
 		<ul class="nav nav-list">
 			{{#if Queries}}
-			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Queries</li>
+			<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Queries</li>
 			{{/if}}
 			{{#each Queries}}
-			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{Name}}/form">{{Name}}</a> </li>
+			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/query/{{Name}}/form">{{Name}}</a> </li>
 			{{/each}} 
 		</ul>
 		<ul class="nav nav-list">
 			{{#if ReadModels}}
-			<li class="nav-header"><i class="icon-chevron-down"></i>&nbsp;Read Models</li>
+			<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Read Models</li>
 			{{/if}}
 			{{#each ReadModels}}
-			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{Name}}/form">{{Name}}</a> </li>
+			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/readModel/{{Name}}/form">{{Name}}</a> </li>
 			{{/each}} </ul>
 	</div>
 

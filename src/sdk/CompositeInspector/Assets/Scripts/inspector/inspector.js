@@ -19,10 +19,12 @@
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName', function () {
 			
-			var agentSystemNameRaw = this.params['agentSystemName'];
-			var agentSystemName = slugify(this.params['agentSystemName']);
+			var agentSystemName = this.params['agentSystemName'];
+			var agentSystemNameSlug = slugify(this.params['agentSystemName']);
 
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
+
+				compositeMetadata.AgentSystemName = agentSystemName;
 
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
 				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
@@ -31,9 +33,10 @@
 					$("#nav-CompositeExplorer").addClass("active");
 				});
 
-				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemNameRaw, function (agentMetadata) {
+				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemName, function (agentMetadata) {
 
 					var agentPartModel = {};
+					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
 					agentPartModel.Agents = compositeMetadata.Agents;
 					agentPartModel.Commands = agentMetadata.Commands;
 					agentPartModel.Queries = agentMetadata.Queries;
@@ -42,45 +45,97 @@
 					Using(agentPartModel).Render("/composite/js/inspector/templates/agentWithParts.html").Manipulate(function(content) {
 						$("#inspectorMain").replaceContent(content);
 						$(".subNav").removeClass("active");
-						$(".subNav-" + agentSystemName).addClass("active");
+						$(".subNav-" + agentSystemNameSlug).addClass("active");
 					});
 				});
 
 			});
 			
-//			WorkWithDataFromUrl("/composite/api/agent/" + data['agentSystemName'], function (agentMetadata) {
-//				var commandRenderData = { ListClass: "dropdown-menu", Commands: agentMetadata.Commands };
-//				Using(commandRenderData).Render("/composite/ui/template/commands").ReplaceContentsOf("#agent-commands");
-
-//				var queryRenderData = { ListClass: "dropdown-menu", Queries: agentMetadata.Queries };
-//				Using(queryRenderData).Render("/composite/ui/template/queries").ReplaceContentsOf("#agent-queries");
-
-//				var readModelRenderData = { ListClass: "dropdown-menu", SystemName: agentMetadata.SystemName, ReadModels: agentMetadata.ReadModels};
-//				Using(readModelRenderData).Render("/composite/ui/template/read-models").ReplaceContentsOf("#agent-read-models");
-//			});
-
 		});
 		
-		this.get('/composite/new/#explorer/agent/:agentSystemName/form', function () {
+		this.get('/composite/new/#explorer/agent/:agentSystemName/:partType/:partName/form', function () {
 			
-			$(".nav-pills li").removeClass("active");
-			$("#nav-Agents").addClass("active");
+			var selectedPartType = this.params['partType'];
+			var agentSystemName = this.params['agentSystemName'];
+			var agentSystemNameSlug = slugify(this.params['agentSystemName']);
+
+			var partNameSlug = slugify(this.params['partName']);
+
+			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
+
+				compositeMetadata.AgentSystemName = agentSystemName;
+
+				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
+					$("#inspectorGlobalNav").replaceContent(content);
+					$(".nav-pills li").removeClass("active");
+					$("#nav-CompositeExplorer").addClass("active");
+				});
+
+				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemName, function (agentMetadata) {
+
+					var agentPartModel = {};
+					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
+					agentPartModel.Agents = compositeMetadata.Agents;
+					agentPartModel.Commands = agentMetadata.Commands;
+					agentPartModel.Queries = agentMetadata.Queries;
+					agentPartModel.ReadModels = agentMetadata.ReadModels;
+
+					agentPartModel.SelectedPartType = selectedPartType;
+					agentPartModel.IsCommand = selectedPartType == "command";
+					agentPartModel.IsQuery = selectedPartType == "query";
+					agentPartModel.IsReadModel = selectedPartType == "readModel";
+
+//					Handlebars.registerPartial("command", "/composite/js/inspector/templates/forms/command.html");
+//					Handlebars.registerPartial("query", "/composite/js/inspector/templates/forms/query.html");
+//					Handlebars.registerPartial("readModel", "/composite/js/inspector/templates/forms/readModel.html");
+
+					Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
+						$("#inspectorMain").replaceContent(content);
+						$(".subNav").removeClass("active");
+						$(".subNav-" + agentSystemNameSlug).addClass("active");
+						
+						$(".terNav").removeClass("active");
+						$(".terNav-" + partNameSlug).addClass("active");
+						console.log(partNameSlug);
+					});
+				});
+
+			});
+			
 		});
 		
 		this.get('/composite/new/#command-registry', function () {
 
+			WorkWithDataFromUrl("/composite/api", function(compositeMetadata) {
+
+				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
+					$("#inspectorGlobalNav").replaceContent(content);
+					$(".nav-pills li").removeClass("active");
+					$("#nav-CommandRegistry").addClass("active");
+				});
+
+			});
+
 			getPublicationRecords(1);
 
-			$(".nav-pills li").removeClass("active");
-			$("#nav-CommandRegistry").addClass("active");			
 		});
 		
 		this.get('/composite/new/#system-logs', function () {
 
-			getLogEntries(1);
+			WorkWithDataFromUrl("/composite/api", function(compositeMetadata) {
 
-			$(".nav-pills li").removeClass("active");
-			$("#nav-SystemLogs").addClass("active");
+				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
+					$("#inspectorGlobalNav").replaceContent(content);
+					$(".nav-pills li").removeClass("active");
+					$("#nav-SystemLogs").addClass("active");
+				});
+
+			});
+
+			getLogEntries(1);
 
 		});
 
