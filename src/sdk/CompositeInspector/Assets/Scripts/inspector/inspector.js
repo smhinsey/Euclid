@@ -56,6 +56,7 @@
 		this.get('/composite/new/#explorer/agent/:agentSystemName/:partType/:partName/form', function () {
 			
 			var selectedPartType = this.params['partType'];
+			var agentPartName = this.params['partName'];
 			var agentSystemName = this.params['agentSystemName'];
 			var agentSystemNameSlug = slugify(this.params['agentSystemName']);
 
@@ -74,7 +75,7 @@
 
 				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemName, function (agentMetadata) {
 
-					var agentPartModel = {};
+					var agentPartModel = { };
 					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
 					agentPartModel.Agents = compositeMetadata.Agents;
 					agentPartModel.Commands = agentMetadata.Commands;
@@ -85,16 +86,31 @@
 					agentPartModel.IsCommand = selectedPartType == "command";
 					agentPartModel.IsQuery = selectedPartType == "query";
 					agentPartModel.IsReadModel = selectedPartType == "readModel";
-
-					Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
-						$("#inspectorMain").replaceContent(content);
-						$(".subNav").removeClass("active");
-						$(".subNav-" + agentSystemNameSlug).addClass("active");
+					
+					if(agentPartModel.IsCommand) {
 						
-						$(".terNav").removeClass("active");
-						$(".terNav-" + partNameSlug).addClass("active");
-						console.log("partNameSlug: " + partNameSlug);
-					});
+						agentPartModel.Command = { };
+						
+						WorkWithDataFromUrl("/composite/api/command-is-supported/" + agentPartName, function (results) {
+							if (results.Supported) {
+								agentPartModel.Command = results.InputModel;
+							} else {
+								agentPartModel.Command = results.Command;
+							}
+						
+							Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
+								$("#inspectorMain").replaceContent(content);
+								$(".subNav").removeClass("active");
+								$(".subNav-" + agentSystemNameSlug).addClass("active");
+						
+								$(".terNav").removeClass("active");
+								$(".terNav-" + partNameSlug).addClass("active");
+								console.log("partNameSlug: " + partNameSlug);
+								console.log(agentPartModel);
+							});
+						});
+					
+					}
 				});
 
 			});
