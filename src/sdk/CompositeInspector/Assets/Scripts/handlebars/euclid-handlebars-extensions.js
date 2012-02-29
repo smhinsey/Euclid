@@ -1,6 +1,13 @@
 ﻿/// <reference path="handlebars-1.0.0.beta.6.js"/>
 
 if (Handlebars) {
+
+	Handlebars.registerHelper("space-queries", function (value) {
+		value = value.replace("Queries", " Queries");
+		value = value.replace("Query", " Queries");
+		return value;
+	});
+
 	Handlebars.registerHelper("convert-breaks", function(value) {
 		if (!value) return "";
 

@@ -20,7 +20,7 @@
 			{{/each}} </ul>
 		<ul class="nav nav-list">
 			{{#each Queries}}
-				<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;{{Name}}</li>
+				<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;{{space-queries Name}}</li>
 				{{#each Query}}
 					<li class="subNav subNav-{{slugify this}}">
 						<a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/query/{{this}}/form">{{this}}</a> 
