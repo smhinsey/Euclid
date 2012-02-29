@@ -27,7 +27,12 @@ namespace Euclid.Framework.AgentMetadata.Formatters
 
 		public override object GetJsonObject(JsonSerializer serializer)
 		{
-			return new { Queries = _metadata.Select(x => new { x.Namespace, x.Name }) };
+			return new { Queries = _metadata.Select(x => new
+			                                             	{
+			                                             		x.Namespace, 
+																x.Name,
+																Query = x.Methods.Select(m=>string.Format("{0}.{1}", x.Name, m.Name))
+			                                             	}) };
 		}
 	}
 }
