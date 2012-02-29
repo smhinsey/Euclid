@@ -167,6 +167,31 @@
 
 						});
 					
+					} 
+					else if(agentPartModel.IsQuery) {
+						
+						agentPartModel.Query = { };
+
+						WorkWithDataFromUrl("/composite/api/query/" + agentPartName.replace(".", "/"), function(query) {
+
+							console.log(query);
+
+							agentPartModel.Query = query;
+							agentPartModel.Query.Name = agentPartName;
+
+							Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
+								$("#inspectorMain").replaceContent(content);
+								$(".subNav").removeClass("active");
+								$(".subNav-" + agentSystemNameSlug).addClass("active");
+
+								$(".terNav").removeClass("active");
+								$(".terNav-" + partNameSlug).addClass("active");
+								console.log("partNameSlug: " + partNameSlug);
+								console.log(agentPartModel);
+							});
+
+						});
+					
 					}
 				});
 
