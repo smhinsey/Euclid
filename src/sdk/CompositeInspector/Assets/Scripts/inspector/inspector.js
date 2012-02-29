@@ -46,6 +46,8 @@
 					agentPartModel.Queries = agentMetadata.Queries;
 					agentPartModel.ReadModels = agentMetadata.ReadModels;
 
+					console.log(agentPartModel);
+
 					Using(agentPartModel).Render("/composite/js/inspector/templates/agentWithParts.html").Manipulate(function(content) {
 						$("#inspectorMain").replaceContent(content);
 						$(".subNav").removeClass("active");

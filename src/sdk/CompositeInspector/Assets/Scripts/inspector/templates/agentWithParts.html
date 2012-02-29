@@ -23,12 +23,9 @@
 			<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Queries</li>
 			{{/if}}
 			{{#each Queries}}
-			<li class="subNav subNav-{{slugify Name}}">
-				{{#each Methods}}
-				<a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/query/{{Name}}/form">{{../Name}}</a> 
-					<small>({{#comma-delimited-list Arguments "ArgumentName"}}{{/comma-delimited-list}})</small>
-				{{/each}}
-			</li>
+				<li class="subNav subNav-{{slugify Name}}">
+					<a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/query/{{Name}}/form">{{Name}}</a> 
+				</li>
 			{{/each}} 
 		</ul>
 		<ul class="nav nav-list">
