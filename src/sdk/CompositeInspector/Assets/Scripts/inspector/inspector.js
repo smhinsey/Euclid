@@ -43,7 +43,7 @@
 					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
 					agentPartModel.Agents = compositeMetadata.Agents;
 					agentPartModel.Commands = agentMetadata.Commands;
-					agentPartModel.Queries = agentMetadata.Queries;
+					agentPartModel.Queries = compositeMetadata.Queries;
 					agentPartModel.ReadModels = agentMetadata.ReadModels;
 
 					console.log(agentPartModel);
@@ -87,7 +87,7 @@
 					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
 					agentPartModel.Agents = compositeMetadata.Agents;
 					agentPartModel.Commands = agentMetadata.Commands;
-					agentPartModel.Queries = agentMetadata.Queries;
+					agentPartModel.Queries = compositeMetadata.Queries;	
 					agentPartModel.ReadModels = agentMetadata.ReadModels;
 
 					agentPartModel.SelectedPartType = selectedPartType;
