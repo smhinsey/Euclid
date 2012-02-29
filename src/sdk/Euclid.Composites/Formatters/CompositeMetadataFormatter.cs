@@ -54,7 +54,7 @@ namespace Euclid.Composites.Formatters
 						Agents = _compositeApp.Agents.Select(a => new { a.DescriptiveName, a.SystemName, a.Description }),
 						ConfigurationErrors = _compositeApp.GetConfigurationErrors(),
 						Commands = _compositeApp.Commands.OrderBy(x=>x.Name).Select(x=> new {x.Namespace, x.Name}),
-						Queries = _compositeApp.Queries.OrderBy(x => x.Name).Select(x => new { x.Namespace, x.Name }),
+						Queries = _compositeApp.Queries.OrderBy(x => x.Name).Select(x => new { x.Namespace, x.Name, Query = x.Methods.Select(m => string.Format("{0}.{1}", x.Name, m.Name)) }),
 						InputModels = _compositeApp.InputModels.OrderBy(x=>x.Name).Select(x=>new {x.Namespace, x.Name, CommandName = _compositeApp.GetCommandMetadataForInputModel(x.Type).Name})
 					};
 		}
