@@ -78,9 +78,14 @@ if (Handlebars) {
 
 	Handlebars.registerHelper("format-bool", function (value, displayWhenTrue, displayWhenFalse) { return (value) ? displayWhenTrue : displayWhenFalse; });
 
-	Handlebars.registerHelper("inputModelForm", function (inputModel) {
+	Handlebars.registerHelper("begin-input-model-form", function (inputModel, className) {
 		console.log("begin-input-model-form");
-		var form = "<form action='/composite/api/publish' method='post' enctype='multipart/form-data'>";
+		var form = "<form action='/composite/api/publish' method='post' enctype='multipart/form-data'";
+		if (className) {
+			form += " class='" + className + "'";
+		}
+		form += ">";
+
 		form += "<input type='hidden' name='partName' value='" + inputModel.CommandName + "'/>";
 
 		console.log(form);
