@@ -78,11 +78,14 @@ if (Handlebars) {
 
 	Handlebars.registerHelper("format-bool", function (value, displayWhenTrue, displayWhenFalse) { return (value) ? displayWhenTrue : displayWhenFalse; });
 
-	Handlebars.registerHelper("begin-input-model-form", function (inputModel) {
+	Handlebars.registerHelper("inputModelForm", function (inputModel) {
+		console.log("begin-input-model-form");
 		var form = "<form action='/composite/api/publish' method='post' enctype='multipart/form-data'>";
 		form += "<input type='hidden' name='partName' value='" + inputModel.CommandName + "'/>";
 
-		return Handlebars.SafeString(form);
+		console.log(form);
+
+		return new Handlebars.SafeString(form);
 	});
 
 	Handlebars.registerHelper("add", function (url, id) {
