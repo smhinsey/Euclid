@@ -7,10 +7,16 @@
 {{#each Query}}
 
 <div class="control-group">
+	<b>{{Name}}</b>
+</div>
+
+{{#each Arguments}}
+
+<div class="control-group">
 	<label class="control-label" for="input-{{slugify Name}}">{{Name}}</label>
 
 	<div class="controls">
-		<input type="text" class="input-medium" id="input-{{slugify Name}}">
+		<input type="text" class="input-medium" id="Text1">
 	</div>
 
 </div>
@@ -25,4 +31,5 @@
 
 </div>
 
+{{/each}}
 </form>
