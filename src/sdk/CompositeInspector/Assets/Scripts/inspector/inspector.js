@@ -43,7 +43,7 @@
 					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
 					agentPartModel.Agents = compositeMetadata.Agents;
 					agentPartModel.Commands = agentMetadata.Commands;
-					agentPartModel.Queries = agentMetadata.Queries;
+					agentPartModel.Queries = compositeMetadata.Queries;
 					agentPartModel.ReadModels = agentMetadata.ReadModels;
 
 					console.log(agentPartModel);
@@ -87,7 +87,7 @@
 					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
 					agentPartModel.Agents = compositeMetadata.Agents;
 					agentPartModel.Commands = agentMetadata.Commands;
-					agentPartModel.Queries = agentMetadata.Queries;
+					agentPartModel.Queries = compositeMetadata.Queries;	
 					agentPartModel.ReadModels = agentMetadata.ReadModels;
 
 					agentPartModel.SelectedPartType = selectedPartType;
@@ -153,6 +153,31 @@
 
 							agentPartModel.ReadModel = readModel;
 							agentPartModel.ReadModel.Name = agentPartName;
+
+							Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
+								$("#inspectorMain").replaceContent(content);
+								$(".subNav").removeClass("active");
+								$(".subNav-" + agentSystemNameSlug).addClass("active");
+
+								$(".terNav").removeClass("active");
+								$(".terNav-" + partNameSlug).addClass("active");
+								console.log("partNameSlug: " + partNameSlug);
+								console.log(agentPartModel);
+							});
+
+						});
+					
+					} 
+					else if(agentPartModel.IsQuery) {
+						
+						agentPartModel.Query = { };
+
+						WorkWithDataFromUrl("/composite/api/query/" + agentPartName.replace(".", "/"), function(query) {
+
+							console.log(query);
+
+							agentPartModel.Query = query;
+							agentPartModel.Query.Name = agentPartName;
 
 							Using(agentPartModel).Render("/composite/js/inspector/templates/agentPartForm.html").Manipulate(function(content) {
 								$("#inspectorMain").replaceContent(content);
