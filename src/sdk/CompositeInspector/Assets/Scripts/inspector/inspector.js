@@ -172,10 +172,11 @@
 						
 						agentPartModel.Query = { };
 
-						WorkWithDataFromUrl("/composite/api/query/" + agentPartName.replace(".", "/"), function(query) {
+						WorkWithDataFromUrl("/composite/api/queries/" + agentPartName, function(query) {
 
 							console.log(query);
 
+							agentPartModel.Name = agentPartName;
 							agentPartModel.Query = query;
 							agentPartModel.Query.Name = agentPartName;
 

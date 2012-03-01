@@ -4,55 +4,23 @@
 	<h3>{{Name}}</h3>
 </div>
 
+{{#each Query}}
+
 <div class="control-group">
-	<label class="control-label" for="input01">Property Name</label>
+	<label class="control-label" for="input-{{slugify Name}}">{{Name}}</label>
 
 	<div class="controls">
-		<input type="text" class="input-medium" id="input01">
+		<input type="text" class="input-medium" id="input-{{slugify Name}}">
 	</div>
 
 </div>
 
-<div class="control-group">
-	<label class="control-label" for="input02">Another Name</label>
-
-	<div class="controls">
-		<input type="text" class="input-medium" id="input02">
-	</div>
-
-</div>
-
-<div class="control-group">
-	<label class="control-label" for="input03">Third Name</label>
-
-	<div class="controls">
-		<input type="text" class="input-medium" id="input03">
-	</div>
-
-</div>
-
-<div class="control-group">
-	<label class="control-label" for="input04">Fourth Name</label>
-
-	<div class="controls">
-		<input type="text" class="input-medium" id="input04">
-	</div>
-
-</div>
-
-<div class="control-group">
-	<label class="control-label" for="input05">Fifth Property</label>
-
-	<div class="controls">
-		<input type="text" class="input-medium" id="input05">
-	</div>
-
-</div>
+{{/each}}
 
 <div class="control-group">
 
 	<div class="controls">
-		<button class="btn btn-primary">Publish</button>
+		<button class="btn btn-primary">Run Query</button>
 	</div>
 
 </div>
