@@ -31,6 +31,7 @@ namespace CompositeInspector.Module
 		private const string InputModelMetadataForCommandRoute = "/command/{commandName}";
 		private const string CommandMetadataRoute = "/command-metadata/{commandName}";
 		private const string QueryMetadataRoute = "/query-metadata/{queryName}";
+		private const string QueryMethodRoute = "/queries/{queryName}.{methodName}";
 		private const string QueryForReadModelRoute = "/query/{queryName}/{methodName}";
 		private const string CommandIsSupportedRoute = "/command-is-supported/{commandName}";
 		private const string PublishCommandRoute = "/publish";
@@ -63,7 +64,20 @@ namespace CompositeInspector.Module
 
 			Get[QueryForReadModelRoute] = p => QueryForReadmodel((string)p.queryName, (string)p.methodName);
 
+			Get[QueryMethodRoute] = p => GetQueryMethod((string) p.queryName, (string) p.methodName);
+
 			Post[PublishCommandRoute] = p => PublishCommand(this.Bind<IInputModel>());
+		}
+
+		public Response GetQueryMethod(string queryName, string methodName)
+		{
+			var queries = _compositeApp.Queries;
+
+			var query = queries.FirstOrDefault(q => q.Name.Equals(queryName, StringComparison.InvariantCultureIgnoreCase));
+
+			return query == null 
+				? Response.AsJson(new[] {new object()}) 
+				: Response.AsJson(query.Methods.Where(m => m.Name.Equals(methodName, StringComparison.InvariantCultureIgnoreCase)));
 		}
 
 		public Response GetCommandIsSupported(string commandName)
