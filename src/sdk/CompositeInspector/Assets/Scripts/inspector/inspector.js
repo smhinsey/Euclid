@@ -42,6 +42,8 @@
 				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemName, function (agentMetadata) {
 
 					var agentPartModel = {};
+
+					agentPartModel.Recent = getRecentLinks();
 					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
 					agentPartModel.Agents = compositeMetadata.Agents;
 					agentPartModel.Commands = agentMetadata.Commands;
@@ -73,6 +75,11 @@
 
 			var partNameSlug = slugify(this.params['partName']);
 
+			console.log("window.location.href: " + window.location.href);
+			console.log("name: " + agentSystemName + "." + agentPartName);
+
+			setRecentLink(window.location.href, agentSystemName + "." + agentPartName);
+
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
 				compositeMetadata.AgentSystemName = agentSystemName;
@@ -87,6 +94,8 @@
 				WorkWithDataFromUrl("/composite/api/agent/" + agentSystemName, function (agentMetadata) {
 
 					var agentPartModel = { };
+					
+					agentPartModel.Recent = getRecentLinks();
 					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
 					agentPartModel.Agents = compositeMetadata.Agents;
 					agentPartModel.Commands = agentMetadata.Commands;
@@ -166,8 +175,6 @@
 
 								$(".terNav").removeClass("active");
 								$(".terNav-" + partNameSlug).addClass("active");
-								console.log("partNameSlug: " + partNameSlug);
-								console.log(agentPartModel);
 							});
 
 						});
@@ -178,8 +185,6 @@
 						agentPartModel.Query = { };
 
 						WorkWithDataFromUrl("/composite/api/queries/" + agentPartName, function(query) {
-
-							console.log(query);
 
 							agentPartModel.Name = agentPartName;
 							agentPartModel.Query = query;
@@ -192,8 +197,6 @@
 
 								$(".terNav").removeClass("active");
 								$(".terNav-" + partNameSlug).addClass("active");
-								console.log("partNameSlug: " + partNameSlug);
-								console.log(agentPartModel);
 							});
 
 						});
@@ -299,6 +302,48 @@
 						Using(pagerData).Render("/composite/ui/template/pager").Manipulate(function (pager) { $(display).append(pager); });
 					});
 				});
+	}
+
+	var cookieName = "inspector-recentLinks";
+	
+	function getRecentLinks() {
+		return $.cookie(cookieName);
+	}
+	
+	function setRecentLink(url, text) {
+		console.log("setRecentLink");
+		
+		var linksCookie = $.cookie(cookieName);
+
+		console.log(cookieName);
+		console.log(linksCookie);
+		
+		if(linksCookie == null) {
+			console.log("creating linksCookie");
+			
+			linksCookie = {
+				links: [
+					{ Link: url, Text: text}
+				]
+			};
+		} else {
+			if(linksCookie.links.length >= 3) {
+				console.log("updating linksCookie");
+				
+				// move everyone down
+				linksCookie.links[2] = linksCookie.links[3];
+				linksCookie.links[1] = linksCookie.links[2];
+				linksCookie.links[0] = linksCookie.links[1];
+
+				// add the new one to the top
+				linksCookie.links[3] = { Link: url, Text: text };
+			}
+		}
+
+		console.log(cookieName);
+		console.log(linksCookie);
+
+		$.cookie(cookieName, linksCookie);
 	}
 
 })(jQuery);

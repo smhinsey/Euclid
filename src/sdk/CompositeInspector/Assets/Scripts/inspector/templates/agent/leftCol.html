@@ -1,6 +1,13 @@
 ﻿<ul style="margin-top: 10px;" class="nav nav-list">
+	{{#if Recent}}
+	<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"/>&nbsp;Recent</li>
+	{{/if}}
+	{{#each Recent}}
+	<li><a href="{{Link}}">{{Text}}</a></li>
+	{{/each}}
+
 	<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"/>&nbsp;Agents</li>
 	{{#each Agents}}
-		<li class="subNav subNav-{{slugify SystemName}}"><a href="/composite/new/#explorer/agent/{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">{{DescriptiveName}}</a></li>
+	<li class="subNav subNav-{{slugify SystemName}}"><a href="/composite/new/#explorer/agent/{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">{{DescriptiveName}}</a></li>
 	{{/each}} 
 </ul>
