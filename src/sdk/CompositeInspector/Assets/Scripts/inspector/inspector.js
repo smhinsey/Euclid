@@ -4,7 +4,8 @@
 
 		this.get('/composite/new/#explorer', function () {
 			
-			$("#inspectorMain").empty();
+			// need to replace this with some mechanism for making sure the UI is entirely current
+//			$("#inspectorMain").empty();
 
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
@@ -21,7 +22,8 @@
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName', function () {
 			
-			$("#inspectorMain").empty();
+			// need to replace this with some mechanism for making sure the UI is entirely current
+//			$("#inspectorMain").empty();
 
 			var agentSystemName = this.params['agentSystemName'];
 			var agentSystemNameSlug = slugify(this.params['agentSystemName']);
@@ -61,7 +63,8 @@
 		
 		this.get('/composite/new/#explorer/agent/:agentSystemName/:partType/:partName/form', function () {
 			
-			$("#inspectorMain").empty();
+			// need to replace this with some mechanism for making sure the UI is entirely current
+//			$("#inspectorMain").empty();
 
 			var selectedPartType = this.params['partType'];
 			var agentPartName = this.params['partName'];
@@ -252,7 +255,9 @@
 				{name: "command", url:"/composite/js/inspector/templates/forms/command.html"},
 				{name: "query", url:"/composite/js/inspector/templates/forms/query.html"},
 				{name: "inputModel", url:"/composite/js/inspector/templates/forms/inputModel.html"},
-				{name: "readModel", url:"/composite/js/inspector/templates/forms/readModel.html"}
+				{name: "readModel", url:"/composite/js/inspector/templates/forms/readModel.html"},
+				{name: "agentLeftCol", url:"/composite/js/inspector/templates/agent/leftCol.html"},
+				{name: "agentCenterCol", url:"/composite/js/inspector/templates/agent/centerCol.html"}
 			], 
 			function() {
 				$("#compositeInspector").show();
