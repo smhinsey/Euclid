@@ -3,7 +3,7 @@
 	<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Commands</li>
 	{{/if}}
 	{{#each Commands}}
-	<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/command/{{Name}}/form">
+	<li class="terNav terNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/command/{{Name}}/form">
 		{{Name}}</a> </li>
 	{{/each}} </ul>
 <ul class="nav nav-list">
@@ -11,7 +11,7 @@
 	<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Read Models</li>
 	{{/if}}
 	{{#each ReadModels}}
-	<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/readModel/{{Name}}/form">{{Name}}</a> </li>
+	<li class="terNav terNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/readModel/{{Name}}/form">{{Name}}</a> </li>
 	{{/each}} </ul>
 <ul class="nav nav-list">
 	{{#each Queries}}

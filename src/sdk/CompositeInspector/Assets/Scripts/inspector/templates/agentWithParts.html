@@ -1,40 +1,11 @@
 ﻿<div class="row-fluid">
 
 	<div id="inspectorMainLeft" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span3">
-		<ul style="margin-top: 10px;" class="nav nav-list">
-			<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Agents</li>
-			{{#each Agents}}
-			<li class="subNav subNav-{{slugify SystemName}}"><a href="/composite/new/#explorer/agent/{{SystemName}}" rel="tooltip" data-original-title="{{Description}}">
-				{{DescriptiveName}}</a> </li>
-			{{/each}} </ul>
+		{{> agentLeftCol }}
 	</div>
 
 	<div id="inspectorMainCenter" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span3">
-		<ul style="margin-top: 10px;" class="nav nav-list">
-			{{#if Commands}}
-			<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Commands</li>
-			{{/if}}
-			{{#each Commands}}
-			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/command/{{Name}}/form">
-				{{Name}}</a> </li>
-			{{/each}} </ul>
-		<ul class="nav nav-list">
-			{{#if ReadModels}}
-			<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;Read Models</li>
-			{{/if}}
-			{{#each ReadModels}}
-			<li class="subNav subNav-{{slugify Name}}"><a href="/composite/new/#explorer/agent/{{../AgentSystemName}}/readModel/{{Name}}/form">{{Name}}</a> </li>
-			{{/each}} </ul>
-		<ul class="nav nav-list">
-			{{#each Queries}}
-				<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"></i>&nbsp;{{space-queries Name}}</li>
-				{{#each Query}}
-					<li class="terNav terNav-{{slugify ../Name}}{{slugify this}}">
-						<a href="/composite/new/#explorer/agent/{{../../AgentSystemName}}/query/{{../Name}}.{{this}}/form">{{this}}</a> 
-					</li>
-				{{/each}} 
-			{{/each}} 
-		</ul>
+		{{> agentCenterCol }}
 	</div>
 
 	<div id="inspectorMainRight" style="background-color: whitesmoke; height: 255px; overflow-y: auto; overflow-x: hidden;" class="span6">

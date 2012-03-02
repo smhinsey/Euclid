@@ -123,10 +123,11 @@
 									$("#inspectorMain").replaceContent(content);
 									$(".subNav").removeClass("active");
 									$(".subNav-" + agentSystemNameSlug).addClass("active");
+									console.log("secondary nav selector: " + ".subNav-" + agentSystemNameSlug);
 						
 									$(".terNav").removeClass("active");
 									$(".terNav-" + partNameSlug).addClass("active");
-									console.log("partNameSlug: " + partNameSlug);
+									console.log("tertiary nav selector: " + ".terNav-" + partNameSlug);
 									console.log(agentPartModel);
 								});
 
@@ -137,10 +138,11 @@
 									$("#inspectorMain").replaceContent(content);
 									$(".subNav").removeClass("active");
 									$(".subNav-" + agentSystemNameSlug).addClass("active");
+									console.log("secondary nav selector: " + ".subNav-" + agentSystemNameSlug);
 						
 									$(".terNav").removeClass("active");
 									$(".terNav-" + partNameSlug).addClass("active");
-									console.log("partNameSlug: " + partNameSlug);
+									console.log("tertiary nav selector: " + ".terNav-" + partNameSlug);
 									console.log(agentPartModel);
 								});
 							}
