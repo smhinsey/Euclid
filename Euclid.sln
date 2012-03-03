@@ -75,6 +75,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingAgent", "src\sdk\Log
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{08FA4B73-08BA-4C7F-BFD3-FC6E0C5AA9FC}"
 	ProjectSection(SolutionItems) = preProject
+		build\build.msbuild = build\build.msbuild
 		build\EuclidAgentConsole.nuspec = build\EuclidAgentConsole.nuspec
 		build\EuclidAzureHost.nuspec = build\EuclidAzureHost.nuspec
 		build\EuclidCompositeInspector.nuspec = build\EuclidCompositeInspector.nuspec

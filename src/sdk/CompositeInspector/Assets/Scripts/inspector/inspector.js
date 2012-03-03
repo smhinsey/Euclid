@@ -80,7 +80,7 @@
 			console.log("window.location.href: " + window.location.href);
 			console.log("name: " + agentSystemName + "." + agentPartName);
 
-			setRecentLink(window.location.href, agentSystemName + "." + agentPartName);
+			setRecentLink(window.location.href, agentPartName);
 
 			WorkWithDataFromUrl("/composite/api", function (compositeMetadata) {
 
@@ -210,6 +210,23 @@
 			
 		});
 		
+		this.get('/composite/new/#command-status/:publicationId', function () {
+
+			WorkWithDataFromUrl("/composite/api", function(compositeMetadata) {
+
+				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
+				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
+					$("#inspectorGlobalNav").replaceContent(content);
+					$(".nav-pills li").removeClass("active");
+					$("#nav-CompositeExplorer").addClass("active");
+				});
+
+			});
+
+			Using({}).Fill("#inspectorMain").With("/composite/js/inspector/templates/commandStatus.html");
+
+		});
+
 		this.get('/composite/new/#command-registry', function () {
 
 			$("#inspectorMain").empty();
