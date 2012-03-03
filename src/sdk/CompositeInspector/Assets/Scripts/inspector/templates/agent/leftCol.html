@@ -2,7 +2,7 @@
 	{{#if Recent}}
 	<li class="nav-header"><img height="9" width="11" class="gray-caret-down" src="/composite/image/gray-caret-down.png"/>&nbsp;Recent</li>
 	{{/if}}
-	{{#each Recent}}
+	{{#each Recent.Links}}
 	<li><a href="{{Link}}">{{Text}}</a></li>
 	{{/each}}
 

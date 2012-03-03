@@ -15,7 +15,9 @@
 					$(".nav-pills li").removeClass("active");
 					$("#nav-CompositeExplorer").addClass("active");
 				});
-				
+
+				compositeMetadata.Recent = getRecentLinks();
+
 				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/agents.html");
 			});
 		});
@@ -304,46 +306,48 @@
 				});
 	}
 
-	var cookieName = "inspector-recentLinks";
+	var linksKeyName = "inspector-recentLinks";
 	
 	function getRecentLinks() {
-		return $.cookie(cookieName);
+		console.log("getRecentLinks");
+		
+		var links = amplify.store(linksKeyName);
+		
+		console.log("getRecentLinks:links");
+		console.log(links);
+
+		return links;
 	}
-	
+
 	function setRecentLink(url, text) {
 		console.log("setRecentLink");
 		
-		var linksCookie = $.cookie(cookieName);
+		var links = amplify.store(linksKeyName);
 
-		console.log(cookieName);
-		console.log(linksCookie);
-		
-		if(linksCookie == null) {
+		if(links == null) {
 			console.log("creating linksCookie");
 			
-			linksCookie = {
-				links: [
+			links = {
+				Links: [
 					{ Link: url, Text: text}
 				]
 			};
 		} else {
-			if(linksCookie.links.length >= 3) {
-				console.log("updating linksCookie");
-				
-				// move everyone down
-				linksCookie.links[2] = linksCookie.links[3];
-				linksCookie.links[1] = linksCookie.links[2];
-				linksCookie.links[0] = linksCookie.links[1];
+			console.log("updating linksCookie");
 
-				// add the new one to the top
-				linksCookie.links[3] = { Link: url, Text: text };
+			var length = links.Links.unshift({ Link: url, Text: text });
+				
+			if(length > 4) {
+				links.Links.pop();
 			}
 		}
 
-		console.log(cookieName);
-		console.log(linksCookie);
+		console.log("setRecentLink:linksKeyName");
+		console.log(linksKeyName);
+		console.log("setRecentLink:links");
+		console.log(links);
 
-		$.cookie(cookieName, linksCookie);
+		amplify.store(linksKeyName, links);
 	}
 
 })(jQuery);
