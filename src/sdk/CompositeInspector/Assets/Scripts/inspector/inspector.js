@@ -98,7 +98,8 @@
 					var agentPartModel = { };
 					
 					agentPartModel.Recent = getRecentLinks();
-					agentPartModel.AgentSystemName = compositeMetadata.AgentSystemName;
+					agentPartModel.AgentSystemName = agentSystemName;
+					agentPartModel.AgentPartName = agentPartName;
 					agentPartModel.Agents = compositeMetadata.Agents;
 					agentPartModel.Commands = agentMetadata.Commands;
 					agentPartModel.Queries = compositeMetadata.Queries;	
@@ -210,9 +211,15 @@
 			
 		});
 		
-		this.get('/composite/new/#command-status/:publicationId', function () {
+		this.get('/composite/new/#explorer/agent/:agentSystemName/command/:partName/publication/:publicationId', function () {
+
+			var agentPartName = this.params['partName'];
+			var agentSystemName = this.params['agentSystemName'];
 
 			WorkWithDataFromUrl("/composite/api", function(compositeMetadata) {
+
+				compositeMetadata.AgentSystemName = agentSystemName;
+				compositeMetadata.AgentPartName = agentPartName;
 
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
 				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
@@ -220,16 +227,22 @@
 					$(".nav-pills li").removeClass("active");
 					$("#nav-CompositeExplorer").addClass("active");
 				});
+				
+				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/commandStatus.html");
 
 			});
-
-			Using({}).Fill("#inspectorMain").With("/composite/js/inspector/templates/commandStatus.html");
 
 		});
 		
-		this.get('/composite/new/#query-results/:queryName', function () {
+		this.get('/composite/new/#explorer/agent/:agentSystemName/query/:partName/results', function () {
+
+			var agentPartName = this.params['partName'];
+			var agentSystemName = this.params['agentSystemName'];
 
 			WorkWithDataFromUrl("/composite/api", function(compositeMetadata) {
+
+				compositeMetadata.AgentSystemName = agentSystemName;
+				compositeMetadata.AgentPartName = agentPartName;
 
 				Using(compositeMetadata).Fill("#inspectorDescription").With("/composite/js/inspector/templates/description.html");
 				Using(compositeMetadata).Render("/composite/js/inspector/templates/globalNav.html").Manipulate(function(content) {
@@ -238,9 +251,9 @@
 					$("#nav-CompositeExplorer").addClass("active");
 				});
 
-			});
+				Using(compositeMetadata).Fill("#inspectorMain").With("/composite/js/inspector/templates/queryResults.html");
 
-			Using({}).Fill("#inspectorMain").With("/composite/js/inspector/templates/queryResults.html");
+			});
 
 		});
 
