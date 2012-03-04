@@ -181,7 +181,7 @@ namespace Euclid.Composites
 
 		public bool IsValid()
 		{
-			return (GetConfigurationErrors().Count() == 0 && !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Description));
+			return (!GetConfigurationErrors().Any() && !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Description));
 		}
 
 		public void RegisterInputModelMap<TInputModelSource, TCommandDestination>()

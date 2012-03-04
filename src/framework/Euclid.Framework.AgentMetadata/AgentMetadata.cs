@@ -93,7 +93,7 @@ namespace Euclid.Framework.AgentMetadata
 		{
 			var allParts = Commands.Union(ReadModels).Union(Queries);
 
-			var part = allParts.Where(x => x.Name == partName).FirstOrDefault();
+			var part = allParts.FirstOrDefault(x => x.Name == partName);
 
 			if (part == null)
 			{
@@ -175,7 +175,7 @@ namespace Euclid.Framework.AgentMetadata
 							_agentMetadata.Description,
 							Commands = _agentMetadata.Commands.OrderBy(x=>x.Name).Select(x => new { x.Namespace, x.Name }),
 							ReadModels = _agentMetadata.ReadModels.OrderBy(x => x.Name).Select(x => new { x.Namespace, x.Name }),
-							Queries = _agentMetadata.Queries.OrderBy(x => x.Name).Select(x => new { x.Namespace, x.Name })
+							Queries = _agentMetadata.Queries.OrderBy(x => x.Name).Select(x => new { x.Namespace, x.Name, Query = x.Methods.Select(q=>q.Name).Distinct() })
 						};
 			}
 		}
